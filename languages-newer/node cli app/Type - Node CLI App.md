@@ -1,0 +1,1 @@
+Users can run the node js script and it'd be a command line interface app. This is different from using node as a backend server.

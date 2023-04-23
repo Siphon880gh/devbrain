@@ -1,0 +1,3 @@
+MVC is a code design that stands for Models - Views - Controllers. It is a code design where all the data driving the app are distributed in objects called Models. There is clear code that makes up the views. And finally, anything else inbetween that controls the Models and Views are the Controllers (such as Express routes).
+
+In the case of a Sequelize - Express - Express-Handlebars stack: Sequelize is the model, Express routes are the contoller, and Express-Handlebars have the views. 

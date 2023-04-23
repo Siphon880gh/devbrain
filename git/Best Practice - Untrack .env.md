@@ -1,0 +1,1 @@
+Refer to lesson on "Untrack file or folder" but for ".env" file
