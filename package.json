@@ -9,7 +9,7 @@
     "browserMac": "open \"https://wengindustry.com/tools/gamified-knowledge/curriculum/server-update.php?secret=123;\"",
     "browserPC":  "xdg-open \"https://wengindustry.com/tools/gamified-knowledge/curriculum/server-update.php?secret=123;\"",
     "browserLinux":  "start \"https://wengindustry.com/tools/gamified-knowledge/curriculum/server-update.php?secret=123;\"",    
-    "deploy": "npm run commit; npm run push; npm run browserMac;"
+    "deploy": "npm run commit; npm run push && npm run browserMac;"
   },
   "author": "",
   "license": "ISC"
