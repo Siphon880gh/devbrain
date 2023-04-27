@@ -5,8 +5,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$command = 'cd /root/path/to/tools/gamified-knowledge/curriculum; ' . 'git fetch origin; git reset --hard refs/remotes/origin/main';
-$command = 'git fetch origin; git reset --hard refs/remotes/origin/main';
+$command1 = 'cd "/home/bse7iy70lkjz/public_html/tools/gamified-knowledge/curriculum";';
+$command2 = 'git fetch origin; git reset --hard refs/remotes/origin/main';
+$command = $command1 . $command2;
 $output = shell_exec("$command 2>&1");
 $exitCode = shell_exec('echo $?');
 
