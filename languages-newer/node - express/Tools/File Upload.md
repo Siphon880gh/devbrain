@@ -1,4 +1,4 @@
-Many node modules available for file upload on the express server. 
+Many node modules available for file upload on the express server.
 
 Here's express-fileupload that makes managing the filedata simple at the express backend. Simply, it moves the filedata into client/build/uploads folder. Make sure your client/package.json creates an /uploads folder in the build folder when you run `npm run build`
 
