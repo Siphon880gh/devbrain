@@ -1,5 +1,4 @@
 
-# Theory - Express request parser
 
 // Lets say ksdjfhkdshfdskjfhklds is encrypted string
 // client-> send data is obj

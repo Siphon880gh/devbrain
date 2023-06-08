@@ -1,3 +1,5 @@
+Warning Heroku: Files or folders can be added via your Node.js script in Heroku. However, any additions will be removed when the dyno restarts or resets. The dyno restarts when there are scheduled restarts, new deployments, scaling operations, application crashes, or configuration changes. These restarts ensure the health and correct operation of the application but lead to the loss of any additions due to Heroku's ephemeral filesystem. Instead you should use another tool service Firebase Storage or AWS.
+
 Many node modules available for file upload on the express server.
 
 Here's express-fileupload that makes managing the filedata simple at the express backend. Simply, it moves the filedata into client/build/uploads folder. Make sure your client/package.json creates an /uploads folder in the build folder when you run `npm run build`
@@ -7,19 +9,17 @@ https://www.npmjs.com/package/express-fileupload
 
 You created a client folder with `create-react-app client`
 
-client/package.json:
+Frontend client/package.json makes sure will create the uploads folder in build/:
 ```
 ...
 "proxy": "http://localhost:3001",
 "scripts": {
-
 	"start": "react-scripts start",
-
 	"build": "react-scripts build && cd build && mkdir uploads",
 ...
 ```
 
-Component:
+Frontend Component:
 ```
 import { useState, useEffect} from "react";
 import logo from './logo.svg';
@@ -102,7 +102,7 @@ export default App;
 ```
 
 
-server/server.js
+Backend server/server.js receives the e.target.files[0] that was sent over at the request body key  "media", and moves that file to client/build/uploads so that the frontend website can render the static file just uploaded:
 ```
 const express = require("express");
 const server = express();
@@ -153,4 +153,26 @@ async function startServer() {
 
 
 startServer();
+```
+
+Remember to coordinate the /client and /server
+```
+{
+  "name": "upload-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "build": "cd client && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^5.1.0"
+  }
+}
 ```
