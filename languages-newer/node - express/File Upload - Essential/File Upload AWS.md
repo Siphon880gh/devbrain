@@ -1,3 +1,5 @@
+https://github.com/Siphon880gh/weng-teaches-react-aws-s3-file-upload
+
 Warning 2024 will have new API. This api is deprecated and will eventually be sunsetted.
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/migrating-to-v3.html
 
@@ -123,7 +125,6 @@ function App() {
 
   const [mediaUrl, setMediaUrl] = useState('')
   const [mediaName, setMediaName] = useState('');
-  const [purgeCache, setPurgeCache] = useState('');
 
   const handleMedia = (e) => {
     const selectedMedia = e.target.files[0];
@@ -262,4 +263,85 @@ async function startServer() {
 
 startServer();
 
+```
+
+
+---
+
+For a more visually complete demo, the App.css:
+
+```
+.App {
+  text-align: center;
+}
+
+.App-logo, .Image-preview {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ------------------------------------------ */
+
+.d-block {
+  display: block;
+}
+
+.small {
+  font-size: 80%;
+}
+
+/* ------------------------------------------ */
+
+#upload-file {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+#upload-file + label {
+  cursor: pointer; /* hand cursor */
+  background-color: gray;
+  border: 1px solid black;
+  padding: 10px;
+  color: black;
+  transition: all 200ms ease-in-out;
+  width: 95px;
+  margin-top:10px;
+}
+#upload-file + label:hover, 
+#upload-file + a + label:hover {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+}
 ```
