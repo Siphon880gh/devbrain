@@ -1,1 +1,0 @@
-Read here: https://www.computerhope.com/unix/uchmod.htm

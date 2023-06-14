@@ -1,0 +1,3 @@
+A canary release is a _deployment strategy whereby changes are initially released to a small subset of users_. The system is then carefully monitored for signs of ...
+
+Similar to how the presence of toxic gases would affect the canary first, the limited deployment of a new software version allows developers to observe and analyze its behavior in a controlled environment. If any issues are detected during the canary release, the deployment can be halted or rolled back, preventing widespread negative consequences.

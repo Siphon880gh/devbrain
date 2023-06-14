@@ -1,0 +1,6 @@
+Firstly you want to rebase it away from your local copy. Then you force --push to github.com
+
+Next problem. Then in git I had done a force push and a commit no longer belongs to any repository. I do not want this history retained on git because I accidentally have an AWS secret access key on there. How to remove from [github.com](http://github.com)?
+
+
+Keep getting emails that your api key / secret keys for AWS or Google have been exposed. so you rebased your commit history and pushed them up to github with --force option. Even though not accessible from the frontend, your github repository retains that commit (even if not in you local copy after the rebase). The warning email links you to it where it says the commit no longer belongs to the repository and can't be forked because Git keeps a history of all your commits even after a rebase had removed them. Simply pay attention to the git repo hyphenated name in the URL of your repo; Now delete the repo, recreate it with the same name, then push back up with --force
