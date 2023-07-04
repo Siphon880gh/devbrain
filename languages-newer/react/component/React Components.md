@@ -12,3 +12,39 @@ class ShoppingList extends React.Component {
     );
   }
 }
+
+
+The component must be titlecased, with the first character capital:
+Proof
+Say we have a component in the same file
+```
+class HovReact extends Component {
+
+constructor(props) {
+
+super(props)
+
+}
+
+render() {
+
+return (
+
+<>
+
+HovReact rendered
+
+</>
+
+)
+
+}
+
+}
+```
+
+And we nest that inside another component. It'd render at browser view source:
+![](https://i.imgur.com/XyDc77I.png)
+
+Otherwise, it's just another tag and doesn't render your contents in render() or return at browser view source:
+![](https://i.imgur.com/JJXC3pi.png)
