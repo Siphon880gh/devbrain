@@ -11,7 +11,7 @@ To remove the `.DS_Store` files from the Git cache, you can use the `git rm --ca
    ```
 
   
-3. Run the following command to remove the `.DS_Store` files from the Git cache:
+3. Run the following command to remove the `.DS_Store` files from the Git cache or staging areas and all future commits (as long as you don't re-add):
   
 
   ```shell

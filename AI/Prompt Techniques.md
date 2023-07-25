@@ -161,13 +161,10 @@ It will come as no surprise that **few-shot prompting** is when a user provides 
 
 The technique requires the user to explicitly ask the model to take a “step-by-step” process in the instructions. In addition, it is generally best practice to ask the model to explain its reasoning in the output, and to follow a specific format.
 
-  
 
 Here is comparison of results from standard versus CoT prompting:
 
-![“A side by side comparison of standard prompting and chain of thought prompting”](en-cache://tokenKey%3D%22AuthToken%3AUser%3A180013553%22+dd76aedf-e8cf-58da-3ae6-18fc68dff870+c6bc8da69f323b8ffedc1fa3eaa29f70+https://www.evernote.com/shard/s715/res/eae10e99-c0cc-73e6-c8f9-f5a31a85b6ce)
-
-[Image credit: Wei et al., 2022]
+![](https://i.imgur.com/ZoOEcWu.png)
 
   
 
