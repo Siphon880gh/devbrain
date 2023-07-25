@@ -77,9 +77,11 @@ define('FTP_LOG', '/home/bse7iy70lkjz/public_html/root/ftp-debug.log');
 ```
 
 
-Check that FTP is enabled in your php.ini file. The allow_url_fopen setting needs to be set to On.
+Check that FTP is enabled in your php.ini file. 
 
-Get the php.ini file with either:
+The allow_url_fopen setting needs to be set to On.
+
+Don't know where the php.ini file is? Get the php.ini file with either:
 ```
 php -i | grep 'Loaded Configuration File'
 ```

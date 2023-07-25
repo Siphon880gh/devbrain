@@ -136,3 +136,9 @@ Here is an exhaustive list of things to search and replace when moving a WordPre
     - Regenerate sitemap with new URLs
 
 So in summary, every table and file that contains a reference to the old URL needs to be searched and replaced with the new URL. Let me know if you need any clarification or have additional questions!
+
+----
+
+Continuing from the manual URL replacements in MySQL wordpress tables...
+
+If you find yourself not being able to add or delete plugins, that's not a migration issue but a server issue. Refer to other guide
