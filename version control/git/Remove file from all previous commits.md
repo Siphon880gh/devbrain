@@ -1,3 +1,22 @@
+
+Remember, `.gitignore` only ignores untracked files/folders. If the folder has been previously committed, you need to remove it using something like:
+```
+git rm -r --cached "**/Private/**"
+```
+
+---
+
+To remove all subfolders from Private:
+`git rm -r --cached "**/Private/**"`
+
+To remove all folders named "Private - Joe", "Private - John"
+```
+git rm -r --cached "**/Private/**"
+```
+
+---
+
+
 - If you just want to remove a file from being tracked in future commits but don't care about its history, `git rm --cached` is sufficient (clearing the cache aka staging area).
 
 
