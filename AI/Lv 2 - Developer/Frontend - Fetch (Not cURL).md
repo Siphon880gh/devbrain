@@ -71,3 +71,72 @@ https://api.openai.com/v1/completions
 https://platform.openai.com/docs/api-reference/completions/create
 
 
+---
+
+
+
+The messages receive system (instructing how to morph into an assistant), user (your prompt(s)), and assistant (AI’s response(s))
+```
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Who won the world series in 2020?"},
+        {"role": "assistant", "content": "The Los Angeles Dodgers won the World Series in 2020."},
+        {"role": "user", "content": "Where was it played?"}
+    ]
+```
+
+
+
+So
+The full fetch
+```
+fetch('https://api.openai.com/v1/chat/completions', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + "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"
+  },
+  body: JSON.stringify({
+    messages: [
+        {"role": "system", "content": "You are a helpful stocks trading bot and tutor."},
+        {"role": "user", "content": "Explain to me the moving average indicator? Keep it short"}
+    ],
+    model: "gpt-4-0613",
+    temperature: 0.7,
+    stop: '\n'
+  })
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error(error));
+```
+
+
+Expect response to be:
+```
+data.choices[0].message.content;  
+```
+
+
+Setting max_tokens like in 
+```
+  body: JSON.stringify({
+    messages: [
+        {"role": "system", "content": "You are a helpful stocks trading bot and tutor."},
+        {"role": "user", "content": "Explain to me the moving average indicator? Keep it short"}
+    ],
+    model: "gpt-4-0613",
+    max_tokens: 8192,
+    temperature: 0.7,
+    stop: '\n'
+  })
+```
+
+is actually allocating that much tokens expected at completion. You should just avoid doing that or it’ll likely just pass the max_tokens and error out with an error like: This model's maximum context length is 8192 tokens. However, you requested 8225 tokens (33 in the messages, 8192 in the completion). Please reduce the length of the messages or completion. 
+
+
+---
+
+
+What is context
+This model's maximum context length is 8192 tokens. However, you requested 8201 tokens (9 in the messages, 8192 in the completion). Please reduce the length of the messages or completion."
