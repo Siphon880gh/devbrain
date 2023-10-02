@@ -15,16 +15,9 @@
 <details>
 <summary>Details</summary>
 <div>
-
-
-</div>
-</details>
-
-
-
-> [!note] Details. 
->  [chrome://extensions](chrome://extensions)  
+[chrome://extensions](chrome://extensions)  
 Or: Chrome → ... -→ More Tools → Extensions. Make sure "Developer mode" is on at the top right  
 ![](https://i.imgur.com/P89AAGz.png)
-
+</div>
+</details>
 
