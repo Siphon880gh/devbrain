@@ -14,32 +14,31 @@
 
 <details>
 <summary>Details</summary>
-<p>
-```markdown
+
 [chrome://extensions](chrome://extensions)  
+
 Or: Chrome → ... -→ More Tools → Extensions. Make sure "Developer mode" is on at the top right  
+
 ![](https://i.imgur.com/P89AAGz.png)
-```
-</p>
+
 </details>
 
 
-<details>
-<summary>Details</summary>
-```markdown
-[chrome://extensions](chrome://extensions)  
-Or: Chrome → ... -→ More Tools → Extensions. Make sure "Developer mode" is on at the top right  
-![](https://i.imgur.com/P89AAGz.png)
-```
-</details>
+2. Decide on what parts you’ll need (popup, content, background, devtools).
 
-<details>
-<summary>Details</summary>
+Reference Reading: Popup, content, background, devtools
 
-[chrome://extensions](chrome://extensions)  
+Create manifest.json which will include your Content Security Policy rules which are often needed for your popup.html, the webpage your chrome activated on, etc to load in a .js file even if it’s from the chrome extension
 
-Or: Chrome → ... -→ More Tools → Extensions. Make sure "Developer mode" is on at the top right  
+<details>  
+<summary>### File Structure</summary>  
+Bare minimum example:
+manfiest.json
+popup.js
+popup.html
+content.js
 
-![](https://i.imgur.com/P89AAGz.png)
+More fleshed out:
+![](https://i.imgur.com/10ajaTK.png)
 
 </details>
