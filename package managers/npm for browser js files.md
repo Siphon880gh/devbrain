@@ -39,3 +39,4 @@ At markdown-it-checkbox, their docs explains browser js is supported:
 >> "Differences in browser. If you load script directly into the page, without package system, module will add itself globally as window.markdownitCheckbox."
 
 
+In the past, browser js files were distributed by cdn and bower but nowadays in 2023 it became in practice to distribute via npm although it would blurry the boundary between node modules and web browser javascript.
