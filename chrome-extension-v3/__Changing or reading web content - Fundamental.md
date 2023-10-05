@@ -1,6 +1,6 @@
 You can either do this through devtool.js's inspectedWindow (and the naming makes sense because if you had DevTools opened, then that DevTools is inspecting your current webpage for more information, so the webpage is the Inspected window object)
 
-Or you can do it through content.js (as long as that's setup to run from manifest.js onto the URL or wildcarded URL)
+**Or** you can do it through content.js (as long as that's setup to run from manifest.js onto the URL or wildcarded URL)
 
 APPROACH: DevTool.js inspectedWindow:
 ```
