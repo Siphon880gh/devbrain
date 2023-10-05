@@ -94,7 +94,7 @@ fetch('https://api.openai.com/v1/chat/completions', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + "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"
+    'Authorization': 'Bearer ' + \_\_YOUR_API_KEY\_\_
   },
   body: JSON.stringify({
     messages: [

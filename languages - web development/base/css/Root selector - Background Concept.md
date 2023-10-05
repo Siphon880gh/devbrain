@@ -1,0 +1,1 @@
+The `:root` element of the document is typically the `<html>` element. The `:root` selector is often used to define CSS variables (also known as custom properties) that are intended to be accessible globally across the entire document.
