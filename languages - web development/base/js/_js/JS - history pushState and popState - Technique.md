@@ -38,3 +38,27 @@ If you want to retain the site title, you can: `history.pushState({}, document.h
     </script>
 </body>
 ```
+
+
+---
+
+
+popstate lets you detect when the url changed because the user clicked back or forth, and then you can also access history.state if you had passed variables (snapshotted values)
+
+```
+window.addEventListener('popstate', function(event) {
+    if (event.state) {
+        // For example, if your state object has a property 'page'
+        // that determines which page content to show:
+        switch(event.state.page) {
+            case 'homepage':
+                // code to display the homepage
+                break;
+            case 'contact':
+                // code to display the contact page
+                break;
+            // ... handle other cases ...
+        }
+    }
+});
+```
