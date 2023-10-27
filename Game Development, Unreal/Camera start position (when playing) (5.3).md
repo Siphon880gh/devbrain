@@ -1,0 +1,1 @@
+Look for the controller item in the level designer. Click. Translate X/Y/Z into position. Camera lens is the blue translucent direction vector. Press space to toggle from translation to rotation mode. Then rotate blue translucent direction vector towards where you want camera lens to start capturing when in Simulation/Play mode.
