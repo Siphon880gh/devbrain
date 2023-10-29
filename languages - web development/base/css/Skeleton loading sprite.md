@@ -124,3 +124,5 @@ Then in CSS, add a forward slash that animates across the gray skeleton backgrou
             }
         }
 ```
+
+Finally, don't forget to have javascript to hide this skeleton HTML once the content is done loading. Simultaneously, unhide the DOM that was loading. For instance, if that DOM were iframe loading content, onload handler would work.
