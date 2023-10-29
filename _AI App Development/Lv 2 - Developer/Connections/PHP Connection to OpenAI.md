@@ -1,11 +1,17 @@
 
 This mechanism is a prompt + context. 
 
-Frontend calls backend PHP's api.php. Notice the function receives a parameter *context*
+Frontend calls backend PHP's api.php. Notice the function receives parameters *prompt* and *context*.
+
+Example prompt is: Please sort these concepts from easiest to hardest to learn.
+Example context  is: 
+- Binary Search
+- LIFO and FIFO
+- Hashed tables
+
 
 ```
-
-        function connectThenRender(context) {
+        function connectThenRender(prompt, context) {
             console.log(context);
             fetch("api.php", {
                 method: "POST",
@@ -13,6 +19,7 @@ Frontend calls backend PHP's api.php. Notice the function receives a parameter *
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
+	                prompt,
                     context
                 })
             }).then(response=>response.text())
@@ -38,11 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $decodedData = json_decode($rawData, true);
 
     // Check if the 'context' key exists in the decoded data
-    if (isset($decodedData['context'])) {
+    if (isset($decodedData['prompt']) && isset($decodedData['context'])) {
+        $prompt = $decodedData['prompt'];
         $context = $decodedData['context'];
 
-
-        $response = getTextResponse("Please explain this concept like I'm 13 years old.", $context);
+        $response = getTextResponse($prompt, $context);
         
         echo $response;
 
@@ -57,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 ```
 
-The api.php includes this service layer: service/index.php
+That above api.php includes this service layer: service/index.php
 ```
 <?php
 error_reporting(E_ALL);
@@ -84,15 +91,11 @@ $model = new OpenAI($apiKey, 0, $openAIModel);
  * @param string $context
  * @return string
  */
-function getTextResponse($basePrompt, $context) {
+function getTextResponse($prompt, $context) {
     global $model;
 
-    $defaultQuestion = "Write me an explanation.";
-    $finalBasePrompt = $basePrompt ? $basePrompt : $defaultQuestion;
-
     try {
-        $response = $model->call($finalBasePrompt . "\n" . $context);
-        //var_dump($response);
+		$response = $model->call($prompt, $context);
         return $response;
     } catch (Exception $e) {
         error_log($e->getMessage());
@@ -138,3 +141,78 @@ function dotenv() {
 ```
 
 Which pulls OPENAI_API_KEY from .env at the project root.
+
+That api.php also imports an OpenAI class that is the immediate point of entry to OpenAI's server:
+```
+<?php
+class OpenAI {
+    public $apiKey;
+    public $temperature;
+    public $model;
+
+    public function __construct($apiKey, $temperature, $model) {
+        $this->apiKey = $apiKey;
+        $this->temperature = $temperature;
+        $this->model = $model;
+    }
+
+    public function call($prompt, $context) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://api.openai.com/v1/chat/completions");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Authorization: Bearer $this->apiKey",
+            "Content-Type: application/json"
+        ]);
+
+
+        $postData = [
+            "model" => "gpt-3.5-turbo",
+            "messages" => [
+                [
+                    "role" => "system",
+                    "content" => "You are a helpful assistant."
+                ],
+                [
+                    "role" => "user",
+                    "content" => "$prompt\n$context"
+                ]
+            ]
+        ];
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
+
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        $decodedResponse = json_decode($response, true);
+
+        // Old format of response
+        // $text = isset($decodedResponse['choices'][0]['text']) 
+        // ? $decodedResponse['choices'][0]['text'] 
+        // : (isset($decodedResponse[0]) 
+        //     ? $decodedResponse[0] 
+        //     : (isset($decodedResponse['choices']) 
+        //         ? $decodedResponse['choices'] 
+        //         : "Key not found"));
+    
+        // return $text;
+
+        // New format of response
+        // $decodedResponse.choices[0].message.content
+        $content = isset($decodedResponse['choices'][0]['message']['content']) 
+        ? $decodedResponse['choices'][0]['message']['content'] 
+        : (isset($decodedResponse[0]) 
+            ? $decodedResponse[0] 
+            : (isset($decodedResponse['choices']) 
+                ? $decodedResponse['choices'] 
+                : "Key not found"));
+
+        return $content;
+    }
+}
+?>
+
+```
