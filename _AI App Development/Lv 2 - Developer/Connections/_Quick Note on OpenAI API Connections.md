@@ -1,4 +1,17 @@
-Chat Completions vs Completions
+
+There are different ways to connect to OpenAI
+- From frontend call (less secured)
+- From backend call
+
+There are different technologies to connect, including:
+- cURL
+- Fetch
+- PHP
+- NodeJS
+
+---
+
+The types of prompt you're requesting, which affects the request endpoint:
 
 Completions (1 prompt, many output)
 https://platform.openai.com/docs/api-reference/chat
