@@ -1,0 +1,13 @@
+https://www.youtube.com/watch?v=Xw9QEMFInYU
+
+> [!TOC]
+> [00:00:00](https://www.youtube.com/watch?v=Xw9QEMFInYU#t=00h00m00s) - Introduction to the Unreal Engine 5 Blueprint Beginner Tutorial.
+> [00:00:07](https://www.youtube.com/watch?v=Xw9QEMFInYU#t=00h00m07s) - Explanation of blueprints and their importance in Unreal Engine 5.
+> [00:00:37](https://www.youtube.com/watch?v=Xw9QEMFInYU#t=00h00m37s) - Overview of the Blueprint basics in Unreal Engine 5.
+> [00:01:00](https://www.youtube.com/watch?v=Xw9QEMFInYU#t=00h01m00s) - Demonstrations of various blueprints, including doors, health and damage boxes, and more.
+> [00:01:22](https://www.youtube.com/watch?v=Xw9QEMFInYU#t=00h01m22s) - Mention of the Unreal Engine 5 beginner series and the previous video.
+> [00:01:55](https://www.youtube.com/watch?v=Xw9QEMFInYU#t=00h01m55s) - Promotion of premium courses on smartpoly.teachable.com.
+> [00:02:17](https://www.youtube.com/watch?v=Xw9QEMFInYU#t=00h02m17s) - Announcement of upcoming videos in the blueprint series.
+> [00:02:45](https://www.youtube.com/watch?v=Xw9QEMFInYU#t=00h02m45s) - Beginning of the main tutorial content.
+> [00:03:54](https://www.youtube.com/watch?v=Xw9QEMFInYU#t=00h03m54s) - Introduction to the viewport in the Blueprint window.
+> [00:04:27](https://www.youtube.com/watch?v=Xw9QEMFInYU#t=00h04m27s) - Explanation of the third person template and its relevance to blueprints.
