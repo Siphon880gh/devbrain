@@ -1,4 +1,12 @@
+background knowkedge needed:
 The u v are the x and y of the textures. it was denited u and v to avoid confusion with the level coordinates
+
+---
+
+
+There is more than kne way to resize the texture. this way uses the Graph Event node way.
+
+---
 
 You add a texture then edit the texture from outliner panel
 
