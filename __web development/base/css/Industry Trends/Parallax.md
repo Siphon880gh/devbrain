@@ -19,3 +19,8 @@ https://www.youtube.com/watch?v=Kngl5nQtljA
 Zoom in and fade out when scrolling down
 <7:22
 ![](https://i.imgur.com/OkfsBaN.png)
+
+
+---
+
+https://youtu.be/WH6t4nC0Ueg?si=svXA9pswobSoACOy
