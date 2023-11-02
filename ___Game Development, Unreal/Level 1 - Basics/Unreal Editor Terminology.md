@@ -8,7 +8,10 @@ Foliage
 Behavioral Tree
 Blueprint
 Events Graph
-View Port
+
+Viewport (aka Editor Viewport)
+https://docs.unrealengine.com/4.27/en-US/BuildingWorlds/LevelEditor/Viewports/
+
 
 
 ----

@@ -4,7 +4,11 @@ Environments that are free often have plants. Go into Description to see in deta
 
 Go into Foliage Mode (from selection Mode dropdown) → Paint 
 
-Click Add Foliage button and select from the dropdown (there should be foliage to select if you successfully “Add to Project” earlier)
+Click Add Foliage button (green plus icon) and select from the dropdown (there should be foliage to select if you successfully “Add to Project” earlier)
+
+Now that foliage is added to your sidebar. You can add more if you want.
+
+Select the foliage you want by double clicking it, then it'll be checkmarked.
 
 Then move your mouse over the level and you’ll see a mass effect overlay - that will be where the grass will randomly spawn in. Click to confirm.
 
