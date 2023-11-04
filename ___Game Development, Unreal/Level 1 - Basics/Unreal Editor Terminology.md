@@ -13,6 +13,13 @@ Viewport (aka Editor Viewport)
 https://docs.unrealengine.com/4.27/en-US/BuildingWorlds/LevelEditor/Viewports/
 
 
+---
+
+Rig:
+
+In Unreal Engine, a "rig" typically refers to the skeleton structure of a 3D character or object that is used for animation. This rig consists of a series of interconnected bones or other elements that can be manipulated to pose or animate the character or object. The process of creating a rig is known as rigging, which involves setting up these bones and controls in a way that makes them easy to animate. Rigs can range from simple, with just a few bones for basic movement, to highly complex systems with hundreds of bones, controls for facial expressions, muscle movements, and more. These rigs are then used by animators to create the desired motions and animations within the Unreal Engine environment.
+
+
 
 ----
 

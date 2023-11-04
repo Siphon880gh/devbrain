@@ -9,7 +9,10 @@ If you're talking about importing and exporting in the context of modules:
 # In mymodule.py
 def greet():
     return "Hello from mymodule!"
+```
 
+
+```
 # In another script
 from mymodule import greet
 print(greet())
@@ -112,6 +115,21 @@ from some_folder import mymodule
 # Now use functions/classes from mymodule
 ```
 
+## 2b. Or Relative Imports atomic functions
+
+main.py:
+```
+from service.module import getResult
+```
+
+service/module.py:
+```
+# A function named getResult
+
+def getResult():
+	return {'message': 'User added successfully!', 'id': 1}
+```
+
 ### 3. Using `pathlib` (Python 3.4+):
 
 The `pathlib` module provides a more object-oriented approach to handling filesystem paths:
@@ -194,3 +212,13 @@ print(obj.display_value())
 ```
 
 This way, you can be specific about which functions, classes, or variables you want to import from a module, reducing the risk of name clashes and making your imports more explicit.
+
+## Older Python's - init py:
+
+Python 3.3+ introduced Implicit Namespace Packages that allow the creation of a package without an `__init__.py` file, but it is still common practice to include `__init__.py` for compatibility and clarity.
+
+About the older python **`__init__.py`:**
+
+- This is an initialization file for the package. It can be empty, or it can contain valid Python code. When you import a package, the code in the `__init__.py` is executed.
+- It serves as the initial point of contact for a package. You can use it to set up any necessary initializations, such as imports or variables that should be available when the package is imported.
+- The existence of `__init__.py` is what makes a directory a package as opposed to just a folder with a collection of scripts. Without `__init__.py`, the directory is just a directory with no special significance to Python.
