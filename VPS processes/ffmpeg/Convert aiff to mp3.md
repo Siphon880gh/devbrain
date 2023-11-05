@@ -1,5 +1,5 @@
 
 ```
-ffmpeg -i "Roie Shpigler - Phantom Pain.aiff" "Roie Shpigler - Phantom Pain.mp3"
+ffmpeg -i "a.aiff" "a.mp3"
 ```
 

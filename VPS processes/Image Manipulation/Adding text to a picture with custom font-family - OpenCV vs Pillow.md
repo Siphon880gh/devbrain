@@ -1,0 +1,2 @@
+
+OpenCV itself doesn't support loading custom font files directly. It's limited to a few built-in fonts provided by the cv2.FONT_HERSHEY_ constants. If you want to use a specific font family or style not provided by OpenCV, you would typically need to use a different library, such as PIL (Pillow), which can work together with OpenCV.
