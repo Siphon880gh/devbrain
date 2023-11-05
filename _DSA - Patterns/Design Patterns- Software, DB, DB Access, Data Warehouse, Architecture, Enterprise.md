@@ -1,4 +1,23 @@
 
+## Design Patterns?
+
+
+The term "design patterns" can apply to both database design and software design (to keep in simplistic terms, because design patterns also refer to large data warehouses for big query, etc), but they refer to conventions in their respective domains.
+
+**Database Design Patterns** refer to the best practices for structuring databases. This includes how to organize tables, relationships, and data retrieval methods to ensure data integrity, performance, and scalability. Patterns like Entity-Attribute-Value (EAV), Table-per-Type (TPT), and Single Table Inheritance are specific to how data can be organized within a database.
+
+**Software Design Patterns**, on the other hand, are more about object-oriented design and are commonly used in the context of views, controllers, models, classes, etc. These patterns help solve common software design problems and include:
+
+1. **Creational Patterns**: Such as Singleton, Factory, Abstract Factory, Builder, and Prototype. These are related to how objects are created.
+
+2. **Structural Patterns**: Such as Adapter, Composite, Proxy, Flyweight, Facade, Bridge, and Decorator. These deal with the composition of classes and objects.
+
+3. **Behavioral Patterns**: Such as Strategy, Observer, Command, Iterator, Mediator, State, and Visitor. These deal with communication between objects.
+
+4. **Architectural Patterns**: Such as MVC (Model-View-Controller), MVP (Model-View-Presenter), and MVVM (Model-View-ViewModel). These are higher-level patterns that detail how entire applications or systems should be structured.
+
+Each type of pattern serves a different purpose and applies to different aspects of software development. The principles behind these patterns are often documented in books like "Design Patterns: Elements of Reusable Object-Oriented Software" by Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides (commonly known as the "Gang of Four") for software design patterns, and in various database design and architecture books for database design patterns.
+
 ## Types of Patterns
 
 There are software design patterns, database design patterns, database access patterns, data warehouse patterns, and architecture patterns, and enterprise patterns?
@@ -103,6 +122,85 @@ Architecture patterns are high-level strategies that concern the overall layout 
 
 Each architectural pattern has its own advantages and trade-offs, and the choice of which to use often depends on the specific requirements and constraints of the project at hand. These patterns provide a way to ensure that a system is structured in a way that meets its requirements, is maintainable, and is scalable.
 
+---
+
+## - Special: Enterprise Pattern SAP
+
+\<<
+What about SAP? It's enterprise pattern?
+
+\>> SAP, which stands for Systems, Applications, and Products in Data Processing, is a global company that provides enterprise software to manage business operations and customer relations. The software solutions offered by SAP are rich in enterprise patterns, which are reusable solutions to common problems within a given context in software design. 
+
+https://www.sap.com/products/erp.html
+
+In the context of SAP and other enterprise systems, these patterns can be categorized as follows:
+
+Module Patterns: These define the basic building blocks of SAP applications, structuring the system into functional modules like finance, sales, procurement, etc.
+
+Master Data Management Patterns: These are concerned with the handling of core business data (like customer data, product data, employee data, etc.) across different modules within SAP.
+
+Transactional Patterns: These focus on the processing of business transactions, ensuring data consistency, and integrity across the entire enterprise system.
+
+Integration Patterns: SAP must integrate with various systems, so it employs patterns for data exchange and process integration, both within different SAP modules and with external systems.
+
+Reporting and Analytics Patterns: SAP provides sophisticated reporting and analytics tools, using patterns that support business intelligence, data warehousing, and operational reporting.
+
+Process Patterns: These are workflows and processes that are commonly used in business operations, which SAP standardizes and automates.
+
+User Interface Patterns: SAP systems use a set of UI patterns to ensure a consistent and user-friendly experience across its various modules.
+
+In the broader scope of enterprise patterns, the SAP software architecture also reflects high-level structural patterns such as:
+
+Layered architecture: Separating the system into layers such as presentation, application, and database layers.
+
+Service-Oriented Architecture (SOA): SAP uses SOA principles to structure the functionalities as reusable services.
+
+Microservices architecture: Although traditionally monolithic, SAP has been moving towards a more microservices-oriented approach for greater flexibility and scalability.
+
+These enterprise patterns are not exclusive to SAP; they are widely used across various enterprise systems to solve common problems in system design and operations. SAP's implementation of these patterns is tailored to its complex and comprehensive suite of enterprise applications.
+
+
+---
+
+## Database Design Patterns
+
+<<
+What are more database design patterns?
+
+\>>
+Database design patterns are methods for organizing databases to address specific problems and requirements in data management. They help in creating a robust and scalable database schema. Here are more patterns you might encounter:
+
+1. **Star Schema**: A type of data warehouse schema that is optimized for querying large datasets. It features a central fact table referencing a number of dimension tables.
+
+2. **Snowflake Schema**: A more complex data warehouse schema where the dimension tables from the star schema are normalized.
+
+3. **Data Vault Modeling**: A hybrid approach that aims to provide long-term historical storage of data coming in from multiple operational systems, structured in a way that is resilient to changes in the source systems.
+
+4. **Dimensional Modeling**: A design pattern used in data warehouse design that aims to make databases understandable and fast. It involves fact tables linked to dimension tables.
+
+5. **Normalized Database Design**: Involves organizing the data in your database to reduce redundancy and improve data integrity.
+
+6. **Denormalized Database Design**: Sometimes used for performance optimization in read-heavy databases, it involves merging tables and reducing the number of joins needed for queries.
+
+7. **Sharding Pattern**: Splits large databases into smaller, faster, more easily managed parts called data shards.
+
+8. **Indexing Patterns**: Strategies for using indexes to improve database performance, such as composite indexing, partial indexing, and covering indexing.
+
+9. **Archival Patterns**: Methods for archiving old data, such as moving it to slower, cheaper storage, while keeping it accessible for queries.
+
+10. **Replication Patterns**: Strategies for copying data from one database to another to increase the availability and redundancy of data.
+
+11. **Partitioning Patterns**: Dividing a database into distinct, independent parts to improve manageability, performance, and availability.
+
+12. **Audit Trail Patterns**: Techniques for keeping a record of who did what in the database, typically by using triggers to capture changes in audit tables.
+
+13. **Soft Delete Pattern**: Instead of physically deleting records from the database, they are marked as inactive or deleted with a status flag.
+
+14. **Materialized View Pattern**: Involves storing the result of a database query and refreshing it periodically, to optimize for read performance.
+
+15. **CQRS (Command Query Responsibility Segregation) Pattern**: Separates the writing and reading of data into different models, allowing for optimization of performance and scalability for each operation.
+
+These design patterns and techniques are often chosen based on specific project requirements, and a database may implement multiple patterns to address different needs. Understanding these patterns is crucial for database architects and developers when designing systems that require efficient data storage and retrieval.
 
 ---
 
@@ -201,3 +299,31 @@ Understanding these patterns helps in several ways:
 
 Designing with access patterns in mind is essential for building efficient and scalable systems.
 
+
+---
+
+## Data warehouse design
+
+Data warehouse design refers to the process of constructing a data storage system that is used for reporting and data analysis—essentially, a central repository of integrated data from one or more disparate sources. It involves collecting, cleansing, and storing data to enable efficient and insightful business intelligence (BI) activities.
+
+Here are the key aspects of data warehouse design:
+
+1. **Data Integration**: Combining data from different sources into a single, coherent structure. The integration process often involves data extraction, transformation, and loading (ETL).
+
+2. **Schema Design**: Structuring the data warehouse schema in a way that supports BI needs. The two most common schema designs are the star schema and the snowflake schema.
+
+3. **Historical Data Storage**: Data warehouses are designed to store historical data to enable trends analysis over time, which is not typically a focus of operational databases.
+
+4. **Data Quality and Consistency**: Ensuring that data is cleansed and standardized so that the same data element has the same meaning across different datasets and reports.
+
+5. **Query Performance**: Designing the data warehouse to support complex queries and reports quickly. This often involves creating indexes, materialized views, and pre-aggregated tables.
+
+6. **Data Volume and Scalability**: Planning for current and future data volume to ensure the data warehouse can scale as data grows. This may involve hardware considerations as well as database design.
+
+7. **Business Alignment**: The design should align with business objectives and support business processes, decision-making, and performance monitoring.
+
+8. **Security**: Implementing data access controls and other security measures to protect sensitive data.
+
+9. **Backup and Recovery**: Planning for regular backups and having strategies in place for data recovery in case of failures.
+
+The design process is iterative and often requires collaboration between IT and business stakeholders to ensure that the data warehouse meets the needs of its users. Good design considers not only how to store the data but also how it will be used, ensuring that the end solution is efficient for both storage and query purposes.

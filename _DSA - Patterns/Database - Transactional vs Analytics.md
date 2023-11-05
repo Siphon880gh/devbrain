@@ -30,3 +30,16 @@ You usually use a combination of them
 - Examples include financial reporting, forecasting, market research, and any scenario where data analysis provides insights into business trends.
 
 OLTP is about transactional support and immediate query processing, while OLAP is about historical data analysis and decision support. In practice, many businesses use both types of systems: OLTP for daily operations and OLAP for strategic planning and data analysis.
+
+
+---
+
+
+Data Warehouse. Why at timemark between 2-3min
+
+[https://youtu.be/oF_2uDb7DvQ?si=khOKYNW-2nU16jqk](https://youtu.be/oF_2uDb7DvQ?si=khOKYNW-2nU16jqk)
+
+
+![](https://i.imgur.com/4KiobDR.png)
+
+![](https://i.imgur.com/zscVobf.png)
