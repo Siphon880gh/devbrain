@@ -1,6 +1,4 @@
 
-Certainly! Let's transform the Video Creation Form into a Recipe Card Creation Form. We will update the content accordingly to fit the new theme.
-
 ### Introduction to Alpine.js with a Recipe Card Creation Form Example
 
 Alpine.js is a framework that allows you to enhance your HTML with reactive behavior. In this lesson, we'll craft a Recipe Card Creation Form that updates as users input their information.
