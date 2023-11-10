@@ -1,7 +1,7 @@
 ---
 sorting-spec: |-
-  Game Development, Unreal
-  AI App Development
+  Game Development - Unreal
+  AI
   Web Development
   Web Development - Rapid Development
 ---
