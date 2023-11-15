@@ -48,7 +48,8 @@ print(brics)
 *Give me code to draw a graph where the X axis are countires, and there are two lines with data points representing area and population. May need two Y axis.*
 
 
-Their answer could be:
+Their answer could be the following. 
+Note: You'll notice that there's pandas and matplotlib. This is a common combination to create graphs because the various data structure helps mold the graph's axes and data points (lines, dots, etc).
 
 ```
 import pandas as pd
