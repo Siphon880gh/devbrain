@@ -1,0 +1,1 @@
+[https://stackoverflow.com/questions/73599908/how-to-select-element-with-a-colon-in-its-classname](https://stackoverflow.com/questions/73599908/how-to-select-element-with-a-colon-in-its-classname)
