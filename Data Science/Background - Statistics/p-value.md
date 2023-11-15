@@ -33,3 +33,9 @@ Calculating a p-value involves using statistical tests appropriate for the study
    - The test generates a chi-square statistic, and its significance is determined by comparing it to a chi-square distribution, resulting in the p-value.
 
 The specific details would depend on the statistical method chosen, and the software used (like R, Python, or statistical packages). Researchers typically use statistical software to perform these calculations due to their complexity and the need for accurate analysis.
+
+
+---
+
+ChatGPT thread to ask followup questions:
+https://chat.openai.com/c/1abace96-637f-4581-84d1-14b171a2505b
