@@ -1,8 +1,8 @@
 
 I'm using this ChatGPT thread as a source to figure out what photography lens/light/angles to research in order to produce cinematic/film/photography equivalents in Unreal
-https://chat.openai.com/share/4bf73ee0-fecd-45b6-9fe6-f8ac53e1ad27
 
-I can ask for more equivalents by visiting the link and prompting more
+I can ask for more equivalents by visiting the link and prompting more:
+https://chat.openai.com/c/24416517-d80d-4140-9aa8-a66393f5eceb
 
 ---
 
