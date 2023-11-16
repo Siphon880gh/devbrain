@@ -1,6 +1,6 @@
 ---
 sorting-spec: |-
-  Game Development - Unreal
+  Game Development & Virtual Production - Unreal
   Game Development - Unity
   AI
   Web Development

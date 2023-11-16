@@ -5,6 +5,15 @@ Aka Megascans. Free megascans
 
 You may have to sign back in with an Epics account (either one you signed up at Epic Games Launcher or with another epic game)
 
+
+Then QBridge items become importable into your content drawer:
+![](https://i.imgur.com/HMP8nFk.png)
+
+Then drag and drop the fully downloaded content into the Level viewport
+
+If you see only bits of the texture, move your camera behind it. You may be on the side that is transparent. Commonly, items may have one side that’s opaque to save rendering/performance time while editing. You'll have to rotate/translate the opaque side into the camera view.
+
+
 ---
 
 
