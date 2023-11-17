@@ -1,1 +1,1 @@
-https://kx.com/blog/a-comprehensive-guide-to-vector-databases/
+https://www.kdnuggets.com/a-comprehensive-guide-to-pinecone-vector-databases

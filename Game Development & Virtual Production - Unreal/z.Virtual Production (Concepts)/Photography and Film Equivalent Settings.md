@@ -6,6 +6,25 @@ https://chat.openai.com/c/24416517-d80d-4140-9aa8-a66393f5eceb
 
 ---
 
+## Quick glossary
+
+BOKEH is often most visible around small background highlights, such as specular reflections and light sources, which is why it is often associated with such areas.[6] However, bokeh is not limited to highlights; blur occurs in all regions of an image which are outside the depth of field.
+
+The opposite of bokeh—an image in which multiple distances are visible and all are in focus—is deep focus.
+
+
+HDR:
+Digital cameras only have a limited dynamic range — that’s why some areas of a photo appear darker than they do in real life. 
+
+HDRIs give photo editors a chance to brighten the corners and create an image that looks more natural...
+
+This new functionality allowed for HDR tone mapping, which addressed the limited dynamic range of photography and display equipment. Tone mapping involves combining multiple photographs captured at different exposures...
+
+Files saved in the HDRI format are digital photos that have been edited and optimized for brightness, color, and contrast. Several digital photos taken at different exposures are then combined create an HDR image. This will bring out deep shadow and bright highlights simultaneously.
+
+
+
+---
 
 
 ## CineCamera
