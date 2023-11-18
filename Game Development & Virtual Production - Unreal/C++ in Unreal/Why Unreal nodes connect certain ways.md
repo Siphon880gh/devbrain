@@ -50,3 +50,21 @@ These patterns work together to provide a flexible, maintainable, and scalable s
 
 ---
 
+## << Changing what player sees by switching cameras
+I changed the camera the player sees with a "Set View Target with Blend" node. It's inlets are "Target" which receives player controller and "New Target" which receices cinecameraactor blueprint reference. This is mediator pattern?
+
+\>>
+
+Yes, using a "Set View Target with Blend" node in Unreal Engine to switch the camera the player sees can be associated with the Mediator design pattern in object-oriented programming.
+
+In the Mediator pattern, a central mediator handles communication and control between different objects or components, reducing the direct interactions between them. This central component manages how and when certain actions or communications occur between other objects, promoting loose coupling and reducing dependencies among the objects involved.
+
+In your scenario:
+
+- **Mediator Role:** The "Set View Target with Blend" node acts as the mediator. It coordinates the interaction between the player controller (the viewer) and the camera (the view target).
+- **Colleagues:** The player controller and the cinecameraactor blueprint reference are the colleagues in this pattern. They interact with each other through the mediator (the "Set View Target with Blend" node), rather than directly.
+
+The "Target" inlet (receiving the player controller) and the "New Target" inlet (receiving the cinecameraactor blueprint reference) are effectively the means through which these colleagues communicate with the mediator. The node then handles the logic of switching the view from one camera to another, blending as necessary, encapsulating this functionality away from the player controller and the camera themselves. 
+
+This setup simplifies the interaction between the player's perspective and the camera systems, as the complexities of view transitions and blending are managed by the "Set View Target with Blend" node, not by the player controller or the cameras directly.
+

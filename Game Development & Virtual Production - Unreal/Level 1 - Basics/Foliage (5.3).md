@@ -18,7 +18,7 @@ Select the foliage you want by double clicking it, then it'll be checkmarked.
 Then move your mouse over the level and you’ll see a mass effect overlay - that will be where the grass will randomly spawn in. Click to confirm.
 
   
-When you click Erase, there will be another mass effect overlay that will erase the grass in the area you click.
+When you click **Erase**, there will be another mass effect overlay that will erase the grass in the area you click (as long as a foliage is selected on the side panel)
 
 ![](https://i.imgur.com/egwmJuo.png)
 
