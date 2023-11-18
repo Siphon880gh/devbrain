@@ -30,6 +30,8 @@ Edit -> Project Settings
 Search for: “Project Name” 
 About -> Project Name
 
-Learned from:
+---
+
+Prepared from:
 https://youtu.be/HzQhO8nxeI8?t=84
 https://www.youtube.com/watch?v=azz5XvrTWz8

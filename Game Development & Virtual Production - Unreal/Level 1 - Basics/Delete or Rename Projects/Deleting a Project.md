@@ -11,5 +11,7 @@ Go up one folder so it contains all the files. Delete the entire project folder.
 
 Restart the Unreal Editor Browser to have the project removed officially.
 
-Learned from:
+---
+
+Prepared from:
 https://www.youtube.com/watch?v=wOhLNprnC5g&t=67s
