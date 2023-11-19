@@ -6,10 +6,13 @@ You can install from the Wordpress sidepanel -> Plugins -> Add Plugins. Then sea
 
 
 Go to All Snippets and create a snippet
+
 It said Javascript not free, but don't worry - you can add a script block in a HTML snippet
 
 Select HTML
+
 Create a console log in a script block
+
 Have the option set to end of `<body>`
 ![](https://i.imgur.com/sDOk0qr.png)
 
