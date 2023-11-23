@@ -1,14 +1,14 @@
 # Table of Contents:
 
-- [What is Data Lake](#What%20is%20Data%20Lake)
-- [Data Lake Can Handle Various Data Sources](#Data%20Lake%20Can%20Handle%20Various%20Data%20Sources)
-- [Data Lake is Great for Big Data](#Data%20Lake%20is%20Great%20for%20Big%20Data)
-- [Get Started with Data Lakes](#Get%20Started%20with%20Data%20Lakes)
-- [How on Google](#How%20on%20Google)
-- [How on Amazon](#How%20on%20Amazon)
-- [How on Microsoft](#How%20on%20Microsoft)
-- [How on IBM](#How%20on%20IBM)
-- [What's the data Im uploading](#What's%20the%20data%20Im%20uploading)
+- [What is Data Lake](#What-is-Data-Lake)
+- [Data Lake Can Handle Various Data Sources](#Data-Lake-Can-Handle-Various-Data-Sources)
+- [Data Lake is Great for Big Data](#Data-Lake-is-Great-for-Big-Data)
+- [Get Started with Data Lakes](#Get-Started-with-Data-Lakes)
+- [How on Google](#How-on-Google)
+- [How on Amazon](#How-on-Amazon)
+- [How on Microsoft](#How-on-Microsoft)
+- [How on IBM](#How-on-IBM)
+- [What's the data Im uploading](#What's-the-data-Im-uploading)
 
 ## What is Data Lake
 
