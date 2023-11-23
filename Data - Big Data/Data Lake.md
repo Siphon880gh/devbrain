@@ -1,15 +1,16 @@
-
 # Table of Contents:
-- [Data Lake Can Handle Various Data Sources](#Data%20Lake%20Can%20Handle%20Various%20Data%20Sources)
-- [Data Lake is Great for Big Data](#Data%20Lake%20is%20Great%20for%20Big%20Data)
-- [Get Started with Data Lakes](#Get%20Started%20with%20Data%20Lakes)
-- [How on Google](#How%20on%20Google)
-- [How on Amazon](#How%20on%20Amazon)
-- [How on Microsoft](#How%20on%20Microsoft)
-- [How on IBM](#How%20on%20IBM)
-- [What's the data Im uploading](#What's%20the%20data%20Im%20uploading)
 
-# What is Data Lake
+- [What is Data Lake](app://obsidian.md/index.html#What%20is%20Data%20Lake)
+- [Data Lake Can Handle Various Data Sources](app://obsidian.md/index.html#Data%20Lake%20Can%20Handle%20Various%20Data%20Sources)
+- [Data Lake is Great for Big Data](app://obsidian.md/index.html#Data%20Lake%20is%20Great%20for%20Big%20Data)
+- [Get Started with Data Lakes](app://obsidian.md/index.html#Get%20Started%20with%20Data%20Lakes)
+- [How on Google](app://obsidian.md/index.html#How%20on%20Google)
+- [How on Amazon](app://obsidian.md/index.html#How%20on%20Amazon)
+- [How on Microsoft](app://obsidian.md/index.html#How%20on%20Microsoft)
+- [How on IBM](app://obsidian.md/index.html#How%20on%20IBM)
+- [What's the data Im uploading](app://obsidian.md/index.html#What's%20the%20data%20Im%20uploading)
+
+## What is Data Lake
 
 A Data Lake is a centralized repository that allows you to store, manage, and analyze large amounts of raw data in various formats. The key characteristics of a Data Lake include:
 
