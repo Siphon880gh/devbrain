@@ -3,6 +3,7 @@ Dev - JS - Convert Youtube/Vimeo links to embed links (allowing iframe not same 
 How to use:
 Pass the URL to convertToEmbedUrl. It will return the iframe code that has the embed link which doesn't have the same-origin restriction.
 
+```
 function convertToEmbedUrl(html){
         var pattern1 = /(?:http?s?:\/\/)?(?:www\.)?(?:vimeo\.com)\/?(.+)/g;
         var pattern2 = /(?:http?s?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g;
@@ -27,3 +28,4 @@ function convertToEmbedUrl(html){
 
         return html;
     } // convertToEmbedUrl
+```
