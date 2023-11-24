@@ -1,4 +1,5 @@
 
+
 <<
 In WPBakery, when editing a webpage on the frontend there are green, blue, and orange tiles that gives me options. I think one tile was a block, one title was heading, another tile for content. What are those?
 
