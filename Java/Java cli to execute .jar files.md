@@ -1,5 +1,5 @@
 
-The command java -jar bfg-1.14.0.jar is used to execute a Java application that is packaged as a JAR (Java Archive) file, using the Java Runtime Environment (JRE). In this specific instance, the JAR file is named bfg-1.14.0.jar.
+The command `java -jar bfg-1.14.0.jar` is used to execute a Java application that is packaged as a JAR (Java Archive) file, using the Java Runtime Environment (JRE). In this specific instance, the JAR file is named bfg-1.14.0.jar.
 The bfg part of the filename suggests that this JAR might be the BFG Repo-Cleaner, which is a tool that can be used to remove large or troublesome blobs like git-lfs tracked files from your git repositories, making them smaller. The 1.14.0 part is likely the version number of the tool.
 
 When you run the command:
