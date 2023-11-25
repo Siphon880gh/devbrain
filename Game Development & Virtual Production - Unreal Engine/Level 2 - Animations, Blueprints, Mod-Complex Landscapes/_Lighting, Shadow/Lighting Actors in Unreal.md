@@ -77,6 +77,7 @@ Movable is best for beginners (Some lighting doesn't look right elsewise. The ot
 > - Bake Lighting: Static and Stationary Lights
 > - Dynamic Lighting: Movable Lighting
 >
+> https://chat.openai.com/c/8ddcc58b-1329-4191-8c5d-1bc72c3d5f9b
 
 
 ---

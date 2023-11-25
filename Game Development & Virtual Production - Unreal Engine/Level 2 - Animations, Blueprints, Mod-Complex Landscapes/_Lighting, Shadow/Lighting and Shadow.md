@@ -121,3 +121,8 @@ Global Illumination (GI) is a key concept in 3D rendering and game development, 
     - **Ray Tracing**: Unreal Engine's support for real-time ray tracing enhances GI, especially in terms of reflections and accurate light behavior.
 
 In summary, Global Illumination is a cornerstone of realistic rendering, adding depth, realism, and a natural feel to digital environments. Its implementation, especially in real-time contexts like games or interactive media, represents a significant technical achievement in the field of computer graphics.
+
+
+---
+
+Asked AI here: https://chat.openai.com/c/36a392e4-c007-4926-b461-991e33848dac
