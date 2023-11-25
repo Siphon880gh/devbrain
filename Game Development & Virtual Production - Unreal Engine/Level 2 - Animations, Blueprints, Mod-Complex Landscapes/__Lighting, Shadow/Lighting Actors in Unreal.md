@@ -9,6 +9,7 @@ Additional learning - Bake Lighting (Static and Stationary Lights): https://www.
 Additional learning - Nanites explained: https://www.youtube.com/watch?v=P65cADzsP8Q
 
 Next topics:
+```
 Chrome ball
 Albedo (the higher, the more it'll reflect light) (a material ball will show as white with high albedo)
 +Albedo. The Albedo map is **the base color input that defines the diffuse color or reflectivity of the surface**. This is very similar to a diffuse map but is more the pure color of an object, while diffuse is both color as well as shaded with some diffuse lighting
@@ -16,12 +17,15 @@ Albedo (the higher, the more it'll reflect light) (a material ball will show as 
 -
 +Indirect lighting is how much light bounces off wall. You can control that light's indirect lighting bouncing off walls and materials 18:06. Select your light actor in outliner and set the Details: increase intensity. Or set the Details: Indirect Lighting intensity. Or affect the wall / subject.... (next)
 +A wall's base color V (HSV - Hue, Saturation, **Value**) setting controls how much indirect light bounces off. You're controlling how bright that wall is. In real life, a brighter color will reflect back more light
+```
 ![](https://i.imgur.com/XdKBYou.png)
 
+```
 +Can have emmisive materials which is self-glowing. In Blueprint, you pipe Light intensity U light color --> Multiply --> Emmissive
 +Lumen works better with Nanite meshes for performance. Convert as many meshes into Nanites as possible (Content Browser -> Right click the "Static Mesh" -> Nanites -> Enabled)
 -
 Lighting lecture
+```
 
 ----
 
