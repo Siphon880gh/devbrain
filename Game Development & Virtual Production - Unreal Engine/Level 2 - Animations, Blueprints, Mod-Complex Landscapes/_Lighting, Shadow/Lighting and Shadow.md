@@ -17,17 +17,25 @@ In Unreal Engine, this principle applies when you're setting up lighting for a s
 
 The light actors that can affect the casted shadow's hardness / softness (how defined the edges are):
 - Rect Lights
+	- Adjust Source Width, Source Height, or Scale
 - Point Lights
+	- Adjust Source Radius or Scale
 - Spot Lights
+	- Adjust Cone Angles
+
+Applying the principle of Shadow Penumbra
+https://en.wikipedia.org/wiki/Umbra,_penumbra_and_antumbra
 
 ---
 
 ## Shadow Hardness/Softness - Indirect Methods
 
-CANNOT affect shadow hardness/softness:
 1. **Directional Lights**: These lights simulate sunlight and have an infinite range and a constant direction. The size of a directional light source can't be adjusted in the same way as local lights like point or spotlights. The softness of the shadows from a directional light is more influenced by the sun's angle (time of day in the simulation) and atmospheric conditions rather than the light source size.
-    
-2. **Ambient Light / Skylight**: This type of light simulates indirect lighting from the sky and doesn't have a definable source size. It generally produces very soft, diffused lighting without distinct shadows. The concept of adjusting the size to change shadow softness doesn't apply to ambient lighting.
+
+	- Indirect setting: Increase the "Source Angle" for soft shadows (less defined edges)
+	- Indirect setting: Decrease the "Source Angle" for harder shadows (more defined edges)
+
+1. **Ambient Light / Skylight**: This type of light simulates indirect lighting from the sky and doesn't have a definable source size. It generally produces very soft, diffused lighting without distinct shadows. The concept of adjusting the size to change shadow softness doesn't apply to ambient lighting.
     
 3. **IES Light Profiles**: These are based on real-world lighting data and are used to simulate the precise distribution of light from real physical light sources. Since the light distribution is based on a fixed profile, you have limited control over the softness or hardness of the shadows.
     
