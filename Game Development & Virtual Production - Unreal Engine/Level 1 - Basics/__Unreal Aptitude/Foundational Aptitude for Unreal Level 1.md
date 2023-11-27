@@ -10,9 +10,10 @@ Matching the desired axis' color in viewport to the axis setting's color in Outl
 ![](https://i.imgur.com/0qqNXaj.png)
 
 
-
-
 Multiple meshings: Combines two in a morphing way. Can imagine in your head how the result will be before the selections.
 
 Programming thinking (aka Script thinking)
 Thinking in terms of nodes at the Blue Print → Graph Event.
+
+Node thinking:
+able to think in formulas of how nodes connect to achieve a goal in unreal
