@@ -5,5 +5,5 @@ sorting-spec: |-
   Web Development
   Web Development - Rapid Development
   Game Development
-  Game Development & Virtual Production - Unreal Engine
+  Game Development & Virtual Production - UNREAL ENGINE
 ---
