@@ -1,3 +1,6 @@
+### Status: Not entirely reliable answers...
+Not entirely reliable answers from AI, and it will gaslight you saying it is correct
+
 ### << Hi, you know Unreal Editor 5.3. Give me a list of blueprint formulas for most commonly used designs
 
 \>>

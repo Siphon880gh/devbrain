@@ -1,0 +1,10 @@
+Animating movement acrossed the level is sometimes difficult
+
+This is because when you create a node for set relative location or set absolute location or set .. offset, the problem is the target is very specific
+
+You can hack around this by noticing that there are set actor relative location, and set actor world location. You place at actor from Place Actors panel and it could be invisible like a scene component. the trick is that in its blueprint viewport, you would add a scene component as a child of the actor blueprint, and the scene component is invisible too. Then finally, you add the component that is visible to the player and is what you want to move across the level. Now you can animate this invisible actor that contains the visible object across the level. 
+
+
+Another difficulty in unreal when it comes to animating movement across the level is scale. For example, when you are setting the offset relative or world location, the inexperienced may expect to have the delta to be the difference of the two coordinates if you had in the level editor noted the coordinates of an actor, moved the actor to the desire location, then look for the new coordinates to subtract with. But the scale is completely off.
+
+The easy practice in this case is to see the two locations by duplicating the object of interest to your desire location (Shift+OPT drag). Now you can easily have two coordinates when you select one after another. Then in your blueprint event graph, you copy the two coordinates into a lerp node. And as a quick reminder, the lerp node has its steps controlled by a precedent timeline node. The track is the float track from one time point to another time point with the float value 0 to 1. That flow track is inbounded into the alpha input at the lerp node, meaning 0 is taking no animation steps and 1 is having taken all the animation steps. 
