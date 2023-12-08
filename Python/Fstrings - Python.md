@@ -51,3 +51,12 @@ In Python, formatted strings can be created in several ways:
     ```
 
 Each of these methods allows you to format strings in a different way, but the preferred modern method is to use f-strings for their clarity and performance.
+
+
+---
+
+Similar to JS literal templates and react jsx
+
+However it uses the traditional C++ fstring and PHP equivalent, and tries to improve the sentence a bit for readability
+
+[https://realpython.com/python-f-strings/](https://realpython.com/python-f-strings/)
