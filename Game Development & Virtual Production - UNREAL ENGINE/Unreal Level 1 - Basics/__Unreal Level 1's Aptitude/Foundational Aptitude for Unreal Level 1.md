@@ -9,6 +9,12 @@ Matching the desired axis' color in viewport to the axis setting's color in Outl
 
 ![](https://i.imgur.com/0qqNXaj.png)
 
+Matching bottom left as well:
+![](https://i.imgur.com/a9qQupt.png)
+![](https://i.imgur.com/BQ8QGva.png)
+![](https://i.imgur.com/ecJFxEl.png)
+
+
 
 Multiple meshings: Combines two in a morphing way. Can imagine in your head how the result will be before the selections.
 
