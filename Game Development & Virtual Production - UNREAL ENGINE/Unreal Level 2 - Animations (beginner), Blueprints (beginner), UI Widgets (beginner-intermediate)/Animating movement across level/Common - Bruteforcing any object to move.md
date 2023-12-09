@@ -11,7 +11,7 @@ Now any movement you program via blueprint event graph onto actor will be done t
 ---
 
 
-\*Unable to attach because the types are not compatible?
+Troubleshooting - \*Unable to attach because the types are not compatible?
 
 Remember how you converted to Blueprint: 
 ![](https://i.imgur.com/ysxKxfB.png)
@@ -24,4 +24,10 @@ Now they are compatible and can be attached to the actor. See Outliner:
 
 ---
 
-Still not moving? Refer to Details to make sure the object is not Static: [[Common Pitfall - I have the object or actor move from blueprint, but it doesnt move]]
+Troubleshooting - \*Unable to attach because the static/dynamic (Tooltip that shows up error)?
+
+The parent is dynamic movable type, so the child should be set to movable and not static
+
+![](https://i.imgur.com/MLTgBVL.png)
+
+Is also related to an object not moving regardless of blueprint programming the object to move (in that case, the object already exists and does not need to be reorganized in the outliner hierarchy): [[Common Pitfall - I have the object or actor move from blueprint, but it doesnt move]]

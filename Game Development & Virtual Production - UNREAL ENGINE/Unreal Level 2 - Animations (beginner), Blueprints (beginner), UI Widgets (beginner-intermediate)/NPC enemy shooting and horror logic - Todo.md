@@ -1,4 +1,4 @@
-
+Status: To do, to be completed
 
 Problem: I can already shoot at objects but my NPCs don’t get pushed back. In addition I would like a monster NPC to chase me and I shoot at it. And when I killed an NPC, I want it to fall to the ground/limped.
 

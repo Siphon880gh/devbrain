@@ -1,3 +1,9 @@
+"Set Timer by Function Name" node.
+
+It will call the function every X seconds.
+
+---
+
 Open Level Blueprint. After BeginEvent, start a timer that calls a function that then prints the time
 
 ![](https://i.imgur.com/aK7rmBu.png)

@@ -1,0 +1,1 @@
+In Unreal, a widget are the text, images, shapes, colors, etc that you add onto the screen independently of objects you placed in the level editor

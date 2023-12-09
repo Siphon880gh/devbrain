@@ -1,27 +1,5 @@
-
-Required knowledge:
-- Know how to create variables. Refer to [[Create object variables in Unreal]]
-- Animating character or object movement. Refer to [[Animate character or object movement, Times One, or Loop Alternately (5.3)]]
-- Know how to convert an object into Blueprint. Refer to [[Fundamental - Convert object to Blueprint]]
-
-
-Firstly you'll create a cinecamera actor (Placed Actors panel) into the level. You'll convert it into a Blueprint from the Outliner/Details panels
-
-You'll animate the path using similar nodes to [[Animate character or object movement, Times One, or Loop Alternately (5.3)]]
-
-![](https://i.imgur.com/pNn2MLi.png)
-
-Except, when linking the vector track outlet and primary outlet from Timeline node into the next node, you'll be linking to Set Actor Location. This is because the camera object is a special classification Actor
-
-*Optional Reading:*
-For deep dive theory on why Set Actor Location for Actor Objects, why there are actor objects, versus non-actor objects which use Set Relative Position, refer to [[Deep Theory - Actor vs Non Actor and Their Location Nodes]]
-
-----
-
-Secondly, you have to switch camera for the player playing the level. If not, your perspective will be from the PlayerStart by default, and you would think the camera animation had failed:
+You can change which camera at the start if you do not want your perspective from the PlayerStart by default, or the camera following the character (if third person template, etc):
 ![](https://i.imgur.com/ZbjT29b.png)
-
-:(
 
 
 From the beginning:
