@@ -9,7 +9,7 @@
 
 ![](https://i.imgur.com/5ZY1o57.png)
 
-^ Note on UE 4, the option is named MeshBool at the side panel
+^ Note on UE 4, the option is named MeshBool at the side panel
 
 The white cube that doesn’t intersect with the wall will still be invisible. Cut them out:
 
@@ -24,4 +24,4 @@ The white cube that doesn’t intersect with the wall will still be invisible. C
 
 ---
 
-If that doesn't work for your specific case, you will want to use Plane Cut which allows you to cut through with a rectangle.
+If that doesn't work to remove the remnants of the cube in your specific case, you will want to use Plane Cut which allows you to cut through with a rectangle.
