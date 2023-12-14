@@ -40,3 +40,8 @@ The hard quality of the edge light creates a sharp contrast between the lit and 
 3. **Backlight (Edge Light):** Placed behind the subject, this light creates a rim of light around the subject, enhancing the three-dimensional look.
 
 Each of these lights serves a specific purpose and contributes to the overall balance and depth of the scene. The edge light's hard quality is essential for achieving the desired effect of separation and dimensionality in this lighting setup.
+
+
+---
+
+But you can choose not to use key light as the key light. You can use edge light as the key light! Also, you can mix two lights and change its role. There are advanced lighting applications.
