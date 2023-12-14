@@ -30,7 +30,22 @@ Off Auto Exposure and make sure it's set to Manual:
 ![](https://i.imgur.com/fFt8AXn.png)
 
 
+---
+
+Static Lighting
+
 You may notice that while editing the level could appear dimmer/darker, but while playing, the lighting is blown up, more than you'd say the exposure settings in your camera actor can affect. You want to tick off "Allow Static Lighting", then you need to restart (it'll take a while to boot back up):
 
 Tick off "Allow Static Lighting"
 ![](https://i.imgur.com/Z8reIHj.png)
+
+---
+
+Precomputed
+
+Go to World Settings, and tick on "Force No Precomputed Lighting"
+
+![](https://i.imgur.com/ZTqvK1Y.png)
+
+
+If that panel is missing on the right, go to Window -> World Settings.
