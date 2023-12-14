@@ -1,3 +1,8 @@
+# Why Docker (TLDR)
+========
+https://www.reddit.com/r/learnprogramming/comments/j6ityv/i_cant_understand_docker/
+
+
 Why Docker
 ========
 
@@ -120,3 +125,13 @@ Or click the Images tab in the Docker GUI
 Cheat Sheet
 ===========
 https://gist.github.com/spyesx/10c6ee350d760651f1fdb805611fc8fd
+
+Aka Containerized,
+===
+Yes, "dockerized" is often used interchangeably with "containerized," especially in contexts where Docker is the containerization technology being used. 
+
+- **Containerized**: This term refers to the general concept of encapsulating or packaging software in containers. Containerization involves encapsulating an application and its dependencies into a container that can run on any compatible system, regardless of the underlying infrastructure. This approach ensures consistency across multiple development, testing, and production environments.
+
+- **Dockerized**: Specifically refers to the process of packaging an application and its dependencies into a Docker container. Since Docker is one of the most popular containerization platforms, the term "dockerized" is commonly used to describe applications that have been prepared to run in Docker containers.
+
+So, while all dockerized applications are containerized, not all containerized applications are dockerized, as there are other container technologies besides Docker, such as Podman, rkt, and LXC. However, in many modern software development contexts, Docker has become synonymous with containerization due to its widespread adoption and influence.
