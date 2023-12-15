@@ -1,5 +1,5 @@
 
-See what the errors are by placing this code before `define('WP_USE_THEMES', true)`
+See what the errors are by placing this code before `define('WP_USE_THEMES', true)` at `index.php`:
 
 ```
 ini_set('display_errors', 1);
