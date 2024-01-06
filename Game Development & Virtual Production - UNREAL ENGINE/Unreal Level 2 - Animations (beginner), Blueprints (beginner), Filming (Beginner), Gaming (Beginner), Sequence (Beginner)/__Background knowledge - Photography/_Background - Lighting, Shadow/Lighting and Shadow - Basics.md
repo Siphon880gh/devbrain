@@ -1,4 +1,16 @@
 
+## Light and Shadow - Takeaway Points
+
+
+Directional light casts rays that visibly extend further than those of a spotlight, which emits light in a conical shape. When a light source is covered with a tissue, which is porous and reflects light off its ridged surfaces, the light diffuses. This means the light rays scatter in various directions, resulting in shadows with soft edges due to the erratic path of the light. Conversely, if the light rays were uniform, the shadows would have hard, sharp edges.
+
+
+The size of the light source also plays a crucial role. Larger light sources produce softer shadows as they distribute light over a broader area, creating a diffused lighting effect and gradual shadow edges. On the other hand, small or point light sources generate sharper shadows with more defined edges due to the concentrated and direct nature of the light.
+
+
+---
+
+
 ## Shadow Elongation
 
 The elongation of shadows is primarily influenced by the angle and position of the light source relative to the object casting the shadow. When the light source is low or at an angle, shadows tend to be longer. When it's directly above or very close to the object, shadows are shorter.
