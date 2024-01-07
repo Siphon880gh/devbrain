@@ -1,5 +1,5 @@
 ### Status: Not entirely reliable answers...
-Not entirely reliable answers from AI, and it will gaslight you saying it is correct
+Not entirely reliable answers from AI, and it will gaslight you saying it is correct. After it gives you the nodes, that's a good point to read the node documentation on Unreal, look up Google Images, and read forums via google search.
 
 ### << Hi, you know Unreal Editor 5.3. Give me a list of blueprint formulas for most commonly used designs
 
