@@ -5,6 +5,7 @@ Enable WASD for cameras in editing mode, especially if you’re right handed. Yo
 Go: Unreal Editor → Preferences → Search WASD
 Flight Camera Control Type: Use WASD for Camera Controls
 
+![](https://i.imgur.com/uEROeFm.png)
 
 ## Fine tune WASD responsiveness
 
