@@ -20,3 +20,19 @@ npm run build-dev
 Remote:
 npm run build
 npm run start
+
+
+---
+
+An example use is different javascript and express PORT based on :
+
+```
+  "scripts": {
+    "start": "python server.py",
+    "dev": "python server.py",
+    "build-prod": "cp run/template-prod.py run/env.py; echo 'var finalHost = \"https://wengindustry.com:5002\"' > assets/common.js;",
+    "build-dev": "cp run/template-dev.py run/env.py; echo 'var finalHost = \"http://127.0.0.1:5001\"; var guestPassword = \"guest123\";' > assets/common.js;",
+    "seed": "python seed.py",
+    "test": "python tests/docker.py"
+  },
+```

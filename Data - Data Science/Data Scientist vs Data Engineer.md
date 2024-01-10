@@ -1,3 +1,6 @@
+
+https://chat.openai.com/c/217e0063-1a24-4264-98ca-d39c0ea91b20
+
 Data Scientists and Data Engineers have distinct roles within an organization, each with specific skill sets, tools, and responsibilities. Here's a breakdown of each:
 
 ### Data Scientist
