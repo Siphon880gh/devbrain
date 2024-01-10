@@ -1,4 +1,5 @@
 
+
 Starting a TypeScript project for Node.js involves several steps. TypeScript offers static type-checking, which can help catch potential runtime errors during development. Here's how you can set up TypeScript with Node.js:
 
 1. **Initialize a New Project**
