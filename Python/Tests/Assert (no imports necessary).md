@@ -2,12 +2,10 @@
 ```
 def a():
 
-return 1
+	return 1
 
-  
 
 # assert a()==1, "a() should return 1"
-
 assert globals()["a"]()==1, "global a() should return 1"
 
 # print(globals()["a"]())
@@ -18,18 +16,13 @@ assert globals()["a"]()==1, "global a() should return 1"
 To be more practical:
 ```
 def a():
-
-return 1
+	return 1
 
   
 
 # assert a()==1, "a() should return 1"
-
 # assert globals()["a"]()==1, "global a() should return 1"
-
 functionA = globals()["a"]
-
-  
 
 assert functionA()==1, "global a() should return 1"
 
@@ -45,6 +38,4 @@ def a():
 
 userChosenFunction = globals()[userChosen]
 assert userChosenFunction()==1, "global userChosenFunction() should return 1"
-
-
 ```
