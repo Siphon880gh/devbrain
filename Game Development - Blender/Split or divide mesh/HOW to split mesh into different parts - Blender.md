@@ -55,7 +55,8 @@ With a line selected, we can start contorting the plane by pressing **g then x**
 ![](https://i.imgur.com/G9pCuy9.png)
 
 Before we separate, another problem! The plane is 1 dimensional. We need to make it thicker
-Select the plane in the Outliner -> Add Modifier. Depending on your Blender vversion:
+Select the plane in the Outliner -> Add Modifier. 
+Depending on your Blender version, looks different:
 ![](https://i.imgur.com/TnaNfpD.png)
 
 ![](https://i.imgur.com/IkHfdB1.png)
