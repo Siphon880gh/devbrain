@@ -1,4 +1,6 @@
 
+Manifests as: Could show up with a blank white page or a white page with some error messages.
+
 See what the errors are by placing this code before `define('WP_USE_THEMES', true)` at `index.php`:
 
 ```
