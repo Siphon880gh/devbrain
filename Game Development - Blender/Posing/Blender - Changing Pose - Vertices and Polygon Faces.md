@@ -1,5 +1,5 @@
 
-If your model doesn’t have armature/bones/pose, but it has vertices and polygon faces, and you are changing its pose, this is the most involved when it comes to precisely clicking the right areas.
+If your model doesn’t have armature/bones/pose, but it has vertices and polygon faces, and you are changing its pose, you have to select all the relevant vertices and transform them as a group.
 
 Use case:
 **You have a FBX file from Sketch Fab, 3DFree, etc but the posture of the arms are wrong**
@@ -25,6 +25,9 @@ SHIFT+drag over area
 
 But when you over selected vertices that shouldn’t be included:
 Shift+click can deselect the particular vertex
+
+You can also use a paint action to add vertices (Like in Windows Paint). You click the Select Circle in Edit Mode, then click and drag over vertices (if adding to previous vertice selection, hold Shift while you click and drag)
+![](https://i.imgur.com/1hhiXQi.png)
 
 Once the vertexes are selected, you can transform:
 

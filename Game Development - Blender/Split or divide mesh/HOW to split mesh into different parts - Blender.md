@@ -12,6 +12,21 @@ Draw a line then slice:
 https://www.youtube.com/watch?v=PfIQxnRXNSo
 ![](https://i.imgur.com/9osNeL6.png)
 
+Status: Cursorily
+1. Select the vertexes with a paintbrush method (Edit Mode, Tool: Select Circle, Click and drag. You may need to rotate camera in object mode to get all vertexes from lateral and posterior views. You'll want to SHIFT + Click drag to add additional paint-selects)
+2. Bisect tool (may be hidden under Knife tool. Hover mouse over tool icons for name, click and hold to reveal more tools hidden under a tool). Click and drag where the object will be cut. 
+	1. ^ Bisect tool's purpose is to filter in the selected vertexes within the plane and filter out those vertexes that fall out of the plane, lowering the number of selected vertexes to the relevant vertexes (which you will cut)
+3. You will cut: Keep mouse near bisect line. Cut now by pressing V, then without moving the mouse, right click x1 (V is actually ripping and allows you to tear the vertexes with the mouse, so by right-clicking immediately without moving the mouse, you cut in place because you've confirmed the rip)
+4. At secondary menu: Select -> Select Loops -> Select Loops Inner-Region
+5. Press P for "Separate Menu", and separate by Selection
+6. Go into Object Mode, and you'll see the other object that's been cut out can be translated/moved with g then x, then drag. You'll see that the object might be opened where it was separated which is not good for 3d printing, so if you choose so, you can fill the opening by pressing P
+
+Curious why ripping allows you to move your mouse before finalizing with right-click:
+- When you rip a vertex or a group of vertices, what you're doing is essentially creating a duplicate of the selected vertices and then moving them apart from their original position. This creates a gap in the mesh
+- The ripped vertices exist as part of the mesh but are no longer part of the continuous surface of the original mesh. They have their own separate edges and faces, which can be manipulated independently of the original vertices from which they were ripped.
+- Yes, the angle at which you rip before finalizing with a right-click can affect the appearance of the edge of the separated mesh in Blender. The angle and direction of the rip influence the resulting geometry, more noticeable in models where edge flow and topology are important.
+- Technically after ripping, you should be able to select these "floating vertices", unless you 'Limit Selection to Visible' (also known as 'occlude background geometry').
+
 ---
 
 ## Method 2 - Cut by plane
