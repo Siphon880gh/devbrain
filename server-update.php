@@ -1,5 +1,5 @@
 <?php
-/* Curriculum repository of snippets, guides, and dtutorials get pulled into this folder for the Gamified Knowledge app */
+/* Curriculum repository of snippets, guides, and tutorials get pulled into this folder for the Gamified Knowledge app */
 /* Curriculum is separated as another repository for authoring and contribution purposes over Github and Obsidian MD*/
 
 error_reporting(E_ALL);
