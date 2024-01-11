@@ -15,6 +15,10 @@ https://www.youtube.com/watch?v=PfIQxnRXNSo
 ---
 
 ## Method 2 - Cut by plane
+
+
+Status: Untested fully. Tested the other method part way through
+
 Draw a plane, then fold the line with "loop cuts" (Think Chinese fan)
 https://youtu.be/moPDPB4MY2U
 ![](https://i.imgur.com/zIc9B9U.png)

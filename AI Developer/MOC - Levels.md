@@ -1,0 +1,6 @@
+
+**Level 1 Prompt Engineering** is the most basic level that does not require knowledge of programming, however is a requirement if you are to develop AI applications. As a prompt engineer, you know how to prompt correctly for the desired results at ChatGPT, Claude Chat, Bard, etc? The Engineering part has less to do with knowing code, but more to do with leveraging the way AI understands human language and making its knowledge it can draw from more precise. You do not need to know NLP or various algorithms that the AI uses underneath. Another word for this is "Power User".
+
+**Level 2 AI Developer** is you know how to connect to ChatGPT and various AI APIs, text or non-text generative types (such as Eleven Labs for text to speech). You can connect to ChatGPT's API using OpenAI or LangChain, and you can connect whether it's PHP, Python, cURL, etc, or at least know how to figure that out. In addition, you know how to make use of the AI API's within your application for business needs.
+
+Level 2 is NOT about training the AI, storing in vector databases, knowing the algorithms for which AI is trained, analyzes, and generates from, eg. NLP. Refer to the folder AI Engineer.

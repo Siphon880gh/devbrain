@@ -1,6 +1,6 @@
 
 Say your model has multiple objects. You can go in Object Mode, select that part, then
-**g then x** then click and drag, to move the object in the X axis
+**g then x** then drag mouse, to move the object in the X axis
 
 Your possibilities for moving are:
 g (free flow drag anywhere)

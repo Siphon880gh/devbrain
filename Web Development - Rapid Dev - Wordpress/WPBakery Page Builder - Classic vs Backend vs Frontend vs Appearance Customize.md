@@ -13,7 +13,16 @@
 ## Classic Mode
 Classic Mode allows you to fine tune the layout and design with the shortcodes of WPBakery (AKA VIsual Composer) which is the backbone of Salient theme's site builder
 
-Refer to [[WPBakery Page Builder - Classic Mode]]
+Refer to [[WPBakery Page Builder - Classic Mode (With Visual and Text Sub-modes)]]
+
+
+## Main Builder ("Edit with WPBakery Page Builder")
+
+![](https://i.imgur.com/lvFNTq4.png)
+
+
+----
+
 
 ## Live Editing - Appearance -> Customize
 

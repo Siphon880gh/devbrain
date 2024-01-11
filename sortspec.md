@@ -1,7 +1,10 @@
 ---
 sorting-spec: |-
-  AI
+  AI Developer
+  AI Engineer
+  AWS
   Databases
+  DevOps
   Web Development
   Web Development - Rapid Dev - Misc
   Web Development - Rapid Dev - Tailwind

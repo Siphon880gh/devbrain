@@ -17,8 +17,8 @@ Appearance -> Customize -> Additional CSS
 ### - Salient
 Salient → General Settings → CSS/Script Related
 
-- ### WPBakery / Visual Composer 
-  (Which comes included in Salient)
+### - WPBakery / Visual Composer 
+Click gear icon at the top-right of the content editing
 ![](https://i.imgur.com/ODHB7Bi.png)
 
 
