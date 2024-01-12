@@ -25,12 +25,19 @@ https://noorsplugin.com/wordpress-colorbox-plugin/
 
 ---
 
-## Buttons
+## Link to open lightbox modal
 
 The shortcode generates a link "click here to open external page" in this example:
 
 ![](https://i.imgur.com/BgylDk7.png)
 
+You can place the appropriate lightbox shortcode in a textbox. You may see a "Nectar Shortcodes" button you can press to have some characters to type the shortcode.
+
+Alternately, you can use Classic Mode and either its Visual or Text and place the shortcode there.
+
+Preview to see it works.
+
+## Button
 
 Let's say I had a normal button from WPBakery or other themes and I want to stick with it. The problem is you can't place the shortcode inside your normal button.
 

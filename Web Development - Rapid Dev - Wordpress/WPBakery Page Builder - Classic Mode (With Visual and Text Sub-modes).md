@@ -1,7 +1,9 @@
 
 ## Classic Mode
 
-Classic Mode allows you to fine tune the layout and design with the shortcodes of WPBakery (AKA VIsual Composer) which is the backbone of Salient theme's site builder
+Classic Mode allows you to fine tune the layout and design with the shortcodes of WPBakery (AKA Visul Composer formerly, dt legal reasons) which is the backbone of Salient theme's site builder
+
+gs. Classic Mode is called such because Wordpress was launched as a blogging website where in 2003, you typed into a RTF editor. In 2008 when Wordpress was already transitioning from a blogging platform to a dual blogging and CMS platform, Wordpress released support for a square bracket syntax called shortcode to add more functionality like image galleries. In the 2000s, a popular syntax for adding formatting to Internet forums called Bulletin Board Code or BBCode used code like [b]; it’s possible Wordpress was inspired by them to add similar syntax as a vehicle for the author to add features beyond simply blog content.
 
 It has two sub-modes called Visual (RTF) and Text.
 
