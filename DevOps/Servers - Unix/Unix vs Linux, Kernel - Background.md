@@ -18,6 +18,15 @@ So while Mac, Linux and Unix share some core similarities in their foundations, 
 
 ---
 
+
+Linux is newer than UNIX. UNIX was first developed in the late 1960s at AT&T's Bell Labs, while Linux was created by Linus Torvalds and first released in 1991. Linux was developed as a free and open-source alternative to the UNIX operating system, taking inspiration from UNIX but being distinct and separate in its development and design.
+
+---
+
+UNIX is an operating system that originated in the late 1960s and has evolved over the years, with various versions developed by different organizations. Linux, on the other hand, is a Unix-like operating system kernel that was created by Linus Torvalds in the early 1990s. It's the core component of various Linux distributions, which are complete operating systems built around the Linux kernel. These distributions include system software and libraries from many sources, providing users with a fully functional operating system.
+
+---
+
 \<
 In unix/linux, is the kernel unix or linux?
 

@@ -1,0 +1,3 @@
+The `locate` command is a fast way to search for files by their name on the filesystem. However, for `locate` to be able to find these files quickly, it relies on a database that contains a cache of all the file paths on the system.
+
+**`updatedb` process**: When you run `sudo updatedb`, the system scans through all the directories in the filesystem (or those specified in its configuration) and updates the database with the paths to all files. This process can take a few minutes, depending on the size of the filesystem and the number of files.
