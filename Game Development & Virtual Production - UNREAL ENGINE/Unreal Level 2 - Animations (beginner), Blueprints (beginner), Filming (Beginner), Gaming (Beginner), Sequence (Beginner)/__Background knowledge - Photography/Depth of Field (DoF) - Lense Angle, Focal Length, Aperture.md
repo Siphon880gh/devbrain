@@ -17,7 +17,73 @@ Focal length in photography has  impact on the viewer's perception and the psych
 
 In essence, understanding and manipulating focal lengths and lens characteristics is a key part of the photographer's toolkit for creative expression. The ability to use these elements to control how a subject is presented and perceived by the viewer is a fundamental aspect of photographic art.
 
+----
+
+## Focal Length vs Magnification vs Depth of Field vs Angle of Lense
+
+When you say like a 135mm lense, that’s a longer focal length, which causes a shorter angle, and less depth of field. With shorter angle, you’re zoomed in more, but you lose depth of field (which creates more intimacy if it's a photo of a subject)
+![](https://i.imgur.com/UrEYDJ8.png)
+(^From: [https://colesclassroom.com/focal-length-basics-every-photographer/](https://colesclassroom.com/focal-length-basics-every-photographer/))
+
+
+When you say a 50mm lense, that’s a shorter focal length, which causes a wider angle, and less depth of field. 50mm is the standard because its how human eyes see
+
+Think if you’re body hopping from human to fish. Fish have a wider angle allowing them to see more of what’s around them because they need to evade predators. There are fish eye lenses which are measured as 8mm to 10mm!
+
+Lenses are usually drescribed by brand, focal length, F stop min and F stop max
+![](https://i.imgur.com/sCKU5e7.png)
+
+(^From: [https://thedarkroom.com/focal-length/](https://thedarkroom.com/focal-length/))
+
+Nikkor 24mm F2.8 AI:  
+
+The Nikkor 24mm F2.8 AI lens has a maximum aperture of f/2.8. This is the widest setting at which the lens can open to allow light to hit the camera sensor. The term "AI" refers to "Automatic Indexing," a feature in Nikon lenses that allows the camera to recognize the aperture setting on the lens. As for the minimum aperture, it is typically a much smaller setting (like f/22 or higher), which allows for a greater depth of field but lets in less light. The exact minimum aperture value for this specific lens model can be found in its technical specifications.
+
+![](https://i.imgur.com/QPoQueC.png)
+
+![](https://i.imgur.com/BCAPZbO.png)
+
+(^^ Both from: https://capturetheatlas.com/what-is-focal-length/)
+
+### Relationships
+1. **Wider Angle and Shorter Focal Length**: A wider angle lens has a shorter focal length. Wide-angle lenses (such as 24mm, 18mm, etc.) are designed to capture more of the scene in front of the camera, providing a broader field of view. Typically, wide-angle lenses can suffer from edge sharpness issues, especially at the corners, due to optical aberrations like distortion.
+
+
+2. **Longer Focal Length and Narrower Angle**: A lens with a longer focal length (like 85mm, 200mm, etc.) provides a narrower angle of view, which means it captures less of the scene and appears more "zoomed in." These lenses can also have issues with edge sharpness, but they are more often related to the depth of field. Since longer lenses often have a shallower depth of field, parts of the image that are not in the plane of focus will appear less sharp.
+
+
+3. **Edge Sharpness**: The sharpness at the edges of a photo is influenced by several factors:
+
+   - **Lens Quality and Design**: Higher quality lenses typically offer better edge-to-edge sharpness, but almost all lenses will exhibit some degree of sharpness fall-off towards the edges.
+
+   - **Aperture Setting**: Stopping down the aperture (using a higher f-number) often increases edge sharpness in both wide-angle and telephoto lenses, as it reduces lens aberrations.
+
+   - **Field Curvature**: Some lenses have a field curvature where the plane of focus is not completely flat. This can result in the center of the image being in focus while the edges are out of focus, or vice versa.
+
+
+In summary, both wide-angle lenses (shorter focal length) and telephoto lenses (longer focal length) can have issues with edge sharpness, but the causes and characteristics of these issues can be different. Wide-angle lenses may exhibit distortion and aberrations that affect edge sharpness, while telephoto lenses might have a shallower depth of field, affecting how much of the edge is in focus.
+
+
 ---
+
+## Btw - Tilting
+
+Tilting, having the lense no longer parallel with the image sensor to control perspective distortion and in landscape photography to manipulate the depth of field. **Unreal does not support this.**
+
+The relationship between lens and image sensor alignment, particularly in terms of tilting, is a significant factor in image sharpness, especially at the edges. This is primarily associated with two concepts in photography and optics: tilt-shift lenses and the Scheimpflug principle.
+
+1. **Tilt-Shift Lenses**: Tilt-shift lenses allow you to tilt the lens relative to the image sensor and shift the lens parallel to the image sensor. The tilt function can be used to control the plane of focus. By tilting the lens, you can change the orientation of the plane of focus relative to the sensor, which can either increase or decrease depth of field in selective parts of the image. This is particularly useful in architectural photography to control perspective distortion and in landscape photography to manipulate the depth of field.
+
+2. **Scheimpflug Principle**: The Scheimpflug principle states that when the lens plane is not parallel to the image sensor plane, the plane of sharp focus is also tilted relative to the sensor. By appropriately tilting the lens, you can achieve a wider depth of field along an oblique plane, making more of the image sharp, which can be particularly useful when the subjects are not on a parallel plane to the camera.
+  
+3. **Edge Sharpness and Tilt**: By tilting the lens, you can align the plane of focus with the subject plane that is not perpendicular to the lens axis. This can improve sharpness across the frame, including the edges, by ensuring more of the subject is within the depth of field. However, if the tilt is not properly aligned with the subject plane, it can also lead to parts of the image, including edges, being out of focus.
+
+4. **Limitations and Use Cases**: Tilt-shift lenses are specialized tools and are not typically used for general photography. They are most beneficial in scenarios where control over the plane of focus or correction of perspective distortion is essential. For most standard photography needs, lenses are used with the lens plane parallel to the sensor plane to maintain a consistent plane of focus.
+
+In summary, tilting the lens relative to the image sensor can significantly impact the sharpness and focus of an image, especially at the edges. The use of tilt-shift lenses or tilting mechanisms allows for advanced control over the plane of focus, which can be utilized creatively or for specific technical purposes.
+
+---
+
 
 ## Depth of Field (DoF)
 
