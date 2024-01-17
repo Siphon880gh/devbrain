@@ -72,7 +72,7 @@ For exterior environment. Or for interior environment with sunlight shining thro
 If lumen were disabled, it would be all black
 ![](https://i.imgur.com/uiNFkEI.png)
 
-So make sure it's been enabled. Refer to [[Setup Unreal for Lighting Projects]]. Then it's more useable like this:
+So make sure it's been enabled. Refer to [[_Setup Unreal for Lighting Projects]]. Then it's more useable like this:
 ![](https://i.imgur.com/f8awbtR.png)
 
 
