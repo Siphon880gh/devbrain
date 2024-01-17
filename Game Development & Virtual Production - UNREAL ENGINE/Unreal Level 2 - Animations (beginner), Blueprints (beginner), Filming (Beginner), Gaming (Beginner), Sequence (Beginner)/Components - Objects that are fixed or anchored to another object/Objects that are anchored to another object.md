@@ -1,6 +1,6 @@
 Say you have a NPC moving around in the level. You want text to be above that NPC's head at all times.
 
-Or say you want a collapsible invisible shape that follows the NPC, so if you are inside this invisible shape, certain nodes start running. You'd anchor the invisible shape to this moving object. And you'd follow the steps at [[Location based triggers]]
+Or say you want a collapsible invisible shape that follows the NPC, so if you are inside this invisible shape, certain nodes start running. You'd anchor the invisible shape to this moving object. And you'd follow the steps at [[Location based triggers aka collision overlaps]]
 
 And technically when you grab a weapon, that weapon became anchored to your pawn.
 

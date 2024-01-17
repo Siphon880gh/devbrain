@@ -38,3 +38,14 @@ Learned from a combination of:
 Next you export as FBX. Then import back into Unreal. The feet should be invisible. If not, then you’ll have to go into Materials Editor of the feet material, change Blend mode into Alpha Blend, enabling the Opacity parameter. Connect a material node called “Constant” to the Opacity, and have it set to 0. If the Opacity is already connected to a different type of node, swap it out for a constant node.
 
 [https://chat.openai.com/c/562a64ab-c7ad-4c20-920c-46fda3bcb8c6](https://chat.openai.com/c/562a64ab-c7ad-4c20-920c-46fda3bcb8c6)
+
+---
+
+Use case: I had to make the feet invisible so I can put on shoes in a Nike product demo concept:
+
+![](https://i.imgur.com/xqI7CNB.png)
+
+![](https://i.imgur.com/yclubY5.png)
+
+
+If I hadn't made them invisible, then there will be overlapping parts of the mannequin's foot on the shoe.
