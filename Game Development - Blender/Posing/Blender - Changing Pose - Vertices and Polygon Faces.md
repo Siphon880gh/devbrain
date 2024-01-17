@@ -5,6 +5,8 @@ Use case:
 **You have a FBX file from Sketch Fab, 3DFree, etc but the posture of the arms are wrong**
 You want to pull the arms down to a more neutral standing position. Sure!
 
+## Selection
+
 You will select all the vertices/polygon faces that need to be translated/rotated together
 
 Go into Edit Mode:
@@ -28,6 +30,8 @@ Shift+click can deselect the particular vertex
 
 You can also use a paint action to add vertices (Like in Windows Paint). You click the Select Circle in Edit Mode, then click and drag over vertices (if adding to previous vertice selection, hold Shift while you click and drag)
 ![](https://i.imgur.com/1hhiXQi.png)
+
+## Transformation
 
 Once the vertexes are selected, you can transform:
 
@@ -60,5 +64,6 @@ Rotate:
 Move:
 ![](https://i.imgur.com/PNbEgZZ.png)
 
-I missed a polygon on his left arm (off his wrist) - noo! lol
-Exercise: What would you do in this case?
+I missed a polygon on his left arm (off his wrist) - noo! Then you can either undo (there's Undo History) and restart this or try deleting that one-off vertex to see if it affects the model's appearance
+
+You may find that after rotating and translating the arm, the shoulder might have sharp extrusions. Refer to this for fixing: [[Sculpturing Related - Smoothen]]

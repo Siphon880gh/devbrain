@@ -3,7 +3,7 @@ They can be anywhere in Content Drawer. It's recommended you create a folder aft
 
 The level file ends in .umap, but it won't show up if you search for .umap in Content Drawer. If you need to figure out where your .umap files are, you have two options:
 
-1. Search for .umap after you "Reveal in Finder/Explorer" using your native OS
+1. Search for .umap after you "Show in Finder/Explorer" using your native OS
 2. Figure out the root item in the Outliner which is the name of your level, then search that in Content Drawer:
 
 
