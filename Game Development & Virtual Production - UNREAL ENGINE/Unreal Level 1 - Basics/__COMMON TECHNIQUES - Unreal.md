@@ -1,6 +1,6 @@
 
 
-Editor common techniques:
+Blueprint common techniques:
 - Convert any object into blueprint so you can access their Blueprint Viewport or Event Graph
 - Differentiate between blueprint viewport vs blueprint event graph
 	Refer to [[Convert object into Blueprint - FUNDAMENTAL]]
@@ -11,11 +11,16 @@ Editor common techniques:
 ![](https://i.imgur.com/BR1YCTQ.png)
 
 - PlayStart's spawned pawn referenced in Blueprint
-Refer to: [[Get player's spawned character (PlayerStart)]]
+	Refer to: [[Get player's spawned character (PlayerStart)]]
 - Get actor for any class name
-Refer to: Get actor from class name
+	Refer to: Get actor from class name
 - Level Blueprint, Know how to open Level Blueprint for more game level logic (makes sense to put there than other objects' blueprints)
-Refer to: [[Open Level Blueprint]]
+	Refer to: [[Open Level Blueprint]]
+
+Editor common techniques:
+- Material slotted - Recognize that if you change the property in the material, it'll simultaneously apply the same changes to the material in the other object, UNLESS you duplicate the material as a different material for that slot.
+	- Know that you can find the asset in content drawer and duplicate it, then swap out it out in the object's details
+	  ![](https://i.imgur.com/eJWFIgj.png)
 
 
 Object manipulation common techniques:

@@ -15,7 +15,30 @@ In a material editor, typically found in 3D graphics software and game engines, 
 The Multiply operation is a fundamental and versatile tool in material creation, allowing for a range of effects from subtle texture variation to significant changes in the appearance of a material.
 
 ---
-## Example
+
+## Example (Experienced)
+
+When changing the emission of an item (eg. adding glow to Text Render), your constant3vector will receive rgb for the color, but if you had multiplied that to a number, you can affect the glow spread:
+![](https://i.imgur.com/V2pJMBS.png)
+
+
+0.3 vs 3
+![](https://i.imgur.com/FqbpbgE.png)
+
+![](https://i.imgur.com/3QK6QjY.png)
+
+
+0.3 vs 3 on the viewport:
+
+![](https://i.imgur.com/SoPolhm.png)
+
+
+![](https://i.imgur.com/QuBpbci.png)
+
+^ Keep in mind base color is white
+
+---
+## Examples (Generic)
 
 The "Multiply" operation in material editing or any context that involves numerical calculations is quite straightforward. It involves multiplying corresponding values together. Here are some examples using numbers:
 
