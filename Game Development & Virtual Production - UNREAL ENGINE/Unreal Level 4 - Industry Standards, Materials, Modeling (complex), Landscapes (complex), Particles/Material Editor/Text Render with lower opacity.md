@@ -1,5 +1,5 @@
 
-Edit the Material (not the Text Material):
+Edit the Material or the Text Material:
 
 This is how it should look by default:
 ![](https://i.imgur.com/WZYo3x3.png)
