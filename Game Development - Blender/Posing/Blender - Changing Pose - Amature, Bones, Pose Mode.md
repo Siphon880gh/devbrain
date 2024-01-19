@@ -1,5 +1,4 @@
 
-
 If the imported model has armature/bones/pose mode, this is the most involved when it comes to clicking different parts of the app
 
 Use case:

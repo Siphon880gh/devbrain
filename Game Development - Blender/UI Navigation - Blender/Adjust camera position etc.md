@@ -1,0 +1,1 @@
+Camera selected in outliner. Object mode (square icon). Now can transform the camera. You can switch to camera and back to default view with the camera icon below xyz gimbo

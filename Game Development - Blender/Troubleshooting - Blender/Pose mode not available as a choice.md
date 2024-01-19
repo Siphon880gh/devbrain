@@ -1,0 +1,1 @@
+Make sure armature selected in Outliner. Pose Mode should be available at the editor mode dropdown
