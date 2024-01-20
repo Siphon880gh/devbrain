@@ -12,7 +12,7 @@ Draw a line then slice:
 https://www.youtube.com/watch?v=PfIQxnRXNSo
 ![](https://i.imgur.com/9osNeL6.png)
 
-Status: Cursorily
+Status: Tested partially only. Didn't have time to finish project.
 1. Select the vertexes with a paintbrush method (Edit Mode, Tool: Select Circle, Click and drag. You may need to rotate camera in object mode to get all vertexes from lateral and posterior views. You'll want to SHIFT + Click drag to add additional paint-selects)
 2. Bisect tool (may be hidden under Knife tool. Hover mouse over tool icons for name, click and hold to reveal more tools hidden under a tool). Click and drag where the object will be cut. 
 	1. ^ Bisect tool's purpose is to filter in the selected vertexes within the plane and filter out those vertexes that fall out of the plane, lowering the number of selected vertexes to the relevant vertexes (which you will cut)
@@ -32,7 +32,7 @@ Curious why ripping allows you to move your mouse before finalizing with right-c
 ## Method 2 - Cut by plane
 
 
-Status: Untested fully. Tested the other method part way through
+Status: Tested partially only. Didn't have time to finish project.
 
 Draw a plane, then fold the line with "loop cuts" (Think Chinese fan)
 https://youtu.be/moPDPB4MY2U

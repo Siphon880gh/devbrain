@@ -16,7 +16,7 @@ The Multiply operation is a fundamental and versatile tool in material creation,
 
 ---
 
-## Example (Experienced)
+## Example (Use Case)
 
 When changing the emission of an item (eg. adding glow to Text Render), your constant3vector will receive rgb for the color, but if you had multiplied that to a number, you can affect the glow spread:
 ![](https://i.imgur.com/V2pJMBS.png)
