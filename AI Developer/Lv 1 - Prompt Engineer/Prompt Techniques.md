@@ -156,8 +156,7 @@ It will come as no surprise that **few-shot prompting** is when a user provides 
 
 **Chain of Thought Prompting** (also known as CoT) is a method used to guide the model to providing factually correct responses by forcing it to respond to a series of steps during the process of developing an output response.
 
-<!--Upload failed, remote server returned an error: [object Object]-->
-![[Pasted image 20230816134644.png]]
+![](https://i.imgur.com/lJgoUzp.png)
 
 The technique requires the user to explicitly ask the model to take a “step-by-step” process in the instructions. In addition, it is generally best practice to ask the model to explain its reasoning in the output, and to follow a specific format.
 
