@@ -15,5 +15,5 @@ https://github.com/villers/docker-php-python-node
 https://github.com/muhtarudinsiregar/flask-php-docker
 
 EC2 Docker
-Challenge A: EC2 on ECS
-Challenge B: EC2 as a compute server
+Challenge A: EC2 on ECS - Deploy any of the above
+Challenge B: EC2 as a compute server - Deploy any of the above
