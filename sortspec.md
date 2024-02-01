@@ -2,7 +2,7 @@
 sorting-spec: |-
   AI Developer
   AI Engineer
-  AWS
+  AWS Cloud
   Databases
   DevOps
   Web Development
