@@ -57,7 +57,7 @@ It's a powerful tool for diagnosing system performance issues and understanding 
 
 On mac, the equivalent is:
 ```
-while true; do vm_stat; sleep 1; clear; done
+vm_stat 1
 ```
 
 - **Pages free**: The amount of memory that is currently unused and available.
@@ -69,7 +69,7 @@ while true; do vm_stat; sleep 1; clear; done
 A page is a fixed-length contiguous block of virtual memory. The size of a page can vary, but on many systems, it is typically 4 KB (kilobytes).
 
 
-But you might find the header titles wiped out, so you can run:
+But you might find the header titles wiped out, so you can run this - which delegates the 1 second refreshes to while loop rather than vm_stat:
 ```
 while true; do echo "procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu-----"; echo "r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st"; vm_stat; sleep 1; done;
 ```
