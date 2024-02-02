@@ -31,6 +31,11 @@ Untick "Can Character Step Up On".
 
 You should also make this shape invisible. Change material to.. typing for Invisible of Translucent.
 
+![](https://i.imgur.com/N9ZJda9.png)
+
+![](https://i.imgur.com/mOYosBc.png)
+
+
 ---
 
 ## Know how to get your player in the Blueprint

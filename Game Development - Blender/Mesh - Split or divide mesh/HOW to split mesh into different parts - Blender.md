@@ -98,3 +98,20 @@ Make sure in **Edit Mode**.
 **Press P** to open Separate menu -> By Loose Parts
 
 Now you have separated mesh. To prove this, you can go into Object Mode, select the arm/foot/whatever you've cut loose. Then press **g then x** and drag away.
+
+----
+
+Easily select the two parts? Then separate them by selection
+![](https://i.imgur.com/YFCOJ0s.png)
+
+
+Edit Mode -> Select Box ->
+Make sure to rotate around the cube that all vertexes are selected
+![](https://i.imgur.com/u2SyZ4j.png)
+
+Press p for Separate Menu -> Selection
+
+Now go back into Object mode and select a part. Make sure it doesn't select both parts. 
+For a comprehensive test, select the other part too. If the other part makes both highlighted, you have to repeat the above steps selecting and separating in Edit Mode.
+
+![](https://i.imgur.com/F2fXVJj.png)
