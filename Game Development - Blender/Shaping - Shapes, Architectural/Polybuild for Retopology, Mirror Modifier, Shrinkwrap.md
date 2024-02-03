@@ -2,8 +2,10 @@
 Use cases:
 Usually used for repotology where you add geometry on top of a mesh that has too many geometries (from either a model import or was built from sculpturing) and so many geometries that it's impractical to rig/animate with proper weight painting. By adding vertexes/faces overlaying on model, these less vertexes/faces can serve as the new weight paintable geometries for rigging/animation from the armature/bones..
 
+In order to perform repotology, there is a collection of techniques and tools to make it easier to create faces and vertexes close to the surface of the old model. Blender does not have a "repotology" button or tool
 
-Refer to all basic lessons at [[Polybuild]]
+
+Required Skills: Refer to all basic lessons at [[Polybuild]]
 
 Now add those faces on the mesh. You can practice off of Suzanne the monkey:
 ![](https://i.imgur.com/7R0hCLp.png)
