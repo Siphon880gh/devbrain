@@ -21,3 +21,10 @@ At the Blueprint, you have an Open Level node
 You can easily find the name of the other level by going to File -> Open Level
 Then browse there for the name (You can temporarily rename for the name to Copy and Paste):
 ![](https://i.imgur.com/DLEJGmR.png)
+
+---
+
+FAQ
+
+Q: Can player transporting to other levels work inside Play? And what happens when I exit play?
+A: If Play in the Unreal Editor, you can still trigger next level opening. When exit Play, it will revert to the previous level you were editing.

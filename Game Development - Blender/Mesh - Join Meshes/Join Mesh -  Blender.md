@@ -1,3 +1,5 @@
+TLDR: CMD+J or right click selected parts -> Join
+
 Use case: When you import a model into Unreal, it came in pieces that you have to assemble together. You don't have time for that. So you can open in Blender which will place all the pieces together as divided meshes
 
 Then you will join the mesh. Now when you import back into Unreal, it'll be one peice that you don't have to assemble:
