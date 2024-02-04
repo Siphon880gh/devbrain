@@ -1,4 +1,4 @@
-Status: Easily understandable from video
+Status: Easily understandable from video. Untested.
 
 ![](https://i.imgur.com/lkFv4z6.png)
 
