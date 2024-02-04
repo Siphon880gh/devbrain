@@ -18,3 +18,16 @@ After shift+ctrl+numpad minus:
 ![](https://i.imgur.com/pcDgLJt.png)
 
 ![](https://i.imgur.com/vegylTt.png)
+
+
+---
+
+Use case:
+Basic bowl in the form of a half opened sphere.
+
+Hint: Create UV sphere. Create cube. Overlay at center 0,0. Negative boolean. Select face of inner face. X to delete face. R->Y to rotate into upright position bowl.
+
+![](https://i.imgur.com/um7jGqh.png)
+
+You can go further:
+![](https://i.imgur.com/otMs2at.png)

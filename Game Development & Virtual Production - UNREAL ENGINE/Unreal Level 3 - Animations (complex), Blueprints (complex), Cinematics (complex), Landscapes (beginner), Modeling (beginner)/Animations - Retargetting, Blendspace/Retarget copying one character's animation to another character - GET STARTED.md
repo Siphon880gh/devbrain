@@ -12,7 +12,7 @@ Solution - Retargetting:
 
 May consider needing more solutions - Retargetting, then Blendspace:
 If you input a character to move and the character blends in animations from idled to walking, and the walking is blended with how fast the character moves, this is a blendspace, and you would need to do a blendspace solution after retargetting solution.
-In this case, also refer to [[Blendspace - Idle to forward walking animation playing third-person character]]
+In this case, also refer to [[Content/Dev/curriculum/Game Development & Virtual Production - UNREAL ENGINE/Unreal Level 3 - Animations (complex), Blueprints (complex), Cinematics (complex), Landscapes (beginner), Modeling (beginner)/Animations - Retargetting, Blendspace/Blendspace - Idle to forward walking animation playing third-person character]]
 
 ---
 

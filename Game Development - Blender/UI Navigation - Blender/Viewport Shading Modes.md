@@ -5,3 +5,5 @@ Then you can switch between Wireframe, Rendered, Solid, Material Preview.
 
 These are called Viewport Shading modes
 https://docs.blender.org/manual/en/2.91/editors/3dview/display/shading.html#
+
+![](https://i.imgur.com/vYX5vU1.png)
