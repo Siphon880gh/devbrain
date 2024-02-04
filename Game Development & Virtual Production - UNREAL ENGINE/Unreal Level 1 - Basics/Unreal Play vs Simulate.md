@@ -1,0 +1,2 @@
+
+The key difference between playing and simulating in the Editor is that **playing will always start the game at the Player Start location and give you control of the player character.** **Simulating doesn't move the Camera and doesn't spawn a player character**.
