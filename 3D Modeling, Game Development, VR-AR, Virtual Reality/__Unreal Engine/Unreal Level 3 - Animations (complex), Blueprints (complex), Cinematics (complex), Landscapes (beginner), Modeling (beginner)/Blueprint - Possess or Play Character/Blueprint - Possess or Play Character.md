@@ -79,3 +79,13 @@ Press Play and walk around
 If you need your character to perform locomotion animation with its arms and legs, then there are more steps involved. If your character is appropriate to be gliding as you move, then you are fine.
 
 If you need your character to have locomotion animation, then you’ll need to add a blend space that combines idled animation with walk forward animation and also interpolates your movement speed to the two animations. Refer to [[Blendspace - Idle to forward walking animation playing third-person character]]
+
+
+---
+
+Reworded:
+Third person character you control
+Involves Player Controller and Pawn and Possess
+https://www.youtube.com/watch?v=UXFl_yWQjLs
+
+Btw character objects are a subclass of Pawn already, so they can be possessed.
