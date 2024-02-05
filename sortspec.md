@@ -1,5 +1,6 @@
 ---
 sorting-spec: |-
+  3D Modeling, Game Development, VR-AR, Virtual Reality
   AI Developer
   AI Engineer
   AWS Cloud
@@ -9,8 +10,4 @@ sorting-spec: |-
   Web Development - Rapid Dev - Misc
   Web Development - Rapid Dev - Tailwind
   Web Development - Rapid Dev - Wordpress
-  Game Development - Blender
-  Game Development - Misc
-  Game Development - Three Js
-  Game Development & Virtual Production - UNREAL ENGINE
 ---

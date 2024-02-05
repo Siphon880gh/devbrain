@@ -1,5 +1,5 @@
 
-A modifier is not working as expected? ome modifiers, like the Mirror modifier, depend on the object's origin and its scale to function correctly. If an object has been scaled non-uniformly (e.g., more in one direction than another), it can cause the Mirror modifier to behave unexpectedly. Applying all transformations ensures that the object's scale is reset to 1,1,1, which is often necessary for modifiers to work as intended.
+A modifier is not working as expected? Some modifiers, like the Mirror modifier, depend on the object's origin and its scale to function correctly. If an object has been scaled non-uniformly (e.g., more in one direction than another), it can cause the Mirror modifier to behave unexpectedly. Applying all transformations ensures that the object's scale is reset to 1,1,1, which is often necessary for modifiers to work as intended.
 
 How to do:
 CTRL+A -> All Transformations
