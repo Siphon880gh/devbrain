@@ -1,1 +1,2 @@
 - SHIFT+~ to game ghost around (qwas and mouse movement) to select a view position you want. Click to commit to current view. Escape to cancel back out to prior view before ghost mode.
+- While in ghost mode, you can hold SHIFT to speed up navigation.

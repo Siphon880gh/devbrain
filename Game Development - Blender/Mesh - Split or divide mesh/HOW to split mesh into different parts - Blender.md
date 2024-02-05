@@ -101,6 +101,8 @@ Now you have separated mesh. To prove this, you can go into Object Mode, select 
 
 ----
 
+## Method 3 - Separate by selected and unselected vertexes
+
 Easily select the two parts? Then separate them by selection
 ![](https://i.imgur.com/YFCOJ0s.png)
 
@@ -109,9 +111,23 @@ Edit Mode -> Select Box ->
 Make sure to rotate around the cube that all vertexes are selected
 ![](https://i.imgur.com/u2SyZ4j.png)
 
-Press p for Separate Menu -> Selection
+Press p for Separate menu -> Selection
+This should separate the object into two selectable objects in Object Mode. This does so by reading what vertexes are selected vs unselected while in Edit Mode, then save them as two separated objects.
 
+Test this worked:
 Now go back into Object mode and select a part. Make sure it doesn't select both parts. 
 For a comprehensive test, select the other part too. If the other part makes both highlighted, you have to repeat the above steps selecting and separating in Edit Mode.
 
 ![](https://i.imgur.com/F2fXVJj.png)
+
+---
+
+## Method 4 - Separate by vertexes that are separated and not connected
+
+If this fails, you can try Separate menu -> Loose Parts
+
+As long as the object that you want to separate into two selectable objects are not connected, this will work.
+
+Select all vertexes in Edit Mode -> Press p for Separate menu -> By Loose Parts
+
+![](https://i.imgur.com/pR3cYUc.png)

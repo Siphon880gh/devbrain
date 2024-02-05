@@ -7,6 +7,8 @@ In order to perform repotology, there is a collection of techniques and tools to
 
 Required Skills: Refer to all basic lessons at [[Polybuild]]
 
+## Setup
+
 Now add those faces on the mesh. You can practice off of Suzanne the monkey:
 ![](https://i.imgur.com/7R0hCLp.png)
 
@@ -75,10 +77,19 @@ You still won't see any changes until you grab the mesh plane. Then it'll snap t
 Sped up tutorial:
 You will add more faces to cover the mesh using polybuild. You will add shrinkwrap modifier to merge pane meshes to the surface of another object.
 
+
 ---
 
 
-Shrinkwrap:
+## Polybuild
+
+Perform all Polybuild techniques in order to create a cover of polygon faces around the model. This cover will replace the previous vertexes and polygons because there are less vertexes and polygon, making animating/rigging more achieveable. Refer to [[Polybuild]] for the polybuilding techniques. Next step is shrinkwrap which will bring the cover of polygon faces and vertexes closer to the model's mesh.
+
+
+---
+
+
+## Shrinkwrap:
 From - https://www.youtube.com/watch?v=YksPYPa05LM
 
 ![](https://i.imgur.com/bYgH5L8.png)
@@ -87,8 +98,6 @@ After:
 ![](https://i.imgur.com/L5UjHnu.png)
 
 ![](https://i.imgur.com/R3TipVO.png)
-
-
 
 
 ---

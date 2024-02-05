@@ -23,6 +23,17 @@ But if you selected the top face (Press 3 for selection mode face), then press E
 
 How it works: That face will be duplicated into the new position in the tangent direction to the face mesh, then blender fills in the side gaps with continuous mesh
 
+
+---
+
+If you extrude (E) a vertex from the cube, you can click somewhere in the distance to create a new vertex connected as an edge:
+
+![](https://i.imgur.com/hYm8UBU.png)
+
+
+![](https://i.imgur.com/6E7o2OX.png)
+
+
 ----
 
 Btw, if you extend a bone, it creates more bones:
