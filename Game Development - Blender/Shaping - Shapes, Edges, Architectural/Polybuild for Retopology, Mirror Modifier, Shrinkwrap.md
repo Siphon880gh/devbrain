@@ -14,7 +14,7 @@ Now add those faces on the mesh. You can practice off of Suzanne the monkey:
 
 ![](https://i.imgur.com/h6P0X6z.png)
 
-Add a subdivision level 2 modifier (CTRL+2). Refer to [[Subdivision surface modifier]]. This will make it easier to add our new less and simplified geometries
+Add a subdivision level 2 modifier (CTRL+2). Refer to [[Subdivision Surface Modifier]]. This will make it easier to add our new less and simplified geometries
 
 Right click object -> [[Shade Auto Smooth]]
 

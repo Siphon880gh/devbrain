@@ -11,14 +11,17 @@ https://www.youtube.com/watch?v=sCdhkLUCV8A
 ---
 
 
-These are two distinct processes in 3D modelin that modify the number of polygons, each serving different purposes:
+These are two distinct processes in 3D modeling that modify the number of polygons, each serving different purposes:
 
 1. **Subdivision:**
+   - **Purpose, Reworded**: Going from less vertexes to more vertexes
    - **Purpose:** Subdivision is used to increase the detail and smoothness of a mesh by adding more geometry. It's often used when you want to add detail to a model or when preparing a low-polygon model for high-resolution rendering.
    - **Process:** When you subdivide a mesh, Blender automatically adds more vertices, edges, and faces to the model. This can be done uniformly across the entire mesh or selectively on certain parts of the mesh. The Catmull-Clark subdivision surface modifier is a common way to apply smooth subdivision in Blender.
    - **Result:** The result is a higher-polygon model with more detail and smoother surfaces. However, it can also lead to a higher computational load, making the model more resource-intensive to work with.
+   - **CAVEAT**: Subdivision is NOT the same as subdivision surface
 
 2. **Retopology:**
+   - **Purpose, Reworded**: Going from more vertexes to less vertexes
    - **Purpose:** Retopology is the process of creating a new, more efficient topology for a 3D model. It's often used after sculpting or when you have a model with a messy or overly complex wireframe. The goal is to create a mesh with a clean, organized flow of polygons, which is easier to animate, texture, and manage.
    - **Process:** This involves manually creating a new mesh over the existing one. The new mesh typically has fewer polygons and is organized in a way that follows the natural lines and features of the model. Tools like snapping, shrinkwrap modifiers, and specialized retopology software are often used.
    - **Result:** The outcome is a mesh with a cleaner, more efficient topology. This new topology is usually better for animation and other operations, as it has fewer polygons and a more logical structure. It also makes UV mapping and texturing easier and more effective.
@@ -60,33 +63,41 @@ Retopology in Blender involves creating a new, more efficient topology for a 3D 
     
     - Import or select the high-poly model you want to retopologize.
     - Ensure it's visible in the viewport.
+      
 2. **Add a New Mesh for Retopology:**
     
     - Create a new mesh (like a plane) that you will use to build the new topology.
     - Position it close to the surface of your high-poly model.
+      
 3. **Snap to Surface:**
     
     - Enable snapping (`Shift + Tab`) and set it to 'Face' mode. This makes the vertices of your new mesh snap to the surface of the high-poly model.
     - Ensure 'Project Individual Elements' and 'On the Surface' are checked.
+      
 4. **Shrinkwrap Modifier (Optional):**
     
     - You can add a Shrinkwrap modifier to your new mesh to make it cling to the surface of the high-poly model. Set the target to your high-poly model.
+      
 5. **Start Retopologizing:**
     
     - Enter Edit Mode (`Tab`) on your new mesh.
     - Start extruding (`E`) vertices, edges, or faces to follow the contours of your high-poly model.
     - Focus on creating a topology that follows the natural flow of the model’s surface with quads (four-sided polygons) as much as possible.
+      
 6. **Use the F2 Add-On (Optional):**
     
     - Blender has an add-on called F2, which can speed up the retopology process. It allows for quick filling of faces and adjusting vertices.
+      
 7. **Adjust and Refine:**
     
     - Use tools like Grab (`G`), Loop Cut (`Ctrl + R`), and Knife (`K`) to adjust and refine the topology.
     - Continuously rotate your view to ensure the new topology conforms well to the high-poly model.
+      
 8. **Check the Topology:**
     
     - Periodically turn off the visibility of the high-poly model to check the topology of your new mesh.
     - Ensure there are no unnecessary polygons and that the flow of edges supports the form and any future animations.
+      
 9. **Finalize:**
     
     - Once you are satisfied with the retopology, you can apply the Shrinkwrap modifier if you used it.

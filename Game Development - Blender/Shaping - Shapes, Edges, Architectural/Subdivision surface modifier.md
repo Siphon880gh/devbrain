@@ -1,4 +1,8 @@
 
+**Caveat** Subdivision surface is NOT the same as Subdivision. Refer to [[Subdivide vs Subdivision Surface]]
+
+---
+
 Subdivision breaks down current geometries into more geometries. You'd normally right click the object -> Subdivision, as many times repeatedly as needed to have the amount of geometries you want. This is destructive meaning you can only undo if you haven't closed the project yet. By adding a modifier, it'd be nondestructive and you can toggle on and off the amount of subdivisions. In addition, Blender has shortcut keys for the different levels of subdivision.
 
 CTRL+# adds a modifier that is commonly used to smooth out the geometry of a model, making a low-poly object like a cube appear more rounded or sphere-like.
