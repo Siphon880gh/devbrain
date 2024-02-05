@@ -15,9 +15,9 @@ Con: You don't get to manipulate individual parts anymore in Blender. You'd have
 
 
 Approach - Parenting to an invisible item:
-1. Parent all objects to an empty in blender 
-2. Select empty last - Export fbx (selection only) 
-3. Import to UE as a "FBX scene"
+1. Parent all objects to an empty (SHIFT+A->Empty->Cube) in Blender .
+2. Select empty last - Export fbx (selection only).
+3. Import to UE as a "FBX scene".
    
 This will result in a "master" origin point represented by the empty, whilst each individual section retains its own vector data.
 

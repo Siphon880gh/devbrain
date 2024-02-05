@@ -1,4 +1,3 @@
-
   
 **Distorting**: When you move a vertex and it affects the connected faces in Blender, it's more accurate to describe the effect on the face as "**distorting**." Distortion refers to any alteration in the original shape or geometry of the face due to the movement of vertices. This term broadly covers any changes that result in the face no longer maintaining its original flatness or shape, which can include **stretching**, **compressing**, or **twisting**.
 
