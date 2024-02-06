@@ -1,6 +1,6 @@
 ---
 sorting-spec: |-
-  3D Modeling, Game Development, VR-AR, Virtual Reality
+  3D Modeling, Game Development, VR-AR, Virtual Production
   AI Developer
   AI Engineer
   AWS Cloud
