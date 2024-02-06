@@ -210,7 +210,7 @@ In Blender, saving animations as actions is an important step, especially when y
     
 3. **Choose Bake Action**:
     
-    - Go to `Object` > `Animation` > `Bake Action...` in the 3D Viewport menu. This opens the Bake Action settings.
+    - At Animation module, make sure in Object Mode. At secondary menu, go to `Object` > `Animation` > `Bake Action...` in the 3D Viewport menu. This opens the Bake Action settings.
 4. **Set Bake Action Settings**:
     
     - **Frame Start/End**: Set the range of frames you want to bake.

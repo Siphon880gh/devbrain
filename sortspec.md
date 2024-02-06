@@ -7,7 +7,5 @@ sorting-spec: |-
   Databases
   DevOps
   Web Development
-  Web Development - Rapid Dev - Misc
-  Web Development - Rapid Dev - Tailwind
-  Web Development - Rapid Dev - Wordpress
+  Web Development - Rapid Development
 ---

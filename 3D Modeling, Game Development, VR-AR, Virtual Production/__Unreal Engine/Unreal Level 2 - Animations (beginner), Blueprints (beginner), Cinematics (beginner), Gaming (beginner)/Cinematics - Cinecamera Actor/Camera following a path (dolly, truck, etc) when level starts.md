@@ -1,7 +1,7 @@
 
 Required knowledge:
 - Know how to create variables. Refer to [[Create object variables in Unreal]]
-- Know how to animate character or object movement. Refer to [[Animate character or object movement, Times One, or Loop Alternately (5.3)]]
+- Know how to animate character or object movement. Refer to [[Movement or rotation x1 vs looping]]
 - Know how to convert an object into Blueprint. Refer to [[Fundamental - Convert object to Blueprint]]
 
 
@@ -10,7 +10,7 @@ Setup:
 
 You'll create a cinecamera actor (Placed Actors panel) into the level. You'll convert it into a Blueprint from the Outliner/Details panels
 
-You'll animate the path using similar nodes to [[Animate character or object movement, Times One, or Loop Alternately (5.3)]]
+You'll animate the path using similar nodes to [[Movement or rotation x1 vs looping]]
 
 ![](https://i.imgur.com/pNn2MLi.png)
 

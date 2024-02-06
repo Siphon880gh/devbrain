@@ -59,3 +59,7 @@ Here is the blueprint:
 
 In this example, we will rotate on z axis:
 Timeline with float track from 0 to 5 seconds, 0 to 360. Make sure duration setting at the Timeline doesn't cut off the animation. Pipe the float track into Make Rotator's Z. Then Make Rotator can pipe return value to New Rotator parameter of "Set Actor Location". Finally, the next execution is a Delay of 5 seconds (the complete animation duration) before replaying from start - this has to be done because Timeline and Setting Coordinates happen asynchronously.
+
+
+BPThirdPersonCharacter
+Set Actor Location enough. Remember that the inheritance pattern is Actor -> Pawn -> Character

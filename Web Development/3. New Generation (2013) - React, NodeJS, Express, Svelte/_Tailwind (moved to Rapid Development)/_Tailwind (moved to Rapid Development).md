@@ -1,0 +1,1 @@
+\_Tailwind notes are moved to "Web Development - Rapid Development" which focuses on rapid web development

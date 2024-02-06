@@ -10,7 +10,7 @@ Use a sequence node which has one inlet and two outlets
 
 **Create a Sequence for Multiple Connections**: Say you want to connect "Event BeginPlay" to two different nodes, you'll need a "Sequence" node. This node allows one input to trigger multiple outputs in a sequence. Right-click on the graph, search for "Sequence", and add it to the blueprint.  
 
-The "Sequence" node has multiple output pins (Then 0, Then 1, etc.). Gs. Let’s say you are controlling a character but you also want an animation running at the same time. Connect the first output (Then 0) to the "Cast to PlayController", and connect the second output (Then 1) to the "Timeline" node that begins the animation (For animating movement, refer to [[Animate character or object movement, Times One, or Loop Alternately (5.3)]].  
+The "Sequence" node has multiple output pins (Then 0, Then 1, etc.). Gs. Let’s say you are controlling a character but you also want an animation running at the same time. Connect the first output (Then 0) to the "Cast to PlayController", and connect the second output (Then 1) to the "Timeline" node that begins the animation (For animating movement, refer to [[Movement or rotation x1 vs looping]].  
 
 Btw you can add more sequence nodes by clicking “Add pin”.
 
