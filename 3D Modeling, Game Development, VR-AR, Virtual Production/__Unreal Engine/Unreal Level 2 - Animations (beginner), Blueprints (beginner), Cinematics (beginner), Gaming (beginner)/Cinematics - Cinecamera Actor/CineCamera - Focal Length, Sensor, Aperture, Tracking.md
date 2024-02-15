@@ -15,6 +15,9 @@ Converting to Blueprint:
 
 ## Focal Length and Aperture
 
+![](https://i.imgur.com/ky0za4J.png)
+
+
 - Focal length is the distance between image sensor and lense inside the camera. this distance is inversely proportional to the wide/medium/close angle. Eg. Long focal length = close shot
 - But you can also adjust the sensor width (under Filmback → Sensor/Width/Height). The lager the number, the wider the angle.  
     

@@ -21,15 +21,41 @@ Control how fast movement when WASD:
 ## Key uses
 
 
-WASD - Keys to navigate with the camera
-ER - Elevate/de-levate aka crane
 
 F center on selected object
 G hide actor icons
 
-WASD with CMD/OPT
+WASD - Keys to navigate with the camera
+ER - Elevate/de-levate aka crane
 
-Click and drag on mouse track
+
+---
+
+Dolly forward/backward:
+LMB + drag up / down
+W or S
+
+Doll left/right:
+A or D
+
+Tilt left/right:
+LMB + drag left / right
+MSB left / right (MSB for mouse scrolling button)
+
+Tilt up/down
+MSB up/down
+
+
+Orbit: 
+OPT+LMB drag up/down
+OPT+LMB drag left/right
+
+
+And there's more!
+Try a combination of CMD, ALT, CTRL with LMB or RMB dragging
+
+---
+
 
 crane - up and down
 dolly-front and back
