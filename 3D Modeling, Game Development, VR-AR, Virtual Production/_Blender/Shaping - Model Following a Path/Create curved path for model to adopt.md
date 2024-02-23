@@ -41,24 +41,7 @@ That creates a straight path:
 In Edit Mode, you can change it into a curved path
 ![](https://i.imgur.com/fjBD3vN.png)
 
-
-To transform the path into a curve:
-Select a point -> G -> Y -> Drag mouse -> Click to commit.
-
-This is how moving a dot changes the path into a curved path. Between Edit Mode and Object Mode:
-
-![](https://i.imgur.com/5NZGwML.png)
-
-![](https://i.imgur.com/pHZd1NF.png)
-
-
-**You can fine tune further**:
-- You can add more points to create curves by selecting all points (Press A), right click path object, subdivide (S). You can subdivide as many times as you want
-![](https://i.imgur.com/05y9RMv.png)
-
-- You can extend the line at the ending dots by pressing E (extrude), Y (to constrain to an axis), then drag into new position of longer segment, click to commit
-  ![](https://i.imgur.com/LstQ9r5.png)
-- You can resize the entire path. Recommend constraining to an axis (eg. Y), like S->Y. You can go to Object Properties to change the scale if you prefer instead.
+Refer to finetuning Path
 
 ---
 
