@@ -11,6 +11,50 @@ This guide will combine supervisor and gunicorn with https. This allows for conc
   
 ---
 
+## Quick Reference: Maintenance after been setup
+
+This is quick reference back. If setting up first time on server, skip this section. This section is meant for returning to after been setup and for only server maintenance purposes.
+
+  
+
+Activate the right environment before dealing with supervisor
+```
+pyenv activate app4  
+```
+
+  
+
+Shutdown previous supervisor
+```
+supervisorctl shutdown  
+```
+  
+
+Sometimes fail to shutdown the gunicorn so double check:
+```
+ps aux | awk 5001  
+```
+  
+
+You can kill all gunicorn with this:
+```
+ps aux | grep 5001 | grep -v grep | awk '{print $2}' | xargs kill  
+```
+
+  
+Then restart Supervisor:
+```
+sudo supervisord -c /etc/supervisord.conf -l /var/log/supervisor/supervisord.log 
+```
+
+
+Checking mongo shell for database entries?
+
+Its mongo shell is actually `mongo`  → `show databases`  → etc etc
+
+---
+
+
 
 ## 1. Setup Supervisor  
 
