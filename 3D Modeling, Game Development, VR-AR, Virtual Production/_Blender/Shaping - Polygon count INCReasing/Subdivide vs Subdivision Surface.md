@@ -1,4 +1,5 @@
-Subdividing surface is NOT the same as Subdivision
+- Subdividing surface is NOT the same as Subdivision
+- Subdivision and subdivision surface modifiers are distinct techniques in Blender but they do both increase the number of faces/vertexes/edges proportionally to the number of times or the level you apply it
 
 ## Subdivide
 - Subdivision is adding vertexes that make up edges that can subdivide a model into smaller sections
