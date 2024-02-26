@@ -16,3 +16,21 @@ Anything above 15k triangles aka polygons is pretty heavy model. Especially if d
 
 
 obj is original format. fbx is good. glTF is great because it's most compatible with 3d rendering software
+
+
+---
+
+## Sketchfab shortcuts
+
+
+1 (switches back to final render)
+
+3,3 (Press 3 twice fore wireframe)
+
+  
+
+Click-drag for orbit (all directions)
+
+Mouse scroll for zoom in out
+
+Shift click-drag for panning (all directions)

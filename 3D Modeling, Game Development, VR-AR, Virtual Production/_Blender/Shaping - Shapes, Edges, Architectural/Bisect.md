@@ -1,12 +1,21 @@
 
 In edit mode, lets cut a cube with Bisect
 
+Have the face selected (press 3 then click face)
+
 Shift+Space for edit labeled menu -> Bisect (CMD+B)
+
+![](https://i.imgur.com/TbjgFCd.png)
+
 
 ![](https://i.imgur.com/4Kf1zjk.png)
 
 
-Now it's cut
+Now it's cuting time with bisect: drag and drop across two edges:
+
+![](https://i.imgur.com/9wV9voo.png)
+
+
 ![](https://i.imgur.com/ZeGviRw.png)
 
 And you can select the bottom face -> x -> Face to delete that

@@ -1,4 +1,6 @@
 
+Polybuild can decrease polygon count if you snap and shrink wrap it to the object, then merge the vertexes by distance.
+
 Use cases:
 Usually used for repotology where you add geometry on top of a mesh that has too many geometries (from either a model import or was built from sculpturing) and so many geometries that it's impractical to rig/animate with proper weight painting. By adding vertexes/faces overlaying on model, these less vertexes/faces can serve as the new weight paintable geometries for rigging/animation from the armature/bones..
 
@@ -98,6 +100,35 @@ After:
 ![](https://i.imgur.com/L5UjHnu.png)
 
 ![](https://i.imgur.com/R3TipVO.png)
+
+
+----
+
+
+## Finetuning Retopology
+
+
+![](https://i.imgur.com/bV7afWs.png)
+
+If some retopology faces are not compliant to the underlying shape, you can add more gives to the faces by adding more geometry lines: 
+- With subdivision to both axes (right click -> S) 
+- Or with loop cut to one axis (ctrl+r) aka round cuts
+
+
+---
+
+
+
+## Cleanup
+
+
+Merge by distance. Edit Mode: Press M -> Merge by distance
+
+![](https://i.imgur.com/Us3LaAF.png)
+
+Apply all modifiers to bake them in. Press CTRL+A or click down caret -> Apply.
+![](https://i.imgur.com/nCpOhJH.png)
+
 
 
 ---

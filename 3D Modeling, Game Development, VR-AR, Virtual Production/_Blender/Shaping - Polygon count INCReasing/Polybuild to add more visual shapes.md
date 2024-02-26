@@ -1,10 +1,13 @@
 
+Polybuild can increase polygon count if you use it to extend the surfaces and shapes of your  model
+
 Easily add another face from an edge, whether it's a triangular or a rectangular face. As you add face after face, because each new face extended from a prior edge, they're connected together. Great for creating a complex cover over a model or for creating an architectural model or base model* from scratch. 
 \*Base model from which you will sculpture from to add more organic round shapes and curves.
 
 Polybuild is usually toggled between polybuild and normal editing:
 - Adding more vertexes that are filled with continuous mesh: Press w to switch back to tweak, then add vertex with CTRL+LMB in an empty space, then select that new vertex and two vertexes of a nearby edge. Then press F to fill the face. Switch back to Polybuild to resume new faces.
 - Distorting a face to desired shape: Press w to switch back to tweak, then select vertex (press 1), then G and move into new distortion, click to commit. Switch back to Polybuild to resume new faces.
+- Recommend setting up shortcuts to easily switch between Polybuild and other tools such as Tweaking: [[Polybuild Setup - Shortcut]]
 
 Theory:
 Polybuilding is actually a streamlined way to extrude edge (for rectangular face) and to fill a new vertex with two nearby vertexes (for a triangular face) but in a create-and-connect way.
@@ -33,7 +36,9 @@ Because it extended from the nearest edge, this is a face connected to your prev
 
 ## Triangular Face
 
-Hold CTRL and click an empty area to commit a triangular face. It creates a triangular face from the nearest edge to where you clicked in a new vertex. Because it extended from the nearest edge, this is a face connected to your previous faces of polybuild.
+Hold CTRL and click an empty area to commit a triangular face. Or click and drag out a face while holding CMD.
+
+It creates a triangular face from the nearest edge to where you clicked in a new vertex or creates a triangular face to where you released the mouse click. Because it extended from the nearest edge, this is a face connected to your previous faces of polybuild.
 
 ![](https://i.imgur.com/qUzbClQ.png)
 
@@ -50,6 +55,14 @@ Click and dragging a vertex distorts the shape (originally a square) just like y
 
 Shift clicking top left corner removes it, changing a square into a triangle (originally a square)
 ![](https://i.imgur.com/RCWE1cH.png)
+
+But shift clicking a face removes the face:
+![](https://i.imgur.com/HwpBuZL.png)
+
+->
+
+![](https://i.imgur.com/hiUo3UV.png)
+
 
 ---
 

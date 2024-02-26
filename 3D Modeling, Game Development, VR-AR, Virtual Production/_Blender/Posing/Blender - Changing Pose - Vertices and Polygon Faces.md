@@ -66,4 +66,4 @@ Move:
 
 I missed a polygon on his left arm (off his wrist) - noo! Then you can either undo (there's Undo History) and restart this or try deleting that one-off vertex to see if it affects the model's appearance
 
-You may find that after rotating and translating the arm, the shoulder might have sharp extrusions. Refer to this for fixing: [[Sculpturing Related - Smoothen]]
+You may find that after rotating and translating the arm, the shoulder might have sharp extrusions. Refer to this for fixing: [[Smooth]]

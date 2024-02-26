@@ -50,5 +50,8 @@ Application: And if you have a screw object along the points of a mechnical shap
 ![](https://i.imgur.com/QIJahia.png)
 
 
+![](https://i.imgur.com/jfbsj2F.png)
+
+
 Learned from:
 https://www.youtube.com/watch?v=m81mFjpbLa4
