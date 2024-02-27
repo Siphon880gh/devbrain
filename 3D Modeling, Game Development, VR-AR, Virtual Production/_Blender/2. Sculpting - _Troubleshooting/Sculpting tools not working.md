@@ -1,0 +1,10 @@
+Make sure you’re in sculpting module and sculpt mode
+
+![](https://i.imgur.com/Lm5vaTd.png)
+
+Adjust brush and brush strength with F and Shift+F or right click
+
+Clear all masks. Press A → Clear Mask:
+![](https://i.imgur.com/HBIwvtA.png)
+
+Check the vectors/edges by going into Edit Mode. If not enough vertexes/edges, then that’s why too.

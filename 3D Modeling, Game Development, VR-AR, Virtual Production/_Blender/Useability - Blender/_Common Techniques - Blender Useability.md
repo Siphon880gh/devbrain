@@ -12,6 +12,8 @@
 - Duplicate with SHIFT+D on your selection, then drag away and click to commit position of duplicated object
 - For view shader mode switcher, press Z
 - for view angle switcher, press \`. Or you can press the numpad shortcut 1,2,3, etc. 7 numpad key for front view. 8 for top view.
+- While Edit Mode, press W to go back to tweak (useful when you need to toggle off destructive tools like knife)
+- Setup shortcut for tools like Polybuild that are commonly used but doesn't have a good shortcut (You want to setup the shortcut by right clicking Polybuild at the left toolbar -> Assign Shortcut)
 
 
 Notations:
