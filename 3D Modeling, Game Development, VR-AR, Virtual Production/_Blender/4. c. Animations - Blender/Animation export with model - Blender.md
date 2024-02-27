@@ -1,5 +1,5 @@
 
-Make sure animations can play or you finish designing your animations. Refer to [[Animate in Blender]]
+Make sure animations can play or you finish designing your animations. Refer to [[Animate in blender]]
 
 ## Make animation exportable
 

@@ -1,8 +1,22 @@
 
-A modifier is not working as expected? Some modifiers, like the Mirror modifier, depend on the object's origin and its scale to function correctly. If an object has been scaled non-uniformly (e.g., more in one direction than another), it can cause the Mirror modifier to behave unexpectedly. Applying all transformations ensures that the object's scale is reset to 1,1,1, which is often necessary for modifiers to work as intended.
+A modifier is not working as expected - seemingly out of sync with the object/model? 
 
-How to do:
-CTRL+A -> All Transformations
+Some modifiers, like the Mirror modifier, depend on the object's origin and its scale to function correctly. 
+	- You want to set the 3d Cursor and object to 0,0,0 origin
+	- Applying all transformations ensures that the object's scale is reset to 1,1,1, which is often necessary for modifiers to work as intended.
+
+For example:  If an object has been scaled non-uniformly (e.g., more in one direction than another), it can cause the Mirror modifier to behave unexpectedly. 
+
+---
+
+**Set Origins**
+1. Object Mode: Snap menu (Shift+S ) -> Cursor to World Origin
+2. Object Mode: Select object -> Object Properties (at Properties panel) -> Set Location X, Y, Z to 0,0,0
+3. Object Mode: Right click object -> Set Origin -> Geometry to 3D Cursor
+
+
+**Apply All Transformations:**
+1. Object Mode: Select Object (A to select all) -> Apply menu (CTRL+A) -> All Transformations
 
 ---
 

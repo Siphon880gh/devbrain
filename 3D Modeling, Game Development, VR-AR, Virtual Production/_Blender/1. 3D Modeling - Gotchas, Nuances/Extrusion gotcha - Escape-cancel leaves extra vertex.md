@@ -1,0 +1,3 @@
+During an extrusion, escape-cancel leaves extra vertex
+
+When extruded from an edge or vertex, you can press Escape to cancel, however it still created a duplicate vertex (just you can't see it because there's a new vertex at the same coordinate as the old vertex). You can box select that area of where the vertex duplicate and vertex original are, then merge by distance (M → merge by distance). Or after you press escape, you can undo (CMD+Z) to remove the extra vertex immediately (this obviously won't work if it had been a long time ago).

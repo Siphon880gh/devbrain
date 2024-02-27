@@ -11,3 +11,6 @@ center 5 for switching between perspective and ortho views
 bottom 0 for toggling camera view
 
 +/- for zooming
+
+
+The numpad 7,9,1,3

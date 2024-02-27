@@ -1,4 +1,3 @@
-
 ## What are modifiers?
 
 Modifiers in Blender are tools that allow you to automatically perform complex operations on mesh objects, curves, texts, and other object types. They are used to non-destructively transform, deform, and modify the geometry or appearance of an object in various ways. Here's a brief overview:

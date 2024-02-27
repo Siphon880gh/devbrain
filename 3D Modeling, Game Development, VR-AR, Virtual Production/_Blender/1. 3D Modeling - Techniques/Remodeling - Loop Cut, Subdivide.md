@@ -1,5 +1,5 @@
 
-Loopcut and subdivide are techniques to add vertexes and edges overlaying the model, giving you more points of geometry to change the shape of the model, either entirely or adding smaller shapes to the model.
+Loopcut and subdivide are techniques to add vertexes and edges overlaying the model, giving you more points of geometry to change the shape of the model (or remodel your character, etc), either entirely or adding smaller shapes to the model.
 
 Loopcut:
 [[Loop Cut (Aka Round cut) - Remodeling possible after adding more vertexes]]
