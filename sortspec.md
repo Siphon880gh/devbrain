@@ -8,4 +8,5 @@ sorting-spec: |-
   DevOps
   Web Development
   Web Development - Rapid Development
+  ---
 ---
