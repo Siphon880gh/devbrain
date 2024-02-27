@@ -6,9 +6,9 @@
   "scripts": {
     "commit": "git add -A; git commit -m 'Content update';",
     "push": "git push origin main;",
-    "browserMac": "open \"https://wengindustry.com/tools/gamified-knowledge/curriculum/server-update.php?secret=123\"",
-    "browserPC":  "xdg-open \"https://wengindustry.com/tools/gamified-knowledge/curriculum/server-update.php?secret=123\"",
-    "browserLinux":  "start \"https://wengindustry.com/tools/gamified-knowledge/curriculum/server-update.php?secret=123\"",    
+    "browserMac": "open \"https://wengindustry.com/tools/devbrain/curriculum/server-update.php?secret=123\"",
+    "browserPC":  "xdg-open \"https://wengindustry.com/tools/devbrain/curriculum/server-update.php?secret=123\"",
+    "browserLinux":  "start \"https://wengindustry.com/tools/devbrain/curriculum/server-update.php?secret=123\"",    
     "deploy": "npm run commit; npm run push && npm run browserMac;"
   },
   "author": "",

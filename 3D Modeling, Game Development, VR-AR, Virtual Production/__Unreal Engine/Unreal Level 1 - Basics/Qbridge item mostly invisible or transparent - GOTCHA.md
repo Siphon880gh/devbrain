@@ -1,2 +1,0 @@
-
-If you see only bits of the texture of a new Qbridge item dropped into Viewport, move your camera behind it. You may be on the side that is transparent. Commonly, items may have one side that’s opaque to save rendering/performance time while editing. You'll have to rotate/translate the opaque side into the camera view.

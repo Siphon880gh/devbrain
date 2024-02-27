@@ -1,1 +1,0 @@
-Say you have a green fog behind your character. Your edge light from behind the character should also be changed to some green. And the light in front of the camera should be somewhat green-blue. Otherwise, you are mixing in hard white/yellows.

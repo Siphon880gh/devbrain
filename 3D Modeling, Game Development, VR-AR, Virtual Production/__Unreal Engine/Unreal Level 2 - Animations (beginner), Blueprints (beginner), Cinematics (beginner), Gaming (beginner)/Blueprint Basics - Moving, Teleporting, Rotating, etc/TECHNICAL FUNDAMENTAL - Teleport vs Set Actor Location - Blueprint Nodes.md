@@ -1,3 +1,0 @@
-The Teleport node moves an Actor to the specified location. The advantage of using Teleport rather than setting the Actor's location is that if there is an obstacle at the location, then the Actor is moved to a nearby place where there will be no collision.
-
-Mnemonic: For teleport think how arbiter recall works in StarCraft 1 by making sure units take up empty area. For Set Location, think of it as it has to be those location coordinates.

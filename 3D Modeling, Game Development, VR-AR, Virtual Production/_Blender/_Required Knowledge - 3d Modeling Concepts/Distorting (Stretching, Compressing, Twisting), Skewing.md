@@ -1,4 +1,0 @@
-  
-**Distorting**: When you move a vertex and it affects the connected faces in Blender, it's more accurate to describe the effect on the face as "**distorting**." Distortion refers to any alteration in the original shape or geometry of the face due to the movement of vertices. This term broadly covers any changes that result in the face no longer maintaining its original flatness or shape, which can include **stretching**, **compressing**, or **twisting**.
-
-**Skewing**, on the other hand, is a specific type of distortion where elements of the object are shifted in a slanting or diagonal manner, maintaining parallelism among lines that were parallel before the transformation. Skewing is a specific transformation that can occur as a result of vertex manipulation, but it's just one of many ways that a face can be distorted. Thus, while skewing is a form of distortion, not all distortions are skewing.
