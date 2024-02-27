@@ -1,4 +1,6 @@
 
+Why bevel has its own folder?
+
 You can bevel to create angular step-wise edges, 
 You can bevel to create arching rounded edges,
 You can bevel a. corner to be angular step-wise corner or rounded corner
