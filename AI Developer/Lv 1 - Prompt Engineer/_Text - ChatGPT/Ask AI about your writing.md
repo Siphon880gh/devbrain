@@ -1,12 +1,10 @@
 
 <<
-
 ```
 Is this ok writing? I strive in jumping into different environments and hitting the floor running.
 ```
 
 \>>
-
 ```
 Your writing is clear, but there are a couple of ways to make it smoother:
 
