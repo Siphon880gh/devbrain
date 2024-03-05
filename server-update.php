@@ -27,6 +27,9 @@ if ($output === null) {
     echo "Command output:\n$output";
 }
 
+echo "<br/><br/>";
+echo "View: <a href='../'>View web notes</a><br/>";
+
 // Server migration:
 // Running shell command and it's permission denied? Get user and add it to the folder you're at
 // [root@s97-74-232-20 curriculum]# sudo chown -R <process_user> ./
