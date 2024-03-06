@@ -3,7 +3,7 @@ sorting-spec: |-
   AI Developer
   AI Engineer
   AWS Cloud
-  Databases
+  Databases - MySQL, NoSQL, and More!
   Data Structures, Algorithms, Architechtures, Systems Design
   DevOps
   Plug-in Development
