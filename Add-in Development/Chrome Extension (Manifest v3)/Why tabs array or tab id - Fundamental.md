@@ -1,0 +1,7 @@
+When you're developing a Chrome extension, you might have multiple browser windows or tabs open, and each of them can have its own DevTools window. Each DevTools window is associated with a specific browser tab. If your extension is active in multiple tabs, each tab's DevTools is essentially a separate instance with its own context.
+
+When you send a message using `chrome.runtime.sendMessage`, it broadcasts the message to all listeners within the extension's context. If you have multiple DevTools windows open (i.e., multiple instances of your DevTools script running), all of them will receive the message. This can lead to unintended behavior or confusion because you might not be able to determine which DevTools instance the message is intended for.
+
+For example, let's say you have two browser tabs open, both with DevTools open, and you're inspecting elements in both. If `sidebar.js` sends a message intended for one specific DevTools instance, both instances will receive it, which might not be the desired behavior.
+
+That's why, when dealing with communication between `sidebar.js` and `devtools.js`, it's often better to establish a direct connection between the two using `chrome.runtime.connect`. This way, you can ensure that messages are sent and received by the correct pair of scripts associated with a specific DevTools instance.
