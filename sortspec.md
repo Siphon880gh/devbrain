@@ -4,6 +4,7 @@ sorting-spec: |-
   AI Engineer
   AWS Cloud
   Databases
+  Data Structures, Algorithms, Architechtures, Systems Design
   DevOps
   Plug-in Development
   Web Development
