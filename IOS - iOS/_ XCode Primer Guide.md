@@ -76,6 +76,29 @@ Have a view inside another view on the UI builder. Have the inner UI view smalle
 Later at the Inspector Panel, you can adjust the constant and/or multiplier (gs) which allows you to set it proportionally other than 100% width or height.
 
 
+### Scene Navigator directly editing the constraints
+
+Edit the Constraints directly in the scene navigator but they're not in order? Just Filter at the bottom of navigator by the View name. Instead of typing the name though, you can press Enter on a control in the scene navigator, then CMD+C to start copying/pasting, then paste to Filter. To clear Filter easily, press Escape key.
+
+Btw, from the scene navigator's constraints, you can add more programming elements to the constraints like math/percentages:
+```
+herotlc.width = 0.15 × width + 2.25
+```
+
+
+￼![](https://i.imgur.com/RtYeHcR.png)
+
+
+
+Remember height and width don't show up as constraints in Scene navigator (poor design decision by Apple), and you're often working with one X position and width OR one Y position and height. Show width or height by opening inspector on the control selected in the scene navigator and opening the Size inspector to the right. 
+
+WARNING: Sometimes editing the constraints directly in Scene navigator doesn't affect the actual constraints - then you'll have to go to Size inspector instead.
+
+￼![](https://i.imgur.com/UtMgMYW.png)
+
+
+When resolving conflicting constraints in the scene navigator, it may ask you to delete constraints. Before the modal that lets you choose which constraints to delete, you can click the constraints under Conflicting Constraints, and it'll highlight the control/element/view on the scene
+
 ---
 
 ## Coding Logic
@@ -122,85 +145,27 @@ user_pic !== "Incomplete"
 ```
 Otherwise it may think you are unwrapping an optional, and it could error that it can't build (especially here where it's a hard coded string that doesn't need unwrapping).
 
-W
+---
 
+## Launch Screen
 
-@ Essential
+In Xcode, configuring the launch screen for your iOS app is crucial for providing a smooth and branded first impression when users open your app. You have correctly outlined two primary methods to set up or modify the launch screen in Xcode:
 
-Changing height after it's been loaded. You need to turn off autosizing mask (so the phone doesn't take over the laying out) AND then add a height anchor.
-Also: Changing constraints after it's been loaded. Useful if detecting device and readjusting the layout dynamically
+1. **Using the Info.plist for a Simple Static Launch Screen:**
+   - Navigate to the top-level project in the Xcode Project Navigator.
+   - Select your target and then go to the "Info" tab.
+   - Here, you can specify basic settings for your launch screen using keys like `UILaunchStoryboardName` (to specify the launch screen storyboard) or `UILaunchImages` (to define static launch images).
+   - This approach is straightforward but is generally more limited compared to using a storyboard, as it's more suited for static images and doesn't allow for much customization or dynamic content.
 
-Near end of ViewDidLoad:
-```
-        profilePicView.translatesAutoresizingMaskIntoConstraints = false;
-        profilePicView.heightAnchor.constraint(equalToConstant: 100).isActive = true;
-    	redView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
-        labelY.centerYAnchor.constraint(equalTo: userMixoView.centerYAnchor, constant: 200).isActive = true
-        userMixoView.topAnchor.constraint(equalTo: profilePicView.bottomAnchor, constant: 100).isActive = true;
-```
+2. **Creating and Using a LaunchScreen.storyboard:**
+   - Choose File > New > File (or press CMD+N) to create a new file.
+   - Select "Launch Screen" from the user interface section. This will create a `LaunchScreen.storyboard` file.
+   - You can now design your launch screen using the Interface Builder. This method allows for more flexibility compared to the Info.plist method. You can add various UI elements, arrange them as needed, and even apply constraints for different screen sizes.
+   - After creating and customizing your `LaunchScreen.storyboard`, ensure that it is selected as the launch screen file in your app target's settings. You typically set this in the "General" tab of your target settings under "App Icons and Launch Images" by specifying the `LaunchScreen.storyboard` in the "Launch Screen File" field.
 
-And you determine screen width with:
-```
-         let screenRect = UIScreen.main.bounds
-         let screenWidth = screenRect.size.width
-         let screenHeight = screenRect.size.height
-```
+Using a storyboard for your launch screen is the recommended approach, especially for apps that require more than a simple static image. It offers the flexibility to create a more dynamic and adaptive launch experience that can accommodate different devices and screen sizes, enhancing the overall user experience.
 
-@ Fundamental
-
-Reference:
-CMD+SHIFT+0  
-Zoom in / out
-CMD+SHIFT +/-
-
-
-@ Essential (Common workflow)
-Edit the Constraints directly in the scene navigator but they're not in order? Just Filter at the bottom of navigator by the View name. Instead of typing the name though, you can press Enter on a control in the scene navigator, then CMD+C to start copying/pasting, then paste to Filter. To clear Filter easily, press Escape key.
-
-Btw, from the scene navigator's constraints, you can add more programming elements to the constraints like math/percentages:
-```
-herotlc.width = 0.15 × width + 2.25
-```
-
-
-￼![](https://i.imgur.com/RtYeHcR.png)
-
-
-
-Remember height and width don't show up as restraints in Scene navigator (poor design decision by Apple), and you're often working with one X position and width <OR> one Y position and height. Show width or height by opening inspector on the control selected in the scene navigator and opening the Size inspector to the right. 
-
-WARNING: Sometimes editing the constraints directly in Scene navigator doesn't affect the actual constraints - then you'll have to go to Size inspector instead.
-
-￼![](https://i.imgur.com/UtMgMYW.png)
-
-
-When resolving conflicting constraints in the scene navigator, it may ask you to delete constraints. Before the modal that lets you choose which constraints to delete, you can click the constraints under Conflicting Constraints, and it'll highlight the control/element/view on the scene
-
-@ Essential
-Launching screen. Two options you have: (UNTESTED)
-Top level project -> Target -> Info -> Launch screen
-Or, create New File -> Launch Screen -> LaunchScreen.storyboard
-
-@ Fundamental
-iOS doesnt automatically dismiss keyboard when the "Done" at bottom right of keyboard is pressed
-
-You have to delegate the textfield to its own methods then override its event handler:
-```
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//...
-        self.txtPassword.delegate = self
-	}
-
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
-    }
-```
-
-The endEditing makes the keyboard go away        
-
+---
 
 @ Fundamental
 You have to import foundation in your code for Swift. Reason: When importing Foundation (or anything else like Cocoa or UIKit that will import it implicitly) Swift automatically converts some Objective-C types to Swift types, and some Swift types to Objective-C types, and a number of data types in Swift and Objective-C can be used interchangeably. Data types that are convertible or can be used interchangeably are referred to as bridged data types.
