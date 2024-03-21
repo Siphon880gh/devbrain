@@ -7,7 +7,7 @@ In React, you should use the `htmlFor` attribute instead of `for` when working w
 
 Here's an example of how you should write the `label` element in JSX:
 
-```jsx
+```
 <label htmlFor="id">Label Text</label>
 ```
 

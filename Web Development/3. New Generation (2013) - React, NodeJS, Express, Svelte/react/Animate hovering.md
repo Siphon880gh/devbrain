@@ -1,10 +1,10 @@
-How:
+**How:**
 
 Use a combination of onMouseEnter and onMouseLeave with state that conditionally renders a styling class.
 
 ---
 
-Nuances
+**Nuances**
 
 Why many nuances? React is not the way how javascript was originally programmed to work, so it's "hackish" and there are workarounds you must consider.
 
