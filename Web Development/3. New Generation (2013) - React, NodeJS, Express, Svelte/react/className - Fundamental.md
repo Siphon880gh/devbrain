@@ -2,7 +2,8 @@
 <<
 React forces me to use className. Why?
 
->>
+
+\<<
 In React, the attribute `className` is used instead of `class` for defining CSS classes on elements. This is because `class` is a reserved keyword in JavaScript, and using it directly in JSX would cause a syntax error.
 
 Since JSX is a syntax extension for JavaScript, it needs to use slightly different attribute names to avoid conflicts with JavaScript keywords. The use of `className` instead of `class` is one such example.

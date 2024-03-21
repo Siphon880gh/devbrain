@@ -4,7 +4,9 @@
   "description": "By Weng Fei Fung. Working on making my coding snippets and guides sharable and contributable between a separate repository here and my Gamified Knowledge app at https://github.com/Siphon880gh/gamified-knowledge. Cooking up.",
   "main": "index.js",
   "scripts": {
-    "commit": "git add -A; FILENAMES=`git diff --cached --name-only | while read -r file; do basename \"$file\"; done | tr '\n' ','` && git commit -m \"New - $FILENAMES\";",
+
+    "commit": "git add -A; FILENAMES=$(git status --short | grep '^[^DR]' | awk '{for (i=2; i<=NF; i++) printf \"%s%s\", $i, (i==NF ? \"\\n\" : \" \")}' | while read -r file; do echo \"\\\"$(basename \\\"$file\\\"); done | paste -sd ';' -); echo $FILENAMES;",
+  
     "old-commit(shows full path)": "git add -A; FILENAMES=`git diff --cached --name-only | tr '\n' ';'` && git commit -m \"New - $FILENAMES\";",
     "old-commit(all commits called content update)": "git add -A; git commit -m 'Content update';",
     "push": "git push origin main;",
