@@ -1,4 +1,3 @@
-
 <<
 React is complaining about my for in <label for="id">
 

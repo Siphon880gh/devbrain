@@ -1,6 +1,5 @@
 
-Dev React Analytics of website performance
-
+Purpose: React Analytics of website performance
 Status:Tested
 
 https://create-react-app.dev/docs/measuring-performance/
