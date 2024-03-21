@@ -9,109 +9,120 @@ Ui view outlet into variables at view controller class code
 ≥ ≤
 
 
---
+---
 
-@ Fundamental links that open in phone's web browser
-``` 
-@IBAction func joinLinkTapped(_ sender: Any) {
-        guard let url = URL(string: "https://mixo.vip/mentorship") else { return }
-        UIApplication.shared.openURL(url)
-    } 
+## Interface Builder
+
+Aka UI Builder
+
+Xcode includes a tool called Interface Builder, which is sometimes referred to as the UI Builder. This tool allows developers to design their app's user interface visually. Within Interface Builder, you have the option to use either Storyboards or XIB files to lay out your user interfaces:
+
+### Storyboards
+
+- Allow you to design multiple screens (view controllers) within a single file, showing the flow and transition between these screens.
+- Useful for visualizing the overall flow and navigation of your app.
+
+### XIB Files
+
+- Used to design individual screens or reusable UI components.
+- Ideal for creating views that can be reused across different parts of your app or in multiple apps.
+
+
+Both Storyboards and XIB files offer a drag-and-drop interface for arranging UI elements, setting up constraints for Auto Layout, and configuring properties of UI components. You can also establish connections between your UI elements and the corresponding Swift or Objective-C code, enabling interactive and dynamic behaviors.
+
+---
+
+## Type Safety
+
+Swift requires you to indicate the type of the variable you initialize which could lead to interesting problems. Lets look at how Typeof is used to solve these problems.
+
+Typeof
+- Why? When you're integrating a new API into your project, understanding the types it expects and returns is crucial for ensuring compatibility and functionality. By knowing the data types, you can properly interface with the API, pass the correct types, and handle the returned data appropriately.
+```
+let exampleVariable = "Hello, World!"
+print(type(of: exampleVariable))
+```
+- Why? Sometimes, you may need to declare a variable without immediately assigning a value to it, especially if its value will be determined later in your code. Knowing the exact type of the value that will be assigned later is crucial for the variable's declaration. This is particularly important in Swift, where type safety is a key feature. You can have the type more dynamic:
+
+```
+// Assume futureValue is what you will eventually assign to your variable
+let futureValue = getFutureValue() // This function is hypothetical
+// Determine the type
+let futureValueType = type(of: futureValue)
+
+// Now you can declare your variable with the correct type
+var myVariable: futureValueType
+
 ```
 
-Fundamental: Figuring out the data type.
-- Why? Useful for probing a new API you are trying to adapt
-- Why? Sometimes forced to create a variable with a specific type that you will use at a later implementation but you don't know what that specific type is so you'll do type(of:) on that implementation, so that you know how to initialize the variable.
-print(type(of:))
 
+---
 
-@ Fundamental:  Storyboard UI Builder  -> Aspect ratio constraint
+## Constraints
+
+### Aspect Ratio Constraint
+In iOS development using Xcode, the aspect ratio constraint is used to maintain a consistent ratio of width to height (or height to width) for a UI element, regardless of the overall screen size or other layout changes. This is particularly useful in responsive design, where you want certain elements to scale proportionally across different device sizes and orientations.
+
+For example, if you have an image view and you want to ensure that it always maintains a 16:9 ratio (common for video content), you would set an aspect ratio constraint of 16:9 on the image view. This means that no matter how the layout changes, the image view will adjust its size to maintain this ratio, preventing it from becoming distorted.
+
+Storyboard UI Builder  -> Aspect ratio constraint
 CTRL drag an UI view to itself, then click "Aspect Ratio" on the popup menu
 
-@ Fundamental:  Storyboard UI Builder  -> Proportional height/width constraint
+
+## Proportional Height/Width Constraints
+Storyboard UI Builder  -> Proportional height/width constraint
 Have a view inside another view on the UI builder. Have the inner UI view smaller than the parent for now. Then CTRL drag the child UI view onto the parent UI view's empty space. Click Equal Widths or Equal Heights.
 
 Later at the Inspector Panel, you can adjust the constant and/or multiplier (gs) which allows you to set it proportionally other than 100% width or height.
 
 
-@ Fundamental
-If main storyboard file not showing up, open Info.plist in XCode, and:
-Main storyboard file base name => Main
-Main on the right is whatever storyboard name (no file extension)
+---
 
+## Coding Logic
 
-# When duplicating a scene board
-Click a scene board by its title bar. Then CMD+C, CMD+V. Then it might look like it's not duplicated but you can look at the Document Outline to see a new scene was created. Then drag and drop the scene board elsewhere because it was on top of the older scene board. There will be an error that two view controllers have the same storyboard identifier. Go to the Identity Inspector and change the Storyboard ID to an appropriate name. Change the class name too after you create a VC swift file with the right class name.
+### Optionals and Unwrapping
+In Swift, optionals are a powerful feature that allow variables to hold either a value or `nil`, indicating the absence of a value. You're correct that a variable is made optional by appending a `?` to its type. When you want to access the value of an optional, you must safely unwrap it because the optional might contain `nil` rather than an actual value.
 
-OBSOLETE way: In Document Outline, select the scene board (entire scene board at root level of document outline). CMD+C
-Click an empty area in the storyboard (can even be another storyboard), and CMD + V. You might have to drag it back into place on the storyboard visually
+There are several ways to unwrap an optional in Swift:
 
+1. **Force Unwrapping:** You can use the `!` operator to forcefully unwrap an optional. This approach should be used with caution because if the optional is `nil` when it's forcefully unwrapped, your program will crash. Example:
+   ```swift
+   var optionalNumber: Int? = 5
+   let number = optionalNumber!
+   ```
 
+2. **Optional Binding:** You can use `if let` or `guard let` to safely unwrap an optional. This approach is preferred because it checks for `nil` and only executes the code block if there's a non-`nil` value. Example:
+   ```swift
+   var optionalNumber: Int? = 5
+   if let number = optionalNumber {
+       print("There is a number: \(number)")
+   } else {
+       print("The optional is nil.")
+   }
+   ```
 
-@ Fundamental
-When doing not operator, be careful. You should add spacing:
+3. **Nil Coalescing Operator (`??`):** This operator provides a default value for the optional if it is `nil`. It's a succinct way to handle `nil` values while unwrapping. Example:
+   ```swift
+   var optionalNumber: Int? = nil
+   let number = optionalNumber ?? 0  // number is 0 if optionalNumber is nil
+   ```
+
+4. **Optional Chaining:** This is a way to query an optional within a chain of properties, methods, and subscripts where the entire chain fails gracefully if the optional is `nil`. Example:
+   ```swift
+   var optionalString: String? = "Hello"
+   let count = optionalString?.count  // count is an optional Int
+   ```
+
+Using optionals and unwrapping them properly is crucial for writing safe and robust Swift code, helping to prevent runtime crashes due to `nil` values.
+
+### Side effect: Comparison Not operator should not be confused with Unwrapping operator
+When doing a comparison Not operator, you need the spacing:
 ```
 user_pic !== "Incomplete"
 ```
-Otherwise it may think you are unwrapping a value which is probably not an optional (especially if you hard coded a string), then it errors and can't build
+Otherwise it may think you are unwrapping an optional, and it could error that it can't build (especially here where it's a hard coded string that doesn't need unwrapping).
 
-@ Essential
-Changing string to url encoded
-```
-let urlMessage = message!.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-```
-
-
-@Fundamental
-Terminology:
-In Swift, variables that may or may not have values could end with ? which makes it an OPTIONAL. But when assigning value to another variable or displaying it to the screen, you would UNWRAP the optional.
-
-@ Fundamental
-
-Run code when the view loads because user navigated back then forward (by tapping modal background). 
-```
-    override func viewWillAppear(_ animated: Bool) {
-        //..
-    }
-```
-
-Otherwise if it's loaded by clicking a button or programmatically like usual, use viewDidLoad
-
-@ Essential [Common]
-Trims spaces and newlines on both ends of the string
-```
-let cleanedPassword = txtPassword.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-```
-
-@ Fundamental
-Rendering next scene as a modal (with previous screen dimmed in background behind the modal) ```
-        let profileScene1NVC = mainSB.instantiateViewController(withIdentifier: "ProfileScene1NVC") as! ProfileScene1NVC
-        self.present(profileScene1NVC, animated:true, completion:nil)
-```
-
-^Keep in mind the previous screen is still in memory! It could lead to memory leak and crashes on low spec phones if you chain a bunch of screens this way
-
-
-Rendering next scene over entire screen aka root view controller
-```
-        let profileScene1NVC = mainSB.instantiateViewController(withIdentifier: "ProfileScene1NVC") as! ProfileScene1NVC
-        
-        view.window?.rootViewController = profileScene1NVC
-        view.window?.makeKeyAndVisible()
-```
-
-
-
-
-@ Workflow Setup
-
-# Workflow problem: I am wasting a huge amount of time sifting through garbage that looks like this
-2016-10-18 06:26:49.455995 Lunch[1559:32097] subsystem: com.apple.UIKit, category: HIDEventFiltered, enable_level: 0, persist_level: 0, default_ttl: 0, info_ttl: 0, debug_ttl: 0, generate_symptoms: 0, enable_oversize: 1, privacy_setting: 2, enable_private_data: 0 2016-10-18 06:26:49.458682 Lunch[1559:32097] subsystem: com.apple.UIKit, category:
-
-Solution:
-
-Product -> Scheme ->
-￼![](https://i.imgur.com/kUcbKeD.png)
+W
 
 
 @ Essential
