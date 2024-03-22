@@ -7,6 +7,7 @@ sorting-spec: |-
   Data Structures, Algorithms, Architechtures, Systems Design
   DevOps
   Version Control - git, github, gitlab
+  iOS
   Plug-in Development
   Web Development
   Web Development - Rapid Development
