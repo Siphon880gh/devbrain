@@ -91,6 +91,9 @@ Have a view inside another view on the UI builder. Have the inner UI view smalle
 
 Later at the Inspector Panel, you can adjust the constant and/or multiplier (gs) which allows you to set it proportionally other than 100% width or height.
 
+![](https://i.imgur.com/YPjxDWm.png)
+
+
 
 ### Scene Navigator directly editing the constraints
 
@@ -114,6 +117,71 @@ WARNING: Sometimes editing the constraints directly in Scene navigator doesn't a
 
 
 When resolving conflicting constraints in the scene navigator, it may ask you to delete constraints. Before the modal that lets you choose which constraints to delete, you can click the constraints under Conflicting Constraints, and it'll highlight the control/element/view on the scene
+
+
+### Clip to bounds, scale to fill, aspect fit, aspect fill
+
+In Xcode, which is Apple's integrated development environment (IDE) for macOS, you have various options to control how your user interface elements are displayed and interact with each other. Here, we'll discuss the "Clip to bounds" option in the Inspector's Attributes panel and the concepts of "Scale to fill," "Aspect Fit," and "Aspect Fill" in the context of view scaling.
+
+#### Clip to Bounds:
+
+- **What it is:** The "Clip to bounds" option in Xcode's Inspector's Attributes panel is used to determine whether subviews are clipped to the bounds of the view they are contained within.
+- **How it works:** When you enable "Clip to bounds" for a view, any of its subviews that extend beyond the edges of the parent view will be clipped, meaning they won't be visible outside the parent view's boundaries. If this option is disabled, subviews can render outside the parent view's bounds.
+- **Use cases:** This is particularly useful when you want to create a neatly contained UI where subviews should not overlap or extend beyond the designated areas. For instance, it's crucial when applying rounded corners or when you only want to show a specific portion of a larger subview.
+- Two approaches:
+	- Approach Coding
+		
+		You can do it by one line code
+		
+		```swift
+		superView.clipsToBounds = true 
+		```
+		
+		`superView` is view that your `innerView` added on that OR
+		
+	- Approach Storyboard
+		- You can also find out this property from storyBoard too.
+		- Select your `superView` and check on **Clip Subviews
+		- ![](https://i.imgur.com/43YKZGL.png)
+
+
+#### View Scaling Options - Scale to Fill, Aspect Fit, Aspect Fill:
+
+These options determine how a view's content is scaled to fit the bounds of the view itself. They are essential for handling different aspect ratios or sizes of content.
+
+1. **Scale to Fill (`scaledToFill()` in SwiftUI):**
+   - Content is scaled to completely fill the view. This may result in the content being stretched or squashed if the aspect ratios do not match.
+   - Useful when you want the content to cover the entire area of the view, without any empty spaces, even if that means the content's aspect ratio is not preserved.
+
+2. **Aspect Fit:**
+   - Content is scaled to fit the view's bounds while maintaining its aspect ratio. This might leave empty spaces (padding) if the aspect ratios do not match.
+   - Ideal when preserving the original aspect ratio of the content is crucial, and you don't mind having some empty space in the view.
+
+3. **Aspect Fill:**
+   - Content is scaled to fill the view while maintaining its aspect ratio. Unlike Aspect Fit, Aspect Fill ensures there are no empty spaces, but this might result in some parts of the content being clipped.
+   - This is useful when you want to ensure that the content completely fills the view, but you also want to maintain the content's aspect ratio.
+
+Understanding and using these options effectively can help you create user interfaces that are visually appealing and function well across different device sizes and orientations.
+
+Concept Diagram:
+![](https://i.imgur.com/QZsc6ct.png)
+
+Mode:
+![](https://i.imgur.com/kcx7qQC.png)
+
+---
+
+## Hugging and Compression Resistance
+Hugging doesn't wanna grow out (move out)
+Compression resistance don't wanna be compressed
+￼
+![](https://i.imgur.com/31muA2a.png)
+
+1. **"Hugging doesn't wanna grow out (move out)":** This likely refers to the Content Hugging Priority in Auto Layout. Content Hugging Priority is a metric that tells the system how much a view resists growing larger than its intrinsic content size. In simpler terms, if a view has a high Content Hugging Priority, it does not want to stretch or grow out beyond the size necessary to display its content. For example, if you have a label with some text, and the label's content hugging is set to a high value, the label will prefer to stay just big enough to fit its text and will resist efforts to stretch it larger.
+    
+2. **"Compression resistance don't wanna be compressed":** This refers to the Compression Resistance Priority in Auto Layout. Compression Resistance Priority is a metric that tells the system how much a view resists being made smaller than its intrinsic content size. A view with a high Compression Resistance Priority does not want to be squished or compressed to a size smaller than what is required to display its content. For instance, if a button has a high Compression Resistance Priority, the system will try to avoid shrinking the button to a point where its content (like text or image) is distorted or cut off.
+
+![](https://i.imgur.com/E4bjekd.png)
 
 
 ---
@@ -505,84 +573,6 @@ Programmatically with controls.
 ---
 
 
-& Blue safe area is wider than the simulator view so all the UIViews you add constraints for centering or relative to margins - they don't show up on your phone/simulator.
-
-Safe area is glitched so when you add constraints relative to safe area margin or the center (at 0 relative to container), then the UI view may be clipped off from your phone screen. 
-Disable the safe area and revert to constraints relative to Superview: Inspector -> First Tab -> Uncheck "Use Safe Area Layout Guides"
-
-& Common error
- doesn't contain a view controller with identifier '...'' terminating with uncaught exception of type NSException
-
-"I was having the same issue, but I could not find the "Identifier" field in the inspector. Instead, just set the field named "Storyboard ID" to what you would name the Identifier. This field can be found under the "Show the Identity inspector" tab in the inspector."
-
-
-& Common error
-this-class-is-not-key-value-coding-compliant-for-the-key
-
-- Make sure UI View's name in storyboard mode matches the outlet variable name. If you renamed any UI View, it may not have recognized you renamed it (so recreate the UIView with your desired name)
-https://becodable.com/this-class-is-not-key-value-coding-compliant-for-the-key/
-
-- Check the Outlets Inspector on the right side (two icon tabs to the right of the Attributes Inspector tab and looks like an opened circle with a dot inside) and some will have exclamation marks. Fix the outlets with exclamation marks. But be careful it can't detect all problems and put an exclamation mark. Some may be old outlet variable names in code or old ui names in the ui navigator - those might not have exclamation marks - but you have to ex out / remove them.
-    - You want to check the Outlets Inspector for the View that contains all the views, but also you might need to check the individual views (UIButton, UIImageView, etc)
-
-￼![](https://i.imgur.com/l86mFZP.png)
-
-
-
-& No keyboard screen on iOS simulator?
-Is not your code. It was SHIFT+CMD+K that turned off the simulator keyboard and connected simulator input to your actual keyboard. Somehow Shift+CMD+K was triggered. Pressing CMD+K (without Shift) disconnects the actual keyboard and re-added simulator screen keyboard.
-
----
-
-@ ESOTERIC
-
-"Clip to bounds" option in Inspector -> Attributes
-https://www.youtube.com/watch?v=356crJYlLBc
-
-Inspector's Scale to fill, Aspect Fit, Aspect Fill https://developer.apple.com/documentation/swiftui/view/scaledtofill()
-https://developer.apple.com/forums/thread/127418
-
-# "this class is not key value coding-compliant for the key X" error?"
-Right click every button/control that applies at a storyboard to look for a orange triangle/ exclamation
-￼
-![](https://i.imgur.com/FbnvZIK.png)
-
-
-And also right click for the whole story board: 
-￼
-![](https://i.imgur.com/wkJDS0g.png)
-
-
-From: https://stackoverflow.com/questions/3088059/xcode-how-to-fix-nsunknownkeyexception-reason-this-class-is-not-key-valu 
---
-
-@ RARE
-
-@ Issue: Slow storyboard:
-
-Make sure enough hard drive space.
-
-Update to latest iOS. Update to latest XCode.
-
-XCode > Preferrences... > Navigation > Navigation Style -> Open in Place
-XCode > File > Workplace Settings > Select Build System as New Build System (Default)
-
-Editor -> Canvas -> Device Bezels -> Disabled
-
-Resolved all auto layout issues (at main storyboard canvas,'s left side panel that lists all the scenes, look for any yellow or red right arrows right of the scene name. If there are, click them and make the recommended layout fixes (For example, suggested constraints, etc)
-
-Mixo.xcodeproj -> Show Packaged Contents -> Delete xcuserdata
-Mixo.xcodeproj -> Show Packaged Contents -> Nested .xocodeproj -> Show Packaged Contents -> Delete xcworkspace 
-
-Removed Mixo Test and Mixo UI Test
-
-Edit Podfile so Firebase pods are at the bottom of all other pods. Removed Mixo Test from Pod file. Then removed /Pods and Podfile.lock. Run `pod install`
-
-Delete Derived data with: `rm -rf ~/Library/Developer/Xcode/DerivedData`
-
-Restart XCode and build it again.
-
-
 @ Fundamental
 Convert Int to String
 
@@ -661,44 +651,6 @@ No such module __ when building or archiving in a Cocoa Pods project?
 Opening xcodeproj instead of xcworkspace will cause an error like this..
 
 
----
-
-Fundamental Hugging and Compression Resistance:
-Hugging doesn't wanna grow out (move out)
-Compression resistance don't wanna be compressed
-￼
-![](https://i.imgur.com/31muA2a.png)
-
-
-
----
-
-Sharing on a git? gitignore these files:
-1. Delete the Pods folder from your project
-2. Delete the .xcworkspace file,
-3. Delete the Podfile.lock file
-
-Otherwise will complain can't read license files for Firestore, and other problems
-
---
-
-Cocoa pod problems
-1. Delete the Pods folder from your project
-2. Delete the .xcworkspace file,
-3. Delete the Podfile.lock file
-pod cache clean --all 
-
----
-
-Error: I'm also stuck on Installing gRPC-Core (1.28.2)
-
-I resolved it by deleting all the cache related to gRPC at /Users/<user>/Library/Caches/CocoaPods/Pods/Release/ and ../Specs/Release/, and running pod install again.
-
-Also: It is dowing grpc core and it's submodule and it will take time. The file size is greater than or around 1 GB. So sit back and relax. If you would like to learn more then you can read my article about the same problem and the solution.
-
-Also: pod install --verbose
-Because you'll at least see what's going on
-
 
 ---
 
@@ -736,12 +688,8 @@ And change schema here:
 https://stackoverflow.com/questions/16416092/how-to-change-the-name-of-the-active-scheme-in-xcode
 
 
-@ Error: Signing for "Firebase..." requires a developer Team. 
-Under same screen where there's an error, go to Signing -> Team -> Select your developer account.
 
-You'll have to do this for all the other Firebase cocoapods that have the same error.
-
-----
+---
 
 Swift Tutorials:
 
