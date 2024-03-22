@@ -208,161 +208,20 @@ Image is covering button and label so you need to drag image below the other two
 More info: https://stackoverflow.com/questions/31748602/how-to-make-my-image-behind-my-labels
 
 
-
 ---
 
-
-@Fundamental
-
-Class property vs method
-
-@Fundamental
-Character at an index in string
-Does not work: input[3]
-
-Correct solution (Swift likes to overcomplicate everything):
-```
-let input = "Swift Tutorials"
-let char = input[input.index(input.startIndex, offsetBy: 3)]
-```
-
-https://www.simpleswiftguide.com/get-character-from-string-using-its-index-in-swift/
-
+### Title app icon  
+Change title of app that appears on home screen  
   
+Open Info.plist. If does not show up on the File Navigator, open in Finder to look for it inside your project folder, then Open with XCode.  
   
-@ Fundamentals  
+You can connect to a physical iPad/iPhone, then delete app on home screen and see when it installs a new build rather the file name is changed  
   
-for loop generating views cannot use regular for loops. Must be:  
-```  
-ForEach((0...persons.count-1), id:\.self) {  
-```  
-  
-forEach doesn't use index as iterator. It uses $0:  
-```  
-ForEach((0...responses!.count-1), id:\.self) {  
-let _ = print("Iterator \($0)");  
-Row.init($0)  
-}  
-```  
-  
-Otherwise you get this error:  
-Closure containing control flow statement cannot be used with result builder 'ViewBuilder'
+If the above fails, then you change Product Name, and Bundle Display Name here  
+[https://stackoverflow.com/questions/238980/how-to-change-the-name-of-an-ios-app](https://stackoverflow.com/questions/238980/how-to-change-the-name-of-an-ios-app)  
+And change schema here:  
+[https://stackoverflow.com/questions/16416092/how-to-change-the-name-of-the-active-scheme-in-xcode](https://stackoverflow.com/questions/16416092/how-to-change-the-name-of-the-active-scheme-in-xcode)
 
-@ Convention
-
-Helpers group/folder any class with variables you want to use globally. Can have class with static member variables and static member methods.
-
-@ Fundamental
-
-Lv 1- Basic:
-```
-for index in 1...5 {
-    print("\(index) times 5 is \(index * 5)")
-}
-```
-
-Lv 2- With array:
-
-```
-import Foundation
-
-var arr = Array(["a", "b", "c"])
-
-for i in 0...arr.count-1 {
-    print(arr[i])
-}
-```
-
-Lv2 - Alternate. Using default iterator index:
-```
-```
-import Foundation
-
-var arr = Array(["a", "b", "c"])
-
-for i in 0...arr.count-1 {
-    print(arr[index])
-    print("We are at index: \(index)")
-}
-```
-```
-
-Lv 3- With array but no more than 2 elements:
-```
-for i in 0...min(arr.count-1,2-1) {
-    print(arr[i])
-}
-```
-
-And you can have "collections" of global variables like this:
-```
-struct Creational {
-    static var myName: String?
-}
-```
-
-To be accessed via `Creational.myName` and can check for nil with `if(Creational.myName==nill)
-
-@ Essential - Dictionary that's global and mutable anywhere
-
-```
-var response: [String: Any] = [:]
-```
-
-@ Test Swift syntax at:
-http://online.swiftplayground.run/
-
---
-
-@ Fundamental func:
-
-
-```
-func aspectRatio(_ aspectRatio: CGFloat?, contentMode: ContentMode) -> some View {
-    // ...
-}
-```
-
-But note usually you can't indicate any return type at a top level (outside of classes.
-
-
-@ Fundamental debugging:
-
-print(variable or message)
-
-you can still print to console inside anywhere with a view with:
-let _ = print(geo2.frame(in: .local).width);
-
-Yes many things in SwiftUI seems like a workaround or a hack:
-https://stackoverflow.com/questions/56517813/how-to-print-to-xcode-console-in-swiftui
-
-
---
-
-
-What version Swift?
-You should know what version of swift your project is using before looking for answers at stackoverflow:
-Project first item in Navigator -> Build Settings -> Swift Compiler - Language
-
-As of 2022, latest Swift is Swift 5.
-
---
-
-Some features when you build will warn you need a certain version. Change version at two places
-
-Target 
-￼
-![](https://i.imgur.com/6Dqv6RY.png)
-
-
-Project -
-￼
-![](https://i.imgur.com/YBN8T3g.png)
-
---
-
-Debugging:
-print("Shows up in console in XCode")
 
 --
 
@@ -383,6 +242,7 @@ In Xcode, configuring the launch screen for your iOS app is crucial for providin
    - After creating and customizing your `LaunchScreen.storyboard`, ensure that it is selected as the launch screen file in your app target's settings. You typically set this in the "General" tab of your target settings under "App Icons and Launch Images" by specifying the `LaunchScreen.storyboard` in the "Launch Screen File" field.
 
 Using a storyboard for your launch screen is the recommended approach, especially for apps that require more than a simple static image. It offers the flexibility to create a more dynamic and adaptive launch experience that can accommodate different devices and screen sizes, enhancing the overall user experience.
+
 
 ---
 ## Set Images
@@ -413,11 +273,165 @@ btn.setTitle("Temperament Definitions", for: .normal)
 lb.text = "hi"
 
 
+---
+
+
+## Coding - Objective C, Swift, Get version of Swift
+
+
+Objective-C and Swift are two primary programming languages used for iOS development within Apple's Xcode IDE. Here's a brief history comparing the two:
+
+### Objective-C
+1. **Introduction**: Developed in the early 1980s by Brad Cox and Tom Love at StepStone Corporation, Objective-C was adopted by NeXT (Steve Jobs' company after leaving Apple) for its NeXTSTEP operating system.
+2. **Apple Adoption**: Apple acquired NeXT in 1996, bringing Objective-C into its ecosystem. It became the standard for macOS and later iOS development.
+3. **Features**: Objective-C is a superset of C with object-oriented capabilities and dynamic runtime. It was widely used for building robust and complex applications.
+4. **Xcode Integration**: Objective-C was fully integrated into Xcode, Apple's IDE, providing a comprehensive suite of tools for iOS and macOS development.
+
+### Swift
+1. **Introduction**: Apple introduced Swift in 2014 as a modern, fast, and type-safe programming language designed to replace Objective-C for iOS and macOS development.
+2. **Design Goals**: Swift was created to be more intuitive and easier to learn than Objective-C, with features like optional types, closures, and generics, aiming for safer, more concise code.
+3. **Swift and Xcode**: Swift was integrated into Xcode, offering advanced features like playgrounds for interactive coding and improved compiler and debugger tools.
+4. **Evolution**: Swift has rapidly evolved, with Apple and the open-source community introducing regular updates and improvements. It has become the recommended language for new iOS and macOS applications.
+
+### Transition from Objective-C to Swift
+- **Coexistence**: Developers can use both Objective-C and Swift in the same project, allowing for gradual migration rather than a complete rewrite.
+- **Community Adoption**: Swift's adoption has grown rapidly among developers due to its modern syntax, safety features, and performance improvements over Objective-C.
+- **Future**: While Objective-C is still supported, Swift is clearly the future of iOS and macOS development, with Apple and developers actively investing in its ecosystem.
+
+In summary, the transition from Objective-C to Swift in iOS development within Xcode marks a significant shift towards a more modern, safe, and developer-friendly language, reflecting the evolving needs of the platform and its developers.
+
+
+### Get Version of Swift
+You should know what version of swift your project is using before looking for answers at stackoverflow:
+
+Project first item in Navigator -> Build Settings -> Swift Compiler - Language
+
+As of 2022, latest Swift is Swift 5.
+
+
+---
+
+## Coding - Foundation Library
+
+### TLDR
+- It's a library you need to import, unless you're using UIKit or AppKit which imports it internally
+- Has functionalities of iOS you expect
+- Originally in Objective C but now bridges to Swift too
+- Foundation is associated with classes that are prefixed with "NS"
+
+### Foundation Importing, When to
+
+To use Foundation in your Swift code in Xcode, you typically need to import it explicitly at the top of your Swift source files. The Foundation framework provides a base layer of functionality for iOS and macOS apps, including data handling, time calculation, regular expressions, and more.
+
+Here's how you can import Foundation into your Swift file:
+
+```swift
+import Foundation
+```
+
+You just need to add this line at the top of your Swift file. After importing Foundation, you can use its classes and functions throughout your file.
+
+However, if you're working within a UIViewController subclass or another UIKit/AppKit class, you might see `import UIKit` or `import AppKit` instead of `import Foundation`. Since UIKit and AppKit import Foundation internally, you don't need to import Foundation explicitly if you've already imported UIKit or AppKit.
+
+Another functionality of the Foundation framework is bridging Objective-C types to Swift types, facilitating interoperability between the two languages. This is especially important because Foundation is largely built with Objective-C and provides a wide range of functionalities that are essential for iOS and macOS development.
+
+Here are some key points about how Foundation facilitates the interaction between Objective-C and Swift:
+
+1. **Objective-C Bridging**: Swift has built-in bridging for many Foundation classes. For example, when you use `NSString` in Swift, it is automatically bridged to Swift's `String` type. Similarly, `NSArray` is bridged to `Array`, `NSDictionary` to `Dictionary`, and so on. This bridging is seamless, allowing you to use Objective-C classes as if they were native Swift types in many cases. They're called bridged data types.
+
+2. **Nullability Annotations**: Foundation and other Objective-C frameworks have been updated with nullability annotations (`nullable`, `nonnull`, `null_resettable`) to provide more information about pointer nullability to Swift. This helps Swift in enforcing its strict type safety and optional handling.
+
+3. **Type Aliases**: Swift provides type aliases for many Foundation types to make them more "Swifty". For example, `TimeInterval` in Swift is a type alias for `NSTimeInterval` in Objective-C.
+
+4. **Extensions and Protocols**: Swift extends many Foundation classes and adopts Foundation protocols to make them more Swift-like. For example, Swift adds additional functionality to Foundation classes through extensions, and many Foundation protocols are adopted by Swift types to enhance interoperability.
+
+5. **Generics**: Swift's use of generics with Foundation types like `NSArray` and `NSDictionary` allows for more type-safe collections, translating into Swift's `Array` and `Dictionary` with specific element types.
+
+By importing Foundation in a Swift file, you not only get access to a wealth of useful functionalities but also a smoother interoperability experience when working with Objective-C codebases or utilizing Objective-C frameworks in Swift projects.
+
+### Foundation classes and methods
+
+Here's an overview of some notable classes and their methods from the Foundation framework:
+
+1. **NSString**
+    
+    - `length`: Returns the number of characters in the string.
+    - `substringFromIndex:`: Returns a substring starting from the specified index.
+    - `stringByAppendingString:`: Appends a string to the receiver.
+2. **NSArray**
+    
+    - `count`: Returns the number of objects in the array.
+    - `objectAtIndex:`: Returns the object located at the specified index.
+    - `arrayByAddingObject:`: Returns a new array that is the result of adding a given object to the receiver.
+3. **NSDictionary**
+    
+    - `objectForKey:`: Returns the value associated with a given key.
+    - `allKeys`: Returns an array containing the dictionary’s keys.
+    - `allValues`: Returns an array containing the dictionary’s values.
+4. **NSNumber**
+    
+    - `numberWithInt:`, `numberWithFloat:`, etc.: Creates and returns an NSNumber object containing a given value, treating it as a specified C data type.
+    - `intValue`, `floatValue`, etc.: Returns the value of the receiver as a native C data type.
+5. **NSDate**
+    
+    - `date`: Returns the current date and time.
+    - `timeIntervalSince1970`: Returns the interval between the receiver and the first instant of 1 January 1970, GMT.
+    - `dateByAddingTimeInterval:`: Returns a new date object that is a given number of seconds later than the receiver.
+6. **NSFileManager**
+    
+    - `defaultManager`: Returns the shared file manager object for the process.
+    - `fileExistsAtPath:`: Returns a Boolean value that indicates whether a file or directory exists at a specified path.
+    - `createDirectoryAtPath:withIntermediateDirectories:attributes:error:`: Creates a directory at the specified path.
+7. **NSUserDefaults**
+    
+    - `standardUserDefaults`: Returns the shared defaults object.
+    - `objectForKey:`: Returns the object associated with the specified key.
+    - `setObject:forKey:`: Sets the value of the specified default key.
+8. **NSNotificationCenter**
+    
+    - `defaultCenter`: Returns the process’s default notification center.
+    - `addObserver:selector:name:object:`: Adds an observer for a notification.
+    - `postNotificationName:object:`: Posts a given notification to the receiver.
+9. **NSPredicate**
+    
+    - `predicateWithFormat:`: Returns a new predicate formed by parsing a predicate format string.
+    - `evaluateWithObject:`: Returns a Boolean value that indicates whether a specified object matches the conditions specified by the predicate.
+10. **NSJSONSerialization**
+    
+    - `dataWithJSONObject:options:error:`: Returns JSON data from a Foundation object.
+    - `JSONObjectWithData:options:error:`: Returns a Foundation object from given JSON data.
+
+These classes and methods provide a glimpse into the capabilities of the Foundation framework, which offers extensive functionality for handling common tasks in app development on Apple's platforms.
+
+### History of NS and Foundation
+
+People may get confused why NS is associated with Foundation.
+
+The "NS" prefix in the Foundation framework's classes stands for "NeXTSTEP," which is a historical reference to the NeXTSTEP operating system. NeXTSTEP was developed by NeXT, a company founded by Steve Jobs after he left Apple in the mid-1980s. The NeXTSTEP operating system is significant because it introduced many advanced features and concepts in software development, which were ahead of its time.
+
+When Apple acquired NeXT in 1996, it brought not only Steve Jobs back to the company but also NeXTSTEP's technology, which became the foundation for macOS (originally Mac OS X). The Foundation framework in macOS and its subsequent variations for iOS, watchOS, and tvOS, inherited the NeXTSTEP's class prefixes as a nod to its origins.
+
+The "NS" prefix is now synonymous with the core set of Objective-C classes that provide basic programmatic interfaces, which are part of the Foundation framework. Even though the framework is called Foundation, the "NS" prefix remains as a historical artifact, reflecting the rich lineage and evolution of Apple's operating systems and development frameworks.
 
 ---
 
 
-## Coding Logic
+## Coding - Comments
+
+In Swift, you can add a comment in the middle of a line using the double forward slash `//`. Everything following `//` on the same line is treated as a comment and is not executed as code. Here's how you can include a comment in the middle of a line:
+
+```swift
+var sum = 15 + 27 // This is an inline comment
+```
+
+In this example, `// This is an inline comment` is a comment that does not affect the execution of the code. The code `var sum = 15 + 27` will execute normally, and the part following `//` is simply ignored by the compiler.
+
+## Coding - Swift specific logic
+
+A lot of coding logic in other languages share with Swift, however Swift has some unique concepts.
+
+Optionals is part of Swift's broader strategy to ensure code safety and clarity, particularly when dealing with values that might or might not contain values.
+
 
 ### Optionals and Unwrapping
 In Swift, optionals are a powerful feature that allow variables to hold either a value or `nil`, indicating the absence of a value. You're correct that a variable is made optional by appending a `?` to its type. When you want to access the value of an optional, you must safely unwrap it because the optional might contain `nil` rather than an actual value.
@@ -454,51 +468,148 @@ There are several ways to unwrap an optional in Swift:
 
 Using optionals and unwrapping them properly is crucial for writing safe and robust Swift code, helping to prevent runtime crashes due to `nil` values.
 
-### Side effect: Comparison Not operator should not be confused with Unwrapping operator
+#### Side effect: Comparison Not operator should not be confused with Unwrapping operator
 When doing a comparison Not operator, you need the spacing:
 ```
 user_pic !== "Incomplete"
 ```
 Otherwise it may think you are unwrapping an optional, and it could error that it can't build (especially here where it's a hard coded string that doesn't need unwrapping).
 
----
 
-## Coding - Foundation
+### Optional Binding with `if let`
 
-TLDR:
-- It's a library you need to import, unless you're using UIKit or AppKit which imports it internally
-- Has functionalities of iOS you expect
-- Originally in Objective C but now bridges to Swift too
+Swift, Apple's powerful programming language designed for iOS, macOS, and beyond, introduces several features aimed at improving code safety and readability. One such feature is optional binding, particularly using the `if let` syntax. This construct is pivotal in dealing with optionals—a fundamental aspect of Swift that allows variables to lack a value. Let's delve into how `if let` enhances code safety and clarity, especially in the context of handling asynchronous data, such as responses from API calls.
 
-To use Foundation in your Swift code in Xcode, you typically need to import it explicitly at the top of your Swift source files. The Foundation framework provides a base layer of functionality for iOS and macOS apps, including data handling, time calculation, regular expressions, and more.
+#### The Basics of Optionals in Swift
 
-Here's how you can import Foundation into your Swift file:
+Before exploring `if let`, it's crucial to understand optionals in Swift. An optional in Swift is a type that can hold either a value or `nil`, indicating the absence of a value. This concept is essential for error handling and for scenarios where a value may or may not be present. However, working with optionals can be tricky; attempting to access an optional's value directly when it's `nil` can lead to runtime errors. Here's where `if let` comes into play.
+
+#### Unwrapping Optionals Safely with `if let`
+
+The `if let` syntax provides a safe way to "unwrap" an optional's value, i.e., to access its value if it exists. This process is called optional binding. Here's a simple example:
 
 ```swift
-import Foundation
+var optionalNumber: Int? = 10
+
+if let number = optionalNumber {
+    print("The number is \(number).")
+} else {
+    print("The optional was nil.")
+}
 ```
 
-You just need to add this line at the top of your Swift file. After importing Foundation, you can use its classes and functions throughout your file.
+In this snippet, `optionalNumber` is an optional integer that holds a value of 10. The `if let` statement checks if `optionalNumber` has a value and, if so, assigns it to a new constant `number`. The code within the block executes only if the optional contains a value.
 
-However, if you're working within a UIViewController subclass or another UIKit/AppKit class, you might see `import UIKit` or `import AppKit` instead of `import Foundation`. Since UIKit and AppKit import Foundation internally, you don't need to import Foundation explicitly if you've already imported UIKit or AppKit.
+#### Practical Example: Fetching API Data
 
-Another functionality of the Foundation framework is bridging Objective-C types to Swift types, facilitating interoperability between the two languages. This is especially important because Foundation is largely built with Objective-C and provides a wide range of functionalities that are essential for iOS and macOS development.
+Optional binding shines in scenarios involving asynchronous operations, such as fetching data from an API. Let's consider a function that fetches user data from an API:
 
-Here are some key points about how Foundation facilitates the interaction between Objective-C and Swift:
+```swift
+func fetchUserData(completion: @escaping ([String: Any]?) -> Void) {
+    // Assume this function fetches data and returns a dictionary
+    let userData: [String: Any]? = ["name": "John Doe", "age": 30]
+    completion(userData)
+}
+```
 
-1. **Objective-C Bridging**: Swift has built-in bridging for many Foundation classes. For example, when you use `NSString` in Swift, it is automatically bridged to Swift's `String` type. Similarly, `NSArray` is bridged to `Array`, `NSDictionary` to `Dictionary`, and so on. This bridging is seamless, allowing you to use Objective-C classes as if they were native Swift types in many cases. They're called bridged data types.
+When using `fetchUserData`, you might want to handle the returned data safely:
 
-2. **Nullability Annotations**: Foundation and other Objective-C frameworks have been updated with nullability annotations (`nullable`, `nonnull`, `null_resettable`) to provide more information about pointer nullability to Swift. This helps Swift in enforcing its strict type safety and optional handling.
+```swift
+fetchUserData { response in
+    if let response = response {
+        print("User name: \(response["name"] ?? "Unknown")")
+        print("User age: \(response["age"] ?? "Unknown")")
+    } else {
+        print("No data received.")
+    }
+}
+```
 
-3. **Type Aliases**: Swift provides type aliases for many Foundation types to make them more "Swifty". For example, `TimeInterval` in Swift is a type alias for `NSTimeInterval` in Objective-C.
+In this example, `fetchUserData` passes a dictionary to its completion handler. The dictionary is an optional, as the data fetching might fail, resulting in `nil`. The `if let` statement within the closure checks if `response` holds a value. If it does, the code block executes, allowing you to safely access `response`'s data.
 
-4. **Extensions and Protocols**: Swift extends many Foundation classes and adopts Foundation protocols to make them more Swift-like. For example, Swift adds additional functionality to Foundation classes through extensions, and many Foundation protocols are adopted by Swift types to enhance interoperability.
 
-5. **Generics**: Swift's use of generics with Foundation types like `NSArray` and `NSDictionary` allows for more type-safe collections, translating into Swift's `Array` and `Dictionary` with specific element types.
+The `if let` syntax in Swift is a testament to the language's emphasis on safety and clarity. By safely unwrapping optionals, developers can avoid common pitfalls associated with null values, thereby writing more robust and error-free code. In the realm of asynchronous programming and API interactions, `if let` proves particularly useful, ensuring that applications handle data gracefully and efficiently.
 
-By importing Foundation in a Swift file, you not only get access to a wealth of useful functionalities but also a smoother interoperability experience when working with Objective-C codebases or utilizing Objective-C frameworks in Swift projects.
+
+### Optional Binding with guard let
+
+The `guard let` statement is similar to `if let` in that it unwraps an optional. However, it differs in its flow control: `guard let` is designed to exit the current scope (e.g., a function or loop) if the optional is `nil`. This is particularly useful for early exits in a function where you need certain conditions to be met to proceed further.
+
+Here's a basic example of `guard let`:
+
+```swift
+func processUser(id: Int?) {
+    guard let userId = id else {
+        print("Invalid user ID")
+        return
+    }
+
+    // At this point, userId is a non-optional Int
+    print("Processing user with ID \(userId)")
+}
+
+processUser(id: nil)    // Outputs: "Invalid user ID"
+processUser(id: 12345)  // Outputs: "Processing user with ID 12345"
+```
+
+In this example, if `id` is `nil`, the function prints an error message and exits. If `id` has a value, the code continues executing beyond the `guard` statement.
+
+### Nil Coalescing Operator
+
+The nil coalescing operator `??` provides a concise way to provide a default value for an optional if it contains `nil`. This is similar to JS' ternary operator for a null falsey value
+
+```swift
+let optionalNumber: Int? = nil
+let number = optionalNumber ?? 10  // number is 10 if optionalNumber is nil
+```
+
+### Optional Chaining
+
+Optional chaining allows you to call properties, methods, and subscripts on an optional that might currently be `nil`. If the optional is `nil`, the entire expression returns `nil`. This is the same concept as JS' optional chaining.
+
+```swift
+let optionalString: String? = "Hello"
+let count = optionalString?.count  // count is of type Int?
+```
+
 
 ---
+
+## Coding - Functions
+
+
+```
+func aspectRatio(_ aspectRatio: CGFloat?, contentMode: ContentMode) -> some View {
+    // ...
+}
+```
+
+But note usually you can't indicate any return type at a top level (outside of classes).
+
+
+---
+
+
+## Coding - For loop 
+
+### For loop - with a range
+```
+for index in 1...5 {
+    print("\(index) times 5 is \(index * 5)")
+}
+```
+
+### For loop - with an array
+
+```
+import Foundation
+
+var arr = Array(["a", "b", "c"])
+
+for i in 0...arr.count-1 {
+    print(arr[i])
+}
+```
 
 ## Coding - Type Safety
 
@@ -529,6 +640,9 @@ var myVariable: futureValueType
 
 ## Coding - Variables
 
+
+### Var syntax with or without strict typing
+
 In Swift, you declare variables with `var` keyword and you have the option of being strict with the type (Type Safety):
 
 ```
@@ -538,7 +652,55 @@ var e:Employee = Employee()
 
 The syntax is similar to javascript or typescript.
 
+### Dictionary that's mutable and accepts any typed value for string keys
+
+```
+var response: [String: Any] = [:]
+```
+
+
+
+
 ---
+
+## Coding - Get character from string at index
+
+
+In most programming languages, you get the character from the string at an index with: input[3]
+
+But not in Swift:
+```
+let input = "Swift Tutorials"
+let char = input[input.index(input.startIndex, offsetBy: 3)] // f
+```
+
+https://www.simpleswiftguide.com/get-character-from-string-using-its-index-in-swift/
+
+
+---
+  
+## Coding - String interpolation
+
+For example, if you have a variable `index` with a value of 5, and you use the following code:
+
+```swift
+let index = 5
+print("We are at index: \(index)") 
+```
+
+The output will be:
+
+```
+We are at index: 5
+```
+
+
+The syntax you've used, `\(index)`, is an example of string interpolation in Swift. In Swift, string interpolation is a way to construct a new String value from a mix of constants, variables, literals, and expressions by including their values inside a string literal. Each item that you insert into the string literal is wrapped in a pair of parentheses, prefixed by a backslash.
+
+This feature is particularly useful for creating descriptive messages or for combining static and dynamic content in a single string. String interpolation is a concept that's common in many programming languages like template literal in js and fstrings in python
+
+---
+
 
 ## Coding - Classes
 
@@ -559,6 +721,101 @@ var objPlayer = Player()
 
 ---
 
+## Coding - Class property vs method
+
+
+Review property vs method in classes. This is similar concepts in other languages like javascript.
+
+
+## Coding - Global Variables, Singleton
+
+#### Global Variable
+To create global variables that are accessible anywhere in your app, you can simply declare them outside of any class or structure in a Swift file. These variables will then be accessible from any part of your application. However, it's important to note that using global variables extensively is generally discouraged in software design due to potential issues with maintainability, testing, and debugging.
+
+The variables can be in any swift file, so you could use a Helpers.swift
+
+Here's how you can declare a global variable:
+
+```swift
+// Global variable
+var globalString: String = "Hello, World!"
+
+// A global constant
+let globalConstant: Int = 42
+
+// Accessing the global variable from anywhere in the app
+func printGlobalString() {
+    print(globalString)  // Outputs: Hello, World!
+}
+```
+
+When you declare `globalString` and `globalConstant` outside of any class, struct, or enum, they become globally accessible. You can read and modify `globalString` from any part of your app. Similarly, `globalConstant` can be accessed anywhere, but since it's a constant, its value cannot be changed once set.
+
+While global variables provide a quick and straightforward way to share data, it's often better to consider alternatives like singletons, dependency injection, or data passing mechanisms (such as through initializer or function parameters) to maintain a clear structure and flow in your application, enhancing its readability and testability.
+
+#### Singleton Pattern
+
+To have more organization when it comes to global variables, you generally create a class whose member values are accessible anywhere in your app, in what is called a singleton pattern. A singleton class ensures that there's only one instance of the class throughout your application, providing a global access point to its properties and methods.
+
+Here's a basic example of how you can implement a singleton in Swift:
+
+```swift
+class MySingleton {
+    static let shared = MySingleton()
+
+    var property: String = ""
+
+    private init() {
+        // Private initialization to ensure just one instance is created.
+    }
+}
+
+// Accessing the singleton and its property
+MySingleton.shared.property = "Hello, World!"
+print(MySingleton.shared.property)
+```
+
+The `static` keyword is crucial in creating a singleton class in Swift. It allows the class to have a static property that holds the singleton instance. Here's a breakdown of how it works in the context of a singleton:
+
+1. **Static Property**: The `static let shared = MySingleton()` line declares a static property called `shared`. Being static means this property belongs to the class itself, not to any instance of the class. Therefore, it's shared across all instances and accessible directly through the class, not through a specific instance.
+    
+2. **Private Initializer**: The `private init()` ensures that no other part of your code can create an instance of the singleton class. This restriction is essential to enforce the singleton pattern, ensuring that only one instance of the class exists throughout the application's lifecycle.
+    
+
+The combination of a `static` property to hold the instance and a `private` initializer to prevent external instantiation ensures that your class adheres to the singleton pattern, providing a single, globally accessible point of access to its instance and its properties/methods.
+
+### Namespaces with struct
+And you can have "collections" of global variables like this:
+```
+struct Creational {
+    static var myName: String?
+}
+```
+
+To be accessed via `Creational.myName` and can check for nil with `if(Creational.myName==nill)
+
+Other programming languages have a formal syntax for namespaces to avoid global functions and variables and to keep the global namespace clean. Swift does not have this pattern but we mimic it with structures.
+
+
+### Namespaces with mutable dictionary
+
+Place this in a swift file outside of any classes:
+
+```
+var globalContainer: [String: Any] = [:]
+```
+
+Explanation:
+```
+- `[String: Any]`: This is the type of the variable. It's a dictionary where the keys are of type `String` and the values are of type `Any`. `String` is a basic data type in Swift representing text, and `Any` is a special type in Swift that can represent an instance of any type at all, including function types and optional types.
+    
+- `= [:]`: This initializes the `response` variable with an empty dictionary. The `[:]` syntax is shorthand for creating an empty dictionary.
+```
+
+
+
+---
+
 
 ## Coding - Programmatically affecting ui controls
 
@@ -572,127 +829,20 @@ Programmatically with controls.
 
 ---
 
-
-@ Fundamental
-Convert Int to String
-
-String(YourInt)
-
-@ Fundamental
-
-Passing data with InstantiateViewController / Pass data from screen to screen
-
-Approach 1:
-Start reading at [there is a lot of method to do this but you can use UserDefaults] from
-https://stackoverflow.com/questions/70373999/swift-how-can-i-pass-the-calculation-result-to-another-screen
-
-Approach 2:
-Use global variables in /Helpers folder with some class / file you make (will be automatically global to the app as long as the class/file is in /Helpers)
-
-@ Fundamental
-
-Adding a child view to parent view VS presenting as a modal
-Interpret starting at [The UIViewController.dismiss(animated:completion:) method is used]' from https://developer.apple.com/forums/thread/694366
-
-
-@ Fundamental
-
-Closing back to previous view on Modal (UI.present)
-Interpret https://developer.apple.com/forums/thread/694366
- - Note on interpretation, he meant:
-            self.dismiss(animated:true, completion: nil );
-
-Closing back to parent view on child view closing (from self.addChild and self.view.addSubview)
-Interpret https://developer.apple.com/forums/thread/694366
-
-@ Troubleshooting
-
-
-Error:
-`let url = URL(string: urlRaw)!` complains about nil. It's just incorrect URL formatting, but XCode doesn't have the right error messages to let you know.
-
-Error: xcode textview not showing
-
-Untick "Scrolling Enabled"
-
-It was scrolled to an empty part of the textview, even if you limit the width and height.
-
-@ Troubleshooting
-
-Opening storyboard from Project Navigator only opens it up in XML format
-
-1. Right click the storyboard in project navigator and Open As -> "Interface Builder - Storyboard"
-2. At the top right, there's an icon that toggles between code and UI Builder: 
-￼
-
-@ Troubleshooting
-When instantiating a view controller / rendering, it complains that it can't find a scene with that identifier or gives a vague SIGABORT error.
-
-> The view controller / scene requires that a storyboard ID and the module must be chosen (your project name). If it doesn't let you select your project name, then you may need to tick 'Inherit Module from Target'.
-
-
-@ Troubleshooting
-
-For variables, it's best to do this:
-print("/****/ description");
-print(yourVariable);
-
-That way you can quickly see where your variable is in a mess of logs in XCode terminal. If still hard, then copy the terminal (Select all) into Visual Code or some editor for you to do CMD+F / CTRL+F search for /****/. If that's too many steps you can crash the terminal at that point of printing the variable with a `fatalError()`:
-
-```
-print("/****/ description");
-print(yourVariable);
-fatalError()
-```
-
-@ Troubleshooting
-
-No such module __ when building or archiving in a Cocoa Pods project?
-Opening xcodeproj instead of xcworkspace will cause an error like this..
-
-
-
----
-
-Fundamental: Adjusting constraints after they've been set, within XCode
-Sometimes changing the constraints in the Scene navigator panel on the left does not actually change it (you will see it's unchanged when you go to the element view -> properties on the right panel -> ruler icon).
-
---
-
-Programmatically dismiss keyboard
-            self.view.endEditing(true)
-
-
----
-
-Fundamental: Loading images etc to a background thread so won't freeze the app
-
-
-DispatchQueue.main.async {
-// Your UI code here
-}
-
-Can work in your methods easily
-
-
-@ Essential
-Change title of app that appears on home screen
-
-Open Info.plist. If does not show up on the File Navigator, open in Finder to look for it inside your project folder, then Open with XCode.
-
-You can connect to a physical iPad/iPhone, then delete app on home screen and see when it installs a new build rather the file name is changed
-
-If the above fails, then you change Product Name, and Bundle Display Name here
-https://stackoverflow.com/questions/238980/how-to-change-the-name-of-an-ios-app
-And change schema here:
-https://stackoverflow.com/questions/16416092/how-to-change-the-name-of-the-active-scheme-in-xcode
-
-
-
----
-
-Swift Tutorials:
-
-https://youtu.be/43UOxoOuAag
-
-https://youtu.be/FcsY1YPBwzQ
+## Coding - Generate views with forEach  
+  
+If using for loop to generate views procedurally, you cannot use regular for loops. Must be:  
+```  
+ForEach((0...persons.count-1), id:\.self) {  
+```  
+  
+forEach doesn't use index as iterator. It uses $0:  
+```  
+ForEach((0...responses!.count-1), id:\.self) {  
+let _ = print("Iterator \($0)");  
+Row.init($0)  
+}  
+```  
+  
+Otherwise you get this error:  
+Closure containing control flow statement cannot be used with result builder 'ViewBuilder'

@@ -1,0 +1,6 @@
+
+Debugging:
+
+```
+print(someVariable)
+```
