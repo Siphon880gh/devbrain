@@ -1,0 +1,9 @@
+In the context of iOS app distribution with an enterprise program account, the roles of the distribution certificate and provisioning profile are crucial for the lifecycle and accessibility of the app on devices.
+
+The distribution certificate is essentially used to sign your apps and authorize them to be distributed either through the App Store or internally within an organization. If this certificate expires, you will no longer be able to sign and distribute new apps or updates to existing apps. However, already installed apps should continue to function for a while.
+
+The provisioning profile, on the other hand, is what dictates the actual usage of the app on devices. It includes information about which devices are authorized to run the app and defines the app's expiration period. For enterprise (in-house) apps, the provisioning profile typically has a validity of one year. When the provisioning profile expires, the app will fail to launch on any device it's installed on, regardless of whether the distribution certificate is valid.
+
+So, if your distribution certificate expires but the app's provisioning profile is still valid, the app should continue to function on devices until the provisioning profile itself expires. However, you won't be able to distribute new apps or updates until you renew the distribution certificate.
+
+To ensure continuous operation, it's essential to keep an eye on the expiration dates of both the distribution certificate and the provisioning profiles and renew them before they expire. Also, maintaining the active status of your enterprise program account is crucial, as an expired account would lead to the deactivation of associated certificates and profiles, rendering the app unusable on devices.
