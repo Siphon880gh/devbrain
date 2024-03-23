@@ -56,3 +56,8 @@ To symbolicate a crash report using Xcode and a dSYM file, follow these brief st
 4. **Automatic Symbolication**: Xcode automatically symbolicates the report when you open it if the matching dSYM file is available. There's no need to restart Xcode. If the report is symbolicated successfully, you'll see function names and line numbers instead of just memory addresses.
 
 By following these steps, Xcode should symbolicate the crash report using the dSYM file, allowing you to pinpoint the source of the crash.
+
+---
+
+Symbolicating deep dive:
+https://developer.apple.com/videos/play/wwdc2021/10211/

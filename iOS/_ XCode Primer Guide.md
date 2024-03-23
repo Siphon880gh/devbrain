@@ -38,7 +38,92 @@ Both Storyboards and XIB files offer a drag-and-drop interface for arranging UI 
 
 ---
 
-## Setup new project
+## Setup new project v1
+
+Refer to:
+[https://www.raywenderlich.com/5055364-ios-storyboards-getting-started](https://www.raywenderlich.com/5055364-ios-storyboards-getting-started)
+
+This is for creating a storyboard based app. iOS apps can be swift UI or storyboard or XIB. You are not limited, however, you can have a storyboard app that mixes in swift UI screens with the proper coding.
+
+### Hierarchy:
+
+The user can navigate your iOS app through multiple screens. When editing those screens, you have the choice of editing a flow of screens called scenes on a storyboard, or the choice of working on each individual scene as XIB files that have to string to each other (older way of doing things).
+
+The storyboard's scenes are each a screen the user gets to see. You can drag and drop ui controls right onto these scenes/screens. But to code how the screen handles user and data viewing behavior, you edit the scene's file that is actually code that creates a view controller class. Scenes are the visual representation whereas the view controller are the code representation. 
+
+Each view controller is an instance of "UIViewController" or its subclasses. The code is in Objective C / Swift because Apple chose to make the transition of coding language less painful. But the file extension is .swift
+
+The storyboard that you see is handled with a storyboard file. That storyboard file reaches out to the .swift files it'll represent as scenes connected to each other.
+
+The left most side panel is the Project navigator to navigate view controller / scene / swift files,  XIB files, storyboard files, or various types of files including .plist (property list holding onto your settings). 
+
+Inside the storyboard panel, the left subpanel is the Document Outline (think of it as a outline of storyboard screens and their elements). The Document Outline shows all the items you have inside the open storyboard file, as well as any view controller and any of the controls it includes.
+
+### Project requirements
+
+The project must be set to an initial storyboard at {Project} -(at Project navigator) > Targets:{Project} -> General -> Deployment Info -> Main Interface {Set this dropdown)
+
+Then the storyboard must have an initial view controller to present.
+
+Select View Controller -> Attributes Inspection panel -> View Controller section -> Is Initial View Controller (tick checkbox}
+
+### Designing
+
+Create a storyboard in Project Navigator: + New File -> User Interface: Storyboard
+
+Create a Scene / Screen / View Controller in storyboard (Press + at top right for Object Library then search for View Controller). Decorate that screen with other objects (Text View, Label, Button, etc)
+
+- The view controller / scene requires that a storyboard ID and the module must be chosen (your project name). If it doesn't let you select your project name, then you may need to tick 'Inherit Module from Target'. Otherwise, if you don't have both requirements met, then when you try to render it programmatically or instantiate view controller, it'll complain it can't find a scene with that identifier or it'll do a vague SIGABORT error.
+
+Optionally: You may make the screen have programmable elements to it. Like dynamically changing a text, setting up touched down handlers (instead of segues directly from a button to a screen within Storyboard UI Builder).
+
+1. Create a Swift file in the Project Navigator.
+2. Use this template:
+
+```
+import Foundation
+import UIKit
+
+
+@available(iOS 13.0, *)
+	class TestDrivenVC: UIViewController
+	{
+		override func viewDidLoad() {
+			super.viewDidLoad()
+		}
+	}
+```
+
+  
+3. You can make buttons and other elements programmable by capturing them as variables in the code, aka outlets. Or by capturing their clicking etc interactions, aka actions.
+    
+4. Just CMD+drag from storyboard to the code inside the class (as class attributes). Notice you can select Outlet or Action when you released the mouse for buttons, but only outlets for text. The type of element will determine that possibility.  
+
+5. Then you can add interaction / dynamic coding like this:  
+
+
+```
+import Foundation
+import UIKit
+
+class TestDrivenVC: UIViewController
+{
+	@IBOutlet weak var label1: UILabel!
+	@IBOutlet weak var TV1: UITextView!
+	@IBOutlet weak var TV2: UITextView!
+	@IBOutlet weak var TV3: UITextView!
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		TV1.text = "Changed Text"
+	}
+}
+```
+
+
+---
+
+## Setup new project v2
 
 You can unselect/select UI and  Project unit tests at beginning
 
@@ -54,13 +139,14 @@ The scene board that is the initial controller... there's a tickbox you need to 
 
 Now generally how you switch between scenes in the app is this:
 ```
-        let profileScene1NVC = mainSB.instantiateViewController(withIdentifier: "ProfileScene1NVC") as! ProfileScene1NVC
-        self.present(profileScene1NVC, animated:true, completion:nil)
+let profileScene1NVC = mainSB.instantiateViewController(withIdentifier: "ProfileScene1NVC") as! ProfileScene1NVC
+
+self.present(profileScene1NVC, animated:true, completion:nil)
 ```
 
 And it's dependent on mainSB. Recommend saving this variable app globally and available at all view controllers as:... Keep in my the name is based on the storyboard name in the Project Side Navigator (left side panel):
 ```
-	let mainSB : UIStoryboard = UIStoryboard(name: "Main", bundle:.main)
+let mainSB : UIStoryboard = UIStoryboard(name: "Main", bundle:.main)
 ```
 
 @ Fundamental:: Have one view same width as an outer width:
@@ -264,14 +350,40 @@ Eg. where ivMixoState.image is an outlet/variable to an UIImage on storyboard:
 ivMixoState.image = UIImage(named: "L _ MixoType Engine - Collections Section Intro Graphic")
 ```
 
-## Set text
+## Set button text programmatically
 
+
+### Set text for Plain Button
+
+The setTitle()method will work for titles that are "Plain" as defined in the button's Attributes inspector.
+
+You can have the text weight and style at "for"
+- .normal
+- .highlighted
+- .disabled
+- .selected
+- .focused
+- .application
+- .reserved
+  
+```
 btn.setTitle("Temperament Definitions", for: .normal)
-// ^ Other states are .normal, .highlighted, .disabled, .selected, .focused, .application, .reserved
-
 
 lb.text = "hi"
+```
 
+ 
+### Attributed Title
+
+The setTitle()method has no effect on a button's title if it's configured as "Attributed" in the Attributes inspector. To manage this situation, first get the attributed title from the button, then set the value.
+
+```
+@IBAction func button(sender: UIButton) {
+	let attributedTitle = sender.attributedTitle(for: .normal)
+	attributedTitle?.setValue("buttonName", forKey: "string")
+	sender.setAttributedTitle(attributedTitle, for: .normal)
+}
+```
 
 ---
 
