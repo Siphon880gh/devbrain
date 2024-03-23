@@ -90,3 +90,11 @@ By incorporating this pattern, UMD allows JavaScript modules to be more universa
 ```
 
 This code ensures that the module is compatible with AMD, CommonJS, and plain browser environments.
+
+
+---
+
+
+webpack/imports uses
+
+npm/requireJs uses (eg. require(...))
