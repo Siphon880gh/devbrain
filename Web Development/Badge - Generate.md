@@ -3,10 +3,7 @@ Badges are "linktree" and status pieces often found on Github repo pages, that c
 
 ---
 
-
-
 <a href="https://github.com/Siphon880gh/social-media-api" rel="nofollow" target="_blank"><img class="my-badge" src="https://img.shields.io/badge/-white?style=flat&amp;logo=github&amp;labelColor=darkgray&amp;logoColor=white" alt="Youtube" data-canonical-src="https://img.shields.io/badge/Github-white?style=flat&amp;logo=youtube&amp;labelColor=lightgray&amp;labelColor=white"></a>
-
 
 ```
 <a href="https://github.com/Siphon880gh/social-media-api" rel="nofollow" target="_blank">
