@@ -7,21 +7,36 @@ https://chat.openai.com/c/8782a328-bb38-4058-9959-f53bf002d555
 - Typebase.css: This is a minimal and extensible base typography stylesheet that styles basic HTML elements without classes, focusing on proper typography and readability.
 - Tufte CSS: Inspired by the work of Edward Tufte, this CSS provides tools to style web articles using the ideas of Tufte, focusing on readability and the effective presentation of information, though it's more specific to text-heavy content.
 
-For Tufte, you may want to remove the body paddings if you’re combining with Bootstrap container etc
+For Tufte, you may want to remove the body paddings if you’re combining with Bootstrap container etc and you may want to remove the dark mode
 
 ```
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" rel="stylesheet">  
     <style>  
-      body {  
-        width: unset;  
-        margin-left: unset;  
-        margin-right: unset;  
-        padding-left: unset;  
-        max-width: unset;  
-      }  
-      a {  
-        text-shadow: none;  
-      }  
+      body {
+        width: unset;
+        margin-left: unset;
+        margin-right: unset;
+        padding-left: unset;
+        max-width: unset;
+      }
+      a {
+        text-shadow: none !important;
+      }
+
+    @media (prefers-color-scheme:dark) {
+        body {
+            background-color: unset;
+            color: unset;
+        }
+    }
+    @media (prefers-color-scheme:dark) {
+
+        .hover-tufte-underline:hover,
+        .tufte-underline,
+        a:link {
+            text-shadow: unset;
+        }
+    }
     </style>
 ```
 
