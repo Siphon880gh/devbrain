@@ -1,4 +1,6 @@
 
+Migrating from v2 to v3 Apollo: https://www.apollographql.com/docs/react/migrating/apollo-client-3-migration/
+
 ## Frontend
 
 Apollo React Components enable the integration of GraphQL queries and response data with your React functional components.

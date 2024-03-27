@@ -1,11 +1,13 @@
 You must install graphql and @apollo/client on the client side, and graphql and @apollo/server on the server side
 
 ## Their roles
-The graphql package you install in your project is the core GraphQL implementation that defines the GraphQL language and execution behavior. It provides the necessary functionality to parse GraphQL queries, execute them, and return results according to the GraphQL specifications.
-Apollo Client is a comprehensive state management library that provides practical and powerful tools to interact with GraphQL. 
-Apollo Server, another part of the Apollo ecosystem, allows you to build a self-documenting API in Node.js using GraphQL. However, it also enforces what are valid queries/mutations, inputs, and responses from the frontend. It enforces using schemas defined at backend’s typeDefs.js
+The GraphQL package you install in your project is the core GraphQL implementation that defines the GraphQL language and execution behavior. It provides the necessary functionality to parse GraphQL queries, execute them, and return results according to the GraphQL specifications.
 
-You can think of graphql as mysql in that it has a query language and apollo server as the sequelizer in that it lets your backend interact with it, however except graphql has no database system; instead graphql is a hybrid of query language and express api endpoints, except it’s the same endpoint /graphql and the routes are really functions that queries and mutations are named after. Those functions in resolvers.js can return whatever data you want, either from a database or stored raw json data
+On the frontend, Apollo Client is a comprehensive state management library that provides practical and powerful tools to interact with GraphQL. Client side has all the queries / mutations as template literal tag functions called gql that you pass into useQuery and useMutation hooks (importing @apollo/client at the React component). You may choose to organize those template literal tag functions in queries.js and mutations.js. They are the same queries/mutations you can run in GraphQL playground which only shows up in developer mode at the /graphql sandbox urrl.
+
+Apollo Server, another part of the Apollo ecosystem, allows you to build a self-documenting API in Node.js using GraphQL. However, it also enforces what are valid queries/mutations, inputs, and responses from the frontend. It enforces using schemas defined at backend’s typeDefs.js. There is also a resolvers.js that runs when an endpoint matches (all endpoints goes to /graphql but the function query or mutation name is the differentiating part); the matched function in the resolvers.js will run with the goal of returning a response in your choice (Mongo/MySQL, even raw JSON data) and that's the response that will return to the frontend from the GraphQL request.
+
+You can think of GraphQL as mysql in that it has a query language and apollo server as the Sequelizer in that it lets your backend interact with it, however except GraphQL has no database system; instead GraphQL is a hybrid of query language and express api endpoints, except it’s the same endpoint /graphql and the routes are actually functions that queries and mutations are named after. Those functions in resolvers.js can return whatever data you want, either from a database or stored raw json data
 
 ## Version Conflicts
 

@@ -1,4 +1,6 @@
 
+Migrating from v2 to v3 Apollo: https://www.apollographql.com/docs/react/migrating/apollo-client-3-migration/
+
 ## Frontend
 
 Apollo Client 3 provides a comprehensive state management library for JavaScript that enables you to manage both local and remote data with GraphQL. Its integration with React is seamless, offering hooks for querying, mutation, and subscription operations.
