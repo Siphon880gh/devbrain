@@ -4,7 +4,6 @@ sorting-spec: |-
   AI Engineer
   AWS Cloud
   Databases - MySQL, NoSQL, and More!
-  Data Structures, Algorithms, Architechtures, Systems Design
   DevOps
   Version Control - git, github, gitlab
   iOS
