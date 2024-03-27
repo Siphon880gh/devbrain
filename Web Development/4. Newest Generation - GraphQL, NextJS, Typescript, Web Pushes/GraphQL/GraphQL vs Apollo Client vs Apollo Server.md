@@ -19,3 +19,13 @@ https://www.npmjs.com/package/@apollo/client
 https://www.npmjs.com/package/@apollo/server/
 
 You’d have found those links at npmjs.com searching for “@apollo/client” or “@apollo/server”
+
+---
+
+## GraphQL vs Apollo Analogies
+
+1. **GraphQL as MySQL Queries**: While both GraphQL and MySQL Queries define how to interact with data, it's crucial to note that GraphQL is a query language for APIs, not a database management system. It doesn't store data but defines how to query and manipulate data through an API. It specifies what data is available and how it can be queried or mutated, regardless of how or where the data is stored.
+    
+2. **Apollo Server as Sequelize**: This part of the analogy is more aligned. Sequelize provides an abstraction layer over SQL databases, making it easier to interact with them without writing raw SQL. Similarly, Apollo Server provides an abstraction layer over GraphQL, making it easier to build a GraphQL API without getting bogged down in the details of setting up and running a GraphQL server from scratch. It handles many of the complexities involved in building GraphQL servers, much like how Sequelize handles the complexities of database interactions.
+    
+3. **GraphQL as a Hybrid of Query Language and API Endpoints**: It's a useful perspective to think of GraphQL as a hybrid system. Unlike traditional REST APIs, where you have multiple endpoints for different resources, GraphQL typically exposes a single endpoint. Through this endpoint, clients can make queries that are function-like, specifying exactly what data they need, which can include data from multiple resources in a single request. This approach is quite different from traditional API endpoints and is more flexible and efficient for clients.
