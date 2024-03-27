@@ -1,6 +1,8 @@
 
 ES7 React/Redux/GraphQL/React-Native Snippets Extension
 eg. `imr` -> `import React from 'react'`
+eg. `rcc` -> Expands to React component boilerplate
+
 - Get: https://marketplace.visualstudio.com/itemdetails?itemName=dsznajder.es7-react-js-snippets
 https://github.com/r5n-dev/vscode-react-javascript-snippets/tree/185bb91a0b692c54136663464e8225872c434637
 - Article raving about it
@@ -48,3 +50,5 @@ Print by PD Consulting
 VS Browser by Phu1237 (Built-in browser for Visual Studio Code)
 
 YAML (yaml language support)
+
+No longer needed: Emmet now comes with VS Code
