@@ -1,4 +1,4 @@
-Quick free way to host your js or css code in a cdn, as long as it's in github
+Quick free way to host your js or css code on a cdn, as long as it's in github
 
 https://raw.githack.com/
 
