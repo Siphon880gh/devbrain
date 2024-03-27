@@ -167,7 +167,7 @@ To have complete control, it depends if you are on Vite or CRA:
 In a Create React App (CRA) project, the equivalent of changing the base URL for assets (similar to Vite's `--base` option) is done by setting the `homepage` field in the `package.json` file. This field specifies the base URL for all the webpack assets.
 
   
-Which one should you choose? If you had server.js' static code pointing correctly, and that static code is running because you're in production when running `npm run start`, and the folder/file structure is appropriate (refer to the requirements section), then either would've worked, unless you are deploying to a subdirectory from your domain address (Then continue onto the next section Subdirectory Deployment). Firstly, you can switch between the two (/ or ./) to see if the blank page issue is fixed.
+Which one should you choose? If you had server.js' static code pointing correctly, and that static code is running because you're in production when running `npm run start`, and the folder/file structure is appropriate (refer to the requirements section) and your server is serving the webpage at the root (not subdirectory deployment - refer to next section), then either would've worked. Firstly, you can switch between the two (/ or ./) to see if the blank page issue is fixed.
 
 ### Subdirectory Deployment
 

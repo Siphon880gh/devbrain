@@ -30,8 +30,11 @@ For Vite, you would configure a proxy in the `vite.config.js` file using the `pr
 
 ```javascript
 // vite.config.js
-export default {
+export default defineConfig({
+  plugins: [react()],
   server: {
+    port: 3000,
+    open: true,
     proxy: {
       '/api': {
         target: 'http://localhost:3001',
@@ -39,8 +42,9 @@ export default {
         changeOrigin: true
       }
     }
-  },
-};
+  }
+})
+
 ```
 
 This configuration tells Vite that any requests on the frontend to `/api/...` should be forwarded to `http://localhost:3001/api/...`.
