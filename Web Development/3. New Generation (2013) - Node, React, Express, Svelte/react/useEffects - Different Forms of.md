@@ -13,3 +13,58 @@ Other more advanced uses of useEffect
 [[Await async in useEffect by using IIFE]]
 
 [[Performance - Cleanup when unmounting using useEffect]]
+
+---
+
+Practical example
+
+
+  
+
+If you want specific code to run when a variable changes versus other particular code when another variable changes:
+
+```
+const {useState} =require("react");
+
+function MyComponent() {
+	const [stateData1, updateStateData1] = useState([]);
+	const [stateData2, updateStateData2] = useState([]);
+	
+	useEffect(() =>{
+	}, [stateData1]);
+	
+	
+	useEffect(() =>{
+	}, [stateData1]);
+
+	return <OtherComponent/>;
+}
+```
+
+
+If you want the same code to run when either variable changes:
+
+```
+const {useState} =require("react");
+
+function MyComponent() {
+	const [stateData1, updateStateData1] = useState([]);
+	const [stateData2, updateStateData2] = useState([]);
+	
+	useEffect(() =>{
+	}, [stateData1, stateData2]);
+
+
+	return <OtherComponent/>;
+}
+```
+
+
+For user changing that value
+```
+<input
+  type="text"
+  onChange={(event) => updateStateData1(event.target.value)}
+  value={stateData1}
+/>
+```
