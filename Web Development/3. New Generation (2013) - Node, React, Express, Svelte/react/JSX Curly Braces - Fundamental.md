@@ -64,3 +64,18 @@ In this example, an array of numbers is transformed into an array of `<li>` elem
 ## Naming
 
 In the context of React and JSX, the curly braces `{}` are often referred to as "JSX curly braces" or simply "curly braces." They are a syntax extension provided by JSX that allows you to embed JavaScript expressions within the JSX code. While the term "curly braces" is quite general and used in various programming contexts to denote `{` and `}`, when discussed in the realm of JSX, it specifically refers to the mechanism for embedding JavaScript expressions in JSX. There isn't a more specific term than "JSX curly braces" or "curly braces in JSX" to describe this feature.
+
+
+---
+
+## Reworded:
+What's possible:
+JSX mixed with ternary operator and map, state setter as an Onclick attribute mixed with spread operator because you're partially changing a state's object value
+
+JSX must evaluate:
+JSX can return blank object, HTML, and string (can be blank string)
+An array is allowed as long as its a permutation of the above resolutions
+There is no concatenation operators
+You can have consecutive curley bracket expressions
+
+
