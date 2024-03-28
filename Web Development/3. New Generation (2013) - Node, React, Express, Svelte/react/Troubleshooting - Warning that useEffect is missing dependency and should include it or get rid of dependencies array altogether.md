@@ -9,14 +9,26 @@ To fix the issue, you have two options:
 
 1. **Include the missing dependency in the array**:
 
-`useEffect(() => {   fetchBusinesses(); }, [fetchBusinesses]);`
+```
+useEffect(() => {
+	fetchBusinesses();
+}, [fetchBusinesses]);
+```
 
 By adding `fetchBusinesses` to the dependency array, React will re-run the effect whenever the `fetchBusinesses` function changes (e.g., when the component re-renders).
 
 2. **Remove the dependency by wrapping the function in a `useCallback` hook**:
 
 
-`const fetchBusinessesCallback = useCallback(() => {   fetchBusinesses(); }, []); useEffect(() => {   fetchBusinessesCallback(); }, [fetchBusinessesCallback]);`
+```
+const fetchBusinessesCallback = useCallback(() => {
+	fetchBusinesses();
+}, []);
+
+useEffect(() => {
+	fetchBusinessesCallback();
+}, [fetchBusinessesCallback]);
+```
 
 In this approach, you create a memoized version of the `fetchBusinesses` function using `useCallback`. The `useCallback` hook returns a memoized version of the callback that only changes if one of the dependencies has changed. Since there are no dependencies in the `useCallback` hook's dependency array, the memoized version of `fetchBusinessesCallback` will never change, and you can safely add it to the `useEffect`'s dependency array.
 
