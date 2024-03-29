@@ -33,6 +33,8 @@ Github Copilot Chat
 
 Hjson (hjson language syntax support)
 
+HTML Tag Wrapper by hwencc (CTRL+i with selected html will wrap it in a new div element)
+
 Jupyter
 
 Kubernetes
