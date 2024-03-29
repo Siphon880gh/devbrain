@@ -92,31 +92,34 @@ First, let's create a new React app using Vite. Vite provides a fast development
 
 1. Install Vite globally (if you haven't already):
     
-    bashCopy code
-    
     `npm install -g create-vite`
     
 2. Create a new Vite React app:
     
-    bashCopy code
-    
     `npm init vite my-financial-app --template react`
     
+When asked:
+```
+✔ Select a framework: › React
+? Select a variant: › - Use arrow-keys. Return to submit.
+    TypeScript
+    TypeScript + SWC
+❯   JavaScript
+    JavaScript + SWC
+    Remix ↗
+
+```
+
+	    
 3. Navigate to the project directory:
-    
-    bashCopy code
     
     `cd my-financial-app`
     
 4. Install dependencies (because vite does not create node_modules folder):
     
-    bashCopy code
-    
     `npm install`
     
 5. Add `react-router-dom` for routing:
-    
-    bashCopy code
     
     `npm install react-router-dom`
     
@@ -192,9 +195,7 @@ export default App;
 
 ### Step 5: Add Persistent Components Near Routes Component
 
-### 
-
-Navbar  
+**Navbar**  
 
 Create the Navbar.js component and copy over your navbar code from the old index.html. This would be the top bar where you have the links to your sections. Don't forget: Replace all class= to className=. Self close any tags like `<img` and `<input` so VS Code lint can stop complaining. If there are label tags, their for attributes should be htmlFor. At App.jsx, add the Navbar component above the Routes component. This will allow the Navbar to show regardless of the current route:
 
@@ -220,7 +221,7 @@ function App() {
 export default App;
 ```
 
-### Footer  
+**Footer**  
 
 Do the same for Footer (creating component, copying HTML into it, correcting the HTML for JSX, importing into App.jsx, placing footer below Routes component) and any other persistent components.
 
