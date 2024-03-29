@@ -1,6 +1,6 @@
 Use model: ChatGPT 4 paid
 
-Prompt (Adjusted as needed. For the acceptance criteria WHEN, THEN, etc you can ask ChatGPT to generate - refer to [[AI Generate website acceptance criteria]):
+Prompt (Adjusted as needed):
 ```
 Help me create a tailwind financial consultation SPA webpage.  For images, you can add placeholders with placehold.com, for example https://via.placeholder.com/150x150. For text you can add lorem ipsum text.  
   
