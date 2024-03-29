@@ -1,7 +1,7 @@
 
 This makes it possible to not have to do short circuiting
 
-## Approach A
+## Approach A - IIFE Inside JSX
 
 You can use Immediately Invoked Function Expressions (IIFE) inside JSX curly brackets to perform conditional rendering with if-else statements. Here's an example:
 
@@ -34,7 +34,7 @@ This allows you to achieve full if-else, else-if-else logic within JSX curly bra
 
 ---
 
-## Approach B
+## Approach B - Named Function Call Inside JSX
 
 You can define a separate function outside the JSX return statement and then call that function within the curly brackets. Here's how you can do it:
 

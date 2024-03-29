@@ -1,4 +1,11 @@
 
+Classifications could be Mac vs Linux vs Unix-like
+
+Unix-like because unix itself is actually NOT open source
+
+---
+
+
 **Linux is mainly used in Home Based PC, Mobile Phones, Desktops, etc.** **Unix is mainly used in Server Systems, Mainframes and High End Computers**. Different Versions of Linux are: Ubuntu, Debian, OpenSuse, Redhat, Solaris, etc.
 
 Why is this the case?

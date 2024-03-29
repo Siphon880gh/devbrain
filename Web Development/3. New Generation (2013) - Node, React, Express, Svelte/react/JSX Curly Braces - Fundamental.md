@@ -17,6 +17,12 @@ It's important to note that you cannot use statements inside `{}`, only expressi
 
 ---
 
+## Expression can take inputs
+
+The inputs could be other state variables or constants or javascript expression that calculates a value. The JSX will re-render if the state variables change.
+
+---
+
 ## Expression Evaluating into an Array Value
 
 Even though it must evaluate into a value, it could be rendered as an array value as well.
