@@ -1,7 +1,7 @@
 
 ## Milestones for connecting your domain to AWS PHP
 
-Certainly! Here's a detailed breakdown with key learning objectives for each milestone in learning AWS for hosting a PHP web page:
+Here's a detailed breakdown with key learning objectives for each milestone in learning AWS for hosting a PHP web page:
 
 ### Milestone 1: Basic Understanding of AWS
 **Objectives**:

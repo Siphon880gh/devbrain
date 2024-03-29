@@ -37,6 +37,17 @@ For Tufte, you may want to remove the body paddings if you’re combining with B
             text-shadow: unset;
         }
     }
+    @media (max-width: 760px) {
+        body {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+    }
+    /* Remove the underline on links that have fa icon or image. Tufte uses 1px background as underline */
+    a:has(> img), a:has(> .fa), a:has(> .fas) { 
+        text-decoration: none;
+        background: 0 !important;
+    }
     </style>
 ```
 

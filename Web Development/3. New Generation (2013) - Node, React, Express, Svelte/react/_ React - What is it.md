@@ -1,4 +1,14 @@
 
+React likes to break down the webpage into different parts. Each part is a component that uses javascript logic to render that DOM. Those parts can nest other parts. So React supports a hybrid language that is between HTML and JS, which is called JSX. And if you do use JSX syntax which is a optional, then you need to transpile (in other words, convert) the jsx syntax into regular js so that browsers can actaully understand it; that's where babel comes in, by converting the js files with JSX syntax to proper JS files before you put the code into production, but there are different babel presets. Babel gets installed as npm modules but there are so many different versions and they change the npm module name all the time, so you have to be careful. So, the Bundler converts syntaxes if you use babel, then it combines the js files into one js file. This also makes a minimized performant js file so the webpage loads fast. 
+
+The easiest way to setup was using create-react-app or vite.
+
+The next easiest setup was using browserify to bundle/transpile the React components.
+
+The hardest setup was Webpack because the instructions online seem outdated.
+
+---
+
 React's usage of a "tree" structure and the concept of a "virtual DOM" are fundamental to its design and functionality. Let's break down the various aspects you've mentioned to understand why React is structured the way it is:
 
 ### Why a Tree?
@@ -33,4 +43,4 @@ This likely refers to React's data flow and state management:
 
 3. **Event Handling**: React follows a pattern where components can "subscribe" to state changes or pass callbacks as props, which is somewhat similar to the publish/subscribe pattern. This allows child components to communicate changes to their parent components, which can then react accordingly.
 
-In summary, React's design—using a tree structure, a virtual DOM, JSX, and a clear data flow—aims to optimize performance and make the development process more intuitive and manageable, especially for large-scale applications.
+In summary, React's design—using a tree structure, a virtual DOM, JSX, and a clear data flow—aims to optimize performance and make the development process more intuitive and manageable, especially for large-scale applications
