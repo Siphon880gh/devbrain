@@ -22,3 +22,7 @@ function MyComponent() {
 ```
 
 Return a function in useEffect to have React run it when the DOM is unmounted. This could clean up memory spills in a single page application (otherwise, app risks getting laggier over time).
+
+---
+
+So: useEffect takes an optional return function that cleans up code. For example, emptying the fields on a webpage showing report details. Equivalent to componentWillUnmount

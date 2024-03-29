@@ -18,9 +18,6 @@ Other more advanced uses of useEffect
 
 Practical example
 
-
-  
-
 If you want specific code to run when a variable changes versus other particular code when another variable changes:
 
 ```
