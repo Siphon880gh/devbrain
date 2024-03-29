@@ -326,3 +326,5 @@ Mutation: {
 ```
 
 With this setup, you have a basic backend that supports queries, mutations, and subscriptions. This backend can interact with your frontend Apollo Client application, allowing you to perform operations like fetching video data, adding new videos, and subscribing to updates.
+
+

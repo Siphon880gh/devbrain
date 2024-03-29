@@ -31,4 +31,4 @@ Your building will create a /build tool that index.html in public uses. Start wi
 
 # Deploying React app to Github Pages
 
-Refer to [[Deploy React to Github Pages]]
+Refer to [[_ Deploy React to Github Pages]]

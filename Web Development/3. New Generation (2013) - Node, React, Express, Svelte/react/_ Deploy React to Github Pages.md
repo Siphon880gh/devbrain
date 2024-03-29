@@ -38,9 +38,18 @@ To deploy a React application to GitHub Pages, you can follow these steps:
 
 9. Build your React application by running the following command:
 
-   ```shell
-   npm run build
-   ```
+```shell
+npm run build
+```
+
+or
+
+```
+npm run predeploy
+```
+
+
+The reason why we have a predeploy script is because it's good practice. The developer can run predeploy which usually includes server specific building too, then run deploy
 
 10. Once the build process is complete, deploy your application to GitHub Pages by running the following command:
 

@@ -39,6 +39,9 @@ Variables:
 See that the response returned a token. You can be "logged in" because you just signed up. And you can view member only resources. Just make sure to send it as Headers, not Variables:
 ![](https://i.imgur.com/0DXjlE4.png)
 
+![](https://i.imgur.com/ZTYbf9n.png)
+
+
 You switch to Headers tab
 Your key entry is: Authorization
 The value entry is: Bearer token
