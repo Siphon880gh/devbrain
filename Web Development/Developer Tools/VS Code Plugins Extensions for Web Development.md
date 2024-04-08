@@ -9,7 +9,8 @@ https://github.com/r5n-dev/vscode-react-javascript-snippets/tree/185bb91a0b692c5
   https://www.digitalocean.com/community/tutorials/the-best-react-extension-for-vs-code
 - Snippet list: https://github.com/r5n-dev/vscode-react-javascript-snippets/blob/HEAD/docs/Snippets.md
 
-Tailwind Fold
+Class Collapse by Etsi0
+To toggle the **Class Collapse** extension, open the Command Palette with `Shift+Ctrl+P`, search for `Class Collapse: Toggle Collapsing`, or use the shortcut `Alt+Ctrl+Shift+C`.
 
 Region Viewer
 Make regions in the code collapsible:

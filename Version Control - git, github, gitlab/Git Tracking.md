@@ -1,6 +1,6 @@
 
 
-Tracking allows you to run commands like git push  and git pull  without specifying the remote branch name. As for the default remote, it’s usually origin - refer to [[Default remote]] on how to manage this.
+Tracking allows you to run commands like git push  and git pull  without specifying the remote branch name. As for the default remote, it’s usually origin - refer to [[Default Remote]] on how to manage this.
 
 git pull  vs git pull origin remoteBranch 
 If the current local branch has a tracking relationship set up with a remote branch, simply using git pull without specifying the remote and branch will fetch and merge changes from the tracked remote branch.
