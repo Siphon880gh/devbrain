@@ -15,6 +15,16 @@ If too many commits appearing on the screen, you can limit to number of commits 
 git rebase -i HEAD^^^
 ```
 
+Or equivalent of (Github must have realized that having to type many ^ is a poor developer experience):
+```
+git rebase -i HEAD~3
+```
+
+If you need how many commits are at the current branch for the above command:
+```
+git rev-list --count HEAD
+```
+
 ## Git then lists the commits in a temporarily opened text file for you to rewrite in vi cli text editor. Read lesson on vi text editor.
 
 ## Simple commit history changes

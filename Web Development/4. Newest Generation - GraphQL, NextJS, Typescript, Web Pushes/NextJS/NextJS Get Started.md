@@ -6,9 +6,22 @@
 #### Create a Next.js App:
 1. **Create a new project:** Open your terminal and use the following command to create a new Next.js app. Replace `my-next-app` with your project name.
    ```bash
-   npx create-next-app@latest my-next-app
+   npx create-next-app my-next-app
    ```
    This command creates a new folder named `my-next-app` with a pre-configured Next.js project.
+
+
+Nuances:
+If you always want latest version of Next JS, it'll ask to install if necessary if you ran:
+```
+npx create-next-app my-next-app
+```
+
+If you don't want to type so much, just run this command and the series of questions will include name of your new app:
+```
+npx create-next-app
+```
+
 
 2. **Navigate into your project:** Change into your project directory:
    ```bash
