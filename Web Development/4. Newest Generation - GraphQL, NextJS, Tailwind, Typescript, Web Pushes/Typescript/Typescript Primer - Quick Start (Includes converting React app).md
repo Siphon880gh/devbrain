@@ -60,3 +60,21 @@ If converting a create-react-app into typescript in the middle of your developme
 
 "build": "npx tsc; react-scripts build",
 ```
+
+Your tsconfig.json must have jsx flag:
+```
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",  // Enable JSX support, use "react" for older TS versions
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist"
+  },
+  "include": ["src/**/*.tsx", "src/App.tsx"],
+  "exclude": ["node_modules"]
+}
+```
