@@ -19,7 +19,7 @@ function example(foo: any) {
 
 In this example, `isString` is a user-defined type guard. Notice the `test is string` part, which tells TypeScript that whenever the `isString` function returns true, the `test` variable should be treated as a string at the applicable block or scope.
 
-### 2. Type Assertions
+### Type Assertions
 Type assertions are a way to tell the TypeScript compiler to treat an entity as a different type than the type inferred by it. It’s like type casting in other languages but does not perform any special checking or restructuring of data.
 
 **Example of Type Assertions:**
@@ -38,7 +38,7 @@ let strLengthAlternative: number = (<string>someValue).length;
 
 Here, `someValue` is declared as `any`, but we assert that `someValue` is a string when accessing its length.
 
-### 3. Mapped Types
+### Mapped Types
 Mapped types allow you to take an existing model and transform each of its properties into a new type. They are a powerful feature to create new types based on old types programmatically.
 
 **Example of Mapped Types:**
@@ -63,18 +63,3 @@ type OptionalPerson = Optional<Person>;
 
 `ReadonlyPerson` is a new type where each property of `Person` is read-only. `OptionalPerson` makes each property of `Person` optional.
 
-### 4. Conditional Types
-Conditional types in TypeScript are a bit like ternary operators at the type level: they select one of two possible types based on a condition expressed as a type relationship test.
-
-**Example of Conditional Types:**
-
-```typescript
-type Check<T> = T extends string ? "String" : "Not String";
-
-type Type1 = Check<string>;  // Type1 is "String"
-type Type2 = Check<number>;  // Type2 is "Not String"
-```
-
-This uses the ternary-like syntax to check if `T` extends `string`. If yes, it resolves to `"String"`, otherwise to `"Not String"`.
-
-### 5. Generics

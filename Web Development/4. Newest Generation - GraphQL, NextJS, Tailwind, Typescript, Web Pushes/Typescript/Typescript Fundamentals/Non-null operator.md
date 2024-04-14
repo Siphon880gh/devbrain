@@ -1,6 +1,8 @@
 
 This operator is a way to tell the TypeScript compiler that you are certain that a value is not `null` or `undefined` even when TypeScript's type checking would consider these as possibilities. It effectively removes `null` and `undefined` from the type of the operand, allowing you to access properties or methods without TypeScript raising type errors.
 
+Basically: When ts complains object is possibly null, you can use Non-Null Assertion Operator `!` to say, I'm asserting that this will not be null!
+
 ### When to Use
 
 You should use the non-null assertion operator when you have certain knowledge that a value will not be `null` or `undefined` at runtime, but TypeScript's static analysis cannot infer this. Common scenarios include:
@@ -12,6 +14,17 @@ You should use the non-null assertion operator when you have certain knowledge t
 ---
 
 Certainly! Let's explore more examples of using the non-null assertion operator (`!`) in TypeScript. This operator is particularly useful when you're confident about the presence of a value, but TypeScript's type checking could still consider `null` or `undefined` as possible outcomes. Here are a few practical scenarios:
+
+
+### Example
+
+```
+function printLength(text: string | null) {
+  console.log(text!.length); // Using '!' asserts that 'text' is not null.
+}
+
+printLength("Hello, world!");
+```
 
 ### Example 1: Accessing User-Defined Properties on DOM Elements
 
