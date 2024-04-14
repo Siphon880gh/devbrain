@@ -9,6 +9,8 @@
    npx create-next-app my-next-app
    ```
    This command creates a new folder named `my-next-app` with a pre-configured Next.js project.
+   
+   If you don't have create-next-app (npm install create-next-app) or its dependency next (npm install next) installed, the npx will ask you to install automatically.
 
 
 Nuances:
