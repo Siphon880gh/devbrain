@@ -8,12 +8,13 @@ let msg: string = 'Hi friend, I have enough money for: ';
 el.innerHTML = msg;
 
 
-let nums: Array<Number>;
+let nums: Array<number>;
 nums = [1,2,3];
 
 
 const words:string[] = ["Apple", "Banana", "Mango"]
-
+// or it can infer as:
+// const words = ["Apple", "Banana", "Mango"]
 
 el.innerHTML += nums[1]
 el.innerHTML += " "
