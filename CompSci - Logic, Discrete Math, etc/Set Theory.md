@@ -5,15 +5,16 @@ Set Theory helps in understanding collections of objects, known as sets, and the
 
 ### Example Problem 1: Basic Set Operations
 **Problem**: Consider the sets A = {1, 2, 3, 4} and B = {3, 4, 5, 6}. Compute the following:
-1. Union of A and B (A union B)
-2. Intersection of A and B (A intersect B)
+1. Union of A and B (A ∪ B)
+2. Intersection of A and B (A ∩ B)
 3. Difference between A and B (A - B)
 4. Difference between B and A (B - A)
 5. Cartesian product of A and B (A x B)
 
+
 **Solution**:
-1. A union B = {1, 2, 3, 4, 5, 6}
-2. A intersect B = {3, 4}
+1. A ∪ B = {1, 2, 3, 4, 5, 6}
+2. A ∩ B = {3, 4}
 3. A - B = {1, 2}
 4. B - A = {5, 6}
 5. A x B = {(1, 3), (1, 4), (1, 5), (1, 6), (2, 3), (2, 4), (2, 5), (2, 6), (3, 3), (3, 4), (3, 5), (3, 6), (4, 3), (4, 4), (4, 5), (4, 6)}
