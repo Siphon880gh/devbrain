@@ -27,6 +27,12 @@ let nums: Array<Number>;
 nums = [1,2,3];
 ```
 
+This syntax also works:
+```
+let nums: number[];
+nums = [1,2,3]
+```
+
 Had you assigned a string value, that position will be linted:
 ![](https://i.imgur.com/LltnFzF.png)
 ^ This is from the editor playcode.io. For VS Code, it'll be under Problems tab
