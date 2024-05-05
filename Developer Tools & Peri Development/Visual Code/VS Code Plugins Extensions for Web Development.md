@@ -26,7 +26,7 @@ Bookmarks by Alessandro Fragnani
 
 Docker
 
-Fold/unfold all icone by Ferrier Benjamin (literally spelled)
+Fold/unfold all icone by Ferrier Benjamin (literally spelled icone) - Adds icon at bottom left that toggles collapse all
 
 Github Copilot
 
