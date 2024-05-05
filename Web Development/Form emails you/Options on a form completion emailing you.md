@@ -30,4 +30,4 @@ Online help says you can authorize directly with plain username and password in 
 
 ---
 
-My other two tutorials are on using standard Gmail accounts or Workspace Gmail Accounts as accounts to email form details to your target email.
+My other two tutorials are on using standard Gmail accounts or Workspace Gmail Accounts as accounts to email form details to your target email. 
