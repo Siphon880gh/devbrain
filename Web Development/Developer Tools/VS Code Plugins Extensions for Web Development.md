@@ -55,3 +55,5 @@ VS Browser by Phu1237 (Built-in browser for Visual Studio Code)
 YAML (yaml language support)
 
 No longer needed: Emmet now comes with VS Code
+
+Markdown Table Prettifier (Right click inside markdown file's contents -> Format Document With -> Markdown Table Prettifier. Make sure not word wrap in order to see)
