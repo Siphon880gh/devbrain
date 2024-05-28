@@ -11,7 +11,7 @@ For Tufte, you may want to remove the body paddings if you’re combining with B
 
 ```
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" rel="stylesheet">  
-    <style>  
+    <style>
       body {
         width: unset;
         margin-left: unset;
@@ -52,6 +52,21 @@ For Tufte, you may want to remove the body paddings if you’re combining with B
     ul, ul > li, ol, ol > li, li {
         padding-left: revert !important;
         list-style: unset !important;
+    }
+    /* Turn off device preferring dark mode from having separate styles */
+    @media (prefers-color-scheme:dark) {
+        body {
+            background-color: unset;
+            color: unset;
+        }
+    }
+    @media (prefers-color-scheme:dark) {
+
+        .hover-tufte-underline:hover,
+        .tufte-underline,
+        a:link {
+            text-shadow: unset;
+        }
     }
     </style>
 ```

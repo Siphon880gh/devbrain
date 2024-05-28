@@ -4,11 +4,13 @@ As practical snippets
 
 ```
 // Set error logging  
-$logFilePath = 'php_errors.log'; // The path to your log file  
 ini_set('log_errors', 1);  
-error_reporting(E_ALL);  
-ini_set('error_log', $logFilePath);  
-  
+error_reporting(E_ALL);
+
+// Set error logging to page
+ini_set('display_errors', 1); // displays errors on page
+
+
 // Function to prepend data to log  
 function log_misc($data) {  
     global $logFilePath;  
@@ -32,8 +34,30 @@ function log_misc($data) {
 } // log_misc
 ```
 
-You can manually test variables:
 
+---
+
+
+If you want to log to a file, replace "Set error logging to page" section to:
 ```
-log_misc(["req method"=>$_SERVER['REQUEST_METHOD']]);
+// Set error logging to page
+ini_set('display_errors', 0); // displays errors on page
+ini_set('error_log', '/path/to/your-development-error-log.log');
 ```
+
+
+
+Using relative path:
+```php
+ini_set('error_log', 'error-log.log');
+```
+
+Using absolute path:
+```php
+ini_set('error_log', __DIR__ . '/error-log.log');
+```
+
+
+
+---
+
