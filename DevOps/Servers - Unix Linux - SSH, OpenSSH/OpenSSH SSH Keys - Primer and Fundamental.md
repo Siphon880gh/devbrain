@@ -34,7 +34,7 @@ II. Things to ignore:
 We can ignore that. It's a way for humans to quickly recognize it's the machine they are expecting because the SSH contents are too gibberish.
 
 
-III. Instructions
+**III. Instructions**
 
 1. Generate a public and private key on any machine with SSH installed - does not matter server or your local machine unless this is an online platform like github that doesn't allow access to their authorized_keys file (Read above). Doesn't matter if you're at ~/.ssh. It will tell you before proceeding
 ```
