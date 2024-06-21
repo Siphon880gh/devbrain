@@ -38,7 +38,7 @@ ps aux | awk 5001
 
 You can kill all gunicorn with this:
 ```
-ps aux | grep 5001 | grep -v grep | awk '{print $2}' | xargs kill  
+ps aux | grep 5001 | grep -v grep | awk '{print $2}' | xargs kill
 ```
 
   
