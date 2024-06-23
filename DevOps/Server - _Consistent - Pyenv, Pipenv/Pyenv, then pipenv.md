@@ -19,3 +19,22 @@ In practice, using both tools together can streamline your Python development wo
 
 ---
 
+
+## Pyenv vs pipenv
+
+[https://chatgpt.com/c/f461b64f-d028-4e2d-9fee-c2c2911c5c95](https://chatgpt.com/c/f461b64f-d028-4e2d-9fee-c2c2911c5c95)  
+
+TLDR you need both if you want consistent python version and pip packages. Pipfile's python version will have pipenv try to use that version but it’s not as comprehensive as pyenv that gives you powerhouse of features like switching python versions by command. 
+
+Activate pyenv's virtual environment first, then manage package installations with pipenv secondly. You'll hear pipenv complain it won’t use its own virtual environment because it's already inside pyenv's virtual environment. Pipenv also wont let you start a pipenv environment with “pipenv shell”. But that’s all fine! 
+
+It's fine because pipenv will save the per-project packages and dependencies to the pyenv environment if saving to a pipenv environment is redundant
+
+You can prove this by being inside pyenv virtual environment, then running this used to display the path to the virtual environment associated with the current project according to pipenv
+```
+pipenv --venv  
+```
+  
+Then you will see:
+- `Courtesy Notice: Pipenv found itself running within a virtual environment, so it will automatically use that environment, instead of creating its own for any project. You can set **PIPENV_IGNORE_VIRTUALENVS=1** to force pipenv to ignore that environment and create its own instead. You can set **PIPENV_VERBOSITY=-1** to suppress this warning.`
+- Followed by a pyenv sounding path, like: `/root/.pyenv/versions/3.6.15/envs/app`

@@ -266,6 +266,8 @@ Passwordless with SSH private key: \__filepath
 - **ssl_certificate:** \__remote file path
 - **ssl_certificate_key:** \__remote file path
 
+\__ Mention any necessary re-setups whenever you have new ssl certificates, eg. gunicorn command that has SSL paths in .sh file managed by Supervisor
+
 ---
 
 ### VPS Checklist Applied to Hostinger

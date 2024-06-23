@@ -8,159 +8,8 @@ Install whatever packages you want this app to have isolated from your system an
 
 This guide will combine supervisor and gunicorn with https. This allows for concurrent requests to flask. But does not scale up servers (not an autoscaler) because you need Kubernetes or AWS ECS for that.
 
-  
----
-
-## Quick Reference: Supervisor Paths
-
-Recall that Supervisor helps manage your apps so that they get restarted if the app crashes or the server crashes. Supervisor does NOT perform vertical scaling.
-
-You have a central supervisor setting which includes making sure the sock will work with chmod and what path to look for your apps that you want supervisor to manage
-### Central Supervisor setting file
-
-Located at either: /etc/supervisord.conf or ~/supervisord.conf
-GoDaddy Cent OS 6.1: /etc/supervisord.conf
-
-Contents could be like:
-```
-[include]
-files=/etc/supervisor.d/*.conf
-
-[supervisord]
-nodaemon=false
-logfile=/var/log/supervisor/supervisor.log
-loglevel=debug
-
-[unix_http_server]
-file=/var/run/supervisor/supervisor.sock
-chmod=0777
-chown=root:root ; socket file owner and group (adjust as needed)
-
-[supervisorctl]
-serverurl=unix:///var/run/supervisor/supervisor.sock
-
-[inet_http_server]
-port=127.0.0.1:9001
-
-
-[rpcinterface:supervisor]
-supervisor.rpcinterface_factory=supervisor.rpcinterface:make_main_rpcinterface
-```
-
-Seeing above you have a folder reg exp pattern to find supervisor app settings. 
-
-Which means you start supervisor like this (but not yet because we have to cover the supervisor app settings):
-supervisord -c /etc/supervisord.conf -l /var/log/supervisor/supervisord.log 
-
-
-### Supervisor app setting files
-
-Located at either: ~/supervisor.d/  --OR– /etc/supervisor.d/  
-- For example: ~/supervisor.d/app1.conf  --OR– **/etc/supervisor.d/app1.conf** 
-- And if you have another app: ~/supervisor.d/app2.conf  --OR– **/etc/supervisor.d/app2.conf** 
-- GoDaddy CentOS 6.1: /etc/supervisor.d/ , specifically /etc/supervisor.d/flask.conf
-- Make sure this  folder path is set into the central supervisor conf file
-
-```
-[program:app4]
-command=/home/bse7iy70lkjz/public_html/storyway/app-vlai/container/x86_64.sh
-directory=/home/bse7iy70lkjz/public_html/storyway/
-autostart=true
-autorestart=true
-redirect_stderr=true
-stdout_logfile=/var/log/supervisor/app4.log
-stderr_logfile=/var/log/supervisor/app4.log
-```
-
-
-### Then you run like this:
-
-
-Activate the right environment before dealing with supervisor and you run this in the applicable folder (storyway/)
-```
-pyenv activate app4  
-```
-
-And make sure all supervisor are closed (if it errors it's already shutdown, that's fine too):
-```
-supervisorctl shutdown  
-```
-
-Then you run like this:
-```
-supervisord -c /etc/supervisord.conf -l /var/log/supervisor/supervisord.log 
-```
-
-After init,  you manage on GoDaddy CentOS 6.1 like this:
-```
-sudo service supervisord status
-```
-And in place: start/stop/status
 
 ---
-
-
-## Quick Reference: Maintenance after setup - Supervisor level
-
-sudo service supervisord status
-sudo service supervisord stop
-sudo service supervisord restart
-
-Starting has explicit about log files so:
-```
-supervisord -c /etc/supervisord.conf -l /var/log/supervisor/supervisord.log 
-```
-
-It might not say anything on success because all that std output goes to another file
-![](https://i.imgur.com/0sPPFKn.png)
-
-
----
-
-
-## Quick Reference: Maintenance after been setup
-
-This is quick reference back. If setting up first time on server, skip this section. This section is meant for returning to after been setup and for only server maintenance purposes.
-
-  
-
-Activate the right environment before dealing with supervisor
-```
-pyenv activate app4  
-```
-
-  
-
-Shutdown previous supervisor
-```
-supervisorctl shutdown  
-```
-  
-
-Sometimes fail to shutdown the gunicorn so double check:
-```
-ps aux | awk 5001  
-```
-  
-
-You can kill all gunicorn with this:
-```
-ps aux | grep 5001 | grep -v grep | awk '{print $2}' | xargs kill
-```
-
-  
-Then restart Supervisor:
-```
-sudo supervisord -c /etc/supervisord.conf -l /var/log/supervisor/supervisord.log 
-```
-
-
-Checking mongo shell for database entries?
-
-Its mongo shell is actually `mongo`  → `show databases`  → etc etc
-
----
-
 
 
 ## 1. Setup Supervisor  
@@ -273,31 +122,31 @@ curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer 
 ---
 
 
-Test if the path is found:
+We will make sure the pyenv command works permanently.
 
-which pyenv
-
-  
-Moved here: 
-Check for sure. If not found, find globally for that folder. For example, it could be:
+1. Test if the path is found:
 ```
+which pyenv
 ls ~/.pyenv/bin/pyenv  
 ```
 
-  
-Add that path via .zhsrc, .bash_profile, or whatever is appropriate:
+^  If not found, run command to find that folder from root folder /
+ 
 
-That’s at ~/.bash_profile or /root/.bash_profile. You can `ls -la`  there to see if it exists. Create the file if doesn’t exist  
+2. Once you have the pyenv filepath, add that path via .zhsrc, .bash_profile, or whatever is appropriate in order to make sure future terminal sessions that the pyenv command will work:
 
-System wide bash profile is the file at /etc/profile
+- That’s at ~/.bash_profile or /root/.bash_profile. You can `ls -la`  there to see if it exists. Create the file if doesn’t exist  
+- System wide bash profile is the file at /etc/profile
 ```
 export PATH="$PATH:~/.pyenv/bin/"  
 ```
 
 
-## 2b. OPTIONAL - If you want option to use pyenv’s virtual environment in the future (but not compatible with pipenv)
+## 2b. OBSOLETED - SKIP - If you want option to use pyenv’s virtual environment in the future (but not compatible with pipenv)
 
-Install pyenv-virtualenv which is tool that pyenv uses for virtual environments. It would not complain until you start activating. Install with:
+Why kept here? In case it's needed. Will have to test another round of fresh installation
+
+1. Install pyenv-virtualenv which is tool that pyenv uses for virtual environments. It would not complain until you start activating. Install with:
 
 - If Mac:
 
@@ -316,7 +165,7 @@ git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/py
 ```
 
   
-Make sure .bash_profile or .zshrc has the initiation code for virtualenv:
+2. Make sure .bash_profile or .zshrc has the initiation code for virtualenv:
 
 That’s at ~/.bash_profile or /root/.bash_profile. You can `ls -la`  there to see if it exists. Create the file if doesn’t exist
 
@@ -355,78 +204,83 @@ eval "$(pyenv init -)"
 
 Explanation: This adds the `pyenv` shims directory to the front of your `PATH`. The shims directory contains lightweight executables that intercept your Python commands (like `python` or `pip`) and redirect them to the correct Python version based on your `pyenv` settings. With the init option command, among other things, it ensures that `pyenv` shims work correctly and that other `pyenv` functionality (like auto-activation of virtual environments) is set up. These need to be set before you use any Python commands to ensure your shell uses the Python versions managed by `pyenv`.
 
-  
-## 4. Switch to python version with pyenv
 
-1. Now we switch python version. Here I picked 3.6.15; you can pick the python version that’s appropriate. Make sure in the appropriate folder when you do:
+2. Now we switch python version. Here I picked 3.6.15; you can pick the python version that’s appropriate. Make sure in the appropriate folder when you do:
 
-```
-cd /Users/wengffung/dev/web/storyway/  
-pyenv local 3.8.18  
-export PYENV_VERSION=3.8.18  
-```
-
-  
-
-If it says version is not installed, then install to pyevn with: `pyenv install 3.6.15` 
-
-If you need a reminder which python versions you installed on pyenv, show all versions with: `pyenv shims` 
-
-The exporting PYENV_VERSION might seem like an overkill, but PIP looks into it and might have a mismatch
-
-  
-
-You can confirm python is using pyenv’s:
+Newer systems: 3.8.18 or higher
+GoDaddy CentOS 6.1: Limited to 3.6.15
 
 ```
-which python  
-cat .python-version  
+cd /path/to/app/folder  
+pyenv local 3.6.15  
 ```
 
   
-If .python-version showing the wrong version, remove it, and try again
+
+3. If it says version is not installed, then install that python version into pyevn home folders with: 
+```
+pyenv install 3.6.15
+```
 
 
-Note:  
+8. Confirm that your folder is effectively using that version of python
 
-- **Packages Installed with Pyenv's Python Version**: If you installed packages using pip after setting the Python version with `pyenv`, those packages are installed specifically for that Python version. So, when you set `pyenv local 3.x.x`, you'll have access to any packages you installed while that version was active.
-    
-- You are not creating a pyenv virtual environment because pipenv virtual environment would say you already have a virtual environment and will not override it, then pipenv can’t do its job of managing packages that your script has access to. Instead, you’re using pyenv’s other feature of switching python version (by placing files locally on your project at /.python-version)
+You can confirm python by checking your python command's version against the python saved by pyenv to your current folder (in the .python-version file)
 
-## 5. Install pipenv at the current folder for the pyenv python version
+Compare commands `python --version` against `cat .python-version`
+
+Make sure the versions match. Otherwise, the problem is python command which will be your python interpreter is running another python version that took precedence over your pyenv python. This is because of the order of $PATH.
+
+Get the correct folder of the python that pyenv is using. Run:
+```
+pyenv virtualenvs
+```
+
+You may get output like this:
+```
+[root]# pyenv virtualenvs
+3.6.15/envs/app4 (created from /root/.pyenv/versions/3.6.15)
+* app4 (created from /root/.pyenv/versions/3.6.15)
+```
+
+Then you want to run `ls` command to confirm the folder exists. Then you can run `echo $PATH` to see what folders are there. You want the target folder to be the first item. You may want to prepend in .bash_profile or equivalent file so that the settings persist across server restarts.
 
 
-First make sure you’ll be using pyenv’s pip and it’ll be installed as pyenv’s pip’s pipenv rather than anaconda’s. Otherwise you’ll likely have package incompatibility or distributions not being found complaining about. 
+## 4. Install pipenv at the current folder for the pyenv python version
+
+1. Do you have anaconda on the current system?
+First make sure you’ll be using pyenv’s pip and it’ll be installed as pyenv’s pip rather than anaconda’s. Otherwise you’ll likely have package incompatibility or distributions not being found complaining about.
 
 
-1. Requirement: Exited all virtual environments:
-
-If you see (base) before your computer name in terminal, run: `conda deactivate` 
-
-Make sure you haven’t started a pyenv virtual environment (if you follow other instructions on top of my instructions)
-
-  
 You can confirm pip is not using anaconda’s paths with:
-
 ```
 which pip 
 ```
 
-  
+It should give you a pyenv sounding path like `/root/.pyenv/shims/pip` instead of an anaconda or conda sounding path.
+
+You fix this by moving the $PATH around or prepending the pyenv's pip. The pip is found in your pyenv's current python path, for example folder /root/.pyenv/versions/3.6.15/envs/app4/bin or file /root/.pyenv/versions/3.6.15/envs/app4/bin/pip
+
+
+1. Requirement: Exited all virtual environments:
+
+You want to make pipenv available to your entire system, so make sure you exited all virtual environments. If you are in a pyenv virtual environment, you are exiting that too.
+
+Have anaconda on your current system? You might see (base) before your computer name in terminal, so run: `conda deactivate` 
+
 
 2. Requirement: Make sure have the latest pip and various build chains first:
 ```
 pip install --upgrade pip setuptools wheel  
 ```
 
-  
 
 3. Install pipenv. Depending on your packages successfully installing or not later, you have these options to install pipenv  
 ```
 pip install pipenv
 ```
 
-^ If running `pipenv install`  on an existing Pipfile produces error: "TypeError: 'NoneType' object is not callable”, then you need to downgrade pipenv. You would have to remote pre existing pipenv virtual environments with `pipenv --rm` 
+^ If running `pipenv install`  on an existing Pipfile produces error: "TypeError: 'NoneType' object is not callable”, then you need to downgrade pipenv. You would have to remote pre existing pipenv virtual environments with `pipenv --rm` then try other versions like:
 
 ```
 pip install pipenv==2021.5.29
@@ -441,49 +295,83 @@ pip install pipenv==2022.3.23
 ```
 
 
-You can confirm pipenv is not using anaconda’s path, but very likely it won’t:
-
+You can confirm pipenv is not using anaconda’s path, but very likely it won’t. You can test it out any ways (make sure it doesn't return a conda or anaconda sounding path):
 ```
 pip show pipenv  
 ```
 
 
-## 6. Pipenv: Create pipenv package virtual environment with pyenv’s local python 
+## 6. SKIPPIN - Create virtual environment
 
+
+Here you have a few options when it comes to the type of virtual environment you can create
+- Pipenv virtual environment (which is "pipenv shell", used to activate the virtual environment created by Pipenv for the current project)
+- Pyenv virtual environment
+
+If you create a pyenv virtual environment, pipenv likes to constantly remind you as a courtsey that you're using another virtual environment and that pipenv will not step on your toes creating a pipenv environment inside the other virtual environment. It is absolutely possible to do so though and the courtesey reminder also tells you how to set on nested virtual environments
+
+Suggested paths
+- Do not allow nested virtual environments because future management of pipenv packages will not be as expected if you forget to activate virtual environments in a particular order
+- Use pipenv virtual environment. You'll have to install pyenv virtualenv
+
+
+1. Install pyenv virtualenv
+
+```
+pyenv virtualenv 3.9.1 app1
+```
+
+
+^Name the virtual environment app1 or any name you desired. In the future you activate the pyenv environment with `pyenv activate app1`
+
+2. Activate the pyenv-virtualenv environment. Notice the command is shorter (no need to mention virtualenv):
+```
+pyenv activate app1
+```
+
+## 6. SKIPPING - Pipenv: Create pipenv package virtual environment with pyenv’s local python 
+
+Skipping
 ```
 pipenv --python $(pyenv which python)  
 ```
+Skipping
+  ^ This command tells `pipenv` to create a virtual environment using the Python interpreter specified by `pyenv`. Essentially, it ensures that `pipenv` uses the exact version of Python that `pyenv` has currently activated or configured as the default for your shell session.
+Skipping
+Ignore the message: It’ll say .env environmental variables are loaded. Don’t worry, it doesn’t affect any .env file you may have at the current folder.
+
+## 7. Pipenv: Permanently install pipenv packages under the pyenv virtual environment
 
   
+1. Check first: Is there already a Pipfile? 
+   
+   Then make sure the python version in Pipfile file matches the python version of your pyenv. Otherwise it could "✘ Failed creating virtual environment"
+   
+- Bottom of Pipfile tells pyenv the target python version
+- Inside .python-version tells Pyenv the python version of the vritual environment
 
-It’ll say .env environmental variables are loaded. Don’t worry, it doesn’t affect any .env file you may have at the current folder.
 
-  
+1. Check first: Is there a requirements.txt? 
+   
+   The normal pip could optionally use requirements.txt to install packages. We will be relying on Pipfile for pipenv. To prevent conflicts, move requirements.txt out or delete it
 
-## 7. Pipenv: Permanently setup packages for pipenv
-
-  
-
-1. Is there already a Pipfile? Then make sure the python version in Pipfile file matches the python version of your pyenv. Otherwise it could "✘ Failed creating virtual environment"
-
-  
-
-2. **Setup `pipenv` within the Virtual Environment**:
 
   
+3. Reflections
 
-   Once the virtual environment is activated, you can use `pipenv` to manage project-specific dependencies:
 
-  
-
-Make sure you’re in the project. And now you will initiate a pipenv project for your app. Initialize a Pipenv environment (creates a Pipfile):  
-# initiate a pipenv project with the current app folder
-
+   Once the virtual environment is activated (from an earlier step where you created a pipenv package virtual environment with pyenv's local python), you can use `pipenv` to manage project-specific dependencies:
+   
+   Next we will initiate a pipenv project for your app. Initialize a Pipenv environment (creates a Pipfile):  
+   
+4. 
+ Initiate a pipenv project with the current app folder
+```
 pipenv install
+```
 
-  
 
-Then confirm successful:
+Then confirm successful by the creation of Pipfile:
 
 ```
 ls Pipfile*
@@ -493,25 +381,20 @@ ls Pipfile*
 
   
 
-2.  Install packages and dependencies using Pipenv and those will be portable from system to system  
-    
-
-  
-
-Make sure:
-
-- No requirements.txt in the same folder. Keep in mind if you have a requirements.txt, it could get in the way if you want to install specific versions. You will be relying on Pipfile
-
-  
-
-Run to both install the package and update Pipfile (so when you migrate, `pipenv install`  is enough):  
+5.  Install packages and dependencies using Pipenv and those will be portable from system to system  
 
 ```
 pipenv install package_name  
 ```
 
 
-2 - troubleshooting:
+While installing packages, have an eye for future migrations making sure the packages in Pipfile have specific versions.
+- Why? Packages that installed successfully, the versions they're currently at are compatible with each other on the python version you're currently at. You want to perform future migrations by bringing the Pipfiles over that have the specific versions, then running "pipenv install" on that future migration which will install based on the Pipfile.
+- See if you have a problem: Open Pipfile and you'll see the package versions if you had specified them in `pipenv install package_name===1.2.0`, for example. You unlikely had specified versions so the packages could be set to `*`. 
+- How to correct `*` to the version: Run `pipenv run pip show opencv-python` , for example, which gives you the version. Then modify the Pipfile, `opencv-python = "==3.4.7.28"`, for example.
+
+
+Installation troubleshooting:
 
 > InstallCommand error?  
 > 
@@ -533,54 +416,16 @@ pipenv install package_name
 > [https://www.caspertsui.blog/pipenv/](https://www.caspertsui.blog/pipenv/)  
 >   
 
-  
-
-Advanced Use: Can edit the Pipfile for specific versions, then run `pipenv install` 
-```
-[[source]]  
-url = "https://pypi.org/simple"  
-verify_ssl = false  
-name = "pypi"  
-  
-[packages]  
-flask = "==2.0.3"  
-flask-cors = "==4.0.0"  
-numpy = "==1.19.5"  
-requests = "==2.27.1"  
-python-dotenv = "==0.20.0"  
-moviepy = "==1.0.3"  
-pydub = "==0.25.1"  
-pillow = "==8.4.0"  
-matplotlib = "==3.3.4"  
-pydantic = "==1.9.2"  
-ipython = "==7.16.3"  
-websockets = "==9.1"  
-opencv-python = "==3.4.7.28"  
-  
-[dev-packages]  
-  
-[requires]  
-python_version = "3.6"  
-```
-  
-
-Advanced Use: Can install cli specific ersions:
-```
-pipenv install Flask==2.0.3
-```
-... ...
-  
-
-## 8. Activate pipenv virtual environment
 
   
 
-Check: Did you \## **3. Switch to python version with pyenv ?**  
+## OBSOLETED - SKIP - Activate pipenv virtual environment
 
-Activate pypenv virtual environment  
 
-  
+- Your goal should be to create a pyenv virtual environment wjhich negpip (Middle of correcting this paragraph) env virtual environment would say you already have a virtual environment and will not override it, then pipenv can’t do its job of managing packages that your script has access to. Instead, you’re using pyenv’s other feature of switching python version (by placing files locally on your project at /.python-version)
 
+
+SKIPPING:
 Either
 
 a. Activate the virtual environment of dependencies, then run your script
@@ -589,6 +434,8 @@ pipenv shell --verbose
 python your_script.py
 ```
 
+
+SKIPPING:
 b. Or run a script within the Pipenv virtual environment:
 
 ```
@@ -597,18 +444,17 @@ pipenv run python your_script.py
   
 
   
-
 ---
 
   
 
+**SKIPPING:**
 Troubleshooting
 
-  
-
+SKIPPING:
 If says there’s already a virtual environment, run pipenv --rm, consider reinstalling off the current Pipfile that’s generated (from `p
 
-  
+ SKIPPING:
 ```
 pipenv --rm  
 pipenv install  
@@ -617,9 +463,9 @@ python your_script.py
 
 --- 
 
+
+## SKIPPING:
 Test if dependencies are loaded from the right virtual environment in a dev tool script:  
-
-
 
 Get the path to the currently active Python interpreter to see if it's from the pyenv virtual environment's path  
 your_script.py:  
@@ -644,51 +490,34 @@ An output that makes sense is it pointing to the version of python you initiated
 
 ## 9. Prep sh file (so supervisord can manage restarting it on server crashes) 
 
-Supervisord can easily run a python file if it’s set that way in supervisor.d/*.conf at key command, and then it would restart the app if the server or app crashes; however, Supervisor also needs to point the python interpreter via pyenv, then run the pipenv virtual environment for the modules, so it can use your preferred python interpreter (along with its pip) and your preferred python packages. The problem is you can only setup one command in your app config. So, you create a .sh that starts the two virtual environments as well as start the python server / script
+Supervisord can easily run a python file if it’s set that way in supervisor.d/*.conf at key command, and then it would restart the app if the server or app crashes; however, Supervisor also needs to point to the python interpreter via pyenv, so it can use your preferred python interpreter (along with its python packages). The problem is you can only setup one command in your app config. So, you create a .sh that starts the two virtual environments as well as start the python server / script
 
   
-
 1. Know that Supervisor runs shell script that activates virtual environments and runs script
 
 
 if remotely SSH, eg:
 ```
-/home/bse7iy70lkjz/public_html/tools/flask-pipenv-supervisor/supervisor/x86_64.sh  
+/path/to/supervisor/x86_64_godaddy.sh
 ```
   
 
-if locally, eg:
+Remember the .sh file should have the first line what interpreter to use. Most cases should be:
 ```
-/Users/wengffung/dev/web/weng/tools/flask-virt-supervisor/supervisor.x86_64_dev.sh  
-```
-  
-
-LOCAL sh:
-```
-#!/bin/bash  
-# Above must be first line of script. Tells shell which interpreter to use. /bin/bash is most common shell.  
+#!/bin/bash
 ```
 
-# Supervisor - Pyenv - Pipenv for: x86_64  
-Not to be confused with x86. x86 is on even older computers' CPUs using the 32-bit x86 architecture.  
+2. Important parts of the .sh file
+When you run a shell script   it runs in its own environment and doesn't automatically have access to the configurations and settings of your main shell session or .bash_profile. Below are the relevant parts of /etc/profile that makes pyenv,  pipenv, and other commands available.  
 
-x86_64 is the architecture found in most desktops and servers.  
-
-x86_64 is commonly used in Intel and AMD processors  
-  
-## PROFILE START  --  
-Normally, when you are in a shell session, you can use `source /etc/profile`, but when you run a shell script,   it runs in its own environment and doesn't automatically have access to the configurations and settings of your main shell session. It cannot load in /etc/profile. Below are the relevant parts of /etc/profile that makes pyenv,   pipenv, and other commands available.  
-  
-source /etc/profile  
-  
-# For pyenv  
+**For pyenv**  
 ```
 conda deactivate  
 export PATH="$(pyenv root)/shims:$PATH"  
 eval "$(pyenv init -)"  
 ```
 
-# User specific environment and startup programs  
+**User specific environment and startup programs**  
 ```
 PATH=$PATH:$HOME/bin  
 PATH=$PATH:/root/.pyenv/bin  
@@ -698,13 +527,163 @@ PATH=$PATH:/Users/wengffung/.local/share/virtualenvs/storyway-A39rOKjm/lib/pytho
 export PATH  
 ```
 
-# ImageMagick which MoviePy uses  
+**ImageMagick which MoviePy uses**  
 ```
 export MAGICK_HOME="$(dirname $(which convert))"  
 ```
 
-PROFILE END --  
+
+Full file `x86_64_godaddy.sh` is:
+```
+#!/bin/bash
+
+# Above must be first line of script. Tells shell which interpreter to use. /bin/bash is most common shell.
+
   
+
+# Supervisor - Pyenv - Pipenv for: x86_64
+
+# Not to be confused with x86. x86 is on even older computers' CPUs using the 32-bit x86 architecture.
+
+# x86_64 is the architecture found in most desktops and servers.
+
+# x86_64 is commonly used in Intel and AMD processors
+
+  
+
+## PROFILE START --
+
+# Normally, when you are in a shell session, you can use `source /etc/profile`, but when you run a shell script,
+
+# it runs in its own environment and doesn't automatically have access to the configurations and settings of your
+
+# main shell session. It cannot load in /etc/profile. Below are the relevant parts of /etc/profile that makes pyenv,
+
+# pipenv, and other commands available.
+
+  
+
+# source /etc/profile
+
+  
+
+# For pyenv
+
+  
+
+# if command -v pyenv 1>/dev/null 2>&1; then
+
+# eval "$(pyenv init -)"
+
+# fi
+
+  
+
+# if command -v pyenv virtualenv-init 1>/dev/null 2>&1; then
+
+# eval "$(pyenv virtualenv-init -)"
+
+# fi
+
+  
+
+export PYENV_ROOT="$HOME/.pyenv"
+
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+if command -v pyenv 1>/dev/null 2>&1; then
+
+eval "$(pyenv init -)"
+
+fi
+
+  
+
+# User specific environment and startup programs
+
+  
+
+PATH=$PATH:$HOME/bin
+
+PATH=$PATH:/root/.pyenv/bin
+
+PATH=$PATH:/root/.pyenv/plugins/pyenv-virtualenv/bin
+
+PATH=$PATH:/usr/bin/convert
+
+export PATH
+
+  
+
+# ImageMagick which MoviePy uses
+
+export MAGICK_HOME="$(dirname $(which convert))"
+
+  
+
+## PROFILE END --
+
+  
+
+# Normally, when you are in a shell session, you can use `pyenv activate appName` to activate a specific virtual environment.
+
+# However, when you run a shell script, it runs in its own environment and doesn't automatically have access to the
+
+# configurations and settings of your main shell session.
+
+  
+
+# To make sure your shell script can activate the virtual environment correctly, you directly source the virtual environment
+
+# activation scripts ("activate" is a shell script provided by pyenv). The activate file contains thenecessary configuration
+
+# to set up the virtual environment
+
+  
+
+# pyenv activate app4
+
+cd /home/bse7iy70lkjz/public_html/storyway/
+
+pyenv activate app4
+
+# source ~/.pyenv/versions/app4/bin/activate
+
+  
+
+# Activate pipenv environment (python packages) associated with the file path as referenced by /etc/supervisor.d/*.conf
+
+# cd /home/bse7iy70lkjz/public_html/storyway/
+
+# pipenv shell
+
+  
+
+# Run script in container
+
+# cd /home/bse7iy70lkjz/public_html/storyway/app-vlai
+
+cd /home/bse7iy70lkjz/public_html/storyway/app-vlai/
+
+# python /home/bse7iy70lkjz/public_html/storyway/app-vlai/server.py
+
+# npm start
+
+  
+
+# Unfortunately pipenv's packages actually not running but is really pyenv's packages running because pipenv ven does not want to work with pyenv ven
+
+# therefore all packages were installed with pyenv's pip. therefore we do not precede this command with `pipenv run...`
+
+# gunicorn -w 12 -b 0.0.0.0:5002 wsgi:app
+
+# 2-4x number of cores. This server is 2 cores.
+
+gunicorn -w 6 -b 0.0.0.0:5001 --certfile=/home/bse7iy70lkjz/ssl/certs/wengindustry_com_a444f_a4d3f_1749143500_7b4b580d1f836a54d0a2b2a0fb4b5c0f.crt --keyfile=/home/bse7iy70lkjz/ssl/keys/a444f_a4d3f_0a15eb4d8e049276bf3024f5ba73562b.key wsgi:app
+```
+
+
+Skipping
 Set the Python version locally at this directory with pyenv. Should match pipenv Pipfile's version  
 ```
 cd /Users/wengffung/dev/web/storyway/  
@@ -713,12 +692,14 @@ export PYENV_VERSION=3.8.18
 pipenv --python $(pyenv which python)  
 ```
 
+Skipping
 Activate pipenv environment (python packages)  
 ```
 cd /Users/wengffung/dev/web/storyway/  
 pipenv shell  
 ```
 
+Skipping
 Run script in container  
 ```
 cd /Users/wengffung/dev/web/storyway/video-listing-ai  
@@ -726,7 +707,7 @@ cd /Users/wengffung/dev/web/storyway/video-listing-ai
 pipenv run python /Users/wengffung/dev/web/storyway/video-listing-ai/server.py  
 ```
   
-
+Skipping
 REMOTE sh:
 ```
 #!/bin/bash  
@@ -767,48 +748,55 @@ export PATH
 export MAGICK_HOME="$(dirname $(which convert))"  
 ```
 
+Skipping
 PROFILE END --  
-  
+
+Skipping
 Normally, when you are in a shell session, you can use `pyenv activate appName` to activate a specific virtual environment.  
 However, when you run a shell script, it runs in its own environment and doesn't automatically have access to the   configurations and settings of your main shell session.  
-  
+
+Skipping
 To make sure your shell script can activate the virtual environment correctly, you directly source the virtual environment activation scripts ("activate" is a shell script provided by pyenv). The activate file contains thenecessary configuration to set up the virtual environment  
 
+Skipping
 ```
 pyenv activate app4  
 source ~/.pyenv/versions/app4/bin/activate  
 ```
 
-# Activate pipenv environment (python packages) associated with the file path as referenced by /etc/supervisor.d/*.conf 
+# SKIPPING- Activate pipenv environment (python packages) associated with the file path as referenced by /etc/supervisor.d/*.conf 
 ```
 cd /home/bse7iy70lkjz/public_html/storyway/  
 pipenv shell  
 ```
 
-# Test script in pipenv environment  
+SKIPPIN # Test script in pipenv environment  
 ```
 cd /home/bse7iy70lkjz/public_html/storyway/video-listing-ai  
 #python /home/bse7iy70lkjz/public_html/storyway/video-listing-ai/server.py  
 npm start  
 ```
 
+SKIPPING
 Test if successful. Close off the script (CMD+C). We will use Supervisor to run a .sh shell file that runs the script via gunicorn to a gateway python script
 
-# Make sure Supervisor has permission to run shell script
+3. Make sure Supervisor has permission to run shell script
 
-You need to `chmod 777 path/to/file/sh` 
+- Make sure you are root user in your SSH session
+- Appropriate the permissions of the sh file `chmod 750 path/to/file/x86_65.sh` 
+- Later on you will run supervisor as root
 
-You run that in terminal as root user, because when you start supervisord to permanently monitor, it’d be started from root user as well. Make sure it is owned and grouped by root as well.
 
 ---
 
 
 Troubleshooting:
 
+SKIPPING (Likely incorrect)
 If the packages are not found by your python when ran by the .sh file, make sure `pipenv shell`  worked because that virtual environment where you had installed with `pipenv install \__package_name__)` would inform your python where to load. In addition, we had the command `pipenv run python ...`  to forcefully run from pipenv’s perspective.
 
   
-If that won’t work, your last resort is at your python script file, to point to where to import the modules:  
+If the packages are not found by your python when ran by the .sh file, you may need to append to the $PATH that import looks into from a coding side:
 ```
 import sys  
 sys.path.append('/Users/wengffung/.local/share/virtualenvs/storyway-A39rOKjm/lib/python3.8/site-packages')  
@@ -823,11 +811,6 @@ from runtime.env import runServer
 ```
   
 
-Make sure you point to the folder for your modules to be importable inside python scripts. Get your pipenv’s path:  
-```
-pipenv --venv  
-```
-  
 
 For example, if it’s `/Users/wengffung/.local/share/virtualenvs/storyway-A39rOKjm` , the path of python modules are at, which you can discover in Finder or with ls commands:
 ```
