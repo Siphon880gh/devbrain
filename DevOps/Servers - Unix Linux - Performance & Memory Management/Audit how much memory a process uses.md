@@ -1,7 +1,25 @@
 
+Snapshot everytime you run it:
 ```
 ps aux | grep USER; ps aux | grep processName
 ```
+
+
+Real time:
+```bash
+watch "ps aux | grep USER; ps aux | grep processName"
+```
+
+Adjust poll time with`-n` option:
+
+```bash
+watch -n 1 "ps aux | grep USER; ps aux | grep processName"
+```
+
+Remember to replace `USER` with the actual username or another keyword relevant to your needs. USER might be root.
+
+---
+
 
 When you run these commands, you have three important memory information
 - `%MEM`: Represents the percentage of physical memory that each process is using. 
