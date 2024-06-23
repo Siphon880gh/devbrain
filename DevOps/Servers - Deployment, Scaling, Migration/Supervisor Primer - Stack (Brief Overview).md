@@ -11,4 +11,4 @@ Finally, the .sh file runs **gunicorn** with x number of process workers, and mi
 
 ---
 
-The gunicorn runs an intermediate** wsgi.py** python script, which runs Flask **python script** (or a normal non-Flask python script).
+The gunicorn runs an intermediate** wsgi.py** python script, which runs Flask **python script** (or a normal non-Flask python script in place of a Flask python script).

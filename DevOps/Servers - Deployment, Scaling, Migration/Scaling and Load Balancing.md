@@ -29,9 +29,14 @@ Using multiple workers is particularly useful for handling I/O-bound tasks, wher
 
 ---
 
-## Docker for containing
+## Not Supervisor
 
-Docker is vital in modern SaaS environments because it ensures application consistency across different operating systems, which becomes particularly important during vertical scaling. When vertically scaling, you might add more powerful servers, and these servers may come with a variety of operating systems depending on availability or organizational preferences. Docker containers encapsulate the application along with its environment and dependencies, guaranteeing that it functions uniformly regardless of the OS. This capability is crucial because installing software directly on different operating systems can require unique setups and dependencies, potentially leading to inconsistent application behavior. Docker simplifies this process, ensuring consistent deployment across all types of systems.
+Supervisor does not manage vertical scaling. Vertical scaling involves increasing the resources (CPU, memory) of a single server to handle increased load. This process typically requires modifications to the server's hardware or configuration, which is outside the scope of what Supervisor handles. Vertical scaling is generally managed through server configuration and hardware upgrades or by using cloud services that provide automatic scaling capabilities.
+
+---
+## Docker for Containing in Vertical Scaling
+
+Docker is vital in modern SaaS environments because it ensures application consistency across different operating systems through Containerization, which becomes particularly important during vertical scaling. When vertically scaling, you might add more powerful servers, and these servers may come with a variety of operating systems depending on availability or organizational preferences. Docker containers encapsulate the application along with its environment and dependencies, guaranteeing that it functions uniformly regardless of the OS. This capability is crucial because installing software directly on different operating systems can require unique setups and dependencies, potentially leading to inconsistent application behavior. Docker simplifies this process, ensuring consistent deployment across all types of systems.
 
 ---
 

@@ -74,6 +74,11 @@ server {
     listen 80;  
     listen [::]:80;  
     server_name YOUR_PUBLIC_IP;  
+
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    {{ssl_certificate_key}}
+    {{ssl_certificate}}
   
     root YOUR_HTML_FILES_PATH;  
       
