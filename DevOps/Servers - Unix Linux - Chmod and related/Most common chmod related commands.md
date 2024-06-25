@@ -19,6 +19,11 @@ Managing Linux file permissions and understanding which users and groups have ac
 6. **`whoami`**: This command simply prints the username of the current user.
 
 7. **Finding out what groups you are in (`groups`)**: The `groups` command followed by a username will list all the groups that the user belongs to. If you run `groups` without specifying a username, it will show the groups for the current logged-in user.
+	1. So you can:
+```
+groups root
+```
+
 
 Here is how you might use these commands:
 - To see file permissions: `ls -la filename`

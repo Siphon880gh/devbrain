@@ -135,6 +135,12 @@ if __name__ == "__main__":
 gunicorn -w 6 -b 0.0.0.0:5001 --certfile=/home/etc/ssl/certs/something.crt --keyfile=/home/etc/ssl/certs/something.key wsgi:app
 ```
 
+### Detailed Explanation:
+
+1. **`-b` or `--bind`**: This option tells Gunicorn which network address and port to bind to.
+2. **`0.0.0.0`**: This is a special address that binds the server to all available IPv4 addresses on the local machine. It makes the server accessible from any network interface on the host.
+3. **`5001`**: This is the port number on which the server will listen for incoming connections.
+4. certfile and keyfile is so it's https compatible (which is required nowadays)
 
 ---
 

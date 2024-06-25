@@ -105,10 +105,6 @@ stderr_logfile=/var/log/supervisor/app1.log
 
  ^ Yes, you run the shell script file path as the entire command, with no arguments or process name necessary  
 
-Remote:
-```
-
-```
   
 ---
 
@@ -152,7 +148,6 @@ Why kept here? In case it's needed. Will have to test another round of fresh ins
 
 ```
 brew install pyenv-virtualenv
-
 ```
   
 
@@ -177,7 +172,13 @@ fi
   
 if command -v pyenv virtualenv-init 1>/dev/null 2>&1; then  
     eval "$(pyenv virtualenv-init -)"  
-fi  
+fi
+
+
+PATH=$PATH:$HOME/bin
+PATH=$PATH:/root/.pyenv/bin
+PATH=$PATH:/root/.pyenv/plugins/pyenv-virtualenv/bin
+export PATH
 ```
   
 

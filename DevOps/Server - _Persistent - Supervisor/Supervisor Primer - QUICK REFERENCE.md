@@ -1,3 +1,6 @@
+
+**TIP: OPEN TABLE OF CONTENTS**
+
 ## Quick Reference: Supervisor Paths
 
 Recall that Supervisor helps manage your apps so that they get restarted if the app crashes or the server crashes. Supervisor does NOT perform vertical scaling.
@@ -145,11 +148,3 @@ sudo supervisord -c /etc/supervisord.conf -l /var/log/supervisor/supervisord.log
 Checking mongo shell for database entries?
 
 Its mongo shell is actually `mongo`  → `show databases`  → etc etc
-
-
----
-
-## Pyenv
-
-
-If you need a reminder which python versions you installed on pyenv, show all versions with: `pyenv shims` 

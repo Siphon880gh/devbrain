@@ -13,9 +13,8 @@ Your quick fix may be to SSH to where you need to be to make the user and group 
 
 ```
 sudo chown -R b..:b.. devbrain; 
-sudo chmod -R u+w devbrain;
+sudo chmod -R g+w devbrain;
 ```
-
 
 ### Long Term Solution
 
