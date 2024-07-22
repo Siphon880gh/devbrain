@@ -24,6 +24,10 @@ Managing Linux file permissions and understanding which users and groups have ac
 groups root
 ```
 
+Or you can simply find out for the current user (syntax depends on operating system. You can find equivalent syntax running `man groups`)
+```
+groups / id -Gn
+```
 
 Here is how you might use these commands:
 - To see file permissions: `ls -la filename`

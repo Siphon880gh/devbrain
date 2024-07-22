@@ -50,19 +50,19 @@ To display all system users and groups in PHP on a CentOS system, you would typi
 
 Here's a simple PHP script that demonstrates this:
 
-```php
+```
 <?php
 
 // Fetch all users from /etc/passwd
 $users = shell_exec('cat /etc/passwd | cut -d: -f1');
-echo "Users:\n";
-echo "------\n";
-echo $users . "\n";
+echo "Users:<br/>";
+echo "------<br/>";
+echo $users . "<br/>";
 
 // Fetch all groups from /etc/group
 $groups = shell_exec('cat /etc/group | cut -d: -f1');
-echo "Groups:\n";
-echo "------\n";
+echo "Groups:<br/>";
+echo "------<br/>";
 echo $groups;
 
 ?>
@@ -96,6 +96,11 @@ $groupInfo = posix_getgrgid(posix_getegid());
 echo "Current Group: " . $groupInfo['name'] . "<br>";
 
 ?>
+```
+
+or
+```
+$command = sprintf('stat -c "%%U %%G %%a" %s', escapeshellarg($file));
 ```
 
 This script will display the current user and group under which the PHP script is executed. In the context of a web server, it will typically show the web server's user and group (like `www-data` for Apache in some distributions).

@@ -10,5 +10,9 @@ sorting-spec: |-
   Plug-in Development
   Web Development
   Web Development - Rapid Development
-  ---
+  %
+  README
+  package.json
+  sortspec
+  server-update.php
 ---

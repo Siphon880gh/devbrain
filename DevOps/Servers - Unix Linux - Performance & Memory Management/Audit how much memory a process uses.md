@@ -4,6 +4,7 @@ Snapshot everytime you run it:
 ps aux | grep USER; ps aux | grep processName
 ```
 
+---
 
 Real time:
 ```bash
@@ -16,7 +17,7 @@ Adjust poll time with`-n` option:
 watch -n 1 "ps aux | grep USER; ps aux | grep processName"
 ```
 
-Remember to replace `USER` with the actual username or another keyword relevant to your needs. USER might be root.
+Notice it's a command pipe separated by a semi-colon, followed by another command pipe. Had we grepped for just the process name, then the header row wouldn't have shown up. But since we grepped for the USER column first, the header column will show up before the process greps
 
 ---
 

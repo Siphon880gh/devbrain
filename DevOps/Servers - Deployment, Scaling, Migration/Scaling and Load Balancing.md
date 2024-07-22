@@ -5,25 +5,28 @@ You want your Software as a Service (SaaS) application to handle growing numbers
 
 When you mention multiple users "hogging up" multiple worker processes, you're touching on one of the challenges in SaaS scaling: resource allocation and load balancing. Effective scaling ensures that the system can dynamically adjust resources—like worker processes—to meet the demands of an increasing number of users. This might involve techniques such as:
 
-1. **Horizontal Scaling:** Adding more servers or instances to distribute the load more evenly.
+1. **Horizontal Scaling:** Adding more servers or instances to distribute the load more evenly. The number of machines (nodes) get added.
 	1. eg. `gunicorn -w4`
-2. **Vertical Scaling:** Upgrading existing servers with more powerful hardware to handle more processes simultaneously.
+2. **Vertical Scaling:** Upgrading existing servers with more powerful hardware to handle more processes simultaneously. The number of machines (nodes) remain the same as before the scaling.
 3. **Load Balancing:** Distributing user requests efficiently across multiple servers or processes to prevent any single system from becoming overloaded.
 4. **Resource Optimization:** Improving code efficiency and optimizing database queries to use fewer resources per operation.
+5. Process scaling: Increasing the number of processes to take the workload, in one use case from the same port
+
 
 Addressing users that hog resources often requires implementing limits or quotas on resource usage per user or optimizing the application to handle operations more efficiently. This can also involve scaling out (adding more resources) to meet higher demand and ensure that the service remains responsive and reliable.
 
 ---
 
-## Gunicorn horizontal scaling
+## Gunicorn process scaling
 
-The command `gunicorn -w 4` is related to the Gunicorn web server, commonly used to serve Python applications, where `-w 4` specifies running 4 worker processes. This approach aligns with the concept of **horizontal scaling** within the realm of a single server.
+The command `gunicorn -w 4` is related to the Gunicorn web server, commonly used to serve Python applications, where `-w 4` specifies running 4 worker processes.
 
 Here’s how it fits into the scaling strategies:
 
-- **Horizontal Scaling**: By increasing the number of worker processes (`-w 4` indicates 4 workers), Gunicorn can handle more concurrent requests. This is a form of scaling within a single machine. It allows the application to distribute load across multiple processes, effectively handling more requests simultaneously. If each process can handle one request at a time, more processes mean more total requests can be processed at once.
+- By increasing the number of worker processes (`-w 4` indicates 4 workers), Gunicorn can handle more concurrent requests. This is a form of scaling within a single machine. It allows the application to distribute load across multiple processes, effectively handling more requests simultaneously. If each process can handle one request at a time, more processes mean more total requests can be processed at once.
+- In addition the port is used to distribute among the worker processes
 
-While this is a form of horizontal scaling at the process level, in broader system architecture, horizontal scaling often refers to adding more physical machines or virtual instances. Gunicorn with multiple workers helps optimize the utilization of a single server’s CPU cores.
+Gunicorn with multiple workers helps optimize the utilization of a single server’s CPU cores.
 
 Using multiple workers is particularly useful for handling I/O-bound tasks, where the application spends a lot of time waiting for I/O operations like network responses or disk reads/writes. It can also help in CPU-bound scenarios to an extent, provided the server has multiple CPU cores, allowing each worker process to operate on a different core.
 
@@ -31,12 +34,12 @@ Using multiple workers is particularly useful for handling I/O-bound tasks, wher
 
 ## Not Supervisor
 
-Supervisor does not manage vertical scaling. Vertical scaling involves increasing the resources (CPU, memory) of a single server to handle increased load. This process typically requires modifications to the server's hardware or configuration, which is outside the scope of what Supervisor handles. Vertical scaling is generally managed through server configuration and hardware upgrades or by using cloud services that provide automatic scaling capabilities.
+Supervisor does not manage horizontal scaling, the turning on and off of additional servers.
 
 ---
-## Docker for Containing in Vertical Scaling
+## Docker for Containing in Horizontal Scaling
 
-Docker is vital in modern SaaS environments because it ensures application consistency across different operating systems through Containerization, which becomes particularly important during vertical scaling. When vertically scaling, you might add more powerful servers, and these servers may come with a variety of operating systems depending on availability or organizational preferences. Docker containers encapsulate the application along with its environment and dependencies, guaranteeing that it functions uniformly regardless of the OS. This capability is crucial because installing software directly on different operating systems can require unique setups and dependencies, potentially leading to inconsistent application behavior. Docker simplifies this process, ensuring consistent deployment across all types of systems.
+Docker is vital in modern SaaS environments because it ensures application consistency across different operating systems through Containerization, which becomes particularly important during horizontal scaling. When horizontally scaling, you might add more powerful servers, and these servers may come with a variety of operating systems depending on availability or organizational preferences. Docker containers encapsulate the application along with its environment and dependencies, guaranteeing that it functions uniformly regardless of the OS. This capability is crucial because installing software directly on different operating systems can require unique setups and dependencies, potentially leading to inconsistent application behavior. Docker simplifies this process, ensuring consistent deployment across all types of systems.
 
 ---
 

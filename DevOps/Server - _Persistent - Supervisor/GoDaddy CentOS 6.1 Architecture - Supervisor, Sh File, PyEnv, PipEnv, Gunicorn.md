@@ -9,7 +9,7 @@ The Supervisor can run a .sh file that runs all the necessary commands to set th
 
 
 ### .sh file runs gunicorn
-The app is a flask app but we want to horizontally scale up to multiple concurrent users. 
+The app is a flask app but we want to  scale up to multiple concurrent users under the same CPU and https 5001 port. 
 
 In comes Gunicorn which is the Python WSGI HTTP Server for UNIX that allows HTTPS (SSL) connections and having multiple worker processes
 

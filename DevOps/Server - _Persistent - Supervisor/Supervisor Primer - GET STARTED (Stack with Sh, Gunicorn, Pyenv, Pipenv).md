@@ -12,21 +12,94 @@ This guide will combine supervisor and gunicorn with https. This allows for conc
 ---
 
 
-## 1. Setup Supervisor  
+## 1. Install and Setup Supervisor  
 
 Skip #1-3 if have done. Skip #4 if have setup supervisor for your app.
 
 1. Install supervisor globally for your os
 What worked for CentOS 6.1 was supervisor-3.0a8.tar.gz
+What worked for Ubuntu 22 was ``
 
-2. Create paths:
+2. Figure out what file your Supervisor central settings are in: 
+	1. Run `ls ~/supervis*` then `ls /etc/supervis*` to figure out which one exists. Then it's likely a folder, so you cd into it. Then you get `pwd` which can return `~/supervisor` or `/etc/supervisor/`. The file you're editing is `supervisord.conf` so it could be `~/supervisor/supervisord.conf` or `/etc/supervisor/supervisord.conf`.
+	2. For example, central settings could be at: `/etc/supervisor/supervisord.conf`
+	- FYI, .conf stands for configuration file
+
+3. Figure out what folder your Supervisor apps can have settings at: 
+	1. Run `ls /etc/supervisor/conf.d` then `ls ~/supervisor/conf.d` to figure out which one exists. You can cd into it to confirm it's a folder.
+	2. For example, apps could have settings at: `/etc/supervisord/conf.d/`
+	- FYI, the conf.d where d is stands for directory
+	   
+4. Copy down these paths to wherever you keep track of important account information for your web host / VPS / dedicated services
+
+5. Edit your Supervisor central settings file
+
+CAVEAT: Do not use shortcut path ~ because is not recognized. Use absolute path.
+
+Keep the filepaths that make sense based on what you discovered from finding the central settings file and app settings folder
+
+Use these recommendations. Add the below key values that dont exist under their respective sections (sections are include, supervisord, etc) at the central settings file. Adjust key values that do exist at the default central settings file unless they're filepaths.
+
+**if remote Hostinger:**
 ```
-~/supervisor.d/ --OR-- /etc/supervisor.d/  
+; supervisor config file
+
+[include]
+files = /etc/supervisor/conf.d/*.conf
+
+[supervisord]
+nodaemon=false
+loglevel=debug
+logfile=/var/log/supervisor/supervisord.log ; (main log file;default $CWD/supervisord.log)
+pidfile=/var/run/supervisord.pid ; (supervisord pidfile;default supervisord.pid)
+childlogdir=/var/log/supervisor            ; ('AUTO' child log dir, default $TEMP)
+user=root  ; specify the user to run supervisord as (set to root if you intend to run as root)
+
+[supervisorctl]
+serverurl=unix:///var/run/supervisor/supervisor.sock ; use a unix:// URL for a unix socket
+
+[unix_http_server]
+file=/var/run/supervisor/supervisor.sock   ; (the path to the socket file)
+chmod=0775                       ; sockef file mode (default 0700)
+chown=root:root ; socket file owner and group (adjust as needed)
+
+[inet_http_server]
+port=127.0.0.1:9001
+
+; the below section must remain in the config file for RPC
+; (supervisorctl/web interface) to work, additional interfaces may be
+; added by defining them in separate rpcinterface: sections
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
 ```
 
+**if remote GoDaddy:**
+```
+[include]  
+files=/etc/supervisor.d/*.conf  
+  
+[supervisord]  
+nodaemon=false  
+logfile=/var/log/supervisor/supervisor.log  
+loglevel=debug  
+  
+[unix_http_server]  
+file=/var/run/supervisor/supervisor.sock  
+chmod=0777  
+chown=root:root ; socket file owner and group (adjust as needed)  
+  
+[supervisorctl]  
+serverurl=unix:///var/run/supervisor/supervisor.sock  
+  
+[inet_http_server]  
+port=127.0.0.1:9001  
+  
+[rpcinterface:supervisor]  
+supervisor.rpcinterface_factory=supervisor.rpcinterface:make_main_rpcinterfac  
+```
 
-3. Setup ~/supervisord.conf --OR-- **/etc/supervisord.conf**
-    if local:  
+If local: 
 
 ```
 [include]  
@@ -52,60 +125,108 @@ supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 ```
 
 
-^Do not use shortcut path ~ because is not recognized. You have to type the complete user path , so notice in the above snippet it's /Users/weffung/. It'll. change base on your computer.
-      
-**if remote:**
-    
-```
-[include]  
-files=/etc/supervisor.d/*.conf  
-  
-[supervisord]  
-nodaemon=false  
-logfile=/var/log/supervisor/supervisor.log  
-loglevel=debug  
-  
-[unix_http_server]  
-file=/var/run/supervisor/supervisor.sock  
-chmod=0777  
-chown=root:root ; socket file owner and group (adjust as needed)  
-  
-[supervisorctl]  
-serverurl=unix:///var/run/supervisor/supervisor.sock  
-  
-[inet_http_server]  
-port=127.0.0.1:9001  
-  
-[rpcinterface:supervisor]  
-supervisor.rpcinterface_factory=supervisor.rpcinterface:make_main_rpcinterfac  
-```
+6. Cd into the folder where your Supervisor apps can have settings at.
 
-
-4. Setup your apps at ~/supervisor.d/  --OR– /etc/supervisor.d/  
-    For example: ~/supervisor.d/app1.conf  --OR– **/etc/supervisor.d/app1.conf**  
-
-Local:
+Create an app like so:
+app1.conf:
 ```
 [program:app1]  
-command=/Users/wengffung/dev/web/weng/tools/flask-virt-supervisor/supervisor.x86_64.sh  
-directory=/Users/wengffung/dev/web/weng/tools/flask-virt-supervisor  
+command=/tmp/test.sh  
+directory=/tmp/  
 autostart=true  
-autorestart=true  
-redirect_stderr=true  
-stdout_logfile=/var/log/supervisor/app1.log  
-stderr_logfile=/var/log/supervisor/app1.log  
+autorestart=true
+stopsignal=TERM
+redirect_stderr=false  
+stdout_logfile=/var/log/supervisor/app1-stdout.log
+stderr_logfile=/var/log/supervisor/app1-error.log
+user=root
 ```
     
 
  ^ Notice that the name of your app is “app1” in the first line. That’ll be the name you use to start the app with supervisor.
 
- ^ Notice the command is the python interpreter available by virtual environment (that folder has multiple versions of python) followed by your python script.  
-
  ^ Notice that the main config file refers to the folder where your app config files are, with *  
 
  ^ Yes, you run the shell script file path as the entire command, with no arguments or process name necessary  
+ 
+ ^ redirect_stderr=true would've redirect the standard error (stderr) output of a managed process to the same location as its standard output (stdout). This can simplify log management by consolidating all output (both standard and error messages) into a single log file.
+ 
+ ^ Make sure no duplicate section headers
 
-  
+7. Make sure the paths exist (use different paths if your central settings differ in the paths):
+```
+sudo mkdir -p /var/run/supervisor
+sudo mkdir -p /var/log/supervisor
+sudo chown -R root:root /var/run/supervisor
+sudo chmod 0775 /var/run/supervisor
+```
+
+Copy down these paths to wherever you keep track of important account information for your web host / VPS / dedicated services
+
+8. Lets test Supervisor have the ability to restart processes and keep them running
+- Make sure your app settings have `/tmp/test.sh` and `/tmp/` as command and directory
+- Create that test.sh file with this combined one-liner: 
+
+```
+sudo echo '#!/bin/bash' >> /tmp/test.sh; echo 'echo "hi";' >> /tmp/test.sh; chown -R root:root /tmp/test.sh; sudo chmod 0775 /tmp/test.sh
+```
+
+
+8. Run supervisor in the foreground:
+
+Please notice we add `-n` at the end which stands for nodaemon (no background spirit)
+```
+supervisord -c /etc/supervisor/supervisord.conf -l /var/log/supervisor/supervisord.log -n
+```
+
+And if it refused to run, then you can shutdown using: `sudo supervisorctl shutdown`
+
+And it should pass like this:
+```
+2024-07-22 11:39:37,327 DEBG fd 8 closed, stopped monitoring <POutputDispatcher at 139961815377680 for <Subprocess at 139961815377632 with name app1 in state STARTING> (stdout)>
+2024-07-22 11:39:37,327 DEBG fd 10 closed, stopped monitoring <POutputDispatcher at 139961814279856 for <Subprocess at 139961815377632 with name app1 in state STARTING> (stderr)>
+2024-07-22 11:39:37,327 INFO exited: app1 (exit status 0; not expected)
+2024-07-22 11:39:37,328 DEBG received SIGCHLD indicating a child quit
+2024-07-22 11:39:38,331 INFO spawned: 'app1' with pid 4147
+2024-07-22 11:39:38,336 DEBG 'app1' stdout output:
+hi
+
+
+2024-07-22 11:39:38,336 DEBG fd 8 closed, stopped monitoring <POutputDispatcher at 139961815378208 for <Subprocess at 139961815377632 with name app1 in state STARTING> (stdout)>
+2024-07-22 11:39:38,337 DEBG fd 10 closed, stopped monitoring <POutputDispatcher at 139961814279808 for <Subprocess at 139961815377632 with name app1 in state STARTING> (stderr)>
+2024-07-22 11:39:38,337 INFO exited: app1 (exit status 0; not expected)
+2024-07-22 11:39:38,337 DEBG received SIGCHLD indicating a child quit
+2024-07-22 11:39:40,341 INFO spawned: 'app1' with pid 4148
+2024-07-22 11:39:40,345 DEBG 'app1' stdout output:
+hi
+
+
+2024-07-22 11:39:43,355 DEBG fd 8 closed, stopped monitoring <POutputDispatcher at 139961815378208 for <Subprocess at 139961815377632 with name app1 in state STARTING> (stdout)>
+2024-07-22 11:39:43,355 DEBG fd 10 closed, stopped monitoring <POutputDispatcher at 139961814279952 for <Subprocess at 139961815377632 with name app1 in state STARTING> (stderr)>
+2024-07-22 11:39:43,355 INFO exited: app1 (exit status 0; not expected)
+2024-07-22 11:39:43,356 DEBG received SIGCHLD indicating a child quit
+2024-07-22 11:39:43,356 INFO gave up: app1 entered FATAL state, too many start retries too quickly
+```
+
+
+It's been truncated for ease of reading. It would repeat "hi" many times before it crashes because of "too many start retries too quickly". Normally you use Supervisor for processes that run continuously like a node server or a flask server / gunicorn server. So this is exactly what we want to see to pass Supervisor.
+
+
+9. Cleanup of testing Supervisor
+	1. Remove test.sh file with:
+	   `rm /tmp/test.sh`
+	2. Restart supervisord
+
+To restart supervisord, run this command without the -n (so that the nodaemon option will depend on the central settings)
+```
+supervisord -c /etc/supervisor/supervisord.conf -l /var/log/supervisor/supervisord.log
+```
+
+If fails to restart, you can make sure it's shutdown with: `sudo supervisorctl shutdown`
+
+2. Check through your OS' services manager if Supervisor had started:
+For Ubuntu 22, it's `sudo systemctl status supervisor`
+
 ---
 
 ## 2. Install pyenv

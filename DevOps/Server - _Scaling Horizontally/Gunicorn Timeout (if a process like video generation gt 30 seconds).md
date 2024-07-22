@@ -16,7 +16,7 @@ You want to set the timeout on running gunicorn:
 gunicorn --timeout 600 your_application:app
 ```
 
-For a more advanced command, if you're splitting gunicorn into multiple worker processes for horizontal scaling, AND you are working with a https (which is the case nowadays):
+For a more advanced command, if you're splitting gunicorn into multiple worker processes for process scaling and effective use of the CPU, AND you are working with a https (which is the case nowadays):
 ```
 gunicorn --timeout 600 -w 6 -b 0.0.0.0:5001 --certfile=/path/to/ssl.crt --keyfile=/path/to/ssl.key wsgi:app
 ```

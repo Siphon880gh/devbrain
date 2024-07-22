@@ -1,9 +1,18 @@
 
 **TIP: OPEN TABLE OF CONTENTS**
 
+
+*MOST OFTEN YOU Need:
+*MOST OFTEN YOU Need:
+*MOST OFTEN YOU Need:*
+Quick Reference: Maintenance after been setup
+
+---
+
+
 ## Quick Reference: Supervisor Paths
 
-Recall that Supervisor helps manage your apps so that they get restarted if the app crashes or the server crashes. Supervisor does NOT perform vertical scaling.
+Recall that Supervisor helps manage your apps so that they get restarted if the app crashes or the server crashes. Supervisor does NOT perform horizontal scaling.
 
 You have a central supervisor setting which includes making sure the sock will work with chmod and what path to look for your apps that you want supervisor to manage
 ### Central Supervisor setting file
@@ -63,7 +72,7 @@ stderr_logfile=/var/log/supervisor/app4.log
 ```
 
 
-### Then you run like this:
+### You run it like this:
 
 
 Activate the right environment before dealing with supervisor and you run this in the applicable folder (storyway/)
@@ -90,7 +99,7 @@ And in place: start/stop/status
 ---
 
 
-## Quick Reference: Maintenance after setup - Supervisor level
+## Quick Reference: Maintenance with Supervisor level
 
 sudo service supervisord status
 sudo service supervisord stop
@@ -112,39 +121,79 @@ It might not say anything on success because all that std output goes to another
 
 This is quick reference back. If setting up first time on server, skip this section. This section is meant for returning to after been setup and for only server maintenance purposes.
 
-  
+**FIRST STEP:**
+Cd into the folder where you had setup pyenv for the app (basically the app folder).
 
 Activate the right environment before dealing with supervisor
 ```
-pyenv activate app4  
+pyenv activate app4
 ```
 
   
 
 Shutdown previous supervisor
 ```
-supervisorctl shutdown  
+supervisorctl shutdown
 ```
   
 
 Sometimes fail to shutdown the gunicorn so double check:
 ```
-ps aux | awk 5001  
+ps aux | awk 5001
 ```
-  
 
-You can kill all gunicorn with this:
+
+If you see gunicorn mentioned in one of the processes, then you need to shut them down. Having gunicorn still would look like:
+```
+root       782  1.9  0.8 547072 37344 ?        Sl   02:11   0:00 /root/.pyenv/versions/3.6.15/envs/app4/bin/python3.6 /root/.pyenv/versions/app4/bin/gunicorn --timeout 600 -w 6 -b 0.0.0.0:5001 --certfile=...crt --keyfile=...key wsgi:app
+
+root       783  1.9  0.8 547072 37344 ?        Sl   02:11   0:00 /root/.pyenv/versions/3.6.15/envs/app4/bin/python3.6 /root/.pyenv/versions/app4/bin/gunicorn --timeout 600 -w 6 -b 0.0.0.0:5001 --certfile=...crt --keyfile=...key wsgi:app
+
+root       784  2.0  0.8 547072 37340 ?        Sl   02:11   0:00 /root/.pyenv/versions/3.6.15/envs/app4/bin/python3.6 /root/.pyenv/versions/app4/bin/gunicorn --timeout 600 -w 6 -b 0.0.0.0:5001 --certfile=...crt --keyfile=...key wsgi:app
+
+root       785  2.1  0.8 547072 37352 ?        Sl   02:11   0:00 /root/.pyenv/versions/3.6.15/envs/app4/bin/python3.6 /root/.pyenv/versions/app4/bin/gunicorn --timeout 600 -w 6 -b 0.0.0.0:5001 --certfile=...crt --keyfile=...key wsgi:app
+
+root       787  2.1  0.8 547072 37360 ?        Sl   02:11   0:00 /root/.pyenv/versions/3.6.15/envs/app4/bin/python3.6 /root/.pyenv/versions/app4/bin/gunicorn --timeout 600 -w 6 -b 0.0.0.0:5001 --certfile=...crt --keyfile=...key wsgi:app
+
+root       788  2.0  0.8 547072 37360 ?        Sl   02:11   0:00 /root/.pyenv/versions/3.6.15/envs/app4/bin/python3.6 /root/.pyenv/versions/app4/bin/gunicorn --timeout 600 -w 6 -b 0.0.0.0:5001 --certfile=...crt --keyfile=...key wsgi:app
+```
+
+**You can kill all gunicorn with this:**
 ```
 ps aux | grep 5001 | grep -v grep | awk '{print $2}' | xargs kill
 ```
 
-  
+
+If you see this then it means there's no gunicorn to kill, and that's fine too. We just want to make sure no gunicorn is running:
+```
+usage: kill [ -s signal | -p ] [ -a ] pid ...
+
+       kill -l [ signal ]
+```
+
+Run any build scripts if needed:
+`npm run build`
+
 Then restart Supervisor:
 ```
 sudo supervisord -c /etc/supervisord.conf -l /var/log/supervisor/supervisord.log 
 ```
 
+---
 
-Checking mongo shell for database entries?
+Still fail?
+Supervisor was binded 127.0.0.1:9001 at the central settings for Supervisor.
 
-Its mongo shell is actually `mongo`  → `show databases`  → etc etc
+Get the PID number of the port:
+```
+sudo lsof -i :9001
+```
+
+Then kill off:
+```
+sudo kill _PID_
+```
+
+
+Still fail? Maybe you needed to run build scripts on your app to change the application code etc so it's compatible at the current server.
+

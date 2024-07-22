@@ -1,16 +1,19 @@
 
+Quick review how to setup your Mongo on your remote host so it can be managed by Mongo Compass or so the database info can be accessed on a website or API on a different host (aka not on the same host as the Mongo)
 
-Status: Untested. Mongo was setup effortlessly on my remote server
 
-Here I will do a quick review how to connect to your Mongo (if installed on your server), then will review how to grant your mongo user access to specific or all collections, then finally enabling your mongo to work with other IP addresses (if applicable)
-
-<< Code connects to Mongo
-How in mongo shell create authentication users for connecting to mongo database server
-\>>
-To create authentication users for connecting to a MongoDB database server through the mongo shell, you'll need to follow these steps. These instructions assume you have the necessary permissions to create users and assign roles:
+This tutorial's code is for:
+- Mongo server 3.4.24
+	- Found out by opening mongo shell `mongo` though other os is `mongosh`
+- Python 3.6.15
+	- Found out by running `python --version`
+- PyMongo 3.4.0
+	- Found out with python file contents: `import pymongo` and `print(pymongo.__version__)`
+- CentOS 6.1
+	- My VPS package
 
 1. **Connect to the MongoDB Shell:**
-   Open your terminal and connect to your MongoDB instance using the mongo shell. If it's running locally and doesn't require authentication yet, you can simply use:
+   Open your terminal and connect to your MongoDB instance using the mongo shell. If it's running locally and doesn't require authentication yet, you can simply use. Some os use `mongosh` as the command
 
    ```shell
    mongo
@@ -26,20 +29,30 @@ To create authentication users for connecting to a MongoDB database server throu
 3. **Create a New User:**
    Use the `db.createUser()` function to create a new user. Replace `yourUsername`, `yourPassword`, and the roles as appropriate for your needs.
 
-   ```javascript
-   db.createUser({
-     user: "yourUsername",
-     pwd: "yourPassword",
-     roles: [
-       { role: "readWrite", db: "yourDatabase" },
-       { role: "dbAdmin", db: "yourDatabase" }
-       // Add additional roles as necessary
-     ]
-   })
-   ```
+ Avoid using the username `admin`, so use `admin1` if you must
 
-   - `yourUsername` and `yourPassword` are the credentials for the new user.
-   - `roles` are the permissions you're assigning to this user. `readWrite` and `dbAdmin` on `yourDatabase` are just examples. Customize the roles according to the level of access you want to provide.
+```javascript
+db.createUser({
+	user: "admin1",
+	pwd: "admin1Password",
+	roles: [{role: "root", db: "admin"}]
+})
+```
+
+   Or, if the user already exists and you want to add roles:
+
+```javascript
+db.updateUser("admin1", {
+	$addToSet: { roles: { role: "root", db: "admin" } }
+})
+```
+
+The root role does allow the user to create / delete admin users with Mongo. If you want to limit it to just database read/writes, you could use: ` { role: "readWriteAnyDatabase", db: "admin" } `
+
+Why database to admin? That admin is a collection that exists in all Mongo servers and it keeps track of users. By scoped to database admin, you implicitly are scoped to all databases present and in the future because admin is a superscope
+
+
+The credentials will appear under admin.system.users (`use admin; db.system.users.find())` or running to get all users (`use admin; db.getUsers()`)
 
 4. **Enable Authentication on the MongoDB Server:**
    If you haven't already enabled authentication on the server, you'll need to do so. This often involves editing the MongoDB configuration file (`mongod.conf`) and adding or ensuring these lines are present:
@@ -49,137 +62,79 @@ To create authentication users for connecting to a MongoDB database server throu
      authorization: enabled
    ```
 
-   After modifying the configuration, restart the MongoDB server for the changes to take effect.
 
-5. **Connect to MongoDB with the New User:**
-   Once authentication is enabled, you'll need to connect to the database using the credentials you've created. Here's how you might connect from the shell:
+Need help finding mongod.conf file?
+- **Linux**: `/etc/mongod.conf`
+- **Windows**: In the installation directory, typically something like `C:\Program Files\MongoDB\Server\{version}\bin\mongod.cfg` (note that on Windows, the file might have a `.cfg` extension).
+- **macOS**: `/usr/local/etc/mongod.conf` if installed with Homebrew, or a path within the installation directory if installed manually.
 
-   ```shell
-   mongo -u yourUsername -p yourPassword --authenticationDatabase admin
-   ```
+5. Restart: After modifying the configuration, restart the MongoDB server for the changes to take effect.
+   
+   To restart, refer to [[Restart Mongo Server]]
+
+7. **Connect to Mongo Shell with the New User:**
+   Once authentication is enabled, make sure you can connect to the database using the mongo shell (on some systems, the command is mongo, some other systems it's mongosh)
+
+```shell
+mongo -u admin1 -p admin1Password --authenticationDatabase admin
+```
 
    Replace `yourUsername` and `yourPassword` with the credentials of the user you created.
 
-**Important Notes:**
+7. **Connect to Mongo Server in Python with the New User**
 
-- Always ensure that you're operating in a secure environment, especially when handling usernames and passwords.
-- The exact roles and permissions you should assign depend on the user's needs. Avoid giving more privileges than necessary.
-- The steps to enable authentication might vary slightly depending on your MongoDB version and environment.
-- Always backup your database before making significant changes like enabling authentication.
+python `test.py`:
+```
+from pymongo import MongoClient, ReturnDocument  
+  
+from dotenv import load_dotenv  
+import os  
+  
+dotenv_path = os.path.join(os.path.dirname(__file__), '.', '.env')  
+load_dotenv(override=True, dotenv_path=dotenv_path)  
+  
+mongo_user = os.getenv('MONGO_USER')  
+mongo_password = os.getenv('MONGO_PASSWORD')  
+  
+print("I. Retrieved from ./.env:")  
+print(mongo_user);  
+print(mongo_password);  
+  
+uri = "mongodb://adminGoDaddy:adminGoDaddy1@localhost:27017/?authSource=admin"  
+client = MongoClient(uri)  
+  
+print("")  
+print("II. Mongo databases (proving connection success):")  
+print(client.database_names())
+```
 
-Tip: For security, you may want to use .env file with dot env extension, so you dont hard code your credentials
-
-
-
-\<< Enable mongo creds for collections
-Awesome. Now how to enable the role to all and future databases
-
-\>>
-To enable a role for a user across all current and future databases in MongoDB, you can assign cluster-wide roles or use wildcard privileges. Here's how you can do it:
-
-1. **Connect to the MongoDB Shell:**
-   Open your terminal and connect to your MongoDB instance using the mongo shell.
-
-   ```shell
-   mongo -u adminUser -p adminPassword --authenticationDatabase admin
-   ```
-   Replace `adminUser` and `adminPassword` with the credentials of a user that has privileges to create and modify users and roles.
-
-2. **Select the Admin Database:**
-   Authentication users and roles are typically managed in the admin database.
-
-   ```javascript
-   use admin
-   ```
-
-3. **Create or Update a User with Cluster-Wide Roles:**
-   To assign roles that apply to all current and future databases, use the `db.createUser()` or `db.updateUser()` function with the appropriate roles. Here's how you might assign the `readWriteAnyDatabase` role, which allows reading and writing to any database (excluding `local` and `config`):
-
-   ```javascript
-   db.createUser({
-     user: "yourUsername",
-     pwd: "yourPassword",
-     roles: [
-       { role: "readWriteAnyDatabase", db: "admin" },
-       "readAnyDatabase" // This is a shortcut for { role: "readAnyDatabase", db: "admin" }
-       // Add additional roles or cluster-wide roles as necessary
-     ]
-   })
-   ```
-
-   Or, if the user already exists and you want to add roles:
-
-   ```javascript
-   db.updateUser("yourUsername", {
-     $addToSet: { roles: { role: "readWriteAnyDatabase", db: "admin" } }
-   })
-   ```
-
-4. **Consider Future Databases:**
-   - The `readWriteAnyDatabase` role applies to all current and future non-system databases. This means as new databases are created, the user will automatically have read and write access.
-   - For other types of access or more granular control, consider creating custom roles with wildcard privileges or managing roles carefully as new databases are added.
-
-5. **Restart MongoDB with Authentication Enabled (if not already done):**
-   Ensure that the MongoDB server is running with authentication enabled. This usually involves setting the `security.authorization` option to `enabled` in the MongoDB configuration file and restarting the service.
-
-6. **Connect to MongoDB with the New User:**
-   Once the user is created or updated with the appropriate roles, connect to the database using the new credentials to test the access:
-
-   ```shell
-   mongo -u yourUsername -p yourPassword --authenticationDatabase admin
-   ```
-
-**Important Security Notes:**
-
-- The `readWriteAnyDatabase` role and similar cluster-wide roles provide extensive access. Use them cautiously and only assign them to trusted users.
-- Regularly review user access and privileges, especially in production environments, to ensure they follow the principle of least privilege.
-- Keep your MongoDB version updated to benefit from the latest security features and improvements.
-- Always backup your database before making significant changes like modifying user roles and privileges.
+Your .env file could be:
+```
+MONGO_USER=admin1
+MONGO_PASSWORD=admin1Password
+```
 
 
+8. Enabling external connections if applicable
+By default `etc/mongod.conf` settings allow files on the same host as the mongo server to connect (127.0.0.1, aka localhost). This is fine if:
+- Your website or API is on the same host
+- You modify the database using mongo shell
 
+This is not fine if remote connections to your Mongo server:
+- Your website or API is on a different host
+- You want to manage your database using Mongo Compass on your computer
 
-
-\<<Enabling IP addresses for Mongo
-Awesome. Separate question. Now how do I whitelist specific IP or allow all IP using mongo shell? Two separate scenarios.
-
-
-\>>
-In MongoDB, IP whitelisting is generally handled at the network or server level rather than directly through the MongoDB shell. However, you can configure MongoDB to only accept connections from certain IP addresses or all IP addresses by modifying its configuration file (`mongod.conf`) or by specifying command-line options when starting the MongoDB server. Here are the steps for both scenarios:
-
-### 1. Whitelist Specific IP Addresses:
-To allow connections only from specific IP addresses, you need to bind MongoDB to those IP addresses.
-
-1. **Edit the MongoDB Configuration File (`mongod.conf`):**
-   Locate and edit the `mongod.conf` file, which is typically found in `/etc/mongod.conf` on Linux systems.
-
-   ```yaml
-   # mongod.conf
-   net:
-     bindIp: 127.0.0.1,<Your-Whitelisted-IP-Address>
-   ```
-
-   Replace `<Your-Whitelisted-IP-Address>` with the actual IP address you want to whitelist. You can list multiple IP addresses separated by commas.
-
-2. **Restart MongoDB:**
-   After updating the configuration, restart the MongoDB service to apply the changes.
-
-   ```bash
-   sudo service mongod restart
-   ```
-
-### 2. Allow All IP Addresses (0.0.0.0/0):
-To allow connections from any IP address, you can bind MongoDB to `0.0.0.0`, which represents all IPv4 addresses.
-
-1. **Edit the MongoDB Configuration File (`mongod.conf`):**
+Edit your `/etc/mongod.conf`:
 
    ```yaml
    # mongod.conf
    net:
      bindIp: 0.0.0.0
-   ```
+```
 
-2. **Restart MongoDB:**
+The 0.0.0.0 allows server.py on your own host to work AND outside connections to mongo database including Mongo Compass to work. This is because 0.0.0.0 includes 127.0.0.1, however if you want to restrict to only server files accessing Mongo, you run with `bindIp: 127.0.0.1`
+
+2. **Restart MongoDB:* (service or systemctl depending on your OS)
 
    ```bash
    sudo service mongod restart
@@ -190,5 +145,38 @@ To allow connections from any IP address, you can bind MongoDB to `0.0.0.0`, whi
 - **Firewall Rules:** In addition to configuring MongoDB, ensure your server's firewall rules allow traffic from the desired IP addresses. This might involve configuring `iptables` on Linux, Windows Firewall settings, or network security groups in a cloud environment.
 - **Cloud Providers:** If you're using a cloud-hosted MongoDB instance (like MongoDB Atlas), IP whitelisting can typically be configured through the provider's web interface, not through the mongo shell.
 - **Testing:** After making changes, always test to ensure that the desired connections are allowed and that unauthorized IPs are indeed blocked.
+- You could choose to allow in only IP addresses, multiples like this:
+```
+   net:
+     bindIp: IP1, IP2, IP3
+```
 
-Always back up your database and configuration files before making significant changes, and review MongoDB's security checklist to ensure you're following best practices.
+
+9. If enabled remote connections, try connecting via Mongo Compass app:
+
+Connection string (Adjust your username and password)
+```
+mongodb://admin:admin1Password@domain.com:27017/?authSource=admin
+```
+
+
+If that fails with this:
+![](https://i.imgur.com/TqcR8mk.png)
+
+It's because your server uses an old Mongo. The oldest compass that was still compatible was version 1.29.5:
+https://stackoverflow.com/questions/71167180/cannot-connect-to-my-mongodb-using-compass-tool-after-upgrading-from-1-25-to-1-3
+
+
+
+---
+
+## Appendix: Delete / drop an admin user:
+
+You may need this as things mess up creating user accounts etc:
+
+mongo 
+use admin 
+db.dropUser("exampleUser")
+
+Show all users:
+db.getUsers()

@@ -7,7 +7,16 @@ tail
 who
 grep
 awk
+sed
 man <command>
+```
+
+Common data transformations
+```
+|
+xargs
+\>
+\>>
 ```
 
 Google for more information.
