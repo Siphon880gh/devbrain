@@ -1,7 +1,7 @@
 
-
-
 Create a test.php from a webhost panel's File Manager or Filezilla (make sure Filezilla is not logged in as root, but is logged in as the default first account of that webhosted document root)
+
+Can be test_ug.php:
 ```
 <?php
 
@@ -44,7 +44,6 @@ echo "Current Group: " . $groupInfo['name'] . "<br>";
 
 
 ?>
-
 ```
 
 
