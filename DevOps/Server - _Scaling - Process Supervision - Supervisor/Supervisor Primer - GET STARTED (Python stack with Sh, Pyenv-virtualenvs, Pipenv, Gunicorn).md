@@ -562,7 +562,7 @@ You may need more than one of your python scripts running especially if a lot of
 
 At the last line of your .sh file, you can run gunicorn instead of running a python script directly. With Gunicorn, it can restart python scripts that crash. With gunicorn, we can run on SSL, asynchronously, with multithreading and multiple worker processes.
 
-Gunicorn would have to be installed inside an active pyenv-virtualenv+pipenv session. Remember that gunicorn runs an intermediate python file, conventionally wsgi.py, that then runs your python script, so you will be creating a wsgi.py file. For more details on gunicorn, refer to the [[Gunicorn Primer]]. Otherwise, the rest of the tutorial will leverage Gunicorn and SSL bearing in mind multiple users traffic and high cpu use with processing and waiting on a server response to the frontend fetch's callback.
+Gunicorn would have to be installed inside an active pyenv-virtualenv+pipenv session. Remember that gunicorn runs an intermediate python file, conventionally wsgi.py, that then runs your python script, so you will be creating a wsgi.py file. For more details on gunicorn, refer to the [[Gunicorn for Scaling - Primer]]. Otherwise, the rest of the tutorial will leverage Gunicorn and SSL bearing in mind multiple users traffic and high cpu use with processing and waiting on a server response to the frontend fetch's callback.
 
 ## Leveraging Gunicorn
 

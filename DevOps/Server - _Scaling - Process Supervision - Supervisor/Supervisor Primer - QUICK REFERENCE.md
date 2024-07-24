@@ -86,8 +86,14 @@ supervisorctl shutdown
 ```
 
 Then you run like this:
+Godaddy:
 ```
 supervisord -c /etc/supervisord.conf -l /var/log/supervisor/supervisord.log 
+```
+
+Hostinger:
+```
+supervisord -c /etc/supervisor/supervisord.conf -l /var/log/supervisor/supervisord.log
 ```
 
 After init,  you manage on GoDaddy CentOS 6.1 like this:
