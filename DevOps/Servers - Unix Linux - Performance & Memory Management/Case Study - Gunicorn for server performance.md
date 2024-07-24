@@ -6,5 +6,5 @@ But you can’t simply set to 16 workers if you don’t have enough CPU cores be
 ---
 
 
-Refer to [[Gunicorn for Scaling - Primer]] for implementing Gunicorn
+Refer to [[Gunicorn for Scaling - Primer including math]] for implementing Gunicorn
 

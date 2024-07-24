@@ -157,3 +157,79 @@ This is how it'll look:
 ![](https://i.imgur.com/CY4lPHy.png)
 
 You may want to run gunicorn in the background. Supervisor with the right settings can help with running in the background the process that start multiple process workers (and hence run the multiple process workers in the background too). In addition, Supervisor lets you manage turning them on and off based on app name in the command.
+
+---
+
+REWORDED + Multiple instances
+
+When determining the optimal number of instances and workers for your application, you need to balance the load across your available CPU cores to maximize performance and efficiency. Here’s a mathematical approach to configuring instances and workers:
+
+### Understanding the Components
+
+1. **Instances (numprocs in Supervisor):**
+   - Each instance represents a separate process managed by Supervisor.
+   - Instances can be run on different ports or sockets.
+
+2. **Workers per Instance (Gunicorn workers):**
+   - Each worker is a separate process that handles incoming requests.
+
+### Goal
+
+Maximize the use of available CPU cores without overloading the system. The ideal configuration will depend on whether your application is CPU-intensive or I/O-intensive.
+
+### General Guidelines
+
+1. **CPU-Intensive Applications:**
+   - For CPU-bound applications, you typically want the number of workers to be equal to or slightly more than the number of CPU cores to fully utilize the CPU.
+
+2. **I/O-Intensive Applications:**
+   - For I/O-bound applications, you can afford to have more workers than CPU cores, as they spend a lot of time waiting for I/O operations (e.g., database queries, file I/O).
+
+### Formula
+
+1. **Determine the total number of workers needed:**
+   - For non-CPU-intensive (I/O-bound) applications, a common guideline is to use `(2 * CPU cores) + 1` workers.
+   - For an 8-core machine, this would be `(2 * 8) + 1 = 17` workers.
+
+2. **Distribute workers across instances:**
+   - Decide on the number of instances (`numprocs`) and divide the total number of workers among these instances.
+   - Ensure that the total number of workers across all instances does not exceed the calculated number.
+
+### Example Calculation
+
+#### Step 1: Calculate Total Workers
+
+For an 8-core machine, the total number of workers:
+\[ \text{Total Workers} = (2 \times 8) + 1 = 17 \]
+
+#### Step 2: Distribute Workers Across Instances
+
+Suppose you choose 4 instances:
+- Each instance should then have approximately \(\frac{17}{4} \approx 4.25\) workers.
+
+Since we can only assign whole numbers of workers, you can round down or up, depending on your exact needs. For simplicity, you could configure 4 instances, each with 4 workers (giving you a total of 16 workers, slightly under the calculated 17):
+
+```ini
+[program:my_app]
+command=gunicorn -w 4 -b 127.0.0.1:%(process_num)5001 my_app:app
+autostart=true
+autorestart=true
+numprocs=4  ; This starts 4 instances of Gunicorn, each with 4 workers
+process_name=%(program_name)s_%(process_num)02d
+```
+
+### Refinements
+
+- **Adjust Based on Performance:** Monitor the performance of your application and adjust the number of workers and instances as needed.
+- **Test Different Configurations:** Different applications and workloads may benefit from different configurations, so it’s a good idea to test a few variations to find the optimal setup.
+- **Consider Overheads:** Keep in mind the memory and resource overhead of each worker and instance. Ensure your system has enough memory and resources to handle the configuration.
+
+### Summary
+
+To determine the number of instances and workers:
+
+1. Calculate the total number of workers using \((2 \times \text{CPU cores}) + 1\) for I/O-bound applications.
+2. Choose the number of instances (`numprocs`) and divide the total workers among these instances.
+3. Adjust and refine based on performance monitoring and resource availability.
+
+For an 8-core machine with a non-CPU-intensive application, a reasonable starting configuration might be 4 instances, each with 4 workers, resulting in a total of 16 workers. Adjustments can be made based on observed performance and system resource utilization.
