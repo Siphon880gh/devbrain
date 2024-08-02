@@ -2,6 +2,9 @@
 Written by: Weng
 Purpose: General checklist on setting up Dedicated Server. Likely there will be no web hotsing admin panel (eg. Hostinger hpanel, WHM, GoDaddy My Products Dashboard)
 
+```toc
+```
+
 ## Reminder
 
 Create a document for your webhost (eg. GoDaddy, Hostinger, etc) to refer back to as you go through this checklist. Things you can record are credentials, user flows, terminal commands
@@ -42,42 +45,6 @@ Likely your dedicated server does not have a web host admin panel (Hostinger hpa
 - Once in remote server, usually there is nothing much to navigate to get to your website files. There will probably be hidden folder .ssh, hidden file .bash_profile, etc, which you can see by running `ls -la`. You likely have to install nginx or apache from scratch, then setup root web directory for your website, Aka working directory for your code and webpages. 
 
 - Optional: Are you able to login without password (ssh -i option to the private key file location). You may want to save this command as an alias for your local machine terminal’s .bash_profile equivalent. Run it as: `ssh root@REMOTE_IP -p 22 -i ~/.ssh/PRIVATE_KEY`)`
-- You may want to setup alias to easily SSH in from your computer's terminal (along with an echo of directories you will often cd into). You might want to add useful commands too (since the commands might change from version to version of the OS and the tool):
-
-```
-$ hostinger
-Local: /Users/local_username/dev/web/weng/apps/
-Remote: /home/XXX/public_html/apps
----------------------------------------------------
-Mongo restart: sudo service mongod restart
-Mongo shell: mongo -u admin -p password
-MySQL phpMyAdmin:
-MySQL shell:
----------------------------------------------------
-Supervision stop: ...
-Supervision start: ...
-Supervision config - main: ...
-Supervision config - apps: ...
-Supervision dashboard: ...
----------------------------------------------------
-Pm2 start: ...
-Pm2 dashboard: ...
-$
-```
-
-Passwordless:
-
-```
-alias hostinger='echo -e "Local: /Users/wengffung/dev/web/weng/tools/\nRemote: /home/XX/htdocs/YY.com/"; ssh root@REMOTE_IP -p 22 -i ~/.ssh/PRIVATE_KEY'
-```
-
-Requires password:
-```
-alias acolo='echo -e "Local: /Users/wengffung/dev/web/weng/tools/\nRemote: /home/.."; sshpass -p "Prq0yIvE" ssh root@208.76.249.74'
-```
-
-The password one requires you to install sshpass for your computer (eg. Google: Mac brew install sshpass). The sshpass allows you to have the password in the same command where you place the username and IP address. SSH normally forces you to enter the password after the username and IP address is accepted aka interactive mode.
-
 
 ---
 
@@ -86,34 +53,34 @@ You have to install a web server, FTP, and a webhost panel. These steps are my g
 
 1. Install web server
 
-- Choose nginx or apache. You can research pro’s and con’s of nginx vs apache
+- Choose webserver (nginx or apache) and firewall (uwf or iptables). Once you open your website to be discoverable, you need a firewall against malicious hackers. You can research pro’s and con’s of nginx vs apache
 
-- Eg. Google: Ubuntu 22 install nginx
-	- https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-22-04
-	- If the http and https port still don't open up when you ran `sudo ufw status` saying it's inactive, then you should enable the firewall: `sudo ufw enable`
+- Eg. Google: Ubuntu 22 install nginx with ufw
+	- Brief from: https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-22-04
+	- Run `sudo apt update` then `sudo apt install nginx`
+	- Then open the ports with `sudo ufw allow 'Nginx HTTP'` and `sudo ufw allow 'Nginx HTTPS'`
+	- If the http and https port still don't open up when you ran `sudo ufw status` saying it's inactive, then you should enable the firewall: `sudo ufw enable`. If you can't open the ports because ufw doesn't exist, look up how to install ufw, eg. Google: ubuntu 22 install ufw
+	  
 - Eg. Google: Ubuntu 22 install apache
 
-
-2. Do NOT close out your SSH terminal. Check that SSH port 22 is allowed. You'd have ran `sudo ufw status`
+2. After you've installed a firewall, do NOT close out your SSH terminal. Check that SSH port 22 is allowed. When using ufw, you'd run `sudo ufw status`
 
 If SSH port 22 is not allowed, you’ve just setup UFW (if had to enable ufw), and you would need to unblock port 22 (SSH) right away so you don’t lose access.
 
 Run the following:
 ```
-sudo ufw allow ssh
+sudo ufw allow 22
 sudo ufw reload
 sudo ufw status
 ```
 
-
 4. Test your webserver
-Get your public ip address which is not necessarily the ip given to you by the onboarding server admin.
+Get your public ip address which is not necessarily the ip given to you by the onboarding server server admin.
 
 ```
 curl -4 ipinfo.io/ip
 ```
-
-This is one of the free services that responds with your ip address
+^ This is one of the free services that responds with your ip address
 
 ---
 
@@ -221,14 +188,13 @@ ERR_EMPTY_RESPONSE
 - Test FTP by seeing if you can upload to it. Doesnt have to be a webpage.
 
 ---
-### Prepare server for installing different architectures
+### Prepare server for installing different architectures (PHP, NodeJS, Python, MySQL, Mongo, Scaling Solutions)
 - Know how to reboot the server
 - how see error logs based on your OS and web server type  
     eg `tail -f /var/log/nginx/error.log`
-- Know how to check status of, start, stop, and restart services
+- Know how to check status of, start, stop, and restart any service
 
-
-**Ubuntu 22.04:**
+**Ubuntu 22.04.. we are just using nginx as example:**
 ```
 sudo systemctl status nginx
 ```
@@ -236,7 +202,6 @@ sudo systemctl status nginx
 ```
 sudo systemctl start nginx
 ```
-
 
 - Know what is the main installer of packages in command line (eg. `sudo apt update`  for Ubuntu 22.04). Save to your web host's details document if it's not something you're intimately familiar with.
 - Update installer’s repos 
@@ -429,7 +394,7 @@ sudo systemctl start nginx
 	- Balancers and multi workers:
 		- pm2 for nodejs
 			- Refer to the tutorial [[Installing PM2 and Configuring Nginx for Multiple Node.js Applications]] even if you're not on nginx (the first sections will be applicable before the section on applying it to nginx)
-		- gunicorn and flask for python
+		- Supervisor, virtual envs, gunicorn and flask for python
 			- Refer to the tutorial [[Supervisor Primer - QUICK REFERENCE]] which includes supervisor, shell file, gunicorn, flask, pyenv, pyenv-virtualenvs, pipenv
 		- Docker or supervisor to restart your api app on crashes (either server crash or app crash)
 			- Refer to the tutorials [[Docker Primer - General]] and [[Docker Primer - Get Started]]
@@ -461,9 +426,107 @@ sudo systemctl start nginx
 ### Prepare for web app features
 Install ffmpeg, ctypes, imagemagick, and pcregrep for various web apps and their testing of python wrapping ffmpeg and php wrapping imagemagick. Refer to tutorial [[Web app ready - Ffmpeg, cytypes, imagemagick, pcregrep]]
 
+### Improve Developer Experience
+
+1. You may want to setup alias to easily SSH in from your computer's terminal (along with an echo of directories you will often cd into). You might want to add echo useful commands too (since the commands might change from local machine to different servers):
+
+```
+$ godaddy
+Local: /Users/local_username/dev/web/weng/apps/
+Remote: /home/XXX/public_html/apps
+---------------------------------------------------
+Mongo restart: sudo service mongod restart
+Mongo shell: mongo -u admin -p password
+MySQL phpMyAdmin:
+MySQL shell:
+---------------------------------------------------
+Supervision stop: ...
+Supervision start: ...
+Supervision config - main: ...
+Supervision config - apps: ...
+Supervision dashboard: ...
+---------------------------------------------------
+Pm2 start: ...
+Pm2 dashboard: ...
+$
+```
+  
+
+Passwordless:
+```
+alias hostinger='echo -e "Local: /Users/wengffung/dev/web/weng/tools/\nRemote: /home/XX/htdocs/YY.com/"; ssh root@REMOTE_IP -p 22 -i ~/.ssh/PRIVATE_KEY'
+```
+
+Requires password:
+```
+alias coloa='echo -e "Local: /Users/wengffung/dev/web/weng/tools/\nRemote: /home/.."; sshpass -p "Prq0yIvE" ssh root@XXX.XX.XXX.XX'
+```
+
+The password one requires you to install sshpass for your computer (eg. Google: Mac brew install sshpass). The sshpass allows you to have the password in the same command where you place the username and IP address. SSH normally forces you to enter the password after the username and IP address is accepted aka interactive mode.
+
+2. You may want to add better searching capabilities from the SSH terminal because you don't have a friendly UI to browse files. Add to ~/.bash_profile or equivalent:
+
+```
+# - fd: Find files with string in their filenames. Eg: fd *Untitled*.jpg  
+function fd() {   
+clear;   
+echo '* Running: find . ! -path "*/.git/*" ! -path "*/node_modules/*" -a \( -type f -iname "*${1}*" -o -type d -iname "*${1}*" \);  
+eg. fd Untitled  
+';  
+find . ! -path "*/.git/*" ! -path "*/node_modules/*" -a \( -type f -iname "*${1}*" -o -type d -iname "*${1}*" \);  
+} # fd -  
+  
+# - gr: Find files with string in their file contents. Eg: gr "= new"  
+function gr() {   
+    clear;   
+    VAR1="";   
+    [ $# -lt 1 ] && echo "Error. Must provide string you are searching files" && return;  
+  
+    # for i ({1..$#});do VAR1+=" --exclude-dir \"${!i:1}\""; done  
+  
+    # [ ${!i:0:1} != / ] && VAR1+=" --exclude \"${!i}\"";   
+      
+    # done;   
+  
+    # cho $#;  
+      
+    VAR0="grep -nriI ./ --exclude={.git,\*.sql,package-lock.json,webpack.config.js,composer.lock,\*.chunk.css,\*.chunk.js,\*.css.map,\*.js.map} --exclude-dir={.git,.git/index,bower_components,node_modules,.sass-cache,vendor\*,\*backup\*,\*cached\*}${VAR1} -e \"${1}\"";   
+      
+    echo "* Running: $VAR0  
+Eg. gr "= new"  
+  
+* Tip: If you are searching a phrase or sentence, place the expression in quotation marks:  
+gr \"fox jumps over fence\"  
+* Tip: If excluding directories, prepend with forward slash /. If excluding files, do not prepend. These are additional arguments after the expression argument. There is no restriction on the number of arguments.  
+gr \"fox jumps over fence\" /cached .gitignore README.md  
+Btw, the cached folder and .gitignore file is automatically ignored because I know how common those are in projects.  
+* Tip: Go to top of results on Macs with CMC+Up, or Ctrl+Home on Windows.  
+* Tip: Open the file and line in Visual Code:  
+code -g filepath:line  
+";  
+eval $VAR0;   
+  # Old bash version kept below. Now zshell complains of syntax error at )  
+  # function gr() { clear; VAR1=""; [ $# -gt 1 ] && for((i=2;i<=$#;i++)) do [ ${!i:0:1} == / ] && VAR1+=" --exclude-dir \"${!i:1}\""; [ ${!i:0:1} != / ] && VAR1+=" --exclude \"${!i}\""; done; VAR0="grep -nriI ./ --exclude={.git,*.sql,package-lock.json,*.chunk.css,*.chunk.js,*.css.map,*.js.map} --exclude-dir={.git,.git/index,bower_components,node_modules,.sass-cache,vendor*,*backup*,*cached*}${VAR1} -e \"${1}\""; echo "* Running: $VAR0  
+} # gr -
+```
+
+3. Also improves developer experience: Create folders that have symbolic links to your pm2 apps, your gunicorn apps, etc possibly named by their port numbers. Create a symbolic link to your supervisor app configs
+
+	- app
+		- or whatever folder name. this contains your websites and/or web apps
+	- app-mysql
+	- app-mongo
+	- app-node-pm2
+	- app-python-ssgp
+		- These are your python application folders symbolically linked
+		- Text explains ssgp: supervisor against sh, sh loads gunicorn in virtual environment (pyenv-virtualenv leveraging pipenv
+	- app-supervisor-configs
+		- These are your supervisor app configs which have paths to your shell sh files, and those shell sh files have the folder path to their python application and the sh file loads the virtual environment, then loads gunicorn against the python application folder path that has wsgi.py and server.py (or app.py)
+
+
 ----
 
-# Template to track all your credentials, folder paths, file paths
+## Template to track all your credentials, folder paths, file paths in your web host details document
 
   
 
@@ -586,6 +649,40 @@ Mongo Shell:
 _user
 _pass
 domain.com:9001
+
+
+---
+
+### ACC Supervisor and Related Commands:
+
+
+Pyenv Virtualenv Activate
+```
+pyenv activate app
+```
+
+Supervisor main config settings:
+```
+/etc/supervisor/supervisord.conf?
+```
+
+
+Supervisor apps folder:
+```
+/etc/supervisor/conf.d?
+```
+
+Apps include:
+```
+/etc/supervisor/conf.d/app.conf?
+```
+
+Supervisor to sh
+```
+?
+```
+
+
 
 ---
 ---
