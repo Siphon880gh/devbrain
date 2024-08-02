@@ -62,8 +62,8 @@ Located at either: ~/supervisor.d/  --OR– /etc/supervisor.d/
 
 ```
 [program:app4]
-command=/home/bse7iy70lkjz/public_html/storyway/app-vlai/container/x86_64.sh
-directory=/home/bse7iy70lkjz/public_html/storyway/
+command=/home/godaddy_user/public_html/company/app/container/x86_64.sh
+directory=/home/godaddy_user/public_html/company/
 autostart=true
 autorestart=true
 redirect_stderr=true
@@ -75,7 +75,7 @@ stderr_logfile=/var/log/supervisor/app4.log
 ### You run it like this:
 
 
-Activate the right environment before dealing with supervisor and you run this in the applicable folder (storyway/)
+Activate the right environment before dealing with supervisor and you run this in the applicable folder (company/)
 ```
 pyenv activate app4  
 ```
@@ -139,7 +139,8 @@ pyenv activate app4
 
 Shutdown previous supervisor
 ```
-supervisorctl shutdown
+sudo systemctl stop supervisor;
+supervisorctl shutdown;
 ```
   
 
@@ -188,17 +189,25 @@ sudo supervisord -c /etc/supervisord.conf -l /var/log/supervisor/supervisord.log
 ---
 
 Still fail?
-Supervisor was binded 127.0.0.1:9001 at the central settings for Supervisor.
 
-Get the PID number of the port:
+**One line to kill all PID's by port number:**
 ```
-sudo lsof -i :9001
+sudo lsof -ti :5001 | xargs -r sudo kill -9
 ```
 
-Then kill off:
+
+If above command doesnt work: Get the PID number of the port:
+```
+sudo lsof -i :5001
+```
+
+If... Then kill off:
 ```
 sudo kill _PID_
 ```
+
+
+---
 
 
 Still fail? Maybe you needed to run build scripts on your app to change the application code etc so it's compatible at the current server.

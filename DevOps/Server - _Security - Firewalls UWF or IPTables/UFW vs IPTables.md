@@ -1,0 +1,2 @@
+
+If you have firewall on your Linux OS, it's usually either uwf or iptables. Oftentimes when installing mongo for mongo compass or api calls made to your server; Or oftentimes when installing python-gunicorn, and api calls are made to your server - you need to open up specific ports. Between the firewall solutions uwf or iptables, the commands and workflow to open the port is different.

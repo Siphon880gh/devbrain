@@ -122,3 +122,11 @@ To install `nvm` (Node Version Manager) on Ubuntu 22.04, you can follow these st
    ```
 
 This should show npm version 6.14.8 since it is bundled with Node.js v14.17.0.
+
+10. Next you have to make it the default node version because this setting only applies to your current shell session:
+```
+nvm alias default v14.17.0
+```
+
+
+Restart your server then test `npm -v` again to make sure it sticks

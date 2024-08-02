@@ -619,6 +619,11 @@ wait "$gunicorn_pid"
 ```
 
 
+Confirm shell file can run successfully. Run the shell file directly (no interpreter command needed) eg.
+```
+./infrastructure/supervisor_layer/HOSTNAME.sh
+```
+
 Confirm Supervisor successful at running your app:
 - Grep for gunicorn
 ```
@@ -628,5 +633,13 @@ ps aux | head -n 1; ps aux | grep supervisor;  ps aux | grep gunicorn
 ```
 ps aux | head -n 1; ps aux | grep supervisor;  ps aux | grep script.py  
 ```
-- Visit your website to check your python script is working
+- Visit your website at the port to check your python script is working
 
+
+You may need to enable the port through your server's firewall. Refer to [[UFW - Enable specific ports]] if ufw was enabled. Instructions to check ufw is enabled are also there.
+
+---
+
+### Folder structure
+
+Recommend Supervisor app config files be named with the port number ranges they use

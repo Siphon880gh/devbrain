@@ -11,7 +11,7 @@ Then check each folder. You get an output like this:
 ```
 sys.path = [
 
-    '/home/bse7iy70lkjz/public_html/storyway/app-vlai',
+    '/home/godaddy_user/public_html/app',
 
     '/root/.pyenv/versions/3.6.15/lib/python36.zip',
 
@@ -37,7 +37,7 @@ Then prepend it into your python script
 ```
 import sys
 
-sys.path.insert(0, '/Users/wengffung/.local/share/virtualenvs/storyway-A39rOKjm/lib/python3.8/site-packages')
+sys.path.insert(0, '/Users/wengffung/.local/share/virtualenvs/app-A39rOKjm/lib/python3.8/site-packages')
 
 sys.path.insert(0, 'root/.pyenv/versions/app4/lib/python3.6/site-packages')
 ```

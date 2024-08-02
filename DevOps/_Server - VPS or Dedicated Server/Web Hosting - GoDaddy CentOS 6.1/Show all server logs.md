@@ -5,7 +5,7 @@ sudo tail -n 100 /var/log/messages
 
 Example:
 ```
-[root@sXX-XX-XXX-XX app-vlai]# sudo tail -n 100 /var/log/messages
+[root@sXX-XX-XXX-XX app-virtual-environment]# sudo tail -n 100 /var/log/messages
 
 Jun 21 00:14:04 sXX-XX-XXX-XX pure-ftpd: (?@127.0.0.1) [INFO] New connection from 127.0.0.1
 

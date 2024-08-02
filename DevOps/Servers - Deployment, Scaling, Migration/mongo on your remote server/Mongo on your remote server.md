@@ -132,13 +132,15 @@ Edit your `/etc/mongod.conf`:
      bindIp: 0.0.0.0
 ```
 
-The 0.0.0.0 allows server.py on your own host to work AND outside connections to mongo database including Mongo Compass to work. This is because 0.0.0.0 includes 127.0.0.1, however if you want to restrict to only server files accessing Mongo, you run with `bindIp: 127.0.0.1`
+The 0.0.0.0 allows server.py on your own host to work AND outside connections to mongo database including Mongo Compass to work. This is because 0.0.0.0 includes 127.0.0.1, however if you want to restrict to only server files accessing Mongo, you run with `bindIp: 127.0.0.1`, in which case this tutorial's purpose is abandoned.
 
-2. **Restart MongoDB:* (service or systemctl depending on your OS)
+9. **Restart MongoDB:* (service or systemctl depending on your OS)
 
    ```bash
    sudo service mongod restart
    ```
+
+10. Check if ufw firewall is enabled with `sudo ufw status`. If it's enabled, you should open the Mongo port by running `sudo ufw allow 27017`
 
 ### Important Considerations:
 - **Security:** Allowing connections from all IP addresses (0.0.0.0/0) can be very risky, especially if your database is exposed to the internet. It's recommended to use this setting only in controlled environments and to always implement additional security measures like firewalls and VPNs.

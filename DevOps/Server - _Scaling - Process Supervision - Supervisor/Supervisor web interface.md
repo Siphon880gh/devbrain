@@ -8,7 +8,7 @@ username=your_username     ; Optional: add for basic authentication
 password=your_password     ; Optional: add for basic authentication
 ```
 
-Then you may need to enable port 9001. Refer to guide [[Enabling ports at nginx]]
+Then you may need to enable port 9001. Refer to guide [[UFW - Enable specific ports]]
 
 When you visit https://domain.com:9001, you'll get a web browser prompt for username and password
 
