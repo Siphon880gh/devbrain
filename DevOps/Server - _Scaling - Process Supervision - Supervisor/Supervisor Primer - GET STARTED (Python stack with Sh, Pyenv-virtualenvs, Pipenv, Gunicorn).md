@@ -636,7 +636,7 @@ ps aux | head -n 1; ps aux | grep supervisor;  ps aux | grep script.py
 - Visit your website at the port to check your python script is working
 
 
-You may need to enable the port through your server's firewall. Refer to [[UFW - Enable specific ports]] if ufw was enabled. Instructions to check ufw is enabled are also there.
+You may need to enable the port through your server's firewall. Refer to [[UFW - Enable specific ports]] if ufw was enabled. Instructions to check ufw is enabled are also there. Your firewall could also be iptables instead of ufw; in that case refer to [[IPTables - Enable specific ports]]
 
 ---
 

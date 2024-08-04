@@ -39,8 +39,11 @@ Likely your VPS has a web host admin panel (Hostinger hpanel, GoDaddy’s dashbo
 
 ---
 
-### How to select for a Web Hosting Management Panel (Cpanel - monthly; Cloudpanel - free)
+### How to decide on a Web Hosting Management Panel (Cpanel - monthly; Cloudpanel - free)
 - *Background: Btw web hosting management panel is what cpanel refers to their category as. For managing at a bigger level like in WHM, that's web hosting admin panel.*
+
+### VPS: How to select the Web Hosting Management Panel (Cpanel, Cloudpanel, etc)
+- The webhost might have offered OS options separately from the VPS options or it might have offered options of OS and webhost management panel combo's.
 
 ### How to log into Web Hosting Management Panel (Cpanel, Cloudpanel, etc)
 - What’s the link with port number (Different web hosting services may assign different port for your panel). 
@@ -49,6 +52,7 @@ Likely your VPS has a web host admin panel (Hostinger hpanel, GoDaddy’s dashbo
 - what’s their information architecture (to help remember how to navigate there).  
 - eg. Hostinger’s: Hostinger believes CloudPanel manages the Ubuntu operating system with the purpose of web site and related services, hence you find CloudPanel under left panel item Settings (think VPS) → Operating System -> then “Manage Panel” button on the OS page
 - What are your login credentials?
+
 
 ---
 
@@ -64,93 +68,58 @@ Likely your VPS has a web host admin panel (Hostinger hpanel, GoDaddy’s dashbo
 - Optional: Are you able to login without password (ssh -i option to the private key file location). You may want to save this command as an alias for your local machine terminal’s .bash_profile equivalent. Run it as: `ssh root@REMOTE_IP -p 22 -i ~/.ssh/PRIVATE_KEY`)`
 
 ---
-
-### How to setup web server for basic website viewing
+### VPS: How to setup web server for basic website editing and viewing (Multiple sites)
 - Basic: We just want to see we can impact how a website looks . We don’t care about SSL Https at this point
 - Where in the web hosting panel (cpanel, cloudpanel, etc) does it show you the public IP address you can visit directly in the web browser  
 - Where does it give you the default domain (aka temporarily domain)  (eg. srv451789.hstgr.cloud). We want to test we can visit the webpage after uploading files with FTP / vi file from shell / edit file from web hosting management panel. We do not care to visit the desired domain name yet because DNS propagation takes a while.
-- What’s the folder path to create/edit index.html to so web browser can see a webpage? Aka root web directory for your website,  Aka working directory for your code and webpages. This is usually the first website you create in your web host panel or the website they already created for you, and their settings show you the associated folder path.  
-  Eg. Hostinger Ubunto 22.04 CloudPanel is: `/home/DOMAIN/htdocs/DOMAIN.com`
-- Create an index.html either through uploading via FTP, using vi command in shell, or using your web hosting management panel's File Manager.
-- See if you can visit that page on the web browser either with the public IP or human readable URL
-- If fails to visit, you have further settings to perform
-	- Firewall settings good to go?
-	- Security settings with the ports opened good to go?
-	- Determine if your server is NginX or Apache? (Either check in the terminal, or google your web host company + OS + web host panel nginx or apache, or ask customer support)
-		- See if the web server process is NginX or Apache is properly running
-		- For example: `sudo systemctl status nginx`  then you can restart (slight downtime) or reload (faster) in place of status .This is for Ubuntu 22.04 using 
-		- Know how to restart web server process
-		- Know how to configure web server process centrally (apache and nginx) and directory level (apache htaccess)
-	- Is your site enabled?
-		- If Apache, did it enable your website?:
-			- Look into /etc/apache2/sites-enabled/ or /etc/apache2/sites-available/  
-		- If NGinX, did it enable your website?
-			- Look into /etc/nginx/sites-enabled/
-	- Is your Apache/Nginx pointing to the correct root files to present to the web browser on visiting the highest level of your website URL (`domain` instead of `domain.com/something` )?
-		- Eg. If Hostinger at Cloudpanel VHost: You might see placeholder {{root}} instead of the folder path spelled out. This page writes to the file `/etc/nginx/nginx.conf` so you have to access that file on SSH terminal (either with vi, nano, or cat)
-	- Is your Apache/Nginx allowing hostname that’s IP address?
-		- Eg. Hostinger at Cloudpanel Vhost by default BLOCKS visiting an IP address directly (so IP address as a hostname isn’t allowed). You have to visit the domain name you setup for it (but well, even if you setup the domain name, you have to wait for DNS propagation). In this case, add a server block with the exact IP address to after the other server blocks:
-		- Note to replace YOUR_PUBLIC_IP and YOUR_HTML_FILES_PATH
-		- ![](https://i.imgur.com/TZ0nPkz.png)
-		- See
-```
-server {  
-    listen 80;  
-    listen [::]:80;  
-    server_name YOUR_PUBLIC_IP;  
-
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-    {{ssl_certificate_key}}
-    {{ssl_certificate}}
-  
-    root YOUR_HTML_FILES_PATH;  
-      
-    try_files $uri $uri/ /index.php?$args;  
-    index index.html index.htm index.php;  
-      
-      
-  location ~ \.php$ {  
-    include fastcgi_params;  
-    fastcgi_intercept_errors on;  
-    fastcgi_index index.php;  
-    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;  
-    try_files $uri =404;  
-    fastcgi_read_timeout 3600;  
-    fastcgi_send_timeout 3600;  
-    fastcgi_param HTTPS "on";  
-    fastcgi_param SERVER_PORT 443;  
-    fastcgi_pass 127.0.0.1:{{php_fpm_port}};  
-    fastcgi_param PHP_VALUE "{{php_settings}}";  
-  }  
-  
-    location / {  
-        try_files $uri $uri/ =404;  
-    }  
-}
-```
-
-- Anymore you have to edit in the server blocks? Confirm on web browser that you don’t hit this:
-
-```
-31.220.18.169 didn’t send any data.
-
-ERR_EMPTY_RESPONSE
-```
-
-
-![](https://i.imgur.com/S5JdFKb.png)
-
+- You can edit the index file in the web hosting management panel's File Manager or in the terminal.
+	- If in the terminal using vi: For each site on your web hosting management panel, what’s the folder path to create/edit index.html to so web browser can see a webpage? Aka root web directory for your website, Aka working directory for your code and webpages. This is usually the first website you create in your web host panel or the website they already created for you, and their settings show you the associated folder path.  
+- Prepare to visit that website in the web browser to see your changes went through:
+	- Edit the vhost to your site such that:
+	```
+	server_name srv451789.hstgr.cloud;
+	```
+	- And restart nginx from SSH terminal with `sudo systemctl restart nginx`
+	- Visit http://srv451789.hstgr.cloud
+	- If success, Chrome will warn you there's no secured connection or that the connection is not private and blocks you from viewing the content. We will add SSL https certificates later. The current bypass technique in 2024 is to click anywhere on the webpage then type: `thisisunsafe`. You should see the webpage content.
 
 ### How to setup SFTP/FTP users
-- Where to navigate to adding SSH users? Will those SSH users act as SFTP users?
-- Use Filezilla to connect SFTP (SFTP chosen, Port can be empty, Logon Type is Normal)
-- Stick with SFTP if possible because it’s more secured.
-- If SFTP users unavailable, then where to add FTP users
-- Test FTP by seeing if you can upload to it. Doesnt have to be a webpage.
+- Makes life easier for web developer.
+- FTP: It's strongly recommended you use SFTP instead. You can setup FTP capability then leave the port off or on as a backup. Refer to: [[Setup FTP]]
+- SFTP: [[Setup FTP]] if not CloudPanel. [[CloudPanel - Setup SFTP users]] if CloudPanel.
 
 ---
-### Prepare server for installing different architectures (PHP, NodeJS, Python, MySQL, Mongo, Scaling Solutions)
+
+### Prepare web server for basic public view - SSL, File Permissions, Security
+- Do you have to setup SSL?
+	- Free vs Paid SSL
+		- You can get a free SSL with Let's Encrypt. Look up instructions how to run Let's Encrypt in your SSH.
+		- You can also buy SSL which gives you certain advantages over SSL, and some businesses must have a paid SSL as regulation.
+	- Figure out workflow to acquire and install SSL because you'll be doing this annually. Also perform it now
+		- If CloudPanel, it's very simple going to the site -> SSL/TLS -> Actions -> New Let's Encrypt Certificate (however you must have a domain connected to that website already because it'll create a file then access that file through your domain URL to prove your ownership then generates the certificate).
+		- If less obvious how and where to install SSL HTTPS certificates: Contact customer support or google Web host + OS + Nginx/Apache + Install SSL certificates. If the web host is not well known (very independent), google for: OS + Nginx/Apache+ Install SSL certificate
+	- Know the filepaths to the SSL for future issues and code that needs SSL cert and key paths such as gunicorn (even if Cloudpanel abstracts it away)
+		- If Hostinger CloudPanel, the Vhost page likely hides ssl cert and key file paths in the server block as variables. You have to find the site's nginx confi file where the final vhost is written (eg. /etc/nginx/sites-enabled/some-website.com.conf)
+			- Hostinger Ubunto 22.04 with Cloud Panel paths could be:
+				- **ssl_certificate** /etc/nginx/**ssl**-certificates/DOMAIN.com.crt;
+				- **ssl_certificate_key** /etc/nginx/**ssl**-certificates/DOMAIN.com.key;
+- File permissions: if you will have php or python scripts that are triggered by visiting web browser, if it writes to a folder, can it write?
+	- How to make sure the user that created the folders upon creating your website aka the same that would be the owner of files you create at the web hosting panel’s File Manager...
+	    
+	    ...how to make sure it’s the same user for Filezilla (make sure site user login into Filezilla or FTP client). If not, you could upload php scripts via filezilla that creates files (like text file of user activities) but your filezilla user didn’t own the folder so it’ll be permission error preventing creating files by php script
+	    
+	    When visit a php page in the web browser, can it append or write to a file using fwrite? Eg. tracking user behaviors at a user-log.txt. If it's unable, see user and group ownership of the folder it writes to and the php page that does the writing. You can see with `ls -la` and you see they do not match so no wonder the file does not have permission to write to the folder.
+- Install malware and security especially when going public
+	- If Hostinger, their malware scanner [https://support.hostinger.com/en/articles/8450363-vps-malware-scanner](https://support.hostinger.com/en/articles/8450363-vps-malware-scanner)
+    - How to navigate to the malware from services dashboard (Hostinger hpanel, GoDaddy dashboard, etc)
+    - Is malware free, times one payment, or monthly/yearly? Or keep deactivated (often they let you scan but not fix for free)
+    - Is there a firewall from the web hosting management panel? or do you have to run ufw?
+- Domain name
+	- Refer to tutorial on domain and dns editing. There are many ways to do it. One way is to have namecheap domain with two A records to the public IP of your webhost at "@" and "\*" (unless you want different public ip between www and other subdomains)
+	- 
+
+---
+### ADVANCED WEBSITE: Prepare server for installing different architectures (PHP, NodeJS, Python, MySQL, Mongo, Scaling Solutions)
 - Know how to reboot the server
 - how see error logs based on your OS and web server type  
     eg `tail -f /var/log/nginx/error.log`
@@ -287,7 +256,7 @@ sudo systemctl start nginx
 		```
 
 		Additionally, if you have firewall (either uwf or iptables), you have to allow in internet 0.0.0.0 into port 27017:
-		.. Check if ufw firewall is enabled with `sudo ufw status`. If it's enabled, you should open the Mongo port by running `sudo ufw allow 27017`. Check ports allowed by running same `sudo ufw status`
+		.. Check if ufw firewall is enabled with `sudo ufw status`. If it's enabled, you should open the Mongo port by running `sudo ufw allow 27017`. Check port allowed rules by running same `sudo ufw status`. Apply the rules immediately with `sudo ufw reload`.
 		..Check if iptables is managing firewall by running `sudo service iptables status`. If it's enabled, you should open the Mongo port by running `sudo iptables -A INPUT -p tcp --dport 27017 -j ACCEPT` . Check ports allowed by running `sudo iptables -L -n`
 				
 		- Test MongoDB with authentication account works on Python or NodeJS
@@ -361,32 +330,11 @@ sudo systemctl start nginx
 		- Docker or supervisor to restart your api app on crashes (either server crash or app crash)
 			- Refer to the tutorials [[Docker Primer - General]] and [[Docker Primer - Get Started]]
 
-### Prepare web server for public - SSL, File Permissions, Security
-- do you have to buy cert files?
-	- Your web host may advertise offering free SSL for wordpress or shared hosting, but you are on VPS
-	- If Hostinger, their VPS includes free SSL. If GoDaddy, SSL is separate
-	- How and where to install SSL HTTPS certificates? Contact customer support or google Web host + OS + Install SSL certificates
-		- Even if the first SSL are free and already setup, you need to know for future manual SSL setups
-		- If Hostinger CloudPanel, the Vhost page might show ssl cert and key file paths. If hidden under a variable name, then see the file the Vhost page writes to (/etc/nginx/nginx.conf)
-			- Hostinger Ubunto 22.04 with Cloud Panel is:
-				- - **ssl_certificate** /etc/nginx/**ssl**-certificates/DOMAIN.com.crt;
-				- **ssl_certificate_key** /etc/nginx/**ssl**-certificates/DOMAIN.com.key;
-- File permissions: if you will have php or python scripts that are triggered by visiting web browser, if it writes to a folder, can it write?
-	- How to make sure the user that created the folders upon creating your website aka the same that would be the owner of files you create at the web hosting panel’s File Manager...
-	    
-	    ...how to make sure it’s the same user for Filezilla (make sure site user login into Filezilla or FTP client). If not, you could upload php scripts via filezilla that creates files (like text file of user activities) but your filezilla user didn’t own the folder so it’ll be permission error preventing creating files by php script
-	    
-	    When visit a php page in the web browser, can it append or write to a file using fwrite? Eg. tracking user behaviors at a user-log.txt. If it's unable, see user and group ownership of the folder it writes to and the php page that does the writing. You can see with `ls -la` and you see they do not match so no wonder the file does not have permission to write to the folder.
-- Install malware and security especially when going public
-	- If Hostinger, their malware scanner [https://support.hostinger.com/en/articles/8450363-vps-malware-scanner](https://support.hostinger.com/en/articles/8450363-vps-malware-scanner)
-    - How to navigate to the malware from services dashboard (Hostinger hpanel, GoDaddy dashboard, etc)
-    - Is malware free, times one payment, or monthly/yearly? Or keep deactivated (often they let you scan but not fix for free)
-    - Is there a firewall from the web hotsing management panel? or do you have to run ufw?
-- Domain name
-	- Refer to tutorial on domain and dns editing
-
-### Prepare for web app features
+### ADVANCED WEBSITE: Prepare for web app features
 Install ffmpeg, ctypes, imagemagick, and pcregrep for various web apps and their testing of python wrapping ffmpeg and php wrapping imagemagick. Refer to tutorial [[Web app ready - Ffmpeg, cytypes, imagemagick, pcregrep]]
+
+
+---
 
 ### Improve Developer Experience
 
@@ -419,9 +367,9 @@ Passwordless:
 alias hostinger='echo -e "Local: /Users/wengffung/dev/web/weng/tools/\nRemote: /home/XX/htdocs/YY.com/"; ssh root@REMOTE_IP -p 22 -i ~/.ssh/PRIVATE_KEY'
 ```
 
-Requires password:
+Requires password - sshpass for one command login:
 ```
-alias coloa='echo -e "Local: /Users/wengffung/dev/web/weng/tools/\nRemote: /home/.."; sshpass -p "Prq0yIvE" ssh root@XXX.XX.XXX.XX'
+alias coloa='echo -e "Local: /Users/wengffung/dev/web/weng/tools/\nRemote: /home/.."; sshpass -p "YOUR_PASSWORD" ssh root@XXX.XX.XXX.XX'
 ```
 
 The password one requires you to install sshpass for your computer (eg. Google: Mac brew install sshpass). The sshpass allows you to have the password in the same command where you place the username and IP address. SSH normally forces you to enter the password after the username and IP address is accepted aka interactive mode.
@@ -513,20 +461,30 @@ Default domain name:
 Public IP URL:
 \__   
 
+Available IPs (If dedicated server)
+- CIDR to expand to below: ??
+- Network Address:  ??
+- Usable IP Addresses:  ?? to  ??
+- Broadcast Address:  ??
 
 Root web directory is:
 ..
 
 ---
 
-### ACC Web Hosting Panel
+### ACC Web Hosting Management Panel
 
 - \__which is
 - \__login creds
 - \__url
 
-
 \> \__ IA and how to navigate there from Services Dashboard  
+
+Site Credential(s)
+Login:
+Pass:
+Url:
+
 
 ---
 
@@ -552,6 +510,8 @@ Where to modify: \__
 
 \> Alt Login:
 Passwordless with SSH private key: \__filepath
+
+Restart time if known: ...
 
 \> Can change password at
 \__ui navigation and/or link
@@ -667,3 +627,6 @@ Supervisor to sh
 - Recommend Supervisor app config files be named with the port number ranges they use
 - May have a root folder /keys that have important keys for all your apps but make sure is blocked from being visited on the web browser. It's safer if you have a build script that saves the env keys to your .bash_profile, then re-source, instead.
 
+
+## How to access error logs for nginx etc
+_...?

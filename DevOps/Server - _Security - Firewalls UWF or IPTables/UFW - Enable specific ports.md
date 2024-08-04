@@ -32,81 +32,15 @@ Eg. To allow port 9001 through the firewall for NGINX, you will need to perform 
    sudo ufw status
    ```
 
-### Using `iptables`
 
-1. **Allow port 9001**:
+## Conventional Names
+You could've also allow ports by their conventional name which you could list with `sudo ufw app list`, so like `sudo ufw allow "Nginx HTTP"` substituted for `sudo ufw 80`
 
-   ```bash
-   sudo iptables -A INPUT -p tcp --dport 9001 -j ACCEPT
-   ```
-
-2. **Save the rules** so they persist after a reboot. This varies based on your system. For example, on Debian-based systems:
-
-   ```bash
-   sudo sh -c "iptables-save > /etc/iptables/rules.v4"
-   ```
-
-
-**MAY STOP:**
-
-**The above are adequate in most cases**
-
----
-
-
-### Using `firewalld`
-
-1. **Allow port 9001**:
-
-   ```bash
-   sudo firewall-cmd --permanent --add-port=9001/tcp
-   ```
-
-2. **Reload firewalld** to apply the changes:
-
-   ```bash
-   sudo firewall-cmd --reload
-   ```
-
-### Configure NGINX to Listen on Port 9001
-
-1. **Edit the NGINX configuration file**:
-
-   ```bash
-   sudo nano /etc/nginx/sites-available/default
-   ```
-
-   or the specific server block configuration file you are using.
-
-2. **Add or modify the `server` block to listen on port 9001**:
-
-   ```nginx
-   server {
-       listen 9001;
-       server_name your_domain_or_IP;
-
-       location / {
-           proxy_pass http://localhost:some_port;  # Adjust as needed
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
-       }
-   }
-   ```
-
-3. **Save and close the configuration file**.
-
-4. **Test the NGINX configuration**:
-
-   ```bash
-   sudo nginx -t
-   ```
-
-5. **Reload NGINX** to apply the changes:
-
-   ```bash
-   sudo systemctl reload nginx
-   ```
-
-By following these steps, you will allow traffic on port 9001 through your firewall and configure NGINX to listen on that port.
+`sudo ufw app list`:
+```
+Available applications:
+  Nginx Full
+  Nginx HTTP
+  Nginx HTTPS
+  OpenSS
+```
