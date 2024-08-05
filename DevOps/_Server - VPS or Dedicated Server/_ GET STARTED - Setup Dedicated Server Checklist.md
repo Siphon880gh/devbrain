@@ -15,8 +15,8 @@ Create a document for your webhost (eg. GoDaddy, Hostinger, etc) to refer back t
 - Besides credentials, there are commands, os specs, and other details you want to save somewhere about your web host that you may need to reference later
 
 ### What’s the appropriate Dedicated Server package
-- RAM, number of cores, storage space, etc. 
-- I will create a guide on how to communicate our full stack app’s use case, simultaneous users, memory use by the process and memory,  bandwidth use, storage disk space, etc to a server specialist that can decide the package and maybe install the architecture in the terminal.
+- RAM, number of cores, storage space, etc. 
+- I will create a guide on how to communicate our full stack app’s use case, simultaneous users, memory use by the process and memory,  bandwidth use, storage disk space, etc to a server specialist that can decide the package and maybe install the architecture in the terminal.
 - Does pricing include cpanel and os license?
 - Or choose a free web hosting control panel and free linux distro? Downside of free may be lack of features and/or more custom terminal command work. Eg. Ubuntu 22 with CloudPanel
 - Setup billing auto renewal?
@@ -35,7 +35,7 @@ Likely your dedicated server does not have a web host admin panel (Hostinger hpa
 -  Save the above information into your web host details document
 
 ### Login Entry Point: SSH in
-- In place of a webhost admin panel or services dashboard, you'll be mostly interact with your server via SSH and any web gui's you install. Often times their server administrator will setup SSH IP, root, and password, then hand it to you. The web host's server administrator that onboards you may also give you the range of ip addresses available for you to use. The rest is up to you.
+- In place of a webhost admin panel or services dashboard, you'll mostly be interacting with your server via SSH and any web gui's you install. Often times their server administrator will setup SSH IP, root, and password, then hand it to you. The web host's server administrator that onboards you may also give you the range of ip addresses available for you to use. The rest is up to you.
 
 - Are you able to login at the local machine terminal with password?
 - So save to your web host document, your ssh credentials as the primary login Also save the savailable ip's for use (it might've been given to you)
@@ -45,9 +45,9 @@ Likely your dedicated server does not have a web host admin panel (Hostinger hpa
 	- Change your password by running `sudo passwd username`, then you will be prompted for a new password
 	- Choose a password that's not related to your personal passwords because you may be sharing this password with the web host's server admin when there are problems only they can fix.
 
-- Once in remote server, usually there is nothing much to navigate to get to your website files. There will probably be hidden folder .ssh, hidden file .bash_profile, etc, which you can see by running `ls -la`. You likely have to install nginx or apache from scratch, then setup root web directory for your website, Aka working directory for your code and webpages. 
+- Once in remote server, usually there is nothing much to navigate to get to your website files. There will probably be hidden folder .ssh, hidden file .bash_profile, etc, which you can see by running `ls -la`. You likely have to install nginx or apache from scratch, then setup root web directory for your website, Aka working directory for your code and webpages. 
 
-- Optional: Are you able to login without password (ssh -i option to the private key file location). You may want to save this command as an alias for your local machine terminal’s .bash_profile equivalent. Run it as: `ssh root@REMOTE_IP -p 22 -i ~/.ssh/PRIVATE_KEY`)`
+- Optional: Are you able to login without password because you paired your local computer with the remote computer eith SSH keys (ssh -i option to the private key file location)? You may want to save this command as an alias for your local machine terminal’s .bash_profile equivalent. Run it as: `ssh root@REMOTE_IP -p 22 -i ~/.ssh/PRIVATE_KEY`)`
 
 ---
 
@@ -59,7 +59,7 @@ In order to have a website people can visit and a setup that makes it easy for t
 
 1. Install web server
 
-- Choose webserver (nginx or apache) and firewall (uwf or iptables). You want to install a web server AND a webhost because once you open your public IP to the internet, you need a firewall against malicious hackers. You can research pro’s and con’s of nginx vs apache (Briefly, Nginx can handle a lot more traffic than Apache, but Apache has a better developer experience with .htaccess, etc)
+- Choose webserver (nginx or apache) and firewall (uwf or iptables). You want to install a web server AND a firewall because once you open your public IP to the internet, you need a firewall against malicious hackers. You can research pro’s and con’s of nginx vs apache (Briefly, Nginx can handle a lot more traffic than Apache, but Apache has a better developer experience with .htaccess, etc)
 
 - Eg. Google: Ubuntu 22 install nginx with ufw
 	- Brief from: https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-22-04
@@ -92,7 +92,7 @@ curl -4 ipinfo.io/ip
 ---
 
 
-### How to decide on a Web Hosting Management Panel (Cpanel - monthly; Cloudpanel - free)
+### How to decide on a Web Hosting Management Panel (Cpanel - monthly; Cloudpanel - free)
 - *Background: Btw web hosting management panel is what cpanel refers to their category as. For managing at a bigger level like in WHM, that's web hosting admin panel.*
 
 ### **Dedicated Server**: Install a Web Hosting Management Panel
@@ -132,8 +132,8 @@ curl -4 ipinfo.io/ip
 		- Save MySQL credentials and URL to webhost details document
 
 ### How to log into Web Hosting Management Panel (Cpanel, Cloudpanel, etc)
-- What’s the link with port number (Different web hosting services may assign different port for your panel). 
-  eg. Cloudpanel on Hostinger [https://XX.XXX.XX.XXX:8443](https://XX.XXX.XX.XXX:8443)
+- What’s the link with port number (Different web hosting services may assign different port for your panel). 
+  eg. Cloudpanel on Hostinger [https://XX.XXX.XX.XXX:8443](https://XX.XXX.XX.XXX:8443)
 - What are your login credentials?
 - VPS: How to navigate to your panel at the Services Dashboard (if you don’t have the link handy)
 	- what’s their information architecture (to help remember how to navigate there).  
@@ -146,7 +146,7 @@ curl -4 ipinfo.io/ip
 ### How to setup web server for basic website editing and viewing (Default site)
 - Basic: We just want to see we can impact how a website looks . We don’t care about SSL Https at this point
 - What's the public IP address you can visit directly in the web browser (usually given to you by your onboarding server admin)  
-- What’s the folder path to create/edit index.html to so web browser PRE web hosting management panel? Aka root web directory for your website, Aka working directory for your code and webpage.   
+- What’s the folder path to create/edit index.html to so web browser PRE web hosting management panel? Aka root web directory for your website, Aka working directory for your code and webpage.   
 	- For the default site:
 		- You figure out where the root is, possibly editing with `vi /etc/nginx/sites-enabled/default` then looking for the line with `root`, which has the path
 		- List the files at that root working directory for some form of index file, eg. `ls var/www/html`
@@ -222,22 +222,23 @@ Because you installed the web hosting management panel yourself rather than bein
 			3. html documents
 				Check that: /home/ have folder named by usernames which are named after the sites you create at cloudpanel. Each folder is owned by their respective username and group of same name. They should be drwxrwx--- permission at mod 770. For example:
 				```
-				drwx------  8 clp                      clp                            4096 Jun 14 01:41 clp
+				drwx------  8 clp                      clp                            4096 Jun 14 01:41 clp
 				
-				drwxrwx---  8 wayneteachescode         wayneteachescode               4096 Jun 23 10:10 wayneteachescode
+				drwxrwx---  8 wayneteachescode         wayneteachescode               4096 Jun 23 10:10 wayneteachescode
 				
-				drwxrwx---  8 wayneteachesproductivity wayneteachesproductivity       4096 Jun 23 10:26 wayneteachesproductivity
+				drwxrwx---  8 wayneteachesproductivity wayneteachesproductivity       4096 Jun 23 10:26 wayneteachesproductivity
 				
-				drwxrwx--- 12 wengindustries           wengindustries                 4096 Jul 23 10:22 wengindustries
+				drwxrwx--- 12 wengindustries           wengindustries                 4096 Jul 23 10:22 wengindustries
 				```
 
 			4. Try again. If still fails because of file permission issues:
 			   Your CloudPanel or Nginx may have some conflict that prevents permissions from being reconciled between www-data and the new user and group pair for every new site created at Cloudpanel.
-			   - Make sure nginx uses `www-data` (on Debian/Ubuntu systems) or `nginx` (on CentOS/RHEL systems). Find out by editing the nginx main conf file which could possibly be `vi /etc/nginx/nginx.conf`. It's at the top of the file like `user www-data www-data`
+			   - Make sure nginx uses `www-data` (on Debian/Ubuntu systems) or `nginx` (on CentOS/RHEL systems). Find out by editing the nginx main conf file which could possibly be `vi /etc/nginx/nginx.conf`. It's at the top of the file like `user www-data www-data`
 			   - Then every time you created a new site (and for all sites you haven't set those up for), add the web server user to the site group:
 				```
 				sudo usermod -aG a100pullups www-data
 				```
+			- Reworded: Every site I create on cloudpanel, I have to add the www-data user to the new group (which is associated with the new site user). Otherwise, the webpage wont load and when I check the error.log for that website, it shows file permission / permission denied. But if I add the www-data user to the new group, that gets fixed.
 			- You will have to add to your webhost details document that this reconciliation must be done manually every time you create a new site. Also recommend adding a fake site in CloudPanel titled "00oncreate-add-www-data-to-site-group" which will remind you whenever you create a new site and return to the list of sites because this is the first item in the list. You can add the usermod command into the SSH keys section of that fake site as reference notes.
 				- You add www-data to the site-group like this:
 					```
@@ -283,8 +284,8 @@ Because you installed the web hosting management panel yourself rather than bein
 	- Know the filepaths to the SSL for future issues and code that needs SSL cert and key paths such as gunicorn (even if Cloudpanel abstracts it away)
 		- If Hostinger CloudPanel, the Vhost page likely hides ssl cert and key file paths in the server block as variables. You have to find the site's nginx confi file where the final vhost is written (eg. /etc/nginx/sites-enabled/some-website.com.conf)
 			- Hostinger Ubunto 22.04 with Cloud Panel paths could be:
-				- **ssl_certificate** /etc/nginx/**ssl**-certificates/DOMAIN.com.crt;
-				- **ssl_certificate_key** /etc/nginx/**ssl**-certificates/DOMAIN.com.key;
+				- **ssl_certificate** /etc/nginx/**ssl**-certificates/DOMAIN.com.crt;
+				- **ssl_certificate_key** /etc/nginx/**ssl**-certificates/DOMAIN.com.key;
 - File permissions: if you will have php or python scripts that are triggered by visiting web browser, if it writes to a folder, can it write?
 	- How to make sure the user that created the folders upon creating your website aka the same that would be the owner of files you create at the web hosting panel’s File Manager...
 	    
@@ -292,7 +293,7 @@ Because you installed the web hosting management panel yourself rather than bein
 	    
 	    When visit a php page in the web browser, can it append or write to a file using fwrite? Eg. tracking user behaviors at a user-log.txt. If it's unable, see user and group ownership of the folder it writes to and the php page that does the writing. You can see with `ls -la` and you see they do not match so no wonder the file does not have permission to write to the folder.
 - Install malware and security especially when going public
-	- If Hostinger, their malware scanner [https://support.hostinger.com/en/articles/8450363-vps-malware-scanner](https://support.hostinger.com/en/articles/8450363-vps-malware-scanner)
+	- If Hostinger, their malware scanner [https://support.hostinger.com/en/articles/8450363-vps-malware-scanner](https://support.hostinger.com/en/articles/8450363-vps-malware-scanner)
     - How to navigate to the malware from services dashboard (Hostinger hpanel, GoDaddy dashboard, etc)
     - Is malware free, times one payment, or monthly/yearly? Or keep deactivated (often they let you scan but not fix for free)
     - Is there a firewall from the web hosting management panel? or do you have to run ufw?
@@ -316,8 +317,8 @@ sudo systemctl status nginx
 sudo systemctl start nginx
 ```
 
-- Know what is the main installer of packages in command line (eg. `sudo apt update`  for Ubuntu 22.04). Save to your web host's details document if it's not something you're intimately familiar with.
-- Update installer’s repos 
+- Know what is the main installer of packages in command line (eg. `sudo apt update`  for Ubuntu 22.04). Save to your web host's details document if it's not something you're intimately familiar with.
+- Update installer’s repos 
 - Look up instructions for your OS on how to install these language interpreters, if applicable to your server's use cases (these should be installed before installing databases because you'll be testing database connections with code):
 	- PHP (if not included by your web host’s)
 		- If installed CloudPanel, PHP comes included. If you don't see PHP, you should create a PHP site off CloudPanel 
@@ -652,11 +653,11 @@ Available IP addresses: _availabeIps
 
 
 Default domain name:
-\__ 
+\__ 
 
 
 Public IP URL:
-\__   
+\__   
 
 
 Available IPs (If dedicated server)
@@ -704,10 +705,10 @@ Where to modify: \__
 
 ### ACC SSH Root access:
 - \__login creds
-- `ssh root@... -p 22` 
+- `ssh root@... -p 22` 
 
 \> Alt Login:
-Passwordless with SSH private key: \__filepath
+Passwordless with SSH private key: \__filepath
 
 Restart time if known: ...
 
@@ -719,14 +720,14 @@ Restart time if known: ...
 
 \> \__ IA and why that’s how you navigate to SSH Root access creds settings
 
-\> Aka root web directory for your website,  Aka working directory for your code and webpages:  
+\> Aka root web directory for your website,  Aka working directory for your code and webpages:  
 ...
 
 ---
 
 ### ACC SSL HTTPS Directories
-- **ssl_certificate:** \__remote file path
-- **ssl_certificate_key:** \__remote file path
+- **ssl_certificate:** \__remote file path
+- **ssl_certificate_key:** \__remote file path
 
 \__ Mention any necessary re-setups whenever you have new ssl certificates, eg. gunicorn command that has SSL paths in .sh file managed by Supervisor
 
@@ -813,7 +814,7 @@ Supervisor to sh
 	- \__package + os + web host panel
 	- \__number of cores, memory, bandwidth, storage
 	- \__monthly/yearly, auto-renews?
-- Web server process 
+- Web server process 
 	- \__apache or nginx?
 - Security - Firewall is ufw or iptables?
 	- ufw
