@@ -36,3 +36,5 @@ For a basic pullup web app that has api calls and a frontend:
 |CNAME|www|pullups.app|Automatic|
 |A|api|[Other IP address]|Automatic|
 |CNAME|*|pullups.app|Automatic|
+
+Make sure a site's vhost at your web host catches what servername (subdomain and/or domain and tld) is hoisted by the internet connecting to your public IP.

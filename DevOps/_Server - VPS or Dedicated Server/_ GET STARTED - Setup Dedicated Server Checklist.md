@@ -14,15 +14,22 @@ Create a document for your webhost (eg. GoDaddy, Hostinger, etc) to refer back t
 ### Prepare your web host details document
 - Besides credentials, there are commands, os specs, and other details you want to save somewhere about your web host that you may need to reference later
 
-### What’s the appropriate Dedicated Server package
+### What’s the appropriate Company and Dedicated Server package
 - RAM, number of cores, storage space, etc. 
-- I will create a guide on how to communicate our full stack app’s use case, simultaneous users, memory use by the process and memory,  bandwidth use, storage disk space, etc to a server specialist that can decide the package and maybe install the architecture in the terminal.
+- Create a guide on how to communicate your full stack app or business use cas:, simultaneous users, memory use by the process and memory,  bandwidth use, storage disk space, etc to a server specialist that can decide the package and maybe install the architecture in the terminal.
 - Does pricing include cpanel and os license?
-- Or choose a free web hosting control panel and free linux distro? Downside of free may be lack of features and/or more custom terminal command work. Eg. Ubuntu 22 with CloudPanel
+	- Or choose a free web hosting control panel and free linux distro? Downside of free may be lack of features and/or more custom terminal command work. Eg. Ubuntu 22 with CloudPanel
+- If rented colocation
+	- Do we have an online remote access tool like IPMI (Intelligent Platform Management Interface) so we can do recovery, reinstallation, etc. Otherwise we have to ask support team to reinstall which could take hours and have our website downtime for hours.
+	- Is there hardware virtualization supported on the CPU? This lets me create VMs that act like VPS, so I can house all business logic in the VPS and restart the VPS from my dedicated server SSH. Crashes would affect the in-housed VPS instead of the dedicated server. This prevents having to rely on the support team and I can get right to restarting, minimizing downtime. 
+		- If there's hardware virtualization, is KVM (kernel) type of hardware virtualization supported? That's faster than the other types of hardware virtualization
+		- How many VMs are supported with our current cpu cores and threads? For calculations, refer to [[Calculating number of VMs supported]]
+		- If there's no hardware virtualization, is the server specs fast enough for OS based virtualization into VPS?
 - Setup billing auto renewal?
 
 ### How to select for OS
 - They usually install for you
+- And then find out what the package installer is based on the OS name (Search Google)
 
 ---
 
@@ -35,27 +42,56 @@ Likely your dedicated server does not have a web host admin panel (Hostinger hpa
 -  Save the above information into your web host details document
 
 ### Login Entry Point: SSH in
-- In place of a webhost admin panel or services dashboard, you'll mostly be interacting with your server via SSH and any web gui's you install. Often times their server administrator will setup SSH IP, root, and password, then hand it to you. The web host's server administrator that onboards you may also give you the range of ip addresses available for you to use. The rest is up to you.
+- In place of a webhost admin panel or services dashboard, you'll mostly be interacting with your server via SSH and any web gui's you install. Often times their server administrator will setup SSH IP, root, and password, then hand it to you. The provider's server administrator that onboards you may also give you the range of ip addresses available for you to use. The rest is up to you.
 
-- Are you able to login at the local machine terminal with password?
-- So save to your web host document, your ssh credentials as the primary login Also save the savailable ip's for use (it might've been given to you)
+Are you able to login into root at the local machine terminal with SSH?
+- Did the provider give you non-root user credentials as well?
+	- If they've tightened security, logging into root with ssh command is disabled. The command `ssh root@XXX.XX.XXX.XX` appears to work as usual, and you might not even be privy to it being disabled because it will let you enter a password and all it will ever say is that the password is incorrect. This is by design so that hackers don't get clued in to try gaining access in other ways. This may also be why the provider gave you user credentials.
+	- You'd log into the that user with `ssh USER@XXX.XX.XXX.XX`, and once in the remote SSH session, you elevate by running `su`, followed by root user password; then it will switch from the normal user to the root user.
+	- To disable or enable root login, refer to [[SSH with Root Login Disabled
+- So save to your web host document, your ssh credentials as the primary login. And, also save the available ip's for use (if given to you)
 	- If the available ip addresses are given to you in the form of CIDR, eg. XXX.XX.XXX.XX/29, you may want to work out the available IP addresses, then save to your document the network address, useable ip addresses, and broadcast address
 	  
 - You could look up how to change your root password for your OS, eg. Google: Ubuntu 22 change root password. Usually the onboarding server admin gives you a very randomized password that's hard for you to remember (you may be prompted for passwords multiple times running sudo).
-	- Change your password by running `sudo passwd username`, then you will be prompted for a new password
+	- Change your password by running `sudo passwd root`, then you will be prompted for a new password
 	- Choose a password that's not related to your personal passwords because you may be sharing this password with the web host's server admin when there are problems only they can fix.
 
 - Once in remote server, usually there is nothing much to navigate to get to your website files. There will probably be hidden folder .ssh, hidden file .bash_profile, etc, which you can see by running `ls -la`. You likely have to install nginx or apache from scratch, then setup root web directory for your website, Aka working directory for your code and webpages. 
 
-- Optional: Are you able to login without password because you paired your local computer with the remote computer eith SSH keys (ssh -i option to the private key file location)? You may want to save this command as an alias for your local machine terminal’s .bash_profile equivalent. Run it as: `ssh root@REMOTE_IP -p 22 -i ~/.ssh/PRIVATE_KEY`)`
+---
+
+### Dedicated Server: Split Dedicated Server into VPS
+Do your own the dedicated server or are you renting it from a colocation?
+
+If renting: When you reinstall the server (often times you're setting up the dedicated server from scratch and you mess up locking yourself out, you ask support team to reinstall the server), there could be hours of downtime while waiting on support team.
+
+If you virtualized a VM in the form of a VPS inside the dedicated server, then you can isolate these lockouts to the VPS. Then from within the dedicated server, you have the ability to reinstall / restore the VPS without needing to contact support.
+
+If you want this ability: First you need to find out if you will perform OS virtualization or hardware virtualization (the faster). Then with hardware virtualization, are we performing KVM hardware virtualization (the fastest) or other types of hardware virtualizations. In addition, you have to find out if the dedicated server is itself virtualized by the provider, then is nested virtualization enabled. All these questions should've been asked to the provider before deciding on the dedicated server.
+
+In order to know how to virtualize VMs, you need to understand the concepts at: [[Splitting Dedicated Server into VPS (via VMs) - Fundamental Concepts]]
+
+And to find out if your dedicated server can support the VM - say the customer support or sales team won't elevate your questions - you can find out through command line (and hopefully you are not locked into a one year contract): [[Splitting Dedicated Server into VPS (via VMs) - Find out if can support]]
+
+Once you found out the right type of virtualization and that it'll be performant, you'll look up guides on how to perform the virtualization on your OS. You do this before installing any web servers, etc. For example, eg. Google: Ubuntu 22 KVM virtualization. Some other tools could be Cockpit, Proxmox, Xen
+
+This is a guide for Xen (type 1 hypervisor, no KVM): [[Setup XEN VMs (Type 1 Hypervisor, no KMV)]]
 
 ---
 
-### **Dedicated server**: Web server (Nginx vs Apache)
+
+### **Dedicated server**: Web server (Nginx vs Apache) VS CloudPanel
 
 By purchasing a dedicated server, it can become whatever server you want it to be (gaming server, blockchain server, website server). It won't be able to host websites out of the box though.
 
-In order to have a website people can visit and a setup that makes it easy for the web developer to manage the website, you have to install a web server, FTP, and a webhost panel. Let's first install the webserver
+In order to have a website people can visit and a setup that makes it easy for the web developer to manage the website, you have to install a web server, FTP, and a webhost panel. You can first  install the webserver
+
+**MAJOR CHECKPOINT**
+Do you plan to install the web hosting panel CloudPanel? It is best to install without nginx. Per their documentation's instructions: "For the installation, you need an empty server with Ubuntu 24.04 or 22.04 or Debian 12 or 11 with root access." (https://www.cloudpanel.io/docs/v2/getting-started/other/). This means you DO NOT install nginx or any web server. The CloudPanel will install nginx and other technologies with it. If you messed up, CloudPanel will still work but `apt` could potentially always bother you about an incomplete Cloudpanel post installation script, you could potentially have to add www-data to every new group that is created when you create a new site, just so webpage can show and many cloudpanel features work for that site. In addition, Cloudpanel logs can keep complaining about a half-configured cloudpanel. Cloudpanel would still work, however. It's because Cloudpanel's nginx couldn't replace your nginx that already exists, so the post installation script can never finish.
+- TLDR: If doing Cloudpanel, forego installing nginx because Cloudpanel will install it for you.
+- Otherwise, there may be weird error logs and extra steps for every new site you create (www-data added to new group). Cloudpanel will still work.
+- Cloudpanel has no clean way of uninstallation or reinstallation as of 8/2024 and the recommended route is to reinstall your entire server.
+
 
 1. Install web server
 
@@ -103,7 +139,7 @@ curl -4 ipinfo.io/ip
 	- Free: AlmaLinux use webmin
 - Let's say you chose CloudPanel for your Ubuntu 22:
 	- Eg. Google ubuntu 22 nginx install cloudpanel
-	- Brief from: https://www.cloudpanel.io/docs/v2/getting-started/other/
+	- Brief from: https://www.cloudpanel.io/docs/v2/getting-started/other/. Notice the URL; Look up if there are newer versions of the documentation. Make sure you're not following an old version's instructions, like v1
 	- The instructions could be (Cloudpanel installations is missing the step of stopping the services):
 		1. You must stop all port 80, 443, and 3306, otherwise when it installs Cloudpanel it will say the ports are in use. Run those that are applicable:
 			```
@@ -165,10 +201,12 @@ curl -4 ipinfo.io/ip
 - Visit your http://domain.com directly. 
 - If success, Chrome will warn you there's no secured connection or that the connection is not private and blocks you from viewing the content. We will add SSL https certificates later. The current bypass technique in 2024 is to click anywhere on the webpage then type: `thisisunsafe`. You should see the webpage content.
 - Use vi command to create an index2.html, add some words, then visit directly http://domain.com/index2.html to see if it displays.
-- This then assumes future websites on CloudPanel will have no problem with editing and viewing by the internet.
+- This then assumes future websites on CloudPanel will have no problem with editing and viewing by the internet. 
+- DEDICATED SERVER: If you want to continue testing other sites on CloudPanel, you could use other domains at namecheap etc creating A record to the same public IP. Or if you run out of domains, you can create subdomains under one domain, creating CName to the public domain name. For more information on A records and Cnames, refer to [[DNS Domain PRIMER]]. Make sure a site's vhost at your web host catches what servername (subdomain and/or domain and tld) is hoisted by the internet connecting to your public IP.
 
 - Troubleshooting: Visiting the domain name goes doesnt work
 	- Make sure at namecheap, etc you have A records to the public IP using `@`. Then have another A record to the public IP using "\*" instead of "www" so that any subdomains. You can check if the DNS propagation for A records pointed to your public IP at whatsmydns.
+	- Make sure it's not a caching issue if whatsmydns shows it's propagated but the page still doesn't show: Open in Incognito.
 	- Make sure file permissions correct for various paths of your sites and nginx. Refer next section's "Cloudpanel vhost 500 error is because of file permission problems"
 	- If still problems viewing the page, refer to [[Troubleshooting - Nginx webpage not showing
 
@@ -325,8 +363,15 @@ sudo systemctl start nginx
 		- If not installed CloudPanel and your web host management panel does not come included with PHP, look up how to install php, eg. Google: Ubuntu 22 install php
 		- If installed Cloudpanel or a web hosting management panel that already has it setup for you, you can also skip this step:
 		  You have to configure apache or nginx to handle php, eg. Google: `Nginx handle php`, eg. Google: `Apache handle php`
-	- Python: 
-		- Eg. Google: Ubuntu 22 install python
+		Python: 
+			- Check if you have python3 installed. It comes included with CloudPanel. Test with `python3 --version`
+				- If not installed. Look up how to install: Eg. Google: Ubuntu 22 install python3
+			- Check if you have pip3 installed. Having python3 installed does not necessarily mean pip3 is installed. Eg. Google: Ubunutu 22 install pip3. Could be something like `sudo apt install python3-pip`. If you have CloudPanel installed, cloudpanel
+			- For legacy code you might need to work on in the future, you can similarly look up instructions how to install python2 and pip2
+				- Could be for python2: `sudo apt install python2`
+				- Could be for pip2 (notice it's python-pip, not python2-pip): `sudo apt install python-pip`
+				- You can test they're installed successfully with `python3 --version` and `pip3 --version`
+			- Set aliases to `python` and `pip`. Run `python --version` and `pip --version` to check if they've been assigned. I recommend assigning them to the newest version of python. Edit ~/.bash_profile or equivalent
 	- NodeJS
 		- Eg. Google: Ubuntu 22 install nodejs
 		- npm will come with nodejs
@@ -367,8 +412,141 @@ sudo systemctl start nginx
 			?>
 			```
 
-		If PHP connecting to MySQL works (most commonly used case), then it's assume Python and NodeJS will connect with no problems
-			  
+		If PHP connecting to MySQL works (most commonly used case), then it's assume Python and NodeJS will connect with no problems. 
+		
+		But if you want to test NodeJS connecting to MySQL:
+		```
+		const mysql = require("mysql2");
+		
+		/**
+		 * Requirements:
+		 * PHP database: someDb
+		 * PHP table: someTable
+		 * PHP columns: id, someColumn
+		 * PHP port set to 8888
+		 * Insert some rows
+		 * Have MAMP started database server
+		 * 
+		 */
+		
+		const connection = mysql.createConnection({
+		  host: "127.0.0.1",
+		  user: "YOUR_USERNAME",
+		  password: "YOUR_PASSWORD",
+		  database: "someDb",
+		  port: 3306
+		});
+		
+		function showAllRows() {
+		    connection.query(
+		      "SELECT * FROM mysql"
+		    , function(err, results, fields) {
+		      console.log(results);    
+		    });
+		  }
+		
+		connection.connect(function (err) {
+		    if (err) {
+		        console.error(err);
+		    } else {
+		        showAllRows();
+		    }
+		  
+		});
+		```
+
+	- And if you want to test Python connecting to MySQL:
+	```
+	# pip install mysql-connector-python 
+	import mysql.connector
+	from mysql.connector import Error
+	
+	# Database connection details
+	connection_config = {
+	    'host': '127.0.0.1',
+	    'user': 'root',
+	    'password': 'root',
+	    'database': 'mysql',
+	    'port': 3306
+	}
+	
+	def show_all_rows():
+	    connection = None
+	    try:
+	        connection = mysql.connector.connect(**connection_config)
+	        if connection.is_connected():
+	            cursor = connection.cursor()
+	
+	            # Check if the table exists
+	            cursor.execute("SHOW TABLES LIKE 'user'")
+	            result = cursor.fetchone()
+	            if result:
+	                cursor.execute("SELECT * FROM user")
+	                results = cursor.fetchall()
+	                for row in results:
+	                    print(row)
+	            else:
+	                print("Table does not exist.")
+	    except Error as e:
+	        print(f"Error: {e}")
+	    finally:
+	        if connection is not None and connection.is_connected():
+	            cursor.close()
+	            connection.close()
+	
+	if __name__ == '__main__':
+	    show_all_rows()
+	```
+
+
+	- And if you want to test Python's Flask connecting to MySQL:
+	```
+	# pip install flask
+	# pip install flask-mysqldb
+	
+	from flask import Flask
+	from flask_mysqldb import MySQL
+	
+	app = Flask(__name__)
+	
+	# Required
+	app.config["MYSQL_USER"] = "root"
+	app.config["MYSQL_PASSWORD"] = "root"
+	app.config["MYSQL_DB"] = "someDb"
+	
+	# Required for testing: 
+	# MySQL: root/root
+	# Database: someDb
+	# Table: someTable
+	#         id PK Auto-Increments
+	#         someColumn varchar(255)
+	# Seeded
+	""" 
+	INSERT INTO `someTable` (`id`, `someColumn`) VALUES (NULL, 'Abby');
+	INSERT INTO `someTable` (`id`, `someColumn`) VALUES (NULL, 'Bobby');
+	INSERT INTO `someTable` (`id`, `someColumn`) VALUES (NULL, 'Caitlin'); 
+	"""
+	
+	# Extra configs, optional:
+	app.config["MYSQL_CURSORCLASS"] = "DictCursor"
+	app.config["MYSQL_CUSTOM_OPTIONS"] = {"ssl": {"ca": "/path/to/ca-file"}}  # https://mysqlclient.readthedocs.io/user_guide.html#functions-and-attributes
+	
+	# Init
+	mysql = MySQL(app)
+	
+	# http://127.0.0.1:5000/
+	@app.route("/")
+	def users():
+	    cur = mysql.connection.cursor()
+	    cur.execute("""SELECT * from someTable""")
+	    rv = cur.fetchall()
+	    return str(rv)
+	
+	if __name__ == "__main__":
+	    app.run(debug=True)
+	```
+
+
 	- MySQL phpMyAdmin
 		- What's the URL to phpMyAdmin? If needed, can we make it show all the databases instead of only some databases (databases associated to one user) at phpMyAdmin?
 		- Save phpMyAdmin URL and credentials to web host details document
@@ -546,30 +724,50 @@ Pm2 start: ...
 Pm2 dashboard: ...
 $
 ```
-  
 
-Passwordless:
+
+Choose alias strategy depending on your method of login
+
+- SSH (interactive password)
+	```
+	alias coloa='ssh root@XXX.XX.XXX.XX'
+	```
+
+	- You won't have to copy and paste the public IP or memorize it.
+	- But you'll be prompted interactively to enter your password. If you want an even more streamlined developer experience, check out the next alias strategy.
+
+- SSHPass (workaround to interactive password)
+```
+alias coloa='echo -e "Local: /Users/wengffung/dev/web/weng/tools/\nRemote: /home/.."; sshpass -p "YOUR_PASSWORD" ssh root@XXX.XX.XXX.XX'
+```
+- You don't have to memorize or copy and paste the public IP or the password
+- Downside is you need to install sshpass because ssh command forces you to interactively enter a password. Look for installation instructions. eg. Google: Mac brew install sshpass
+
+- Passwordless Authentication (aliased path to private key)
 ```
 alias hostinger='echo -e "Local: /Users/wengffung/dev/web/weng/tools/\nRemote: /home/XX/htdocs/YY.com/"; ssh root@REMOTE_IP -p 22 -i ~/.ssh/PRIVATE_KEY'
 ```
 
-Requires password - sshpass for one command login:
-```
-alias coloa='echo -e "Local: /Users/wengffung/dev/web/weng/tools/\nRemote: /home/.."; sshpass -p "YOUR_PASSWORD" ssh root@XXX.XX.XXX.XX'
-```
+- If you want the tightest security, you have paired SSH keys. The ssh command requires you to enter the path to the SSH private key on your local computer. But with an alias, you won't have to copy and paste the private key path or memorize it.
+  
+- SSH with Root Login Disabled
 
-The password one requires you to install sshpass for your computer (eg. Google: Mac brew install sshpass). The sshpass allows you to have the password in the same command where you place the username and IP address. SSH normally forces you to enter the password after the username and IP address is accepted aka interactive mode.
+	If you tightened security, you have in the settings block `ssh root@XXX.XX.XXX.XX`. It would still let interactively ask for the password but will always say incorrect password (does not give hint that root ssh login has been disabled because you don't want to let the hackers know to attempt other methods)
+	
+	The normal authentication flow is to login into SSH with a non-root user. Then while inside the remote SSH shell, you run `su` and enter the root password to login into root.
+	
+	However it may be annoying to remember or copy and paste or memorize two separate passwords from text files. 
+	
+	You can setup alias on the local machine to perform SSHPass into the non-root user, in addition to first echoing the root password. Then at your remote server, you could run `su` and copy and paste the root password from the same terminal. Another way is to install the package `expect` at the remote server that lets you write a shell script to automatically enter the password when the expected prompt is "Password:"
 
-Dedicated server: You want a normal ssh alias because if you ever need help and the webhost's server admin reinstalls your server, sshpass won't work. You'd need to run the normal ssh command because you have to interactively accept the warning about the new fingerprint after erasing the line(s) referring to that remote host from your`known_hosts` file (could be at `/Users/XX/.ssh/konwn_hosts`). The ssh command, such as coloa-ssh, could be:
+When you reinstall the server (often times you're setting up the dedicated server from scratch and you mess up locking yourself out, you ask support team to reinstall the server), the SSH fingerprint changes. This will cause SSH to deny the connection due to a mismatch with the fingerprint stored in the `~/.ssh/known_hosts` file. You would remove the old SSH fingerprint (has the webhost domain name or webhost public IP), then re-attempt to connect with SSH to be asked to accept the new fingerprint.
+
+If using sshpass, it won't ask you interactively to accept new fingerprint, and therefore you can't connect to the reinstalled server. Either run normal ssh command when the server is reinstalled, or come up with an alias for normal ssh for your webhost (eg. if your webhost company is called coloa).
 
 ```
 alias coloa-ssh='ssh root@XXX.XX.XXX.XX'
 ```
 
-You want a reset alias too because if you needed help and the webhost's server admin reinstall your server, the sshpass will not work. You'd need to run the normal ssh command. Regardless which command you run, it would complain that the host doesn't match your known_hosts.  So, next you delete the line(s) referring to that remote host from the file `/Users/XX/.ssh/known_hosts`. Then you run `ssh` allowing you to input "Y" or "Yes" to the question about a new fingerprint; sshpass won't let you interactively be prompted. Therefore the reset command like `coloa-reset` could be:
-```
-alias coloa-reset='ssh root@XXX.XX.XXX.XX'
-```
 
 2. You may want to add better searching capabilities from the SSH terminal because you don't have a friendly UI to browse files. Add to ~/.bash_profile or equivalent:
 
@@ -668,6 +866,9 @@ Available IPs (If dedicated server)
 
 Root web directory is:
 ..
+
+How to change password:
+`sudo passwd root` OR UI: ...
 
 ---
 
@@ -832,6 +1033,6 @@ Supervisor to sh
 - Recommend Supervisor app config files be named with the port number ranges they use
 - May have a root folder /keys that have important keys for all your apps but make sure is blocked from being visited on the web browser. It's safer if you have a build script that saves the env keys to your .bash_profile, then re-source, instead.
 
-## How to access error logs for nginx etc
+## OS paths (error logs, configs), commands, and workflows
 
 _...?

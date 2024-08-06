@@ -25,6 +25,7 @@ Create a document for your webhost (eg. GoDaddy, Hostinger, etc) to refer back t
 
 ### How to select for OS
 - You select at the web hosting service's services dashbaord (Hostinger's hpanel, etc)
+- And then find out what the package installer is based on the OS name (Search Google)
 
 ---
 
@@ -62,10 +63,13 @@ Likely your VPS has a web host admin panel (Hostinger hpanel, GoDaddy’s dashbo
 - How to access web browser SSH Root terminal navigating the Services Dashboard or the web hosting panel
 	- In case you need to quick and dirty in the future
 	- What’s their information architecture (to help remember how to navigate there).
-- Are you able to login at the local machine terminal with password?
+- Are you able to login into root at the local machine terminal with SSH?
+- Did the provider give you non-root user credentials as well?
+	- If they've tightened security, logging into root with ssh command is disabled. The command `ssh root@XXX.XX.XXX.XX` appears to work as usual, and you might not even be privy to it being disabled because it will let you enter a password and all it will ever say is that the password is incorrect. This is by design so that hackers don't get clued in to try gaining access in other ways. This may also be why the provider gave you user credentials.
+	- You'd log into the that user with `ssh USER@XXX.XX.XXX.XX`, and once in the remote SSH session, you elevate by running `su`, followed by root user password; then it will switch from the normal user to the root user.
+	- To disable or enable root login, refer to [[SSH with Root Login Disabled]]
 - Once in remote server, how to navigate to get to your website files using cd commands? (Go into CloudPanel or Cpanel for a clue). Aka root web directory for your website,  Aka working directory for your code and webpages. Alternately you could have in a text document the full path so you can copy and paste the cd path into the terminal. But knowing how to navigate there in terminal can be helpful if you don’t have the full path easily accessible to copy and paste.
 - Run it as: `ssh root@REMOTE_IP -p 22`. Then enter your password when asked.
-- Optional: Are you able to login without password (ssh -i option to the private key file location). You may want to save this command as an alias for your local machine terminal’s .bash_profile equivalent. Run it as: `ssh root@REMOTE_IP -p 22 -i ~/.ssh/PRIVATE_KEY`)`
 
 ---
 ### VPS: How to setup web server for basic website editing and viewing (Multiple sites)
@@ -82,6 +86,7 @@ Likely your VPS has a web host admin panel (Hostinger hpanel, GoDaddy’s dashbo
 	- And restart nginx from SSH terminal with `sudo systemctl restart nginx`
 	- Visit http://srv451789.hstgr.cloud
 	- If success, Chrome will warn you there's no secured connection or that the connection is not private and blocks you from viewing the content. We will add SSL https certificates later. The current bypass technique in 2024 is to click anywhere on the webpage then type: `thisisunsafe`. You should see the webpage content.
+	- This then assumes future websites on CloudPanel will have no problem with editing and viewing by the internet.
 
 ### How to setup SFTP/FTP users
 - Makes life easier for web developer.
@@ -116,7 +121,7 @@ Likely your VPS has a web host admin panel (Hostinger hpanel, GoDaddy’s dashbo
     - Is there a firewall from the web hosting management panel? or do you have to run ufw?
 - Domain name
 	- Refer to tutorial on domain and dns editing. There are many ways to do it. One way is to have namecheap domain with two A records to the public IP of your webhost at "@" and "\*" (unless you want different public ip between www and other subdomains)
-	- 
+
 
 ---
 ### ADVANCED WEBSITE: Prepare server for installing different architectures (PHP, NodeJS, Python, MySQL, Mongo, Scaling Solutions)
@@ -140,7 +145,14 @@ sudo systemctl start nginx
 	- PHP (if not included by your web host’s PHP)
 		- Then if NginX, you would have to setup your server block to send the php files to a PHP interpreter
 	- Python: 
-		- Eg. Google: Ubuntu 22 install python
+		- Check if you have python3 installed. It comes included with CloudPanel. Test with `python3 --version`
+			- If not installed. Look up how to install: Eg. Google: Ubuntu 22 install python3
+		- Check if you have pip3 installed. Having python3 installed does not necessarily mean pip3 is installed. Eg. Google: Ubunutu 22 install pip3. Could be something like `sudo apt install python3-pip`. If you have CloudPanel installed, cloudpanel
+		- For legacy code you might need to work on in the future, you can similarly look up instructions how to install python2 and pip2
+			- Could be for python2: `sudo apt install python2`
+			- Could be for pip2 (notice it's python-pip, not python2-pip): `sudo apt install python-pip`
+			- You can test they're installed successfully with `python3 --version` and `pip3 --version`
+		- Set aliases to `python` and `pip`. Run `python --version` and `pip --version` to check if they've been assigned. I recommend assigning them to the newest version of python. Edit ~/.bash_profile or equivalent
 	- NodeJS
 		- Eg. Google: Ubuntu 22 install nodejs
 		- npm will come with nodejs
@@ -180,7 +192,7 @@ sudo systemctl start nginx
 			?>
 			```
 
-		If PHP connecting to MySQL works (most commonly used case), then it's assume Python and NodeJS will connect with no problems
+		If PHP connecting to MySQL works (most commonly used case), then it's assume Python and NodeJS will connect to MySQL with no problems
 			  
 	- MySQL phpMyAdmin
 		- What's the URL to phpMyAdmin? If needed, can we make it show all the databases instead of only some databases (databases associated to one user) at phpMyAdmin?
@@ -362,17 +374,47 @@ $
 ```
   
 
-Passwordless:
+Choose alias strategy depending on your method of login
+
+- SSH (interactive password)
+	```
+	alias coloa='ssh root@XXX.XX.XXX.XX'
+	```
+
+	- You won't have to copy and paste the public IP or memorize it.
+	- But you'll be prompted interactively to enter your password. If you want an even more streamlined developer experience, check out the next alias strategy.
+
+- SSHPass (workaround to interactive password)
+```
+alias coloa='echo -e "Local: /Users/wengffung/dev/web/weng/tools/\nRemote: /home/.."; sshpass -p "YOUR_PASSWORD" ssh root@XXX.XX.XXX.XX'
+```
+- You don't have to memorize or copy and paste the public IP or the password
+- Downside is you need to install sshpass because ssh command forces you to interactively enter a password. Look for installation instructions. eg. Google: Mac brew install sshpass
+
+- Passwordless Authentication (aliased path to private key)
 ```
 alias hostinger='echo -e "Local: /Users/wengffung/dev/web/weng/tools/\nRemote: /home/XX/htdocs/YY.com/"; ssh root@REMOTE_IP -p 22 -i ~/.ssh/PRIVATE_KEY'
 ```
 
-Requires password - sshpass for one command login:
-```
-alias coloa='echo -e "Local: /Users/wengffung/dev/web/weng/tools/\nRemote: /home/.."; sshpass -p "YOUR_PASSWORD" ssh root@XXX.XX.XXX.XX'
-```
+- If you want the tightest security, you have paired SSH keys. The ssh command requires you to enter the path to the SSH private key on your local computer. But with an alias, you won't have to copy and paste the private key path or memorize it.
+  
+- SSH with Root Login Disabled
 
-The password one requires you to install sshpass for your computer (eg. Google: Mac brew install sshpass). The sshpass allows you to have the password in the same command where you place the username and IP address. SSH normally forces you to enter the password after the username and IP address is accepted aka interactive mode.
+	If you tightened security, you have in the settings block `ssh root@XXX.XX.XXX.XX`. It would still let interactively ask for the password but will always say incorrect password (does not give hint that root ssh login has been disabled because you don't want to let the hackers know to attempt other methods)
+	
+	The normal authentication flow is to login into SSH with a non-root user. Then while inside the remote SSH shell, you run `su` and enter the root password to login into root.
+	
+	However it may be annoying to remember or copy and paste or memorize two separate passwords from text files. 
+	
+	You can setup alias on the local machine to perform SSHPass into the non-root user, in addition to first echoing the root password. Then at your remote server, you could run `su` and copy and paste the root password from the same terminal. Another way is to install the package `expect` at the remote server that lets you write a shell script to automatically enter the password when the expected prompt is "Password:"
+
+When you reinstall the server (often times you're setting up the dedicated server from scratch and you mess up locking yourself out, you ask support team to reinstall the server), the SSH fingerprint changes. This will cause SSH to deny the connection due to a mismatch with the fingerprint stored in the `~/.ssh/known_hosts` file. You would remove the old SSH fingerprint (has the webhost domain name or webhost public IP), then re-attempt to connect with SSH to be asked to accept the new fingerprint.
+
+If using sshpass, it won't ask you interactively to accept new fingerprint, and therefore you can't connect to the reinstalled server. Either run normal ssh command when the server is reinstalled, or come up with an alias for normal ssh for your webhost (eg. if your webhost company is called coloa).
+
+```
+alias coloa-ssh='ssh root@XXX.XX.XXX.XX'
+```
 
 2. You may want to add better searching capabilities from the SSH terminal because you don't have a friendly UI to browse files. Add to ~/.bash_profile or equivalent:
 
@@ -469,6 +511,9 @@ Available IPs (If dedicated server)
 
 Root web directory is:
 ..
+
+How to change password:
+`sudo passwd root` OR UI: ...
 
 ---
 
@@ -628,5 +673,5 @@ Supervisor to sh
 - May have a root folder /keys that have important keys for all your apps but make sure is blocked from being visited on the web browser. It's safer if you have a build script that saves the env keys to your .bash_profile, then re-source, instead.
 
 
-## How to access error logs for nginx etc
+## OS paths (error logs, configs), commands, and workflows
 _...?
