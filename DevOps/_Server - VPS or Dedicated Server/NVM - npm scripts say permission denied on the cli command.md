@@ -45,11 +45,11 @@ At version 9, Node reversed course on this decision
 
 ---
 
-## SOLUTION
+## SOLUTION EXPLANATION
 
 Change your npm to a different version
 
-Obstacles to the solution: 
+**FYI:** **Obstacles** to the solution: 
 - You would normally downgrade with `npm install -g npm@6.14.8` but on some systems, that won't work (running `npm --version` afterwards still shows the old version). 
 - Then your next thought is to uninstall with `npm uninstall -g npm` then installing the other version, which doesn't work on some systems too
 - Then you thought of clearing the npm cache `npm cache clean -f`, then uninstalling the old version, then installing another version. On some systems this EVEN fails
@@ -60,73 +60,6 @@ MODIFIED SOLUTION to overcome the obstacle:
 
 ---
 
-## Installing different NPM using NVM
+## SOLUTION
 
-Use NVM to install another version of node and npm that are not npm v7.X and npm v8.X
-
-This will revert back to using the shell's logged in user as the user to run the commands in npm script, which allow you to run root-owned commands as user root if you're logged in as root
-
-To install `nvm` (Node Version Manager) on Ubuntu 22.04, you can follow these steps:
-
-1. **Update your package list**:
-   ```sh
-   sudo apt update
-   ```
-
-2. **Install curl** (if not already installed):
-   ```sh
-   sudo apt install curl
-   ```
-
-3. **Download and install nvm**:
-   ```sh
-   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-   ```
-
-4. **Load nvm into your shell session**:
-   Add the following lines to your `~/.bashrc` file to ensure nvm is loaded:
-   ```sh
-   export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-   ```
-
-   You can do this by running:
-   ```sh
-   echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"' >> ~/.bashrc
-   echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> ~/.bashrc
-   ```
-
-5. **Reload your shell**:
-   ```sh
-   source ~/.bashrc
-   ```
-
-6. **Verify the installation**:
-   ```sh
-   nvm --version
-   ```
-
-7. **Install the desired Node.js version** (e.g., v14.17.0):
-   ```sh
-   nvm install v14.17.0
-   ```
-
-8. **Use the newly installed Node.js version**:
-   ```sh
-   nvm use v14.17.0
-   ```
-
-9. **Verify the npm version**:
-   ```sh
-   npm -v
-   ```
-
-This should show npm version 6.14.8 since it is bundled with Node.js v14.17.0.
-
-10. Next you have to make it the default node version because this setting only applies to your current shell session:
-```
-nvm alias default v14.17.0
-```
-
-
-Restart your server then test `npm -v` again to make sure it sticks
+Refer to  [[NVM PRIMER - Manage node and npm versions]] and install and default a version of node/npm that isn't npm v7.X or npm x8.X

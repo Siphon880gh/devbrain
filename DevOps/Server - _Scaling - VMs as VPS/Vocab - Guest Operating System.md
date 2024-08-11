@@ -1,0 +1,2 @@
+Guest operating system (guest OS) is an operating system that runs on a virtual machine created and managed by a hypervisor. It is called "guest" because it is not directly installed on the physical hardware of the computer (which is where the "host" operating system resides), but rather on a virtual environment provided by the hypervisor. This allows multiple guest operating systems to run on the same physical hardware simultaneously, each within its own isolated virtual machine.
+

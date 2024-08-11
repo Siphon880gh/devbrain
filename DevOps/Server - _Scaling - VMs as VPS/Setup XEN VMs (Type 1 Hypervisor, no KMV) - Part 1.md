@@ -12,14 +12,14 @@ To boot into a Xen kernel, you need to ensure you have both the Xen hypervisor a
     For Debian/Ubuntu:
    ```bash
    sudo apt-get update
-   sudo apt-get install xen-hypervisor-amd64
-   sudo apt-get install linux-image-xen-amd64
+   sudo apt-get install xen-hypervisor-amd64 xen-tools
+
    ```
 
 Note if the package name doesn't exist, it may be:
 
    ```bash
-sudo apt-get install xen-hypervisor-amd64
+sudo apt-get install xen-hypervisor-4.16-amd64
    ```
 
 The `amd64` designation refers to the 64-bit architecture, which applies to both AMD and Intel processors.
@@ -48,7 +48,7 @@ The `amd64` designation refers to the 64-bit architecture, which applies to both
 
    Open the GRUB configuration file:
    ```bash
-   sudo nano /etc/default/grub
+   sudo vi /etc/default/grub
    ```
 
    Set the default boot entry by modifying the `GRUB_DEFAULT` parameter. For example, if the Xen kernel is the second entry in the GRUB menu, set it to `1` (GRUB menu entries are zero-indexed):
@@ -77,7 +77,7 @@ This command should display information about the Xen hypervisor if it is runnin
 
 ---
 
-## XEN Info Interpretation
+## Verify XEN Hypervisor Running with Proper Virtualization Support by Interpreting Xen  Info
 
 What Xen log will not do:
 Xen does not specifically show KVM capabilities because KVM (Kernel-based Virtual Machine) is a different hypervisor technology that is part of the Linux kernel. Xen and KVM are separate virtualization technologies and do not typically interact directly with each other. To check if your hardware supports KVM type hardware virtualization, refer to [[Check if hardware supports KVM hardware virtualization]]. If your hardware does support KVM, it's better to forego XEN for KVM because it's faster By following these steps, you can verify whether hardware virtualization is supported and enabled on your system. If you encounter any issues or need further assistance, feel free to ask!
@@ -114,13 +114,13 @@ Xen does not specifically show KVM capabilities because KVM (Kernel-based Virtua
 	If you own your dedicated server, you have BIOS access. If you are renting a colocation, you have to ask the support team to help with this (if they're willing). If they provide IPMI which is a remote service for you to access recovery console and BIOS even if you are renting the dedicated space, then you have BIOS access as well.
 
 	Finally, it's important to ensure that hardware virtualization is enabled in your system's BIOS/UEFI settings.
-
-- **Reboot your system**.
-	- **Enter the BIOS/UEFI setup** by pressing the appropriate key during the boot process (common keys are `F2`, `F10`, `Del`, or `Esc`).
-	- **Navigate to the CPU Configuration or Advanced Settings** section.
-	- Look for an option named **Intel VT-x**, **AMD-V**, **Virtualization Technology**, or similar.
-	- Ensure this option is **enabled**.
-	- Save the changes and exit the BIOS/UEFI setup.
+	
+	- **Reboot your system**.
+		- **Enter the BIOS/UEFI setup** by pressing the appropriate key during the boot process (common keys are `F2`, `F10`, `Del`, or `Esc`).
+		- **Navigate to the CPU Configuration or Advanced Settings** section.
+		- Look for an option named **Intel VT-x**, **AMD-V**, **Virtualization Technology**, or similar.
+		- Ensure this option is **enabled**.
+		- Save the changes and exit the BIOS/UEFI setup.
 
 ### Steps to Further Verify Hardware Virtualization Support
 
@@ -180,3 +180,22 @@ The presence of these entries confirms that your system supports various virtual
 By checking `/sys/hypervisor/properties/capabilities`, you can verify that your Xen hypervisor supports the necessary virtualization features. If the file contains entries like `hvm-3.0-x86_64`, it confirms that hardware-assisted virtualization is enabled and supported on your system.
 
 If you have any further questions or need additional assistance, feel free to ask!
+
+
+---
+
+## Continuing, Decide on the next Xen tools
+
+Xen hypervisor is now booted into. You will have to install other tools to leverage the Xen hypervisor in order to create and manage VMs. 
+
+As of 2024, if you want a GUI to manage Xen VMs, these are no longer your options for Xen
+- Proxmox dropped support for Xen
+
+For Xen GUI management depending on your situation:
+- Xen Orchestra (Xen-NG requires physical access to server hardware, or XenServer requires budget)
+- Virt-Manager (Requires Desktop version of the Linux, or unless you're willing to setup tunneling from your own personal Desktop)
+
+If GUI is not an option, then you will have to use only command lines to create and manage Xen VMs. You'll also have to use command lines to allow traffic through to the VMs to act as VPS. This means you need to have some background knowledge on networking, partitioning, computer computing and storage resources, and VMs. With GUI, that was abstracted away.
+- As of 2024, toolstack's xe command discontinued in 2018. XenProject's xm command discontinued. 
+- In 2024 OS releases, use XenProject's xl. Still active development [https://github.com/xen-project/xen/tags](https://github.com/xen-project/xen/tags)
+	- xl comes with Xen

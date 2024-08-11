@@ -7,7 +7,7 @@ Purpose: General checklist on setting up Dedicated Server. Likely there will be 
 
 ## Reminder
 
-Create a document for your webhost (eg. GoDaddy, Hostinger, etc) to refer back to as you go through this checklist. Things you can record are credentials, user flows, terminal commands
+Create a document for your provider / webhost (eg. GoDaddy, Hostinger, etc) to refer back to as you go through this checklist. Things you can record are credentials, user flows, terminal commands
 
 ## Checklist
 
@@ -18,8 +18,8 @@ Create a document for your webhost (eg. GoDaddy, Hostinger, etc) to refer back t
 - RAM, number of cores, storage space, etc. 
 - Create a guide on how to communicate your full stack app or business use cas:, simultaneous users, memory use by the process and memory,  bandwidth use, storage disk space, etc to a server specialist that can decide the package and maybe install the architecture in the terminal.
 - Does pricing include cpanel and os license?
-	- Or choose a free web hosting control panel and free linux distro? Downside of free may be lack of features and/or more custom terminal command work. Eg. Ubuntu 22 with CloudPanel
-- If rented colocation
+	- Cpanel requires monthly payments and some Linux distros also require monthly payments. Or choose a free web hosting control panel and free linux distro? Downside of free may be lack of features and/or more custom terminal command work. Eg. Ubuntu 22 with CloudPanel
+- If rented colocation (may have to ask their sales / support / etc)
 	- Do we have an online remote access tool like IPMI (Intelligent Platform Management Interface) so we can do recovery, reinstallation, etc. Otherwise we have to ask support team to reinstall which could take hours and have our website downtime for hours.
 	- Is there hardware virtualization supported on the CPU? This lets me create VMs that act like VPS, so I can house all business logic in the VPS and restart the VPS from my dedicated server SSH. Crashes would affect the in-housed VPS instead of the dedicated server. This prevents having to rely on the support team and I can get right to restarting, minimizing downtime. 
 		- If there's hardware virtualization, is KVM (kernel) type of hardware virtualization supported? That's faster than the other types of hardware virtualization
@@ -27,9 +27,14 @@ Create a document for your webhost (eg. GoDaddy, Hostinger, etc) to refer back t
 		- If there's no hardware virtualization, is the server specs fast enough for OS based virtualization into VPS?
 - Setup billing auto renewal?
 
-### How to select for OS
-- They usually install for you
+### How to select for OS and identify package installer
+- They usually install for you so you choose the OS
+	- Ubuntu has many things setup to work for Linux admin
+	- Debian is barebones and require some setup (installing sudo, etc) but has so much more hard disk available for you and less CPU use
 - And then find out what the package installer is based on the OS name (Search Google)
+	-  Eg., Google: Ubuntu package installer
+	- For Ubuntu, it’s apt
+- You will update the package installer's repository source lists because you just had a fresh installation
 
 ---
 
@@ -40,6 +45,8 @@ Likely your dedicated server does not have a web host admin panel (Hostinger hpa
 - For your chosen OS, how to restart OS, and how to check if a service restarted with the OS?
 - What commands to list server’s hardware specs (in case don’t have when making future business migration decisions)
 -  Save the above information into your web host details document
+
+---
 
 ### Login Entry Point: SSH in
 - In place of a webhost admin panel or services dashboard, you'll mostly be interacting with your server via SSH and any web gui's you install. Often times their server administrator will setup SSH IP, root, and password, then hand it to you. The provider's server administrator that onboards you may also give you the range of ip addresses available for you to use. The rest is up to you.
@@ -58,6 +65,11 @@ Are you able to login into root at the local machine terminal with SSH?
 
 - Once in remote server, usually there is nothing much to navigate to get to your website files. There will probably be hidden folder .ssh, hidden file .bash_profile, etc, which you can see by running `ls -la`. You likely have to install nginx or apache from scratch, then setup root web directory for your website, Aka working directory for your code and webpages. 
 
+### Dedicated Server: Is Linux Admin Ready?
+- With dedicated server, they might install a bare bones OS version. This means some commands you expect to help with Linux administration like sudo might be missing! Package installer might be missing sources to search packages from. 
+- This is especially true for Debian 12, etc. In that case, refer to the folder Debian -> Debian - Breaking in new shoes
+
+
 ---
 
 ### Dedicated Server: Split Dedicated Server into VPS
@@ -69,18 +81,20 @@ If you virtualized a VM in the form of a VPS inside the dedicated server, then y
 
 If you want this ability: First you need to find out if you will perform OS virtualization or hardware virtualization (the faster). Then with hardware virtualization, are we performing KVM hardware virtualization (the fastest) or other types of hardware virtualizations. In addition, you have to find out if the dedicated server is itself virtualized by the provider, then is nested virtualization enabled. All these questions should've been asked to the provider before deciding on the dedicated server.
 
-In order to know how to virtualize VMs, you need to understand the concepts at: [[Splitting Dedicated Server into VPS (via VMs) - Fundamental Concepts]]
+BACKGROUND KNOWLEDGE: In order to know how to virtualize VMs, you need to understand the concepts at: [[Splitting Dedicated Server into VPS (via VMs) - Fundamental Concepts]]
+
+BACKGROUND KNOWLEDGE: You also need to understand some basic Networking because you will have to setup the internet traffic flow to your VMs that act as VPS and know how to setup DHCP to assign the VPS public IPs that the internet network understands.
 
 And to find out if your dedicated server can support the VM - say the customer support or sales team won't elevate your questions - you can find out through command line (and hopefully you are not locked into a one year contract): [[Splitting Dedicated Server into VPS (via VMs) - Find out if can support]]
 
-Once you found out the right type of virtualization and that it'll be performant, you'll look up guides on how to perform the virtualization on your OS. You do this before installing any web servers, etc. For example, eg. Google: Ubuntu 22 KVM virtualization. Some other tools could be Cockpit, Proxmox, Xen
+ACTION: Once you found out the right type of virtualization and that it'll be performant, you'll look up guides on how to perform the virtualization on your OS. You do this before installing any web servers, etc. For example, eg. Google: Ubuntu 22 KVM virtualization. Some other tools could be Cockpit, Proxmox, Xen
 
-This is a guide for Xen (type 1 hypervisor, no KVM): [[Setup XEN VMs (Type 1 Hypervisor, no KMV)]]
+For example, This is a guide for Xen (type 1 hypervisor, no KVM): [[Setup XEN VMs (Type 1 Hypervisor, no KMV) - Part 1]]
+
 
 ---
 
-
-### **Dedicated server**: Web server (Nginx vs Apache) VS CloudPanel
+### **Dedicated server**: Install Web server (Nginx vs Apache) VS Install CloudPanel Instead
 
 By purchasing a dedicated server, it can become whatever server you want it to be (gaming server, blockchain server, website server). It won't be able to host websites out of the box though.
 
@@ -340,7 +354,7 @@ Because you installed the web hosting management panel yourself rather than bein
 	- Refer to tutorial on domain and dns editing. There are many ways to do it. One way is to have namecheap domain with two A records to the public IP of your webhost at "@" and "\*" (unless you want different public ip between www and other subdomains)
 
 ---
-### ADVANCED WEBSITE: Prepare server for installing different architectures (PHP, NodeJS, Python, MySQL, Mongo, Scaling Solutions)
+### ADVANCED WEBSITE: Prepare server for installing different architectures (Languages: PHP, NodeJS, Python, MySQL, Mongo, Scaling Solutions; Pipes: Git, Docker; Scaling Solutions)
 - Know how to reboot the server
 - how see error logs based on your OS and web server type  
     eg `tail -f /var/log/nginx/error.log`
@@ -357,13 +371,13 @@ sudo systemctl start nginx
 
 - Know what is the main installer of packages in command line (eg. `sudo apt update`  for Ubuntu 22.04). Save to your web host's details document if it's not something you're intimately familiar with.
 - Update installer’s repos 
-- Look up instructions for your OS on how to install these language interpreters, if applicable to your server's use cases (these should be installed before installing databases because you'll be testing database connections with code):
+- Look up instructions for your OS on how to install these language interpreters and related or adjacent package managers, if applicable to your server's use cases (these should be installed before installing databases because you'll be testing database connections with code):
 	- PHP (if not included by your web host’s)
 		- If installed CloudPanel, PHP comes included. If you don't see PHP, you should create a PHP site off CloudPanel 
 		- If not installed CloudPanel and your web host management panel does not come included with PHP, look up how to install php, eg. Google: Ubuntu 22 install php
 		- If installed Cloudpanel or a web hosting management panel that already has it setup for you, you can also skip this step:
-		  You have to configure apache or nginx to handle php, eg. Google: `Nginx handle php`, eg. Google: `Apache handle php`
-		Python: 
+		  You have to configure apache or nginx to handle php, eg. Google: `Nginx handle php`, eg. Google: `Apache handle php`.
+	  - Python: 
 			- Check if you have python3 installed. It comes included with CloudPanel. Test with `python3 --version`
 				- If not installed. Look up how to install: Eg. Google: Ubuntu 22 install python3
 			- Check if you have pip3 installed. Having python3 installed does not necessarily mean pip3 is installed. Eg. Google: Ubunutu 22 install pip3. Could be something like `sudo apt install python3-pip`. If you have CloudPanel installed, cloudpanel
@@ -374,11 +388,14 @@ sudo systemctl start nginx
 			- Set aliases to `python` and `pip`. Run `python --version` and `pip --version` to check if they've been assigned. I recommend assigning them to the newest version of python. Edit ~/.bash_profile or equivalent
 	- NodeJS
 		- Eg. Google: Ubuntu 22 install nodejs
-		- npm will come with nodejs
+		- Sometimes npm comes with nodejs. Check if it did install: `npm --version`. If not, see if npm installation instructions are at the same guide for installing nodejs. Otherwise, look up how to install npm. eg. Google: Ubuntu 22 install npm
+			- Check `npm --version` and `npx --version` (npx helps forcefully run)
 		- Prevent npm scripts having no file permission:
 			- Check npm version with `npm --version`
 			- If the version is v7 or v8 families, then NodeJS switches user to the user owning the folder to the package.json when running npm script which is not desirable in most cases (you would prefer to keep the same user that runs the npm script `npm run scriptX`) and usually causes file permission problems when running a npm script
 				- Then you install nvm to install and change the node version. Then you make it permanent beyond your current shell session. Refer to the tutorial [[NVM - npm scripts say permission denied on the cli command]]
+	- Yarn
+		- Eg. Google: Ubuntu 22 install yarn
 - Look up instructions for your OS on how to install these databases, if applicable to your server's use cases
 	- MySQL (if not included by your web host’s VPS)
 		- If not installed CloudPanel or a web host management panel that includes these parts, look up instructions on how to install MySQL, PHP, and PHPMyAdmin. eg. Google: Ubuntu 22 install mysql phpmyadmin
@@ -558,7 +575,13 @@ sudo systemctl start nginx
 		  MongoDB 3.4 and below, run`mongo` for mongoshell
 		  Above Mongo 3.4, run `mongosh` for mongoshell
 		  
-		- How to check if mongo service is running? How to stop mongo service? How to restart mongo service? Save these commands to your web host details document.
+		- Check if mongo service is running? 
+		- Make sure to reboot to check that the mongo service sticks (running mongo shell works). Eg. google: ubuntu 22 how to reboot
+
+		- Also figure out the commands for: How to stop mongo service? How to restart mongo service? How to check the logs for service starting errors (Eg. Ubuntu 22 is `sudo tail -n 100 /var/log/mongodb/mongod.log`)
+		
+		- Save these commands to your web host details document.
+		- 
 		- Create an authentication account on the auth collection
 		
 		  While in Mongo Shell, run to create user
@@ -684,7 +707,35 @@ sudo systemctl start nginx
 	```
 
 
-		It's assumed PHP will be able to connect to Mongo if Python and NodeJS works
+It's assumed PHP will be able to connect to Mongo if Python and NodeJS works
+
+- Make sure there is git on your system
+	- Some systems come with git. Check out by running `git --version`
+	- If git is not included, lookup instructions how to install git on the system
+		- eg. Google: Ubuntu 22 install git
+	- Setup identification for git commands (a bit involved):
+	```
+	git config --global user.name "Your Name"
+	git config --global user.email "youremail@domain.com"
+	```
+
+	- Setup authorization for git commands
+	  
+	  1. Check if `ls ~/.ssh` has .pub files and similarly named files without file extensions (Those are the public and private keys, respectively). If not, generate a public/private key referring to:
+	  https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+
+		```
+		ssh-keygen -t ed25519 -C "your_email@example.com"
+		```
+
+	  1. Add public key to your Github account, referring to: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
+		  1. Click New SSH key at https://github.com/settings/keys
+		  2. Paste the contents of the public key (eg. id_ed25519.pub) and save as a SSH key, recommended naming the key after your server provider name for organizing purposes.
+
+- Make sure docker is on your system
+	- Lookup instructions how to install docker on the system
+		- eg. Google: Ubuntu 22 install docker
+		  https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04
 
 - Look up instructions for your OS on how to install these scaling solutions, if applicable to your server's use cases
 	- Balancers and multi workers:

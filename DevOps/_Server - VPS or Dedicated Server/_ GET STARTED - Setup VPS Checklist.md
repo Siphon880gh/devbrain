@@ -16,16 +16,21 @@ Create a document for your webhost (eg. GoDaddy, Hostinger, etc) to refer back t
 ### Prepare your web host details document
 - Besides credentials, there are commands, os specs, and other details you want to save somewhere about your web host that you may need to reference later
 
-### What’s the appropriate VPS package
+### What’s the appropriate package and plan
 - RAM, number of cores, storage space, etc. 
 - I will create a guide on how to communicate our full stack app’s use case, simultaneous users, memory use by the process and memory,  bandwidth use, storage disk space, etc to a server specialist that can decide the package and maybe install the architecture in the terminal.
 - Does pricing include cpanel and os license?
-- Or choose a free web hosting control panel and free linux distro? Downside of free may be lack of features and/or more custom terminal command work. Eg. Ubuntu 22 with CloudPanel
+	- Cpanel requires monthly payments and some Linux distros also require monthly payments. Or choose a free web hosting control panel and free linux distro? Downside of free may be lack of features and/or more custom terminal command work. Eg. Ubuntu 22 with CloudPanel
 - Setup billing auto renewal?
 
 ### How to select for OS
-- You select at the web hosting service's services dashbaord (Hostinger's hpanel, etc)
+- They usually install for you so you choose the OS
+	- Ubuntu has many things setup to work for Linux admin
+	- Debian is barebones and require some setup (installing sudo, etc) but has so much more hard disk available for you and less CPU use
 - And then find out what the package installer is based on the OS name (Search Google)
+	-  Eg., Google: Ubuntu package installer
+	- For Ubuntu, it’s apt
+- You will update the package installer's repository source lists because you just had a fresh installation
 
 ---
 
@@ -160,6 +165,18 @@ sudo systemctl start nginx
 			- Check npm version with `npm --version`
 			- If the version is v7 or v8 families, then NodeJS switches user to the user owning the folder to the package.json when running npm script which is not desirable in most cases (you would prefer to keep the same user that runs the npm script `npm run scriptX`) and usually causes file permission problems when running a npm script
 				- Then you install nvm to install and change the node version. Then you make it permanent beyond your current shell session. Refer to the tutorial [[NVM - npm scripts say permission denied on the cli command]]
+	- Yarn
+		- Make sure Node is at least v20.11.0 to install a newer yarn (https://www.redswitches.com/blog/install-yarn-in-ubuntu/), otherwise look up classic yarn installation instructions.
+			- Install npm's repo corepack (tool to help with managing versions of your package managers) which allows you to install yarn
+			- Follow each step to install latest yarn:
+				```
+				sudo npm install -g corepack
+				corepack enable
+				corepack prepare yarn@stable --activate
+				yarn --version
+				yarn set version stable
+				```
+
 - Look up instructions for your OS on how to install these databases, if applicable to your server's use cases
 	- MySQL (if not included by your web host’s VPS)
 		- Ubuntu v22 with CloudPanel comes with MySQL, however when accessing phpMyAdmin from Cloudpanel then only the databases the user is associated with shows up.
@@ -331,7 +348,7 @@ sudo systemctl start nginx
 	```
 
 
-		It's assumed PHP will be able to connect to Mongo if Python and NodeJS works
+It's assumed PHP will be able to connect to Mongo if Python and NodeJS works
 
 - Look up instructions for your OS on how to install these scaling solutions, if applicable to your server's use cases
 	- Balancers and multi workers:

@@ -1,3 +1,5 @@
+## Installation
+
 You can use different Node and NPM using NVM, very useful on an online server with many apps
 
 - Features
@@ -85,5 +87,86 @@ This should show npm version 6.14.8 since it is bundled with Node.js v14.17.0.
    ```
 
 **Verify the npm version**:
+```
+npm -v
+```
+
+
+---
+
+## Installing different NPM using NVM
+
+Use NVM to install version of node and npm you like. Recommend make sure not npm v7.X and npm v8.X because it causes probems when you use npm scripts to modify the system even if the scripts are using cli tool commands that modify the system, because the npm v7.X and v8.X decided to change the user to the owner of the root package folder instead of pertaining to the user that ran the npm script, causing workflow issues and preventing scripts from practically working.
+
+
+This will revert back to using the shell's logged in user as the user to run the commands in npm script, which allow you to run root-owned commands as user root if you're logged in as root
+
+To install `nvm` (Node Version Manager) on Ubuntu 22.04, you can follow these steps:
+
+1. **Update your package list**:
    ```sh
+   sudo apt update
+   ```
+
+2. **Install curl** (if not already installed):
+   ```sh
+   sudo apt install curl
+   ```
+
+3. **Download and install nvm**:
+   ```sh
+   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+   ```
+
+4. **Load nvm into your shell session**:
+   Add the following lines to your `~/.bashrc` file to ensure nvm is loaded:
+   ```sh
+   export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+   ```
+
+5. **Reload your shell**:
+   ```sh
+   source ~/.bashrc
+   ```
+
+6. **Verify the installation**:
+   ```sh
+   nvm --version
+   ```
+
+7. **Install the desired Node.js version** (e.g., v14.17.0):
+   ```sh
+   nvm install v14.17.0
+   ```
+
+
+   ```sh
+   nvm install 20.11.0
+   ```
+
+8. **Use the newly installed Node.js version**:
+   ```sh
+   nvm use v14.17.0
+   ```
+
+
+```
+nvm use 20.11.0
+```
+
+9. **Verify the node and npm version**:
+   ```sh
+   node -v
    npm -v
+   ```
+
+This should show npm version 6.14.8 since it is bundled with Node.js v14.17.0.
+
+10. Next you have to make it the default node version because this setting only applies to your current shell session:
+```
+nvm alias default v14.17.0
+```
+
+
+Restart your server (`sudo reboot`) then test `npm -v` again to make sure it sticks
