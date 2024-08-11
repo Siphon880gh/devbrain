@@ -3,6 +3,8 @@ How to use this guide: Open a table of contents that persist on your screen. The
 
 If chosen to use xl command line to create and manage VMs, either you want to take the challenge or your budget and system requirements did not meet the new GUI's.
 
+Then we convert the VM into VPS by setting up the Networking so that data can flow between the VM and the internet. 
+
 This also means you need to have some background knowledge on networking, partitioning, computer computing and storage resources, and VMs. With GUI, that was abstracted away.
 
 ---
