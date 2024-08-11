@@ -17,7 +17,7 @@ We will create a VM on the dedicated server. The VM will act like its own comput
 
 Then we convert the VM into VPS by setting up the Networking so that data can flow between the VM and the internet. 
 
-This also means you need to have some background knowledge on networking, partitioning, computer computing and storage resources, and VMs. With GUI, that was abstracted away.
+This also means you need to have some background knowledge on networking, partitioning, computer computing and storage resources, and VMs. Had you used GUI, that would be abstracted away.
 
 ---
 
