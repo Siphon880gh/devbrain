@@ -1,7 +1,19 @@
+By Weng
 
-How to use this guide: Open a table of contents that persist on your screen. There are optional steps and appendix to cover concepts at the end of the guide.
+[![GitHub](https://img.shields.io/badge/GitHub--blue?style=social&logo=GitHub)](https://github.com/Siphon880gh) [![GitHub](https://img.shields.io/badge/Github-darkgray?style=flat&logo=github&labelColor=darkgray&logoColor=white)](https://github.com/Siphon880gh/) [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/weng-fung/) [![YouTube](https://img.shields.io/badge/Youtube-red?style=flat&logo=youtube&labelColor=red)](https://www.youtube.com/user/Siphon880yt/) [![Donate](https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg)](https://www.paypal.com/donate?business=T42BK25TYPZSA&item_name=Buy+me+coffee+%28I+develop+free+apps%29&currency_code=USD)
 
-If chosen to use xl command line to create and manage VMs, either you want to take the challenge or your budget and system requirements did not meet the new GUI's.
+
+**How to use this guide:** Open a table of contents that persist on your screen. There are optional steps and appendix to cover concepts at the end of the guide. 
+
+This is PART 2 after finding out that your hardware supports Hardware Virtualization, but not KVM type Hardware Virtualization.
+
+WIth this guide, you've chosen to use xl command line to create and manage VMs. You could not use any of the tools that have GUI either because your server does not have the requirements (usually requiring you to boot into recovery mode, etc) or it's out of your budget.
+
+---
+
+**Objectives / Knowledge Requirements:**
+
+We will create a VM on the dedicated server. The VM will act like its own computer.
 
 Then we convert the VM into VPS by setting up the Networking so that data can flow between the VM and the internet. 
 
