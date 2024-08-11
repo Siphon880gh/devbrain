@@ -158,7 +158,8 @@ In that case, you HAVE A PROBLEM. Your entire disk is allocated to a single part
 
 **Do not unmount the root filesystem (`/dev/sda1`)** while the system is running, especially if you are connected via SSH. If this is your only partition, your options are:
 
-- Add new storage to your server or use file-based images for your VMs instead of LVM but that's slow.
+###### No, I dont have a non-root partition and I have no access to the server physically
+- You could use file-based images for your VMs instead of LVM but that's slow.
 - Ask support of your rented dedicated server if they can create two partitions. Request that:
 	- Hi Support, I am creating a VM inside the dedicated server and having that VM act as a VPS. 
 	- I wish to split the partition of the dedicated server so that one partition is used for the root filesystem (where the operating system and essential files reside) and the other partition I will allocate to a VM that acts as a VPS.
