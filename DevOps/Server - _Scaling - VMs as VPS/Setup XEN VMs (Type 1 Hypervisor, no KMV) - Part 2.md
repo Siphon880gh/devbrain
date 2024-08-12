@@ -158,27 +158,36 @@ In that case, you HAVE A PROBLEM. Your entire disk is allocated to a single part
 
 **Do not unmount the root filesystem (`/dev/sda1`)** while the system is running, especially if you are connected via SSH. If this is your only partition, your options are:
 
-###### No, I dont have a non-root partition and I have no access to the server physically
+###### No, I dont have a non-root partition and I dont have physical access to the server
 - You could use file-based images for your VMs instead of LVM but that's slow.
 - Ask support of your rented dedicated server if they can create two partitions. Request that:
-	- Hi Support, I am creating a VM inside the dedicated server and having that VM act as a VPS. 
-	- I wish to split the partition of the dedicated server so that one partition is used for the root filesystem (where the operating system and essential files reside) and the other partition I will allocate to a VM that acts as a VPS.
-	- My problem is that the majority of the storage space is in one partition and that partition is mounted as the root filesystem, so I cannot unmount/resize it when I don't have access to booting with a live cd.
+	- Hi Support, 
+	- Situation: I am creating a VM inside the dedicated server and having that VM act as a VPS. 
+	- Request: I wish to split the partition of the dedicated server so that one partition is used for the root filesystem (where the operating system and essential files reside) and the other partition I will allocate to a VM that acts as a VPS, and another partition to have backups.
+	- Why ask for help: My problem is that we only have one main partition and that partition is mounted as the root filesystem, so I cannot mess with it without losing SSH access and getting locked out.
 	- I see there's a /dev/sda1 that has 205G available. I'd like to create two partitions out of this. One partition could have around 30-50GB or 40GB and will act as the root file system. The other partition must have 165GB. The bigger partition will NOT be root. The two partitions can be formatted into ext4 types. Again the smaller partition will be the root filesystem.
 	- If you're curious I'll use the second bigger partition to create logical volumes for swap and VM.
 	- I hope we do not need to reformat my files. But if you have to, I have things backed up and the preferred OS is Debian 12
 - For practical purposes, you want to be able to backup the VPS for quick restoring when needed. You may need a third partition for storing backup and it may not have to be the same size as the VPS partition if you are willing to be strategic about what to backup and what to invest in (for example, cron-scripting user files to upload to another file storage server). Or you could have another partition of the same size and may want to purchase an extra hard drive through your dedicated server web host / provider (or if you own the server physically, acquire and install the hard drive yourself). In that case, your support request script can change to:
-	- Hi Support, I am creating a VM inside the dedicated server and having that VM act as a VPS. I do not want to run websites directly on the dedicated server. This gives me the ability to restart / restore my own web servers.
-	- I wish to split the partition of the dedicated server so that one partition is used for the root filesystem (where the root user and essential files reside) and the other partition I will mount a VM.
-	- My problem is that we only have one main partition and that partition is mounted as the root filesystem, so I cannot unmount, then split the partition into multiple partitions, resize them, etc without losing SSH access. 
-	- I see there's a /dev/sda1 that has 205 G available. I'd like to create three partitions out of this. 
-		- The main partition could have around 40-50GB. This will be the root file system. 
-		- A second partition must have 115GB. It will remain unmounted. If you're curious: I will use this partition for VM and add a virtual bridge so it can be discoverable on the internet as a VPS.
-		- A third partition with 50 GB. It can remain unmounted. If you're curious: This lets me backup files from the VPS. 
-	- We can keep all the partitions as ext4 filesystems. 
-	- I hope we do not need to reformat my files. But if we must, I have things backed up already and the preferred OS is Debian 12
-
-
+	```
+	Dear Support, 
+	
+	Background: I am creating a VM inside the dedicated server and having that VM act as a VPS. I do not want to run websites directly on the dedicated server. This gives me the ability to restart or restore my own web servers.
+	
+	Request: I wish to split the partition of the dedicated server so that one partition is used for the root filesystem (where the root user and essential files reside) and the other partition I will mount a VM, and another partition I will have backups.
+	
+	- The main partition could have around 40-50GB. This will be the root file system.
+	- A second partition must have 115GB. It will remain unmounted. If you're curious: I will use this partition for VM and add a virtual bridge so it can be discoverable on the internet as a VPS.
+	- A third partition with 50 GB. It can remain unmounted. If you're curious: This lets me backup files from the VPS.
+	- We can keep all the partitions as ext4 filesystems.
+	
+	Why ask for help: My problem is that we only have one main partition and that partition is mounted as the root filesystem, so I cannot mess with it without losing SSH access and getting locked out. I figured since you're on-premise, you can unmount without that problem.
+	
+	Helpful information: I see there's a /dev/sda1 that has 205 G available. I'd like to create the three partitions out of this.
+	
+	I hope we do not need to reformat my files. But if we must, I have things backed up already and the preferred OS is Debian 12.
+	```
+- Response back to you: Your numbers for all the partitions might not be exact, so the support team might leave some unallocated sectors for you to allocate the final partition. Otherwise there might be some GB's remaining if they perform all the partitions exactly as told. Or they might allocate more GBs to the biggest partition. This depends on the technician. If they left you unallocated sectors for you to partition, instructions on how to partition the rest of the unallocated sectors are at [[Partition unallocated sectors on a disk in Linux]]
 
 #### Overview you will create logicals from the non-root partition
 
@@ -210,24 +219,52 @@ To summarize those concepts:
 
 #### Convert the non-root partition into the LVM framework
 
-Requirement: Your root filesystem is in one partition. You have another partition that's the size of the VPS plus its swap.
+Requirement: Your root filesystem is in one partition. You have another partition that's the size of the VPS plus its swap. We will use xen-create-image which creates two sub-partitions (VPS and swap)
+
+First make sure LVM framework is installed which installs the cli tools pvcreate and vgcreate and lvcreate (xen-create-image uses lvcreate behind the scene to create two logical volumes)
+```
+sudo apt install lvm2
+```
 
 Lets assign the non-root partition into the LVM (logical volume management) framework that `xen-create-image` uses.
 
+First make sure you've unmounted /dev/sdaX otherwise pvcreate and vgcreate will complain it's still mounted. Make sure your fstab has been set up to permanently mount /dev/sdaX because after these steps are done, we will restart mountings based on fstab
+
+You have to unmount based on the mount point (directory path a partition is loaded into). Run `lsblk` to get the mount point of sdaX
+
+Could've been
 ```
-sudo pvcreate /dev/sda1
-sudo vgcreate vg0 /dev/sda1
+sudo umount /mnt/vps0
 ```
+
+Make sure to adjust for X (run `lsblk` to see which partition is appropriate):
+```
+sudo pvcreate /dev/sdaX
+sudo vgcreate vg0 /dev/sdaX
+```
+^If asking if ok to wipe anything while creating physical volume (`pv...`), say yes.
+
+FYI: Note if your /dev/sdaX is a logical partition, this will still work. pvcreate creates a "physical volume", then vgcreate creates a "volume group" from the "physical volume", then xen-create-image will create "logical volumes" VPS and swap. Logical volume is not the same as logical partition, so we are good to go
 
 That's it. You have the partition under the volume group 0. You will pass this volume group name `vg0` into the `xen-create-image` and it will create two logical volumes automatically (for the VM/VPS and for the swap)
-
 
 #### Create the VM
 
 Create VM without network options (dhcp option required, lets say yes to dhcp we wanting automatic IP for now)
 ```
-sudo xen-create-image --hostname=vps1 --lvm=vg0 --size=155G --memory=24G --swap=15G --debootstrap --dist=jammy --arch=amd64 --dhcp
+sudo xen-create-image --hostname=vps0 --lvm=vg0 --size=100G --memory=24G --swap=15G --debootstrap --dist=jammy --arch=amd64 --dhcp
 ```
+
+- `--hostname=vps1`: Sets the hostname of the new VM to `vps1`.
+- `--lvm=vg0`: Specifies that the root filesystem for the VM should be created as a logical volume within the volume group `vg0`.
+- `--size=100G`: Indicates that the root logical volume will have a size of 100 GB.
+- `--memory=24G`: Allocates 24 GB of RAM to the VM.
+- `--swap=15G`: Allocates 15 GB of swap space to the VM.
+- `--debootstrap`: standalone command-line tool if outside the context of `xen-create-image`. It's used primarily for creating a minimal Debian or Ubuntu system within a specified directory or partition (aka VM).
+- `--dist=jammy`: Specifies that the distribution to be installed is Ubuntu 22.04 (Jammy Jellyfish).
+- `--arch=amd64`: Specifies the architecture of the VM as 64-bit (AMD64).
+- `--dhcp`: Configures the VM to use DHCP for network configuration.
+- Keep in mind the size and swap should equal the total file size of that partition for max use of storage space
 
 Let's test if successful:
 1. List all VMs to see if the VM is listed:

@@ -921,6 +921,9 @@ Root web directory is:
 How to change password:
 `sudo passwd root` OR UI: ...
 
+MOUNTED VPS:
+/mnt/\_\_
+
 ---
 
 ### ACC Web Hosting Management Panel
