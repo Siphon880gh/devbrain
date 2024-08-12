@@ -248,34 +248,96 @@ FYI: Note if your /dev/sdaX is a logical partition, this will still work. pvcrea
 
 That's it. You have the partition under the volume group 0. You will pass this volume group name `vg0` into the `xen-create-image` and it will create two logical volumes automatically (for the VM/VPS and for the swap)
 
-#### Create the VM
+If you have problems or want to review, you can view all physical volumes with `sudo pvdisplay` and all volume groups with `sudo vgdisplay`, OR `sudo pvs` and `sudo vgs` which are different display formats
+#### Create the Image
 
 Create VM without network options (dhcp option required, lets say yes to dhcp we wanting automatic IP for now)
 ```
-sudo xen-create-image --hostname=vps0 --lvm=vg0 --size=100G --memory=24G --swap=15G --debootstrap --dist=jammy --arch=amd64 --dhcp
+sudo xen-create-image --force --verbose --hostname=vps0 --dhcp --lvm=vg0 --size=99G --memory=24G --swap=15G --debootstrap --dist=bookworm --arch=amd64 --mirror=http://deb.debian.org/debian/ --debootstrap-cmd='/usr/sbin/debootstrap'
 ```
 
+- `--force`: Proceed with creating the image even if there are warnings or non-critical errors.
 - `--hostname=vps1`: Sets the hostname of the new VM to `vps1`.
 - `--lvm=vg0`: Specifies that the root filesystem for the VM should be created as a logical volume within the volume group `vg0`.
-- `--size=100G`: Indicates that the root logical volume will have a size of 100 GB.
+- `--size=99G`: Indicates that the root logical volume will have a size of 99 GB.
 - `--memory=24G`: Allocates 24 GB of RAM to the VM.
 - `--swap=15G`: Allocates 15 GB of swap space to the VM.
 - `--debootstrap`: standalone command-line tool if outside the context of `xen-create-image`. It's used primarily for creating a minimal Debian or Ubuntu system within a specified directory or partition (aka VM).
 - `--dist=jammy`: Specifies that the distribution to be installed is Ubuntu 22.04 (Jammy Jellyfish).
 - `--arch=amd64`: Specifies the architecture of the VM as 64-bit (AMD64).
 - `--dhcp`: Configures the VM to use DHCP for network configuration.
-- Keep in mind the size and swap should equal the total file size of that partition for max use of storage space
+- Keep in mind the size and swap should roughly equal and be less than the total file size of that partition for max use of storage space
+	- If you have 115 GB group volume, you may feel tempted to split the logical volumes into 100 GB VM and 15 GB swap in the xen-create-image command, however reality is there is some space you cannot use. So it's more like 99GB and 15GB
 
-Let's test if successful:
-1. List all VMs to see if the VM is listed:
-	```
-	xl list
-	```
-2. Console into the VM:
-	```
-	xl console <vm-name>
-	```
-3. Before you install either nginx or apache or cloudpanel (which installs nginx), let's leave the VM because we have to configure its networking. Exit out of the VM with Ctrl + ]
+If fails to install, refer to Appendix X - Xen Create Image Errors
+
+Copy your Installation Summary to your webhost details document under a VPS VM section. Copy especially the password that's in the Installation summary because that's the root password you need to console into the VM as a quick test (before making it accessible to the internet for SSH root login)
+
+Your installation summary looks like:
+```
+Installation Summary  
+---------------------  
+Hostname        :  vps0  
+Distribution    :  bookworm  
+MAC Address     :  00:..  
+IP Address(es)  :  dynamic  
+SSH Fingerprint :  SHA256:... (DSA)  
+SSH Fingerprint :  SHA256:... (ECDSA)  
+SSH Fingerprint :  SHA256:... (ED25519)  
+SSH Fingerprint :  SHA256:... (RSA)  
+Root Password   :  <IMPORTANT>
+```
+
+#### Start the VM (When it's discoverable with a network bridge)
+
+Checkpoint Concept: Even though an OS is installed, we have not started the VM yet.
+
+Start the VM by running the xl create which creates an entry in `xl list`. It's Xen's vocabulary that domains mean VMs. We run off a config file that's named based off the hostname option from xen-create-image:
+```
+sudo xl create /etc/xen/vps0.cfg
+```
+
+**IF** it complains about bridging like this below then you need to modify /etc/network/bridges to add xenbr0, then you restart the network - Refer to very bottom Appendix Z - Create networking bridge for host and VM(s) . You cannot even console into the VM because the network bridge must be done for the SSH shell to even connect to other computers (VM) on the same network. After all that's done, you re-attempt the `xl create` command again by jumping back to this section `Start the VM (When it's discoverable with a network bridge)`:
+```
+root@debian:~# sudo xl create /etc/xen/vps0.cfg Parsing config from /etc/xen/vps0.cfg libxl: error: libxl_exec.c:117:libxl_report_child_exitstatus: /etc/xen/scripts/vif-bridge online [24802] exited with error status 1 libxl: error: libxl_device.c:1319:device_hotplug_child_death_cb: script: Could not find bridge device xenbr0 libxl: error: libxl_create.c:1921:domcreate_attach_devices: Domain 1:unable to add vif devices libxl: error: libxl_exec.c:117:libxl_report_child_exitstatus: /etc/xen/scripts/vif-bridge offline [24849] exited with error status 1 libxl: error: libxl_device.c:1319:device_hotplug_child_death_cb: script: Could not find bridge device xenbr0 libxl: error: libxl_domain.c:1183:libxl__destroy_domid: Domain 1:Non-existant domain libxl: error: libxl_domain.c:1137:domain_destroy_callback: Domain 1:Unable to destroy guest libxl: error: libxl_domain.c:1064:domain_destroy_cb: Domain 1:Destruction of domain failed
+```
+
+**IF** you have to wait for a slight while with `Parsing config from /etc/xen/vps0.cfg` and no other messages appear, likely it's a success.
+
+List all VMs to see if the new VM is listed:
+```
+xl list
+```
+	
+If you see any domains besides Domain-0 then those are your VM(s). FYI Xen concepts: The Dom0 is the privileged domain aka Dom0 running on the hypervisor. All other VMs you create are unprivileged domains aka guest VMs aka DomU
+
+Might look like:
+```
+Name                                        ID   Mem VCPUs	State	Time(s)
+Domain-0                                     0  7593     8     r-----     129.7
+vps0                                         1 24576     1     -b----       2.9
+```
+
+
+
+#### Console into the VM
+
+We quickly test if we can see the VM from the host SSH shell and whether we can interact with it
+	
+Run	
+```
+xl console <vm-name>
+```
+eg. `xl console vps0`
+
+It will ask for your username. Use root.
+Then it will ask for your password which was in the installation summary
+
+You can leave the VM shell back into the host shell by pressing CTRL + ]
+
+
+TODO:
+4. Before you install either nginx or apache or cloudpanel (which installs nginx), let's leave the VM because we have to configure its networking. Exit out of the VM with Ctrl + ]
 
 
 ----
@@ -419,180 +481,11 @@ So, the **usable IP addresses** are:
 ```
 
 
-#### Setup networking inside the dedicated server
+#### Setup VMs to be discoverable by the internet network
 
 To set up your VM to act as a VPS with a public-facing website, you'll need to modify your network configuration to include a bridge. This bridge will allow the VM to communicate with the external network.
 
-##### Step 1: Configure the Bridge in `/etc/network/interfaces`
-
-You'll need to modify your `/etc/network/interfaces` file to create a network bridge.  
-
-Before making any changes, it’s always a good idea to back up your current network configuration:
-```
-sudo cp /etc/network/interfaces /etc/network/interfaces.bak
-```
-
-
-Assuming this is the original:
-```
-# This file describes the network interfaces available on your system
-# and how to activate them. For more information, see interfaces(5).
-
-source /etc/network/interfaces.d/*
-
-# The loopback network interface
-auto lo
-iface lo inet loopback
-
-# The primary network interface
-allow-hotplug eno1
-iface eno1 inet static
-		address 192.0.2.2/29
-		gateway 192.0.2.1
-        # dns-* options are implemented by the resolvconf package, if installed
-		dns-nameservers 198.51.100.2 198.51.100.3 8.8.8.8
-		dns-search example.rdns.provider.com
-```
-
-Here's how you can edit it:
-
-```bash
-# This file describes the network interfaces available on your system
-# and how to activate them. For more information, see interfaces(5).
-
-source /etc/network/interfaces.d/*
-
-# The loopback network interface
-auto lo
-iface lo inet loopback
-
-# The primary network interface
-allow-hotplug eno1
-iface eno1 inet manual
-
-# Bridge setup
-auto br0
-iface br0 inet static
-		address 192.0.2.2/29
-		gateway 192.0.2.1
-        bridge_ports eno1
-        bridge_stp off
-        bridge_fd 0
-        bridge_maxwait 0
-		dns-nameservers 198.51.100.2 198.51.100.3 8.8.8.8
-		dns-search example.rdns.provider.com
-```
-
-Explanation:
-- **eno1** is now set to `manual` to prevent it from being assigned an IP address directly.
-- **br0** is the new bridge interface that takes over the IP address and gateway configuration.
-- **bridge_ports eno1** connects your physical interface `eno1` to the bridge `br0`.
-- **bridge_stp off** disables Spanning Tree Protocol, as it's not needed in this scenario.
-- **bridge_fd 0** and **bridge_maxwait 0** are settings to reduce the delay during bridge setup.
-
-##### Step 2: Apply the Configuration
-
-After modifying the `/etc/network/interfaces` file, you should restart the networking service to apply the changes:
-
-```bash
-sudo systemctl restart networking && sudo systemctl restart sshd
-```
-
-
-Restarting the networking service will kick you off SSH. This command logs you back into SSH as soon as the networking service is back on. Could take up to 1-2 minutes.
-
-If you can't log back into SSH, then the bridge is not functioning correctly or you have messed up. You have to reach out to support and let them know about the backup file so they can restore your network settings (or last resort, they reformat).
-
-
-
-   ```bash
-   # This file describes the network interfaces available on your system
-   # and how to activate them. For more information, see interfaces(5).
-
-   source /etc/network/interfaces.d/*
-
-   # The loopback network interface
-   auto lo
-   iface lo inet loopback
-
-   # The primary network interface
-   allow-hotplug eno1
-   iface eno1 inet manual
-
-   # Bridge setup
-   auto br0
-   iface br0 inet static
-           address 208.76.249.74/29
-           gateway 208.76.249.73
-           bridge_ports eno1
-           bridge_stp off
-           bridge_fd 0
-           bridge_maxwait 0
-           dns-nameservers 204.13.153.34 64.69.34.82 8.8.8.8
-           dns-search 76.249.74.rdns.ColocationAmerica.com
-   ```
-
-
-
-##### Step 3: Test Network settings at dedicated server so far
-
-1. **Check the Bridge Status:**
-   Once you are back in, you can verify that the bridge is up and running by checking the network interfaces:
-
-   ```bash
-   ip a
-   ```
-
-   You should see `br0` listed with the correct IP address and configuration.
-
-2. **Test Network Connectivity by pinging the Gateway:**
-   To ensure the bridge is correctly routing traffic, you can ping the gateway:
-
-   ```bash
-   ping -c 4 208.76.249.73
-   ```
-
-   This should return successful pings if the bridge is set up correctly.
-
-3. **Check Internet Connectivity:**
-   You can also try pinging a public DNS server, like Google’s:
-
-   ```bash
-   ping -c 4 8.8.8.8
-   ```
-
-   Successful responses indicate that the bridge is functioning as expected.
-
-
-Once you have verified that the bridge is working and that you can maintain SSH access, you can proceed to modify the VM’s network settings to use the bridge (`vif = ['bridge=br0']`) and restart the VM.
-
-##### Step 4: Modify the VM’s Network Configuration
-
-Since you left out the networking configuration during the creation of the VM, you'll need to modify the VM's configuration file (likely located at `/etc/xen/vps1.cfg`) to use the bridge you just created. 
-
-Note for the anxious: When you restarted the networking service, it should let you back on unless you made a mistake - the VM settings did not have to be applied for you to SSH back into dedicated server.
-
-Modify the `vif` line to connect the VM to the bridge:
-
-```bash
-vif = ['bridge=br0']
-```
-
-##### Step 5: Restart the VM to apply bridge to the VM
-
-Once you've made these changes, restart your VM:
-
-```bash
-sudo xl shutdown vps1
-sudo xl create /etc/xen/vps1.cfg
-```
-
-This setup should allow your VM to communicate externally, enabling it to host a website that can be accessed publicly.
-
-You'll have to test entering the public IP of the VM into your web browser and whether it delivers a webpage, but you would've to setup nginx or apache or cloudpanel (which installs nginx). That can be for a future time. Let's move onto the optionals steps where you allocate networking resources and/or CPU resources so you don't hog the dedicated server.
-
-
-If you want to review the concepts, refer to the appendexes
+TODO: Will complete this section
 
 ---
 
@@ -738,7 +631,119 @@ This is optional. You can modify the VPS (really, you're modifying the VM) so it
 
 ---
 
-## APPENDIX
+## Appendix X (Xen-Create-Image Errors)
+
+
+### Log files
+
+Named after your hostname option passed to xen-create-image:
+```
+cat /var/log/xen-tools/vps0.log
+```
+### Common go-to fixes
+
+**Consistent OS the best**
+Firstly, try to avoid creating different OS than your host OS. Even keep the version the same if possible. If you can't then you need advanced configuring at `/etc/xen-tools/xen-tools.conf`
+
+**Try a smaller size for the VM**
+```
+--size=99G
+```
+If you have 115 GB group volume, you may feel tempted to split the logical volumes into 100 GB VM and 15 GB swap in the xen-create-image command, however reality is there is some space you cannot use. So it's more like 99GB and 15GB
+
+
+**Try reinstall debootstrap:**
+```
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install --reinstall debootstrap
+```
+
+
+**Check `/etc/xen-tools/xen-tools.conf` making sure the install method is debootstrap and that the cli tool path exists (more on this later):**
+```
+install-method = debootstrap
+debootstrap-cmd = /usr/sbin/debootstrap
+```
+
+
+**Check `/etc/xen-tools/xen-tools.conf` making sure the mirror url works and that the dist is spelled correctly (eg. bookworm represents Debian 12):**
+```
+dist = bookworm
+mirror = http://deb.debian.org/debian/
+```
+
+**Try having xen-create-image automatically detect debootstrap-cmd**
+
+You do this by commenting it out in `/etc/xen-tools/xen-tools.con`
+
+**Check cli tool debootstrap**
+
+Run `which debootstrap` to see if the first most entry is the same as the debootstrap-cmd path. If not, you may need to add the folder to your PATH and may have to persist it in ~/.bash_profile or equivalent.
+
+Check if execution permissions are in. For instance, this is good:
+	-rwxr-xr-x 1 root root 25122 Aug 30 2023 /usr/sbin/debootstrap
+
+
+**Check for Disk Space and Permissions:**
+
+Ensure that there is sufficient disk space available and that the `/tmp` directory has the correct permissions:
+
+```
+df -h /tmp
+ls -ld /tmp
+```
+
+If `/tmp` is running out of space or has incorrect permissions, that could cause issues. Ensure that `/tmp` has plenty of free space and the permissions are set to `drwxrwxrwt`.
+
+**Make sure future xen-create-image has VERBOSE mode on**
+You add the flag `--verbose`.
+
+**Determine if it's xen-create-image or debootstrap probelm**
+
+- Verify if `debootstrap` works directly from the command line using the correct syntax.
+- You can test it with:
+```
+`sudo debootstrap --arch=amd64 bookworm /tmp/debootstrap-test http://deb.debian.org/debian/
+```
+    
+- If this command fails, it will help diagnose any underlying issues with `debootstrap` itself. Otherwise it is an error within xen-create-image, either the command you run or its config file is misconfigured.
+- Cleanup: Run `rm -rf /tmp/debootstrap-test`. The test command does not mount to partitions.
+### Error right after executing just flags
+
+See this error output seems to be missing a cli command. It's only flags and options that was executed:
+```
+Executing : --dist=bookworm --verbose --arch amd64 bookworm /tmp/9Ow8dqc0vw http://deb.debian.org/debian/ Starting command '--dist=bookworm --verbose --arch amd64 bookworm /tmp/9Ow8dqc0vw http://deb.debian.org/debian/ 2>&1' failed: No such file or directory Starting command '--dist=bookworm --verbose --arch amd64 bookworm /tmp/9Ow8dqc0vw http://deb.debian.org/debian/ 2>&1' failed: No such file or directory Aborting
+```
+
+So likely later down the road there are more folders and files that don't exist. This is because the command should be `debootstrap --dist=bookworm --verbose...`, NOT `--dist=bookworm --verbose...`. You could follow the common go-to fixes in the previous section (Edit `/etc/xen-tools/xen-tools.conf` and make sure the path to the cmd is correct, and making sure `which` sees where the cli executable is per PATH). Or, better yet, override the path toe debootstrap in the command xen-create-image with the command option roughly similar to: `debootstrap-cmd = /usr/sbin/debootstrap`
+
+### Purge out old bugged images
+
+If you created image with `xen-create-image`, and it's a bugged image (there were significant errors during xen-create-image, and/or the files are not completely generated).
+
+1. Unmount then remove where the failed image is at. Adjust this:
+```
+sudo umount /tmp/9Ow8dqc0vw
+sudo rm -rf /tmp/debootstrap-test
+```
+
+2. Check what the logical volumes are (the host and/or swap that xen-create-image created). Depending on the extend of the errors disrupting the xen-create-image process, there is either one or two logical volumes
+
+- Get a quick glance with `lsblk`
+- Then get their logical volume paths with `sudo lvdisplay`
+- Then remove the logical volume(s). Your commands will vary:
+```
+sudo lvremove vg0/...-host
+sudo lvremove vg0/...-swap
+```
+
+Note that xen-craete-image with the --force option does not do the above steps when you create an image onto the same volume group.
+
+---
+
+
+## APPENDIX Y (Why - Networking concepts)
 
 ### Networking Bridge mode to allow dedicated server and VPS:
 
@@ -867,7 +872,7 @@ iface br0 inet static
 ```
 
 
-#### At `auto br0` and `iface br0 inet static`, coding wise - br0 is just another interface, but concept wise (when we draw on diagram or communicate about networking) - it's a virtual bridge
+#### At `auto xenbr0` and `iface xenbr0 inet static`, coding wise - br0 is just another interface, but concept wise (when we draw on diagram or communicate about networking) - it's a virtual bridge
 
 You're absolutely right. In code, `br0` is treated like any other network interface, but conceptually, it acts as a virtual bridge that connects the physical network interface (e.g., `eno1`) with the virtual network interfaces on your VPS.
 
@@ -893,3 +898,131 @@ Here’s how it works conceptually:
 - **Gateway/Router Perspective:** The gateway/router sees the bridge as if it were a single entity, even though it might be routing traffic to multiple virtual interfaces behind it. The bridge abstracts the complexity of having multiple interfaces on different VMs, presenting them as if they were part of a single, unified network segment.
 
 So in summary, while `eno1` is the physical connection point, the bridge (`br0`) allows the gateway/router to interact seamlessly with the virtual interfaces of the VMs, as though they were all on the same physical network.
+
+
+----
+
+## Appendix Z - Create networking bridge for host and VM(s)
+
+#### Setup networking inside the dedicated server's private network
+
+To set up your VM, you'll need to allow your computer to even see the new computer. This means creating a virtual bridge that will allow your host computer to see the other guest computers (VM). Sneak peak in to the future: This virtual bridge  will also be instrumental to the internet seeing your VMs as VPS.
+
+If you feel like you had already done this step but yet you couldn't add or see VMs, did you add the bridge on the pre-xen OS? Remember you booted into XEN now. The /etc/network/interfaces in your XEN bootup is different from the one in your non-XEN bootup, meaning you would have to do this work again.
+
+##### Step 1: Configure the Bridge in `/etc/network/interfaces`
+
+You'll need to modify your `/etc/network/interfaces` file to create a network bridge.  
+
+Before making any changes, it’s always a good idea to back up your current network configuration:
+```
+sudo cp /etc/network/interfaces /etc/network/interfaces.bak
+```
+
+
+Assuming this is the original:
+```
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+allow-hotplug eno1
+iface eno1 inet static
+		address 192.0.2.2/29
+		gateway 192.0.2.1
+        # dns-* options are implemented by the resolvconf package, if installed
+		dns-nameservers 198.51.100.2 198.51.100.3 8.8.8.8
+		dns-search example.rdns.provider.com
+```
+
+Here's how you can edit it:
+REPLACE adderss, gateway, dns-nameservers, and dns-serach with your original values
+xenbr0 is the default bridge name from xen tools
+```
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+allow-hotplug eno1
+iface eno1 inet manual
+
+# Bridge setup
+auto xenbr0
+iface xenbr0 inet static
+		address 192.0.2.2/29
+		gateway 192.0.2.1
+        bridge_ports eno1
+        bridge_stp off
+        bridge_fd 0
+        bridge_maxwait 0
+		dns-nameservers 198.51.100.2 198.51.100.3 8.8.8.8
+		dns-search example.rdns.provider.com
+```
+
+Explanation:
+- **eno1** is now set to `manual` to prevent it from being assigned an IP address directly.
+- **xenbr0** is the new bridge interface that takes over the IP address and gateway configuration.
+- **bridge_ports eno1** connects your physical interface `eno1` to the bridge `br0`.
+- **bridge_stp off** disables Spanning Tree Protocol, as it's not needed in this scenario.
+- **bridge_fd 0** and **bridge_maxwait 0** are settings to reduce the delay during bridge setup.
+
+
+
+
+##### Step 2: Apply the Configuration
+
+After modifying the `/etc/network/interfaces` file, you should restart the networking service to apply the changes:
+
+```bash
+sudo systemctl restart networking && sudo systemctl restart sshd
+```
+
+
+Restarting the networking service will kick you off SSH. This command logs you back into SSH as soon as the networking service is back on. Could take up to 1-2 minutes.
+
+If you can't log back into SSH, then the bridge is not functioning correctly or you have messed up. You have to reach out to support and let them know about the backup file so they can restore your network settings (or last resort, they reformat).
+
+
+
+
+##### Step 3: Test Network settings at dedicated server so far
+
+1. **Check the Bridge Status:**
+   Once you are back in, you can verify that the bridge is up and running by checking the network interfaces:
+
+   ```bash
+   ip a
+   ```
+
+   You should see `xenbr0` listed with the correct IP address and configuration.
+
+2. **Test Network Connectivity by pinging the Gateway:**
+   To ensure the bridge is correctly routing traffic, you can ping the gateway:
+
+   ```bash
+   ping -c 4 208.76.249.73
+   ```
+
+   This should return successful pings if the bridge is set up correctly.
+
+3. **Check Internet Connectivity:**
+   You can also try pinging a public DNS server, like Google’s:
+
+   ```bash
+   ping -c 4 8.8.8.8
+   ```
+
+   Successful responses indicate that the bridge is functioning as expected.
+

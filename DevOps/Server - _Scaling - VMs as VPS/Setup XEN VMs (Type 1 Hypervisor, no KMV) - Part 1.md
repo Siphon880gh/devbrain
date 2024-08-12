@@ -50,12 +50,17 @@ The `amd64` designation refers to the 64-bit architecture, which applies to both
    Set the default boot entry by modifying the `GRUB_DEFAULT` parameter.
 
 You could've set it to the second entry in the GRUB menu setting it to`1` (GRUB menu entries are zero-indexed) like `GRUB_DEFAULT=1` IF you did not perform partitions and it's either your one device partition only or the Xen Hypervisor. But if you have multiple partitions or to be safer, look into the menuentries of grub (either by booting by holding SHIFT after the BIOS/UEFI screen, or if you don't have physical access to the server:
-- Run `grep -E "menuentry " /boot/grub/grub.cfg` to get all bootup menu items
+- Run to get all bootup menu items:
+	```
+	grep -E "menuentry " /boot/grub/grub.cfg
+	```
 - Look for the one that looks like Xen:
   Eg. `menuentry 'Xen 4.14.1 with Linux 5.4.0-42-generic' --class xen --class gnu-linux --class gnu --class os {
+  Make sure it's not the (recovery mode one)
 - Now you can edit the GRUB_DEFAULT. Could be:
-`GRUB_DEFAULT="Xen 4.14.1 with Linux 5.4.0-42-generic"`
-)
+```
+GRUB_DEFAULT="Xen 4.14.1 with Linux 5.4.0-42-generic"
+```
 
    Update GRUB again after making changes:
    ```bash

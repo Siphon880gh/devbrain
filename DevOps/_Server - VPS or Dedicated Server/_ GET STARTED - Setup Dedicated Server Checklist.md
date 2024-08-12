@@ -921,8 +921,33 @@ Root web directory is:
 How to change password:
 `sudo passwd root` OR UI: ...
 
-MOUNTED VPS:
-/mnt/\_\_
+---
+
+
+### ACC Mounted VPS
+hostname: .. 
+bridge: xenbr0
+public ip: ..
+
+user: ..
+password: ..
+
+Installation Summary:
+```
+Installation Summary  
+---------------------  
+Hostname        :  vps0  
+Distribution    :  bookworm  
+MAC Address     :  00:..  
+IP Address(es)  :  dynamic  
+SSH Fingerprint :  SHA256:... (DSA)  
+SSH Fingerprint :  SHA256:... (ECDSA)  
+SSH Fingerprint :  SHA256:... (ED25519)  
+SSH Fingerprint :  SHA256:... (RSA)  
+Root Password   :  <IMPORTANT>
+```
+
+
 
 ---
 
