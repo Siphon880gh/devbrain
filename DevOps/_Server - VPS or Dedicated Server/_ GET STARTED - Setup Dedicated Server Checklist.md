@@ -67,7 +67,7 @@ Are you able to login into root at the local machine terminal with SSH?
 
 ### Dedicated Server: Is Linux Admin Ready?
 - With dedicated server, they might install a bare bones OS version. This means some commands you expect to help with Linux administration like sudo might be missing! Package installer might be missing sources to search packages from. 
-- This is especially true for Debian 12, etc. In that case, refer to the folder Debian -> Debian - Breaking in new shoes
+- This is especially true for Debian 12, etc. although it's performant because it's bare minimum. In that case, refer to the folder to finish setting up the OS so you can admin the server properly: [[Debian breaking into new shoes]]
 
 
 ---
@@ -756,9 +756,12 @@ Install ffmpeg, ctypes, imagemagick, and pcregrep for various web apps and their
 1. You may want to setup alias to easily SSH in from your computer's terminal (along with an echo of directories you will often cd into). You might want to add echo useful commands too (since the commands might change from local machine to different servers):
 
 ```
-$ godaddy
+$ PROVIDER_NAME
 Local: /Users/local_username/dev/web/weng/apps/
 Remote: /home/XXX/public_html/apps
+---------------------------------------------------
+VPS console in from host shell: `sudo xl console vps0`
+VPS console exit back to hots shell: CTRL + ]
 ---------------------------------------------------
 Mongo restart: sudo service mongod restart
 Mongo shell: mongo -u admin -p password
@@ -915,14 +918,13 @@ Available IPs (If dedicated server)
 - Usable IP Addresses:  ?? to  ??
 - Broadcast Address:  ??
 
-Root web directory is:
+Root web directory is:****
 ..
 
 How to change password:
 `sudo passwd root` OR UI: ...
 
 ---
-
 
 ### ACC Mounted VPS
 hostname: .. 
@@ -931,8 +933,18 @@ public ip: ..
 
 user: ..
 password: ..
+SSH in from local computer: 
+```
+ssh root@208.76.249.75
+```
 
-Installation Summary:
+
+Console in from host shell: 
+```
+sudo xl console vps0
+```
+
+Installation Summary (xen-create-image):
 ```
 Installation Summary  
 ---------------------  

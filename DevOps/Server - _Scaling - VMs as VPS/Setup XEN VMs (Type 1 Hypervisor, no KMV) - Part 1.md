@@ -56,16 +56,21 @@ You could've set it to the second entry in the GRUB menu setting it to`1` (GRUB 
 	```
 - Look for the one that looks like Xen:
   Eg. `menuentry 'Xen 4.14.1 with Linux 5.4.0-42-generic' --class xen --class gnu-linux --class gnu --class os {
-  Make sure it's not the (recovery mode one)
+  Make sure to not focus on the recovery mode one, if it exists, eg. NOT `Xen 4.14.1 with Linux 5.4.0-42-generic (Recovery Mode)`
 - Now you can edit the GRUB_DEFAULT. Could be:
 ```
 GRUB_DEFAULT="Xen 4.14.1 with Linux 5.4.0-42-generic"
 ```
 
-   Update GRUB again after making changes:
+Don’t worry about misspelling the value in GRUB_DEFAULT. By default, the fallback option in GRUB is `0` if failed to match OS by name, which corresponds to the first entry in the GRUB menu, which is usually your OS. 
+
+Update GRUB again after making changes:
    ```bash
    sudo update-grub
    ```
+
+
+(FYI Concept: If you edit the `GRUB_DEFAULT` value in `/etc/default/grub` but forget to run `sudo update-grub`, your changes will not be applied. The `update-grub` command is necessary to regenerate the GRUB configuration file, typically located at `/boot/grub/grub.cfg`, which is what GRUB actually reads during boot.)
 
 4. **Reboot your system**:
    Reboot your system to boot into the Xen kernel:

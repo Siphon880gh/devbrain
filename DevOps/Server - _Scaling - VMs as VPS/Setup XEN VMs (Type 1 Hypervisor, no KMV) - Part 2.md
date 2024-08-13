@@ -288,6 +288,31 @@ SSH Fingerprint :  SHA256:... (RSA)
 Root Password   :  <IMPORTANT>
 ```
 
+#### Fix Console terminal into VM to prevent future problems
+
+You will be consoling into the VM. However a setting needs to be fixed to prevent hanging.
+
+Edit your config file in /etc/xen/vps0.cfg and add the line:
+```
+extra = 'console=hvc0 xencons=tty'
+```
+
+Eg.
+```
+kernel      = '/boot/vmlinuz-2.6.32-5-xen-amd64'  
+ramdisk     = '/boot/initrd.img-2.6.32-5-xen-amd64'  
+extra       = 'console=hvc0 xencons=tty'
+vcpus       = '1'  
+memory      = '2048'
+```
+
+
+This must be done before starting VMs with `sudo xl create...`, so if you had previous VMs running from `sudo xl list`, you have to `xl destroy vps0` and `xl create /etc/xen/vps0.cfg`. Next section if starting the VM.
+
+Thanks to for the fix: https://www.chrisnewland.com/solved-xen-domu-console-hangs-302
+
+In the future, if it hangs after consoling into a VPS, it's because root user is automatically accepted but doesnt know to start receiving user inputs. You have to CTRL+C. Then if you want assurance, you can confirm you're still in the VPS at the prompt, eg. `root@vps0:~#`, then running `ls -la` and `pwd` to see you're inside the VPS.
+
 #### Start the VM (When it's discoverable with a network bridge)
 
 Checkpoint Concept: Even though an OS is installed, we have not started the VM yet.
@@ -318,8 +343,6 @@ Domain-0                                     0  7593     8     r-----     129.7
 vps0                                         1 24576     1     -b----       2.9
 ```
 
-
-
 #### Console into the VM
 
 We quickly test if we can see the VM from the host SSH shell and whether we can interact with it
@@ -333,11 +356,35 @@ eg. `xl console vps0`
 It will ask for your username. Use root.
 Then it will ask for your password which was in the installation summary
 
-You can leave the VM shell back into the host shell by pressing CTRL + ]
+For your future reference: You can leave the VM shell back into the host shell by pressing CTRL + ]
+
+
+#### Is Linux Admin Ready?
+- Some distros are a bare bones OS version. This means some commands you expect to help with Linux administration like sudo might be missing! Package installer might be missing sources to search packages from. 
+- This is especially true for Debian 12, etc. although it's performant because it's bare minimum. In that case, refer to the folder to finish setting up the OS so you can admin the server properly: [[Debian breaking into new shoes]]
+- Unfortunately when it comes to installing sudo and other packages, you have to fix the network settings in the VM first. So you may stagger back to this step when it comes to installing packages including sudo.
 
 
 TODO:
 4. Before you install either nginx or apache or cloudpanel (which installs nginx), let's leave the VM because we have to configure its networking. Exit out of the VM with Ctrl + ]
+
+```
+x networking.service - Raise network interfaces
+     Loaded: loaded (/lib/systemd/system/networking.service; enabled; preset: e>
+     Active: failed (Result: exit-code) since Tue 2024-08-13 02:21:05 UTC; 25s >
+       Docs: man:interfaces(5)
+    Process: 431 ExecStart=/sbin/ifup -a --read-environment (code=exited, statu>
+    Process: 444 ExecStopPost=/usr/bin/touch /run/network/restart-hotplug (code>
+   Main PID: 431 (code=exited, status=1/FAILURE)
+        CPU: 12ms
+
+Aug 13 02:21:05 vps0 systemd[1]: Starting networking.service - Raise network in>
+Aug 13 02:21:05 vps0 ifup[438]: Cannot find device "eth0"
+Aug 13 02:21:05 vps0 ifup[431]: ifup: failed to bring up eth0
+Aug 13 02:21:05 vps0 systemd[1]: networking.service: Main process exited, code=>
+Aug 13 02:21:05 vps0 systemd[1]: networking.service: Failed with result 'exit-c>
+Aug 13 02:21:05 vps0 systemd[1]: Failed to start networking.service - Raise net>
+```
 
 
 ----
@@ -989,6 +1036,10 @@ After modifying the `/etc/network/interfaces` file, you should restart the netwo
 sudo systemctl restart networking && sudo systemctl restart sshd
 ```
 
+Or:
+```
+systemctl restart networking && systemctl restart sshd
+```
 
 Restarting the networking service will kick you off SSH. This command logs you back into SSH as soon as the networking service is back on. Could take up to 1-2 minutes.
 
@@ -1011,11 +1062,30 @@ If you can't log back into SSH, then the bridge is not functioning correctly or 
 2. **Test Network Connectivity by pinging the Gateway:**
    To ensure the bridge is correctly routing traffic, you can ping the gateway:
 
+Adjust to your gateway's ip and ping it:
    ```bash
    ping -c 4 208.76.249.73
    ```
 
-   This should return successful pings if the bridge is set up correctly.
+
+^ Required: Know what's your gateway IP
+You can run `ip route | grep default` to get the IP that corresponds to the gateway aka router
+**Why the command works**:  The "default" route refers to the route that packets should take when their destination address doesn't match any other route in the routing table. This "default" route is usually configured to send packets to the network's gateway, which is the device that routes traffic from your local network to other networks, including the internet.
+**Options**: `-c 4` is the Count of pings sent
+
+
+   This should return successful pings if the bridge is set up correctly. The result could be:
+```
+ING 208.76.249.73 (208.76.249.73) 56(84) bytes of data.
+
+64 bytes from 208.76.249.73: icmp_seq=1 ttl=255 time=0.253 ms
+
+64 bytes from 208.76.249.73: icmp_seq=2 ttl=255 time=0.315 ms
+
+64 bytes from 208.76.249.73: icmp_seq=3 ttl=255 time=0.263 ms
+
+64 bytes from 208.76.249.73: icmp_seq=4 ttl=255 time=0.281 ms
+```
 
 3. **Check Internet Connectivity:**
    You can also try pinging a public DNS server, like Google’s:
@@ -1026,3 +1096,58 @@ If you can't log back into SSH, then the bridge is not functioning correctly or 
 
    Successful responses indicate that the bridge is functioning as expected.
 
+**Your system can connect to the internet: apt-get**
+
+This is an opportunity to update apt-get especially when you had tried and couldn't connect to any server to download and install packages. eg. 
+`apt-get update --fix-missing` stuck on this:
+```
+Ign:1 http://deb.debian.org/debian bookworm InRelease
+Ign:2 http://deb.debian.org/debian-security bookworm-security InRelease
+0% [Connecting to deb.debian.org]
+```
+
+Then it's time to update the apt-get
+```
+apt-get update --fix-missing
+```
+
+
+
+---
+
+\< Everytime I test things, it says the pipeline broke. Then when I ssh it says known_hosts fingerprint no longer matches. can I ignore fingerprints for now?
+
+\>
+Yes, you can temporarily ignore SSH host key checking (fingerprints) if you're testing and frequently changing network configurations, which may cause the host's fingerprint to change. However, be aware that this reduces security, as SSH relies on host key verification to prevent man-in-the-middle attacks.
+
+### Temporarily Disabling Host Key Checking:
+
+You have two options:
+
+1. **Ignore Host Key Checking (Insecure):**
+   You can use the `-o StrictHostKeyChecking=no` and `-o UserKnownHostsFile=/dev/null` options with your `ssh` command to ignore the fingerprint checking:
+
+   ```bash
+   ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@your_vm_ip
+   ```
+
+   - **StrictHostKeyChecking=no**: This option prevents SSH from asking you to verify the host's fingerprint.
+   - **UserKnownHostsFile=/dev/null**: This tells SSH not to store the host key in your `~/.ssh/known_hosts` file, effectively ignoring changes to the host key.
+
+2. **Automate with SSH Config:**
+   If you're frequently connecting to this host and want to avoid adding these options each time, you can configure this in your `~/.ssh/config` file:
+
+   ```bash
+   Host your_vm_ip_or_*
+       StrictHostKeyChecking no
+       UserKnownHostsFile /dev/null
+   ```
+
+   Replace `your_vm_ip` with the actual IP address of your VM. This configuration will apply every time you SSH into this particular host.
+
+### Reverting Back:
+Once your testing is complete, you should re-enable host key checking to ensure secure connections depending on which method you used:
+
+- Remove the temporary options from your SSH command.
+- If you edited the `~/.ssh/config` file, remove the corresponding entries.
+- If fingerprints changed, you can remove the hosts from your `~/.ssh/known_hosts` or run `ssh-keygen -R your_vm_ip` which does it for you
