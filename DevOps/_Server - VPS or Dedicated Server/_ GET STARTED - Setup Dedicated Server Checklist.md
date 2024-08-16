@@ -89,8 +89,73 @@ And to find out if your dedicated server can support the VM - say the customer s
 
 ACTION: Once you found out the right type of virtualization and that it'll be performant, you'll look up guides on how to perform the virtualization on your OS. You do this before installing any web servers, etc. For example, eg. Google: Ubuntu 22 KVM virtualization. Some other tools could be Cockpit, Proxmox, Xen
 
-For example, This is a guide for Xen (type 1 hypervisor, no KVM): [[Setup XEN VMs (Type 1 Hypervisor, no KMV) - Part 1]]
+For example, This is a guide for Xen (type 1 hypervisor, no KVM): [[Setup XEN VMs (Type 1 Hypervisor, no KMV) - Part 1]] which could continue into part 2 [[Setup XEN VMs (Type 1 Hypervisor, no KMV) - Part 2]]
 
+
+#### Summary by the time you are done creating a VPS:
+
+Note this is a summary. These are not instructions to be followed. Follow the instructions from the tutorial links above.
+
+lscpu to show about cpu. I read what type of hardware virtualization. I decided Xen because KVM (kernel-based vm) hardware virtualization wasn’t available, which is unfortunate because that’s faster. If no hardware virtualization available, I would have went with OS which is the slowest.
+
+I installed xen
+
+Then I setup the system to boot into the xen hypervisor that works with hardware virtualization so I’ll be capable of creating VMs. I went to edit: `vi /etc/default/grub`. And I edited in `GRUB_DEFAULT="Debian GNU/Linux, with Xen 4.17-amd64 and Linux 6.1.0-22-amd64"`. I know the values are gonna be different system to system so I arrived at this by running `grep -E "menuentry " /boot/grub/grub.cfg`  to find out what fits my system’s Xen version that I would be booting into. Before I reboot, I ran `sudo update-grub` to apply the settings, otherwise it'd boot back into the same system rather than the Xen hypervisor version. Rebooted running `sudo reboot`
+
+Because it was booted into Xen, I could verify the xen hypervisor was working:  `xl info`. And it was fine with no errors, so it reported Xen information. I could've ran `xl info | grep caps`  just to verify the type of hardware virtualizations was possible, but I already knew from earlier that hardware virtualization is possible, but the faster KVM hardware virtualization was not possible.
+
+Then I looked at my computer resources and network speed to make determinations on how much Im allocating to the VM. Usually 90% if Im only going to ever have one VPS on the dedicated server (for the purpose of having an isolated system I could restart or restore without the dedicated server being down, since I dont own the physical machine in front of me and have to ask support for help which could mean the website is down for half a day). 
+
+Keeping those resources in mind, I created a partition for the new VM. Initially actually I could not create new partitions because there is only one main partition and it's the root filesystem my SSH session is on, so I reached out to partition to help. In the end of partition, I reviewed my partitions with `lsblk`. It looked like:
+```
+NAME               MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS  
+sda                  8:0    0  223G  0 disk   
+├─sda1               8:1    0 14.9G  0 part [SWAP]  
+├─sda2               8:2    0 46.6G  0 part /  
+├─sda3               8:3    0 46.6G  0 part /backup  
+├─sda4               8:4    0    1K  0 part   
+└─sda5               8:5    0  115G  0 part   
+sr0                 11:0    1 1024M  0 rom   
+```
+
+  
+I then start the chain of commands that will make sda5 into a volume group (eg. called vg0) because xen-create-image needs a volume group that designates your partition can be split into further "partitions" (actually called logical volumes) for the purposes of VM. There was actually a lot involved because it wasn't a straight partition to volume group. The support team left unallocated sectors from sda for me to allocate as I wished, so I allocated it as extended partition of 115gb, then designated all the extended partition as logical partition. The logical partition is sda5, which is the partition that can be mountable, so that's the partition that becomes volume group (but firstly I must assign it as physical volume, then I can assign them as volume group). Xen-create-image then slices the sda5 logical partition via its volume group assignment, into 15GB swap and 99GB VM (I had to use less than 100GB because it couldn't take). When you run the more detailed command `sudo fdisk -l /dev/sda`, you'll see:
+```
+Device     Boot     Start       End   Sectors  Size Id Type
+/dev/sda1            2048  31250431  31248384 14.9G 82 Linux swap / Solaris
+/dev/sda2  *     31250432 128907263  97656832 46.6G 83 Linux
+/dev/sda3       128907264 226564095  97656832 46.6G 83 Linux
+/dev/sda4       226564096 467664895 241100800  115G  5 Extended
+/dev/sda5       226566144 467664895 241098752  115G 83 Linux
+```
+And running `lsblk` after all that was:
+```
+NAME               MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+sda                  8:0    0  223G  0 disk 
+├─sda1               8:1    0 14.9G  0 part [SWAP]
+├─sda2               8:2    0 46.6G  0 part /
+├─sda3               8:3    0 46.6G  0 part /backup
+├─sda4               8:4    0    1K  0 part 
+└─sda5               8:5    0  115G  0 part 
+  ├─vg0-vps0--swap 254:0    0   15G  0 lvm  
+  └─vg0-vps0--disk 254:1    0   99G  0 lvm  
+sr0                 11:0    1 1024M  0 rom  
+```
+
+
+xen-create-image was assigned to the volume group along with the computer resource: allocations: `sudo xen-create-image --force --verbose --hostname=vps0 --dhcp --lvm=vg0 --size=99G --memory=24G --swap=15G --debootstrap --dist=bookworm --arch=amd64 --mirror=[http://deb.debian.org/debian/](http://deb.debian.org/debian/) --debootstrap-cmd='/usr/sbin/debootstrap'`
+
+That command not only created an image I could start a VM from, but it also created the config file for the mounting, further splitting of the partition into logical volumes for the VM and its swap file, and resource allocations for the VM
+
+When I ran `xen create vps0`  which is the name of the hostname I assigned during xen-create-image, it creates the VM if a virtual bridge had existed to allow computers to virtually connect to the physical network of the host machine (dedicated server) and the gateway (aka router). The virtual bridge is coded into existence by editing the networking existence at `/etc/network/interfaces` 
+
+Upon successful start of the VM, I console into the VM and edit its networking settings at the VM’s `/etc/network/interfaces`  and assign it a static public IP so that the internet can connect to my VM as though it’s a VPS offering webpages. I can figure out public IPs are available to my VM by looking at the information my provider / web host given to me (either it’s a CIDR IP, a netmask, or an actual list of available IPs) and making sure the IP I choose is not the already taken by other devices on the network (and I run commands to check the ip addresses of connected devices).
+
+Because there’s a public IP and I have a root username and password (it was announced in an installation instructions output when I started the VM with `xen create vps0` ), then I tried connecting SSH into the VPS from my home computer. By being successful, it meant I connected over the internet to the VPS via port 20.
+
+  
+
+The rest of hosting a webpage on the VPS is a matter of installing nginx/apache/cloudpanel which opens up ports 80 and 443. Then pointing a purchased domain name to the VM’s public IP so people can practically visit it from the domain name. Then adding SSL through cloudpanel for free, unless I need to buy a SSL for stricter business regulations purposes.
 
 ---
 
@@ -243,7 +308,7 @@ Briefly:
 
 - I. Check if Cloudpanel Vhosts can save (feel free to add a space at a whitespace area, then click Save)
   
-  Quick outline of Vhost not saving errors:
+  Brief outline of Vhost not saving errors:
   - If gives a "redirect loop detected" error
   - If gives a 404 Let's Encrypt error
   - If goes to 500 internal server Let's Encrypt error
@@ -251,7 +316,7 @@ Briefly:
   	  
 	- If gives a "redirect loop detected" error:
 			```
-			www.videolistings.ai: Domain could not be validated, error message: error type: urn:ietf:params:acme:error:connection, error detail: 208.76.249.75: Fetching https://www.domain.com/.well-known/acme-challenge/zU7VjGctj6VPEv1eR_HtEjq-e54zb_39pHNOFygQGD8: Redirect loop detected
+			www.videolistings.ai: Domain could not be validated, error message: error type: urn:ietf:params:acme:error:connection, error detail: 222.22.222.25: Fetching https://www.domain.com/.well-known/acme-challenge/zU7VjGctj6VPEv1eR_HtEjq-e54zb_39pHNOFygQGD8: Redirect loop detected
 			```
 		- Notice it said Redirect loop detected. It’s because the Let’s Encrypt is visiting to a www.
 		- This will correlate to visiting http://www.domain.com giving this error:
@@ -310,7 +375,7 @@ Briefly:
 
 	- If gives a 404 Let's Encrypt error:
 			```
-			app.videolistings.ai: Domain could not be validated, error message: error type: urn:ietf:params:acme:error:unauthorized, error detail: 208.76.249.75: Invalid response from http://domain.com/.well-known/acme-challenge/hj0GXFJ_sW2VzVOjxxYaeyp9AXnPyz800-C3WL0zgEU: 404
+			app.videolistings.ai: Domain could not be validated, error message: error type: urn:ietf:params:acme:error:unauthorized, error detail: 222.22.222.25: Invalid response from http://domain.com/.well-known/acme-challenge/hj0GXFJ_sW2VzVOjxxYaeyp9AXnPyz800-C3WL0zgEU: 404
 			```
 		- **Solution 1 to 404 Let's Encrypt error**: 
 		  See if can recreate the folder path and add a file to see if you can visit it on your web browser. The folders are missing because the way Let's Encrypt works is it creates the folders and file then removes them.
@@ -339,7 +404,7 @@ Briefly:
 
 		- If the Cloudpanel vhost 500 error is from a missing file or folder:
 		```
-		2024/08/03 08:27:19 [error] 154388#154388: *84 open() "/home/clp/htdocs/app/files/public/site/100pullups.app/ext-searchbox.js" failed (2: No such file or directory), client: 209.65.62.26, server: _, request: "GET /site/100pullups.app/ext-searchbox.js HTTP/2.0", host: "208.76.249.74:8443", referrer: "https://208.76.249.74:8443/site/100pullups.app/vhost"
+		2024/08/03 08:27:19 [error] 154388#154388: *84 open() "/home/clp/htdocs/app/files/public/site/100pullups.app/ext-searchbox.js" failed (2: No such file or directory), client: 209.65.62.26, server: _, request: "GET /site/100pullups.app/ext-searchbox.js HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/100pullups.app/vhost"
 		```
 
 		- Then this lack of folder means the installation likely was corrupted. Go to home/ and change the permissions to 777 and owner to root on the clp or cloudpanel folder. Then rerun the installation command as root user or sudo user. The installation will later reset clp or cloudpanel to the correct ownership and permissions
@@ -349,15 +414,15 @@ Briefly:
 
 		- If the Cloudpanel vhost 500 error is because of file permission problems:
 			```
-			2024/08/03 10:36:17 [crit] 266908#266908: *96 open() "/var/lib/nginx/body/0000000005" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test3.com/vhost HTTP/2.0", host: "208.76.249.74:8443", referrer: "https://208.76.249.74:8443/site/test3.com/vhost"
+			2024/08/03 10:36:17 [crit] 266908#266908: *96 open() "/var/lib/nginx/body/0000000005" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test3.com/vhost HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/test3.com/vhost"
 			
-			2024/08/03 10:36:38 [crit] 266908#266908: *110 open() "/var/lib/nginx/body/0000000006" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test4.com/vhost HTTP/2.0", host: "208.76.249.74:8443", referrer: "https://208.76.249.74:8443/site/test4.com/vhost"
+			2024/08/03 10:36:38 [crit] 266908#266908: *110 open() "/var/lib/nginx/body/0000000006" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test4.com/vhost HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/test4.com/vhost"
 			
-			2024/08/03 10:37:02 [crit] 266908#266908: *118 open() "/var/lib/nginx/body/0000000007" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test4.com/vhost HTTP/2.0", host: "208.76.249.74:8443", referrer: "https://208.76.249.74:8443/site/test4.com/vhost"
+			2024/08/03 10:37:02 [crit] 266908#266908: *118 open() "/var/lib/nginx/body/0000000007" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test4.com/vhost HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/test4.com/vhost"
 			
-			2024/08/03 10:37:07 [crit] 266908#266908: *120 open() "/var/lib/nginx/body/0000000008" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test4.com/vhost HTTP/2.0", host: "208.76.249.74:8443", referrer: "https://208.76.249.74:8443/site/test4.com/vhost"
+			2024/08/03 10:37:07 [crit] 266908#266908: *120 open() "/var/lib/nginx/body/0000000008" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test4.com/vhost HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/test4.com/vhost"
 			
-			2024/08/03 10:37:14 [crit] 266908#266908: *125 open() "/var/lib/nginx/body/0000000009" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test4.com/vhost HTTP/2.0", host: "208.76.249.74:8443", referrer: "https://208.76.249.74:8443/site/test4.com/vhost"
+			2024/08/03 10:37:14 [crit] 266908#266908: *125 open() "/var/lib/nginx/body/0000000009" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test4.com/vhost HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/test4.com/vhost"
 			```
 
 
@@ -1039,7 +1104,7 @@ user: ..
 password: ..
 SSH in from local computer: 
 ```
-ssh root@208.76.249.75
+ssh root@222.22.222.25
 ```
 
 

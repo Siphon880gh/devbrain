@@ -187,7 +187,8 @@ In that case, you HAVE A PROBLEM. Your entire disk is allocated to a single part
 	
 	I hope we do not need to reformat my files. But if we must, I have things backed up already and the preferred OS is Debian 12.
 	```
-- Response back to you: Your numbers for all the partitions might not be exact, so the support team might leave some unallocated sectors for you to allocate the final partition. Otherwise there might be some GB's remaining if they perform all the partitions exactly as told. Or they might allocate more GBs to the biggest partition. This depends on the technician. If they left you unallocated sectors for you to partition, instructions on how to partition the rest of the unallocated sectors are at [[Partition unallocated sectors on a disk in Linux]]
+- Response back to you: Your numbers for all the partitions might not be exact, so the support team might leave some unallocated sectors for you to allocate the final partition. Otherwise there might be some GB's remaining if they perform all the partitions exactly as told. Or they might allocate more GBs to the biggest partition. This depends on the technician. If they left you unallocated sectors for you to partition, instructions on how to partition the rest of the unallocated sectors are at:
+  [[Partition unallocated sectors on a disk in Linux]]
 
 #### Overview you will create logicals from the non-root partition
 
@@ -288,9 +289,10 @@ SSH Fingerprint :  SHA256:... (RSA)
 Root Password   :  <IMPORTANT>
 ```
 
-#### Fix Console terminal into VM to prevent future problems
+## Starting a VM from the Image
+#### Before starting the VM, adjust console settings
 
-You will be consoling into the VM. However a setting needs to be fixed to prevent hanging.
+You will be consoling into the VM after starting it. However at the moment, a setting needs to be fixed to prevent the console from hanging. For the setting to apply, it's applied when you start the VM. So let's edit the setting now.
 
 Edit your config file in /etc/xen/vps0.cfg and add the line:
 ```
@@ -307,29 +309,34 @@ memory      = '2048'
 ```
 
 
-This must be done before starting VMs with `sudo xl create...`, so if you had previous VMs running from `sudo xl list`, you have to `xl destroy vps0` and `xl create /etc/xen/vps0.cfg`. Next section if starting the VM.
+This must be done before starting VMs with `sudo xl create...`, so if you had previous VMs running from `sudo xl list` and you want to apply this setting fix to them as well, you have to `xl destroy vps0` and `xl create /etc/xen/vps0.cfg`. Next section if starting the VM.
 
 Thanks to for the fix: https://www.chrisnewland.com/solved-xen-domu-console-hangs-302
 
-In the future, if it hangs after consoling into a VPS, it's because root user is automatically accepted but doesnt know to start receiving user inputs. You have to CTRL+C. Then if you want assurance, you can confirm you're still in the VPS at the prompt, eg. `root@vps0:~#`, then running `ls -la` and `pwd` to see you're inside the VPS.
+After this fix, it might still hang but lets you Ctrl+C out of the hang (versus if you didn't have the setting applied, it would hang for a much worse problem - not having the VM terminal to flow to the current terminal). If it hangs, it's because root user is automatically accepted but the shell doesn't know it's time to start receiving user inputs. You have to CTRL+C, then you you can start typing into the console. Then if you want assurance that you've been authenticated automatically, you can confirm you're still in the VPS by looking at the prompt being simila to `root@vps0:~#`, or running `ls -la`, or running `pwd`.
 
-#### Start the VM (When it's discoverable with a network bridge)
+#### Before starting the VM, create the virtual bridge
+Some networking knowledge (FYI's) you need to know: Refer to [[_Networking - Concept Primer of creating VPS]]
 
-Checkpoint Concept: Even though an OS is installed, we have not started the VM yet.
+To add the bridge, follow the guide at [[_Networking - Create virtual bridge to make guest VM accessible by host machine at dedicated server]]
 
-Start the VM by running the xl create which creates an entry in `xl list`. It's Xen's vocabulary that domains mean VMs. We run off a config file that's named based off the hostname option from xen-create-image:
+#### Start the VM
+
+Required vocabulary: In Xen Project's `xl`, creating a VM is the same thing as starting a VM.
+
+Start the VM by running the `xl create` which creates an entry in `xl list`. It's Xen's vocabulary that domains mean VMs. We run off a config file that's named based off the hostname option from xen-create-image:
 ```
 sudo xl create /etc/xen/vps0.cfg
 ```
 
-**IF** it complains about bridging like this below then you need to modify /etc/network/bridges to add xenbr0, then you restart the network - Refer to very bottom Appendix Z - Create networking bridge for host and VM(s) . You cannot even console into the VM because the network bridge must be done for the SSH shell to even connect to other computers (VM) on the same network. After all that's done, you re-attempt the `xl create` command again by jumping back to this section `Start the VM (When it's discoverable with a network bridge)`:
+Coincidentally by starting the VM, we are also testing that the virtual bridge works. Because if it doesn't work, then the host machine can't create the VM and connect to all available VMs in `xl list` -  Xen will cancel starting the VM because it'll know it won't go into `xl list`. Furthermore, you cannot even console into the VM because the network bridge must be done for the SSH shell to even connect to other computers (VM) on the same network. 
+
+**IF** it complains about bridging like this below then you need to check if you did anything wrong setting up the virtual bridge. After all that's done, you re-attempt the `xl create` command:
 ```
 root@debian:~# sudo xl create /etc/xen/vps0.cfg Parsing config from /etc/xen/vps0.cfg libxl: error: libxl_exec.c:117:libxl_report_child_exitstatus: /etc/xen/scripts/vif-bridge online [24802] exited with error status 1 libxl: error: libxl_device.c:1319:device_hotplug_child_death_cb: script: Could not find bridge device xenbr0 libxl: error: libxl_create.c:1921:domcreate_attach_devices: Domain 1:unable to add vif devices libxl: error: libxl_exec.c:117:libxl_report_child_exitstatus: /etc/xen/scripts/vif-bridge offline [24849] exited with error status 1 libxl: error: libxl_device.c:1319:device_hotplug_child_death_cb: script: Could not find bridge device xenbr0 libxl: error: libxl_domain.c:1183:libxl__destroy_domid: Domain 1:Non-existant domain libxl: error: libxl_domain.c:1137:domain_destroy_callback: Domain 1:Unable to destroy guest libxl: error: libxl_domain.c:1064:domain_destroy_cb: Domain 1:Destruction of domain failed
 ```
 
-**IF** you have to wait for a slight while with `Parsing config from /etc/xen/vps0.cfg` and no other messages appear, likely it's a success.
-
-List all VMs to see if the new VM is listed:
+**IF** you have to wait for a slight while with `Parsing config from /etc/xen/vps0.cfg` and no other messages appear, likely it's a success. To be sure, list all VMs to see if the new VM is listed:
 ```
 xl list
 ```
@@ -342,6 +349,10 @@ Name                                        ID   Mem VCPUs	State	Time(s)
 Domain-0                                     0  7593     8     r-----     129.7
 vps0                                         1 24576     1     -b----       2.9
 ```
+
+If you only see Domain-0, then it failed!
+
+Lets console into the successfully created VM. We should be able to console into the VM's console because of the virtual bridge.
 
 #### Console into the VM
 
@@ -356,188 +367,39 @@ eg. `xl console vps0`
 It will ask for your username. Use root.
 Then it will ask for your password which was in the installation summary
 
-For your future reference: You can leave the VM shell back into the host shell by pressing CTRL + ]
+For your future reference: You can leave the VM shell back into the host shell by pressing `CTRL + ]`
 
-
-#### Is Linux Admin Ready?
+#### Is Linux Administration Ready?
 - Some distros are a bare bones OS version. This means some commands you expect to help with Linux administration like sudo might be missing! Package installer might be missing sources to search packages from. 
 - This is especially true for Debian 12, etc. although it's performant because it's bare minimum. In that case, refer to the folder to finish setting up the OS so you can admin the server properly: [[Debian breaking into new shoes]]
-- Unfortunately when it comes to installing sudo and other packages, you have to fix the network settings in the VM first. So you may stagger back to this step when it comes to installing packages including sudo.
-
-
-TODO:
-4. Before you install either nginx or apache or cloudpanel (which installs nginx), let's leave the VM because we have to configure its networking. Exit out of the VM with Ctrl + ]
-
-```
-x networking.service - Raise network interfaces
-     Loaded: loaded (/lib/systemd/system/networking.service; enabled; preset: e>
-     Active: failed (Result: exit-code) since Tue 2024-08-13 02:21:05 UTC; 25s >
-       Docs: man:interfaces(5)
-    Process: 431 ExecStart=/sbin/ifup -a --read-environment (code=exited, statu>
-    Process: 444 ExecStopPost=/usr/bin/touch /run/network/restart-hotplug (code>
-   Main PID: 431 (code=exited, status=1/FAILURE)
-        CPU: 12ms
-
-Aug 13 02:21:05 vps0 systemd[1]: Starting networking.service - Raise network in>
-Aug 13 02:21:05 vps0 ifup[438]: Cannot find device "eth0"
-Aug 13 02:21:05 vps0 ifup[431]: ifup: failed to bring up eth0
-Aug 13 02:21:05 vps0 systemd[1]: networking.service: Main process exited, code=>
-Aug 13 02:21:05 vps0 systemd[1]: networking.service: Failed with result 'exit-c>
-Aug 13 02:21:05 vps0 systemd[1]: Failed to start networking.service - Raise net>
-```
-
-
-----
-
-### Modify VM to act as VPS
-
-Requires networking knowledge.
-
-#### Overview of Network Settings to allow VPS
-- Let's assume you have a dedicated server that can host a website on the internet if you wanted to.
-- But instead you want to carve out a VPS in this dedicated server so if the public facing website breaks, because the website is on the VPS, you can manage the VPS from your dedicated server's console (think restore from a backup). You dont want to wait for support of your rented colocation to reinstall or restart the dedicated server (which could downtime your website for half a day)
-- A computer can act as a web server when its ports are opened to listen for internet requests with the ability to deliver back webpages or other files. It can open other ports to perform other data transmissions like SSH or act as a gaming server. Your computer is not shared with other businesses, therefore your computer is your dedicated server.
-- Originally your physical network (all the devices and computer connected) consists of your computer connected to a network interface's ethernet port (one of many ports) which connects to gateway aka router, which then connects to the rest of the internet network. The gateway/router assigns IP addresses to devices on the network and routes traffic between the local network and the internet. Yes the gateway/router has a "DHCP server" or service inside.
-- Now you will add VPS to your physical network. This is another computer whether it's a physical computer or a virtual one (aka VM, aka guest OS). Your VM has to go through your computer / dedicated server to receive or send information to the internet. The internet is blind to your VM. So what you do is create a "virtual bridge" and this is because you're not using a physical device for bridging the computers. Your virtual bridge will connect your guest OS / VMs to the internet too, hence when you assign a static public IP or the gateway/router's DHCP service assigns a public IP from a pool of public IPs, it can be connected to by other users on the internet. Btw, the host and available public IPs were assigned by the ISP and then your provider/webhost gave it to you during onboarding.
-
-#### Prepare to setup networking inside the dedicated server
-
-1. Get the IP address of your dedicated server that your SSH session is on:
-```
-hostname -I
-```
-
-
-*Result could be:*
-```
-208.76.249.74
-```
-
-2. Get information about your server's network and its connection to the internet network:
-```
-echo "Current IP Address (default interface):" && ip -4 addr show $(ip route | grep default | awk '{print $5}') | grep -oP '(?<=inet\s)\d+(\.\d+){3}'  
-echo ''  
-echo -e "\nAll Available IP Addresses:" && ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}/\d+'
-echo ''
-echo -e "\nNetmask (for default interface):" && ip -4 addr show $(ip route | grep default | awk '{print $5}') | grep -oP '(?<=inet\s)\d+(\.\d+){3}/\d+' | cut -d '/' -f 2  
-echo ''  
-echo -e "\nGateway:" && ip route | grep default | awk '{print $3}'  
-echo ''  
-echo -e "\nDNS Servers:" && cat /etc/resolv.conf | grep 'nameserver' | awk '{print $2}'    
-echo -e "\nNetwork Speed/Bandwidth:" && ethtool $(ip route | grep default | awk '{print $5}') | grep -i "speed"  
-echo ''  
-echo -e "\nip a:" && ip a
-```
-
-
-*Result could be:*
-```
-Current IP Address (default interface):
-208.76.249.74
-
-
-All Available IP Addresses:
-127.0.0.1/8
-208.76.249.74/29
-
-
-Netmask (for default interface):
-29
-
-
-Gateway:
-208.76.249.73
-
-
-DNS Servers:
-204.13.153.34
-64.69.34.82
-8.8.8.8
-
-Network Speed/Bandwidth:
-	Speed: 1000Mb/s
-
-
-ip a:
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host noprefixroute 
-       valid_lft forever preferred_lft forever
-2: eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
-    link/ether 34:17:eb:ee:2a:87 brd ff:ff:ff:ff:ff:ff
-    altname enp4s0f0
-    inet 208.76.249.74/29 brd 208.76.249.79 scope global eno1
-       valid_lft forever preferred_lft forever
-    inet6 fe80::3617:ebff:feee:2a87/64 scope link 
-       valid_lft forever preferred_lft forever
-3: eno2: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
-    link/ether 34:17:eb:ee:2a:88 brd ff:ff:ff:ff:ff:ff
-    altname enp4s0f1
-```
-
-
-3. Run `cat /etc/network/interfaces`:
-*Result could be:*
-```
-# This file describes the network interfaces available on your system
-# and how to activate them. For more information, see interfaces(5).
-
-source /etc/network/interfaces.d/*
-
-# The loopback network interface
-auto lo
-iface lo inet loopback
-
-# The primary network interface
-allow-hotplug eno1
-iface eno1 inet static
-        address 208.76.249.74/29
-        gateway 208.76.249.73
-        # dns-* options are implemented by the resolvconf package, if installed
-        dns-nameservers 204.13.153.34 64.69.34.82 8.8.8.8
-        dns-search 76.249.74.rdns.ColocationAmerica.com
-```
-
-5. Get next IP address you want to assign
-
-For example, the output from above is in CIDR format:
-```
-All Available IP Addresses:
-208.76.249.74/29
-```
-
-
-Ask chat for the available IPs or calculate yourself (ipcalc and other scripts are not reliable as of 2024 to my knowledge):
-```
-For the IP address block `208.76.249.74/29`, there are a total of 8 IP addresses available. Here's the breakdown:
-
-- **Network Address:** 208.76.249.72 (This address cannot be assigned to devices, as it identifies the network itself.)
-- **Usable IP Addresses:** 208.76.249.73 to 208.76.249.78 (These are the IP addresses that can be assigned to devices.)
-- **Broadcast Address:** 208.76.249.79 (This address is used for broadcasting to all devices on the network and cannot be assigned to individual devices.)
-
-So, the **usable IP addresses** are:
-
-- 208.76.249.73
-- 208.76.249.74
-- 208.76.249.75
-- 208.76.249.76
-- 208.76.249.77
-- 208.76.249.78
-```
-
-
-#### Setup VMs to be discoverable by the internet network
-
-To set up your VM to act as a VPS with a public-facing website, you'll need to modify your network configuration to include a bridge. This bridge will allow the VM to communicate with the external network.
-
-TODO: Will complete this section
+- Why make Linux Administration Ready now? Your dedicated server can see and connect (by the way of consoling) into your VM, but in order for your VM to be seen by the internet as having websites, you must make your operating system be able to run sudo and being able to edit with vi editor. Some distros lack that and requires a bit of breaking in (more setups). Your VM can successfully connect to the internet for downloading files because of the virtual bridge which allows your VM to connect to the router/gateway that accesses the internet, and a lot of the tools to continue setting up is through you package installer (eg. apt-get, etc).
 
 ---
 
+## Convert the VM into a VPS that can show webpages on the internet
 
-### OPTIONAL: Modify the VPS to not overhog the dedicated server's bandwidth
+#### Can skip reading: Why you want a VPS
+- Let's assume you have a dedicated server that can host a website on the internet if you wanted to.
+	(Background what's a dedicated server: Your computer is not shared with other businesses, therefore your computer is your dedicated server.)
+- But instead you want to carve out a VPS in this dedicated server so if the public facing website breaks, because the website is on the VPS, you can manage the VPS from your dedicated server's console (think restore from a backup). You dont want to wait for support of your rented colocation to reinstall or restart the dedicated server (which could downtime your website for half a day)
+- You have to create a VM which requires you to create an image from a desired OS installation file. Why a virtual computer? A computer can act as a web server when its ports are opened to listen for internet requests with the ability to deliver back webpages or other files. It can open other ports to perform other data transmissions like SSH or act as a gaming server. 
+- Originally your physical network (all the devices and computer connected) consists of your computer connected to a network interface's ethernet port (one of many ports) which connects to gateway aka router, which then connects to the rest of the internet network. The gateway/router assigns IP addresses to devices on the network and routes traffic between the local network and the internet. Yes the gateway/router has a "DHCP server" or service inside.
+- Now you will add VPS to your physical network. This is another computer whether it's a physical computer or a virtual one (aka VM, aka guest OS). Your VM has to go through your computer / dedicated server to receive or send information to the internet. The internet is blind to your VM. So what you do is create a "virtual bridge" and this is because you're not using a physical device for bridging the computers. Your virtual bridge will connect your guest OS / VMs to the internet too, hence when you assign a static public IP or the gateway/router's DHCP service assigns a public IP from a pool of public IPs, it can be connected to by other users on the internet. Btw, the host and available public IPs were assigned by the ISP and then your provider/webhost gave it to you during onboarding.
+
+#### Make your VM discoverable on the internet, becoming a VPS
+
+Although your VM can connect to the internet when you install packages (`apt install ..`), for example. It can because it's connected to the router. However to make the VM discoverable so it can be requested for webpages (in other words, internet users can visit a webpage on your VM), several setups will be done in this section:
+- Assign a static IP address to your VM 
+	- Explanation: You need a static IP which is a public IP address that never changes. Dynamic IP addresses changes based on a first come first server basis (if you have multiple VMs and some start crashing, now the IP addresses could get changed)
+	- You will assign your purchased domain name to a specific IP address.
+- Install a web server so that ports 80 (http) and 443 (https) are open to listening to internet requests using a daemon / background process. Those internet requests are delivered to the VM through the gateway/router. Then your VM delivers a webpage or other files back to the internet. This is synonymous with receiving and sending packets. 
+
+Follow the instructions sat [[_Networking - Assign VM a public IP and listen to ports 22, 80, 443 for SSH and websites]]
+
+
+---
+
+### OPTIONAL: Modify the VPS to not hog the dedicated server's bandwidth
 
 #### Prepare to allocate networking resources (bandwidth) inside the VM
 > [!note] Allocation network resources after image creation
@@ -596,7 +458,7 @@ This configuration should effectively limit the bandwidth usage for your VM, pre
 
 ----
 
-### OPTIONAL: Modify the VPS to not overhog the dedicated server's CPU compute resources
+### OPTIONAL: Modify the VPS to not hog the dedicated server's CPU compute resources
 
 This is optional. You can modify the VPS (really, you're modifying the VM) so it uses up to specific CPU criteria.
 
@@ -785,369 +647,5 @@ sudo lvremove vg0/...-host
 sudo lvremove vg0/...-swap
 ```
 
-Note that xen-craete-image with the --force option does not do the above steps when you create an image onto the same volume group.
+Note that xen-create-image with the --force option does not do the above steps when you create an image onto the same volume group.
 
----
-
-
-## APPENDIX Y (Why - Networking concepts)
-
-### Networking Bridge mode to allow dedicated server and VPS:
-
-#### **Conceptually this means I virtually bridged my VMs to the gateway/router so it's seenable by the internet?**
-
-Yes, conceptually, creating a bridge on your host system (dedicated server) and connecting your VMs to that bridge means you are effectively linking your VMs to the same network as your host's physical interface. This setup allows the VMs to be directly accessible on the network, just like any other device connected to the router or gateway.
-
-**Here’s how it works:**
-
-1. **Bridge Interface (br0):**
-   - The bridge interface (`br0`) acts like a virtual network switch that connects multiple network interfaces, including your physical network interface (`eno1`) and the virtual interfaces of your VMs.
-   - By assigning your host’s IP address and gateway to the bridge, you’re ensuring that the bridge manages the network traffic for both the host and any VMs connected to it.
-
-2. **VM Connection:**
-   - When you configure your VM to use the bridge (`vif = ['bridge=br0']`), the VM’s virtual network interface is connected to this bridge.
-   - This allows the VM to appear on the same network as your host, with its own IP address (either assigned by DHCP or statically set).
-   - The VM can now send and receive network traffic through the bridge, just like the host.
-
-3. **Public Accessibility:**
-   - Because the VM is connected to the same network as your host, it can be assigned an IP address in the same range as the host.
-   - This makes the VM accessible from outside the host, as if it were a separate machine on the network.
-   - If the VM is assigned a public IP address, it will be reachable over the internet, allowing it to host services like a website that people can visit.
-
-**Visualization:**
-
-- **Before Bridging:** Your VM’s network is isolated from the external network unless explicitly routed. It may only be accessible via NAT or port forwarding from the host.
-
-- **After Bridging:** Your VM is virtually "bridged" to the same network as the host's physical interface. It can directly communicate with the gateway/router and be accessed from the internet.
-
-This setup is common in scenarios where you want your VMs to be treated as first-class citizens on the network, with their own IP addresses and full network visibility.
-
-#### Does this mean my dedicated server is also bridged virtually on the same br0?
-
-Yes, that’s correct! When you create a bridge interface (`br0`) on your dedicated server and assign the server’s IP address and gateway to that bridge, both your dedicated server and any VMs connected to the bridge are effectively sharing the same virtual network.
-
-**Here’s how it works:**
-
-1. **Shared Bridge Interface (`br0`):**
-   - The bridge (`br0`) acts as a virtual switch that connects your dedicated server's physical network interface (`eno1`) and the virtual network interfaces of your VMs.
-   - By assigning the IP address and gateway directly to the bridge (`br0`), you're moving the network management from the physical interface (`eno1`) to the bridge.
-
-2. **Dedicated Server’s Role:**
-   - The dedicated server is also connected to this bridge through its physical interface (`eno1`), which now participates in the bridge instead of having a separate network configuration.
-   - This means that both the server and the VMs are on the same network, and traffic from the server and the VMs is routed through the bridge.
-
-3. **Networking Implications:**
-   - **Virtual Switch:** The bridge functions like a virtual switch inside your server. It forwards network packets between the server, the VMs, and the external network (through `eno1`).
-   - **Same Network Visibility:** Both the dedicated server and the VMs appear as separate devices on the same network, each potentially with its own IP address.
-   - **Public Accessibility:** If your server has a public IP, the VMs connected to `br0` can also have public IPs (if available), making them accessible from the internet.
-
-**Conceptual Visualization:**
-
-- **Without a Bridge:** The dedicated server is directly connected to the network via `eno1`, and any VMs would need separate routing, NAT, or port forwarding to communicate externally.
-
-- **With a Bridge (`br0`):** The dedicated server's physical interface (`eno1`) and the VMs are all connected to the same virtual network through `br0`. The server and the VMs can communicate as if they were on the same physical switch, sharing the same network segment.
-
-**Summary:**
-- Your dedicated server and the VMs are "virtually bridged" through `br0`, meaning they are on the same network and can communicate with each other and with external networks via the same gateway/router.
-- This setup allows for seamless network integration between the server and VMs, with each able to have its own IP and be independently accessible.
-
-
-#### So even though the gateway (and hence the internet network) connects to the physical NIC (Network interface controller), the internet sees the virtual switch which bridges the host and the guest OS?
-
-Yes, exactly! The bridge interface (`br0`) you created on your dedicated server essentially acts as a virtual switch. Here's how it works:
-
-**How the Bridge (`br0`) Works:**
-
-1. **Physical NIC (Network Interface Controller):**
-   - Your dedicated server's physical NIC (`eno1`) is the actual hardware that connects to your network, including the gateway and the wider internet.
-   - It physically connects your server to your network infrastructure (e.g., router, gateway) using the network cable or other physical connections.
-
-2. **Virtual Bridge (`br0`):**
-   - The bridge interface (`br0`) is a software construct that acts like a virtual network switch inside your server.
-   - You connect the physical NIC (`eno1`) to this bridge, so now the bridge manages the network traffic instead of `eno1` directly.
-
-3. **Host (Dedicated Server) and Guest OS (VMs):**
-   - Both the host (dedicated server) and any VMs connected to the bridge are treated as if they are all plugged into the same physical switch.
-   - They can communicate with each other directly through the bridge, just like devices connected to the same physical switch would.
-
-4. **Gateway and Internet Connectivity:**
-   - The bridge forwards network traffic between your host, VMs, and the external network through the physical NIC (`eno1`).
-   - From the perspective of the external network (including the gateway and the internet), all devices connected to the bridge (host and VMs) appear to be on the same network.
-
-5. **Public IP Addresses:**
-   - If your server or VM has a public IP address, the bridge allows it to be directly accessible over the internet. The network sees each device connected to the bridge (host or VM) as having its own IP address and treats them as separate entities.
-
-**Visualizing the Concept:**
-
-- **Physical Layer:** The physical NIC (`eno1`) connects to the gateway/router, providing the physical link to the internet.
-- **Virtual Layer (Bridge `br0`):** The bridge (`br0`) connects the physical NIC and the virtual network interfaces of the VMs, effectively placing them on the same network.
-- **Network Perspective:** The external network (including the internet) sees the bridge and all connected devices (host and VMs) as if they are separate devices on the same network segment.
-
-**Summary:**
-- The internet and your local network interact with the virtual switch (bridge `br0`), which bridges your physical NIC and the virtual network interfaces of the VMs.
-- This setup allows your host (dedicated server) and guest OS (VMs) to share the same network environment and be independently accessible from the internet, each with its own IP address.
-
-
-#### Next clarification questions are based off this network interface settings file:
-
-```
-# This file describes the network interfaces available on your system
-# and how to activate them. For more information, see interfaces(5).
-
-source /etc/network/interfaces.d/*
-
-# The loopback network interface
-auto lo
-iface lo inet loopback
-
-# The primary network interface
-allow-hotplug eno1
-iface eno1 inet manual
-
-# Bridge setup
-auto br0
-iface br0 inet static
-        address 192.0.2.2/29
-        gateway 192.0.2.1
-        bridge_ports eno1
-        bridge_stp off
-        bridge_fd 0
-        bridge_maxwait 0
-        dns-nameservers 198.51.100.2 198.51.100.3 8.8.8.8
-        dns-search example.rdns.provider.com
-
-```
-
-
-#### At `auto xenbr0` and `iface xenbr0 inet static`, coding wise - br0 is just another interface, but concept wise (when we draw on diagram or communicate about networking) - it's a virtual bridge
-
-You're absolutely right. In code, `br0` is treated like any other network interface, but conceptually, it acts as a virtual bridge that connects the physical network interface (e.g., `eno1`) with the virtual network interfaces on your VPS.
-
-This distinction is important when diagramming or discussing the network architecture, as the virtual bridge (br0) represents the link that allows communication between the physical network and virtual machines, creating a seamless network environment.
-
-#### At `bridge_ports eno1`, is that saying that although the gateway/router is connected to the eno1 physical network interface's ethernet port, the gateway/router sees the virtual network interface that bridges the VM and the physical computer host?
-
-Yes, that's correct.
-
-When you configure `bridge_ports eno1`, you are essentially telling the bridge (`br0`) to include the physical network interface `eno1` as part of the bridge. This means that any traffic coming into or going out of the `eno1` interface is now part of the `br0` bridge network.
-
-Here’s how it works conceptually:
-
-- **Physical Setup:** The physical network interface `eno1` is connected to your network, likely to a switch or directly to a gateway/router.
-
-- **Bridge Behavior:** The bridge `br0` acts as an intermediary between the physical interface (`eno1`) and the virtual interfaces connected to your virtual machines (VMs). 
-
-- **Traffic Flow:** 
-  - When the gateway/router sends traffic to your server, it arrives at `eno1`.
-  - The bridge (`br0`) then allows this traffic to be passed to the virtual interfaces (e.g., `vif0.0`) that connect to the VMs.
-  - Conversely, traffic originating from the VMs can pass through the bridge and out via `eno1` to the gateway/router.
-
-- **Gateway/Router Perspective:** The gateway/router sees the bridge as if it were a single entity, even though it might be routing traffic to multiple virtual interfaces behind it. The bridge abstracts the complexity of having multiple interfaces on different VMs, presenting them as if they were part of a single, unified network segment.
-
-So in summary, while `eno1` is the physical connection point, the bridge (`br0`) allows the gateway/router to interact seamlessly with the virtual interfaces of the VMs, as though they were all on the same physical network.
-
-
-----
-
-## Appendix Z - Create networking bridge for host and VM(s)
-
-#### Setup networking inside the dedicated server's private network
-
-To set up your VM, you'll need to allow your computer to even see the new computer. This means creating a virtual bridge that will allow your host computer to see the other guest computers (VM). Sneak peak in to the future: This virtual bridge  will also be instrumental to the internet seeing your VMs as VPS.
-
-If you feel like you had already done this step but yet you couldn't add or see VMs, did you add the bridge on the pre-xen OS? Remember you booted into XEN now. The /etc/network/interfaces in your XEN bootup is different from the one in your non-XEN bootup, meaning you would have to do this work again.
-
-##### Step 1: Configure the Bridge in `/etc/network/interfaces`
-
-You'll need to modify your `/etc/network/interfaces` file to create a network bridge.  
-
-Before making any changes, it’s always a good idea to back up your current network configuration:
-```
-sudo cp /etc/network/interfaces /etc/network/interfaces.bak
-```
-
-
-Assuming this is the original:
-```
-# This file describes the network interfaces available on your system
-# and how to activate them. For more information, see interfaces(5).
-
-source /etc/network/interfaces.d/*
-
-# The loopback network interface
-auto lo
-iface lo inet loopback
-
-# The primary network interface
-allow-hotplug eno1
-iface eno1 inet static
-		address 192.0.2.2/29
-		gateway 192.0.2.1
-        # dns-* options are implemented by the resolvconf package, if installed
-		dns-nameservers 198.51.100.2 198.51.100.3 8.8.8.8
-		dns-search example.rdns.provider.com
-```
-
-Here's how you can edit it:
-REPLACE adderss, gateway, dns-nameservers, and dns-serach with your original values
-xenbr0 is the default bridge name from xen tools
-```
-# This file describes the network interfaces available on your system
-# and how to activate them. For more information, see interfaces(5).
-
-source /etc/network/interfaces.d/*
-
-# The loopback network interface
-auto lo
-iface lo inet loopback
-
-# The primary network interface
-allow-hotplug eno1
-iface eno1 inet manual
-
-# Bridge setup
-auto xenbr0
-iface xenbr0 inet static
-		address 192.0.2.2/29
-		gateway 192.0.2.1
-        bridge_ports eno1
-        bridge_stp off
-        bridge_fd 0
-        bridge_maxwait 0
-		dns-nameservers 198.51.100.2 198.51.100.3 8.8.8.8
-		dns-search example.rdns.provider.com
-```
-
-Explanation:
-- **eno1** is now set to `manual` to prevent it from being assigned an IP address directly.
-- **xenbr0** is the new bridge interface that takes over the IP address and gateway configuration.
-- **bridge_ports eno1** connects your physical interface `eno1` to the bridge `br0`.
-- **bridge_stp off** disables Spanning Tree Protocol, as it's not needed in this scenario.
-- **bridge_fd 0** and **bridge_maxwait 0** are settings to reduce the delay during bridge setup.
-
-
-
-
-##### Step 2: Apply the Configuration
-
-After modifying the `/etc/network/interfaces` file, you should restart the networking service to apply the changes:
-
-```bash
-sudo systemctl restart networking && sudo systemctl restart sshd
-```
-
-Or:
-```
-systemctl restart networking && systemctl restart sshd
-```
-
-Restarting the networking service will kick you off SSH. This command logs you back into SSH as soon as the networking service is back on. Could take up to 1-2 minutes.
-
-If you can't log back into SSH, then the bridge is not functioning correctly or you have messed up. You have to reach out to support and let them know about the backup file so they can restore your network settings (or last resort, they reformat).
-
-
-
-
-##### Step 3: Test Network settings at dedicated server so far
-
-1. **Check the Bridge Status:**
-   Once you are back in, you can verify that the bridge is up and running by checking the network interfaces:
-
-   ```bash
-   ip a
-   ```
-
-   You should see `xenbr0` listed with the correct IP address and configuration.
-
-2. **Test Network Connectivity by pinging the Gateway:**
-   To ensure the bridge is correctly routing traffic, you can ping the gateway:
-
-Adjust to your gateway's ip and ping it:
-   ```bash
-   ping -c 4 208.76.249.73
-   ```
-
-
-^ Required: Know what's your gateway IP
-You can run `ip route | grep default` to get the IP that corresponds to the gateway aka router
-**Why the command works**:  The "default" route refers to the route that packets should take when their destination address doesn't match any other route in the routing table. This "default" route is usually configured to send packets to the network's gateway, which is the device that routes traffic from your local network to other networks, including the internet.
-**Options**: `-c 4` is the Count of pings sent
-
-
-   This should return successful pings if the bridge is set up correctly. The result could be:
-```
-ING 208.76.249.73 (208.76.249.73) 56(84) bytes of data.
-
-64 bytes from 208.76.249.73: icmp_seq=1 ttl=255 time=0.253 ms
-
-64 bytes from 208.76.249.73: icmp_seq=2 ttl=255 time=0.315 ms
-
-64 bytes from 208.76.249.73: icmp_seq=3 ttl=255 time=0.263 ms
-
-64 bytes from 208.76.249.73: icmp_seq=4 ttl=255 time=0.281 ms
-```
-
-3. **Check Internet Connectivity:**
-   You can also try pinging a public DNS server, like Google’s:
-
-   ```bash
-   ping -c 4 8.8.8.8
-   ```
-
-   Successful responses indicate that the bridge is functioning as expected.
-
-**Your system can connect to the internet: apt-get**
-
-This is an opportunity to update apt-get especially when you had tried and couldn't connect to any server to download and install packages. eg. 
-`apt-get update --fix-missing` stuck on this:
-```
-Ign:1 http://deb.debian.org/debian bookworm InRelease
-Ign:2 http://deb.debian.org/debian-security bookworm-security InRelease
-0% [Connecting to deb.debian.org]
-```
-
-Then it's time to update the apt-get
-```
-apt-get update --fix-missing
-```
-
-
-
----
-
-\< Everytime I test things, it says the pipeline broke. Then when I ssh it says known_hosts fingerprint no longer matches. can I ignore fingerprints for now?
-
-\>
-Yes, you can temporarily ignore SSH host key checking (fingerprints) if you're testing and frequently changing network configurations, which may cause the host's fingerprint to change. However, be aware that this reduces security, as SSH relies on host key verification to prevent man-in-the-middle attacks.
-
-### Temporarily Disabling Host Key Checking:
-
-You have two options:
-
-1. **Ignore Host Key Checking (Insecure):**
-   You can use the `-o StrictHostKeyChecking=no` and `-o UserKnownHostsFile=/dev/null` options with your `ssh` command to ignore the fingerprint checking:
-
-   ```bash
-   ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@your_vm_ip
-   ```
-
-   - **StrictHostKeyChecking=no**: This option prevents SSH from asking you to verify the host's fingerprint.
-   - **UserKnownHostsFile=/dev/null**: This tells SSH not to store the host key in your `~/.ssh/known_hosts` file, effectively ignoring changes to the host key.
-
-2. **Automate with SSH Config:**
-   If you're frequently connecting to this host and want to avoid adding these options each time, you can configure this in your `~/.ssh/config` file:
-
-   ```bash
-   Host your_vm_ip_or_*
-       StrictHostKeyChecking no
-       UserKnownHostsFile /dev/null
-   ```
-
-   Replace `your_vm_ip` with the actual IP address of your VM. This configuration will apply every time you SSH into this particular host.
-
-### Reverting Back:
-Once your testing is complete, you should re-enable host key checking to ensure secure connections depending on which method you used:
-
-- Remove the temporary options from your SSH command.
-- If you edited the `~/.ssh/config` file, remove the corresponding entries.
-- If fingerprints changed, you can remove the hosts from your `~/.ssh/known_hosts` or run `ssh-keygen -R your_vm_ip` which does it for you
