@@ -94,9 +94,11 @@ Likely your VPS has a web host admin panel (Hostinger hpanel, GoDaddy’s dashbo
 	- This then assumes future websites on CloudPanel will have no problem with editing and viewing by the internet.
 
 ### How to setup SFTP/FTP users
-- Makes life easier for web developer.
-- FTP: It's strongly recommended you use SFTP instead. You can setup FTP capability then leave the port off or on as a backup. Refer to: [[Setup FTP]]
-- SFTP: [[Setup FTP]] if not CloudPanel. [[CloudPanel - Setup SFTP users]] if CloudPanel.
+- Makes life easier for web developers.
+- Skip FTP: It's strongly recommended you use SFTP instead. You can setup FTP capability then leave the port off or on as a backup. Refer to: [[Setup FTP and SFTP]]
+- SFTP: 
+	- If not CloudPanel: [[Setup FTP and SFTP]]
+	- If CloudPanel: [[CloudPanel - Setup SFTP users]]
 
 ---
 
@@ -108,6 +110,7 @@ Likely your VPS has a web host admin panel (Hostinger hpanel, GoDaddy’s dashbo
 	- Figure out workflow to acquire and install SSL because you'll be doing this annually. Also perform it now
 		- If CloudPanel, it's very simple going to the site -> SSL/TLS -> Actions -> New Let's Encrypt Certificate (however you must have a domain connected to that website already because it'll create a file then access that file through your domain URL to prove your ownership then generates the certificate).
 		- If less obvious how and where to install SSL HTTPS certificates: Contact customer support or google Web host + OS + Nginx/Apache + Install SSL certificates. If the web host is not well known (very independent), google for: OS + Nginx/Apache+ Install SSL certificate
+	-  CloudPanel's Let's Encrypt SSL failing? Refer to section "Test web hosting management panel" -> ~ SSL
 	- Know the filepaths to the SSL for future issues and code that needs SSL cert and key paths such as gunicorn (even if Cloudpanel abstracts it away)
 		- If Hostinger CloudPanel, the Vhost page likely hides ssl cert and key file paths in the server block as variables. You have to find the site's nginx confi file where the final vhost is written (eg. /etc/nginx/sites-enabled/some-website.com.conf)
 			- Hostinger Ubunto 22.04 with Cloud Panel paths could be:
@@ -542,10 +545,14 @@ How to change password:
 
 \> \__ IA and how to navigate there from Services Dashboard  
 
-Site Credential(s)
-Login:
-Pass:
-Url:
+
+
+**Admin users (Secondaries):**
+
+
+**Site users (Tertiary)**
+
+
 
 
 ---

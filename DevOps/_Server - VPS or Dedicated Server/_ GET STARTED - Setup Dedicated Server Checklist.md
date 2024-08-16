@@ -101,7 +101,7 @@ By purchasing a dedicated server, it can become whatever server you want it to b
 In order to have a website people can visit and a setup that makes it easy for the web developer to manage the website, you have to install a web server, FTP, and a webhost panel. You can first  install the webserver
 
 **MAJOR CHECKPOINT**
-Do you plan to install the web hosting panel CloudPanel? It is best to install without nginx. Per their documentation's instructions: "For the installation, you need an empty server with Ubuntu 24.04 or 22.04 or Debian 12 or 11 with root access." (https://www.cloudpanel.io/docs/v2/getting-started/other/). This means you DO NOT install nginx or any web server. The CloudPanel will install nginx and other technologies with it. If you messed up, CloudPanel will still work but `apt` could potentially always bother you about an incomplete Cloudpanel post installation script, you could potentially have to add www-data to every new group that is created when you create a new site, just so webpage can show and many cloudpanel features work for that site. In addition, Cloudpanel logs can keep complaining about a half-configured cloudpanel. Cloudpanel would still work, however. It's because Cloudpanel's nginx couldn't replace your nginx that already exists, so the post installation script can never finish.
+Do you plan to install the web hosting panel CloudPanel? It is best to install WITHOUT nginx having been installed. In that case, skip to the next section "How to decide on a Web Hosting Management Panel...". Proof per their documentation's instructions: "For the installation, you need an empty server with Ubuntu 24.04 or 22.04 or Debian 12 or 11 with root access." (https://www.cloudpanel.io/docs/v2/getting-started/other/). This means you DO NOT install nginx or any web server. The CloudPanel will install nginx and other technologies with it. If you messed up, CloudPanel will still work but `apt` could potentially always bother you about an incomplete Cloudpanel post installation script, you could potentially have to add www-data to every new group that is created when you create a new site, just so webpage can show and many cloudpanel features work for that site. In addition, Cloudpanel logs can keep complaining about a half-configured cloudpanel. Cloudpanel would still work, however. It's because Cloudpanel's nginx couldn't replace your nginx that already exists, so the post installation script can never finish.
 - TLDR: If doing Cloudpanel, forego installing nginx because Cloudpanel will install it for you.
 - Otherwise, there may be weird error logs and extra steps for every new site you create (www-data added to new group). Cloudpanel will still work.
 - Cloudpanel has no clean way of uninstallation or reinstallation as of 8/2024 and the recommended route is to reinstall your entire server.
@@ -155,7 +155,7 @@ curl -4 ipinfo.io/ip
 	- Eg. Google ubuntu 22 nginx install cloudpanel
 	- Brief from: https://www.cloudpanel.io/docs/v2/getting-started/other/. Notice the URL; Look up if there are newer versions of the documentation. Make sure you're not following an old version's instructions, like v1
 	- The instructions could be (Cloudpanel installations is missing the step of stopping the services):
-		1. You must stop all port 80, 443, and 3306, otherwise when it installs Cloudpanel it will say the ports are in use. Run those that are applicable:
+		1. You must stop all port 80, 443, and 3306, if they've been installed (Ideally, they were never installed because Cloudpanel installs best on an empty system). Otherwise, when it installs Cloudpanel it will say the ports are in use. Run those that are applicable:
 			```
 			sudo systemctl stop apache2
 			sudo systemctl stop nginx
@@ -176,10 +176,14 @@ curl -4 ipinfo.io/ip
 			
 	- Once done installing, the terminal will output the public IP plus the port number to visit, which could be **https://yourIpAddress:8443**
 	- If firewall, you have to enable the port: `sudo ufw allow 8443`, then apply the rules right away with `sudo ufw reload`. Go to the webhosting panel and setup a username and password right away because hackers have bots constantly scanning this port for setup opportunities.
-- Figure out if the web hosting management panel included other techs so you dont have to install them later. You can find out for example by running `mysql --version`, `php --version`, `profptd --version`, (Pro FTP Daemon), etc. Cloudpanel-MySQL installation includes MySQL, FTP, and PHP.
-	- With CloudPanel, MySQL is installed and automatically creates a master credentials (FYI, CloudPanel actually needs two databases: Either MySQL or Maria, and then SQLite3 which stores settings in a db.sq3 file). 
-		- To get the master credentials to see all databases, you run `clpctl db:show:master-credentials` and visit this url to login with those credentials https://XX.XXX.XX.XXX:8443/pma
-		- Save MySQL credentials and URL to webhost details document
+- Figure out if the web hosting management panel included other techs so you dont have to install them later. Cloudpanel-MySQL installation should include MySQL and PHP. You can find out for example by running:
+	- `mysql --version`
+	- `php --version
+	- `which nginx`
+	- If MySQL installed (which is on CloudPanel unless you installed with their MariaDB option). FYI: You may poke around CloudPanel's core files and see a db.sq3 file. CloudPanel uses SQLite3 internally but installs MySQL for web developer use. 
+		- To get the master credentials to see all databases, you run `clpctl db:show:master-credentials` and visit this url to login with those credentials 
+			- https://XX.XXX.XX.XXX:8443/pma
+		- Save the MySQL URL and credentials into your webhost details document. If you have an alias for quick SSH login, you might want to also save it as an echo before the ssh or sshpass command.
 
 ### How to log into Web Hosting Management Panel (Cpanel, Cloudpanel, etc)
 - What’s the link with port number (Different web hosting services may assign different port for your panel). 
@@ -188,14 +192,15 @@ curl -4 ipinfo.io/ip
 - VPS: How to navigate to your panel at the Services Dashboard (if you don’t have the link handy)
 	- what’s their information architecture (to help remember how to navigate there).  
 	- eg. Hostinger’s: Hostinger believes CloudPanel manages the Ubuntu operating system with the purpose of web site and related services, hence you find CloudPanel under left panel item Settings (think VPS) → Operating System -> then “Manage Panel” button on the OS page
-- Save the web hosting management panel credentials and its URL into your web host details document.
+- Save the web hosting management panel URL and credentials into your web host details document. If you have an alias for quick SSH login, you might want to also save it as an echo before the ssh or sshpass command.
 
 
 ---
 
 ### How to setup web server for basic website editing and viewing (Default site)
-- Basic: We just want to see we can impact how a website looks . We don’t care about SSL Https at this point
-- What's the public IP address you can visit directly in the web browser (usually given to you by your onboarding server admin)  
+- **CHECKPOINT**: If you installed nginx stone alone, you can perform this step. If you installed Cloudpanel to include nginx, then there is no default site - Skip to Multiple Sites (next section).
+- Basic: We just want to see we can impact how a website looks . We don’t care about SSL https at this point
+- Identify what's the public IP address you can visit directly in the web browser (usually given to you by your onboarding server admin)  
 - What’s the folder path to create/edit index.html to so web browser PRE web hosting management panel? Aka root web directory for your website, Aka working directory for your code and webpage.   
 	- For the default site:
 		- You figure out where the root is, possibly editing with `vi /etc/nginx/sites-enabled/default` then looking for the line with `root`, which has the path
@@ -204,32 +209,128 @@ curl -4 ipinfo.io/ip
 		- Use vi command to create an index2.html, add some words, then visit directly http://IP/index2.html to see if it displays.
 		- If still problems viewing the page, refer to [[Troubleshooting - Nginx webpage not showing]]
 	- That was editing and viewing for the default site, next we will cover editing and viewing for multiple sites
-### How to setup web server for basic website editing and viewing (Multiple sites)
+### Dedicated Server: How to setup web server for basic website editing and viewing (Multiple sites)
 - For a site created / listed in your web hosting management panel. Eg. Hostinger Ubuntu 22.04 CloudPanel
-- If no website exists in the web hosting management panel, add a website. Otherwise pay attention to the name of the website in the web hosting management panel
+- If no website exists in the web hosting management panel, add a website (If unsure what type of website, I recommend PHP site). Otherwise pay attention to the name of the website in the web hosting management panel
 - Figure out what's the folder path to that website on your system. Could be `/home/DOMAIN/htdocs/DOMAIN.com`
   ^ You can `ls /home/` to figure out the path
+  ^ You figure it out because you should add it to your webhost details document and your ssh/sshpass echo
 
 - Using vi command in shell, or using your web hosting management panel's File Manager, edit the index file adding a word or punctuation and see if visiting the URL will show the changes.  The index file could be `/home/DOMAIN/htdocs/DOMAIN.com/index.php`
-- Because you are on a dedicated server, it is likely that the web host DOES NOT provide you with a default domain name you can attach to your multi site's vhost. Make sure you've bought a domain at namecheap, etc. Then make sure you have two A records to the public domain: one for "@" and one for "\*". At your CloudPanel site's vhost, update the server_name to the domain name, eg. `server_name domain.com`
+- Because you are on a dedicated server, it is likely that the web host DOES NOT provide you with a user domain name (eg. srv451789.hstgr.cloud on Hostinger Cloudpanel package) that you can match in one of the server blocks in a site's vhost. Make sure you've bought a domain at namecheap, etc. Then make sure you have two A records to the public domain: one for "@" and one for "\*". At your CloudPanel site's vhost, update the server_name to the domain name, eg. `server_name domain.com`
 - Visit your http://domain.com directly. 
 - If success, Chrome will warn you there's no secured connection or that the connection is not private and blocks you from viewing the content. We will add SSL https certificates later. The current bypass technique in 2024 is to click anywhere on the webpage then type: `thisisunsafe`. You should see the webpage content.
 - Use vi command to create an index2.html, add some words, then visit directly http://domain.com/index2.html to see if it displays.
-- This then assumes future websites on CloudPanel will have no problem with editing and viewing by the internet. 
-- DEDICATED SERVER: If you want to continue testing other sites on CloudPanel, you could use other domains at namecheap etc creating A record to the same public IP. Or if you run out of domains, you can create subdomains under one domain, creating CName to the public domain name. For more information on A records and Cnames, refer to [[DNS Domain PRIMER]]. Make sure a site's vhost at your web host catches what servername (subdomain and/or domain and tld) is hoisted by the internet connecting to your public IP.
+	- If failed, because it says Access Denied on the web browser, fix the permissions, making the bad index2.php permissions match the good index.php permissions. Likely it's just the user and group that are problematic.
+	- Keep in mind that when you upload files via SFTP later, this will be the user you sign into Filezilla, etc's SFTP. This makes sure uploads are the correct permissions. 
+	- If passed, this then assumes future websites on CloudPanel will have no problem with editing and viewing by the internet. 
+- Optional: If you want to continue testing other sites on CloudPanel, you could use other domains at namecheap etc creating A record to the same public IP. Or if you run out of domains, you can create subdomains under one domain, creating CName to the public domain name. For more information on A records and Cnames, refer to [[DNS Domain PRIMER]]. Make sure a site's vhost at your web host catches what servername (subdomain and/or domain and tld) is hoisted by the internet connecting to your public IP.
 
-- Troubleshooting: Visiting the domain name goes doesnt work
+- Troubleshooting: Visiting the domain doesnt work
 	- Make sure at namecheap, etc you have A records to the public IP using `@`. Then have another A record to the public IP using "\*" instead of "www" so that any subdomains. You can check if the DNS propagation for A records pointed to your public IP at whatsmydns.
 	- Make sure it's not a caching issue if whatsmydns shows it's propagated but the page still doesn't show: Open in Incognito.
 	- Make sure file permissions correct for various paths of your sites and nginx. Refer next section's "Cloudpanel vhost 500 error is because of file permission problems"
+	- Try typing with page clicked: `thisisunsafe`
 	- If still problems viewing the page, refer to [[Troubleshooting - Nginx webpage not showing
 
 ## Test web hosting management panel
 
-Because you installed the web hosting management panel yourself rather than being on a VPS that installed it for you, there are likely kinks to be worked out because CloudPanel's install script is not perfect. Check Cloudpanel throughly to see it works:
+Because you installed the web hosting management panel yourself rather than being on a VPS that installed it for you, there could be broken chains. Check Cloudpanel throughly to see it works:
+
+Briefly:
+- Check if Cloudpanel Vhosts can save
+- Check that you can create free SSL with Let's Encrypt inside CloudPanel
 
 - I. Check if Cloudpanel Vhosts can save (feel free to add a space at a whitespace area, then click Save)
-	- If goes to 500 internal server error:
+  
+  Quick outline of Vhost not saving errors:
+  - If gives a "redirect loop detected" error
+  - If gives a 404 Let's Encrypt error
+  - If goes to 500 internal server Let's Encrypt error
+  - Vague general error that something went wrong when saving Vhost
+  	  
+	- If gives a "redirect loop detected" error:
+			```
+			www.videolistings.ai: Domain could not be validated, error message: error type: urn:ietf:params:acme:error:connection, error detail: 208.76.249.75: Fetching https://www.domain.com/.well-known/acme-challenge/zU7VjGctj6VPEv1eR_HtEjq-e54zb_39pHNOFygQGD8: Redirect loop detected
+			```
+		- Notice it said Redirect loop detected. It’s because the Let’s Encrypt is visiting to a www.
+		- This will correlate to visiting http://www.domain.com giving this error:
+			![](https://i.imgur.com/v3Cnk6m.png)
+		- Solution:
+			1. Remove this server block (feel free to backup to your some document if you’re concerned)
+				```
+				server {  
+					listen 80;  
+					listen [::]:80;  
+					listen 443 quic;  
+					listen 443 ssl;  
+					listen [::]:443 quic;  
+					listen [::]:443 ssl;  
+					http2 on;  
+					http3 off;  
+					{{ssl_certificate_key}}  
+					{{ssl_certificate}}  
+					return 301 https://www.videolistings.ai$request_uri;  
+				}
+				```
+			1. Comment out https scheme rewrite at the other block
+			```
+			#if ($scheme != "https") {  
+			#  rewrite ^ https://$host$request_uri permanent;  
+			#}  
+			```
+			
+			2. At your main server block for 80 and 443, add the www (See server_name line):
+				```
+				server {  
+				  listen 80;  
+				  listen [::]:80;  
+				  listen 443 quic;  
+				  listen 443 ssl;  
+				  listen [::]:443 quic;  
+				  listen [::]:443 ssl;  
+				  http2 on;  
+				  http3 off;  
+				  {{ssl_certificate_key}}  
+				  {{ssl_certificate}}  
+				  server_name videolistings.ai www1.videolistings.ai www.videolistings.ai;  
+				  {{root}}
+				  # ...
+				```
+
+			3. At your 8080 port server block, also do the same:
+				```
+				server {  
+				  listen 8080;  
+				  listen [::]:8080;  
+				  server_name videolistings.ai www1.videolistings.ai www.videolistings.ai;  
+				  {{root}} 
+				  # ...
+				```
+
+	- If gives a 404 Let's Encrypt error:
+			```
+			app.videolistings.ai: Domain could not be validated, error message: error type: urn:ietf:params:acme:error:unauthorized, error detail: 208.76.249.75: Invalid response from http://domain.com/.well-known/acme-challenge/hj0GXFJ_sW2VzVOjxxYaeyp9AXnPyz800-C3WL0zgEU: 404
+			```
+		- **Solution 1 to 404 Let's Encrypt error**: 
+		  See if can recreate the folder path and add a file to see if you can visit it on your web browser. The folders are missing because the way Let's Encrypt works is it creates the folders and file then removes them.
+				- Make sure you've cd into your document root. Then create a file from here:
+				```
+				mkdir -p .well-known/acme-challenge/
+				vi .well-known/acme-challenge/test.txt
+				```
+				- Add some unique text in the file. Then visit the link in your web browser
+				- If successfully visited, then this solution isn't it. Before going to "Solution 2", remove the test file and folders leading to it with
+				```
+				rm -rf .well-known
+				```
+		- **Solution 2 to 404 Let's Encrypt error**: 
+		  Did you modify the server root manually so that another folder is served?
+				- Set it back to the original document root for now because CloudPanel creates the .well-known/... path to the document root that had been saved into Cloudpanel (instead of reading the vhost).
+				  ^  Dont forget to change it at both 80/443 server block and 8080 block.
+			- Once SSL is done generating, you can change the document root back to your desired location. Don’t forget to change it at both 80/443 server block and 8080 block.
+		
+	- If goes to 500 internal server Let's Encrypt error:
 
 		- Check nginx error log to determine cause of Vhost 500 error:
 		```
@@ -263,7 +364,7 @@ Because you installed the web hosting management panel yourself rather than bein
 		- Have these checks to fix file permission errors so that cloudpanel can work with nginx:
 			1. sites configs
 				```
-				chmod 755 -R /etc/nginx/sites-enabled; chmod 755 -R /etc/nginx/sites-available; chown root:root -R /etc/nginx/sites-enabled; chown root:root -R /etc/nginx/sites-available;
+				chmod 755 -R /etc/nginx/sites-enabled; chmod 755 -R /etc/nginx/sites-enabled; chown root:root -R /etc/nginx/sites-enabled; chown root:root -R /etc/nginx/sites-enabled;
 				```
 
 			2. nginx process
@@ -297,15 +398,16 @@ Because you installed the web hosting management panel yourself rather than bein
 					sudo usermod -aG a100pullups www-data
 					```
 
-
-- Check syntax when nginx config combines with site's vhost by running
-	```
-	sudo nginx -t
-	```
-
-	- If you get an "Unknown log format", refer to fix at [[Nginx Troubleshooting - Unknown log format]]
+	- Vague general error that something went wrong when saving Vhost
+		- Check syntax where the nginx primary config combines with site's vhost by running
+		```
+		sudo nginx -t
+		```
+	
+		- If you get an "Unknown log format", refer to fix at [[Nginx Troubleshooting - Unknown log format]]
 
 - II. Check that you can create free SSL with Let's Encrypt inside CloudPanel
+	- REQUIREMENT: Your A records are pointing to the public IP and have propagated already.
 	- Quick Review: Free SSL does not impact your SEO, but there may be benefits to a paid SSL or business regulations that require you to adopt a paid SSL. If adopting a paid SSL, you can skip this check
 	- Do this: SSL/TLS -> Actions -> New Let's Encrypt Certificate -> Create and Install
 	
@@ -319,11 +421,12 @@ Because you installed the web hosting management panel yourself rather than bein
 
 ### How to setup SFTP/FTP users
 - Makes life easier for web developers.
-- FTP: It's strongly recommended you use SFTP instead. You can setup FTP capability then leave the port off or on as a backup. Refer to: [[Setup FTP]]
-- SFTP: [[Setup FTP]] if not CloudPanel. [[CloudPanel - Setup SFTP users]] if CloudPanel.
+- Skip FTP: It's strongly recommended you use SFTP instead. You can setup FTP capability then leave the port off or on as a backup. Refer to: [[Setup FTP and SFTP]]
+- SFTP: 
+	- If not CloudPanel: [[Setup FTP and SFTP]]
+	- If CloudPanel: [[CloudPanel - Setup SFTP users]]
 
 ---
-
 
 ### Prepare web server for basic public view - SSL, File Permissions, Security
 - Do you have to setup SSL?
@@ -333,6 +436,7 @@ Because you installed the web hosting management panel yourself rather than bein
 	- Figure out workflow to acquire and install SSL because you'll be doing this annually. Also perform it now
 		- If CloudPanel, it's very simple going to the site -> SSL/TLS -> Actions -> New Let's Encrypt Certificate (however you must have a domain connected to that website already because it'll create a file then access that file through your domain URL to prove your ownership then generates the certificate).
 		- If less obvious how and where to install SSL HTTPS certificates: Contact customer support or google Web host + OS + Nginx/Apache + Install SSL certificates. If the web host is not well known (very independent), google for: OS + Nginx/Apache+ Install SSL certificate
+	- CloudPanel's Let's Encrypt SSL failing? Refer to section "Test web hosting management panel" -> ~ SSL
 	- Know the filepaths to the SSL for future issues and code that needs SSL cert and key paths such as gunicorn (even if Cloudpanel abstracts it away)
 		- If Hostinger CloudPanel, the Vhost page likely hides ssl cert and key file paths in the server block as variables. You have to find the site's nginx confi file where the final vhost is written (eg. /etc/nginx/sites-enabled/some-website.com.conf)
 			- Hostinger Ubunto 22.04 with Cloud Panel paths could be:
@@ -971,10 +1075,12 @@ Root Password   :  <IMPORTANT>
 
 \> \__ IA and how to navigate there from Services Dashboard  
 
-Site Credential(s)
-Login:
-Pass:
-Url:
+
+**Admin users (Secondaries):**
+
+
+**Site users (Tertiary)**
+
 
 
 ---
