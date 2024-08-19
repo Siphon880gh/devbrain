@@ -192,7 +192,7 @@ ING 208.76.249.73 (208.76.249.73) 56(84) bytes of data.
 ---
 
 ### **Checkpoint**
-Now that you have a virtual bridge, the question is whether you have VMs. With a virtual bridge, VMs can be started without virtual bridge errors (For example, Xen's `xl create` automatically checks the requirement of a virtual bridge). If you do not have a VM yet, and you're using Xen, go to [[Setup XEN VMs (Type 1 Hypervisor, no KMV) - Part 2]]
+Now that you have a virtual bridge, the question is whether you have VMs. With a virtual bridge, VMs can be started without virtual bridge errors (For example, Xen's `xl create` automatically checks the requirement of a virtual bridge). If you do not have a VM yet, and you're using Xen, go to [[Xen - Setup XEN VMs (Type 1 Hypervisor, no KMV) - Part 2]]
 
 Proceeding means your VM has started and you want the VM to be discoverable on the internet.
 

@@ -29,7 +29,7 @@ xl --version
 xen-create-image --version
 ```
 
-## Image creation
+## Create the image
 
 ### Overview on resource allocation
 Prepare for the xl command that creates the image. Typically we include network bridge names etc but we will keep networking options to a minimum so we can test the computer resource options work right away. We will also decide on an OS and version, which the xl command will download the image and install. It'll work when we successfully create a VM we can console into. Then we can modify the networking options after the image is created. This strategy will assure we can even create an image.
@@ -47,6 +47,8 @@ echo -e "\nCPU Information:" && lscpu | grep "Model name\|CPU(s):\|MHz"
 
 Keep in mind for the tool we chose (xl) what resource allocations we can set when creating the image and what allocations can only be set after image creation (cpu use percentage), and what allocations should be preferred to be set after image creation (networking)
 
+#### Decide computer resource allocations
+
 > [!note] Figure out computer resource allocations during image creation
 > 
 > To allocate resources for a single VPS on your dedicated server while leaving enough overhead for managing the host, you can follow these general guidelines. Keep in mind that depending on your tool, your allocations could be in different units. For example, xl uses Gigabytes in their allocation options. There is a difference between GiB and GB.
@@ -59,23 +61,26 @@ Keep in mind for the tool we chose (xl) what resource allocations we can set whe
 > Chosen 90% for Gb
 > `27`
 > 
-> 
 > 2. **Swap File Size**:  
->    - **VPS**: Allocate a swap file size equivalent to **100%** of the VPS's memory allocation, but this can vary depending on your use case (e.g., 2GB RAM = 2GB swap).
->    - **Host**: Allocate swap based on what remains after the VPS allocation, typically another **100%** of the host’s memory overhead.
-> Chosen to follow the swap size strategy that the local machine used in GB:
+>    - Old Allocation Strategy
+> 	   - **VPS**: Allocate a swap file size equivalent to **100%** of the VPS's memory allocation, but this can vary depending on your use case (e.g., 2GB RAM = 2GB swap).
+> 	   - **Host**: Allocate swap based on what remains after the VPS allocation, typically another **100%** of the host’s memory overhead.
+>    - Newer Allocation Strategy:
+> 	   - Find out how much space does the host machine use for swap memory by running `swapon -s`. For example, `15624188` is approx 15GB
+>    - Chosen newer allocation strategy, VM's swap size strategy in GB should be:
 > `15`
 > 
-> There’s no swap file option, however you should theoretically be able to create a swap file inside commandline once VM is created
 > 
 > 3. **Disk Space Allocation**:  
->    - **VPS**: Choose **90-95%** of the disk space to the VPS. Subtract the swap size you've chosen in the previous guideline. This is because you will partition off from an existing hard drive.
->    - **Host Overhead**: Leave **5-10%** for the host, including space for logs, backups, and other essential files.
+>    - **VPS**: Choose **90-95%** of the disk space to the VPS for both the VM and its swap file. Subtract the swap size from the previous allocation. For the remaining 90-95% disk space after subtracting swap size, subtract an additional 1GB. 
+> 	   - Explanation: LVM requires a small amount of overhead for its metadata, which might prevent it from allocating 100% of the VG space. In some environments, reserving a small amount of space can prevent issues related to disk full errors, which could affect system stability.
+> 	   - If you want to use max disk space: For 50gb, you can subtract 0.5gb (for that VM's overhead). For 100gb, you subtract 1gb. For 150gb, you subtract 1.5gb. For 200gb, you subtract 2gb.
+> 	   - **Host Overhead**: We are leaving **5-10%** for the host, including for space for logs, backups, and other essential files. It's assumed you won't be using the dedicated server for public websites or apps.
 > Ran `df -h` to determine that the main hard drive:
-> E.g. Main harddrive has `205` GB available. Will assume won't be adding anymore significant file sizes of packages or files to the dedicated server besides to the VPS.  90% of that is 184.5GB, but rounded down to be safe is `180` GB. Subtracted from swap size is `165`GB
-> So: `165`
+> E.g. Main harddrive has `128` GB available. Will assume won't be adding anymore significant file sizes of packages or files to the dedicated server besides to the VPS.  90% of that is `115` GB rounded down. Subtracted from swap size `15` GB is `100`GB. However at 100gb, I should subtract 1gb otherwise Xen will complain with a vague error (because it predicted there won't be room for LVM metadata).
+> So harddrive allocation: `99`GB
 > 
-> You might be left with like 25gb for the dedicated server and that's ok
+> You might be left with much less space for the dedicated server than for the VM, and that's ok.
 > 
 > These percentages ensure that your dedicated server remains responsive and manageable while maximizing the resources available to your single VPS.
 
@@ -250,7 +255,7 @@ FYI: Note if your /dev/sdaX is a logical partition, this will still work. pvcrea
 That's it. You have the partition under the volume group 0. You will pass this volume group name `vg0` into the `xen-create-image` and it will create two logical volumes automatically (for the VM/VPS and for the swap)
 
 If you have problems or want to review, you can view all physical volumes with `sudo pvdisplay` and all volume groups with `sudo vgdisplay`, OR `sudo pvs` and `sudo vgs` which are different display formats
-#### Create the Image
+### Create the image while allocating resources
 
 Create VM without network options (dhcp option required, lets say yes to dhcp we wanting automatic IP for now)
 ```
@@ -289,7 +294,7 @@ SSH Fingerprint :  SHA256:... (RSA)
 Root Password   :  <IMPORTANT>
 ```
 
-## Starting a VM from the Image
+## Start a VM from the Image
 #### Before starting the VM, adjust console settings
 
 You will be consoling into the VM after starting it. However at the moment, a setting needs to be fixed to prevent the console from hanging. For the setting to apply, it's applied when you start the VM. So let's edit the setting now.
@@ -368,6 +373,19 @@ It will ask for your username. Use root.
 Then it will ask for your password which was in the installation summary
 
 For your future reference: You can leave the VM shell back into the host shell by pressing `CTRL + ]`
+
+#### Has computer allocation resources been followed
+
+Xen Xl is tricky and they change their syntax enough times that you need to double check your allocations went through.
+
+- Disk space.
+	- Run `lsblk` on host machine to check the storage spaces allocated to the VM and to its swap.
+- Memory:
+	- Run `xl list` which has a "Mem" column.
+- CPU count:
+	- Run `xl list` which has a VCPUs" column.
+
+If memory and CPU allocations need to be changed on an already running VM, refer to [[Xen - Adjust Xen VM allocations after already started]]
 
 #### Is Linux Administration Ready?
 - Some distros are a bare bones OS version. This means some commands you expect to help with Linux administration like sudo might be missing! Package installer might be missing sources to search packages from. 
@@ -554,7 +572,7 @@ cat /var/log/xen-tools/vps0.log
 **Consistent OS the best**
 Firstly, try to avoid creating different OS than your host OS. Even keep the version the same if possible. If you can't then you need advanced configuring at `/etc/xen-tools/xen-tools.conf`
 
-**Try a smaller size for the VM**
+**Try a smaller size than you allocated for the VM, by 1 GB**
 ```
 --size=99G
 ```

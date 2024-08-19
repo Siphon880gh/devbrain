@@ -89,7 +89,7 @@ And to find out if your dedicated server can support the VM - say the customer s
 
 ACTION: Once you found out the right type of virtualization and that it'll be performant, you'll look up guides on how to perform the virtualization on your OS. You do this before installing any web servers, etc. For example, eg. Google: Ubuntu 22 KVM virtualization. Some other tools could be Cockpit, Proxmox, Xen
 
-For example, This is a guide for Xen (type 1 hypervisor, no KVM): [[Setup XEN VMs (Type 1 Hypervisor, no KMV) - Part 1]] which could continue into part 2 [[Setup XEN VMs (Type 1 Hypervisor, no KMV) - Part 2]]
+For example, This is a guide for Xen (type 1 hypervisor, no KVM): [[Xen - Setup XEN VMs (Type 1 Hypervisor, no KMV) - Part 1]] which could continue into part 2 [[Xen - Setup XEN VMs (Type 1 Hypervisor, no KMV) - Part 2]]
 
 
 #### Summary by the time you are done creating a VPS:

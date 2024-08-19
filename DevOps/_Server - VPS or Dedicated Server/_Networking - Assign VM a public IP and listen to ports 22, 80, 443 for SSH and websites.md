@@ -102,7 +102,7 @@ Some checks you may not have considered:
 - The host's `xenbr0` interface should have its own static IP
 - The VM should have a different IP from the same subnet (really make sure)
 
-Worse case, you destroy the VM and start a new VM instance from the image, which are instructions you can find from [[Setup XEN VMs (Type 1 Hypervisor, no KMV) - Part 2]]
+Worse case, you destroy the VM and start a new VM instance from the image, which are instructions you can find from [[Xen - Setup XEN VMs (Type 1 Hypervisor, no KMV) - Part 2]]
 
 ---
 
