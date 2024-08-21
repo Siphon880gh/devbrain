@@ -166,11 +166,12 @@ By purchasing a dedicated server, it can become whatever server you want it to b
 In order to have a website people can visit and a setup that makes it easy for the web developer to manage the website, you have to install a web server, FTP, and a webhost panel. You can first  install the webserver
 
 **MAJOR CHECKPOINT**
-Do you plan to install the web hosting panel CloudPanel? It is best to install WITHOUT nginx having been installed. In that case, skip to the next section "How to decide on a Web Hosting Management Panel...". Proof per their documentation's instructions: "For the installation, you need an empty server with Ubuntu 24.04 or 22.04 or Debian 12 or 11 with root access." (https://www.cloudpanel.io/docs/v2/getting-started/other/). This means you DO NOT install nginx or any web server. The CloudPanel will install nginx and other technologies with it. If you messed up, CloudPanel will still work but `apt` could potentially always bother you about an incomplete Cloudpanel post installation script, you could potentially have to add www-data to every new group that is created when you create a new site, just so webpage can show and many cloudpanel features work for that site. In addition, Cloudpanel logs can keep complaining about a half-configured cloudpanel. Cloudpanel would still work, however. It's because Cloudpanel's nginx couldn't replace your nginx that already exists, so the post installation script can never finish.
-- TLDR: If doing Cloudpanel, forego installing nginx because Cloudpanel will install it for you.
+Do you plan to install the web hosting panel CloudPanel? It is best to install WITHOUT nginx having been installed. **In that case, skip to the next section "How to decide on a Web Hosting Management Panel...".** 
+- Proof per their documentation's instructions: "For the installation, you need an empty server with Ubuntu 24.04 or 22.04 or Debian 12 or 11 with root access." (https://www.cloudpanel.io/docs/v2/getting-started/other/). This means you DO NOT install nginx or any web server. The CloudPanel will install nginx and other technologies with it. If you messed up, CloudPanel will still work but `apt` could potentially always bother you about an incomplete Cloudpanel post installation script, you could potentially have to add www-data to every new group that is created when you create a new site, just so webpage can show and many cloudpanel features work for that site. In addition, Cloudpanel logs can keep complaining about a half-configured cloudpanel. Cloudpanel would still work, however. It's because Cloudpanel's nginx couldn't replace your nginx that already exists, so the post installation script can never finish.
 - Otherwise, there may be weird error logs and extra steps for every new site you create (www-data added to new group). Cloudpanel will still work.
 - Cloudpanel has no clean way of uninstallation or reinstallation as of 8/2024 and the recommended route is to reinstall your entire server.
 
+If you DO NOT plan to install CloudPanel, you may proceed with directly installing the web server Nginx or Apache by continuing this section:
 
 1. Install web server
 
@@ -241,6 +242,7 @@ curl -4 ipinfo.io/ip
 			
 	- Once done installing, the terminal will output the public IP plus the port number to visit, which could be **https://yourIpAddress:8443**
 	- If firewall, you have to enable the port: `sudo ufw allow 8443`, then apply the rules right away with `sudo ufw reload`. Go to the webhosting panel and setup a username and password right away because hackers have bots constantly scanning this port for setup opportunities.
+	- Save the URL and CloudPanel credentials into your webhost details document. If you have an alias for quick SSH login, you might want to also save it as an echo before the ssh or sshpass command.
 - Figure out if the web hosting management panel included other techs so you dont have to install them later. Cloudpanel-MySQL installation should include MySQL and PHP. You can find out for example by running:
 	- `mysql --version`
 	- `php --version
@@ -263,7 +265,7 @@ curl -4 ipinfo.io/ip
 ---
 
 ### How to setup web server for basic website editing and viewing (Default site)
-- **CHECKPOINT**: If you installed nginx stone alone, you can perform this step. If you installed Cloudpanel to include nginx, then there is no default site - Skip to Multiple Sites (next section).
+- **CHECKPOINT**: If you installed nginx standalone, you can perform this step. If you installed Cloudpanel to include nginx, then there is no default site - Skip to Multiple Sites (next section).
 - Basic: We just want to see we can impact how a website looks . We don’t care about SSL https at this point
 - Identify what's the public IP address you can visit directly in the web browser (usually given to you by your onboarding server admin)  
 - What’s the folder path to create/edit index.html to so web browser PRE web hosting management panel? Aka root web directory for your website, Aka working directory for your code and webpage.   
@@ -282,7 +284,7 @@ curl -4 ipinfo.io/ip
   ^ You figure it out because you should add it to your webhost details document and your ssh/sshpass echo
 
 - Using vi command in shell, or using your web hosting management panel's File Manager, edit the index file adding a word or punctuation and see if visiting the URL will show the changes.  The index file could be `/home/DOMAIN/htdocs/DOMAIN.com/index.php`
-- Because you are on a dedicated server, it is likely that the web host DOES NOT provide you with a user domain name (eg. srv451789.hstgr.cloud on Hostinger Cloudpanel package) that you can match in one of the server blocks in a site's vhost. Make sure you've bought a domain at namecheap, etc. Then make sure you have two A records to the public domain: one for "@" and one for "\*". At your CloudPanel site's vhost, update the server_name to the domain name, eg. `server_name domain.com`
+- Because you are on a dedicated server, it is likely that the web host DOES NOT provide you with a user domain name (eg. Not having something like srv451789.hstgr.cloud because you're on a dedicated server instead of a web provider like through Hostinger's Cloudpanel package) that you can match in one of the server blocks in a site's vhost. Make sure you've bought a domain at namecheap, etc. Then make sure you have two A records to the public domain: one for "@" and one for "\*". At your CloudPanel site's vhost, update the server_name to the domain name, eg. `server_name domain.com`
 - Visit your http://domain.com directly. 
 - If success, Chrome will warn you there's no secured connection or that the connection is not private and blocks you from viewing the content. We will add SSL https certificates later. The current bypass technique in 2024 is to click anywhere on the webpage then type: `thisisunsafe`. You should see the webpage content.
 - Use vi command to create an index2.html, add some words, then visit directly http://domain.com/index2.html to see if it displays.
@@ -524,6 +526,8 @@ Briefly:
 
 ---
 ### ADVANCED WEBSITE: Prepare server for installing different architectures (Languages: PHP, NodeJS, Python, MySQL, Mongo, Scaling Solutions; Pipes: Git, Docker; Scaling Solutions)
+
+#### Skill up
 - Know how to reboot the server
 - how see error logs based on your OS and web server type  
     eg `tail -f /var/log/nginx/error.log`
@@ -541,308 +545,388 @@ sudo systemctl start nginx
 - Know what is the main installer of packages in command line (eg. `sudo apt update`  for Ubuntu 22.04). Save to your web host's details document if it's not something you're intimately familiar with.
 - Update installer’s repos 
 - Look up instructions for your OS on how to install these language interpreters and related or adjacent package managers, if applicable to your server's use cases (these should be installed before installing databases because you'll be testing database connections with code):
-	- PHP (if not included by your web host’s)
-		- If installed CloudPanel, PHP comes included. If you don't see PHP, you should create a PHP site off CloudPanel 
-		- If not installed CloudPanel and your web host management panel does not come included with PHP, look up how to install php, eg. Google: Ubuntu 22 install php
-		- If installed Cloudpanel or a web hosting management panel that already has it setup for you, you can also skip this step:
-		  You have to configure apache or nginx to handle php, eg. Google: `Nginx handle php`, eg. Google: `Apache handle php`.
-	  - Python: 
-			- Check if you have python3 installed. It comes included with CloudPanel. Test with `python3 --version`
-				- If not installed. Look up how to install: Eg. Google: Ubuntu 22 install python3
-			- Check if you have pip3 installed. Having python3 installed does not necessarily mean pip3 is installed. Eg. Google: Ubunutu 22 install pip3. Could be something like `sudo apt install python3-pip`. If you have CloudPanel installed, cloudpanel
-			- For legacy code you might need to work on in the future, you can similarly look up instructions how to install python2 and pip2
-				- Could be for python2: `sudo apt install python2`
-				- Could be for pip2 (notice it's python-pip, not python2-pip): `sudo apt install python-pip`
-				- You can test they're installed successfully with `python3 --version` and `pip3 --version`
-			- Set aliases to `python` and `pip`. Run `python --version` and `pip --version` to check if they've been assigned. I recommend assigning them to the newest version of python. Edit ~/.bash_profile or equivalent
-	- NodeJS
-		- Eg. Google: Ubuntu 22 install nodejs
-		- Sometimes npm comes with nodejs. Check if it did install: `npm --version`. If not, see if npm installation instructions are at the same guide for installing nodejs. Otherwise, look up how to install npm. eg. Google: Ubuntu 22 install npm
-			- Check `npm --version` and `npx --version` (npx helps forcefully run)
-		- Prevent npm scripts having no file permission:
-			- Check npm version with `npm --version`
-			- If the version is v7 or v8 families, then NodeJS switches user to the user owning the folder to the package.json when running npm script which is not desirable in most cases (you would prefer to keep the same user that runs the npm script `npm run scriptX`) and usually causes file permission problems when running a npm script
-				- Then you install nvm to install and change the node version. Then you make it permanent beyond your current shell session. Refer to the tutorial [[NVM - npm scripts say permission denied on the cli command]]
-	- Yarn
-		- Eg. Google: Ubuntu 22 install yarn
+
+
+## Timeouts
+
+Are users waiting on something generating for a long time? Their fetch will wait for that long then expect a response unless you're doing web sockets, SSE, etc. You need to raise up the allowed wait time before a timeout error. Skip this if not applicable.
+
+Inside a server block:
+```
+    location /api/ {
+        proxy_read_timeout 300s;   # Adjust as needed
+        proxy_connect_timeout 300s; # Adjust as needed
+        proxy_send_timeout 300s;   # Adjust as needed
+    }
+```
+
+If you're proxy passing to a backend to hide non-web ports and increase security, it could ultimately be:
+```
+location /api {
+	proxy_pass https://127.0.0.1:5001;
+	proxy_read_timeout 300s;   # Adjust as needed
+	proxy_connect_timeout 300s; # Adjust as needed
+	proxy_send_timeout 300s;   # Adjust as needed
+	proxy_set_header Host $host;
+	proxy_set_header X-Real-IP $remote_addr;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	proxy_set_header X-Forwarded-Proto $scheme;
+}
+```
+
+Keep in mind in the future when making the app, you have to adjust Gunicorn/PHP's timeouts too:
+
+Timeout of Gunicorn (Flask and Python):
+```
+gunicorn --timeout 300 myapp:app...
+```
+
+Timeout of PHP:
+```
+ini_set('max_execution_time', 300);  // Adjust as needed
+ini_set('default_socket_timeout', 300);  // Adjust as needed
+```
+
+#### PHP
+- PHP (if not included by your web host’s)
+	- If installed CloudPanel, PHP comes included. If you don't see PHP, you should create a PHP site off CloudPanel 
+	- If not installed CloudPanel and your web host management panel does not come included with PHP, look up how to install php, eg. Google: Ubuntu 22 install php
+	- If installed Cloudpanel or a web hosting management panel that already has it setup for you, you can also skip this step:
+		  - You have to configure apache or nginx to handle php, eg. Google: `Nginx handle php`, eg. Google: `Apache handle php`.
+#### Python
+- Check if you have python3 installed. It comes included with CloudPanel. Test with `python3 --version`
+	- If not installed. Look up how to install: Eg. Google: Ubuntu 22 install python3
+- Check if you have pip3 installed. Having python3 installed does not necessarily mean pip3 is installed. Eg. Google: Ubunutu 22 install pip3. Could be something like `sudo apt install python3-pip`. If you have CloudPanel installed, Cloudpanel installed python3, but not pip3, as of Aug 2024.
+- OPTIONAL: For legacy code you might need to work on in the future, you should install python2 and pip2 and bench them for when they're needed
+	- Could be for python2: `sudo apt install python2`
+	- Could be for pip2 (notice it's python-pip, not python2-pip): `sudo apt install python-pip`
+	- You can test they're installed successfully with `python3 --version` and `pip3 --version`
+- Check if `python` and `pip` commands work (not limited to running `python3` and `pip`). Run `python --version` and `pip --version` to check if they've been assigned. I recommend assigning them to the newest version of python.
+	- Method 1:
+	  Edit ~/.bash_profile or equivalent. You can run `which python3` and `which pip3` to get their paths. Then you add to the bash profile similar to `alias python='/usr/bin/python3'` and `alias pip='/usr/bin/pip3'`. Then you source: `source ~/.bash_profile`.
+	- Method 2:
+	  You can run `which python3` and `which pip3` to get their paths. Then get one of the paths found in `echo $PATH`. Create symbolic links from `python` to `python3` and `pip` to `pip3` in one of the earlier $PATH paths.
+#### NodeJS
+- Check if you have node installed. Run `node --version`. If you have CloudPanel installed, NodeJS may not be installed globally.
+- If installing node, look up how to install node. Eg. Google: Ubuntu 22 install nodejs. Could look similar to: `apt install nodejs`. After installation, run `node --version` to check it succeeded.
+- Sometimes npm comes with nodejs. Check if it did install: `npm --version`. If not, see if npm installation instructions are at the same guide for installing nodejs. Otherwise, look up how to install npm. eg. Google: Ubuntu 22 install npm. 
+	- Could look similar to: `apt install nodejs`. 
+	- Check npm and its utility `npm --version` and `npx --version` (npx helps forcefully run)
+- Prevent npm scripts having "no file permission" error:
+	- Check npm version with `npm --version`
+	- If the version is v7 or v8 families, then NodeJS switches user to the user owning the folder to the package.json when running npm script which is not desirable in most cases (you would prefer to keep the same user that runs the npm script `npm run scriptX`) and usually causes file permission problems when running a npm script
+		- Then you install nvm to install and change the node version. Then you make it permanent beyond your current shell session. Refer to the tutorial [[NVM - npm scripts say permission denied on the cli command]]
+#### Yarn
+- Make sure Node is at least v20.11.0 to install a newer yarn (https://www.redswitches.com/blog/install-yarn-in-ubuntu/), otherwise look up classic yarn installation instructions.
+	- Install npm's repo corepack (tool to help with managing versions of your package managers) which allows you to install yarn
+	- Follow each step to install latest yarn:
+		```
+		sudo npm install -g corepack
+		corepack enable
+		corepack prepare yarn@stable --activate
+		yarn set version stable
+		yarn --version
+		```
+
 - Look up instructions for your OS on how to install these databases, if applicable to your server's use cases
-	- MySQL (if not included by your web host’s VPS)
-		- If not installed CloudPanel or a web host management panel that includes these parts, look up instructions on how to install MySQL, PHP, and PHPMyAdmin. eg. Google: Ubuntu 22 install mysql phpmyadmin
-		- Ubuntu v22 with CloudPanel comes with MySQL, PHP, and phpMyAdmin, however when accessing phpMyAdmin from Cloudpanel then only the databases the user is associated with shows up.
-			- To get the master credentials to see all databases, you run `clpctl db:show:master-credentials` and visit this url to login with those credentials https://XX.XXX.XX.XXX:8443/pma
-			- Save mysql command for mysql shell login. For example:
-			  `mysql -h 127.0.0.1 -u USER -P 3306 -p'PASSWORD' -A`
-			- Test PHP wrapping MySQL works. You can write this php file then either run in web browser or terminal (`php script.php`):
-
-
-			```
-			<?php
-			$server = "127.0.0.1";
-			$username = "YOUR_USERNAME";
-			$password = "YOUR_PASSWORD";
-			$port = 3306;
-			$conn = new mysqli($server, $username, $password, "", $port);
-			if ($conn->connect_error) {
-				die("Connection failed: " . $conn->connect_error);
-			} else {
-					echo "Success: PHP connected to MySQL. Here are databases: <br/><br/>
-
-			";
-			}
-			$result = $conn->query("SHOW DATABASES");
-			while ($row = $result->fetch_assoc()) {
-					echo $row['Database'] . "<br>
-			";
-			}
-			$conn->close();
-			?>
-			```
-
-		If PHP connecting to MySQL works (most commonly used case), then it's assume Python and NodeJS will connect with no problems. 
-		
-		But if you want to test NodeJS connecting to MySQL:
-		```
-		const mysql = require("mysql2");
-		
-		/**
-		 * Requirements:
-		 * PHP database: someDb
-		 * PHP table: someTable
-		 * PHP columns: id, someColumn
-		 * PHP port set to 8888
-		 * Insert some rows
-		 * Have MAMP started database server
-		 * 
-		 */
-		
-		const connection = mysql.createConnection({
-		  host: "127.0.0.1",
-		  user: "YOUR_USERNAME",
-		  password: "YOUR_PASSWORD",
-		  database: "someDb",
-		  port: 3306
-		});
-		
-		function showAllRows() {
-		    connection.query(
-		      "SELECT * FROM mysql"
-		    , function(err, results, fields) {
-		      console.log(results);    
-		    });
-		  }
-		
-		connection.connect(function (err) {
-		    if (err) {
-		        console.error(err);
-		    } else {
-		        showAllRows();
-		    }
-		  
-		});
-		```
-
-	- And if you want to test Python connecting to MySQL:
-	```
-	# pip install mysql-connector-python 
-	import mysql.connector
-	from mysql.connector import Error
-	
-	# Database connection details
-	connection_config = {
-	    'host': '127.0.0.1',
-	    'user': 'root',
-	    'password': 'root',
-	    'database': 'mysql',
-	    'port': 3306
-	}
-	
-	def show_all_rows():
-	    connection = None
-	    try:
-	        connection = mysql.connector.connect(**connection_config)
-	        if connection.is_connected():
-	            cursor = connection.cursor()
-	
-	            # Check if the table exists
-	            cursor.execute("SHOW TABLES LIKE 'user'")
-	            result = cursor.fetchone()
-	            if result:
-	                cursor.execute("SELECT * FROM user")
-	                results = cursor.fetchall()
-	                for row in results:
-	                    print(row)
-	            else:
-	                print("Table does not exist.")
-	    except Error as e:
-	        print(f"Error: {e}")
-	    finally:
-	        if connection is not None and connection.is_connected():
-	            cursor.close()
-	            connection.close()
-	
-	if __name__ == '__main__':
-	    show_all_rows()
-	```
-
-
-	- And if you want to test Python's Flask connecting to MySQL:
-	```
-	# pip install flask
-	# pip install flask-mysqldb
-	
-	from flask import Flask
-	from flask_mysqldb import MySQL
-	
-	app = Flask(__name__)
-	
-	# Required
-	app.config["MYSQL_USER"] = "root"
-	app.config["MYSQL_PASSWORD"] = "root"
-	app.config["MYSQL_DB"] = "someDb"
-	
-	# Required for testing: 
-	# MySQL: root/root
-	# Database: someDb
-	# Table: someTable
-	#         id PK Auto-Increments
-	#         someColumn varchar(255)
-	# Seeded
-	""" 
-	INSERT INTO `someTable` (`id`, `someColumn`) VALUES (NULL, 'Abby');
-	INSERT INTO `someTable` (`id`, `someColumn`) VALUES (NULL, 'Bobby');
-	INSERT INTO `someTable` (`id`, `someColumn`) VALUES (NULL, 'Caitlin'); 
-	"""
-	
-	# Extra configs, optional:
-	app.config["MYSQL_CURSORCLASS"] = "DictCursor"
-	app.config["MYSQL_CUSTOM_OPTIONS"] = {"ssl": {"ca": "/path/to/ca-file"}}  # https://mysqlclient.readthedocs.io/user_guide.html#functions-and-attributes
-	
-	# Init
-	mysql = MySQL(app)
-	
-	# http://127.0.0.1:5000/
-	@app.route("/")
-	def users():
-	    cur = mysql.connection.cursor()
-	    cur.execute("""SELECT * from someTable""")
-	    rv = cur.fetchall()
-	    return str(rv)
-	
-	if __name__ == "__main__":
-	    app.run(debug=True)
-	```
-
-
-	- MySQL phpMyAdmin
+#### MySQL
+- MySQL (if not included by your web host’s VPS)
+	- If not installed CloudPanel or a web host management panel that includes these parts, look up instructions on how to install MySQL, PHP, and PHPMyAdmin. eg. Google: Ubuntu 22 install mysql phpmyadmin
+	- Ubuntu v22 with CloudPanel comes with MySQL, PHP, and phpMyAdmin, however when accessing phpMyAdmin from Cloudpanel then only the databases the user is associated with shows up.
+		- To get the master credentials to see all databases, you run `clpctl db:show:master-credentials` and visit this url to login with those credentials https://XX.XXX.XX.XXX:8443/pma
+		- Test the same master credentials on the Mysql command:
+		  `mysql -h 127.0.0.1 -u USER -P 3306 -p'PASSWORD' -A`
+		- Save credentials, PMA link, and MySQL command to your webhost document and possibly save to an alias that echoes credentials and then logs in via ssh/sshpass.
+	- Test MySQL phpMyAdmin (if not done from previous CloudPanel step)
 		- What's the URL to phpMyAdmin? If needed, can we make it show all the databases instead of only some databases (databases associated to one user) at phpMyAdmin?
 		- Save phpMyAdmin URL and credentials to web host details document
-	- MongoDB
-		- Look up instructions how to install MongoDB: 
-		  eg. Google: Ubuntu 22 install mongo
-		- What's the mongo shell command? May skip adding to your web host details document. 
+	- Test MySQL daemon
+		- Run `mysql --version`
+		
+	- OPTIONAL: Test PHP wrapping MySQL works. You can write this php file then either run in web browser or terminal (`php script.php`):
+
+		```
+		<?php
+		$server = "127.0.0.1";
+		$username = "YOUR_USERNAME";
+		$password = "YOUR_PASSWORD";
+		$port = 3306;
+		$conn = new mysqli($server, $username, $password, "", $port);
+		if ($conn->connect_error) {
+			die("Connection failed: " . $conn->connect_error);
+		} else {
+				echo "Success: PHP connected to MySQL. Here are databases: <br/><br/>
+
+		";
+		}
+		$result = $conn->query("SHOW DATABASES");
+		while ($row = $result->fetch_assoc()) {
+				echo $row['Database'] . "<br>
+		";
+		}
+		$conn->close();
+		?>
+		```
+
+	If PHP connecting to MySQL works (most commonly used case), then it's assumed Python and NodeJS will connect with no problems. 
+	
+	But if you want to test NodeJS connecting to MySQL:
+	```
+	const mysql = require("mysql2");
+	
+	/**
+	 * Requirements:
+	 * PHP database: someDb
+	 * PHP table: someTable
+	 * PHP columns: id, someColumn
+	 * PHP port set to 8888
+	 * Insert some rows
+	 * Have MAMP started database server
+	 * 
+	 */
+	
+	const connection = mysql.createConnection({
+	  host: "127.0.0.1",
+	  user: "YOUR_USERNAME",
+	  password: "YOUR_PASSWORD",
+	  database: "someDb",
+	  port: 3306
+	});
+	
+	function showAllRows() {
+		connection.query(
+		  "SELECT * FROM mysql"
+		, function(err, results, fields) {
+		  console.log(results);    
+		});
+	  }
+	
+	connection.connect(function (err) {
+		if (err) {
+			console.error(err);
+		} else {
+			showAllRows();
+		}
+	  
+	});
+	```
+
+- And if you want to test Python connecting to MySQL:
+```
+# pip install mysql-connector-python 
+import mysql.connector
+from mysql.connector import Error
+
+# Database connection details
+connection_config = {
+	'host': '127.0.0.1',
+	'user': 'root',
+	'password': 'root',
+	'database': 'mysql',
+	'port': 3306
+}
+
+def show_all_rows():
+	connection = None
+	try:
+		connection = mysql.connector.connect(**connection_config)
+		if connection.is_connected():
+			cursor = connection.cursor()
+
+			# Check if the table exists
+			cursor.execute("SHOW TABLES LIKE 'user'")
+			result = cursor.fetchone()
+			if result:
+				cursor.execute("SELECT * FROM user")
+				results = cursor.fetchall()
+				for row in results:
+					print(row)
+			else:
+				print("Table does not exist.")
+	except Error as e:
+		print(f"Error: {e}")
+	finally:
+		if connection is not None and connection.is_connected():
+			cursor.close()
+			connection.close()
+
+if __name__ == '__main__':
+	show_all_rows()
+```
+
+
+- And if you want to test Python's Flask connecting to MySQL:
+```
+# pip install flask
+# pip install flask-mysqldb
+
+from flask import Flask
+from flask_mysqldb import MySQL
+
+app = Flask(__name__)
+
+# Required
+app.config["MYSQL_USER"] = "root"
+app.config["MYSQL_PASSWORD"] = "root"
+app.config["MYSQL_DB"] = "someDb"
+
+# Required for testing: 
+# MySQL: root/root
+# Database: someDb
+# Table: someTable
+#         id PK Auto-Increments
+#         someColumn varchar(255)
+# Seeded
+""" 
+INSERT INTO `someTable` (`id`, `someColumn`) VALUES (NULL, 'Abby');
+INSERT INTO `someTable` (`id`, `someColumn`) VALUES (NULL, 'Bobby');
+INSERT INTO `someTable` (`id`, `someColumn`) VALUES (NULL, 'Caitlin'); 
+"""
+
+# Extra configs, optional:
+app.config["MYSQL_CURSORCLASS"] = "DictCursor"
+app.config["MYSQL_CUSTOM_OPTIONS"] = {"ssl": {"ca": "/path/to/ca-file"}}  # https://mysqlclient.readthedocs.io/user_guide.html#functions-and-attributes
+
+# Init
+mysql = MySQL(app)
+
+# http://127.0.0.1:5000/
+@app.route("/")
+def users():
+	cur = mysql.connection.cursor()
+	cur.execute("""SELECT * from someTable""")
+	rv = cur.fetchall()
+	return str(rv)
+
+if __name__ == "__main__":
+	app.run(debug=True)
+```
+
+
+
+#### Mongo
+- Installation
+	- See if you have mongo already installed `mongo --version` or `mongosh --version`, as long as one of them works. Cloudpanel does NOT come with Mongo.
+	- Look up instructions how to install MongoDB: 
+	  eg. Google: Ubuntu 22 install mongo. 
+		  - Debian 12: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-debian/
+			  - If status of mongod service is failure, check `tail /var/log/mongodb/mongod.log`.
+				  - If the `mongod.log` has the line "Permission denied" (You can specifically check with 
+				 `tail /var/log/mongodb/mongod.log | grep Permission`):
+					  - And if the "Permission denied" error is because "Failed to unlink socket file"
+						  - 1. Check and remove the socket file: `sudo rm /tmp/mongodb-27017.sock`
+						  - 2. Ensure that the /tmp directory has the correct permissions: `sudo chmod 1777 /tmp`
+						  - 3. Check the ownership of MongoDB directories: `sudo chown -R mongodb:mongodb /var/lib/mongodb /var/log/mongodb`
+						  - 4. Restart MongoDB: `sudo systemctl restart mongod`
+						  - 5. Verify no more mongo service problem: `sudo systemctl status mongod`
+	- What's the mongo shell command? May want to add to your web host details document. 
+		- MongoDB 3.4 unofficial and below, run`mongo` for mongoshell
+		- Above Mongo 3.4 unofficial, run `mongosh` for mongoshell
+		- If Mongo community version (maintained by the official Mongo organization), run `mongosh` while `mongod` service has started
+	- Mongo service
+		- Check if mongo service is running? What's the command to check status?
+		- Make sure to reboot to check that the mongo service sticks (running mongo shell works). After reboot, check the service status.
+		- Also figure out the commands for: How to stop mongo service? How to restart mongo service? 
+		- How to check the logs for service starting errors (Eg. Ubuntu 22 is `sudo tail -n 100 /var/log/mongodb/mongod.log`)
+		- Optional: Save these commands to your web host details document.
+
+	- Create an authentication account on the auth collection
+	  Go into Mongo Shell (`mongo` or `mongosh`), switch into admin collection (run `use admin`), then run this to create user
+	  WARNING: DO NOT create a username named "root". Some Mongo versions already created a root user to work with test as the authentication database, and it causes conflicts like the mongo invoke command saying incorrect credentials but the interactive authentication passing
+	  
+	  Create user while inside admin collection:
+		```
+		db.createUser({ user: 'USERNAME', pwd: 'PASSWORD', roles: [{role: "root", db: "admin"}] })
+		```
+
+	^Make sure you've switched into admin collection (`use admin`), otherwise the db.createUser will silently work, but later the mongo invoke command will say incorrect credentials. The reason is because if you haven't switched into another collection, the authentication collection on the outside is "test", despite you specifying admin in the createUser method. The "admin" db setting passed to createUser would be ignored because you haven't proven access yet by successfully changing into admin collection.
+
+	- Test you can invoke mongo with credentials (mongo or mongosh depending on version):
+	```
+	mongosh -u 'USERNAME' -p 'PASSWORD' --authenticationDatabase 'admin'
+	```
+
+- Test the alternate invoke mongo using a URL because that will be roughly the URL you will use in your backend for NodeJS, etc to authenticate (your code would have the domain address instead of the numeric localhost IP):
+```
+mongosh 'mongodb://USERNAME:PASSWORD@127.0.0.1:27017/?authSource=admin'
+```
+
+^ If fails, check port and bindIp in `/etc/mongod.conf` have 127.0.0.1 and 27017. If you have special characters like "!", you have to encode into URI (! is %21).
+^ We are using single quotes to reduce the chances of the shell interpreting and rewriting characters when inside double quotes.
+
+- Enable authorization for the mongo daemon (so that you can't just run `mongosh` or `mongo` then be able to show any databases):
+	```
+	sudo vi /etc/mongod.conf
+	```
+
+	
+- Add or strip comment (be careful with spacing otherwise starting service will say illegal map value for a YAML config file):
+	```
+	security: 
+	  authorization: enabled
+	```
+
+- Restart mongo service so the settings apply:
+	```
+	sudo systemctl restart mongod
+	```
+
+- Test you can be denied access without the correct authentication:
+	- 1. Run `mongo` or `mongosh` depending on the version of mongo
+	- 2. You'll notice you successfully got into the Mongo shell; However, run `show databases;` while in the unauthenticated Mongo Shell, it will error: `**MongoServerError[Unauthorized]** ...` .
+
+- Save authenticated login shell command and URL into your web host details documents
+	  
+- Decide whether to open the Mongo to remote IPs or keep local. If you open to remote IPs, then you can connect from your Mongo Compass. The inner steps here are to enable for remote IPs / Mongo Compass
+
+	 1. Enabling external connections (and Mongo Compass)
+		By default `etc/mongod.conf` settings allow files on the same host as the mongo server to connect (127.0.0.1, aka localhost). Let's open Mongo to the internet/world.
+		Edit your `/etc/mongod.conf`:
+		
+		```
+		   net:
+			 bindIp: 0.0.0.0
+		```
+
+	2. Restart mongo service so the settings apply:
+	```
+	sudo systemctl restart mongod
+	```
+
+	3. If you have firewall (either uwf or iptables), you have to allow in internet 0.0.0.0 into port 27017:
+		- Check if ufw firewall is enabled with `sudo ufw status`. If it's enabled, you should open the Mongo port by running `sudo ufw allow 27017`. Check port allowed rules by running same `sudo ufw status`. Apply the rules immediately with `sudo ufw reload`.
+		- Check if iptables is managing firewall by running `sudo iptables -L -v -n` to see if there are any port rules which implies that iptables is enabled. Note that there doesn't need to be a iptables service for this firewall to work because iptables works at the kernel level. 
+			- If it's enabled, you should open the Mongo port by running `sudo iptables -A INPUT -p tcp --dport 27017 -j ACCEPT`. No need to reboot; Rules are hot applied right way. Check ports allowed by running `sudo iptables -L -n`.
 		  
-		  MongoDB 3.4 and below, run`mongo` for mongoshell
-		  Above Mongo 3.4, run `mongosh` for mongoshell
-		  
-		- Check if mongo service is running? 
-		- Make sure to reboot to check that the mongo service sticks (running mongo shell works). Eg. google: ubuntu 22 how to reboot
+- Test MongoDB Compass works with the URL.
 
-		- Also figure out the commands for: How to stop mongo service? How to restart mongo service? How to check the logs for service starting errors (Eg. Ubuntu 22 is `sudo tail -n 100 /var/log/mongodb/mongod.log`)
-		
-		- Save these commands to your web host details document.
-		- 
-		- Create an authentication account on the auth collection
-		
-		  While in Mongo Shell, run to create user
-			```
-			db.createUser({  
-			  user: "USERNAME",  
-			  pwd: "PASSWORD",
-			  roles: [{role: "root", db: "admin"}]  
-			})
-			```
-
-
-		Enable authorization for the mongo daemon:
-		```
-		sudo vi /etc/mongod.conf
-		```
-
-		
-		Add or strip comment:
-		```
-		security: 
-			authorization: enabled
-		```
-
-		Restart mongo service so the settings apply:
-		```
-		sudo systemctl restart mongod
-		```
-
-		Test proper login shell command based on version of your MongoDB:
-		```
-		mongo -u USERNAME -p PASSWORD --authenticationDatabase admin
-		```
-		
-		or
-		```
-		mongosh -u USERNAME -p PASSWORD --authenticationDatabase admin
-		```
-
-		It passes if you go into the mongo shell instead of receiving the error `MongoServerError: Authentication failed.`
-
-		Note: You may have accidentally ran `mongo` or `mongosh` and notice you can still get into the Mongo shell without the authentication options and option values; However, that doesn't matter because if you run `show databases;` while in the unauthenticated Mongo Shell, it will error: `**MongoServerError[Unauthorized]** ...` 
-
-		- Save authenticated login shell command into your web host details documents
-		  
-		- Decide whether to open the Mongo to remote IPs or keep local. If you open to remote IPs, then you can connect from your Mongo Compass. The inner steps here are to enable for remote IPs / Mongo Compass
-
-		 Enabling external connections (and Mongo Compass)
-			By default `etc/mongod.conf` settings allow files on the same host as the mongo server to connect (127.0.0.1, aka localhost). Let's open Mongo to the internet/world.
-			Edit your `/etc/mongod.conf`:
-			
-			```
-			   net:
-				 bindIp: 0.0.0.0
-			```
-
-		Restart mongo service so the settings apply:
-		```
-		sudo systemctl restart mongod
-		```
-
-		Additionally, if you have firewall (either uwf or iptables), you have to allow in internet 0.0.0.0 into port 27017:
-		.. Check if ufw firewall is enabled with `sudo ufw status`. If it's enabled, you should open the Mongo port by running `sudo ufw allow 27017`. Check port allowed rules by running same `sudo ufw status`. Apply the rules immediately with `sudo ufw reload`.
-		..Check if iptables is managing firewall by running `sudo service iptables status`. If it's enabled, you should open the Mongo port by running `sudo iptables -A INPUT -p tcp --dport 27017 -j ACCEPT` . Check ports allowed by running `sudo iptables -L -n`
-				
-		- Test MongoDB with authentication account works on Python or NodeJS
-		
-		Test Python:
-		Create a test.py then run `python test.py` after you've installed `pip install pymongo`:
-		```
-		from pymongo import MongoClient
-		
-		# Replace these with your actual MongoDB username and password
-		mongo_user = "USERNAME"
-		mongo_password = "PASSWORD"
-		
-		uri = f"mongodb://{mongo_user}:{mongo_password}@localhost:27017/?authSource=admin"
-		client = MongoClient(uri)
-		
-		try:
-		    # Check the connection by listing the databases
-		    databases = client.list_database_names()
-		    print("Connected successfully. Databases:", databases)
-		
-		except Exception as e:
-		    print("Failed to connect to MongoDB:", e)
-		
-		```
+- Test MongoDB with authentication account works on Python or NodeJS:
+	
+	Test Python:
+	Create a test.py then run `python test.py` after you've installed `pip install pymongo`:
+	```
+	from pymongo import MongoClient
+	
+	# Replace these with your actual MongoDB username and password
+	mongo_user = "USERNAME"
+	mongo_password = "PASSWORD"
+	
+	uri = f"mongodb://{mongo_user}:{mongo_password}@localhost:27017/?authSource=admin"
+	client = MongoClient(uri)
+	
+	try:
+		# Check the connection by listing the databases
+		databases = client.list_database_names()
+		print("Connected successfully. Databases:", databases)
+	
+	except Exception as e:
+		print("Failed to connect to MongoDB:", e)
+	
+	```
 
 
-		Optionally, test NodeJS:
-		Create a test.py then run `python test.py` after you've installed `pip install pymongo`:
+	Optionally, test NodeJS:
+	Create a test.py then run `python test.py` after you've installed `pip install pymongo`:
 	```
 	const { MongoClient } = require('mongodb');  
 	  
@@ -855,29 +939,31 @@ sudo systemctl start nginx
 	const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });  
 	  
 	async function run() {  
-	    try {  
-	        // Connect to the MongoDB cluster  
-	        await client.connect();  
+		try {  
+			// Connect to the MongoDB cluster  
+			await client.connect();  
 	  
-	        // List databases  
-	        const databasesList = await client.db().admin().listDatabases();  
+			// List databases  
+			const databasesList = await client.db().admin().listDatabases();  
 	  
-	        console.log("Connected successfully. Databases:");  
-	        databasesList.databases.forEach(db => console.log(` - ${db.name}`));  
-	    } catch (e) {  
-	        console.error("Failed to connect to MongoDB:", e);  
-	    } finally {  
-	        // Close the connection  
-	        await client.close();  
-	    }  
+			console.log("Connected successfully. Databases:");  
+			databasesList.databases.forEach(db => console.log(` - ${db.name}`));  
+		} catch (e) {  
+			console.error("Failed to connect to MongoDB:", e);  
+		} finally {  
+			// Close the connection  
+			await client.close();  
+		}  
 	}  
 	  
 	run().catch(console.dir);
 	```
 
+	- It's assumed PHP will be able to connect to Mongo if Python and NodeJS works
 
-It's assumed PHP will be able to connect to Mongo if Python and NodeJS works
 
+Let's install these CI/CD solutions:
+#### Git
 - Make sure there is git on your system
 	- Some systems come with git. Check out by running `git --version`
 	- If git is not included, lookup instructions how to install git on the system
@@ -900,12 +986,13 @@ It's assumed PHP will be able to connect to Mongo if Python and NodeJS works
 	  1. Add public key to your Github account, referring to: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
 		  1. Click New SSH key at https://github.com/settings/keys
 		  2. Paste the contents of the public key (eg. id_ed25519.pub) and save as a SSH key, recommended naming the key after your server provider name for organizing purposes.
-
+#### Docker
 - Make sure docker is on your system
 	- Lookup instructions how to install docker on the system
 		- eg. Google: Ubuntu 22 install docker
 		  https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04
 
+#### Scaling Solutions
 - Look up instructions for your OS on how to install these scaling solutions, if applicable to your server's use cases
 	- Balancers and multi workers:
 		- pm2 for nodejs
@@ -1093,6 +1180,9 @@ Root web directory is:****
 How to change password:
 `sudo passwd root` OR UI: ...
 
+Firewall managed with:
+iptables / firewalld / ufw
+
 ---
 
 ### ACC Mounted VPS
@@ -1227,45 +1317,32 @@ Mongo Shell:
 
 ----
 
-### ACC Supervisor Web UI at Port 9001
+### ACC Supervisor
 
-_user
-_pass
-domain.com:9001
+**Web UI at Port 9001:**
+??
+??
+wengindustries.com:9001
 
+**Directories:**
 
----
+/etc/supervisor/conf.d/*
+/etc/supervisor/supervisord.conf
 
-### ACC Supervisor and Related Commands:
-
+**Commands:**
 
 Pyenv Virtualenv Activate
 ```
 pyenv activate app
 ```
 
-Supervisor main config settings:
+Restart Supervisor:
 ```
-/etc/supervisor/supervisord.conf?
-```
-
-
-Supervisor apps folder:
-```
-/etc/supervisor/conf.d?
+supervisord -c /etc/supervisor/supervisord.conf -l /var/log/supervisor/supervisord.log
 ```
 
-Apps include:
-```
-/etc/supervisor/conf.d/app.conf?
-```
-
-Supervisor to sh
-```
-?
-```
-
-
+**Supervisor to app data flow:**
+Supervisor watches .sh file which runs pyenv environment and gunicorn
 
 ---
 ---
@@ -1298,3 +1375,48 @@ Supervisor to sh
 ## OS paths (error logs, configs), commands, and workflows
 
 _...?
+
+---
+
+## ACC Network settings
+If separated dedicated server into VPS
+`/etc/network/interfaces`, `ip route`, `ip addr` for both host and the VM
+
+This how my host's `/etc/network/interfaces` look, and:
+Ethernet port / network card is named: 
+And there's a virtual bridge named: 
+```
+
+```
+
+Host's `ip addr` is:
+
+```
+
+```
+
+Host's `ip route` is: 
+```
+
+```
+
+
+I just ran `xl create vps0` and created a VM. 
+
+The VM's `/etc/network/interfaces` look like, and:
+Ethernet port / network card is named:
+```
+
+```
+
+VM's `ip addr` looks like:
+
+```
+
+```
+
+VM's `ip route` looks like:
+
+```
+
+```

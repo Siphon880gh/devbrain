@@ -1,9 +1,9 @@
 
-Check if iptables is managing firewall by running `sudo service iptables status`. 
+Check if iptables is managing firewall by running `sudo iptables -L -v -n` to see if there are any port rules which implies that iptables is enabled. Note that there doesn't need to be a iptables service for this firewall to work because iptables works at the kernel level. 
 
-If it's enabled, you should open the Mongo port by running `sudo iptables -A INPUT -p tcp --dport 27017 -j ACCEPT` . 
+If it's enabled, you can open a port by running, like: `sudo iptables -A INPUT -p tcp --dport 27017 -j ACCEPT`. No need to reboot; Rules are hot applied right way. Check ports allowed by running `sudo iptables -L -n`.
 
-Check ports allowed by running `sudo iptables -L -n`
+Check ports allowed by running `sudo iptables -L -n`. You can check for a specific port like this: `sudo iptables -L -n | grep 27017`
 
 ---
 

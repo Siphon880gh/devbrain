@@ -374,7 +374,7 @@ Then it will ask for your password which was in the installation summary
 
 For your future reference: You can leave the VM shell back into the host shell by pressing `CTRL + ]`
 
-#### Has computer allocation resources been followed
+#### Check the computer allocation resources went thru
 
 Xen Xl is tricky and they change their syntax enough times that you need to double check your allocations went through.
 

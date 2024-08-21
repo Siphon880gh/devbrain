@@ -3,7 +3,7 @@
 
 Newbie questions: Proftpd? vsFTPD? SFTP does not need them. 
 
-By having SSH, you already have SFTP, and they run on the same port! And you can have multiple connections with the same SSH user.
+By having SSH, you already have SFTP, and they run on the same port! And you can have multiple connections with the same SSH user. **Your SSH users are the same users for SFTP.**
 
 You can use two types of SSH accounts - Root and non-root's.
 

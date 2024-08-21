@@ -5,9 +5,7 @@ Install whatever packages you want this app to have isolated from your system an
 
 ---
 
-
-This guide will combine supervisor and gunicorn with https. This allows for concurrent requests to flask. But does not scale up servers (not an autoscaler) because you need Kubernetes or AWS ECS for that.
-
+This guide will combine supervisor and gunicorn with https. This allows for concurrent requests to flask. But does not scale up servers (not an autoscaler) because that needs Kubernetes or AWS ECS for that.
 
 ---
 
@@ -18,10 +16,14 @@ Skip  steps 1-5 if have done. Skip step 6 if have setup supervisor for your app.
 
 1. Install supervisor globally for your os
 What worked for CentOS 6.1 was supervisor-3.0a8.tar.gz
-What worked for Ubuntu 22 was ``
+What worked for Debian 12 was 
+```
+apt update
+apt-get install supervisor
+```
 
 2. Figure out what file your Supervisor central settings are in: 
-	1. Run `ls ~/supervis*` then `ls /etc/supervis*` to figure out which one exists. Then it's a folder, so you cd into it. Then you get `pwd` which can return `~/supervisor` or `/etc/supervisor/`. 
+	1. Figure out what folder exists by checking `ls ~/supervis*` and `ls /etc/supervis*`. Then it's a folder, so you cd into it. Then you get `pwd` which can return `~/supervisor` or `/etc/supervisor/`. 
 	2. The file you're editing is `supervisord.conf` so the filepath to your Supervisor central settings is `~/supervisor/supervisord.conf` or `/etc/supervisor/supervisord.conf`
 		- For example, central settings could be at: `/etc/supervisor/supervisord.conf`
 		- FYI, .conf stands for configuration file
@@ -32,7 +34,7 @@ What worked for Ubuntu 22 was ``
 		- You can cd into it to confirm it's a folder.
 		- For example, apps could have settings at the folder: `/etc/supervisord/conf.d/` and one of yoru apps could have their settings at the file `/etc/sueprvisord/conf.d/app1.conf`
 	   
-4. Copy down these paths (Supervisor central settings filepath and Supervisor apps' settings folder path) to wherever you keep track of important account information for your web host / VPS / dedicated services
+4. Copy down these paths (Supervisor central settings filepath and Supervisor apps' settings folder path) to your webhost's details document. You may add them to the pre-echo before ssh/sshpass if you login SSH via an alias.
 
 5. Edit your Supervisor central settings file
 
@@ -41,6 +43,41 @@ CAVEAT: Do not use shortcut path `~` in the settings, because is not recognized;
 Use one of the templates below to reconcile the central settings file. Keep the filepaths that are by default on your central settings file intact and that's also an opportunity to check if it's the same filepath/folderpaths(s) you discovered. 
 
 Add the recommended settings that are in the template but not in the file's defaults. And modify the default settings to match the template's (except the filepaths/folderpaths because that's OS specific rather than use case specific - our use case being to host a SaaS web app). Make sure you add them to the correct sections (sections are include, supervisord, etc). 
+
+Make sure to backup the original file (eg. `cp /etc/supervisor/supervisord.conf /etc/supervisor/supervisord.conf.bak)
+
+**if remote ColocationAmerica:**
+```
+; supervisor config file
+
+[include]
+files = /etc/supervisor/conf.d/*.conf
+
+[supervisord]
+nodaemon=false
+loglevel=debug
+logfile=/var/log/supervisor/supervisord.log ; (main log file;default $CWD/supervisord.log)
+pidfile=/var/run/supervisord.pid ; (supervisord pidfile;default supervisord.pid)
+childlogdir=/var/log/supervisor            ; ('AUTO' child log dir, default $TEMP)
+user=root  ; specify the user to run supervisord as (set to root if you intend to run as root)
+
+[supervisorctl]
+serverurl=unix:///var/run/supervisor/supervisor.sock ; use a unix:// URL for a unix socket
+
+[unix_http_server]
+file=/var/run/supervisor/supervisor.sock   ; (the path to the socket file)
+chmod=0775                       ; sockef file mode (default 0700)
+chown=root:root ; socket file owner and group (adjust as needed)
+
+[inet_http_server]
+port=127.0.0.1:9001
+
+; the below section must remain in the config file for RPC
+; (supervisorctl/web interface) to work, additional interfaces may be
+; added by defining them in separate rpcinterface: sections
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+```
 
 **if remote Hostinger:**
 ```
@@ -126,6 +163,8 @@ port = 127.0.0.1:9001
 supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 ```
 
+
+Open port 9001 with iptables, ufw, firewalld, depending on what you're using for firewall. Refer to [[IPTables - Enable specific ports]], or [[UFW - Enable specific ports]], or [[firewalld - Enable specific ports]]
 
 6. Cd into the folder where your Supervisor apps can have settings at.
 
@@ -224,21 +263,57 @@ hi
 ^ It's been truncated for this guide. It would repeat "hi" many times before it crashes because of "too many start retries too quickly". Normally you use Supervisor for processes that run continuously like a node server or a flask server / gunicorn server. So this is exactly what we want to see to pass Supervisor.
 
 9. Cleanup of testing Supervisor
-	1. Remove test.sh file with:
-	   `rm /tmp/test.sh`
-	2. Restart supervisord
 
-To restart supervisord, run this command without the -n (so whether to go into foreground or background will refer to the main settings which we set nodaemon=false)
-Again, adjust the filepaths if appropriate to
+Remove test.sh file with:
+```
+rm /tmp/test.sh
+```
+
+
+10. Setup the 9001 Supervisor Web Portal
+
+Useful to see all your Supervisor apps
+
+Edit `/etc/supervisor/supervisord.conf` or appropriate file's inet http server section:
+Make sure to come up with username and password
+```
+[inet_http_server]
+; port=127.0.0.1:9001
+port=0.0.0.0:9001
+username=USERNAME      ; Optional: add for basic authentication
+password=PASSWORD     ; Optional: add for basic authentication
+```
+
+
+
+Open port 9001 with iptables, ufw, firewalld, depending on what you're using for firewall. Refer to [[IPTables - Enable specific ports]], or [[UFW - Enable specific ports]], or [[firewalld - Enable specific ports]]
+
+
+Restart supervisor in the foreground to see if we can access the web portal:
+```
+supervisord -c /etc/supervisor/supervisord.conf -l /var/log/supervisor/supervisord.log -n
+```
+
+
+Then visit domain.tld:9001, and attempt to login
+
+If successful, save the Supervisor Web Portal credentials and URL to your webhost details document.
+
+![](https://i.imgur.com/phza97X.png)
+
+
+11. Be familiar with supervisord management
+
+Restart supervisord in the BACKGROUND
+
+Notice we removed -n which means to refer to the Supervisord primary config where nodaemon=false. This means supervisor can run in the background without interrupting your shell session and without exiting the shell session causing supervisor to terminate.
 ```
 supervisord -c /etc/supervisor/supervisord.conf -l /var/log/supervisor/supervisord.log
 ```
 
 If fails to restart, you can make sure it's shutdown with: `sudo supervisorctl shutdown`
 
-2. Check through your OS' services manager if Supervisor had started. If you have proper apps, it should be running. If you have that one test app file we have, it should have EXITED because `echo "hi";` will repeat too many times then will crash (lack of continuous running like a node server or a python server). This command just proves we can check the status in the future:
-
-For Ubuntu 22, it's
+For your OS equivalent, figure out how to check status, restart, and stop services. Eg:
 ```
 sudo systemctl status supervisor
 ```
@@ -256,19 +331,18 @@ For CentOS 6.1, it's:
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash  
 ```
 
-For Ubuntu 22.04, it's:
+For Ubuntu 22.04 or Debian 12, it's:
 ```
 sudo apt-get update && sudo apt-get install make build-essential libssl-dev \
-
-    zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
-
-    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 ```
 
 ```
-curl https://pyenv.run | bash|
+curl https://pyenv.run | bash
 ```
 
+Then restart the shell (or log out and log back in on SSH).
 
 2. We will make sure the pyenv command works permanently.
 
@@ -288,7 +362,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init -)"
 ```
 
-Where to append this to? Refer to [[Fundamental - login shell, interactive shell, profile, bash_profile, bashrc, zshrc, zprofile]]. First figure out what shell you have by running `echo $SHELL` so that you know which shell configuration file to edit to. Then add the settings to the profile file (which is associated with login shells which you are using with SSH) 
+Where to append this to? Refer to [[Fundamental - login shell, interactive shell, profile, bash_profile, bashrc, zshrc, zprofile]]. First figure out what shell you have by running `echo $SHELL` so that you know which shell configuration file to edit to. Then add the settings to the profile file (which is associated with login shells which you are using with SSH).
 
 No need to add to the rc file which is for Interactive Non-Logged in Sessions. You wouldn't want to start supervisor, pyenv, etc without user authentication.
 
@@ -302,7 +376,7 @@ source ~/.bash_profile
 Now actually test that pyenv command will work:
 ```
 which pyenv
-ls ~/.pyenv/bin/pyenv  
+ls ~/.pyenv/bin/pyenv
 ```
 
 If not found, refer to the script that the installer recommends you to add. For example, it saying "\$HOME/pyenv", then you run `echo $HOME` and figure out the path that got concatenated into \$PYENV_ROOT, which you can prepend in the shell configuration file like `export PATH="/root/.pyenv/bin/pyenv"`
@@ -313,7 +387,7 @@ If not found, refer to the script that the installer recommends you to add. For 
 
 Checkpoint: We now install pyenv and select a version for the folder/app
 
-1. Cd into the folder of your app. If you have no python app. We will create a test app. Create the folder first
+1. **Cd into the folder of your app. If you have no python app. We will create a test app. Create the folder first**
    
 2. Decide which version of python you want which is based on your python syntax, compatible libraries, and your OS compatibility.
 
@@ -324,10 +398,12 @@ GoDaddy CentOS 6.1: Limited to 3.6.15 because the OS is old and no longer suppor
 pyenv install 3.6.15
 ```
 
-Ubuntu 22:
+Ubuntu 22 or Debian 12:
 ```
 pyenv install 3.12.4
 ```
+
+^ If it seems to be stuck on "Installing Python-...", just be patient. It's a long wait.
 
 3. Then make the python version available to your project
 
@@ -335,82 +411,68 @@ pyenv install 3.12.4
 pyenv local 3.12.4
 ```
 
-What running `local` does is specified Python version (e.g., `3.8.10`) is written to the `.python-version` file in the current directory AND `pyenv` determines which Python version.
+What running `local` does is have the specified Python version (e.g., `3.8.10`) written to the `.python-version` file in the current directory AND `pyenv` determines which Python version.
 
 You want to perform two checks to make sure this is successful:
-- Check `.python-version`. Run ls -la to confirm there's now a .python-version file. That file has the version of python that your folder will switch to when running `local`. Running `pyenv version` or `cat .python_version` will show the python version from that file
-- Check that `python --version` in the same folder especially now that you've ran `pyenv local...` will give you the correct python version. If it does not it's because you have other paths earlier in the \$PATH that overridden pyenv's python:
+- Check `.python-version`. Run `ls -la` to confirm there's now a `.python-version` file. That file has the version of python that your folder will switch to when running `local`. Running `pyenv version` or `cat .python_version` will show the python version from that file
+- Check that `python --version` in the same folder especially now that you've ran `pyenv local...` will give you the correct python version. 
+- If it does not it's because you have other paths earlier in the \$PATH that overridden pyenv's python:
 	- Did you create symbolic links / shortcuts before? Like `sudo ln -sf /usr/local/bin/python2 /usr/bin/python`, OR `sudo ln -sf /usr/bin/python2 /usr/bin/python`. Confirm it's a symbolic link: In this case, you edit `vi /usr/bin/python` and see from the first line it points to an original file. Once confirmed, remove it, then run `source ~/.bash_profile` or the appropriate configuration file.
 	- Did you assign an alias to python command in a shell configuration file (.bash_profile, etc)? Remove it, then run `source ~/.bash_profile` or the appropriate configuration file.
+	- If the version still doesn't match pyenv's when you run `python --version`, restart the shell (or log out and log back in on SSH).
 
 ## 4. Enhance pyenv with virtualenvs so we can keep python dependencies isolated to the folder
 
 Checkpoint: Now `pyenv local VERSION` selected a particular python version for the folder, we will install pyenv's virtualenv plugins which enhances pyenv so that pyenv can keep dependencies isolated to this folder (rather than isolating the dependencies to the python version setup across other pyenv apps)
 
 
-1. See if `pyenv virtualenvs` is included in `pyenv` or you have to install it separately. In newer versions of pyenv, it's included already
+1. See if `pyenv virtualenvs` is included in `pyenv` or you have to install it separately. In newer versions of pyenv, it's included already. Check by running: `pyenv virtualenvs` and if there is no error or any message, then it came included.
+	- If virtualenvs didn't come included with pyenv, 
+		- eg. Google: CentOS 6.1 install pyenv virtualenvs
+		- eg. Google: Mac .. install pyenv virtualenvs
+		- If CentOS 6.1:
+		```
+		sudo yum install -y git gcc zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel  
+		  
+		git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv  
+		```
+		- If Mac's pyenv didn't come included: `brew install pyenv-virtualenv`
 
-- See if any errors when running `pyenv virtualenvs`. No errors mean success and that pyenv includes virtualenvs. Newer OS like Ubuntu 22 supports the pyenv that has virtualenvs included
-- On older systems like CentOS 6.1, you will need to google, eg. Google: CentOS 6.1 install pyenv virtualenvs
-
-- Installations (if necessary):
-	- If Mac:
-```
-brew install pyenv-virtualenv
-```
-  
-
-	- If CentOS 6.1:
-```
-sudo yum install -y git gcc zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel  
-  
-git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv  
-```
-
-
-Make sure you have this after the pyenv init in the shell configuration file for both profile and rc:
-.bash_profile or similar AND .bashrc or similar:
-```
-eval "$(pyenv virtualenv-init -)"  
-```
-
-
-2. Create the pyenv virtualenv with this:
+2. Create the pyenv virtualenv with this (Adjusting the python version to the locally specified version and the app name to one that's easy to remember):
 ```
 pyenv virtualenv 3.12.4 app-test
 ```
 
 
-- FYI, for managing in the future. Show all ve's with `pyenv virtualenvs`. Show all python versions with `pyenv versions`. Delete a ve with `pyenv uninstall app1`
-
-3. Now make sure to activate that pyenv-virtualenv in the current shell session:
+3. Now make sure to activate that pyenv-virtualenv in the current shell session (Adjusting the app name if you had changed it from the previous step):
 ```
 pyenv activate app-test
 ```
 
-To confirm, your terminal's user prompt line should lead with the pyenv-virtualenv's name. Eg:
+4. To confirm, your terminal's user prompt line should lead with the pyenv-virtualenv's name. Eg:
 ```
 (app-test) root@srv:/home/domain/htdocs/domain.com/test #
 ```
 
+
+5. FYI, for managing pyenv-virtualenvs in the future:
+	- Show all ve's with `pyenv virtualenvs`
+	- Show all python versions with `pyenv versions 
+	- Delete a ve with `pyenv uninstall app1`
+
 ## 5. Enhance pyenv-virtualenvs with pipenv
 
-Checkpoint: Now that you have the enhanced pyenv virtualenvs, we will enhance further with pipenv. The package pipenv could work independently from pyenv or pyenv-virtualenvs, but we will force pipenv to work with pyenv-virtualenvs to leverage all their benefits. Pipenv allows you to isolate dependencies to a folder using Pip.
+Checkpoint: Now that you have the enhanced pyenv with pyenv-virtualenvs, we will enhance further with pipenv. The package pipenv could work independently from pyenv or pyenv-virtualenvs, but we will force pipenv to work with pyenv-virtualenvs to leverage all their benefits. Pipenv allows you to isolate dependencies to a folder using a Pipfile which is more reliable than running commands around requirements.txt.
 
-You will install pipenv using pip. And your shell session is currently in a pyenv-virtualenv, so you're using the pip associated with pyenv-virtualenv
+1. Requirement 1: Proper Pip
+You will install pipenv using the pip that's associated with the pyenv's python you specified. As long as your shell session is still in the pyenv-virtualenv,  you're using the pip associated with pyenv-virtualenv, or when you run `which pip` and the path mentions pyenv like `/root/.pyenv/shims/pip`
 
-1. Check that no anaconda pip is escaping your pyenv's pip
-   
-Run:
-```
-which pip 
-```
+Troubleshooting: If an anaconda pip is overriding your pyenv's pip: 
+- Move the $PATH around by prepending the pyenv's pip path (`/root/.pyenv/shims/pip`) inside $PATH at your bash profile. If that shims pip doesn't exist, the pip is found in your pyenv's current python path or your current virtualenv app path, for example  `/root/.pyenv/versions/3.12.4/bin/pip` or `/root/.pyenv/versions/3.12.4/envs/app-test/bin/pip`
 
-A success is seeing: `/root/.pyenv/shims/pip`
+2. Requirement 2: Latest build chains
 
-If ou see an anaconda sounding path you fix this by moving the $PATH around or prepending the pyenv's pip. The pip is found in your pyenv's current python path, for example folder /root/.pyenv/versions/3.6.15/envs/app1/bin or file /root/.pyenv/versions/3.6.15/envs/app1/bin/pip
-
-2. Requirement: Make sure have the latest pip and various build chains first in our virtual environment:
+Make sure have the latest pip and various build chains first in our virtual environment:
 ```
 pip install --upgrade pip setuptools wheel  
 ```
@@ -423,8 +485,13 @@ pip install pipenv
 ```
 
 
-You can confirm that the pipenv is associated with the pyenv's pip site-packages by running: `pip show pipenv` and looking at the path
+You can confirm that the pipenv is associated with the pyenv's pip's site-packages by running this command and checking the path:
+```
+pip show pipenv
+```
 
+Eg. This passes:
+`Location: /root/.pyenv/versions/3.12.4/envs/app-vlai/lib/python3.12/site-packages`
 
 1. Run this command to create a virtual environment using Pipenv and Pyenv working together:
 ```
@@ -434,11 +501,12 @@ pipenv --python $(pyenv which python)
 ^ How this works is `$(pyenv which python)` returns the path to the current active Python interpreter managed by Pyenv, then we set that python to Pipenv, ensuring that we have compatibility between Pipenv's packages and the Python used in this folder. The key is that pyenv is currently activated, either with `pyenv local VERSION` or `pyenv activate APP` (and that APP was created with pyenv virtualenv to be at a specific python version)
 
 
-2. If you're installing from all these systems (Supervisor, Pyenv, etc) the first time, test by installing package(A). 
-   If you're following this guide because you're migrating an app to another server that already have these systems globally but not configured for your app yet, and you have a Pipfile copied over (and you made sure it's `"*"` or appropriate versions), then install from Pipfile (B).
+2. Install your packages:
+	- If you're installing from all these systems (Supervisor, Pyenv, etc) the first time, test by installing package(A). 
+	- If you're following this guide because you're migrating an app to another server that already have these systems globally but not configured for your app yet, and you have a Pipfile copied over (and you made sure it's `"*"` or appropriate versions), then install from Pipfile (B).
+	   
    
-   
-A. Test by installing package
+	- **If A:** Test by installing package
 Run:
 ```
 pipenv install pymongo
@@ -484,11 +552,11 @@ If fail, then you may need to add paths to your .pyenv apps' python and to your 
 
 DO NOT remove the test.py file yet.
 
-B. Install from Pipfile (You're migrating in):
+- **If B**: Install from Pipfile (You're migrating in):
 
-Make sure in the same folder where Pipfile is at, then simply run:
+Make sure in the same folder where `Pipfile` is at, then simply run:
 ```
-pyenv install
+pipenv install
 ```
 
 3. OPTIONAL STEP: Once your app can run when you run the python script, get the versions of the packages saved into Pipfile so future migrations are simple.

@@ -1,5 +1,10 @@
 
-### Using `firewalld`
+**Check if `firewalld` is active**: On some systems, `firewalld` is used instead of `iptables`. You can check its status with:
+```
+sudo systemctl status firewalld
+```
+
+---
 
 1. **Allow port 9001**:
 
