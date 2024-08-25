@@ -5,7 +5,7 @@ Purpose: General checklist on setting up VPS, regardless if Hostinger or GoDaddy
 ```toc
 ```
 ## Requirement
-- Have web hosting admin panel (eg. Hostinger hpanel, WHM, GoDaddy My Products Dashboard)
+- Have Web Hosting Control Panel (eg. Hostinger hpanel, WHM, GoDaddy My Products Dashboard)
 
 ## Reminder
 
@@ -45,13 +45,15 @@ Likely your VPS has a web host admin panel (Hostinger hpanel, GoDaddy’s dashbo
 
 ---
 
-### How to decide on a Web Hosting Management Panel (Cpanel - monthly; Cloudpanel - free)
-- *Background: Btw web hosting management panel is what cpanel refers to their category as. For managing at a bigger level like in WHM, that's web hosting admin panel.*
+### How to decide on a Web Hosting Control Panel 
+- Cpanel - monthly pay
+- Cloudpanel - free
+- Refer to [[Server OS and Control Panel Packages]]
 
-### VPS: How to select the Web Hosting Management Panel (Cpanel, Cloudpanel, etc)
+### VPS: How to select the Web Hosting Control Panel (Cpanel, Cloudpanel, etc)
 - The webhost might have offered OS options separately from the VPS options or it might have offered options of OS and webhost management panel combo's.
 
-### How to log into Web Hosting Management Panel (Cpanel, Cloudpanel, etc)
+### How to log into Web Hosting Control Panel (Cpanel, Cloudpanel, etc)
 - What’s the link with port number (Different web hosting services may assign different port for your panel). 
  eg. Cloudpanel on Hostinger [https://XX.XXX.XX.XXX:8443](https://XX.XXX.XX.XXX:8443)
 - How to navigate to your panel at the Services Dashboard (if you don’t have the link handy)
@@ -80,9 +82,9 @@ Likely your VPS has a web host admin panel (Hostinger hpanel, GoDaddy’s dashbo
 ### VPS: How to setup web server for basic website editing and viewing (Multiple sites)
 - Basic: We just want to see we can impact how a website looks . We don’t care about SSL Https at this point
 - Where in the web hosting panel (cpanel, cloudpanel, etc) does it show you the public IP address you can visit directly in the web browser  
-- Where does it give you the default domain (aka temporarily domain)  (eg. srv451789.hstgr.cloud). We want to test we can visit the webpage after uploading files with FTP / vi file from shell / edit file from web hosting management panel. We do not care to visit the desired domain name yet because DNS propagation takes a while.
-- You can edit the index file in the web hosting management panel's File Manager or in the terminal.
-	- If in the terminal using vi: For each site on your web hosting management panel, what’s the folder path to create/edit index.html to so web browser can see a webpage? Aka root web directory for your website, Aka working directory for your code and webpages. This is usually the first website you create in your web host panel or the website they already created for you, and their settings show you the associated folder path.  
+- Where does it give you the default domain (aka temporarily domain)  (eg. srv451789.hstgr.cloud). We want to test we can visit the webpage after uploading files with FTP / vi file from shell / edit file from Web Hosting Control Panel. We do not care to visit the desired domain name yet because DNS propagation takes a while.
+- You can edit the index file in the Web Hosting Control Panel's File Manager or in the terminal.
+	- If in the terminal using vi: For each site on your Web Hosting Control Panel, what’s the folder path to create/edit index.html to so web browser can see a webpage? Aka root web directory for your website, Aka working directory for your code and webpages. This is usually the first website you create in your web host panel or the website they already created for you, and their settings show you the associated folder path.  
 - Prepare to visit that website in the web browser to see your changes went through:
 	- Edit the vhost to your site such that:
 	```
@@ -110,7 +112,7 @@ Likely your VPS has a web host admin panel (Hostinger hpanel, GoDaddy’s dashbo
 	- Figure out workflow to acquire and install SSL because you'll be doing this annually. Also perform it now
 		- If CloudPanel, it's very simple going to the site -> SSL/TLS -> Actions -> New Let's Encrypt Certificate (however you must have a domain connected to that website already because it'll create a file then access that file through your domain URL to prove your ownership then generates the certificate).
 		- If less obvious how and where to install SSL HTTPS certificates: Contact customer support or google Web host + OS + Nginx/Apache + Install SSL certificates. If the web host is not well known (very independent), google for: OS + Nginx/Apache+ Install SSL certificate
-	-  CloudPanel's Let's Encrypt SSL failing? Refer to section "Test web hosting management panel" -> ~ SSL
+	-  CloudPanel's Let's Encrypt SSL failing? Refer to section "Test Web Hosting Control Panel" -> ~ SSL
 	- Know the filepaths to the SSL for future issues and code that needs SSL cert and key paths such as gunicorn (even if Cloudpanel abstracts it away)
 		- If Hostinger CloudPanel, the Vhost page likely hides ssl cert and key file paths in the server block as variables. You have to find the site's nginx confi file where the final vhost is written (eg. /etc/nginx/sites-enabled/some-website.com.conf)
 			- Hostinger Ubunto 22.04 with Cloud Panel paths could be:
@@ -126,7 +128,7 @@ Likely your VPS has a web host admin panel (Hostinger hpanel, GoDaddy’s dashbo
 	- If Hostinger, their malware scanner [https://support.hostinger.com/en/articles/8450363-vps-malware-scanner](https://support.hostinger.com/en/articles/8450363-vps-malware-scanner)
     - How to navigate to the malware from services dashboard (Hostinger hpanel, GoDaddy dashboard, etc)
     - Is malware free, times one payment, or monthly/yearly? Or keep deactivated (often they let you scan but not fix for free)
-    - Is there a firewall from the web hosting management panel? or do you have to run ufw?
+    - Is there a firewall from the Web Hosting Control Panel? or do you have to run ufw?
 - Domain name
 	- Refer to tutorial on domain and dns editing. There are many ways to do it. One way is to have namecheap domain with two A records to the public IP of your webhost at "@" and "\*" (unless you want different public ip between www and other subdomains)
 
@@ -197,7 +199,7 @@ ini_set('default_socket_timeout', 300);  // Adjust as needed
 - PHP (if not included by your web host’s)
 	- If installed CloudPanel, PHP comes included. If you don't see PHP, you should create a PHP site off CloudPanel 
 	- If not installed CloudPanel and your web host management panel does not come included with PHP, look up how to install php, eg. Google: Ubuntu 22 install php
-	- If installed Cloudpanel or a web hosting management panel that already has it setup for you, you can also skip this step:
+	- If installed Cloudpanel or a Web Hosting Control Panel that already has it setup for you, you can also skip this step:
 		  - You have to configure apache or nginx to handle php, eg. Google: `Nginx handle php`, eg. Google: `Apache handle php`.
 #### Python
 - Check if you have python3 installed. It comes included with CloudPanel. Test with `python3 --version`
@@ -788,7 +790,7 @@ iptables / firewalld / ufw
 
 ---
 
-### ACC Web Hosting Management Panel
+### ACC Web Hosting Control Panel
 
 - \__which is
 - \__login creds

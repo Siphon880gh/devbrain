@@ -1,4 +1,6 @@
 
+## STOP!
+
 STOP! Has been outdated and not keeping up with more recent OS distros like Debian 12. It will break. Virtualmin has taken is place. 
 - Instead, refer to [[Virtualmin]] which is both a webhosting control panel as well as a multi-server control panel capable of starting Xen VMs (which are VMs that use hardware virtualizations except KVM hardware virtualizations)
 
@@ -30,3 +32,60 @@ sudo ./cloudmin-gpl-debian-install.sh
 
 
 ![](https://i.imgur.com/xgOryf4.png)
+
+---
+
+## Logs
+
+If Xen is managed by Cloudmin, you can find Xen logs in several places depending on your configuration. Here’s where to look:
+
+### 1. **Xen Logs**
+
+**a. System Logs:**
+Xen logs are often found in the system log directories. Check these locations:
+
+- **For Debian/Ubuntu:**
+  ```bash
+  /var/log/xen
+  /var/log/syslog
+  /var/log/messages
+  ```
+
+- **For Red Hat/CentOS:**
+  ```bash
+  /var/log/xen
+  /var/log/messages
+  ```
+
+**b. Xen-Specific Logs:**
+If you have Xen-specific logs, they might be in:
+```bash
+/var/log/xen
+```
+
+### Cloudmin Logs
+
+Cloudmin also maintains its own logs which can be useful for troubleshooting:
+
+**a. Cloudmin Logs:**
+- **For Cloudmin logs, check:**
+  ```bash
+  /var/webmin/miniserv.log
+  /var/webmin/miniserv.error
+  ```
+
+**b. Cloudmin System Logs:**
+Cloudmin may log system-specific events in:
+```bash
+/var/webmin/system.log
+```
+
+### 3. **Accessing Logs via Cloudmin Interface**
+
+Cloudmin might also provide a way to view logs directly from its web interface:
+
+1. **Log into Cloudmin.**
+2. **Navigate to the VM or Xen server management section.**
+3. **Look for options or tabs related to logs or system status.**
+
+If you need more details on where to find specific logs or encounter issues, feel free to ask!

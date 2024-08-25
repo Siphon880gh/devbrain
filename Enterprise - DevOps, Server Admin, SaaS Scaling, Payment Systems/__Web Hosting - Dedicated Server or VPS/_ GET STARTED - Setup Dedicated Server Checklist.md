@@ -1,6 +1,6 @@
 
 Written by: Weng
-Purpose: General checklist on setting up Dedicated Server. Likely there will be no web hosting admin panel (eg. Hostinger hpanel, WHM, GoDaddy My Products Dashboard)
+Purpose: General checklist on setting up Dedicated Server. Likely there will be no Web Hosting Control Panel (eg. Hostinger hpanel, WHM, GoDaddy My Products Dashboard)
 
 ```toc
 ```
@@ -166,7 +166,7 @@ By purchasing a dedicated server, it can become whatever server you want it to b
 In order to have a website people can visit and a setup that makes it easy for the web developer to manage the website, you have to install a web server, FTP, and a webhost panel. You can first  install the webserver
 
 **MAJOR CHECKPOINT**
-Do you plan to install the web hosting panel CloudPanel? It is best to install WITHOUT nginx having been installed. **In that case, skip to the next section "How to decide on a Web Hosting Management Panel...".** 
+Do you plan to install the web hosting panel CloudPanel? It is best to install WITHOUT nginx having been installed. **In that case, skip to the next section "How to decide on a Web Hosting Control Panel...".** 
 - Proof per their documentation's instructions: "For the installation, you need an empty server with Ubuntu 24.04 or 22.04 or Debian 12 or 11 with root access." (https://www.cloudpanel.io/docs/v2/getting-started/other/). This means you DO NOT install nginx or any web server. The CloudPanel will install nginx and other technologies with it. If you messed up, CloudPanel will still work but `apt` could potentially always bother you about an incomplete Cloudpanel post installation script, you could potentially have to add www-data to every new group that is created when you create a new site, just so webpage can show and many cloudpanel features work for that site. In addition, Cloudpanel logs can keep complaining about a half-configured cloudpanel. Cloudpanel would still work, however. It's because Cloudpanel's nginx couldn't replace your nginx that already exists, so the post installation script can never finish.
 - Otherwise, there may be weird error logs and extra steps for every new site you create (www-data added to new group). Cloudpanel will still work.
 - Cloudpanel has no clean way of uninstallation or reinstallation as of 8/2024 and the recommended route is to reinstall your entire server.
@@ -208,12 +208,14 @@ curl -4 ipinfo.io/ip
 ---
 
 
-### How to decide on a Web Hosting Management Panel (Cpanel - monthly; Cloudpanel - free)
-- *Background: Btw web hosting management panel is what cpanel refers to their category as. For managing at a bigger level like in WHM, that's web hosting admin panel.*
+### How to decide on a Web Hosting Control Panel
+- Cpanel - monthly pay
+- Cloudpanel - free
+- Refer to [[Server OS and Control Panel Packages]]
 
-### **Dedicated Server**: Install a Web Hosting Management Panel
+### **Dedicated Server**: Install a Web Hosting Control Panel
 
-- There are web hosting management panels that require monthly payments for the license to use.
+- There are Web Hosting Control Panels that require monthly payments for the license to use.
 	- Not free: Cpanel, Plesk
 	- Free: Ubuntu use cloudpanel. 
 	- Free: AlmaLinux use webmin
@@ -243,7 +245,7 @@ curl -4 ipinfo.io/ip
 	- Once done installing, the terminal will output the public IP plus the port number to visit, which could be **https://yourIpAddress:8443**
 	- If firewall, you have to enable the port: `sudo ufw allow 8443`, then apply the rules right away with `sudo ufw reload`. Go to the webhosting panel and setup a username and password right away because hackers have bots constantly scanning this port for setup opportunities.
 	- Save the URL and CloudPanel credentials into your webhost details document. If you have an alias for quick SSH login, you might want to also save it as an echo before the ssh or sshpass command.
-- Figure out if the web hosting management panel included other techs so you dont have to install them later. Cloudpanel-MySQL installation should include MySQL and PHP. You can find out for example by running:
+- Figure out if the Web Hosting Control Panel included other techs so you dont have to install them later. Cloudpanel-MySQL installation should include MySQL and PHP. You can find out for example by running:
 	- `mysql --version`
 	- `php --version
 	- `which nginx`
@@ -252,14 +254,14 @@ curl -4 ipinfo.io/ip
 			- https://XX.XXX.XX.XXX:8443/pma
 		- Save the MySQL URL and credentials into your webhost details document. If you have an alias for quick SSH login, you might want to also save it as an echo before the ssh or sshpass command.
 
-### How to log into Web Hosting Management Panel (Cpanel, Cloudpanel, etc)
+### How to log into Web Hosting Control Panel (Cpanel, Cloudpanel, etc)
 - What’s the link with port number (Different web hosting services may assign different port for your panel). 
   eg. Cloudpanel on Hostinger [https://XX.XXX.XX.XXX:8443](https://XX.XXX.XX.XXX:8443)
 - What are your login credentials?
 - VPS: How to navigate to your panel at the Services Dashboard (if you don’t have the link handy)
 	- what’s their information architecture (to help remember how to navigate there).  
 	- eg. Hostinger’s: Hostinger believes CloudPanel manages the Ubuntu operating system with the purpose of web site and related services, hence you find CloudPanel under left panel item Settings (think VPS) → Operating System -> then “Manage Panel” button on the OS page
-- Save the web hosting management panel URL and credentials into your web host details document. If you have an alias for quick SSH login, you might want to also save it as an echo before the ssh or sshpass command.
+- Save the Web Hosting Control Panel URL and credentials into your web host details document. If you have an alias for quick SSH login, you might want to also save it as an echo before the ssh or sshpass command.
 
 
 ---
@@ -268,7 +270,7 @@ curl -4 ipinfo.io/ip
 - **CHECKPOINT**: If you installed nginx standalone, you can perform this step. If you installed Cloudpanel to include nginx, then there is no default site - Skip to Multiple Sites (next section).
 - Basic: We just want to see we can impact how a website looks . We don’t care about SSL https at this point
 - Identify what's the public IP address you can visit directly in the web browser (usually given to you by your onboarding server admin)  
-- What’s the folder path to create/edit index.html to so web browser PRE web hosting management panel? Aka root web directory for your website, Aka working directory for your code and webpage.   
+- What’s the folder path to create/edit index.html to so web browser PRE Web Hosting Control Panel? Aka root web directory for your website, Aka working directory for your code and webpage.   
 	- For the default site:
 		- You figure out where the root is, possibly editing with `vi /etc/nginx/sites-enabled/default` then looking for the line with `root`, which has the path
 		- List the files at that root working directory for some form of index file, eg. `ls var/www/html`
@@ -277,13 +279,13 @@ curl -4 ipinfo.io/ip
 		- If still problems viewing the page, refer to [[Troubleshooting - Nginx webpage not showing]]
 	- That was editing and viewing for the default site, next we will cover editing and viewing for multiple sites
 ### Dedicated Server: How to setup web server for basic website editing and viewing (Multiple sites)
-- For a site created / listed in your web hosting management panel. Eg. Hostinger Ubuntu 22.04 CloudPanel
-- If no website exists in the web hosting management panel, add a website (If unsure what type of website, I recommend PHP site). Otherwise pay attention to the name of the website in the web hosting management panel
+- For a site created / listed in your Web Hosting Control Panel. Eg. Hostinger Ubuntu 22.04 CloudPanel
+- If no website exists in the Web Hosting Control Panel, add a website (If unsure what type of website, I recommend PHP site). Otherwise pay attention to the name of the website in the Web Hosting Control Panel
 - Figure out what's the folder path to that website on your system. Could be `/home/DOMAIN/htdocs/DOMAIN.com`
   ^ You can `ls /home/` to figure out the path
   ^ You figure it out because you should add it to your webhost details document and your ssh/sshpass echo
 
-- Using vi command in shell, or using your web hosting management panel's File Manager, edit the index file adding a word or punctuation and see if visiting the URL will show the changes.  The index file could be `/home/DOMAIN/htdocs/DOMAIN.com/index.php`
+- Using vi command in shell, or using your Web Hosting Control Panel's File Manager, edit the index file adding a word or punctuation and see if visiting the URL will show the changes.  The index file could be `/home/DOMAIN/htdocs/DOMAIN.com/index.php`
 - Because you are on a dedicated server, it is likely that the web host DOES NOT provide you with a user domain name (eg. Not having something like srv451789.hstgr.cloud because you're on a dedicated server instead of a web provider like through Hostinger's Cloudpanel package) that you can match in one of the server blocks in a site's vhost. Make sure you've bought a domain at namecheap, etc. Then make sure you have two A records to the public domain: one for "@" and one for "\*". At your CloudPanel site's vhost, update the server_name to the domain name, eg. `server_name domain.com`
 - Visit your http://domain.com directly. 
 - If success, Chrome will warn you there's no secured connection or that the connection is not private and blocks you from viewing the content. We will add SSL https certificates later. The current bypass technique in 2024 is to click anywhere on the webpage then type: `thisisunsafe`. You should see the webpage content.
@@ -300,9 +302,9 @@ curl -4 ipinfo.io/ip
 	- Try typing with page clicked: `thisisunsafe`
 	- If still problems viewing the page, refer to [[Troubleshooting - Nginx webpage not showing
 
-## Test web hosting management panel
+## Test Web Hosting Control Panel
 
-Because you installed the web hosting management panel yourself rather than being on a VPS that installed it for you, there could be broken chains. Check Cloudpanel throughly to see it works:
+Because you installed the Web Hosting Control Panel yourself rather than being on a VPS that installed it for you, there could be broken chains. Check Cloudpanel throughly to see it works:
 
 Briefly:
 - Check if Cloudpanel Vhosts can save
@@ -503,7 +505,7 @@ Briefly:
 	- Figure out workflow to acquire and install SSL because you'll be doing this annually. Also perform it now
 		- If CloudPanel, it's very simple going to the site -> SSL/TLS -> Actions -> New Let's Encrypt Certificate (however you must have a domain connected to that website already because it'll create a file then access that file through your domain URL to prove your ownership then generates the certificate).
 		- If less obvious how and where to install SSL HTTPS certificates: Contact customer support or google Web host + OS + Nginx/Apache + Install SSL certificates. If the web host is not well known (very independent), google for: OS + Nginx/Apache+ Install SSL certificate
-	- CloudPanel's Let's Encrypt SSL failing? Refer to section "Test web hosting management panel" -> ~ SSL
+	- CloudPanel's Let's Encrypt SSL failing? Refer to section "Test Web Hosting Control Panel" -> ~ SSL
 	- Know the filepaths to the SSL for future issues and code that needs SSL cert and key paths such as gunicorn (even if Cloudpanel abstracts it away)
 		- If Hostinger CloudPanel, the Vhost page likely hides ssl cert and key file paths in the server block as variables. You have to find the site's nginx confi file where the final vhost is written (eg. /etc/nginx/sites-enabled/some-website.com.conf)
 			- Hostinger Ubunto 22.04 with Cloud Panel paths could be:
@@ -519,7 +521,7 @@ Briefly:
 	- If Hostinger, their malware scanner [https://support.hostinger.com/en/articles/8450363-vps-malware-scanner](https://support.hostinger.com/en/articles/8450363-vps-malware-scanner)
     - How to navigate to the malware from services dashboard (Hostinger hpanel, GoDaddy dashboard, etc)
     - Is malware free, times one payment, or monthly/yearly? Or keep deactivated (often they let you scan but not fix for free)
-    - Is there a firewall from the web hosting management panel? or do you have to run ufw?
+    - Is there a firewall from the Web Hosting Control Panel? or do you have to run ufw?
 - Domain name
 	- Domain name
 	- Refer to tutorial on domain and dns editing. There are many ways to do it. One way is to have namecheap domain with two A records to the public IP of your webhost at "@" and "\*" (unless you want different public ip between www and other subdomains)
@@ -591,7 +593,7 @@ ini_set('default_socket_timeout', 300);  // Adjust as needed
 - PHP (if not included by your web host’s)
 	- If installed CloudPanel, PHP comes included. If you don't see PHP, you should create a PHP site off CloudPanel 
 	- If not installed CloudPanel and your web host management panel does not come included with PHP, look up how to install php, eg. Google: Ubuntu 22 install php
-	- If installed Cloudpanel or a web hosting management panel that already has it setup for you, you can also skip this step:
+	- If installed Cloudpanel or a Web Hosting Control Panel that already has it setup for you, you can also skip this step:
 		  - You have to configure apache or nginx to handle php, eg. Google: `Nginx handle php`, eg. Google: `Apache handle php`.
 #### Python
 - Check if you have python3 installed. It comes included with CloudPanel. Test with `python3 --version`
@@ -1222,7 +1224,7 @@ Root Password   :  <IMPORTANT>
 
 ---
 
-### ACC Web Hosting Management Panel
+### ACC Web Hosting Control Panel
 
 - \__which is
 - \__login creds
