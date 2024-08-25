@@ -55,7 +55,7 @@ Are you able to login into root at the local machine terminal with SSH?
 - Did the provider give you non-root user credentials as well?
 	- If they've tightened security, logging into root with ssh command is disabled. The command `ssh root@XXX.XX.XXX.XX` appears to work as usual, and you might not even be privy to it being disabled because it will let you enter a password and all it will ever say is that the password is incorrect. This is by design so that hackers don't get clued in to try gaining access in other ways. This may also be why the provider gave you user credentials.
 	- You'd log into the that user with `ssh USER@XXX.XX.XXX.XX`, and once in the remote SSH session, you elevate by running `su`, followed by root user password; then it will switch from the normal user to the root user.
-	- To disable or enable root login, refer to [[SSH with Root Login Disabled
+	- To disable or enable root login, refer to [[SSH with Root Login Disabled]]
 - So save to your web host document, your ssh credentials as the primary login. And, also save the available ip's for use (if given to you)
 	- If the available ip addresses are given to you in the form of CIDR, eg. XXX.XX.XXX.XX/29, you may want to work out the available IP addresses, then save to your document the network address, useable ip addresses, and broadcast address
 	  

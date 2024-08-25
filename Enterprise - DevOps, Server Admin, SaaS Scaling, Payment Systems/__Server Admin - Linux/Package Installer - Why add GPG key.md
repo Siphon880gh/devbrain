@@ -1,0 +1,1 @@
+Inserting the GPG (GNU Privacy Guard) key before updating the package installer with a new repository is crucial for security and integrity reasons. It’s like SSH key. When you install software from a repository, the package manager (like apt, yum, dnf, etc.) needs to ensure that the packages it downloads and installs are authentic and have not been tampered with
