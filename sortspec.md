@@ -4,7 +4,7 @@ sorting-spec: |-
   AI Engineer
   AWS Cloud
   Databases - MySQL, NoSQL, and More!
-  DevOps
+  Enterprise - DevOps, Server Admin, SaaS Scaling, Payment Systems
   Version Control - git, github, gitlab
   iOS
   Plug-in Development
