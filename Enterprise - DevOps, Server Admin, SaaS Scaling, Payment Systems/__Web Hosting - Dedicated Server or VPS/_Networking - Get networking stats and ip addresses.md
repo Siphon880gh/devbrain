@@ -1,5 +1,4 @@
 
-
 Get the IP address of your dedicated server that your SSH session is on:
 ```
 hostname -I

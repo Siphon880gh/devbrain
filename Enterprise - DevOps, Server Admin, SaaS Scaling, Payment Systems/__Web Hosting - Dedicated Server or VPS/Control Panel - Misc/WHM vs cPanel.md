@@ -1,7 +1,12 @@
 
-WHM (Web Host Manager) and cPanel are both control panels that allow users to manage websites and domains. 
+WHM and cPanel are both control panels that allow users to manage websites and domains. 
 - WHM is used by resellers to manage hosting accounts for their plans, while cPanel is used by end users to manage their own hosting accounts. 
 - WHM offers more control and configuration options than cPanel, and can be considered the backend to cPanel
+
+---
+
+WHM is a Web Hosting Management Platform
+cPanel is Web Hosting Control Panel, specifically a Sever Control Panel
 
 ----
 

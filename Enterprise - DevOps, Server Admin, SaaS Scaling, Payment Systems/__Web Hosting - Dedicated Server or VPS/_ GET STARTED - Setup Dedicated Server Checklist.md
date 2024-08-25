@@ -1379,6 +1379,32 @@ _...?
 ---
 
 ## ACC Network settings
+
+### Original
+
+/etc/network/interfaces:
+```
+# This file describes the network interfaces available on your system  
+# and how to activate them. For more information, see interfaces(5).  
+  
+source /etc/network/interfaces.d/*  
+  
+# The loopback network interface  
+auto lo  
+iface lo inet loopback  
+  
+# The primary network interface  
+allow-hotplug eno1  
+iface eno1 inet static  
+        address ../29  
+        gateway ..  
+        # dns-* options are implemented by the resolvconf package, if installed  
+        dns-nameservers .. .. 8.8.8.8  
+        dns-search ..
+```
+
+## Modified to have a restartable VM / VPS:
+
 If separated dedicated server into VPS
 `/etc/network/interfaces`, `ip route`, `ip addr` for both host and the VM
 

@@ -57,7 +57,7 @@ Keep in mind for the tool we chose (xl) what resource allocations we can set whe
 > 
 > 1. **Memory Allocation**:  
 >    - **VPS**: Allocate **85-90%** of the total memory to the VPS.
->    - **Host Overhead**: Leave **10-15%** for the host to handle SSH, Webmin, and other essential services.
+>    - **Host Overhead**: Leave **10-15%** for the host to handle SSH, Webmin/Cloudpanel/etc, and other essential services.
 > Chosen 90% for Gb
 > `27`
 > 
