@@ -22,3 +22,10 @@ sudo systemctl start supervisor
 http://domain.com:9001/
 
 If any errors, you can view error logs at this Supervisor web panel
+
+---
+
+If need to start with stdout and stderror in the same terminal live:
+```
+supervisord -c /etc/supervisor/supervisord.conf -l /var/log/supervisor/supervisord.log -n
+```

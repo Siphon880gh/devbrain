@@ -49,7 +49,9 @@ supervisor.rpcinterface_factory=supervisor.rpcinterface:make_main_rpcinterface
 Seeing above you have a folder reg exp pattern to find supervisor app settings. 
 
 Which means you start supervisor like this (but not yet because we have to cover the supervisor app settings):
-supervisord -c /etc/supervisord.conf -l /var/log/supervisor/supervisord.log 
+```
+supervisord -c /etc/supervisord.conf -l /var/log/supervisor/supervisord.log
+```
 
 
 ### Supervisor app setting files

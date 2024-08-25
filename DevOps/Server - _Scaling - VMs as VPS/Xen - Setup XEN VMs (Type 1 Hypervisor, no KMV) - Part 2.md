@@ -318,7 +318,7 @@ This must be done before starting VMs with `sudo xl create...`, so if you had pr
 
 Thanks to for the fix: https://www.chrisnewland.com/solved-xen-domu-console-hangs-302
 
-After this fix, it might still hang but lets you Ctrl+C out of the hang (versus if you didn't have the setting applied, it would hang for a much worse problem - not having the VM terminal to flow to the current terminal). If it hangs, it's because root user is automatically accepted but the shell doesn't know it's time to start receiving user inputs. You have to CTRL+C, then you you can start typing into the console. Then if you want assurance that you've been authenticated automatically, you can confirm you're still in the VPS by looking at the prompt being simila to `root@vps0:~#`, or running `ls -la`, or running `pwd`.
+After this fix, it might still hang but lets you press Enter to exit out of the hang (versus if you didn't have the setting applied, it would hang for a much worse problem - not having the VM terminal to flow to the current terminal). If it hangs, it's because root user is automatically accepted but the shell doesn't know it's time to start receiving user inputs. You have to press Enter (if that fails, press CTRL+C; if that fails, press CTRL+], depending on your OS), then you you can start typing into the console. Then if you want assurance that you've been authenticated automatically, you can confirm you're still in the VPS by looking at the prompt being similar to `root@vps0:~#`, or running `ls -la`, or running `pwd`.
 
 #### Before starting the VM, create the virtual bridge
 Some networking knowledge (FYI's) you need to know: Refer to [[_Networking - Concept Primer of creating VPS]]
