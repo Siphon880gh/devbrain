@@ -1,0 +1,3 @@
+Why combined: DevOps, Server Admin, SaaS Scaling, and Payment Systems
+
+If you’re making a SaaS app with subscriptions and other pricing models, you’re expecting a lot of traffic and users. Hence you need to k ow how to manage a server or cloud server to leverage as much processing power and or concurrency and or clustering and scaling as possible. Because of the high paced expectations of a working app at all times and need to update it to user requests, to keep users interested, and minimizing code changes that an app’s reputation when it has live audience, you need CI/CD workflows (including production/staging servers, control versions) - hence also DevOps

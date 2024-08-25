@@ -36,3 +36,9 @@ An example use is different javascript and express PORT based on :
     "test": "python tests/docker.py"
   },
 ```
+
+---
+
+If you find paths change for your dependencies between your local machine and remote server, you can create sh file then you run on the online server, and another sh file that you run on your local development environment whenever you're migrated files. That sh file can change the preceding file path as an environment variable or various other ways you can do it.
+
+If your primary way of migrating files are git pushes and git pulls, you can setup to automatically run the sh file right after a pull
