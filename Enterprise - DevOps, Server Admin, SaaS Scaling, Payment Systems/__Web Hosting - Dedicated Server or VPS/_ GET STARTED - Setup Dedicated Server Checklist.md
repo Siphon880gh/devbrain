@@ -400,7 +400,7 @@ Brief outline of what we are testing specifically:
 					http3 off;  
 					{{ssl_certificate_key}}  
 					{{ssl_certificate}}  
-					return 301 https://www.videolistings.ai$request_uri;  
+					return 301 https://www.domain.tld$request_uri;  
 				}
 				```
 			1. Comment out https scheme rewrite at the other block (You'll make it active again after installing SSL in the future, but at the moment this will fix the loop problem)
@@ -423,7 +423,7 @@ Brief outline of what we are testing specifically:
 				  http3 off;  
 				  {{ssl_certificate_key}}  
 				  {{ssl_certificate}}  
-				  server_name videolistings.ai www1.videolistings.ai www.videolistings.ai;  
+				  server_name domain.tld www1.domain.tld www.domain.tld;  
 				  {{root}}
 				  # ...
 				```
@@ -433,14 +433,14 @@ Brief outline of what we are testing specifically:
 				server {  
 				  listen 8080;  
 				  listen [::]:8080;  
-				  server_name videolistings.ai www1.videolistings.ai www.videolistings.ai;  
+				  server_name domain.tld www1.domain.tld www.domain.tld;  
 				  {{root}} 
 				  # ...
 				```
 
 	- **If gives a 404 Let's Encrypt error:**
 			```
-			app.videolistings.ai: Domain could not be validated, error message: error type: urn:ietf:params:acme:error:unauthorized, error detail: 222.22.222.25: Invalid response from http://domain.com/.well-known/acme-challenge/hj0GXFJ_sW2VzVOjxxYaeyp9AXnPyz800-C3WL0zgEU: 404
+			app.domain.tld: Domain could not be validated, error message: error type: urn:ietf:params:acme:error:unauthorized, error detail: 222.22.222.25: Invalid response from http://domain.com/.well-known/acme-challenge/hj0GXFJ_sW2VzVOjxxYaeyp9AXnPyz800-C3WL0zgEU: 404
 			```
 		- **Solution 1 to 404 Let's Encrypt error**:
 			1. Comment out this server block (you'll make it active again after installing SSL in the future, but at the moment this will fix the loop problem)
@@ -456,7 +456,7 @@ Brief outline of what we are testing specifically:
 					http3 off;  
 					{{ssl_certificate_key}}  
 					{{ssl_certificate}}  
-					return 301 https://www.videolistings.ai$request_uri;  
+					return 301 https://www.domain.tld$request_uri;  
 				}
 				```
 			2. Comment out https scheme rewrite at the other block (You'll make it active again after installing SSL in the future, but at the moment this will fix the loop problem)
@@ -479,7 +479,7 @@ Brief outline of what we are testing specifically:
 				  http3 off;  
 				  {{ssl_certificate_key}}  
 				  {{ssl_certificate}}  
-				  server_name videolistings.ai www1.videolistings.ai www.videolistings.ai;  
+				  server_name domain.tld www1.domain.tld www.domain.tld;  
 				  {{root}}
 				  # ...
 				```
@@ -489,7 +489,7 @@ Brief outline of what we are testing specifically:
 				server {  
 				  listen 8080;  
 				  listen [::]:8080;  
-				  server_name videolistings.ai www1.videolistings.ai www.videolistings.ai;  
+				  server_name domain.tld www1.domain.tld www.domain.tld;  
 				  {{root}} 
 				  # ...
 				```

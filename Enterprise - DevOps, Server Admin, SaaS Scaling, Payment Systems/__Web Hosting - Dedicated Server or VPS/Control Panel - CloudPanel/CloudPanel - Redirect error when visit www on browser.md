@@ -16,7 +16,7 @@
 				http3 off;  
 				{{ssl_certificate_key}}  
 				{{ssl_certificate}}  
-				return 301 https://www.videolistings.ai$request_uri;  
+				return 301 https://www.domain.tld$request_uri;  
 			}
 			```
 		1. Comment out https scheme rewrite at the other block
@@ -39,7 +39,7 @@
 			  http3 off;  
 			  {{ssl_certificate_key}}  
 			  {{ssl_certificate}}  
-			  server_name videolistings.ai www1.videolistings.ai www.videolistings.ai;  
+			  server_name domain.tld www1.domain.tld www.domain.tld;  
 			  {{root}}
 			  # ...
 			```
@@ -49,7 +49,7 @@
 			server {  
 			  listen 8080;  
 			  listen [::]:8080;  
-			  server_name videolistings.ai www1.videolistings.ai www.videolistings.ai;  
+			  server_name domain.tld www1.domain.tld www.domain.tld;  
 			  {{root}} 
 			  # ...
 			```
