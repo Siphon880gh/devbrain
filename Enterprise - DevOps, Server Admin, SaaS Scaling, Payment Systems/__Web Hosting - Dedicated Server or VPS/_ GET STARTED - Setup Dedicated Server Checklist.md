@@ -27,6 +27,53 @@ Create a document for your provider / webhost (eg. GoDaddy, Hostinger, etc) to r
 		- If there's no hardware virtualization, is the server specs fast enough for OS based virtualization into VPS?
 - Setup billing auto renewal?
 
+### How to select for the hardware of dedicated server
+- How much processing power do you need vs how cost effective is it
+
+	- Is their offered cpu or gpu chip slow for your apps? A quick way to find out is: 
+		- See if it's an old chip. You may need a contemporary chip especially if your app requires more power or you will/currently have competitors in the market who could beat you with more performance:
+			- For example, you can AI prompt for: "How old is this intel : Intel(R) Xeon(R) CPU E3-1270 v5 @ 3.60GHz"
+		- Do you need GPU (aka video card, aka NVIDIA) or a CPU chip?
+			- GPU is more appropriate for AI / video generation / crypto mining
+			- You can initially forego GPU if you can go for a 2018 or above CPU chip, which have special hardware for video encoding, etc.
+		- Do you need consumer chip or enterprise chip?
+			- Enterprise in other words is server or data center
+				- Google: nvidia "data center" or server or enterprise processors list
+				- Google: AMD "data center" or server or enterprise processors list
+					- eg. AMD Epyc server with the 4004 series as cost-effective
+				- Google: intel "data center" or server or enterprise processors list
+			- Normal chips being fine:
+				- Google: nvidia processors list
+				- Google: AMD  processors list
+					- eg. 3rd gen Ryzens
+				- Google: intel processors list
+		- Do you need AI / video generation / crypto mining?
+			- Are you going CPU ($75/mo) or Video cards / GPU / Nividia ($200/mo)?
+			- GPU is better for AI, video processing, and crypto mining
+			- Refer to "Do you need GPU (aka video card, aka NVIDIA) or a CPU chip?"
+		- What's the clock speed of the chip?
+			- Eg. 3.60Ghz vs 4.70GHz
+		- How is the chip's extra bells and whistles?
+			- How much L3 cache is in the chip? 
+				- Multiple concurrent users generating videos? You need a large L3 cache (Not Intel Xeon CPU E3-1270 v5's)
+					- When one user generating video, it's able to work in cache more frequently
+						- With a larger L3 cache, more data can be stored closer to the GPU cores, reducing the number of cache misses.
+					- With multiple users, it work in cache less frequently
+						- In summary, with multiple users, the cache is less likely to hold the relevant data for any given user at a given time, reducing its overall effectiveness and leading to more frequent accesses to the slower main memory RAM
+					- The memory manager is the slowest component in the CPU and accessing RAM or flushing the cache is another few cycles wasted
+						- The memory manager is responsible for managing the flow of data between different levels of memory (e.g., L1, L2, L3 caches, and RAM). When the GPU frequently accesses RAM, the memory manager has to work harder to coordinate these data transfers, manage cache coherency, and ensure efficient use of memory resources. This increased workload can create overhead, indirectly affecting performance.
+						- If the L3 cache is larger, it can store more frequently accessed data, reducing the need to access the slower RAM.
+						- A larger L3 cache may also reduce the frequency of cache flushes, as it can hold more data before needing to evict older data to make room for new data.
+						- Eg. Intel Xeon CPU E3-1270 (Q4 2015 release) has 8MB L3 cache shared among the cores
+				- Background: Larger L3 cache means more performance. While CPU and GPU's have different caching strategies (GPU's have additional caches than just L1, L2, L3 caches because they're focus in parallel processing tasks like rendering or running machine learning models in order to reduce latency by mitigating need to access memory and in order to improve throughput) (CPU's have usually L1, L2, L3 cache and does not have as extreme of a goal as GPU's). You can read more on CPU/GPU caching at [[_Computer Architecture - Processor L3 Cache and Clock Speed]]
+
+- How many cores? How many threads per core?
+- How much RAM memory?
+	- Depending on your CPU/GPU chip, it supports only certain types of RAM technology, eg. DDR4, DDR5, EEC. You'll want to consider the power of that type of RAM, its memory size, and the price - to balance cost effectiveness and business requirements.
+	- For more details, refer to [[_Computer Architecture - RAM types (DDR4, DDR5, ECC, etc)]]
+- How much file storage?
+- How many IPs are you given (to setup other VPS, other services on their own IP for performance, etc)
+
 ### How to select for OS and identify package installer
 - They usually install for you so you choose the OS
 	- Ubuntu has many things setup to work for Linux admin
@@ -154,6 +201,19 @@ Upon successful start of the VM, I console into the VM and edit its networking s
 Because there’s a public IP and I have a root username and password (it was announced in an installation instructions output when I started the VM with `xen create vps0` ), then I tried connecting SSH into the VPS from my home computer. By being successful, it meant I connected over the internet to the VPS via port 20.
 
   
+#### Outline summary by the time you are done creating a VPS:
+
+- Partitioning the dedicated server to have a VM partition
+- Convert the VM partition into a VPS that can host website with a virtual bridge and think about a static IP assignment
+- VPS gets assigned a static IP
+- VPS is hosting the web app and the wordpress promotional website, for example
+- Rundown on the server side is: Dedicated server partitioned to have a VM that is exposable as a VPS on the internet
+  
+- Allocate resources on the VPS to the microservices with gunicorn
+- Consistent environment with pyenv (substitute forDocker + AWS)
+- Process supervision for always on
+- Rundown on the VPS side is: Supervisor -> Sh files -> Gunicorn allocating resources to microservices
+
 
 The rest of hosting a webpage on the VPS is a matter of installing nginx/apache/cloudpanel which opens up ports 80 and 443. Then pointing a purchased domain name to the VM’s public IP so people can practically visit it from the domain name. Then adding SSL through cloudpanel for free, unless I need to buy a SSL for stricter business regulations purposes.
 
@@ -310,23 +370,24 @@ Briefly:
 - Check if Cloudpanel Vhosts can save
 - Check that you can create free SSL with Let's Encrypt inside CloudPanel
 
-- I. Check if Cloudpanel Vhosts can save (feel free to add a space at a whitespace area, then click Save)
+Brief outline of what we are testing specifically:
+- If gives a "redirect loop detected" error when visiting http://www.domain.com
+- If gives a 404 Let's Encrypt error
+- If goes to 500 internal server Let's Encrypt error
+- Vague general error that something went wrong when saving Vhost
+- After Let's Encrypt successful, opening http doesn't redirect to https
+- After Let's Encrypt successful, opening www fails (this is only for your root domain and not for subdomains)
+
+- **TESTS BEGIN**
   
-  Brief outline of Vhost not saving errors:
-  - If gives a "redirect loop detected" error
-  - If gives a 404 Let's Encrypt error
-  - If goes to 500 internal server Let's Encrypt error
-  - Vague general error that something went wrong when saving Vhost
-  	  
-	- If gives a "redirect loop detected" error:
-			```
-			www.videolistings.ai: Domain could not be validated, error message: error type: urn:ietf:params:acme:error:connection, error detail: 222.22.222.25: Fetching https://www.domain.com/.well-known/acme-challenge/zU7VjGctj6VPEv1eR_HtEjq-e54zb_39pHNOFygQGD8: Redirect loop detected
-			```
+	- **If gives a "redirect loop detected" error when visiting http://www.domain.com:**
+		
 		- Notice it said Redirect loop detected. It’s because the Let’s Encrypt is visiting to a www.
 		- This will correlate to visiting http://www.domain.com giving this error:
 			![](https://i.imgur.com/v3Cnk6m.png)
+	
 		- Solution:
-			1. Remove this server block (feel free to backup to your some document if you’re concerned)
+			1. Comment out this server block (you'll make it active again after installing SSL in the future, but at the moment this will fix the loop problem)
 				```
 				server {  
 					listen 80;  
@@ -342,7 +403,7 @@ Briefly:
 					return 301 https://www.videolistings.ai$request_uri;  
 				}
 				```
-			1. Comment out https scheme rewrite at the other block
+			1. Comment out https scheme rewrite at the other block (You'll make it active again after installing SSL in the future, but at the moment this will fix the loop problem)
 			```
 			#if ($scheme != "https") {  
 			#  rewrite ^ https://$host$request_uri permanent;  
@@ -377,29 +438,86 @@ Briefly:
 				  # ...
 				```
 
-	- If gives a 404 Let's Encrypt error:
+	- **If gives a 404 Let's Encrypt error:**
 			```
 			app.videolistings.ai: Domain could not be validated, error message: error type: urn:ietf:params:acme:error:unauthorized, error detail: 222.22.222.25: Invalid response from http://domain.com/.well-known/acme-challenge/hj0GXFJ_sW2VzVOjxxYaeyp9AXnPyz800-C3WL0zgEU: 404
 			```
-		- **Solution 1 to 404 Let's Encrypt error**: 
+		- **Solution 1 to 404 Let's Encrypt error**:
+			1. Comment out this server block (you'll make it active again after installing SSL in the future, but at the moment this will fix the loop problem)
+				```
+				server {  
+					listen 80;  
+					listen [::]:80;  
+					listen 443 quic;  
+					listen 443 ssl;  
+					listen [::]:443 quic;  
+					listen [::]:443 ssl;  
+					http2 on;  
+					http3 off;  
+					{{ssl_certificate_key}}  
+					{{ssl_certificate}}  
+					return 301 https://www.videolistings.ai$request_uri;  
+				}
+				```
+			2. Comment out https scheme rewrite at the other block (You'll make it active again after installing SSL in the future, but at the moment this will fix the loop problem)
+			```
+			#if ($scheme != "https") {  
+			#  rewrite ^ https://$host$request_uri permanent;  
+			#}  
+			```
+			
+			3. At your main server block for 80 and 443, add the www (See server_name line):
+				```
+				server {  
+				  listen 80;  
+				  listen [::]:80;  
+				  listen 443 quic;  
+				  listen 443 ssl;  
+				  listen [::]:443 quic;  
+				  listen [::]:443 ssl;  
+				  http2 on;  
+				  http3 off;  
+				  {{ssl_certificate_key}}  
+				  {{ssl_certificate}}  
+				  server_name videolistings.ai www1.videolistings.ai www.videolistings.ai;  
+				  {{root}}
+				  # ...
+				```
+
+			4. At your 8080 port server block, also do the same:
+				```
+				server {  
+				  listen 8080;  
+				  listen [::]:8080;  
+				  server_name videolistings.ai www1.videolistings.ai www.videolistings.ai;  
+				  {{root}} 
+				  # ...
+				```
+
+
+		- **Solution 2 to 404 Let's Encrypt error**: 
 		  See if can recreate the folder path and add a file to see if you can visit it on your web browser. The folders are missing because the way Let's Encrypt works is it creates the folders and file then removes them.
-				- Make sure you've cd into your document root. Then create a file from here:
+			- Make sure you've cd into your document root. Then create a file from here:
 				```
 				mkdir -p .well-known/acme-challenge/
 				vi .well-known/acme-challenge/test.txt
 				```
-				- Add some unique text in the file. Then visit the link in your web browser
-				- If successfully visited, then this solution isn't it. Before going to "Solution 2", remove the test file and folders leading to it with
-				```
-				rm -rf .well-known
-				```
-		- **Solution 2 to 404 Let's Encrypt error**: 
+			- Add some unique text in the file. Then visit the link in your web browser
+			- If successfully visited, then this solution isn't it. Before going to "Solution 2", remove the test file and folders leading to it with
+			```
+			rm -rf .well-known
+			```
+			
+		- **Solution 3 to 404 Let's Encrypt error**: 
 		  Did you modify the server root manually so that another folder is served?
 				- Set it back to the original document root for now because CloudPanel creates the .well-known/... path to the document root that had been saved into Cloudpanel (instead of reading the vhost).
 				  ^  Dont forget to change it at both 80/443 server block and 8080 block.
 			- Once SSL is done generating, you can change the document root back to your desired location. Don’t forget to change it at both 80/443 server block and 8080 block.
+		- **Solution Last resort to 404 Let's Encrypt**:
+			- Remove `www....` as one of the domain names for New Let's Encrypt
+			- You'd forego users visiting with "www"
 		
-	- If goes to 500 internal server Let's Encrypt error:
+	- **If goes to 500 internal server Let's Encrypt error:**
 
 		- Check nginx error log to determine cause of Vhost 500 error:
 		```
@@ -467,13 +585,21 @@ Briefly:
 					sudo usermod -aG a100pullups www-data
 					```
 
-	- Vague general error that something went wrong when saving Vhost
+	- **Vague general error that something went wrong when saving Vhost**
 		- Check syntax where the nginx primary config combines with site's vhost by running
 		```
 		sudo nginx -t
 		```
 	
 		- If you get an "Unknown log format", refer to fix at [[Nginx Troubleshooting - Unknown log format]]
+
+		
+	- **After Let's Encrypt successful, opening http doesn't redirect to https:**
+		- Undo the commenting out that you've done to fix previous Let's Encrypt errors. Rationale: You no longer have to permit staying on http:// without redirection in order for Let's Encrypt to see its own file it generated at the http url in order to prove you pointed to it with DNS
+		  
+	- **After Let's Encrypt successful, opening www fails (this is only for your root domain and not for subdomains):**
+		- Make sure to add the "www" alternate domains in the 40/443 server block and the 8080 server block.
+
 
 - II. Check that you can create free SSL with Let's Encrypt inside CloudPanel
 	- REQUIREMENT: Your A records are pointing to the public IP and have propagated already.
