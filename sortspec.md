@@ -7,7 +7,7 @@ sorting-spec: |-
   Cross-Platform - React Native
   Databases - MySQL, NoSQL, and More!
   Enterprise - DevOps, Server Admin, SaaS Scaling, Payment Systems
-  Extensions and Plug-in Development
+  Extensions and Plug-ins Development
   Version Control - git, github, gitlab
   %
   README
