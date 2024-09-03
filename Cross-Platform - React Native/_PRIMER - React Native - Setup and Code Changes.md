@@ -350,6 +350,9 @@ See if changing “Welcome!” to having more exclamations like “Welcome!!” 
 
 Note the first ever change is going to take a while because Expo has to install some additional dependencies for hotloading. All future changes will be instant.
 
+#### Workflow
+Remember w (web), a (android), i (iOS). You can r to reload
+
 ---
 
 ## Wrap up

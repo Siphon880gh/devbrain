@@ -1,0 +1,1 @@
+If virtual phone is just blank screen and ios pressing CMD+D (even after CMD+SHIFT+K) or android pressing CMD+M doesn’t restart it, your terminal where you ran web/android/ios lets you restart the virtual device by pressing: **r**. Then the real error will show in the virtual device.

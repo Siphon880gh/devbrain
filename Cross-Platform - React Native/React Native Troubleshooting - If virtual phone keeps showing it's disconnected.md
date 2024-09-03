@@ -1,0 +1,1 @@
+If virtual device remains disconnected (you’d see a message about disconnected at the bottom), and re running a or i from terminal doesn’t restart it, you press r from the terminal.
