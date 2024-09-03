@@ -18,3 +18,5 @@ The traditionals are:
 - TouchableHighlight
 - TouchableOpacity
 - TouchableWithoutFeedback
+
+TouchableOpacity (fades when clicked) vs TouchableHighlight (highlights darker) vs TouchableWithoutFeedback

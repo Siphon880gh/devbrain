@@ -73,12 +73,12 @@ And style attribute can take multiple style objects:
 style={[styles.button, styles.buttonClose]}
 ```
 
-- Hotreload done through syncing your app by opening a **QR code**
+- Hot reload done through syncing your app by opening a **QR code**
 
   
 ---
 
-### **Quirkinesses
+### Quirkinesses
 
 
 #### Quirkiness - Inspired by HTML but not based entirely off HTML
@@ -211,6 +211,7 @@ Challenges for you:
 - Button
 - Switch
 - Checkbox
+- TextInput
 
 ```
 <Switch
@@ -395,7 +396,7 @@ import { SafeAreaView } from 'react-native';
 
 
 
-#### ActivityIndicator: 
+#### ActivityIndicator
 Show a spinner or loading indicator
 
 ![](https://i.imgur.com/WrcWUyO.png)
