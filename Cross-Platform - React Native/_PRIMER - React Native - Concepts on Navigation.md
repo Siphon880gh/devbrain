@@ -7,9 +7,11 @@ Being able to navigate for the user is very important unless you’re just makin
 
 After reading this, you should know concept wise: React Navigation (can be enhanced with NativeBase Navigation) vs Wix’s React Native Navigation, React Router Native vs Expo Router.
 
-Also after reading this, you should know the default React-Native navigation components: Stack Navigator, Tab Navigator, Drawer Navigator, Bottom Tab Navigator
+Also after reading this, you should know at a concept level there’s the default React-Native navigation components: Stack Navigator, Tab Navigator, Drawer Navigator, Bottom Tab Navigator.
 
-You should also know from reading this, the different ways of architecturing multiple screens with react router native (hidden url based) or expo router (file-url)  
+You should also know from reading that, concept level the different ways of architecting multiple screens with react router native (hidden url based) or expo router (file-url based).
+
+---
 
 In React Native, there are several popular options for navigation, including the ones you've mentioned. Here are the main options:  
 
