@@ -1,5 +1,15 @@
 
+Am I am the right place: This is installing React-Navigation AFTER an expo react native app has already bee initiated
+
+If starting a blank project, just go ahead and run: `npx create-expo APP --example with-navigation`  which also included react-navigation’s bottom tabs which you may want to remove in the code, but it HAS the Stack Navigator. The instructions for that case is in: [[1. Stack Navigator Challenge (React-Navigation)]]
+
+---
+
+
 Here's a basic example of how to set up a Stack Navigator using `react-navigation` in a React Native project. I'll also show how to navigate between screens using the `useNavigation` hook.
+
+Rewritten from:
+[https://reactnavigation.org/docs/stack-navigator](https://reactnavigation.org/docs/stack-navigator)
 
 ## Example using one file
 
@@ -9,7 +19,19 @@ First, make sure you have the necessary packages installed:
 
 ```bash
 npm install @react-navigation/native @react-navigation/stack
+```
+
+Then you install the dependencies of react-navigation. 
+- `react-navigation` uses `react-native-screens` to handle screen rendering more efficiently.
+- `react-navigation` uses `react-native-safe-area-context` to manage the safe areas around your content, especially when navigating between different screens.
+```
 npm install react-native-screens react-native-safe-area-context
+```
+
+
+And you would have to enable gestures for swiping the stack:
+```
+npx expo install react-native-gesture-handler
 ```
 
 ### 2. Set Up the Stack Navigator
@@ -63,6 +85,8 @@ export default function App() {
 }
 ```
 
+^ Make sure Stack Navigator is wrapped in a NavigationContainer.
+^ Keypoint: The `<NavigationContainer>` component should wrap **all** of your navigators, not just one. It acts as the root component for your navigation structure, providing the navigation context that all navigators within your app share.
 ### 3. Explanation
 
 - **HomeScreen**: This screen has a button that navigates to the `DetailsScreen` when pressed using `navigation.navigate('Details')`.
