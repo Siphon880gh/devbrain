@@ -13,3 +13,12 @@ To see the code in action, you can refer to either:
 [[1. Stack Navigator Challenge (React-Navigation)]]
 
 [[React Native Navigation - Stack Navigator (React-Navigation)]]
+
+
+----
+
+**Reworded:**
+
+When you have a stack navigator setup, all other navigations from links will be browsable with its own back button and not only that but you can swipe back and there’s an animation enforcing that it’s a stack of screens (on iphone it animates left and right when popping off to a previous screen). 
+
+Navigator stack lets the user go back but never forward. It's like it was popped off a stack which mimics the stack data structure from computer science where as soon as you access the most recent item you must remove it forever to access the next most recent item. It’s a stack of cards and you remove the top card.

@@ -16,7 +16,7 @@ You should also know from reading that, concept level the different ways of arch
 In React Native, there are several popular options for navigation, including the ones you've mentioned. Here are the main options:  
 
 1. **React Navigation:**
-	- **Stack Navigator:** Allows you to navigate between different screens in a stack, where each screen can be pushed onto the stack and popped off. It’s similar to the way web pages work. For more information on how stack behaves and what the user experience is, refer to [[React Native Navigation - How Stack Navigator Works]]
+	- **Stack Navigator:** Allows you to navigate between different screens in a stack, where each screen can be pushed onto the stack and popped off. It’s similar to the way web pages work. For more information on how stack behaves and what the user experience is, refer to [[React Native Navigation - How Stack Navigator or the Stacking of Screens Work]]
 	- **Tab Navigator:** Used for navigation between different tabs, each containing a different stack or set of screens.
 	- **Drawer Navigator:** Provides a drawer that slides in from the side of the screen, allowing you to navigate between different screens.
 	- **Bottom Tab Navigator:** Similar to Tab Navigator but places the tabs at the bottom of the screen.  
