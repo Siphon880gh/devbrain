@@ -3,6 +3,7 @@ sorting-spec: |-
   Web Development
   AI - Prompt Engineer, Developer, and AI Engineer
   AWS Cloud
+  CompSci - DS, Algos, Systems, Logic
   Cross-Platform - React Native
   Databases - MySQL, NoSQL, and More!
   Enterprise - DevOps, Server Admin, SaaS Scaling, Payment Systems
