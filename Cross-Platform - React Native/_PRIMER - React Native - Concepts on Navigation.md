@@ -53,4 +53,4 @@ Each of these options has its strengths and can be chosen based on the specific 
 
 ---
 
-The Mastery Levels folder contains mini-apps that you can build towards mastering the basics of navigation. Also refer to React Native Navigation tutorials, eg. 
+The Mastery Levels folder contains mini-apps that you can build towards mastering the basics of navigation. Also refer to React Native Navigation tutorials, eg. [[React Native Navigation - Stack Navigator (Expo-Router)]], [[React Native Navigation - Expo Router how file-url routing works]], etc.

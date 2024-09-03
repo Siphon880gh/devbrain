@@ -26,5 +26,4 @@ Screenshots and explanations of filenames and their url route equivalents (so yo
 ![](https://i.imgur.com/k2JfOWc.png)
 
 ![](https://i.imgur.com/RUxCq7x.png)
-
-![](https://i.imgur.com/0KSFcv1.png)
+^ Above pics from https://youtu.be/ZBCUegTZF7M

@@ -12,3 +12,9 @@ Why? If you just have Copilot autocomplete the code, you won’t ever learn the 
    \>copilot enable/disable copilot completions
 
 When you’re done, you can re-eanble Copilot
+
+---
+
+**How to use**
+
+Follow the folders and files in their numeric sequence.

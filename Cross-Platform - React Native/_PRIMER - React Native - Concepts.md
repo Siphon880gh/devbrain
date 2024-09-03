@@ -1,8 +1,8 @@
 By Weng
 
-## Concepts
+### Concepts
 
-### WHY REACT NATIVE
+#### WHY REACT NATIVE
 
 Learn Once, Code Anywhere
 ![](https://i.imgur.com/TQXKTRv.png)
@@ -14,7 +14,7 @@ Companies using it: Facebook, Insta, AirBnB, Burger King, Coinbase, Xbox
 Open source community packages for a lot of things, especially common situational: `npm install react-native-webview`
 
 
-### Why Expo
+#### Why Expo
 
 Expo to start, manage, and deploy
 
@@ -22,7 +22,7 @@ There's React-Native (the cli is `react-native` or `npx react-native`). That's l
 
 ---
 
-## Compared to React
+### Compared to React
 
 
 Differences to Create React App / Vite
@@ -44,7 +44,7 @@ Difference to React
 
 ---
 
-## Styling in React Native
+### Styling in React Native
 
 How to style:
 ```
