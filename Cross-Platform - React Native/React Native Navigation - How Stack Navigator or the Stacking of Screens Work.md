@@ -10,7 +10,7 @@ By defining screens to be in a stack, you can navigate to a previous screen beca
 A Stack Navigator allows the developer to define what screens when visited through links, as long as the user visits a screen from an older screen where both screens belong to the same Stack Navigator, can have this swiping animation and user experience.
 
 To see the code in action, you can refer to either:
-[[1. Stack Navigator Challenge (React-Navigation)]]
+[[1. Multiple screens and stacked screens with named routes (Stack Navigator)]]
 
 [[React Native Navigation - Stack Navigator (React-Navigation)]]
 

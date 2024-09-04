@@ -1,7 +1,7 @@
 
 Am I am the right place: This is installing React-Navigation AFTER an expo react native app has already bee initiated
 
-If starting a blank project, just go ahead and run: `npx create-expo APP --example with-navigation`  which also included react-navigation’s bottom tabs which you may want to remove in the code, but it HAS the Stack Navigator. The instructions for that case is in: [[1. Stack Navigator Challenge (React-Navigation)]]
+If starting a blank project, just go ahead and run: `npx create-expo APP --example with-navigation`  which also included react-navigation’s bottom tabs which you may want to remove in the code, but it HAS the Stack Navigator. The instructions for that case is in: [[1. Multiple screens and stacked screens with named routes (Stack Navigator)]]
 
 ---
 

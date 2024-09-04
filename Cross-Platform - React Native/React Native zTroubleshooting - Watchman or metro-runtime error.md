@@ -10,4 +10,5 @@ npx expo install @expo/metro-runtime
 npm start
 ```
 
-If this error happens with all example boilerplates you generate from Expo which is annoying (`npx create-expo APP --example EXAMPLE`) because it would have greatly benefited you in starting projects quickly with boilerplates: You could create a script in your ~/.bash_profile or equivalent that you remember to run inside the newly generated boilerplate. Or you could create a script that runs the `create-expo` command, with your boiletplate name as an argument, then run the rest of the script to run the above fix.
+If this error happens with all example boilerplates you generate from Expo which is annoying (`npx create-expo APP --example EXAMPLE`) because it would have greatly benefited you in starting projects quickly with boilerplates: You could create a script in your ~/.bash_profile or equivalent that you remember to run inside the newly generated boilerplate. Or you could create a script that runs the `create-expo` command, with your boilerplate name as an argument, then run the rest of the script to run the above fix.
+

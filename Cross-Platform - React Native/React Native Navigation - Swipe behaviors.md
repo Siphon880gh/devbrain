@@ -11,7 +11,8 @@ If you want a navigation pattern that allows for both forward and backward navig
 
 ### **Tab Navigator**:
 
-   - A tab navigator displays a set of tabs at the bottom (or top) of the screen, allowing users to switch between different screens freely. The phone shows an animation of switching screen in the direction where the tab is at.
+   - A tab navigator displays a set of tabs at the bottom (or top) of the screen, allowing users to navigate to a new screen by clicking a tab.
+   - There are two types of Tab Navigators in React Native: iOS style and Android material ui style. The Android style is positioned as a top tab bar and allows the user to switch between different screens freely by swiping left and right. The iOS style is positioned as a bottom tab bar and the user is unable to swipe to switch between tabs. Even though creating Tab Navigator with its tabs and corresponding screens looks like a similar syntax to Stack Navigator (For either case: Var.Navigator>Var.Screen\*N), the Tab Navigator is not a **Stack** Navigator that remembers the order in which you opened the screens - they just both happen to involve navigation and screens.
 
 ### **Drawer Navigator**:
 
