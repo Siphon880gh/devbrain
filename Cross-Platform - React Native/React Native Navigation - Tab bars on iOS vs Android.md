@@ -1,4 +1,3 @@
-  
 
 Android tabs are at the top and you can swipe left and right to switch tabs. The tabs follow the Material UI Design style in how it looks including making it seem like a panel is visually connected to the active tab.  
 
@@ -63,7 +62,7 @@ function TabNavigator() {
 
 You could have separate layout files for android, ios, and web. But if this becomes too messy, you can instead generate the correct tab bar dynamically with:
 ```
-const TabBarConfig = createBottomTabNavigator();
+const TabBarConfig = getProperDesignForTabBar();
 function getProperDesignForTabBar() {
   switch(Platform.OS) {
     case "android": 
@@ -72,7 +71,7 @@ function getProperDesignForTabBar() {
     case "ios": 
       return createBottomTabNavigator();
       break;
-    default: // web
+    default: // For web, I preferred iOS bottom bar style
       return createBottomTabNavigator();
   }
 }
@@ -108,6 +107,8 @@ function TabNavigator() {
   );
 }
 ```
+
+^ Where the component `<TabNavigator>` is rendered on some parent component. The active tab will automatically be the first screen configured in Tab Navigator.
 
 Don't forget that to check the platform, you need to make the capability possible for your JS:
 ```
