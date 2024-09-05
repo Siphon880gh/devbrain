@@ -36,7 +36,7 @@ When your app has multiple pages, the code isn’t simply opening the filename 
 			But `npx create-expo APP --example with-native-base` stills works as of Aug 2028
 
 
-2. **React Navigation:**
+2. **React Router Native:**
 	- The React Router Native uses url routes. Imagine an About page, and that would be the url “/about” instead of “About” in `Router>(Link[push][to="URL_ROUTE_TO_NAVIGATE_TO"]+Route[path="URL_ROUTE_TO_DEFINE"][component={COMPONENT_NAME}])` . Alternately you can programmatically visit the page with `(()=>{ return useHistory(); })().push` , `(()=>{ return useHistory(); })().replace` , etc. The mobile app does not have an address bar but this React Router Native is an offbranch of React Router Dom which meant to leverage the History API on web browsers. However it’s recommended you DO NOT use React Router Native because of shortcomings in the React Native cross-platform world. Refer to [[_WARNING - Skip using React Router Native]]
 
 
@@ -53,10 +53,7 @@ Using routes do not automatically mean it’s a stack that the user can swipe a 
 
 Using a React Navigator's Stack Navigator, those screens defined there with named routes - those are routes that belong in a stack. The code is like `Var.Navigator>(Var.Screen[name="NAMED_ROUTE"]*N)`
 
-For Expo Router, it's not automatically a stack for the routes you define. You have to encapsulate with Expo Router's Stack component. Syntax is `Var>(Var.Screen[name="NAMED_ROUTE"]*N)`. Notice no subcomponent `Var.Navigator` like in React Navigator's
-```
-
-```
+For Expo Router, it's not automatically a stack for the routes you define. You have to encapsulate with Expo Router's Stack component. Syntax is `Var>(Var.Screen[name="NAMED_ROUTE"]*N)`. Notice no subcomponent `Var.Navigator` like in React Navigator's.
 
 ---
 
