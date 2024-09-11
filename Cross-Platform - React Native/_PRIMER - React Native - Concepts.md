@@ -320,53 +320,7 @@ export default App
 
 
 #### SafeAreaView from library (Can’t rely on the default!)  
-Proof. Left is SaveAreaView imported from React-Native. Right is from the new library:
-![](https://i.imgur.com/BMkHCgb.png)
-
-How to implement:
-```
-import React from 'react';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { View, Text, StyleSheet } from 'react-native';
-
-const App = () => {
-  return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.safeArea}>
-        <View style={styles.container}>
-          <Text style={styles.text}>Hello, Safe Area!</Text>
-        </View>
-      </SafeAreaView>
-    </SafeAreaProvider>
-  );
-};
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: '#f8f8f8', // You can customize the background color of the SafeAreaView
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 18,
-    color: '#333',
-  },
-});
-
-export default App;
-```
-
-NOT:
-```
-import { SafeAreaView } from 'react-native';
-```
-
-
-
+Refer to [[React Native - SafeAreaView]]
 #### ActivityIndicator
 Show a spinner or loading indicator
 

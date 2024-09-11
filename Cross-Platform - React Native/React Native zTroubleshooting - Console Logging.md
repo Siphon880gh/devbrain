@@ -10,8 +10,8 @@ useEffect(()=>{
 
 Show logs for phones
 ```
-react-native log-ios  
-react-native log-android
+npx react-native log-ios  
+npx react-native log-android
 ```
 
 For Desktop web, you just open the console because “console.log”

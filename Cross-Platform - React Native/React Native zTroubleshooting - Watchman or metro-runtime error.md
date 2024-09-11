@@ -14,5 +14,5 @@ If this error happens with all example boilerplates you generate from Expo which
 
 ONE-LINER:
 ```
-rm -rf node_modules; npm install; npx expo install @expo/metro-runtime; npm start
+rm -rf node_modules; npm install; npx expo install @expo/metro-runtime; npx expo start -c;
 ```

@@ -1,4 +1,6 @@
 
+https://docs.expo.dev/versions/latest/sdk/safe-area-context/
+
 Common need - may as well do this to all App.js level code:
 ```
 npm install react-native-safe-area-context

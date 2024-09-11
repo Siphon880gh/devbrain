@@ -77,20 +77,24 @@ This should show npm version 6.14.8 since it is bundled with Node.js v14.17.0.
 ## Key notes
 
 **Install the desired Node.js version** (e.g., v14.17.0):
-   ```sh
-   nvm install v14.17.0
-   ```
+```sh
+nvm install v14.17.0
+```
 
 **Use the newly installed Node.js version**:
-   ```sh
-   nvm use v14.17.0
-   ```
+```sh
+nvm use v14.17.0
+```
 
 **Verify the npm version**:
 ```
 npm -v
 ```
 
+You can list all available npm versions you can switch to:
+```
+nvm list
+```
 
 ---
 
@@ -170,3 +174,27 @@ nvm alias default v14.17.0
 
 
 Restart your server (`sudo reboot`) then test `npm -v` again to make sure it sticks
+
+---
+
+## Project based npm versions:
+
+Yes, you can specify a Node.js version for your project using **`.nvmrc`**, a file that stores the desired Node.js version. This allows you to easily switch between Node.js versions when working on different projects.
+
+### Steps:
+
+1. **Create `.nvmrc` file**:
+   In your project directory, create a `.nvmrc` file and specify the version of Node.js you want to use:
+   ```bash
+   echo "14.17.0" > .nvmrc
+   ```
+   Replace `"14.17.0"` with the version you want to use for this project.
+
+2. **Use the specified version from finding a .nvmrc file**:
+   To use the Node.js version specified in the `.nvmrc` file, run the following command:
+   ```bash
+   nvm use
+   ```
+
+3. **Automatically switch versions**:
+   You can use tools like **direnv** or **avn** (Automatic Version Switcher) to automatically switch to the correct Node.js version when you `cd` into the project directory.
