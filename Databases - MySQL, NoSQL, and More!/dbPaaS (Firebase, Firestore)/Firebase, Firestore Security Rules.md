@@ -33,6 +33,12 @@ Firestore rules include a `rules_version = '2';` line at the top, which specifie
 
 Real Time Database rules are written in JSON format and may have paths.
 
+
+---
+
+How to access rules? You select the existing database from the menu (if added shortcut) or All Products.
+- Realtime Database or Cloud Firestore -> Rules tab
+
 ---
 
 

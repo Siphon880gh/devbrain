@@ -1,0 +1,1 @@
+Firebase is finicky / fussy about its requirements especially on iOS. You may get dependency issues. It even conflicts with certain node version numbers. Nothing that can't be solved but you need to consider this when budgeting time.
