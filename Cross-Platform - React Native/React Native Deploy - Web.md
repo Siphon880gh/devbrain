@@ -43,7 +43,7 @@ Your webpack.config.js before it returns the config, you add the publicPath like
   // Ensure that publicPath is set to /mixo/
   config.output = {
     ...config.output,
-    publicPath: '/mixo/',  // Force publicPath to be /mixo/
+    publicPath: '/APP_NAME/',  // Force publicPath to be /mixo/
   };
 ```
 
@@ -66,7 +66,7 @@ module.exports = async function (env, argv) {
   // Ensure that publicPath is set to /mixo/
   config.output = {
     ...config.output,
-    publicPath: '/mixo/',  // Force publicPath to be /mixo/
+    publicPath: '/APP_NAME/',  // Force publicPath to be /mixo/
   };
 
   config.module.rules.push({
