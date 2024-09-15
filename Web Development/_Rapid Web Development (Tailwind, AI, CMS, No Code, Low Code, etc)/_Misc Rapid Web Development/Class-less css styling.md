@@ -11,64 +11,48 @@ For Tufte, you may want to remove the body paddings if you’re combining with B
 
 ```
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" rel="stylesheet">  
-    <style>
-      body {
-        width: unset;
-        margin-left: unset;
-        margin-right: unset;
-        padding-left: unset;
-        max-width: unset;
-      }
-      a {
-        text-shadow: none !important;
-      }
+```
 
-    @media (prefers-color-scheme:dark) {
-        body {
-            background-color: unset;
-            color: unset;
-        }
-    }
-    @media (prefers-color-scheme:dark) {
+```
+<style>
+body {
+    width: unset;
+    margin-left: unset;
+    margin-right: unset;
+    padding-left: unset;
+    padding-right: unset;
+    max-width: unset;
+}
+a {
+    text-shadow: none !important;
+}
 
-        .hover-tufte-underline:hover,
-        .tufte-underline,
-        a:link {
-            text-shadow: unset;
-        }
+@media (prefers-color-scheme:dark) {
+    body {
+        background-color: unset;
+        color: unset;
     }
-    @media (max-width: 760px) {
-        body {
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-        }
-    }
-    /* Remove the underline on links that have fa icon or image. Tufte uses 1px background as underline */
-    a:has(> img), a:has(> .fa), a:has(> .fas) { 
-        text-decoration: none;
-        background: 0 !important;
-    }
-    /* Bring back listing style */
-    ul, ul > li, ol, ol > li, li {
-        padding-left: revert !important;
-        list-style: unset !important;
-    }
-    /* Turn off device preferring dark mode from having separate styles */
-    @media (prefers-color-scheme:dark) {
-        body {
-            background-color: unset;
-            color: unset;
-        }
-    }
-    @media (prefers-color-scheme:dark) {
+}
+@media (prefers-color-scheme:dark) {
 
-        .hover-tufte-underline:hover,
-        .tufte-underline,
-        a:link {
-            text-shadow: unset;
-        }
+    .hover-tufte-underline:hover,
+    .tufte-underline,
+    a:link {
+        text-shadow: unset;
     }
-    </style>
+}
+dl, ol, p, ul {
+    font-size: unset;
+}
+.hover-tufte-underline:hover, .tufte-underline, a:link {
+    text-shadow: none !important;
+    border: 0 !important;
+    text-decoration: none !important;
+}
+body {
+    font-size: 1.2rem;
+}
+</style>
 ```
 
 If you have multiple php pages sourcing tufte, you may want a partial php that has that style block:
