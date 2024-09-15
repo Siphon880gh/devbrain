@@ -5,9 +5,9 @@ sorting-spec: |-
   AWS Cloud
   CompSci - DS, Algos, Systems, Logic
   Cross-Platform - React Native
-  Databases - MySQL, NoSQL, and More!
+  Databases - MySQL, NoSQL, Firebase Firestore, and More!
   Enterprise - DevOps, Server Admin, SaaS Scaling, Payment Systems
-  Extensions and Plug-ins Development
+  Extensions, Plug-ins, and Software Suite Development
   Version Control - git, github, gitlab
   %
   README

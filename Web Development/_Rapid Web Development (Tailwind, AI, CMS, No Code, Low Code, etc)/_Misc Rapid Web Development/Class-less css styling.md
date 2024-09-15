@@ -71,6 +71,11 @@ For Tufte, you may want to remove the body paddings if you’re combining with B
     </style>
 ```
 
+If you have multiple php pages sourcing tufte, you may want a partial php that has that style block:
+```
+<?php include("./partials/tufte-override.php"); ?>
+```
+
 Example Tufte
 ![](https://i.imgur.com/KajLILs.png)
 
