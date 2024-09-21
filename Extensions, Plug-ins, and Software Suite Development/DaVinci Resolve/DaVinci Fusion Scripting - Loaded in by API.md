@@ -12,4 +12,4 @@ clip = track[index]
 clip.ImportFusionComp(fusion_path)
 ```
 
-Warning: This ImportFusionComp is not supported in .py files you drag and drop into console on free DaVinci Resolve. Run these lines of codes (paste them) directly into DaVinci Resolve console (Workspace -> Console)
+Warning: This ImportFusionComp is not supported in .py files you drag and drop into console on free Davinci Resolve. Run these lines of codes (paste them) directly into DaVinci Resolve console (Workspace -> Console)
