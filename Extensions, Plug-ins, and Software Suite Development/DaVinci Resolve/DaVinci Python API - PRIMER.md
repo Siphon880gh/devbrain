@@ -96,6 +96,19 @@ Note on DaVinci Console direct inputting or pasting
 
 You can copy and paste multiple lines of code into the DaVInci console though it will only show one line of input. You can press up and down on your keyboard but you can't see more than one line of input.
 
+---
+
+Most commonly needed variables
+
+You likely will need resolve initiated, the project reference, a timeline reference, and/or a track reference. From there you can do a lot. Here's the boilerplate:
+
+```
+resolve = app.GetResolve()
+project = resolve.GetProjectManager().GetCurrentProject()
+timeline = project.GetCurrentTimeline()
+track = timeline.GetItemsInTrack('video', 1) # Video track 1
+```
+
 
 ---
 

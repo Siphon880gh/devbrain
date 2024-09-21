@@ -30,4 +30,10 @@ FCM: NON-DROP FRAME
 
 Notice clip in and out is wrong AND M2 line is missing. ChatGPT will preferably give this wrong answer even if given sample output
 
-So just use your know how instead
+So just use your know how instead.
+
+---
+
+How about giving a sample output:
+
+And actually if you give ChatGPT a correct example, it still gets it wrong, as of Sept 2024 o1-preview

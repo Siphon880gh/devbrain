@@ -3,6 +3,8 @@ This demonstrates how to get all clips, start, end, duration, and fusion clips
 
 Note the timeline gets whatever timeline is opened when you run this code from the DaVinci console (either pasting/typing in it, or dropping .py file into it)
 
+Track is the first video track in the timeline because of the parameters: `'video', 1`
+
 ```
 resolve = app.GetResolve()
 project = resolve.GetProjectManager().GetCurrentProject()
