@@ -70,9 +70,9 @@ export const useKeyValueStore = () => {
 // <Text>From context: {keyValueStore?.app && keyValueStore?.app?.count && keyValueStor.app.count}</Text>
 ```
 
-That file exports a provider component and a hook. Wrap all your descendent components in the provider component
+That file exports a provider component and a hook. Wrap all your descendent components in the provider component. Btw, the provider component works because of React's createContext which lets the code create a context that components can provide or read.
 
-then any descendant component can import that file’s hook. The hook can give you either the store (object) or adder (function). Use the store to read entries. Use the adder to update the context. This lets you share state across your app without having to drill down props!
+Then any descendant component can import that file’s hook. The hook can give you either the store (object) or adder (function). Use the store to read entries. Use the adder to update the context. This lets you share state across your app without having to drill down props!
 
 App.js:
 ```
