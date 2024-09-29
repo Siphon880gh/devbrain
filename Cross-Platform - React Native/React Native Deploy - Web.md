@@ -21,20 +21,19 @@ By default will create a dist/ folder at the app's root
 
 By default the bundle and index.html refers to asset files relative to the domain "/...js"
 
-You have to set the public path at two places.
+You have to set the public path at two places. For example, if your dist folder will be renamed on your server as a the "wengs-app" folder such that the URL would be https://wengindustries.com/wengs-app
 
 #### App.json
 
 You can set the public path at: `app.json`
 
     "experiments": {
-      "baseUrl": "/mixo"
+      "baseUrl": "/wengs-app"
     }
 
-Bad instructions online:
+& Btw there are bad instructions online regarding app.json:
 - There are unofficial online instructions about adding settings to `app.json` or `app.config.json`. What worked for me was app.json. 
 - There are also unofficial online instructions and outdated ChatGPT instructions to use `expo.web.publicPath`, however Expo has quietly removed that in favor for `expo.experiments.baseUrl`.
-
 
 #### Webpack
 
@@ -43,7 +42,7 @@ Your webpack.config.js before it returns the config, you add the publicPath like
   // Ensure that publicPath is set to /mixo/
   config.output = {
     ...config.output,
-    publicPath: '/APP_NAME/',  // Force publicPath to be /mixo/
+    publicPath: '/wengs-app/',  // Force publicPath to be /mixo/
   };
 ```
 
