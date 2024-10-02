@@ -1,7 +1,9 @@
 ---
 sorting-spec: |-
   Web Development
-  AI - Prompt Engineer, Developer, and AI Engineer
+  AI Prompt Engineer
+  AI API Developer
+  AI Engineer
   AWS Cloud
   CompSci - DS, Algos, Systems, Logic
   Cross-Platform - React Native
@@ -9,6 +11,11 @@ sorting-spec: |-
   Enterprise - DevOps, Server Admin, SaaS Scaling, Payment Systems
   Extensions, Plug-ins, and Software Suite Development
   Version Control - git, github, gitlab
+  Data Science - Big Data
+  Data Science - Business
+  Data Science - General
+  Data Science - Jupyter Notebook
+  Data Science - Python
   %
   README
   package.json
