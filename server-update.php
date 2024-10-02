@@ -11,6 +11,9 @@ $command = $command1 . $command2;
 $output = shell_exec("$command 2>&1");
 $exitCode = shell_exec('echo $?');
 
+$command = "git remote get-url origin";
+$output2 = shell_exec("$command 2>&1");
+
 $processUser = posix_getpwuid(posix_geteuid());
 $user = $processUser['name'];
 
@@ -19,6 +22,7 @@ $pwd = shell_exec("pwd");
 echo "Executing user: " . $user . "<br/>";
 echo "CWD:" . $pwd . "<br/>";
 echo "COMMAND OUTPUT:" . $output . "<br/>";
+echo "COMMAND OUTPUT:" . $output2 . "<br/>";
 echo "EXIT CODE:" . $exitCode; "<br/>";
 
 if ($output === null) {
