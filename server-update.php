@@ -5,7 +5,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$command1 = 'cd "/home/wengindustries/htdocs/wengindustries.com/app/3dbrain/curriculum";';
+$command1 = 'cd "' . __DIR__ . "'";
 $command2 = 'git fetch origin; git reset --hard refs/remotes/origin/main';
 $command = $command1 . $command2;
 $output = shell_exec("$command 2>&1");
