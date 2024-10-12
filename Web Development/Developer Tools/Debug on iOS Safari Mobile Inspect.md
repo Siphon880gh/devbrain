@@ -15,11 +15,18 @@
 
 **Debugging with Web Inspector on Mobile Safari:**
 1. On your iPad, iPhone, or iPod touch, go to Settings > Safari > Advanced and enable Web Inspector. Make sure JavaScript is also turned on.
-2. On your Mac, open Safari, then navigate to Safari menu > Preferences > Advanced. Here, activate 'Show Develop menu in menu bar' if it's not already enabled.
-3. Using a USB cable, connect your iOS device to your Mac. Note that this step requires a physical cable connection; Wi-Fi is not supported.
-4. Open the website you intend to debug on your iOS device. Then, on your Mac, launch Safari and select the 'Develop' menu. Your connected iOS device should appear here. (If no pages are open on your iOS device, a message stating “No Inspectable Applications” will display.)
+2. On your Mac, open Safari, then navigate to Safari menu > Settings > Advanced. Here, activate 'Show Develop menu in menu bar' if it's not already enabled.
+3. Using a USB cable, connect your iOS device to your Mac. Note that this step requires a physical cable connection; Wi-Fi is not supported. You may be asked if you can trust the device - make sure to say Yes.
+4. Open the website you intend to debug on your iOS device. Then, on your Mac, launch Safari and select the 'Develop' menu. Your connected iOS device should appear here. (If no pages are open on your iOS device, a message stating “No Inspectable Applications” will display.).
 5. Start debugging the webpage that is open on your mobile Safari, using the standard debugging methods available on a Mac.
-6. In the developer tools window, switch to the 'Network' tab and export the .har file if necessary.
+6. You can confirm the connection by going to Elements panel on your Desktop Safari, then highlight `<body...` and that will highlight the entire page on the mobile.
+
+If necessary:
+- In the developer tools window, switch to the 'Network' tab and export the .har file if necessary.
+
+Notes:
+- You can refresh the page on mobile and the console details at Desktop will restart too. No need to re-connect at the Desktop Safari Developer Menu.
+- You can run alerts etc at the Desktop Safari console and you'll see the effect on mobile.
 
 ---
 

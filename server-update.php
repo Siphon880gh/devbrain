@@ -5,9 +5,10 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$command1 = 'cd "' . __DIR__ . "'";
+
+$command1 = 'cd "' . __DIR__ . '"';
 $command2 = 'git fetch origin; git reset --hard refs/remotes/origin/main';
-$command = $command1 . $command2;
+$command = $command1 . " && " . $command2;
 $output = shell_exec("$command 2>&1");
 $exitCode = shell_exec('echo $?');
 
@@ -20,6 +21,7 @@ $user = $processUser['name'];
 $pwd = shell_exec("pwd");
 
 echo "Executing user: " . $user . "<br/>";
+echo "PHP __DIR: " . __DIR__ . "<br/>";
 echo "CWD:" . $pwd . "<br/>";
 echo "COMMAND OUTPUT:" . $output . "<br/>";
 echo "COMMAND OUTPUT:" . $output2 . "<br/>";

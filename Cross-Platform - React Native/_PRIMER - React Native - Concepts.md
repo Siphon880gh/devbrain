@@ -119,7 +119,7 @@ iOS and Android does not support `alert`. They use `Alert.aert`
 
 ----
 
-### **Fundamentals - Layout**
+### **Fundamentals - Layout & Sizing**
 
 Keypoint: Layouts in React Native is simplified so it can be universal with multiple devices. For example, Text is a replacement for all possible span and p. Layouts are mainly based off flex mechanics. For example, View is like div but it’s flex column and cannot support user interaction event listeners like div’s in HTML can. TouchableOpacity works like an inline div that has fade animation on its children when clicked.
 
