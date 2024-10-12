@@ -7,7 +7,7 @@ What language is DaVinci Fusion scripting based on?
 - It's very Pythonic and JSON like.
 
 Caveat about DaVinci:
-This is for DaVinci is at version 19.0.1 build 6 - 2024, aka Fusion Script 19. Note that like the API, DaVinci likes to change the syntax from version to version and it's poorly documented. The documentation out there is outdated and does not contain all syntax and language features. Community support is limited (some just give up). You may want to keep a copy of that working installation version because of frequent language changes between languages.
+This is for DaVinci is at **version 19.0.1 build 6 - 2024**, aka Fusion Script 19. Note that like the API, DaVinci likes to change the syntax from version to version and it's poorly documented. The documentation out there is outdated and does not contain all syntax and language features. Community support is limited (some just give up). You may want to keep a copy of that working installation version because of frequent language changes between languages.
 
 How to execute:
 There are fusion scripting that you can copy and paste into Fusion screen or drag and drop into Fusion screen (.setting file extension). Or using the API to programmatically loading the fusion script (.comp extension although file contents the same) 

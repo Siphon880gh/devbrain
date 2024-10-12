@@ -1,5 +1,5 @@
 
-Title: Understanding Ternary Operators in JSX: A Guide to Conditional Rendering
+Titled: Understanding Ternary Operators in JSX: A Guide to Conditional Rendering
 
 In the world of React and JSX, conditional rendering is a common task. Whether you need to display different components based on certain conditions or conditionally apply styles, having a good grasp of how to conditionally render JSX elements is essential. One of the most elegant ways to achieve this is by using ternary operators within double curly brackets. In this article, we'll explore why ternary operators are often used in JSX and provide some practical examples.
 
