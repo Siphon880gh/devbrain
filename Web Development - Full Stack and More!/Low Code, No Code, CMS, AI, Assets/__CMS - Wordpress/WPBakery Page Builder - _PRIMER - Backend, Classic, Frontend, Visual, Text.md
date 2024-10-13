@@ -36,17 +36,25 @@ But notice the Classic Mode is not only re-skinned but enhanced with new design 
 
 ## Visual RTF vs Text
 
-Visual RTF mode:
+### Both Visual RTF mode and Text are the same code. 
+It's a combination of shortcodes (Wordpress plugin code) and HTML. You can have sections of shortcodes and HTML, or you can have them mixed together like this:
+![](https://i.imgur.com/BhpWZTc.png)
+
+```
+<div style="margin-top:10px; text-align:center;">[nectar_animated_title heading_tag="h3" style="color-strip-reveal" color="Accent-Color" text="Pricing" custom_css="text-align:center;"]</div>
+```
+
+Style and script blocks are allowed in Classic Mode. Make sure to add them in Text Mode instead of Visual RTF mode. Refer to "Text mode is ALL Text" implications for rationale.
+
+### Visual RTF mode renders text formats and images:
 ![](https://i.imgur.com/dzBy3ST.png)
 
 
-Text mode is ALL TEXT
-It's a combination of shortcodes (Wordpress plugin code) and HTML.
-
----
-
-## Readability
-When editing in text mode in Classic Editor, you can add blank lines and spacing as is necessary to aid your understanding of the shortcodes. Whitespaces are ignored like it is in HTML.
+### Text mode is ALL TEXT. 
+No rendered formatting is involved which has implications:
+- Readability: When editing in text mode, you can add blank lines and spacing as is necessary to aid your understanding of the shortcodes. Whitespaces are ignored like it is in HTML.
+- Typing HTML: Type html into Text mode, NOT Visual RTF mode. In Visual RTF mode if you type HTML, it's assumed you're writing a HTML coding tutorial and the tags are rendered as text to the visitor - add HTML in Text mode.
+- In a similar way, style and script blocks are allowed in Classic Mode, but make sure to add them in Text Mode instead of Visual RTF mode. If you had added them in Visual RTF mode, Wordpress assumes you're writing a coding tutorial and will render them as text to your visitor; In text mode, you would see `&lt;script&gt;` for the opening script tag.
 
 
 ----

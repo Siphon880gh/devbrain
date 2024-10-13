@@ -60,7 +60,7 @@ Then Try Again
 WP by default shows your blogs. Change to a multipage/single page? Go to Settings -> Reading -> A static page (Rather than "Your latest posts")
 
 
-## Setup Site builder inside wordpress
+## Setup Site builder inside Wordpress
 
 ### See if you like the default Gutenberg
 
