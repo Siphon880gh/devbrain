@@ -1,6 +1,13 @@
+AKA: Get Started
+
 Purpose: Create wordpress from the standpoint of a developer trying to become more visual and understands there are opportunities in wordpress to leverage development with small business owners that go with wordpress, squarespace, etc
 
 The developer: Understands may not be as talented with visual placement / styling. However will incorporate AI tools to assist with that.
+
+How to use**: Recommend you open a screen-persistent Table of Contents so you can navigate this document more easily.
+
+---
+
 
 ## Setup
 ### Setup Wordpress
@@ -28,17 +35,76 @@ When prompted by the Wordpress wizard to enter your database name, username, pas
 3. Complete the installation: Follow the on-screen instructions to complete the WordPress installation. You'll need to provide details such as the site title, administrator username, password, and email address.
 4. Log in and customize: Once the installation is complete, you can log in to your WordPress dashboard by appending "/wp-admin" to your website's URL (e.g., www.example.com/wp-admin). Use the administrator credentials you set up during the installation. From the dashboard, you can customize your website, install themes and plugins, and start creating content.
 
+If setting up locally:
+![](https://i.imgur.com/om4VcrU.png)
+^ Yes, notice the wp_ is repeated twice. Yes you can do "localhost:3306"
+
+And if using MAMP/LAMP/MAMP, you get the port like here:
+![](https://i.imgur.com/OB1m57b.png)
+
+
+If you get this message in the wordpress wizard after submitting your database creds, url, and database name - double check the above steps and check the phpmyadmin screenshots here:
+![](https://i.imgur.com/I8nEv43.png)
+
+![](https://i.imgur.com/vrJ97T7.png)
+
+![](https://i.imgur.com/ZneB4qW.png)
+
+
+And make sure your db creds have permission to this new database. Your phpmyadmin link may differ but go into the database -> Privileges:
+[http://localhost:8888/phpMyAdmin5/index.php?route=/server/privileges&db=wp_wordpress-test&checkprivsdb=wp_wordpress-test&viewing_mode=db](http://localhost:8888/phpMyAdmin5/index.php?route=/server/privileges&db=wp_wordpress-test&checkprivsdb=wp_wordpress-test&viewing_mode=db)  
+
+Then Try Again
 ### Setup for a website, not a blog service
 
 WP by default shows your blogs. Change to a multipage/single page? Go to Settings -> Reading -> A static page (Rather than "Your latest posts")
 
 
+## Setup Site builder inside wordpress
+
+### See if you like the default Gutenberg
+
+Go to left sidebar -> Pages -> Edit a webpage
+It kicks you right into the default site builder Gutenberg:
+![](https://i.imgur.com/VtQ9O0q.png)
+
+You can quickly read how to use Gutenberg Site builder at [[Gutenberg Site Builder - PRIMER]]
+
+Reworded:
+Unless you get another site builder (WPBakery, Salient theme's Enhanced WPBakery, Nectarblock Site Builder, Elementor Site Builder): The default website builder in WordPress is the Gutenberg site builder. It was introduced in WordPress version 5.0 and is now the default content editor for creating and editing posts and pages.
+
+### If choose to get a better site builder inside Wordpress:
+
+But Gutenberg is not a good site builder and is considered dated. Refer to [[Wordpress Site Builders]] to install a better site builder.
+
+---
+
 ## Fundamentals
 
-### Tools
+### Editing Page
 
-Unless you get another website builder:
-The default website builder in WordPress is called the Block Editor, formerly known as Gutenberg. It was introduced in WordPress version 5.0 and is now the default content editor for creating and editing posts and pages.
+Edit live view:
+Appearance -> Customize -> Additional CSS
+
+Edit a page:
+Pages → All Pages → See Your Page: Edit
+
+View a page:
+Pages → All Pages → See Your Page: View
+
+---
+
+### Editing Menu
+
+Edit menu:
+Appearance -> Menus
+
+First step is select the menu you're editing at: "Select a menu to edit:". Same place to create a new menu
+
+Second step is you can add menu items from the left sidebar. Usually you add custom links or Wordpress pages:
+
+![](https://i.imgur.com/vZ8SWFx.png)
+
 
 ### Marketable blocks
 
@@ -69,6 +135,18 @@ Add -> Image. May upload or use Media Library(WP Dashboard's Media)
 
 Customize header/footer
 Tools -> Theme File Editor -> parts->header/footer
+
+---
+
+## Workflows
+
+Workflows:
+Duplicate a page so you can work on it without affecting live/production site. You can View or Edit from “All Pages”
+
+
+---
+
+## Migration Guides
 
 ### Migration - Designed wordpress into fresh wordpress copy
 

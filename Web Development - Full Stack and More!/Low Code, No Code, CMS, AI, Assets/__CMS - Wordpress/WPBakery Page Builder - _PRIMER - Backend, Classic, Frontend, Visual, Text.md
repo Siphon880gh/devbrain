@@ -2,50 +2,48 @@
 **Where are we:**
 You're editing a page because you went from the left sidebar Pages -> Editing a specific page
 
-Now you're inside WPBakery Page Builder. 
+Let's explore WPBakery Page Builder. 
 
 You can switch between Backend and Classic Mode by clicking the toggle mode button (first button):
+
+https://wpbakery.com/features/wordpress-editor/
 
 ![](https://i.imgur.com/Ym8CNID.png)
 
 ![](https://i.imgur.com/wPL8JB9.png)
 
 
-What's Frontend editor? That's your theme's website builder, eg. Salient's website builder.
+What's the second button "Frontend editor"? That's your theme's website builder, eg. Salient's website builder.
 
 ## Classic Mode
 
-Classic Mode allows you to fine tune the layout and design with the shortcodes of WPBakery (AKA Visul Composer formerly, dt legal reasons) which is the backbone of Salient theme's site builder
+Classic Mode allows you to fine tune the layout and design with the shortcodes of WPBakery (AKA Visul Composer formerly, dt legal reasons) and HTML which is the backbone of Salient theme's site builder
 
-gs. Classic Mode is called such because Wordpress was launched as a blogging website where in 2003, you typed into a RTF editor. In 2008 when Wordpress was already transitioning from a blogging platform to a dual blogging and CMS platform, Wordpress released support for a square bracket syntax called shortcode to add more functionality like image galleries. In the 2000s, a popular syntax for adding formatting to Internet forums called Bulletin Board Code or BBCode used code like [b]; it’s possible Wordpress was inspired by them to add similar syntax as a vehicle for the author to add features beyond simply blog content.
+Classic Mode is actually a re-skinned version of the Code Editor of Gutenberg which is the default site builder for all Wordpress installations.
 
-It has two sub-modes called Visual (RTF) and Text.
+To find your place among the short codes you may have to rely on the RTF elements of styled texts and images, or do a text search for specific keywords from your live website.
+
+Notice on the top right of the content editing is Visual and Text. Think of Visual as "Visual RTF" mode that shows you shortcuts, your styled text, and your images and renders some of the text formatting and images.
+
 
 ![](https://i.imgur.com/HYlCxhm.png)
 
 
-Notice you see Wordpress style syntax code called shortcodes. While in Classic Mode, the button that was called "Classic Mode" is now called "Backend Editor" because that button always show the name of the mode you'd switch to when clicked, not the name of the mode you're in.
-
-Notice on the top right of the content editing is Visual and Text. Think of Visual as RTF mode that shows you shortcuts, your styled text, and your images.
-
-To find your place among the short codes you may have to rely on the RTF elements of styled texts and images, or do a text search for specific keywords from your live website.
-
-
 ----
 
-## Visual vs Text
+## Visual RTF vs Text
 
-Visual aka RTF mode:
+Visual RTF mode:
 ![](https://i.imgur.com/dzBy3ST.png)
 
 
 Text mode is ALL TEXT
-
+It's a combination of shortcodes (Wordpress plugin code) and HTML.
 
 ---
 
 ## Readability
-When editing Visual (aka RTF) or Text mode, you can add blank lines and spacing as is necessary to aid your understanding of the shortcodes. Whitespaces are ignored like it is in HTML.
+When editing in text mode in Classic Editor, you can add blank lines and spacing as is necessary to aid your understanding of the shortcodes. Whitespaces are ignored like it is in HTML.
 
 
 ----
