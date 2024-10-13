@@ -1,4 +1,3 @@
-
 Badges are "linktree" and status pieces often found on Github repo pages, that can also work well on webages. It can be done in markdown code or HTML. Since markdown allows HTML, here we will do HTML badges so you port to either platform. The markdown equivalent is just using a combination of link and image markdown syntax.
 
 ---
