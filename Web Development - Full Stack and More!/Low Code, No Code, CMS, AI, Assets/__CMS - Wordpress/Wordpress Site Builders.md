@@ -1,3 +1,5 @@
+Naming: Site builder and page builders will be synonymous.
+
 ## Salient
 Salient theme has a couple site builders and site building features
 - Salient theme bundled in WP Bakery and enhanced it with additional custom elements, styles, and animations, making it more visually appealing and tailored for creative websites. This integration allows users to enjoy WPBakery's drag-and-drop functionality while benefiting from Salient’s unique design options and pre-built layouts.

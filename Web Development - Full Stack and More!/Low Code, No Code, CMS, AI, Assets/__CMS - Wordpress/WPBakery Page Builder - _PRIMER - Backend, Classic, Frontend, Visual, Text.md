@@ -13,7 +13,9 @@ https://wpbakery.com/features/wordpress-editor/
 ![](https://i.imgur.com/wPL8JB9.png)
 
 
-What's the second button "Frontend editor"? That's your theme's website builder, eg. Salient's website builder.
+When in backend mode, the toggle button's text is "Classic Mode" because the button label is what you go into when clicked. And vice versa.
+
+"Frontend editor" is the enhanced WPBakery's Frontend Editor.
 
 ## Classic Mode
 
@@ -28,6 +30,7 @@ Notice on the top right of the content editing is Visual and Text. Think of Visu
 
 ![](https://i.imgur.com/HYlCxhm.png)
 
+But notice the Classic Mode is not only re-skinned but enhanced with new design elements. The Nectar shortcodes button is a library of shortcodes that add designed elements. Refer to [[Salient WPBakery Site Builder - Nectar Shortcodes]]
 
 ----
 
