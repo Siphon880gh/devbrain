@@ -15,7 +15,7 @@ Wordpress backend is like laying out the bricks of your website. You can more ea
 ## Classic Mode
 Classic Mode allows you to fine tune the layout and design with the shortcodes of WPBakery (AKA VIsual Composer) which is the backbone of Salient theme's site builder
 
-Refer to [[WPBakery Page Builder - Classic Mode (With Visual and Text Sub-modes)]]
+Refer to [[WPBakery Page Builder - _PRIMER - Backend, Classic, Frontend, Visual, Text]]
 
 
 ## Main Builder ("Edit with WPBakery Page Builder")

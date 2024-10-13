@@ -61,18 +61,4 @@ We will change these rules soon.
 
 ---
 
-
-
-
-
-
-
 Decide on security rules and setup security rules (otherwise Google will keep emailing you about your security rules being too laxed)
-
-((
-Project Overview (Home icon) -> Get started by adding Firebase to your app -> Select Platform
-
-
-
-
-))

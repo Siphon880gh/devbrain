@@ -7,6 +7,8 @@ Somethings you will learn:
 - Connecting storyboard scenes to view controller class code
 - Ui view outlet into variables at view controller class code
 
+**How to use**: Recommend you open a screen-persistent Table of Contents so you can navigate this document more easily.
+
 Table of Contents:
 ```toc
 ```

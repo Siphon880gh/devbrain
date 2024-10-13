@@ -1,4 +1,18 @@
 
+**Where are we:**
+You're editing a page because you went from the left sidebar Pages -> Editing a specific page
+
+Now you're inside WPBakery Page Builder. 
+
+You can switch between Backend and Classic Mode by clicking the toggle mode button (first button):
+
+![](https://i.imgur.com/Ym8CNID.png)
+
+![](https://i.imgur.com/wPL8JB9.png)
+
+
+What's Frontend editor? That's your theme's website builder, eg. Salient's website builder.
+
 ## Classic Mode
 
 Classic Mode allows you to fine tune the layout and design with the shortcodes of WPBakery (AKA Visul Composer formerly, dt legal reasons) which is the backbone of Salient theme's site builder
@@ -33,9 +47,10 @@ Text mode is ALL TEXT
 ## Readability
 When editing Visual (aka RTF) or Text mode, you can add blank lines and spacing as is necessary to aid your understanding of the shortcodes. Whitespaces are ignored like it is in HTML.
 
+
 ----
 
-## Case Study
+## Learn with AI
 
 You can ask ChatGPT to explain the shortcodes.
 
