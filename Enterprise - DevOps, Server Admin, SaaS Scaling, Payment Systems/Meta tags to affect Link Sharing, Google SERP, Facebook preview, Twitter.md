@@ -1,7 +1,11 @@
 
+These meta tags to affect:
 Link sharing like texted thunbnail
 Google search results
 Facebook preview
+Twitter
+
+To make it more convertible for other people that your champion visitors/users share the link with.
 
 ```
 <title>Company Assessment</title>

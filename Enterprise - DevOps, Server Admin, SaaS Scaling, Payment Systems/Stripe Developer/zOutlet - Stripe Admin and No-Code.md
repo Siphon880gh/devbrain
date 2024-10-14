@@ -1,0 +1,3 @@
+Many of Stripe's features do NOT require coding, and managing your Stripe does NOT require coding either.
+
+For managing Stripe information like products, its prices, pricing tables, etc, or implementing no-code embeds like ui price cards / payment button / link to checkout page into your website or app, go check out my Business notes on Stripe: https://wengindustries.com/app/bizbrain/?open=Stripe%20-%20_PRIMER.md
