@@ -1,6 +1,8 @@
 
 The default site builder for Wordpress
 
+Also referred as "Block Editor"
+
 Go to left sidebar -> Pages -> Edit a webpage
 It kicks you right into the default site builder Gutenberg:
 ![](https://i.imgur.com/VtQ9O0q.png)
