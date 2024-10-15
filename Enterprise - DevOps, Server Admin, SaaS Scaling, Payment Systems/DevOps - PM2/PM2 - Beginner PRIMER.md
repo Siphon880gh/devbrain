@@ -9,14 +9,12 @@ Required:
 Optional requirements:
 - Have a nodejs app (.js files). We will create them anyways as a test that pm2 is working
 
-Required knowledge  
-- Know what is process supervision: 
 ## What is Pm2
 
 For NodeJS, we use pm2 which has supervision and process scaling .
 - Supervision: Keeping an app persistent 24/7, usually a script that listens for incoming connections to a specific port and specific URL. That app could be a Nodejs server or Python server. 
 - Manage multiple apps: You can keep an eye on multiple apps that are running at the same time.
-- Process scaling: We can configure an app run to have cloned instances of the same process and they all share the responsibility of listening to the same port if applicable like in an express server, versus having multiple threads going at the same time for concurrency and I/O operations.
+- Process scaling: We can configure an app run to have cloned instances of the same process and they all share the responsibility of listening to the same port if applicable like in an express server, versus having multiple threads going at the same time for concurrency and I/O operations. NodeJS supports cloning processes (called cluster in pm2), but does not support multithreading (however you can code for multithreading at the app code's level on newer versions of NodeJS). Read more at [[PM2 Process Scaling - exec_mode, fork vs cluster]]
   
 
 ---
@@ -107,18 +105,23 @@ Running either this will open web browser to sign up or login:
 
 If there's no web browser because it's a server-only distro whose terminal you ran on, then it'll do non-browser authentication, which will interactively ask if you need to sign up or login, and it'll authenticate you via terminal.
 
+If you're an enterprise, it makes sense to have PM2 so it can track when and why your app crashes in production.
+
 ---
 
 ## Reference
 
 - pm2 start APP.js
 - pm2 start APP.js --name "yourAppName"
+- pm2 restart all
 
 - pm2 stop APP
+- pm2 restart all
 - pm2 delete APP
 - pm2 delete all
 
-- pm2 list
+- pm2 ls
+	- same as `pm2 list`
 - pm2 dashboard
 	- same as `pm2 monit`
 - pm2 monitor
@@ -127,3 +130,11 @@ If there's no web browser because it's a server-only distro whose terminal you r
 
 - pm2 stop all
 - pm2 delete all
+
+Troubleshooting / Help:
+- pm2 --help
+- pm2 logs app1
+
+Not as useful, delete by position on the pm2 list:
+- pm2 delete 0  
+- pm2 delete 1
