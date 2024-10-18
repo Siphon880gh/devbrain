@@ -3,8 +3,8 @@ sorting-spec: |-
   Web Development - Full Stack and More!
   Databases - MySQL, NoSQL, Firebase Firestore, and More!
   AI Prompt Engineer
-  AI API Developer
-  AI Engineer
+  AI API Engineer
+  AI System Engineer
   AWS Cloud
   CompSci - DS, Algos, Systems, Logic
   Cross-Platform - React Native
