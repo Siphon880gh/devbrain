@@ -10,5 +10,5 @@ When Make is compared against a `.sh` shell script, Make offers several benefits
 2. **Selective Task Execution**: Make can execute only the necessary tasks based on file changes, avoiding unnecessary re-execution.
 3. **Reusability**: Makefiles can define reusable rules and targets for different parts of the project.
 4. **Parallel Execution**: Make supports parallel execution of tasks using the `-j` option, speeding up build processes.
-5. **Cross-Platform Compatibility**: While shell scripts are specific to certain environments, Makefiles can be more portable across systems. Makefile or make  works across Linux, Mac, Windows. Please see compatibility exceptions at
+5. **Cross-Platform Compatibility**: While shell scripts are specific to certain environments, Makefiles can be more portable across systems. Makefile or make  works across Linux, Mac, Windows. Please see compatibility exceptions at [[Makefile cross-platform compatibility nuances]].
 6. **Modularity**: Makefiles can be split into smaller, maintainable components using includes, improving organization.

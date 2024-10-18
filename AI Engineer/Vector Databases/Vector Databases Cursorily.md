@@ -1,1 +1,0 @@
-https://www.kdnuggets.com/a-comprehensive-guide-to-pinecone-vector-databases
