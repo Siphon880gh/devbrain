@@ -2,6 +2,9 @@ Caveat: Weng created these categories, which he believes provide a strong summar
 
 **Level 1 - Prompt Engineer** is the most basic level that does not require knowledge of programming, however is a requirement if you are to develop AI applications. As a prompt engineer, you know how to prompt correctly for the desired results at ChatGPT, Claude Chat, Bard, etc? The Engineering part has less to do with knowing code, but more to do with leveraging the way AI understands human language and making its knowledge it can draw from more precise. You do not need to know NLP or various algorithms that the AI uses underneath. Another word for this is "Power User".
 
+**Level 1-2 - AI Automator**
+Technically between Prompt Engineer and the API Engineer is the API Automator. This professional uses tools like Zapier to bring AI into their automation. For example, they use Zapier to enrich email messages with AI from scraped data on the lead whenever a new lead is added to Hubspot. This level is considered before Engineer because although the automation professional can think in terms of inputs and outputs like an Engineer can, they do not really code, or code much (if they add code to the automation).
+
 **Level 2 - AI API Engineer** is the next level of AI development. You know how to connect to ChatGPT and various AI APIs, text or non-text generative types (such as Eleven Labs for text to speech). You can connect to ChatGPT's API using OpenAI or LangChain, and you can connect whether it's PHP, Python, cURL, etc, or at least know how to figure that out. In addition, you know how to make use of the AI API's within your application for business needs.
 - AI Developer really has two sub-levels. 
 	- API Developer who's a basic API consumer. The developer can use API to transform a simple input to a simple output.
