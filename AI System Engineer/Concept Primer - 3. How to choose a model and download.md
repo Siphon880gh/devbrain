@@ -6,6 +6,8 @@
 
 ### Model Types
 - Text, Vision, etc
+	- Vision can perform visual recognition, image reasoning, captioning, and answering general questions about an image
+- Eg. Llama 3.2-Vision Instruct which has 11B and 90B models
 
 ### Criteria to choose model
 - What is its use case: Eg. Vision makes sense for images, so a model like "Llama3.2-11B-Vision-Instruct" makes sense for images

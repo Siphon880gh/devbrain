@@ -21,7 +21,7 @@ For example datasets, refer to [[Training AI - Example Datasets]]
 
 
 > [!note] In the code: Training
-> This is beyond the scope of this tutorial. However, one approach is with the three datasets to use Python's Scikit-learn to train, then if you like it, you can save the model with joblib (or pickle). Then how do I use the model on new data to predict outputs? You can use the same library may that be joblib, then run their predict method on a csv that only has the inputs aka features. Then it would predict the outputs aka targets. For the code on training and then predicting, refer to [[Scikit-learn, Joblib - Predict Values]]
+> This is beyond the scope of this tutorial. However, one approach is with the three datasets to use Python's Scikit-learn to train, then if you like it, you can save the model with joblib (or pickle). Then how do I use the model on new data to predict outputs? You can use the same library may that be joblib, then run their predict method on a csv that only has the inputs aka features. Then it would predict the outputs aka targets. For the code on training and then predicting, refer to [[Predict Values with Scikit-learn, Joblib]]
 
 
 ### Why Multiple Datasets

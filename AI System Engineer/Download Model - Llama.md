@@ -24,3 +24,10 @@ For each model that you request, you will receive an email that contains instru
 4. Pass the URL provided when prompted to start the download.
    
 5. When the download is complete, it'll give you the folder path to where your model files are stored.  
+	1. Your folder path could be:
+		1. /Users/wengffung/.llama/checkpoints/Llama3.2-11B-Vision-Instruct
+	2. Your files could be:
+		1. checklist.chk
+		2. params.json
+		3. consolidated.00.pth
+		4. tokenizer.model
