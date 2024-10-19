@@ -41,5 +41,5 @@ TensorFlow provides support for other programming languages:
 
 ## Next Reading
 
-The next suggested reading is [[Concept Primer - 2. Tokens, Vectors, Embed]]
+The next suggested reading is [[Concept Primer - 2. Tokens, Vectors, Embeds]]
 

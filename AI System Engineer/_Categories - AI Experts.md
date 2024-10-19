@@ -7,8 +7,8 @@ Technically between Prompt Engineer and the API Engineer is the API Automator. T
 
 **Level 2 - AI API Engineer** is the next level of AI development. You know how to connect to ChatGPT and various AI APIs, text or non-text generative types (such as Eleven Labs for text to speech). You can connect to ChatGPT's API using OpenAI or LangChain, and you can connect whether it's PHP, Python, cURL, etc, or at least know how to figure that out. In addition, you know how to make use of the AI API's within your application for business needs.
 - AI Developer really has two sub-levels. 
-	- API Developer who's a basic API consumer. The developer can use API to transform a simple input to a simple output.
-	- API Developer who combines different API services and inputs and outputs. This developer can do much more than a simple API use. The developer can do chatrooms and agents (not just the agent setup at the OpenAI dashboard that's streamlined).
+	- API Engineer who's a basic API consumer. The developer can use API to transform a simple input to a simple output.
+	- API Engineer who combines different API services and inputs and outputs. This developer can do much more than a simple API use. The developer can do chatrooms and agents (not just the agent setup at the OpenAI dashboard that's streamlined).
 
 Note that Level 2 is NOT about training the AI, storing in vector databases, knowing the algorithms for which AI is trained, analyzes, and generates from, eg. NLP. Refer to the folder AI Engineer.
 
