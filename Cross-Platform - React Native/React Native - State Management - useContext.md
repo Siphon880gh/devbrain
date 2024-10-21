@@ -1,5 +1,6 @@
 useContext to share state across app
 
+## Engine
 context/KeyValue.Provider.useContext.jsx:
 ```
 import React, { createContext, useContext, useState } from 'react';  
@@ -72,6 +73,8 @@ export const useKeyValueStore = () => {
 
 That file exports a provider component and a hook. Wrap all your descendent components in the provider component. Btw, the provider component works because of React's createContext which lets the code create a context that components can provide or read.
 
+## Provider Component
+
 Then any descendant component can import that file’s hook. The hook can give you either the store (object) or adder (function). Use the store to read entries. Use the adder to update the context. This lets you share state across your app without having to drill down props!
 
 App.js:
@@ -140,3 +143,56 @@ export default function App() {
 
 You can check the store at anytime in Chrome React Dev Tools. Select the Provider component, then on the right details side panel, expand “hooks”:
 ![](https://i.imgur.com/0tjOgjn.png)
+
+## Get
+
+```
+import { useEffect } from 'react'
+import { useKeyValueStore } from '../context/KeyValue.Provider.useContext'
+
+// Warning: alert() works only on React Native Web. Otherwise, use Modal.
+
+export default function Module() {
+	const { keyValueStore } = useKeyValueStore();
+
+	useEffect(() => {
+		if (keyValueStore?.completedProfile) {
+			alert("Congrats! Your profile is completed");
+		} else {
+			alert("Please complete your profile first");
+		}
+	}, []);
+	
+	return (
+		<>
+			{/* ... */}
+		</>
+	)
+} // Module
+```
+
+## Set
+```
+import { Button } from 'react-native'
+import { useKeyValueStore } from '../context/KeyValue.Provider.useContext'
+
+// Warning: alert() works only on React Native Web. Otherwise, use Modal.
+
+export default function Module() {
+	const { addKeyValue } = useKeyValueStore();
+
+	function submitProfile() {
+		addKeyValue("completedProfile", 1)
+	}
+	
+	return (
+		<>
+			{/* ... */}
+			<Button
+              title="Submit Profile"
+              onPress={submitProfile}
+            />
+		</>
+	)
+} // Module
+```
