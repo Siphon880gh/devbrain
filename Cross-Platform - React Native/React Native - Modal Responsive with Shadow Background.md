@@ -43,7 +43,7 @@ export function Module() {
 		visible={modalNeeded}>
 		<TouchableOpacity style={styles.modalOverlay} onPress={seenModal}>
 			<ScrollView className={{flex:1, display:"flex", justifyContent:"center", alignItems:"center", zIndex:10, marginTop:24}}>
-			<View className="flex flex-col justify-between m-5 bg-white rounded-xl p-9 items-center shadow-lg" style={[styles.modalView, {width:windowWidth*widthContainerRatio, height:windowHeight*.8}]}>
+			<View className="flex flex-col justify-between m-5 bg-white rounded-xl p-9 items-center shadow-lg" style={[styles.modalView, {width:windowWidth*widthContainerRatio, height:windowHeight*.8, marginTop:windowHeight*.1}]}>
 			  {/* <Text role="debug" className="mb-4 text-center">{inquiryIndex}</Text> */}
 			  
 			  <View id="info-main">
