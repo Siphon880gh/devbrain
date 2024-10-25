@@ -17,3 +17,5 @@ Unless you specified the log path
 ```
 pm2 start app.js --interpreter /root/.nvm/versions/node/v22.8.0/bin/node --env production --no-daemon --log /path/to/your/logfile.log
 ```
+
+NOTE: If using cluster (instead of the default fork for exec_mode), interpreter is ignored. To adjust the node version for cluster mode, refer to [[PM2 Cluster mode's node path]]

@@ -104,6 +104,20 @@ sudo service supervisord status
 ```
 And in place: start/stop/status
 
+You're good to go. However one caveat, if your server crashes, supervisor might fail to start because of a "socket problem". `/var/run/supervisor/` doesn't exist after your server crashed because directories in `/var/run/` (or `/run/`, but the socket file for Supervisor is in that folder. To make sure the directory is always created when the system boots (even after crashes), you can modify Supervisor’s systemd service file to ensure it creates the directory before starting the service.
+
+1. Open the systemd service file for Supervisor:
+	```
+	sudo systemctl edit --full supervisor
+	```
+2. Look for the `[Service]` section and add the following lines to create the directory if it doesn’t exist:
+```
+[Service]
+RuntimeDirectory=supervisor
+RuntimeDirectoryMode=0755
+```
+This is likely the Nano editor that opened in VIM. You can CTRL+O to save and CTRL+X to exit.
+
 ---
 
 

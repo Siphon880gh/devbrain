@@ -387,6 +387,23 @@ Xen Xl is tricky and they change their syntax enough times that you need to doub
 
 If memory and CPU allocations need to be changed on an already running VM, refer to [[Xen - Adjust Xen VM allocations after already started]]
 
+#### Setup auto-restart for VM when main server crashes
+
+You want to set it up so that your dedicated server's Xen Hypervisor automatically restarts your VM if the server crashes and reboots (eg. Power outage at data center and then service is restored). Xen is already booted up because we've modified the grub by this point. To have VM configuration files automatically read and started, make sure you have an "auto" folder in the Xen's directory (often case, this folder doesn't exist by default):
+- Make sure exists: `/etc/xen/auto/`
+- Create symbolic link of your vps to the auto folder, eg:
+	```
+	sudo ln -s /etc/xen/vps0.cfg /etc/xen/auto/vps0.cfg
+	```
+- Optional - Test that a server crash will restart the VM
+	- Run `reboot` to restart the server which mimics a server crashing and restarting. May take 1-5 mins.
+	- When the server is back online (SSH login works), the VPS does take a little while to load. Notice it's in pause state when you run `xl list` - so just wait a bit:
+	```
+	xl list
+	Name                                        ID   Mem VCPUs	State	Time(s)
+	Domain-0                                     0  4501     8     r-----      57.8
+	vps0                                         1 13244     0     --p---       0.0	 
+	```
 #### Is Linux Administration Ready?
 - Some distros are a bare bones OS version. This means some commands you expect to help with Linux administration like sudo might be missing! Package installer might be missing sources to search packages from. 
 - This is especially true for Debian 12, etc. although it's performant because it's bare minimum. In that case, refer to the folder to finish setting up the OS so you can admin the server properly: [[Debian breaking into new shoes]]

@@ -27,6 +27,7 @@ Use Expo. For example: `npx create-expo-app@latest --example with-router`
 		- with-router ← Is expo router that uses url routes which are configured based off the file structure at app/. you can wrap with expo router’s Stack if you want the routes to navigate then stack. Eg.
 		  `npx create-expo-app@latest --example with-router`
 
+---
 ### Layout Flow
 - How you think about the layout and how elements flow on the screen is different between plain html and React versus React Native.
 - In plain HTML or React, you have block elements, inline elements, and inline-block elements.
@@ -39,6 +40,7 @@ Use Expo. For example: `npx create-expo-app@latest --example with-router`
 	- They are usually `<View>` versus `<Text>`, `<TouchableOpacity>`, etc
 	- However unlike `<div>`, the `<View>` is actually a flexbox where you can flexibly declare where elements start, how they're distributed on the horizontal or vertical axes, whether they wrap, etc using the flexbox property rules. This could cause "inlines" that are flex children to take up the entire width of the flexbox or apparently the screen, depending on your flex declarations.
 
+---
 ### Tailwind in React Native
 - For tailwind you have a few choices. Many tailwind libraries will have you call functions inside the style attribute, but Nativewind will allow you to use classNames as if this were a regular React app or plain HTML webpage. Nativewind has been conflicting in Aug 2028 and needed some workarounds
 	- Fixing it not allowing more than one class. You need to add the setOutput block (`/* Fixes web */`), otherwise on the web export or preview, you will not see tailwind styles applied unless you use one class to apply it.
@@ -61,10 +63,10 @@ Use Expo. For example: `npx create-expo-app@latest --example with-router`
 		```
 	- In addition, you may need to lock tailwind to 3.3.2. Your package.json: `"tailwindcss": "3.3.2"`
 
-## Inline styling in React Native
+### Styling with inline style attribute
 - You can write styles inline at the style attribute, and just like React, it receives only javascript objects/arrays, with property names in camelCase format. 
 
-## Stylesheet section in React Native
+### Styling with Stylesheet section
 - In React, you can import css files directly if your web bundler is setup correctly, then your styling classes can be used in the components. 
 - In React-Native, you cannot use css files - you must code the styling in Javascript. You can have objects initialized by the Stylesheet module from "React-Native" and when initializing you declare your styles in javascript and it looks like a css stylesheet.
 ```
@@ -146,6 +148,13 @@ export default styles = StyleSheet.create({
   },
 });
 ```
+
+---
+
+### Quirks
+
+There are quirks that you need to know workarounds to:
+- [[React Native - onPress sometimes take multiple clicking]]
 
 
 ---

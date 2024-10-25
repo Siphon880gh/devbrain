@@ -135,7 +135,7 @@ stop:
 
 # See log
 log\:app:
-	@pm2 log app:3313
+	@pm2 logs --lines 100 | grep -i "APP_NAME"
 
 ```
 
