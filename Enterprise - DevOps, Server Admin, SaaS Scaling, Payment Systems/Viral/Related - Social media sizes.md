@@ -1,0 +1,1 @@
+Refer to my business notes [Social Media Sizes - Ads, DMs, Posts , Stories, etc](wengindustries.com/app/bizbrain/?open=Social%20Media%20Sizes%20-%20Ads,%20DMs,%20Posts%20, Stories,%20etc.md)
