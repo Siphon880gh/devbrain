@@ -29,6 +29,9 @@ To make it more convertible for other people that your champion visitors/users s
 If you're changing any details of the meta's, Facebook requires a re-scrape at:
 https://developers.facebook.com/tools/debug/?q=\_\_URL\_\_
 
+Facebook has boilerplate generator
+https://developers.facebook.com/docs/plugins/share-button#configurator
+
 ## FAQ
 - Q: When I share a link to someone, it has a URL already, so why does Facebook have a "og:url".
 - A: The URL being shared might have additional query parameters or be a shortened version of the original URL. The `og:url` ensures that Facebook (and other platforms) recognize the canonical, or "main" version of the URL, so that marketing analytics can report all the visits to that one main canonical URL.
