@@ -1,7 +1,7 @@
 You want the following file/folder permissions for OpenSSH to work
 
 For a deep dive into chmod file permissions:
-[[chmod Fundamentals]]
+[[Content-Published/Dev/Enterprise - DevOps, Docker, Server Admin, SaaS Scaling, Payment Systems/__Server Admin, Webhosting/__Server Admin - Linux/chmod Fundamentals]]
 
 ---
 

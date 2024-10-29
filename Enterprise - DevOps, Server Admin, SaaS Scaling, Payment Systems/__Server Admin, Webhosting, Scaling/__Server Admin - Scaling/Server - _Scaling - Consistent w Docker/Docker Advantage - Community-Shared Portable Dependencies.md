@@ -1,1 +1,0 @@
-Not only is Docker good for scaling, but it also allows you to install images from their repositories that have the prerequisites needed for the tech you’re trying to implement - cutting down setup time

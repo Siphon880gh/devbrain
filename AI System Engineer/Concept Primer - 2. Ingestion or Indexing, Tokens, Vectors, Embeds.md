@@ -29,6 +29,10 @@ To see how the vectors are represented in programming, see [[Python - Pytorch vs
 
 When you ingest documents into an AI or maching learning system that uses **embedding models**, the system converts the text (or other forms of data) into **vector embeddings** to represent the documents in a numerical form that machine learning models can work with. 
 
+Note some AI engineers call it indexing instead of ingestion.
+- Indexing term used:  https://github.com/wombyz/MBAGPT/blob/main/docs/branson/Richard%20Branson%20-%20Way%20-%2010%20Secrets%20og%20the%20Worlds's%20Greatest%20Brand%20Builder%20%5BEnglishOnlineClub.com%5D.pdf
+-  Ingestion term used: https://github.com/zylon-ai/private-gpt?tab=readme-ov-file#-privategpt-
+
 Here’s how the process works in more detail:
 
 1. **Document Ingestion**: 

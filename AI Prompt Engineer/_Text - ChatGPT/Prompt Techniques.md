@@ -1,35 +1,26 @@
 Status: Need legal reword
 
+In this tutorial you will learn one-shot prompting, etc; iterative prompting etc
+
+
+---
+
 
 Users interact with LLMs using natural language input. Human users type the instructions for the model into a textual interface. The term **prompt** refers to the text that the user enters into the text field. Put differently, a prompt is the text that the user gives to the AI algorithm to tell it what to do.
 
-  
-
 The model takes the instructions from the prompt, completes the task, and then provides a response to the user. The response from the model is frequently referred to as the **output**.
-
-  
 
 In this course, our focus will be on **text outputs**, but different types of generative AI models provide different outputs. In the case of image generators like Stable Diffusion and Midjourney, the output is an image file.
 
-  
-
 A prompt can be a simple, straightforward question, such as, `Who was the first president of the United States?` Or it could be a vague request for the model to generate a type of text, such as, `Write a haiku about the beauty of AI.`
-
-  
 
 Prompts can also be complex, with key pieces of data and instructions to guide the model toward an output that will be the most useful to the user. Remember, LLMs generate responses based on an extremely high volume of data. The exact data that it uses to form the output will be significantly impacted by the specific words that the user inputs in the prompt.
 
 ### Prompt Engineering
 
-  
-
 **Prompt engineering** is the newly emerging field of methodically crafting the input for a generative AI model to give users an output that best meets their needs.
 
-  
-
 In order to generate the best output from a generative AI model, it helps to understand the opportunities and limitations of these models. This knowledge will help you phrase your prompt in the way that best allows the model to meet your needs.
-
-  
 
 Here are a few key pieces of information to keep in mind as you develop your prompts:
 
@@ -42,11 +33,8 @@ Here are a few key pieces of information to keep in mind as you develop your pro
 - Be on the lookout for **AI hallucinations**, the phenomenon of an AI model generating content that “feels” like a legitimate output, but is based on unreliable data. Again, because the model is pulling from an extremely high volume of data, not all of that data may be factually correct. A well-engineered prompt can decrease the risk of generating an AI hallucination.
     
 - Sometimes a high-level of domain expertise may be required in order to develop a well-engineered prompt. Take, for example, the case of a medical doctor using an AI algorithm to suggest treatment options based on a patient’s medical history. The person engineering the prompt would not only need to know the best vocabulary to use to generate the desired output, they would also need to have an understanding of the treatment options to be able to evaluate and validate the output.
-    
 
-###   
 
----
 ---
 
 ###   
@@ -95,6 +83,40 @@ Providing such examples **after instructions** appears to be more effective than
   
 
 When you add these optional components to a prompt, you give the algorithm additional data that personalizes the response, rather than relying on the entire breadth of the training data.
+
+---
+
+### Techniques of Prompting
+
+#### Iterative Prompting
+
+Iterative prompting in ChatGPT or similar AI models refers to a technique where a user asks a series of increasingly refined questions to achieve more specific, accurate, or nuanced answers from the model. The approach is beneficial for complex tasks or when the initial response doesn't quite capture the desired depth or detail.
+
+Here’s how iterative prompting typically works:
+
+1. **Initial Prompt**: Start with a general question or task.
+   - Example: *“Explain iterative prompting in AI.”*
+
+2. **Evaluate Response**: Review the response to see if it aligns with your expectations.
+   - If it’s too general or misses the mark, you’ll identify areas needing clarification.
+
+3. **Refine the Prompt**: Adjust the prompt to target specific gaps, add context, or request more detail.
+   - Example: *“Can you give an example of iterative prompting in AI?”*
+
+4. **Repeat as Necessary**: Continue refining until the response meets your needs. You might dive into even narrower details, correct misunderstandings, or add constraints.
+   - Example: *“How does iterative prompting work in software debugging with ChatGPT?”*
+
+5. **Summarize or Conclude**: Once satisfied, summarize key points or wrap up to capture essential insights.
+
+### When to Use Iterative Prompting
+
+- **Complex Topics**: When you’re dealing with multi-faceted or layered topics that need gradual exploration.
+- **Clarification**: When initial responses are ambiguous or too general.
+- **Creative Tasks**: To expand or narrow creative ideas like brainstorming or writing.
+- **Technical Instructions**: When looking for highly specific solutions in coding, configuration, or troubleshooting.
+
+This technique can lead to more precise, accurate responses, as it lets you steer the conversation based on progressive insights or evolving requirements.
+
 
 ---
 
