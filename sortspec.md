@@ -9,6 +9,7 @@ sorting-spec: |-
   CompSci - DS, Algos, Systems, Logic
   Cross-Platform - React Native
   Enterprise - DevOps, Docker, Server Admin, SaaS Scaling, Payment Systems
+  Enterprise - Business Analytics (BA) and Business Intelligence (BI)
   Extensions, Plug-ins, and Software Suite Development
   Version Control - git, github, gitlab
   Data Science - Big Data
