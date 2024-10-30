@@ -149,16 +149,4 @@ INSERT INTO your_table_name (column1, column2, ...) VALUES (value1, value2, ...)
 ### 8. pgAdmin for GUI Management
 For users preferring a graphical interface, **pgAdmin** is a popular option across Linux, macOS, and Windows. It provides an intuitive interface for creating databases, tables, running queries, and managing settings.
 
-Make sure when you download, you dont click a fake download button from a misleading ad:
-https://www.pgadmin.org/
-
-When you choose Mac, you're presented with:
-```
-
-CURRENT_MAINTAINER
-pgadmin4-8.12-arm64.dmg
-pgadmin4-8.12-x86_64.dmg
-```
-
-ARM64 chips are the Mac M1 and M2
-X86_64 are the 74 bit of Intel and AMD
+Refer to [[PostgreSQL pgAdmin (GUI)]]
