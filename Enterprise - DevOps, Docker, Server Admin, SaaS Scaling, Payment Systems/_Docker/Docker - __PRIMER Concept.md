@@ -30,3 +30,10 @@ For many of the Docker commands, you need to have a Docker daemon running. It'll
 To run Docker daemon
 - Either having installed and run Docker daemon
 - Or having installed and run Docker Desktop (GUI for Docker).
+
+---
+
+Docker can be used in many ways for many purposes involving VM and containerization. It can get overwhelming. So I recommend deep diving into the purposes you often need Docker for. So invest in the skill tree branches that benefits you. You may choose to master all skill tree branches.
+
+Here is someone complaining about how Docker is so complicated, but others mention that although it's complicated, Docker has official documentations on each approach (Docker Compose, etc):
+https://www.reddit.com/r/docker/comments/797rwg/does_anyone_actually_think_docker_is_easysimple/

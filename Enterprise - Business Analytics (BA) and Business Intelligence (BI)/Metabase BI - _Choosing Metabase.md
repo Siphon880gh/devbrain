@@ -24,3 +24,8 @@ Metabase can do live tables and dashboards. A peak into what it can do:
 
 Metabase can perform churn and retention analysis:
 [https://www.metabase.com/events/preventing-churn-with-retention-analysis-in-metabase](https://www.metabase.com/events/preventing-churn-with-retention-analysis-in-metabase)
+
+---
+
+The databases that Metabase can work with as a BI tool are: MySQL, Mongo, etc:
+![](https://i.imgur.com/x6QRZ8V.png)
