@@ -1,3 +1,4 @@
+This type of learning is you going through all the tutorials and challenges in the order they're presented. Usually they go from easiest to increasing difficulty.
 
 These challenges assumed you followed the primer guide so you understand the concepts of fundamentals of React Native: 
 [[_PRIMER - React Native - Concepts]]

@@ -1,5 +1,5 @@
 
-**Why?** This set will walk you through basic.... [[_Categories - Challenges - Learn with level up challenges]]
+**Why?** This set will walk you through basic.... [[_Categories - Learn by Leveling Up Challenges]]
 
 ---
 
