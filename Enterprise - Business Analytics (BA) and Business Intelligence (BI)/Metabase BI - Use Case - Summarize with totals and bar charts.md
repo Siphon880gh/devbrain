@@ -21,6 +21,12 @@ Results:
 > 
 > Videos collection
 > ![](https://i.imgur.com/ZW01vKQ.png)
+> 
+> Membership growth over time
+> ![](https://i.imgur.com/GYr2Cyw.png)
+
+
+
 
 6. To add them to your collection so all your data, tables, reports are in one place, click top right "Save This":
    ![](https://i.imgur.com/YslivE4.png)
