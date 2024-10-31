@@ -59,7 +59,11 @@ Compared to local environment, there are additional considerations to make Docke
 1. Adjust your docker-compose.yml file so that there is no "host.docker.internal". You would replace it with the host machine's IP address. If need to find the host machine's IP address, run in terminal: `hostname -I | awk '{print $1}'`
 	- You can test that Docker containers can connect to your Postgres via the host machine IP address: `psql -h <IP> -U root -d postgres` and if you want to test by interactively entering your passWord `psql -h <IP> -U root -d postgres -W`.
 	- Why we can't use 127.0.0.1 when Metabase and Postgres is on the same host machine? When Metabase runs on a container from PostgreSQL, `127.0.0.1` would refer to the Metabase server/container itself rather than the host machine that the PostgreSQL server is on.
-1. Likely you're going to adjust docker-compose.yml's main image if you used the ARM64 version of metabase because servers are usually not on ARM 64 chip architecture. You can use the official metabase `metabase/metabase:latest`. If the latest tag has problems, you can go to an older one (The last one that worked that I've tested was v0.50.31 on Oct 31, 2024. On how to select tags of the image: [[Docker Images - Tags]]).
+2. Likely you're going to adjust docker-compose.yml's main image if you used the ARM64 version of metabase because servers are usually not on ARM 64 chip architecture. You can use the official metabase `metabase/metabase:latest`. If the latest tag has problems, you can go to an older one (The last one that worked that I've tested was v0.50.31 on Oct 31, 2024. On how to select tags of the image: [[Docker Images - Tags]]).
+3. Make sure the docker-compose.yml has restart always on and as long as docker will start when the server restarts or crashes, it'll do its best to make sure your container(s) are always on:
+```
+restart: always
+``` 
 
 #### Port Access
 - Run `docker-compose.yml` using `docker composer up` command initially to see errors. Foreshadow: When you're ready, you can shutdown composer then run the docker in detached mode so that your terminal can close without closing down Metabase.
