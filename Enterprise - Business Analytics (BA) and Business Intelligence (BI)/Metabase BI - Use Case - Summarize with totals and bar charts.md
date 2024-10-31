@@ -28,8 +28,11 @@ Results:
 7. A new folder is created on the left (eg. A look at Content). Open that folder and then open the dashboard:
    ![](https://i.imgur.com/24WhvnA.png)
 
-8. Duplicate that document at the top right, and duplicate it into your team's folder to keep that dashboard in the same place as the other dashboards:
+8. Duplicate that document at the top right. Then move the duplicated copy into your team's folder to keep that dashboard in the same place:
    ![](https://i.imgur.com/91fRitu.png)
+
+
+9. After it's been duplicated and moved, you can edit the dashboard to remove unwanted stats!
 
  Done!
    

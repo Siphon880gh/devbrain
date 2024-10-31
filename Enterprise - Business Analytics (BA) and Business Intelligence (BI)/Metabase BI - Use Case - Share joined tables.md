@@ -13,13 +13,27 @@ Click join icon and join the two tables:
 
 ![](https://i.imgur.com/Nm9bhtB.png)
 
-Then click the “>_” at the top right
+Click Play icon on the right to see the resultant inner join.
+
+If satisfied, then click the “>_” at the top right
 ![](https://i.imgur.com/JVoN6B2.png)
 
-It can give you the native query that's read only because this is generated from the config ui. Go ahead and convert it into all native query only:
+If result table is empty and you KNOW that the inner join is correct, you may have an older metabase problem. Refer to next section
+
+---
+
+## Older Metabase?
+
+If you had to use the Metabase AMD64 Image that containerized for Apple M1/M2 etc from https://github.com/StephaneTurquay/metabase-arm64-docker last changed on Jan 27, that version of Metabase does not automatically convert BJSON Object ID from `users._id` to match the string at `content.userID`.
+
+However on Metabase newer versions (Like the image `metabase/metabase:latest` as far as I know in Oct 2024), it does automatically cast Object ID to string so inner join can work in many practical examples.
+
+In the case you need to cast BJSON Object ID manually:
+
+Convert the question into a native query by clicking this button (Otherwise the query is read-only so that the Config UI does not conflict):
 ![](https://i.imgur.com/rRSGtCq.png)
 
-Reason why is because the Metabase UI doesn't provide an easy way to  convert `_id` from a BSON Object ID into string to check equality with foreign key. By converting it into a native query (aggregate leverage), we can also leverage AI like ChatGPT:
+By converting it into a native query (aggregate leverage), we can also leverage AI like ChatGPT:
 ```
 \<
 Im using metabase https://www.metabase.com/. Generating a report, the join is not working. I suspect when I join content.userId (foreign key) on users._id, it's because userId is a string whereas _id is ObjectID. Whats the native aggregate query?
@@ -30,7 +44,6 @@ Heres my query. I need help converting users._id to string so can be matched
 \<  
 Awesome! Is it possible to rename id to users._id And to hide userId Is it possible to expand content_is into its own columns?
 ```
-
 
 **Additional Tweaks if needed**
 - Let's say we have nested object in your Mongo document and you want to flatten that out because we're doing a table with columns, you can use ChatGPT:
