@@ -80,6 +80,51 @@ curl https://127.0.0.1:3500
 		- [[IPTables - Enable specific ports]]
 		- [[firewalld - Enable specific ports]]
 
+---
+
+Your docker-compose.yml's may look like this:
+Local development on Mac M1:
+```
+version: '3.8'  
+  
+services:  
+  metabase:  
+    image: stephaneturquay/metabase-arm64:latest  
+    ports:  
+      - "3500:3000"  
+    environment:  
+      MB_JETTY_PORT: 3000  
+      MB_DB_TYPE: postgres  
+      MB_DB_DBNAME: metabaseappdb  
+      MB_DB_PORT: 5432  
+      MB_DB_USER: root  
+      MB_DB_PASS: root  
+      MB_DB_HOST: host.docker.internal  
+    restart: always
+```
+
+Then the remote docker-compose.yml:
+```
+version: '3.8'  
+  
+services:  
+  metabase:  
+    image: metabase/metabase:latest  
+    ports:  
+      - "3500:3000"  
+    environment:  
+      MB_JETTY_PORT: 3000  
+      MB_DB_TYPE: postgres  
+      MB_DB_DBNAME: metabaseappdb  
+      MB_DB_PORT: 5432  
+      MB_DB_USER: root  
+      MB_DB_PASS: root  
+      MB_DB_HOST: 111.22.333.44  
+    restart: always
+```
+
+---
+
 Visiting the root path http://domain.tld:3500 will give this warning. Just click "Continue to site"
 ![](https://i.imgur.com/U3U0qFy.png)
 

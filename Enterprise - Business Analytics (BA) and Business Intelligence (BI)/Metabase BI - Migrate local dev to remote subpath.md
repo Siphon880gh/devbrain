@@ -64,24 +64,68 @@ Then you can reload the vhost for nginx by running:
 sudo systemctl reload nginx  
 ```
 
+Reverse Proxy problems? Refer to [[Nginx - Redirect http to https - Troubleshooting]]
 
 2. Metabase Site Url
 Next you have to tell Metabase that the URL is not at root. You set MB_SITE_URL in the docker run (if testing) or ultimately at the docker-compose.yml file or the config file. The MB_SITE_URL is only available on Pro and Enterprise, and it will be ignored without errors on Free version. Without MB_SITE_URL, visiting the web portal at the subpath will load Metabase part way (the tab will be titled Metabase) and it’ll be a blank page with 404 errors because of asset files loading from the wrong URLs.
 
-docker run (partial):
+- docker run (partial):
 ```
 -e MB_SITE_URL=https://domain.tld/mb-admin/
 ```
 
-docker-compose.yml (partial):
+- docker-compose.yml (partial):
 ```
     environment:
-      MB_DB_DBNAME: metabaseappdb
+      MB_SITE_URL: https://domain.tld/mb-admin/
 ```
 
-config file:
-https://www.metabase.com/docs/latest/configuring-metabase/config-file
+- config file:
+  https://www.metabase.com/docs/latest/configuring-metabase/config-file
 
+---
+
+Your docker-compose.yml's may look like this:
+Local development on Mac M1:
+```
+version: '3.8'  
+  
+services:  
+  metabase:  
+    image: stephaneturquay/metabase-arm64:latest  
+    ports:  
+      - "3500:3000"  
+    environment:  
+      MB_JETTY_PORT: 3000  
+      MB_DB_TYPE: postgres  
+      MB_DB_DBNAME: metabaseappdb  
+      MB_DB_PORT: 5432  
+      MB_DB_USER: root  
+      MB_DB_PASS: root  
+      MB_DB_HOST: host.docker.internal  
+    restart: always
+```
+
+Then the remote docker-compose.yml:
+```
+version: '3.8'  
+  
+services:  
+  metabase:  
+    image: metabase/metabase:latest  
+    ports:  
+      - "3500:3000"  
+    environment:  
+      MB_SITE_URL: https://domain.tld/mb-admin/
+      MB_JETTY_PORT: 3000  
+      MB_DB_TYPE: postgres  
+      MB_DB_DBNAME: metabaseappdb  
+      MB_DB_PORT: 5432  
+      MB_DB_USER: root  
+      MB_DB_PASS: root  
+      MB_DB_HOST: 111.22.333.44  
+    restart: always
+```
 
 ---
 
@@ -89,7 +133,3 @@ Visiting the subpath https://domain.tld/mb-admin will work. No HTTPS warning
 ![](https://i.imgur.com/kpGeM4p.png)
 
 Now you can work on creating reports for your cofounders/founders/strategists/investors that they can see live and won't accidentally modify your database.
-
----
-
-Reverse Proxy problems? Refer to [[Nginx - Redirect http to https - Troubleshooting]]
