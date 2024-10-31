@@ -752,6 +752,7 @@ eval $VAR0;
 
 
 ### ACC Services Dashboard / OR Login Via SSH Root
+- os: (Eg. Debian 12)
 - \__which is
 - \__oauth2 login creds
 - \__url
@@ -884,7 +885,7 @@ Mongo Shell:
 
 
 ----
-ACC Supervisor
+### ACC Supervisor
 
 **Web UI at Port 9001:**
 ??
@@ -911,9 +912,20 @@ supervisord -c /etc/supervisor/supervisord.conf -l /var/log/supervisor/superviso
 **Supervisor to app data flow:**
 Supervisor watches .sh file which runs pyenv environment and gunicorn
 
+
 ---
 
-### VPS Checklist Applied to Hostinger
+### Vhost Backup
+Date: `<Date>`
+Have: Eg. Metabase and VLAI Microservices with SSE connections
+
+```
+Vhost file here
+```
+
+---
+
+### Provider Checklist / Statements of Facts
 
 - Specs & Monthly
 	- \__package + os + web host panel

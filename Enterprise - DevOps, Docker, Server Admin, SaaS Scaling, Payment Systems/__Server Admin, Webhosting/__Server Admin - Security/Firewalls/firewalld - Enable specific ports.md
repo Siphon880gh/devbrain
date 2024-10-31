@@ -1,4 +1,3 @@
-
 **Check if `firewalld` is active**: On some systems, `firewalld` is used instead of `iptables`. You can check its status with:
 ```
 sudo systemctl status firewalld

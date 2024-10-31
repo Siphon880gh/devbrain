@@ -1274,6 +1274,7 @@ eval $VAR0;
   
 
 ### ACC Services Dashboard / OR Login Via SSH Root
+- os: (Eg. Debian 12)
 - \__which is
 - \__oauth2 login creds
 - \__url
@@ -1473,10 +1474,19 @@ supervisord -c /etc/supervisor/supervisord.conf -l /var/log/supervisor/superviso
 Supervisor watches .sh file which runs pyenv environment and gunicorn
 
 ---
+
+### Vhost Backup
+Date: `<Date>`
+Have: Eg. Metabase and VLAI Microservices with SSE connections
+
+```
+Vhost file here
+```
+
+
 ---
 
-
-### VPS Checklist Applied to Hostinger
+### Provider Checklist / Statements of Facts
 
 - Specs & Monthly
 	- \__package + os + web host panel

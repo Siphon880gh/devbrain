@@ -10,7 +10,8 @@ PostgreSQL is an open-source, relational database system known for its robustnes
 ### 2. Installation
 To install PostgreSQL, look up platform-specific instructions. For example:
 
-- **macOS** (using Homebrew):
+#### MacOS
+- **macOS using Homebrew:**
   ```bash
   brew install postgresql
   ```
@@ -27,12 +28,67 @@ To install PostgreSQL, look up platform-specific instructions. For example:
     brew services restart postgresql
     ```
 
-### 3. Starting the PostgreSQL Shell (`psql`)
+#### Debian 12
+- **Debian 12 using apt:**
+```
+sudo apt install postgresql postgresql-contrib
+```
+
+### 3. Test If Can Access the PostgreSQL Shell (`psql`)
 After installation, start the PostgreSQL interactive terminal, which opens the default `postgres` database using the default `postgres` user:
 ```bash
 psql postgres
 ```
 
+Troubleshooting Point (Might on Debian 12):
+- psql: error: connection to server on socket "/var/run/postgresql/.s.PGSQL.5432" failed: FATAL:  role "root" does not exist
+- That means to: `psql -U postgres postgres
+
+Troubleshooting Subsequent Point (If caused by trying to fix previous error)
+- In peer authentication, it allows the PostgreSQL `postgres` user to connect if it’s the same as the system `postgres` user
+- Then try the command: `sudo -u postgres psql`
+
+The previous two troubleshooting points is because on some Linux postgres packages, the default authentication is peer rather than trust or md4. To make `psql postgres` work, which is what you want if you use other Docker containers that rely on postgres (you're making postgres more compatible)...
+
+Edit the postgresql authentication config file (Get the exact version folder by running `ls /etc/postgresql/`):
+```
+vi /etc/postgresql/<version>/main/pg_hba.conf
+```
+
+Change the peer authentication method or add an entry either to:
+- Allow connections from your IP for user root on the database root. For example:
+```
+host    root    root    208.76.249.75/32    md5
+```
+- Or allow all databases and users from any host:
+```
+host    all     all     0.0.0.0/0          md5
+```
+^ Note using 0.0.0.0/0 is less secure as it opens access to all IPs. Consider limiting it to specific IPs if possible.
+
+- If you edited pg_hba.conf, you have to restart postgres service to apply the changes:
+```
+sudo service postgresql restart
+```
+
+- Then see if the simpler and more compatible command `psql postgres` lets you into the postgres shell.
+
+### 3b. Test if remote access allowed (Optional)
+
+If you plan to manage your remote postgreSQL database on your local computer through pgAdmin (GUI) OR you plan to make the database available to another server (eg. the other server is API heavy while your current server is database heavy):
+
+You have to make sure listening is available:
+- Open your PostgreSQL configuration file (`postgresql.conf`, usually located in `/etc/postgresql/<version>/main/` or `/var/lib/pgsql/data/`).
+
+- Find the line for `listen_addresses` and ensure it’s set to accept external connections:
+```
+listen_addresses = '*'
+```
+
+- Make sure to restart postgreSQL to apply the changes:
+```
+sudo service postgresql restart
+```
 
 ### 4. Basic Commands
 
@@ -41,6 +97,9 @@ psql postgres
   ```bash
   psql your_database_name
   ```
+
+- Connect to shell with username and password interactively or non-interactively: 
+	- Refer to section "5. Security"
 
 #### 4.2 General Database Commands in `psql` Shell
 Commands in the PostgreSQL shell start with a backslash (`\`):

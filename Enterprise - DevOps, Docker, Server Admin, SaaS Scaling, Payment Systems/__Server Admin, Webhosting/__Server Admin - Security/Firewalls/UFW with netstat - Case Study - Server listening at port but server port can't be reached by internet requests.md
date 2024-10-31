@@ -1,4 +1,6 @@
-Lets say wanting to manage the remote Mongo database from your own local computer, you open MongoDB Compass and the authentication details and connection string were setup correctly. But it keeps timing out. However, your website/app works because you can login and signup on your website/app which uses the MongoDB. A connection timeout isn't the correct error about incorrect password.
+Titled: Server listening at port but server port can't be reached by internet requests
+
+Lets say wanting to manage the remote Mongo database from your own local computer, you open MongoDB Compass and the authentication details and connection string were setup correctly. But it keeps timing out. However, your website/app works because you can login and signup on your website/app which uses the MongoDB. SSHing into the remote server and checking the port reveals your server is listening for incoming internet requests at that port.
 
 Ok so you SSH into the server via your terminal and ran netstat to see if your server is listening at port 27017 (MongoDB) for requests and to send information to:
 ```

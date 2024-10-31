@@ -1,4 +1,3 @@
-
 When using ufw, you'd run `sudo ufw status` which shows you conventional named ports that are opened and in what manner it's opened.
 
 If you want to show opened ports with conventional names AND port numbers: `sudo ufw status verbose`
