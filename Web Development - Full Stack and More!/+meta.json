@@ -1,0 +1,17 @@
+{
+    "titleOverridden": "<span class='fa fa-paragraph'>&nbsp;</span>This_<i>html</i>_replaces_the_tree_title_of_+Folder_Name",
+    "desc": "<b>This goes to overlaying popup.</b> Description can support HTML or plain text. Here's a picture using relative path from the current snippet:<center><img src='./img/placeholder.png'/></center><p>And here are links using both relative paths and absolute paths</p><ul><li><a target='_blank' href='./'>This snippet folder</a></li><li><a target='_blank' href='http://google.com/'>Google</li></ul>",
+    "summary": ["<b>This goes to Summary div.</b> This is <u>text</u>.</b> It is in the json entry `summary` of an array of strings. ",
+                "Alternately, you can have `+meta.txt` that is a summary file where any blank lines and special characters will appear as is. ",
+                "In the json you can also have a footerFile that is a footer portion to the summary. It should be a path to a file. Remember to use ./ to refer to the folder the +meta.json file is in",
+                "The order in which these appear in the Summary div are: The summary array if exists, any +meta.txt summary file if exists, and/or any footerFile. ",
+                "And you can jump to a text containing title <a href=\"javascript:void(0)\" onclick=\"scrollToText('II')\">II</a>",
+                "Below is the sample meta file and it's below these lins of summary because it's pointed to by footerFile:"
+               ],
+    "footerFile": "./+meta.json",
+    "gotos": [
+        "./+meta.json",
+        "./readme.md",
+        "http://www.google.com"
+    ]
+}

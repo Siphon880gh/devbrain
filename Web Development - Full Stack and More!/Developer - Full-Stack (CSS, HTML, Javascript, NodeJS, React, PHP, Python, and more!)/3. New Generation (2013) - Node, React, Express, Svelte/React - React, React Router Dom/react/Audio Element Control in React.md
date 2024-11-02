@@ -1,5 +1,5 @@
 
-
+```
 import { useRef, ElementRef } from "react";
 
 const Component = () => {
@@ -7,6 +7,8 @@ const Component = () => {
 
   return <audio ref={audioRef}>Hello</audio>;
 };
+```
+
 Defines a React component that uses a useRef hook to create a reference to an HTML audio element.
 
 Using a reference to an HTML audio element in React can be useful for several reasons, especially when you want to control the playback programmatically. Here are some use cases:

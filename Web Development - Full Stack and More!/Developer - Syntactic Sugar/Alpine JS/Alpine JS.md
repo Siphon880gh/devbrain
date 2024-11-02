@@ -1,9 +1,9 @@
 
-### Introduction to Alpine.js with a Recipe Card Creation Form Example
+## Introduction to Alpine.js with a Recipe Card Creation Form Example
 
 Alpine.js is a framework that allows you to enhance your HTML with reactive behavior. In this lesson, we'll craft a Recipe Card Creation Form that updates as users input their information.
 
-#### Setup
+### Setup
 
 Include Alpine.js for functionality and Tailwind CSS for styling in your HTML document's `<head>`.
 
@@ -13,7 +13,7 @@ Include Alpine.js for functionality and Tailwind CSS for styling in your HTML do
 ```
 
 
-## Example - Conditional Forms
+### Example - Conditional Forms
 #### HTML Structure
 
 Our form will include sections for the recipe title and details, structured and styled using Tailwind. We initiate Alpine's data object with `x-data`.
