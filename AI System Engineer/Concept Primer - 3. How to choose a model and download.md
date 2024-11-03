@@ -1,5 +1,5 @@
 
-#### Models
+## Models
 - Meta Llama, Microsoft Phi, Mistral Instruct, Nomic GPT4All, Google Gemma, and other models.
 - BERT models are often used in research and universities.
 - Models from Claude and OpenAI
