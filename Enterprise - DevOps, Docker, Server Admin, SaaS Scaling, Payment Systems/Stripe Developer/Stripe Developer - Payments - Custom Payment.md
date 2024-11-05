@@ -87,7 +87,7 @@ app.post("/create-payment-intent", async (req, res) => {
 
 
 Now test with a test credit card. For how to get a test credit card, refer to my Business notes for Stripe: 
-https://wengindustries.com/app/bizbrain/?open=Stripe%20-%20_Test%20Credit%20Cards.md
+https://wengindustries.com/app/bizbrain/?open=Stripe%20-%20_Test%20Credit%20Cards
 
 
 And check your dashboard! Make sure you are in the Test version of the dashboard as you are testing with test keys

@@ -1,1 +1,1 @@
-Refer to my business notes: https://wengindustries.com/app/bizbrain/?open=Social%20Media%20Sizes%20-%20Ads,%20DMs,%20Posts%20,%20Stories,%20etc.md.md
+Refer to my business notes: https://wengindustries.com/app/bizbrain/?open=Social%20Media%20Sizes%20-%20Ads,%20DMs,%20Posts%20,%20Stories,%20etc
