@@ -51,7 +51,7 @@ If your main files may end with .pth (PyTorch) or .bin (ggml format that's writt
 
 When your code runs the model, it may load from a vector database if there was RAG (augmented the model with pdfs, txt's, etc). But you also select how the processing works -  Metal for Mac, CUDA for NVIDIA GPUs, CUDA (with ROCm toolkit installed) for AMD GPUs.
 
-For more indepth breakdown on what to type into your code where PyTorch or Tensorflow selects the device and algorithm to run the AI training or inference from, refer to [[Run Locally - Compare Computers]]
+For more indepth breakdown on what to type into your code where PyTorch or Tensorflow selects the device and algorithm to run the AI training or inference from, refer to [[Run Locally - Compare Computers, Select Processing Chip Type]]
 
 ----
 
