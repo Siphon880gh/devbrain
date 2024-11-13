@@ -12,6 +12,8 @@ $command = $command1 . " && " . $command2;
 $output = shell_exec("$command 2>&1");
 $exitCode = shell_exec('echo $?');
 
+$rebuildCode = shell_exec('build-devbrain');
+
 $command = "git remote get-url origin";
 $output2 = shell_exec("$command 2>&1");
 
