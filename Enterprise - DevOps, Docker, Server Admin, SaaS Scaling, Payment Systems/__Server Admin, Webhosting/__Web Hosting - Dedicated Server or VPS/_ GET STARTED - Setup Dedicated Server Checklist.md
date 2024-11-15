@@ -378,6 +378,8 @@ Brief outline of what we are testing specifically:
 - After Let's Encrypt successful, opening http doesn't redirect to https
 - After Let's Encrypt successful, opening www fails (this is only for your root domain and not for subdomains)
 
+If the Let's Encrypt Self-SSL certification has errors, the big picture is: Let's Encrypt looks at the document root to create the file to perform the validation, and that document root can be set in the web hosting control panel (CloudPanel -> Settings -> Root Directory). And also you may have to disable https redirect so the Let’s Encrypt can check for the file at http.
+
 - **TESTS BEGIN**
   
 	- **If gives a "redirect loop detected" error when visiting http://www.domain.com:**
@@ -466,7 +468,8 @@ Brief outline of what we are testing specifically:
 			#}  
 			```
 			
-			3. At your main server block for 80 and 443, add the www (See server_name line):
+			3. At your main server block for 80 and 443, add the www (See server_name line). Skip this step if your domain is a subdomain (like app.domain.tld):
+				1. 
 				```
 				server {  
 				  listen 80;  
@@ -484,7 +487,7 @@ Brief outline of what we are testing specifically:
 				  # ...
 				```
 
-			4. At your 8080 port server block, also do the same:
+				2. At your 8080 port server block, also do the same:
 				```
 				server {  
 				  listen 8080;  
@@ -495,14 +498,16 @@ Brief outline of what we are testing specifically:
 				```
 
 
+			5. Restart your nginx server: `systemctl restart nginx` Then try to create the SSL again.
+
 		- **Solution 2 to 404 Let's Encrypt error**: 
 		  See if can recreate the folder path and add a file to see if you can visit it on your web browser. The folders are missing because the way Let's Encrypt works is it creates the folders and file then removes them.
-			- Make sure you've cd into your document root. Then create a file from here:
+			- Make sure you've cd into your document root (Refer to vhost for whats the folder path to your document root when someone visits your domain at top level /). Then create a file from here:
 				```
 				mkdir -p .well-known/acme-challenge/
 				vi .well-known/acme-challenge/test.txt
 				```
-			- Add some unique text in the file. Then visit the link in your web browser
+			- Add some unique text in the file. Then visit the link in your web browser like domain.tld/.well-known/acme-challenge/
 			- If successfully visited, then this solution isn't it. Before going to "Solution 2", remove the test file and folders leading to it with
 			```
 			rm -rf .well-known
@@ -510,7 +515,7 @@ Brief outline of what we are testing specifically:
 			
 		- **Solution 3 to 404 Let's Encrypt error**: 
 		  Did you modify the server root manually so that another folder is served?
-				- Set it back to the original document root for now because CloudPanel creates the .well-known/... path to the document root that had been saved into Cloudpanel (instead of reading the vhost).
+				- Set it back to the original document root for now because CloudPanel creates the .well-known/... path to the document root that had been saved into Cloudpanel (instead of reading the vhost). OR: Go to CloudPanel -> Settings -> Root Directory and permanently adjust the root directory there
 				  ^  Dont forget to change it at both 80/443 server block and 8080 block.
 			- Once SSL is done generating, you can change the document root back to your desired location. Don’t forget to change it at both 80/443 server block and 8080 block.
 		- **Solution Last resort to 404 Let's Encrypt**:
