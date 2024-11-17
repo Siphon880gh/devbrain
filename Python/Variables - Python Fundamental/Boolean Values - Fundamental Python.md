@@ -1,5 +1,5 @@
+They are either:
+- `True`
+- `False`
 
-True
-False
-
-Booleans are title case in Python
+Booleans are title case in Python.
