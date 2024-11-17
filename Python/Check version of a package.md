@@ -1,4 +1,3 @@
-
 In Python, you can check the version of an installed module using the module's `__version__` attribute or by using the `pkg_resources` module provided by `setuptools`. Not all modules have a `__version__` attribute, but many popular ones do. Here's how you can check the version using both methods:
 
 ### Using `__version__` Attribute
