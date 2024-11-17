@@ -1,4 +1,3 @@
-
 In Nginx, the `location` directive is used to define how Nginx should process requests for specific URIs. The `location` block allows you to configure how Nginx responds to requests matching a particular pattern. Here is a basic overview of the `location` directive:
 
 1. **Basic Syntax:**

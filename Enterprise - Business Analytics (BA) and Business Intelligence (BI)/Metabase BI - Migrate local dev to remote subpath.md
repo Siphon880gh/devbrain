@@ -57,14 +57,14 @@ OR if needed because of your server settings, the proxy_pass block can be more c
 ```
 
 ^ You want http instead of https in the proxy_pass because you don't have a SSL certificate for Metabase's web portal and you don't want it blocked on the web browser.
-^ You also have to check the rest of the vhost that for the http to https rewrite rules, so that the matching of the location happens. To get the boilerplate on how to properly redirect 80 to 443 (http to https) so you can troubleshoot your http redirection: [[Nginx - Redirect http to https (aka 80 to 443)]].
+^ You also have to check the rest of the vhost that for the http to https rewrite rules, so that the matching of the location happens. To get the boilerplate on how to properly redirect 80 to 443 (http to https) so you can troubleshoot your http redirection: [[Nginx Vhost - Redirect http to https (aka 80 to 443)]].
 
 Then you can reload the vhost for nginx by running:  
 ```  
 sudo systemctl reload nginx  
 ```
 
-Reverse Proxy problems? Refer to [[Nginx - Redirect http to https - Troubleshooting]]
+Reverse Proxy problems? Refer to [[Nginx Vhost - Redirect http to https - Troubleshooting]]
 
 2. Metabase Site Url
 Next you have to tell Metabase that the URL is not at root. You set MB_SITE_URL in the docker run (if testing) or ultimately at the docker-compose.yml file or the config file. The MB_SITE_URL is only available on Pro and Enterprise, and it will be ignored without errors on Free version. Without MB_SITE_URL, visiting the web portal at the subpath will load Metabase part way (the tab will be titled Metabase) and it’ll be a blank page with 404 errors because of asset files loading from the wrong URLs.

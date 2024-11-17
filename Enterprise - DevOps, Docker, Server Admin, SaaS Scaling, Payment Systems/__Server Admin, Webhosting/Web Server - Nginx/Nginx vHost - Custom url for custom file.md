@@ -1,4 +1,3 @@
-
 Yes, you can configure Nginx to deliver a specific file when a certain URI is requested. This is useful for serving static files directly or for redirecting requests to a specific file. Here's how you can do it:
 
 ### Delivering a Specific File

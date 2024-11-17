@@ -1,5 +1,5 @@
 
-If you want to change the folder that serves the php/html webpage and its src/link asset files (css, js, etc), and you want to do it through alias instead of rewrite (so you can even go below the document root and also you don't need to parse for internal routes in PHP), this is the tutorial for you with alias. For a comparison of alias vs rewrite, refer to [[Nginx Fundamental - Redirect vs Rewrite vs Alias]]
+If you want to change the folder that serves the php/html webpage and its src/link asset files (css, js, etc), and you want to do it through alias instead of rewrite (so you can even go below the document root and also you don't need to parse for internal routes in PHP), this is the tutorial for you with alias. For a comparison of alias vs rewrite, refer to [[Nginx Vhost Fundamental - Redirect vs Rewrite vs Alias]]
 
 Let's say:
 
