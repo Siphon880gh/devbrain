@@ -15,6 +15,10 @@ $exitCode = shell_exec('echo $?');
 $command = "git remote get-url origin";
 $output2 = shell_exec("$command 2>&1");
 
+$commandNodeVersion = "node -v";
+$commandNodeVersionCode = shell_exec("$commandNodeVersion 2>&1");
+$commandNodeVersionCode2 = shell_exec('echo $?');
+
 $rebuildCommand = "cd .. && npm run build-devbrain";
 $rebuildCode = shell_exec("$rebuildCommand 2>&1");
 $rebuildCode2 = shell_exec('echo $?');
@@ -28,8 +32,13 @@ echo "Executing user: " . $user . "<br/>";
 echo "PHP __DIR: " . __DIR__ . "<br/>";
 echo "CWD:" . $pwd . "<br/>";
 echo "COMMAND OUTPUT:" . $output . "<br/>";
-echo "COMMAND OUTPUT:" . $output2 . "<br/>";
+echo "COMMAND OUTPUT 2:" . $output2 . "<br/>";
 echo "EXIT CODE:" . $exitCode; "<br/>";
+
+echo "NODE VERSION COMMAND:" . $commandNodeVersion; "<br/>";
+echo "NODE VERSION COMMAND CODE:" . $commandNodeVersionCode; "<br/>";
+echo "NODE VERSION COMMAND CODE 2:" . $commandNodeVersionCode2; "<br/>";
+
 echo "REBUILD COMMAND:" . $rebuildCommand; "<br/>";
 echo "REBUILD CODE:" . $rebuildCode; "<br/>";
 echo "REBUILD CODE 2:" . $rebuildCode2; "<br/>";
