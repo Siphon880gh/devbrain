@@ -1,9 +1,9 @@
 
 
 How Let’s Encrypt and Many other free SSL self signing works is the acme protcol. You may see in the log it creates an acme-like url like:  
-
-http://<your-domain>/.well-known/acme-challenge/<challenge-token>  
-
+```
+http://<your-domain>/.well-known/acme-challenge/<challenge-token>
+```
 
 TLDR: how it works? it checks the domain url to a temporary file to prove the domain name has been pointed? - Yes
 
