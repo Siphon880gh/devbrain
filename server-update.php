@@ -15,8 +15,8 @@ $exitCode = shell_exec('echo $?');
 $command = "git remote get-url origin";
 $output2 = shell_exec("$command 2>&1");
 
-$rebuildCommand = "build-devbrain";
-$rebuildCode = shell_exec('build-devbrain');
+$rebuildCommand = "npm run build-devbrain";
+$rebuildCode = shell_exec("$rebuildCommand 2>&1");
 $rebuildCode2 = shell_exec('echo $?');
 
 $processUser = posix_getpwuid(posix_geteuid());
