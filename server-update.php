@@ -32,7 +32,7 @@ $rebuildCommandExec = shell_exec("$rebuildCommand 2>&1");
 $rebuildCommandOutput = shell_exec('echo $?');
 
 echo "<h1>Updating notes online</h1>";
-echo "<p>Ran npm deploy script from Obsidian MD which pushed to Gihub/Gitlab. Now pinging php script to pull in and rebuild the cached render at the online app.</p><p></p>"
+echo "<p>From Obsidian MD, you ran the npm deploy script which committed and pushed local curriculum changes to Github/Gitlab, then the npm script opened the online PHP script in the web browser. That online php script is part of the online curriculum repo and is pulling in curriculum updates from Github/Gitlab into the remote server, then the PHP script cd out into the note-reading app to rebuild the cached render for the online audience by running NodeJS scripts that build the PHP partial.</p><p></p>"
 ;
 echo "<b>Shell user:</b> " . $user . "<p></p>";
 echo "<b>PHP __DIR:</b> " . $dir . "<p></p>";
