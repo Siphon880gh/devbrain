@@ -1,53 +1,49 @@
 <?php
-/* Curriculum repository of snippets, guides, and tutorials get pulled into this folder for the Gamified Knowledge app */
-/* Curriculum is separated as another repository for authoring and contribution purposes over Github and Obsidian MD*/
+/* Curriculum repository of snippets, guides, and tutorials get pulled into this folder for the Brain Notes app (Like Notebook) */
+/* Curriculum is separated as another repository for authoring and contribution purposes over Github and Obsidian MD */
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-
-$command1 = 'cd "' . __DIR__ . '"';
-$command2 = 'git fetch origin; git reset --hard refs/remotes/origin/main';
-$command = $command1 . " && " . $command2;
-$output = shell_exec("$command 2>&1");
-$exitCode = shell_exec('echo $?');
-
-$command = "git remote get-url origin";
-$output2 = shell_exec("$command 2>&1");
-
-$commandNodeVersion = "node -v";
-$commandNodeVersionCode = shell_exec("$commandNodeVersion 2>&1");
-$commandNodeVersionCode2 = shell_exec('echo $?');
-
-$rebuildCommand = "cd .. && npm run build-devbrain";
-$rebuildCode = shell_exec("$rebuildCommand 2>&1");
-$rebuildCode2 = shell_exec('echo $?');
-
 $processUser = posix_getpwuid(posix_geteuid());
 $user = $processUser['name'];
-
+$dir = __DIR__;
 $pwd = shell_exec("pwd");
 
-echo "Executing user: " . $user . "<br/>";
-echo "PHP __DIR: " . __DIR__ . "<br/>";
-echo "CWD:" . $pwd . "<br/>";
-echo "COMMAND OUTPUT:" . $output . "<br/>";
-echo "COMMAND OUTPUT 2:" . $output2 . "<br/>";
-echo "EXIT CODE:" . $exitCode; "<br/>";
+$cdCommand = 'cd "' . $dir . '"';
+$fetchAndResetCommand = 'git fetch origin; git reset --hard refs/remotes/origin/main';
+$cdFetchAndResetCommand = $cdCommand . " && " . $fetchAndResetCommand;
+$cdFetchAndResetCommandExec = shell_exec("$cdFetchAndResetCommand 2>&1");
+$cdFetchAndResetCommandOutput = shell_exec('echo $?');
 
-echo "NODE VERSION COMMAND:" . $commandNodeVersion; "<br/>";
-echo "NODE VERSION COMMAND CODE:" . $commandNodeVersionCode; "<br/>";
-echo "NODE VERSION COMMAND CODE 2:" . $commandNodeVersionCode2; "<br/>";
+$gitOriginCommand = "git remote get-url origin";
+$gitOriginCommandExec = shell_exec("$command 2>&1");
+$gitOriginCommandOutput = shell_exec('echo $?');
 
-echo "REBUILD COMMAND:" . $rebuildCommand; "<br/>";
-echo "REBUILD CODE:" . $rebuildCode; "<br/>";
-echo "REBUILD CODE 2:" . $rebuildCode2; "<br/>";
+$nodeVersionCommand = "node -v";
+$nodeVersionCommandExec = shell_exec("$commandNodeVersion 2>&1");
+$nodeVersionCommandOutput = shell_exec('echo $?');
 
-if ($output === null) {
-    echo "Error executing the command.";
-} else {
-    echo "Command output:\n$output";
-}
+$rebuildCommand = "cd .. && npm run build-devbrain";
+$rebuildCommandExec = shell_exec("$rebuildCommand 2>&1");
+$rebuildCommandOutput = shell_exec('echo $?');
+
+
+echo "Shell user: " . $user . "<br/>";
+echo "PHP __DIR: " . $dir . "<br/>";
+echo "CWD:" . $pwd . "<br/><br/>";
+
+echo "COMMAND cd, git fetch, git reset:" . $cdFetchAndResetCommand . "<br/>";
+echo "OUTPUT cd, git fetch, git reset:" . $cdFetchAndResetCommandOutput . "<br/><br/>";
+
+echo "COMMAND git origin:" . $gitOriginCommand . "<br/>";
+echo "OUTPUT git origin:" . $gitOriginCommandOutput; "<br/><br/>";
+
+echo "COMMAND NODE VERSION:" . $nodeVersionCommand; "<br/>";
+echo "OUTPUT NODE VERSION:" . $nodeVersionCommandOutput; "<br/><br/>";
+
+echo "COMMAND BUILD CACHED RENDERING:" . $rebuildCommand; "<br/>";
+echo "OUTPUT BUILD CACHED RENDERING:" . $rebuildCommandOutput; "<br/><br/>";
 
 echo "<br/><br/>";
 echo "View: <a href='../'>View web notes</a><br/>";
@@ -57,6 +53,5 @@ echo "View: <a href='../'>View web notes</a><br/>";
 // [root@s97-74-232-20 curriculum]# sudo chown -R <process_user> ./
 // [root@s97-74-232-20 curriculum]# sudo chmod -R 755 ./
 // [root@s97-74-232-20 curriculum]# sudo find ./ -type f -exec chmod 644 {} \;
-
 
 ?>
