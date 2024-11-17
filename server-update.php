@@ -17,11 +17,11 @@ $cdFetchAndResetCommandExec = shell_exec("$cdFetchAndResetCommand 2>&1");
 $cdFetchAndResetCommandOutput = shell_exec('echo $?');
 
 $gitOriginCommand = "git remote get-url origin";
-$gitOriginCommandExec = shell_exec("$command 2>&1");
+$gitOriginCommandExec = shell_exec("$gitOriginCommand 2>&1");
 $gitOriginCommandOutput = shell_exec('echo $?');
 
 $nodeVersionCommand = "node -v";
-$nodeVersionCommandExec = shell_exec("$commandNodeVersion 2>&1");
+$nodeVersionCommandExec = shell_exec("$nodeVersionCommand 2>&1");
 $nodeVersionCommandOutput = shell_exec('echo $?');
 
 $rebuildCommand = "cd .. && npm run build-devbrain";
