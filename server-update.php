@@ -32,7 +32,7 @@ $rebuildCommandExec = shell_exec("$rebuildCommand 2>&1");
 $rebuildCommandOutput = shell_exec('echo $?');
 
 echo "<h1>Updating notes online</h1>";
-echo "<p>Ran npm deploy script from Obsidian MD. Pushed to Gihub/Gitlab. Now pinging php script to pull in and rebuild the cached render.</p><p></p>"
+echo "<p>Ran npm deploy script from Obsidian MD which pushed to Gihub/Gitlab. Now pinging php script to pull in and rebuild the cached render at the online app.</p><p></p>"
 ;
 echo "<b>Shell user:</b> " . $user . "<p></p>";
 echo "<b>PHP __DIR:</b> " . $dir . "<p></p>";
