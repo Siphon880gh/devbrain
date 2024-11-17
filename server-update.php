@@ -2,6 +2,9 @@
 /* Curriculum repository of snippets, guides, and tutorials get pulled into this folder for the Brain Notes app (Like Notebook) */
 /* Curriculum is separated as another repository for authoring and contribution purposes over Github and Obsidian MD */
 
+/* Migration sensitive */
+$npmBuildScript = "build-devbrain";
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -24,7 +27,7 @@ $nodeVersionCommand = "node -v";
 $nodeVersionCommandExec = shell_exec("$nodeVersionCommand 2>&1");
 $nodeVersionCommandOutput = shell_exec('echo $?');
 
-$rebuildCommand = "cd .. && npm run build-devbrain";
+$rebuildCommand = "cd .. && npm run $npmBuildScript";
 $rebuildCommandExec = shell_exec("$rebuildCommand 2>&1");
 $rebuildCommandOutput = shell_exec('echo $?');
 
