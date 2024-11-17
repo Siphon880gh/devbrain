@@ -1,5 +1,3 @@
-
-
 How Let’s Encrypt and Many other free SSL self signing works is the acme protcol. You may see in the log it creates an acme-like url like:  
 ```
 http://<your-domain>/.well-known/acme-challenge/<challenge-token>
@@ -16,13 +14,9 @@ The term "ACME" in the ACME Challenge refers to the "Automated Certificate Manag
 
 The name "ACME" was chosen to reflect the goal of the protocol: to provide a standardized, automated environment for certificate management. "Acme" is a term that means the peak or highest point, which aligns with the aim of achieving the highest level of automation and efficiency in certificate management. Additionally, the name is likely a playful nod to the fictional ACME Corporation from the Looney Tunes cartoons, which was known for providing an extensive range of products, often with humorous results.
 
-  
-
 ## ACME Protocol Technicality:
 
-how it works? it checks the domain url to a temporary file to prove the domain name has been pointed?  
-
-  
+how it works? it checks the domain url to a temporary file to prove the domain name has been pointed?
 
 Yes, the ACME protocol works by verifying domain ownership to ensure that the entity requesting a certificate has control over the domain. The protocol typically uses one of several challenge types to perform this verification. Here’s an overview of how it works:  
   

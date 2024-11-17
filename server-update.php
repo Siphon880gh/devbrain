@@ -12,10 +12,12 @@ $command = $command1 . " && " . $command2;
 $output = shell_exec("$command 2>&1");
 $exitCode = shell_exec('echo $?');
 
-$rebuildCode = shell_exec('build-devbrain');
-
 $command = "git remote get-url origin";
 $output2 = shell_exec("$command 2>&1");
+
+$rebuildCommand = "build-devbrain";
+$rebuildCode = shell_exec('build-devbrain');
+$rebuildCode2 = shell_exec('echo $?');
 
 $processUser = posix_getpwuid(posix_geteuid());
 $user = $processUser['name'];
@@ -28,6 +30,9 @@ echo "CWD:" . $pwd . "<br/>";
 echo "COMMAND OUTPUT:" . $output . "<br/>";
 echo "COMMAND OUTPUT:" . $output2 . "<br/>";
 echo "EXIT CODE:" . $exitCode; "<br/>";
+echo "REBUILD COMMAND:" . $rebuildCommand; "<br/>";
+echo "REBUILD CODE:" . $rebuildCode; "<br/>";
+echo "REBUILD CODE 2:" . $rebuildCode2; "<br/>";
 
 if ($output === null) {
     echo "Error executing the command.";
