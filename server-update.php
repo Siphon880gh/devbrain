@@ -29,24 +29,24 @@ $rebuildCommandExec = shell_exec("$rebuildCommand 2>&1");
 $rebuildCommandOutput = shell_exec('echo $?');
 
 
-echo "Shell user: " . $user . "<br/>";
-echo "PHP __DIR: " . $dir . "<br/>";
-echo "CWD:" . $pwd . "<br/><br/>";
+echo "<b>Shell user:</b> " . $user . "<br/>";
+echo "<b>PHP __DIR:</b> " . $dir . "<br/>";
+echo "<b>CWD:</b> " . $pwd . "<br/><br/>";
 
-echo "COMMAND cd, git fetch, git reset:" . $cdFetchAndResetCommand . "<br/>";
-echo "OUTPUT cd, git fetch, git reset:" . $cdFetchAndResetCommandOutput . "<br/><br/>";
+echo "<b>COMMAND cd, git fetch, git reset:</b> " . $cdFetchAndResetCommand . "<br/>";
+echo "<b>OUTPUT cd, git fetch, git reset:</b> " . $cdFetchAndResetCommandOutput . "<br/><br/>";
 
-echo "COMMAND git origin:" . $gitOriginCommand . "<br/>";
-echo "OUTPUT git origin:" . $gitOriginCommandOutput; "<br/><br/>";
+echo "<b>COMMAND git origin:</b> " . $gitOriginCommand . "<br/>";
+echo "<b>OUTPUT git origin:</b> " . $gitOriginCommandOutput; "<br/><br/>";
 
-echo "COMMAND NODE VERSION:" . $nodeVersionCommand; "<br/>";
-echo "OUTPUT NODE VERSION:" . $nodeVersionCommandOutput; "<br/><br/>";
+echo "<b>COMMAND NODE VERSION:</b> " . $nodeVersionCommand; "<br/>";
+echo "<b>OUTPUT NODE VERSION:</b> " . $nodeVersionCommandOutput; "<br/><br/>";
 
-echo "COMMAND BUILD CACHED RENDERING:" . $rebuildCommand; "<br/>";
-echo "OUTPUT BUILD CACHED RENDERING:" . $rebuildCommandOutput; "<br/><br/>";
+echo "<b>COMMAND BUILD CACHED RENDERING:</b> " . $rebuildCommand; "<br/>";
+echo "<b>OUTPUT BUILD CACHED RENDERING:</b> " . $rebuildCommandOutput; "<br/><br/>";
 
 echo "<br/><br/>";
-echo "View: <a href='../'>View web notes</a><br/>";
+echo "<b>View:</b> <a href='../'>View web notes</a><br/>";
 
 // Server migration:
 // Running shell command and it's permission denied? Get user and add it to the folder you're at
