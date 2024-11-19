@@ -1,0 +1,1 @@
+For example if you have a backend server (nodejs or flask) at port 3001 And you proxy pass (aka reverse proxy) to 127.0.0.1:3001 when someone visits https://domain.tld/api/app, you DONT have to enable port 3001 via iptables or ufw
