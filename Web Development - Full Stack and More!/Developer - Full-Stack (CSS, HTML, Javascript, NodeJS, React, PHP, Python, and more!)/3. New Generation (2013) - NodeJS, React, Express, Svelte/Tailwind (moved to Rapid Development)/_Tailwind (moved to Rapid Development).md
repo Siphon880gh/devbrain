@@ -1,0 +1,1 @@
+\_Tailwind notes are moved to "Developer - Syntactic Sugar and Rapid Development"
