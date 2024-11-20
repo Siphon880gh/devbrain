@@ -1,0 +1,1 @@
+\_PM2 and its ecosystem.config.js notes are moved to "DevOps - PM2"

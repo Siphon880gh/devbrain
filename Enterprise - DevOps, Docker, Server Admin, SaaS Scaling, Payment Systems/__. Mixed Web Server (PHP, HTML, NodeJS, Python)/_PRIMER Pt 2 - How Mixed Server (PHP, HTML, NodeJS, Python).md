@@ -6,6 +6,8 @@ This tutorial assumes you're using nginx for the php and html web server. If you
 
 This tutorial also assumes you have root access on VPS or dedicated server and you already installed the nodejs or the python interpreter on your server.
 
+Note this is required reading before following the instructions for your particular type of app that you're installing into your apache/nginx webhost. The general "how" is described here. Types of apps include: NodeJS Express; NodeJS Express with CRA React; Python Flask with HTML, etc.
+
 ---
 
 Now there are problems with pathing you have to solve to make sure your website app still works
@@ -27,7 +29,7 @@ Another problem is if the app crashes or the server crashes or the server restar
 
 It’s noteworthy to mention that your nodejs express and python flask apps must use unique ports otherwise you try to run one app and it says the port is already taken. In addition:
 - For Nodejs express, it’s recommended your env file should have a port number your server.js will start listening to
-- For express or flask: Your vhost will match for /app/app1 then internally rewrite the help as /, so your locally developed endpoints still work AND it proxy passes to port number like 127.0.0.1:3001
+- For express or flask: Your vhost will match for /app/app1 then internally rewrite the help as /, so your locally developed endpoints still work AND it proxy passes to port number like 127.0.0.1:3001. So the idea is: [https://wengindustries.com/app/app1](https://wengindustries.com/app/app1) → proxy passes → [https://127.0.0.1:3001](https://127.0.0.1:3001) internally
 - Therefore your server instance, whether it’s Nodejs express or python flask, must have the same port number (usually .env file) as the 127.0.0.1:PORT that vhost is reverse proxying into
 
 

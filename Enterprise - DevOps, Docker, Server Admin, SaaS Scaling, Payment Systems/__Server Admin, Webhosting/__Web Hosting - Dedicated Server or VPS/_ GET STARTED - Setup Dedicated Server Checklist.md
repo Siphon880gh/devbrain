@@ -1119,6 +1119,10 @@ Let's install these CI/CD solutions:
 	  1. Add public key to your Github account, referring to: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
 		  1. Click New SSH key at https://github.com/settings/keys
 		  2. Paste the contents of the public key (eg. id_ed25519.pub) and save as a SSH key, recommended naming the key after your server provider name for organizing purposes.
+
+	- Is git using your preferred terminal text editor
+		- To test: Run this at a git repo - `git rebase -i HEAD~2` and see what terminal text editor opens
+		- If you need to set a preferred terminal text editor: [[Git set which terminal text editor to use]]
 #### Docker
 - Make sure docker is on your system
 	- Lookup instructions how to install docker on the system

@@ -1,0 +1,1 @@
+CRA React has PWA baked in. You can see from the public/ folder that it has index.html, manifest.json and service-worker.js. When you run `npm run build` which runs react script's build, then it will create the PWA. Webpack is bundled into the node_modules when you setup a cra app.

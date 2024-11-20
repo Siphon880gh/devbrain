@@ -6,10 +6,8 @@ List commits with commit hash short form, date, and commit message
 2f9d8941 2021-05-04 | Added social media icons
 ```
 
-You may want to store as alias:
+Save as an alias in your .bash_profile or equivalent:
 ```
-alias gitl='echo "git log, single-line, last 15"; git log --oneline --reverse --pretty=format:"%h %ad | %s" -15 --date=short -15'
+alias gitl='git log --oneline --reverse --pretty=format:"%h %ad | %s" -15 --date=short -15'
 ```
-
-
 
