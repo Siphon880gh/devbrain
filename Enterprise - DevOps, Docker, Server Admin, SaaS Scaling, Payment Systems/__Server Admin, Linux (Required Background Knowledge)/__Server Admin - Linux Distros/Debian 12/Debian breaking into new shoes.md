@@ -80,3 +80,6 @@ Debian 12 left a lot of things unset that doesnt make sense to be lacking or odd
 >
 >If sudo package is missing, you may have to add in sources for apt because Debian is bare bones. In that case, refer to above's "Debian breaking in - apt package is missing"
 
+
+> [!note] Debian breaking in - git with vi/vim (Later)
+>For when you install git, git might use nano (You can test with `git rebase -i HEAD~3` on some git repo on the server). You can set vi/vim with: `git config --global core.editor "vi"`

@@ -4,9 +4,11 @@ If you have a preferred editor, you can set it.
 
 Eg. Say we like vi:
 ```
-git config core.editor "vi"  
+git config --global core.editor "vi"
 ```
-  
+
+That's saved per project
+
 Then to confirm, at any git repo on the server, run this command to see if it kicks you into the preferred editor:
 ```
 git rebase -i HEAD~2

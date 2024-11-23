@@ -9,7 +9,6 @@ git config --global core.editor "code --wait"
 
 ---
 
-
 Unsetting VS Code:
 ```
 git config --global core.editor "vim"  
