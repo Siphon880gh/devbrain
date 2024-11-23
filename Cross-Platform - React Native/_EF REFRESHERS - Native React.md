@@ -10,6 +10,14 @@ EF are things you easily forget if you haven't done the language/framework in a 
 ### Starting new app
 Use Expo. For example: `npx create-expo-app@latest --example with-router`
 
+### Or resuming old app
+You probably have a package.json so you can run `npm run start`. Otherwise:
+```
+npx expo start -c
+```
+^ `-c` is optional and makes sure it clears cache
+
+---
 #### Navigation Concepts
 - Know the different routing systems at [[_PRIMER - React Native - Concepts on Navigation]]
 - We should know that stacking (queueing screens that can be remembered and recalled for popping off, and gesture-swipable with swiping animation) is not required for routes. But while not all routes are stacked screens, all stacked screens are routes (eg. React Navigation's `<StackNavigator>`)

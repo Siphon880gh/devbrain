@@ -1,3 +1,13 @@
+
+**Sneak Peak / Quick Review**:
+- Requires you have nvm installed on your computer.
+- You can add a .nvmrc that has the version number of node you want, and this file can be placed at the app's root level.
+- Requires you to have installed that node version inside .nvmrc: `nvm install v***`.
+- nvm must have created a file at ~/.nvm/nvm.sh that initializes nvm. Your bash_profile or equivalent normally loads this line.
+- At the app's root level, you run `nvm use` so it can refer to .nvmrc for the node version, then it will switch the node interpreter path, so you can confirm the node version with `node --version`.
+
+---
+
 ## Installation
 
 You can use different Node and NPM using NVM, very useful on an online server with many apps

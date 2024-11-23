@@ -32,3 +32,8 @@ tcp        0      0 127.0.0.1:12000         0.0.0.0:*               LISTEN
 udp        0      0 127.0.0.1:323           0.0.0.0:*                          
 udp        0      0 127.0.0.1:1721          0.0.0.0:*                          
 ```
+
+Test you can connect to that port from the SSH session. So you're at the server and you're pinging the internal network's port 3100:
+```
+ping 127.0.0.1 3100
+```

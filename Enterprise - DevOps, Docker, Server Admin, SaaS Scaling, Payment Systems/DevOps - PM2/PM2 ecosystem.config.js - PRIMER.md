@@ -1,3 +1,12 @@
+**Quick Reference:**
+
+How to run the ecosystem.config.js's app(s):
+```
+pm2 start ./ecosystem.config.js
+```
+
+---
+
 ## Boilerplate and Explanation
 
 The file `ecosystem.config.js` can be used instead of running `pm2 start` at every directory where you have a NodeJS app you want to run persistently and then having a historic list of apps at `npm list` that can be restarted after they've been stopped.
@@ -7,8 +16,8 @@ That ecosystem.config.js would be per server. And on your server would be all yo
 Here's a boilerplate, but take notes that:
 - A naming convention is the app name followed by the port number it listens to. This is because pm2 does not care if your script listens to a specific port - pm2 does not manage that - so `pm2 list` or `pm2 ls` doesn't show the ports being listened to
 - The `script` filepath is relative to ecosystem.config.js
-- interpreter (path to the node interpreter) is optional but useful if you have different node paths from nvm because of compatibility issues (like Firebase glitches on certain node versions), or you have a specified nvm node version to assure compatibility when migrating, or any other reasons. Note the internet may say the key is "exec_interpreter" but that's for older pm2.
-- env is optional but useful for passing environmental variables when starting the app from pm2 and is also useful to pass in a PORT number that your express server uses from dotenv and process.env.PORT, assuring that none of your NodeJS apps will clash with port numbers
+- interpreter (path to the node interpreter) is optional but useful if you have different node paths from nvm because of compatibility issues (like Firebase glitches on certain node versions), or you have a specified nvm node version to assure compatibility when migrating, or any other reasons. Note the internet may say the key is "exec_interpreter" but that's for an older pm2.
+- The key `env:` is optional but useful for passing environmental variables when starting the app from pm2 and is also useful to pass in a PORT number that your express server uses from dotenv and process.env.PORT, assuring that none of your NodeJS apps will clash with port numbers. Or you can simply rely on `.env` files at your app folders.
 
 ```
 module.exports = {
@@ -36,14 +45,17 @@ module.exports = {
 
 The above is only for one app, but if you have more than one app, you can add further objects in the apps array option
 
-Yes, Node.js' `dotenv` and `process.env.PORT` can pick up on the `PORT` value defined in the **PM2 ecosystem file**. We will run the ecosystem file with a pm2 ecosystem run command that can specify development or production, so you can have different PORT for each server vs local development.
+**Technicalities of env:** 
+Node.js' `dotenv` and `process.env.PORT` can pick up on the `PORT` value defined in the **PM2 ecosystem file**. We can specify development or production when running pm2 via ecosystem.config.js, and you can have different PORT for each server vs local development. And keep in mind -
+- PM2 environment variables **take precedence** over variables loaded from `.env` via `dotenv`.
+- If a variable is set in the PM2 ecosystem file (e.g., `env` or `env_production`), it will overwrite any value from the `.env` file when accessed via `process.env`.
 
 More options
 - Memory restart limit: You can have an app restart if its memory hit a limit, eg. `max_memory_restart: "300M"`
 - Provide args:  `args: []`  to pass arguments to the node script that gets ran
 	- Eg. `args: ['--port', '3001', '--env', 'development']` which will concatenate with spaces
 - CWD for more robustness or if you are running the ecosystem file from another folder path or you have another script that runs the ecosystem:
-	- You can provide an absolute path to `cwd: "<ABS FILE PATH>`. If you don’t have ‘cwd’, then the cwd is the path where you ran pm2 from and pm2 will try to run the script filepath which could have been a relative path. This means if your server.js creates files (like log.txt), then it’ll create it where you were at when you executed pm2. Usually you want an app to create files inside the same folder as the app. So we add cwd to fix this. Think of the `cwd:`  as where you cd into before running the file at `script:` . The order of cwd and script  in your app config object doesn’t matter, but for developer experience, if you put cwd first, then script after, it helps to think of it that way as how pm2 runs that app (cd into the folder, then run the script with `node`  command)
+	- You can provide an absolute path to `cwd: "<ABS FILE PATH>`. If you don’t have ‘cwd’, then the cwd is the path where you ran pm2 from. Then pm2 will try to run the script filepath which could have been a relative path. This means if your server.js creates files (like log.txt), then it’ll create it where you were at when you executed pm2. Usually you want an app to create files inside the same folder as the app. So we add cwd to fix this. Think of the `cwd:`  as where you cd into before running the file at `script:` . The order of cwd and script  in your app config object doesn’t matter, but for developer experience, if you put cwd first, then script after, it helps to think of it that way as how pm2 runs that app (cd into the folder, then run the script with `node`  command)
 - exec_mode could be cluster which allows for multiple instances listening to the same port
 	- `instance_var: 'INSTANCE_ID'` or another constant value, assigns an environmental variable that helps you programmatically write to a log file identifying which instance of the cluster it's from:
 	  ```
@@ -69,6 +81,11 @@ More options
 	- **WORKER_ID** (useful when dealing with worker processes)
 	- **APP_INSTANCE** (for applications where multiple instances are deployed)
 	- **CLUSTER_ID** (indicating it's part of a cluster of processes)
+
+Now the most important information is how to run the ecosystem.config.js's app(s):
+```
+pm2 start ./ecosystem.config.js
+```
 
 ---
 
@@ -101,22 +118,6 @@ In order to manage the operations of pm2 ecosystem (restart, stop all, etc), it'
 
 ---
 
-## Reference - Ecosystem Commands
+### Longevity
 
-```
-# Start all applications  
-pm2 start ecosystem.config.js  
-  
-# Stop all  
-pm2 stop ecosystem.config.js  
-  
-# Restart all  
-pm2 restart ecosystem.config.js  
-  
-# Reload all  
-pm2 reload ecosystem.config.js  
-  
-# Delete all  
-pm2 delete ecosystem.config.js
-```
-
+You may want to know how to start, stop, etc the app(s) from ecosystem.config.js. Refer to [[PM2 - ecosystem.config.js Reference]]
