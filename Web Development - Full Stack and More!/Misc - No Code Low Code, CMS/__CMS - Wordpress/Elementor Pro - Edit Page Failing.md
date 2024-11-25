@@ -45,8 +45,8 @@ SOLUTION 1 (Do All Solution Sets)
 3. SOLUTION 3 (Do All Solution Sets)
 	- Wordpress address and site address both must match at settings → general
 		- For example if your website is domain.tld/wordpress1, then that’s the url for both. SKIP the trailing slash `/` 
-	1. Plain permalinks
-		1. Settings -> Permalinks → Have permalink structure set to “Plain”
+	- Plain permalinks
+		- Settings -> Permalinks → Have permalink structure set to “Plain”
 
 
 
