@@ -26,6 +26,28 @@ wengindustries.com/test?qq redirects to wengindustries.com/me/qq
 
 ---
 
+
+Redirect `wengindustries.com/tools/persist-tally/?open=test` to `wengindustries.com/apps/persist-tally/?open=balance`
+
+```
+# Redirect tools/ to app/, preserving the query string  
+location ~ ^/tools/(.*) {  
+    return 301 /app/$1$is_args$args;  
+}
+```
+
+### Explanation:
+
+- **`$is_args`**: This adds a `?` only if there is a query string in the request.
+- **`$args`**: This represents the query string of the request. (eg. `open=test`  but missing the `?` )
+
+With this configuration:
+
+- `wengindustries.com/tools/persist-tally/?open=test` will correctly redirect to
+- `wengindustries.com/app/persist-tally/?open=test`
+
+---
+
 # Nginx Location Blocks & URL Query Parameters Reference
 
 ## Basic Query String Variables

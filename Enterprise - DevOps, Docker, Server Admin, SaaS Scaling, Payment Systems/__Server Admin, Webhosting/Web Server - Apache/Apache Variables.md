@@ -1,0 +1,1 @@
+You can define env variables or normal variables for apache rules.
