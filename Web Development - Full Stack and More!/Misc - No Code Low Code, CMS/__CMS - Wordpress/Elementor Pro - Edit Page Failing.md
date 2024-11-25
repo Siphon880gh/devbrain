@@ -63,10 +63,8 @@ SOLUTION 1 (Do All Solution Sets)
   
 - Editor Loader Method:   
   Elementor -> Settings -> top tab "Advanced " -> Switch Editor Loader Method: Disabled/Enabled
-  
   ^ More info: [https://elementor.com/help/server-configuration-conflicts/](https://elementor.com/help/server-configuration-conflicts/)  
   ^ More info: quoted from page “Enabling Switch Editor Loader Method helps users running sites on servers with low resources which have difficulty reading long JSON code.  When enabled, the tool splits the lines of code so that these servers can read the JSON code without issues.”
-
   
 - ForceWordpress to regenerate htaccess (only maters if using apache server):  
 	- Settings > Permalinks  → Without changing anything, scroll to the bottom and click Save Changes 
