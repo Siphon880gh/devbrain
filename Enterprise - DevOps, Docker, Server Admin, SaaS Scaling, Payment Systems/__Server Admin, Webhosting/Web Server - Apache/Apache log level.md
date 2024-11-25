@@ -5,6 +5,12 @@ Here's a breakdown of how to set up logging for `mod_rewrite` depending on the v
 
 ---
 
+Reference
+
+For where the log files are, refer to [[Apache log level]]
+
+---
+
 ## **Apache 2.4 and Later**
 
 In Apache 2.4+, you can use the `LogLevel` directive to configure detailed logging specifically for `mod_rewrite`.
