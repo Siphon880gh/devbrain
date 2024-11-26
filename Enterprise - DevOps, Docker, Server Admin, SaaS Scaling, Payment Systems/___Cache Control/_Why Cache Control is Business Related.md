@@ -3,4 +3,4 @@ If you are constantly changing the app especially in the early stages, you want 
 
 And more problematic, if certain assets are cached and certain ones aren’t, then your webpage or web app may bug out, damaging your reputation.
 
-Once your app changes are more stable, you may switch over to long-term caching for a performance boast.
+Once your app changes are more stable, you may switch over to long-term caching for a performance boost.
