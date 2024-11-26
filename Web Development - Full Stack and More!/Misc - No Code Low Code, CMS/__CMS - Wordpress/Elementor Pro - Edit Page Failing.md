@@ -66,7 +66,7 @@ SOLUTION 1 (Do All Solution Sets)
   ^ More info: [https://elementor.com/help/server-configuration-conflicts/](https://elementor.com/help/server-configuration-conflicts/)  
   ^ More info: quoted from page “Enabling Switch Editor Loader Method helps users running sites on servers with low resources which have difficulty reading long JSON code.  When enabled, the tool splits the lines of code so that these servers can read the JSON code without issues.”
   
-- Force Wordpress to regenerate htaccess (only maters if using apache server):  
+- Force Wordpress to regenerate htaccess (only matters if using apache server):  
 	- Settings > Permalinks  → Without changing anything, scroll to the bottom and click Save Changes 
 	- WordPress will try to generate a new .htaccess file 
 	- If it's successful, you'll find the new file in the WordPress root folder 
