@@ -1,0 +1,4 @@
+
+You may protect all your api endpoints requiring a valid json web token each endpoint however if you’re still developing your api endpoints or backend, you may want to consider an alternate secret word or phrase in place of the json web token for the unstable api endpoints so that it automatically passes when you have to test newly developed endpoints. The older API endpoints can use actual json web token.
+
+This bypassing means in the backend it checks either it’s a valid json or an env secret phrase. Make sure on the frontend not to git commit the bypass phrase or you can change the phrase between each version release (could be how Apple names their versions by geographic locations, or how tv shows like DBZ names their characters after vegetables and food).

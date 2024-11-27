@@ -1,10 +1,10 @@
-If there are too many lines of extra code and new elements introduced (like a script block acting as a template), which could make maintainability and reading harder for the developer, there are tricks.
+If you feel there are too many lines of extra code and new elements introduced (like a script block acting as a template), which could make maintainability and reading harder for the developer, there are tricks.
 
-Say you can have layout parts that are invisible at first via display none_ , but they also have the templating markup where they will be rendered. Your handlebars could read the template markup at that part of the layout then replace the rendered html into that same part of the layout, followed by making that part of the layout visible again. This reduces the coding complexity because you dont have to mentally jog about another element (script as the template) 
+Say you can have layout parts that are invisible at first via display none, but they also have the templating markup where they will be rendered. Your handlebars could read the template markup at that part of the layout then replace the rendered html into that same part of the layout, followed by making that part of the layout visible again. This reduces the coding complexity because you dont have to mentally jog about another element (script as the template).
 
-To make things even easier, you can have a script block with the data and render function right before the markdown (even though violates separation of concern, this is ok for personal projects or bootstrapped or agiled apps).
+To make things even easier, you can have a script block with the data and render function call right before the template markup (even though violates separation of concern, this is ok for personal projects or bootstrapped or agiled apps).
 
-Note on repainting. If it’s obvious to user about the repainting, you can have a loading sprite take over entire page and hide the repainting stripe. You could also have the loading sprite at that part of the layout (by using absolutely positioned loading sprite inside the relative container). You can use visibility hidden with min height or width in place.
+Note on repainting. If it’s obvious to user about the repainting especially contracted then expanded layout parts, you can have a loading sprite take over entire page and hide the repainting sprite. You could also have the loading sprite at that part of the layout (by using absolutely positioned loading sprite inside the relative container). Or you can use visibility hidden with min height or width in place.
 
 ```
 <!DOCTYPE html>  
