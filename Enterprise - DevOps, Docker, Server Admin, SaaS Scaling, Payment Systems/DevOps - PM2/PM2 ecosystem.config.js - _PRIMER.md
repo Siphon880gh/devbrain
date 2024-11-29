@@ -120,4 +120,6 @@ In order to manage the operations of pm2 ecosystem (restart, stop all, etc), it'
 
 ### Longevity
 
-You may want to know how to start, stop, etc the app(s) from ecosystem.config.js. Refer to [[PM2 - ecosystem.config.js Reference]]
+You may want to know how to start, stop, etc the app(s) from ecosystem.config.js. Refer to [[PM2 ecosystem.config.js - _Reference Longevity]]
+
+Setup autostart. Refer to [[PM2 ecosystem.config.js - _Autostarts when server starts or restarts]]
