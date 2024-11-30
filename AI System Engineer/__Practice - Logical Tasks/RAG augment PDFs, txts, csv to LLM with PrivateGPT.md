@@ -118,7 +118,7 @@ You may want to check that the poetry shell is using its own python, which you w
 whereis python
 ```
 
-There could be one path that shows up or multiple paths. If multiple paths, the first path, should be a poetry created path like:
+There could be one path that shows up or multiple paths. If multiple paths, the first path, should be a poetry created path like (the folder is created with a name after the current folder you're running poetry from):
 ```
 /Users/wengffung/Library/Caches/pypoetry/virtualenvs/privategpt-LcxwhDfB-py3.10/bin/python 
 ```
