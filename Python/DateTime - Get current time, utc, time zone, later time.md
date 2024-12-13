@@ -1,5 +1,19 @@
-PST is -8 for example:
-November 22, 2024, 11:54 PM
+Keypoints:
+- Notice I set the timezone as PST (-8 in that case):
+
+Timestamps:
+- November 22, 2024, 11:54 PM
+	```
+	local_time.strftime("%B %d, %Y, %I:%M %p")
+	```
+
+- 2024-11-22 17:54:22
+	```
+	local_time.strftime("%Y-%m-%d %H:%M:%S")
+	```
+
+---
+
 
 Get current time:  
 

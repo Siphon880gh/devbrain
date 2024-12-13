@@ -31,3 +31,7 @@ M index.php
 M assets/index.js
 M assets/chart.css
 M index.php
+
+---
+
+If you want the details of what lines are changed, refer to: [[Compare commits - Common Use]]
