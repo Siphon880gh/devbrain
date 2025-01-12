@@ -3,9 +3,9 @@ sorting-spec: |-
   Web Development - Full Stack and More!
   Databases - MySQL, NoSQL, Firebase Firestore, and More!
   AI Assisted Coding
-  AI Prompt Engineer
-  AI API Engineer
-  AI System Engineer
+  AI Prompt Engineer (1. Can optimize prompts)
+  AI API Developer (2. Can leverage APIs from AI services)
+  AI Engineer (3. Can train models and invent AI services)
   AWS Cloud
   CompSci - DS, Algos, Systems, Logic
   Cross-Platform - React Native
@@ -15,7 +15,9 @@ sorting-spec: |-
   Version Control - git, github, gitlab
   Data Science
   Python
+  Scraping
   Regex (Regular Expression)
+  Developer Tools
   %
   README
   package.json
