@@ -1,0 +1,1 @@
+You can tell Cursor AI the form you want your code in (eg. makefile with sh files and dockers)
