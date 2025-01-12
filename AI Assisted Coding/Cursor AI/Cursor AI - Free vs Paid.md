@@ -1,0 +1,1 @@
+Free will limit you to how many prompts and code predictions. It will run out and let you know.
