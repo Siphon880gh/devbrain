@@ -1,0 +1,1 @@
+Select your lines of code then press CMD+K. You can ask things like "Fix code".

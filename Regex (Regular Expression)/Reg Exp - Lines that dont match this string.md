@@ -41,3 +41,13 @@ To find lines in a text file that don't contain the string "unaccounted", you ca
    ```
 
 Choose the method that best suits your needs and platform.
+
+
+---
+
+**Reworded**
+
+Search all lines that dont contain
+```
+^(?!.*\b(blender|bender|unreal)\b).+$
+```
