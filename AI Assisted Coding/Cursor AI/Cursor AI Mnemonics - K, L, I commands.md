@@ -8,4 +8,4 @@ When want to create and edit code across multiple files (codebase) in Composer M
 - Think the key I is above K and L, and supersedes in hierarchy because it's all the files
 
 
-But really, those three keys are because J K L I makes up the gamer keys on the right side.
+But really, those three keys are because J K L I makes up the gamer keys on the right side. The shortcut J opens the terminal which is pretty important too.
