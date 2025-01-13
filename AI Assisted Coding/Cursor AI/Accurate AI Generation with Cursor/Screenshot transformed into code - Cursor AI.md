@@ -5,7 +5,7 @@ Lets say you have a screenshot of a desired webpage code in your clipboard, like
 
 In your Cursor AI, open Chat with CMD+L, then paste into it. Then your prompt can be:
 ```
-Create this webpage {with desired css frameworks like tailwind, if applicable} {in javascript or tailwind, if applicable}
+Create this webpage {with desired css frameworks like tailwind, if applicable} {in Javascript or React, if applicable}
 ```
 
 So the prompt could be "Create this webpage with tailwind and javascript"
