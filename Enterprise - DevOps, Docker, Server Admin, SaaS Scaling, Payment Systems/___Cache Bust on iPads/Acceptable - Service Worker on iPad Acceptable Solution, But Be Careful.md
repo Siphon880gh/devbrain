@@ -1,0 +1,2 @@
+
+Service worker gives you better cache control but if you overlook things it can get annoying, especially when developing and you need to see fresh changes, or you forget to update the version and force redownload for visitors

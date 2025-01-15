@@ -9,7 +9,9 @@ Applies to: js/jquery files and you can afford to use php files (time to convert
 iPad is very aggressive about caching even if I set the php or server to disable caching. 
 To see why, refer to [[iPad Safari aggressively caches - 1. Why]]. This caching woe is valid so far into 12/24. 
 
-Below are approaches to forcefully bust a cache on iPads:
+---
+
+Below are approaches to forcefully bust a cache on iPads. It usually involves changing the filename or the url to the file assets, and there is a seamless way to do so if you're using PHP that does not force you to make another commit, crowding the git diffs. Even if you are not on PHP, then you're gonna have to change the script and link url's and will have to crowd the git diffs.
 
 A quick and dirty way is to use style and script blocks...
 Or PHP-include the js and css files inside style and script blocks like so:
