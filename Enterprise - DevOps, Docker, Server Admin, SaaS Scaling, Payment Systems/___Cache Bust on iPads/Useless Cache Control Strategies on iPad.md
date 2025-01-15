@@ -9,9 +9,7 @@ Useless caching strategies:
 
 ## Etag useless on iPad Cache Busting
   
-
-**Etag**
-
+Etag:
 - The `ETag` is specific to the HTTP response for the current request.
 - If you set an `ETag` in your PHP file, it only affects the caching behavior of that PHP response, **not the individual assets (e.g., JS or CSS files) linked within the HTML served by the PHP file.**
 ```
