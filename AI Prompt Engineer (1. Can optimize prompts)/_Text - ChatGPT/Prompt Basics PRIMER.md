@@ -13,6 +13,6 @@ You can zero shot, one shot, few shot it
 
 ---
 
-You can minimize hallucination by telling it to vote their sources, and having enabled web. You check the source links to make sure
+You can minimize hallucination by telling it to vet their sources, and having enabled web. You check the source links to make sure
 
 You can tell AI how creative versus how accurate it will be.
