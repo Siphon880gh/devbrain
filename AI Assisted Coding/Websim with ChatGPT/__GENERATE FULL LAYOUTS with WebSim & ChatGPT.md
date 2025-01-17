@@ -4,7 +4,7 @@ Although web sim does generate javascript, their javascript is often limited in 
 
 This tutorial will give a series of prompts to generate the website layout with the best prompt, and to have AI transform the generated website code to a code that AI likes to work with and is easier for you to plug into a MVC or OOP codebase. For this tutorial, we are not using React although generating React layouts is perfectly acceptable.
 
-**How to use**: Navigate using table of contents at the top right
+**How to use**: Navigate using table of contents at the top right.
 
 ---
 
