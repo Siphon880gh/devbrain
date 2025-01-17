@@ -4,7 +4,7 @@ Although web sim does generate javascript, their javascript is often limited in 
 
 This tutorial will give a series of prompts to generate the website layout with the best prompt, and to have AI transform the generated website code to a code that AI likes to work with and is easier for you to plug into a MVC or OOP codebase. For this tutorial, we are not using React although generating React layouts is perfectly acceptable.
 
-How to use: Navigate using table of contents at the top right
+**How to use**: Navigate using table of contents at the top right
 
 ---
 
@@ -13,18 +13,19 @@ How to use: Navigate using table of contents at the top right
 
 ## ChatGPT Models Used
 
-Preferred model for optimizing code: 4o. 
-- Not o1. It actually thinks “too much” and doesn’t optimize your prompt well.
-Preferred model for conforming generating website/web app to your theme's css variable: o1
-Preferred model for converting the code into tailwind: 4o
-- Not o1 because it does too much and introduces problems in the solution
-
+- For optimizing code: 4o. 
+	- Not o1. It actually thinks “too much” and doesn’t optimize your prompt well.
+- For conforming generating website/web app to your theme's css variable: o1
+- For converting the code into tailwind: 4o
+	- Not o1 because it does too much and introduces problems in the solution
+- For converting the js code into MVC/OOP: 4o
+	- If fixes most problems then fails on the final problems, then switch to o1. This reduces the likelihood of introduced bugs.
 
 ---
 
 ## I. Optimized website or web app prompt
 
-1. Brainstorm the prompt. What your app or website does, what industry or use case is it for, how it behaves, what the user can get out of it or what call of action you want the user to be led to. In addition, you may specify the styling.
+1. Brainstorm the prompt. What your app or website does, what industry or use case is it for, how it behaves, what the user can get out of it or what call of action you want the user to be led to. In addition, you may specify the styling. Styling could include mentioning ui patterns like Progressive Disclosure.
 	- Note that if it’s a specific subcategory of website, say that instead: Eg. “Landing page”
 2. Ask ChatGPT to optimize your prompt for website generation:
 ```
@@ -198,3 +199,23 @@ Here’s my style block and html markup:
 ```
 
 For a full list of missing classes from tailwind v2, refer to [[Tailwind v2 missing classes from Tailwind v3]]
+
+---
+
+
+## VI. Conform to a developer friendly JS
+
+This tutorial assumes you are NOT using React. If you are using React, adjust the prompts accordingly
+
+1. Check that the js is not broken (animations, interactions, etc). If broken, have cursor AI or ChatGPT try to fix it before proceeding to the next step.
+2. Convert to MVC OOP friendly code using ChatGPT 4o.
+   
+   Prompt (4o):
+```
+Convert the js to code I can init from an object. For example: object.init(). I dont like using "new" operator:
+"""
+{your script block here}
+"""
+```
+
+3. Make sure code works. If doesn't work, keep chatting with 4o. When all fixes are exhausted and the final fixes still buggy despite suggested solutions, THEN switch to o1 in the middle of the chat. This reduces the likelihood of introducing bugs. Then finally, you can try Cursor AI to fix bugs if you have it.

@@ -1,4 +1,3 @@
-
 You ask ChatGPT 4o to optimize this prompt into a web app generative prompt
 ```
 You are good at writing AI prompts to generate web app design based on requirements.  
@@ -55,7 +54,6 @@ Design a web application for creating and customizing video project assets, spec
 
 1. **Canvas-Based Design Interface:**
     
-
 - Javascript has desired dimensions (width and height) to init and generate a canvas.
 - The canvas serves as the workspace for designing the End Card.
 
@@ -96,3 +94,7 @@ Design a web application for creating and customizing video project assets, spec
 - Make text editing flexible yet straightforward, with clear controls for positioning, resizing, and font selection.
 - Emphasize smooth performance during canvas interactions, ensuring real-time updates as users customize their designs.
 ```
+
+
+Websim responds with:
+https://websim.ai/p/9w0q2jy8q9icjirruzk4
