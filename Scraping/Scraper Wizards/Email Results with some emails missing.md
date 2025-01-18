@@ -1,0 +1,4 @@
+- Some rows dont have emails. This may not be a complete dud
+	- The scraped website might be the home page and sometimes the email is listed on a separate page. So you may have to visit the url directly and look for Contact or About Us on their site menu.
+	- They may use a contact form. Contact form usually does not reveal their email. But there's an off chance that the contact form opens your email app and fills in the information you typed on the contact form. In that case, the View Source will have their email at `mailto:`.
+- Often the case is a big broker that doesn’t have an individual agent’s email but a more general email, and that’s ok (at later outreach, we try the general email and we may look into other data sources for decision maker emails for these big brokers, or we may target the real estate agents’ emails listed elsewhere on their website)
