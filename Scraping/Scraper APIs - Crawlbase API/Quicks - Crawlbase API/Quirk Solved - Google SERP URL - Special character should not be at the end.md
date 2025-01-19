@@ -1,4 +1,8 @@
 
+UPDATE 1/18/25: Seems to not be a problem anymore after reaching out to support. Support said wasn't a problem. Maybe it's possible our own code.
+
+---
+
 Goal was finding all real estate agents and brokers’ email addresses using Google Search, having “@“ with double quotes:
 - emails have @ in their text
 - By surrounding with double quotations, you are telling Google this keyword is mandatory

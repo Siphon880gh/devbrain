@@ -111,7 +111,11 @@ https
   })  
   .end();
 ```
-On success, it returns HTML. Let's continue to more complex use cases using optional parameters and scraper presets
+On success, it returns HTML. You can also simply test it by building the url and visiting directly in your web browser, and after a slight delay, it should return HTML, visiting directly `https://api.crawlbase.com/?token=REGULAR_TOKEN&url=https%3A%2F%2Fwengindustries.com
+
+---
+
+Let's continue to more complex use cases using optional parameters and scraper presets
 
 All other parameters optional. Some parameters are used in common use cases. And some parameters, having them means you have to include certain other parameters so the use case makes sense.
 

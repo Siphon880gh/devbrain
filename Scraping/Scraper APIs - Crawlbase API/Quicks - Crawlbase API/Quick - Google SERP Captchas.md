@@ -1,0 +1,1 @@
+We can work around this by detecting captcha elements on the html response then have the code re-fetch. We’ll probably keep country code to US because sometimes it goes Russian which can mess up this approach.
