@@ -3,6 +3,8 @@ Status: Cursorily. I just used mostly the Crawlbase API instead because of my ow
 
 Note Crawlbase Crawler is not a complete wizarad (UI) solution. It is as wizardly as you decide to. The most wizard is setting up the crawler AND using the crawler storage to see your scrapped results (rather than using a custom webhook). Crawlbase Crawler is more for asynchronous set and forget (goes to webhook or crawl storage), whereas Crawlbase API you can see the results when you push the request (though technically, you could cronjob it and it would be and set and forget as well).
 
+Note that proxy and ip rotation is already included in their crawling, as in when you use their product to scrape, you dont have to worry about an IP being blocked. The Smart Proxy is a separate product that lets you use their proxy for whatever reason (may not necessarily be for scraping).
+
 ---
 
 About: All-In-One data crawling and scraping platform for business developers.

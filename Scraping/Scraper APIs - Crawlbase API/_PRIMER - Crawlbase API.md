@@ -86,14 +86,34 @@ The API call (Or library options)
 The required parameters (url queries) are:
 - token
 - url
+And these two parameters make up the basic API endpoint
 
 The documentation auto populates with your tokens if you are logged in. Two types of tokens. One where content to be scrapped is loaded in by js during loading instead of already part of the html. The regular token is more performant.
 
 ![](https://i.imgur.com/1EgpMLl.png)
 
-All other parameters optional. However for some parameters including them means you have to include certain other parameters so the use case makes sense.
+Let's test the API endpoint to scrape HTML with only the mandatory parameters. We'll get more complex by adding optional parameters in a bit. Bare bones (use python equivalent, or library equivalent, etc depending on your preferred coding style)
+```
+const https = require('https');  
+  
+const url = encodeURIComponent('https://wengindustries.com');  
+const options = {  
+  hostname: 'api.crawlbase.com',  
+  path: '/?token=REGULAR_TOKEN&url=' + url,  
+};  
+  
+https  
+  .request(options, (response) => {  
+    let body = '';  
+    response.on('data', (chunk) => (body += chunk)).on('end', () => console.log(body));  
+  })  
+  .end();
+```
+On success, it returns HTML. Let's continue to more complex use cases using optional parameters and scraper presets
 
-Using the parameter scraper, can choose your data source even though technically your url could indicate the data source. Well, actually these are presets and how data should be parsed and presented to you on response. The default behavior is responding with thehtml of the scraped webpage.
+All other parameters optional. Some parameters are used in common use cases. And some parameters, having them means you have to include certain other parameters so the use case makes sense.
+
+A common parameter is for scraping in a cleaner format. The optional parameter `scraper=` can recognize google search results, amazon product page, etc, and therefore produce a cleaner json response for your code or analyst to work with. If no scraper parameter is set, the default behavior is responding with the html of the scraped webpage, even if the url would be a source that one of the scrapers can recognize.
 
 Case in point: If your parameter url is Amazon product details, without the proper scraper parameter, it will just return html without referring to any parse and presentation present.
 
@@ -104,6 +124,10 @@ https://crawlbase.com/docs/crawling-api/scrapers/
 >![note] Scraper presets
 >Partial screenshot of scraper presets:
 >![](https://i.imgur.com/OhUvaKp.png)
+>^ Scroll down on webpage for more
+>
+>Again - scraped= is an optional parameter. If you don't use it, you will receive back the full HTML of the page so you can scrape it freely.
+>
 >As of 1/2025, the scraper presets are:
 >```
 >- Amazon
@@ -177,3 +201,95 @@ https://crawlbase.com/docs/crawling-api/scrapers/
 >- email-extractor
 >```
 
+When using any of their scraper preset, make sure to follow instruction about adding the scraper parameter. 
+
+For example, let's create a scraper that works with google search results. Then make sure the scraper parameter, per document, is google-serp AND you are using js token per instructions for Google search:
+
+Google SERP
+```
+&scraper=google-serp  
+```
+
+Final code with scraper parameter and js token (your code may vary if you use Crawlbase libraries) below
+
+Our example use case here is finding all real estate agents and brokers’ email addresses using Google Search:
+```
+const https = require('https');  
+  
+const url = encodeURIComponent('https://www.google.com/search?start=0&q=pasadena+california+real+estate+"@"+email');  
+const options = {  
+  hostname: 'api.crawlbase.com',  
+//   path: '/?token=HwEKH-wla3iYoQ3DEXmDsw&scraper=google-serp&url=' + url,  
+  path: '/?token=HwEKH-wla3iYoQ3DEXmDsw&scraper=google-serp&screenshot=true&url=' + url,  
+};  
+  
+https  
+  .request(options, (response) => {  
+    let body = '';  
+    response.on('data', (chunk) => (body += chunk)).on('end', () => console.log(body));  
+  })  
+  .end();
+```
+
+Next pages using start parameter
+```
+const url = encodeURIComponent('https://www.google.com/search?start=10&q=pasadena+california+real+estate+”@“+email');
+```
+
+
+^ finding all real estate agents and brokers’ email addresses using Google Search, having “@“ with double quotes:
+- emails have @ in their text
+- By surrounding with double quotations, you are telling Google this keyword is mandatory
+
+For scraping next pages, you adjust Google url
+- Page 1: `start=0`
+- Page 2: `start=10`
+- Page 3: `start=20`
+- Page 4: `start=30`
+
+>![note] Curious: To prove, you can turn on screenshot to true and look at the screenshot for start=20 which will say Page 3
+![](https://i.imgur.com/5uzrYog.png)
+
+In the code you provided, the data gets printed to the console when the end event is emitted by the response object. This event is triggered when the entire response has been received. There may be some waiting while your script appears to “hang”
+
+When using other sources besides Google search you want to see if they have a preset `scraper=`. And depending on your use case and/or the source, you may want to:  
+- Use a performant regular token or a js token that waits for content to finish generating with the site’s js  
+- Parameters needed for example country making sure it’s English (sometimes rotates to foreign IP and website can switch language). Or setting country because website is blocked in your own country. Or that specific content is only available in another country.
+	- country=
+	- United States (US)
+	- China (CN)
+	- Japan (JP)
+	- India (IN)
+- The website’s js take a long time to finish loading so you want to add a delay before scraping
+	- page_wait=
+	- Eg. 2000
+- The website’s content loads as the user scrolls, and you want to capture that content
+	- scroll=
+	- Eg. true
+	- The API this will by default scroll for a scroll_interval of 10 seconds.
+	- If you want to scroll more than 10 seconds please send the `&scroll=true&scroll_interval=20`. 
+	- Those parameters will instruct the browser to scroll for 20 seconds after loading the page. The maximum scroll interval is 60 seconds.
+- The website's content loads when a specific element is pressed on the page:
+	- css_click_selector
+	- Eg. `#btn-show-tips`
+	- Eg. `[data-tab-item="tab1"]`
+	- Selector not found will fail with pc_status 595.
+- The destination is JSON content
+	- autoparse=
+	- Eg. true
+
+Other optional parameters will better fit your workflow
+- Screenshot of the scraped page as well (Great for debugging scraping problems, and/or because you want to scrape screenshots)
+	- screenshot=true
+	- Saves to the Crawlbase Storage page
+	- For more dependent parameters of screenshot, such as setting the size of the screenshot, etc, refer to [[Scrape screenshot - Crawler API]]
+- If you want the scraped results to store at Crawlbase Storage page for later:
+	- `&store=true` parameter to store a copy of the API response in the Crawlbase Cloud Storage 
+	- Crawlbase will send you back the `storage_url` in the response headers (or in the json response if you use `&format=json`).
+
+
+^ Read more including what their values could be at the documentation on parameters:
+https://crawlbase.com/docs/crawling-api/parameters/
+
+These are some more optional parameters at their documentation
+![](https://i.imgur.com/hHlzkU0.png)
