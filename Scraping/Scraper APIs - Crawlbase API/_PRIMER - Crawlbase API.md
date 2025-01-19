@@ -239,11 +239,11 @@ https
 
 Next pages using start parameter
 ```
-const url = encodeURIComponent('https://www.google.com/search?start=10&q=pasadena+california+real+estate+”@“+email');
+const url = encodeURIComponent('https://www.google.com/search?start=10&q=pasadena+california+real+estate+"@"+email');
 ```
 
 
-^ finding all real estate agents and brokers’ email addresses using Google Search, having “@“ with double quotes:
+^ finding all real estate agents and brokers’ email addresses using Google Search, having "@" with double quotes:
 - emails have @ in their text
 - By surrounding with double quotations, you are telling Google this keyword is mandatory
 
