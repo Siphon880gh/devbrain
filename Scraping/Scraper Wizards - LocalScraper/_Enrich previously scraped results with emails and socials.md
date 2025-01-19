@@ -41,7 +41,7 @@ This is if you decide to enrich previous scraped data (like Google Map) where yo
 	- CMD+X, CMD+V to cut
 	- If you enriched with social links: Usually facebook/instagram group name is similar to the domain name so it’s easier to align with socials. So you can look at the newly pasted social name to the original name that's part of the original scraping
 	- Email address usually has the domain name. 
-		- If it does not have the domain (eg. @gmail.com instead), you can go back to look at the email/social scraping because it contains the original websites that your text file fed into LocalScrapper
+		- If it does not have the domain (eg. @gmail.com instead), you can go back to look at the email/social scraping because it contains the original websites that your text file fed into LocalScraper
 
 ---
 
