@@ -81,7 +81,9 @@ Crawlbase offers libraries but is unnecessary. Those are just syntactic sugar sy
 
 ---
 
-The API call (Or library options)
+**The API call**
+
+If you're using the library provided by CrawlBase, it's similar to the API call except their library makes the API call for you, and the options you feed in (toke, url, optional scrapers etc) are sugarly syntax.
 
 The required parameters (url queries) are:
 - token
