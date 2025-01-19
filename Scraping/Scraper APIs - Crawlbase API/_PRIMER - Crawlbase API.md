@@ -127,85 +127,86 @@ The scraper= parameter values are at:
 https://crawlbase.com/docs/crawling-api/scrapers/
 
 
->![note] Scraper presets
->Partial screenshot of scraper presets:
->![](https://i.imgur.com/OhUvaKp.png)
->^ Scroll down on webpage for more
->
->Again - scraped= is an optional parameter. If you don't use it, you will receive back the full HTML of the page so you can scrape it freely.
->
->As of 1/2025, the scraper presets are:
->```
->- Amazon
->- amazon-product-details
->- amazon-serp
->- amazon-offer-listing
->- amazon-product-reviews
->- amazon-best-sellers
->- amazon-new-releases
->
->- Google
->- google-serp
->
->- Facebook
->- facebook-group
->- facebook-page
->- facebook-profile
->- facebook-hashtag
->- facebook-event
->
->- Instagram
->- instagram-post
->- instagram-profile
->- instagram-hashtag
->- instagram-reels-audio
->
->- LinkedIn
->- linkedin-profile
->- linkedin-company
->- linkedin-feed
->
->- Quora
->- quora-serp
->- quora-question
->
->- Airbnb
->- airbnb-serp
->
->- Ebay
->- ebay-serp
->- ebay-product
->
->- AliExpress
->- aliexpress-product
->- aliexpress-serp
->
->- Bing
->- bing-serp
->
->- Immobilienscout24
->- immobilienscout24-property
->
->- Walmart
->- walmart-serp
->- walmart-product-details
->- walmart-category
->
->- BestBuy
->- bestbuy-serp
->- bestbuy-product-details
->
->- G2
->- g2-product-reviews
->
->- Eventbrite
->- eventbrite-events-list
->- eventbrite-event-details
->
->- Generic
->- generic-extractor
->- email-extractor
->```
+> [!note] Scraper presets
+> Partial screenshot of scraper presets:
+> ![](https://i.imgur.com/OhUvaKp.png)
+> ^ Scroll down on webpage for more
+> 
+> Again - scraped= is an optional parameter. If you don't use it, you will receive back the full HTML of the page so you can scrape it freely.
+> 
+> As of 1/2025, the scraper presets are:
+> ```
+> - Amazon
+> - amazon-product-details
+> - amazon-serp
+> - amazon-offer-listing
+> - amazon-product-reviews
+> - amazon-best-sellers
+> - amazon-new-releases
+> 
+> - Google
+> - google-serp
+> 
+> - Facebook
+> - facebook-group
+> - facebook-page
+> - facebook-profile
+> - facebook-hashtag
+> - facebook-event
+> 
+> - Instagram
+> - instagram-post
+> - instagram-profile
+> - instagram-hashtag
+> - instagram-reels-audio
+> 
+> - LinkedIn
+> - linkedin-profile
+> - linkedin-company
+> - linkedin-feed
+> 
+> - Quora
+> - quora-serp
+> - quora-question
+> 
+> - Airbnb
+> - airbnb-serp
+> 
+> - Ebay
+> - ebay-serp
+> - ebay-product
+> 
+> - AliExpress
+> - aliexpress-product
+> - aliexpress-serp
+> 
+> - Bing
+> - bing-serp
+> 
+> - Immobilienscout24
+> - immobilienscout24-property
+> 
+> - Walmart
+> - walmart-serp
+> - walmart-product-details
+> - walmart-category
+> 
+> - BestBuy
+> - bestbuy-serp
+> - bestbuy-product-details
+> 
+> - G2
+> - g2-product-reviews
+> 
+> - Eventbrite
+> - eventbrite-events-list
+> - eventbrite-event-details
+> 
+> - Generic
+> - generic-extractor
+> - email-extractor
+> ```
+
 
 When using any of their scraper preset, make sure to follow instruction about adding the scraper parameter. 
 
@@ -253,8 +254,8 @@ For scraping next pages, you adjust Google url
 - Page 3: `start=20`
 - Page 4: `start=30`
 
->![note] Curious: To prove, you can turn on screenshot to true and look at the screenshot for start=20 which will say Page 3
-![](https://i.imgur.com/5uzrYog.png)
+> ![note] Curious: To prove, you can turn on screenshot to true and look at the screenshot for start=20 which will say Page 3
+! [](https://i.imgur.com/5uzrYog.png)
 
 In the code you provided, the data gets printed to the console when the end event is emitted by the response object. This event is triggered when the entire response has been received. There may be some waiting while your script appears to “hang”
 
