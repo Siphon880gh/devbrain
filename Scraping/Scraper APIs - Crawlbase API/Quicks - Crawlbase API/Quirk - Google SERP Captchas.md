@@ -1,0 +1,3 @@
+We can work around this by detecting captcha elements on the html response then have the code re-fetch. We’ll probably keep country code to US because sometimes it goes Russian which can mess up this approach.
+
+You do not have to visit the url to the captcha. By the time you re-fetch, likely Crawlbase API already has performed this for you. If you don't want to developer further, the Crawler (Not the API) will automatically retry each request, including those that encounter captchas, to ensure optimal data retrieval, and can send to your custom webhook or save to Crawlbase Storage.  For a better success rate with Google Search scraping, it's recommended to use the JS Crawler at the Crawler.

@@ -1,0 +1,3 @@
+Chat lets you modify the files that you tagged (either tagging the file or its line, or a folder) and/or can modify any files Cursor AI finds relevant to your prompt (if you tagged @codebase). But it does not create new files.
+
+Composer can create new files based on your prompt/problem and it will place the files appropriately into the current working directory or a subfolder. The files are generated and opened unsaved in your code editor. Save the files after reviewing their generated code.

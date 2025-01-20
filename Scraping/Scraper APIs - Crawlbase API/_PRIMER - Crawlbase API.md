@@ -206,7 +206,7 @@ https://crawlbase.com/docs/crawling-api/scrapers/
 > - generic-extractor
 > - email-extractor
 > ```
-
+> 
 
 When using any of their scraper preset, make sure to follow instruction about adding the scraper parameter. 
 
@@ -254,10 +254,15 @@ For scraping next pages, you adjust Google url
 - Page 3: `start=20`
 - Page 4: `start=30`
 
-> ![note] Curious: To prove, you can turn on screenshot to true and look at the screenshot for start=20 which will say Page 3
-! [](https://i.imgur.com/5uzrYog.png)
+> [!note] Curious: To prove, you can turn on screenshot to true and look at the screenshot for start=20 which will say Page 3
+> ![](https://i.imgur.com/5uzrYog.png)
+>
 
-In the code you provided, the data gets printed to the console when the end event is emitted by the response object. This event is triggered when the entire response has been received. There may be some waiting while your script appears to “hang”
+**Caveat**: There could be captcha errors from Google Search every so often. Your code or developer has to catch the word captcha or other keywords, then retry the fetch until no more captcha. You do not have to visit the url to the captcha. By the time you re-fetch, likely Crawlbase API already has performed this for you. If you don't want to developer further, the Crawler (Not the API) will automatically retry each request, including those that encounter captchas, to ensure optimal data retrieval, and can send to your custom webhook or save to Crawlbase Storage. For a better success rate, we recommend testing using the JS Crawler at the Crawler.
+
+---
+
+After sending the request, the data gets printed to the console when the end event is emitted by the response object. This event is triggered when the entire response has been received (before that, it was just appending information to the response body). There may be some waiting while your script appears to “hang”.
 
 When using other sources besides Google search you want to see if they have a preset `scraper=`. And depending on your use case and/or the source, you may want to:  
 - Use a performant regular token or a js token that waits for content to finish generating with the site’s js  
