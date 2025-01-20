@@ -35,6 +35,8 @@ There are two important features here:
 - Ingest Data **(Do this step first)**
   ![](https://i.imgur.com/oUqhvYl.png)
 
+	AstraDB used to store your document's embeddings (after using OpenAI text embeddings model) is very generous even at free version - 10GB.
+
 - Retrieve
   ![](https://i.imgur.com/MkHC2x2.png)
   

@@ -1,4 +1,4 @@
-Titled: Crawler API - Scrape local Pasadena real estate agents
+Goal: Scrape local Pasadena real estate agents because want to sell them a listing to video converter.
 
 Use scraper google-serp, and make multiple requests to start=0, start=10, start=20, with url searching
 pasadena+california+real+estate+”@”+email
