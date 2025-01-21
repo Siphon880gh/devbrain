@@ -1,0 +1,2 @@
+
+If you had to edit a prompt by clicking inside a previous prompt, as long as you didn’t accept any changes, it will ask if you want to revert the code (in other words, it won't ask in a diff with the old suggestions).
