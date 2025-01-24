@@ -11,8 +11,12 @@ If you link the `![image](/assets/***.gif)` and it doesn't show, you may have pa
 B. QuickTime -> FFmpeg
  1. Record the screen with QuickTime Player.
  2. Convert the video file to gif using FFmpeg. This example uses `video.mov` converts it as `demo.gif`:
+
+320 resolution
+720
+1080p
 ```
-ffmpeg -i video.mov -vf scale=320:-1 -r 10 -f image2pipe -vcodec ppm - | convert -delay .75 -loop 0 - gif:- | convert -layers Optimize - demo.gif
+ffmpeg -i zz.mp4 -vf scale=1080:-1 -r 10 -f image2pipe -vcodec ppm - | convert -delay .75 -loop 0 - gif:- | convert -layers Optimize - demo.gif
 ```
 
 Notice the scale is small. The -1 makes sure to keep aspect ratio. I also set delay to .75 to increase the speed of the screen recording, further reducing file size. You can google these options.

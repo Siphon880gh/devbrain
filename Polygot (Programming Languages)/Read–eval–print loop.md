@@ -1,0 +1,2 @@
+
+A **read–eval–print loop** (**REPL**), also termed an **interactive toplevel** or **language shell**, is a simple interactive [computer programming](https://en.wikipedia.org/wiki/Computer_programming "Computer programming") environment that takes single user inputs, executes them, and returns the result to the user; a program written in a REPL environment is executed piecewise.
