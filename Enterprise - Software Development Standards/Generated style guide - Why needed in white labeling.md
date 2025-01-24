@@ -10,7 +10,7 @@ Let’s walk this through
 
 You’re changing which css file loads based on what company logged in on your app. One company’s color is all red. There’s a .btn-danger that you overlooked, because as you can see, the button is red on the red card:
 
-![](https://i.imgur.com/hpSszF8.png)
+![](https://i.imgur.com/gOZuhyZ.png)
 
 Your default for misc companies that you haven’t white labeled for or for any guest who didn’t sign up as a company (maybe a test trial), you have default colors and styling, which is usually your own company’s brand colors. The default btn-danger which is red may be from bootstrap css or inspired by bootstrap:
 ![](https://i.imgur.com/Uz4FkQt.png)
