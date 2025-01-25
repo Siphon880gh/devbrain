@@ -1,0 +1,1 @@
+**Fixed Positioning**: If you have fixed or sticky headers and footers, test thoroughly on iOS Safari to avoid scrolling or zoom issues. Consider using `position: sticky; top: 0;` where possible.
