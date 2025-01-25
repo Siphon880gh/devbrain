@@ -1593,3 +1593,9 @@ VM's `ip route` looks like:
 ```
 
 ```
+
+---
+
+## Exiting Protocol
+
+List backup and cleanup procedures here if discontinuing service.

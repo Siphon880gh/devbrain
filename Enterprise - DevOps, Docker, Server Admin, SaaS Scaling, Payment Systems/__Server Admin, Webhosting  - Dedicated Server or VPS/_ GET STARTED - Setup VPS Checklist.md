@@ -955,3 +955,10 @@ Vhost file here
 
 ## OS paths (error logs, configs), commands, and workflows
 _...?
+
+
+---
+
+## Exiting Protocol
+
+List backup and cleanup procedures here if discontinuing service.
