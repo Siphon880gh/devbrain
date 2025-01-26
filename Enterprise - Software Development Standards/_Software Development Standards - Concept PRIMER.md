@@ -53,12 +53,12 @@ In today’s fast-paced software development environment, standards are essentia
 	- 6.7 Key Takeaways for Versioning and Caching
 5. **Secure Coding Practices**
 	- 7.1. CMS, Web Panels, etc
-	- 7.2.Dot env
+	- 7.2. Dot env
 	- 7.3. Persistent Login
 	- 7.4. Injection Prevention
 	- 7.5. Passwordless SSH Root Access
 	- 7.6. Ports and Reverse Proxy
-	- 7.7 Error Handling Securely
+	- 7.7. Error Handling Securely
 	- 7.8. Handling Secrets
 	- 7.9. Keep up to date on security practices
 
@@ -711,7 +711,7 @@ Implement secure coding practices to protect applications from vulnerabilities:
 	- Keep CMS, web panels, etc updated because often case found vulnerabilities are patched.
 	- SSH tunnel into web panel (eg. cpanel)
 	- Part of the hacker's toolkit is a scanner for old CMS versions that are vulnerable.
-- ##### 7.2.Dot env
+- ##### 7.2. Dot env
 	- Do not commit or push up dot env. In fact, you should gitignore .env.
 	- Most web servers, such as Apache or Nginx, do not serve dotfiles (files starting with a `.`) by default. However, misconfigurations or custom settings can accidentally expose these files. For even more security:
 		- Use a more unique .env filenaming schema. Load that uniquely named .env file directly. Python's dotenv_path. Or NodeJS' dotenv config path.
