@@ -8,11 +8,70 @@ This article explores key software development standards, best practices, and to
 
 ---
 
-### What Are Software Development Standards?
+### What Are the Software Development Standards?
 
 Software development standards are established guidelines that define best practices for creating software. They promote consistency, reliability, and efficiency across projects. Below are key categories of standards every DevOps professional should understand:
 
-#### 1. **Peridevelopment**
+The Role of Standards in Modern Software Development
+What Are the Software Development Standards?
+1. **Tooling Standards**
+	- 1.1 Code Standards
+	- 1.2. **Lint and Prettier Configuration**
+	- 1.3. **VS Code Settings**
+		- **What to Include in Shared Settings**
+		- **Best Practices for Sharing VS Code Settings**
+	- 1.4. **Commit Message Guidelines**
+	- 1.5 Branching and Merging Strategies
+	- 1.6 **Testing Framework Standards**
+		- Node.js
+		- Python
+		- Common Testing Standards
+	- 1.6 Logging Standards
+2. **Styling**
+	- 2.1. **BEM, CSS Preprocessors, White-Labeling, Z-Index Conventions**
+	- 2.2. **z-index Magnitudes and Layering**
+3. **Responsive Design and Device Compatibility** 
+	- 3.1. Embrace a Mobile-First Approach 
+	- 3.2. Use Media Queries Strategically 
+	- 3.3. iOS and Safari Quirks
+	- 3.4. Avoiding JavaScript & HTML Quirks in Responsiveness 
+	- 3.5. Testing Across Real Devices 
+	- 3.6. Key Takeaways for Responsive Standards
+4. **Code Design Standards**
+	- 4.1 **Algorithms and Data Structures**
+	- 4.2 **Design Patterns for Maintainable Code**
+	- 4.3 **Object-Oriented Programming (OOP)**
+	- 4.4 **JavaScript Modules**
+	- 4.5 **MVC or Other Architectural Patterns**
+	- 4.6 **State Management**
+	- 4.7 **Module Initialization and Event Binding**
+5. **Scaling Strategies**
+	- 5.1 Fetch vs SSE vs WebSockets
+	- 5.2. N-tier architecture
+	- 5.3 Microservice architecture if needed
+	- 5.4. Server level Scaling
+	- 5.5. Consistent Environment
+	- 5.6. Persistent Services
+6. **Versioning and Caching**
+	- 6.1 **Aligning Versioning with Git Commits**
+	- 6.2 **Service Workers and PWA Versioning**
+	- 6.3 **Cache-Busting in a PHP Application**
+	- 6.4 **Aggressive Caching on iPad**:
+	- 6.5 **Create React App (CRA) and Vite Hash Filenames**
+	- 6.6 **Combining Git Versioning with Asset Hashing**
+	- 6.7 **Key Takeaways for Versioning and Caching**
+7. **Secure Coding Practices**
+	- 7.1. CMS, Web Panels, etc
+	- 7.2.Dot env
+	- 7.3. Persistent Login
+	- 7.4. Injection Prevention
+	- 7.5. Passwordless SSH Root Access
+	- 7.6. Ports and Reverse Proxy
+	- 7.7 Error Handling Securely
+	- 7.8. Handling Secrets
+	- 7.9. Keep up to date on security practices
+
+#### 1. **Tooling Standards**
 
 ##### 1.1 Code Standards
 Readable and maintainable code begins with consistent formatting. Standards define indentation, naming conventions, and structure, streamlining collaboration and debugging.
@@ -38,14 +97,7 @@ function calculateArea(width, height) {
 
 - **Tooling**: Generate API documentation automatically with tools like **JSDoc** or **TypeDoc**.
 
-##### 1.2. **Commit Message Guidelines**
-
-Use a consistent format for commit messages to improve readability and collaboration:
-
-- **Format**: `type(scope): short description` (e.g., `feat(auth): add login form validation`).
-- **Types**: Common types include `feat`, `fix`, `chore`, `docs`, `style`, and `test`.
-
-##### 1.3. **Lint and Prettier Configuration**
+##### 1.2. **Lint and Prettier Configuration**
 
 - **Linting**: Use **ESLint** (JavaScript/TypeScript) or **Pylint** (Python) with a shared configuration to enforce coding standards.
 - **Prettier**: Standardize code formatting with Prettier. Example `.prettierrc`:
@@ -60,7 +112,7 @@ Use a consistent format for commit messages to improve readability and collabora
 }
 ```
 
-##### 1.4. **VS Code Settings**
+##### 1.3. **VS Code Settings**
 ###### **What to Include in Shared Settings**
 
 1. **Workspace Settings:**
@@ -93,6 +145,140 @@ Use a consistent format for commit messages to improve readability and collabora
 5. **Allow Some Flexibility:**
     - Recognize that some settings (like themes or fonts) may be personal preferences and don’t need to be standardized.
 
+##### 1.4. **Commit Message Guidelines**
+
+Use a consistent format for commit messages to improve readability and collaboration:
+
+- **Format**: `type(scope): short description` (e.g., `feat(auth): add login form validation`).
+- **Types**: Common types include `feat`, `fix`, `chore`, `docs`, `style`, and `test`.
+
+##### 1.5 Branching and Merging Strategies
+- **Branch Naming:**
+    - Use descriptive branch names:
+        - `feature/<feature-name>` for new features.
+        - `bugfix/<bug-description>` for fixing bugs.
+        - `hotfix/<hotfix-description>` for urgent production fixes.
+        - `release/<version>` for preparing releases.
+    - Example: `feature/add-login-api` or `bugfix/fix-404-error`.
+- **Branching Model:**
+    - Follow **Git Flow** or **Trunk-Based Development** depending on team size and deployment frequency.
+        - **Git Flow:**
+            - `main` for production-ready code.
+            - `develop` for ongoing development.
+            - Use feature branches merged into `develop`.
+            - Merge to `main` via a release branch.
+        - **Trunk-Based Development:**
+            - Single `main` branch.
+            - Short-lived feature branches merged back quickly.
+- **Pull Request Standards:**
+    - Require code reviews with at least one approver. That approver should not be the same person who pushed the code up.
+    - Ensure PR descriptions are detailed and reference related issues.
+    - Test coverage required before merging.
+- **Merging:**
+    - Use **rebase** for cleaner commit history in feature branches.
+    - Use **merge commits** to preserve history when integrating into `main` or `develop`.
+
+##### 1.6 **Testing Framework Standards**
+
+###### Node.js
+
+- **Frameworks:** Use `Jest` or `Mocha` + `Chai`.
+- **Standards:**
+    - Write unit tests for all critical functions and modules.
+    - Include integration tests for API endpoints or critical workflows.
+    - Use code coverage tools like `nyc` or Jest’s built-in coverage reports.
+    - Example with Jest:
+	```
+	describe("User API", () => {
+	  it("should return user data", async () => {
+	    const response = await request(app).get("/api/user");
+	    expect(response.status).toBe(200);
+	    expect(response.body).toHaveProperty("name");
+	  });
+	});
+	```
+###### Python
+- **Frameworks:** Use `pytest` for simplicity and scalability.
+- **Standards:**
+    - Test directory structure:
+	```
+	/tests
+	  test_module1.py
+	  test_module2.py
+	```
+        
+    - Mock external dependencies using libraries like `unittest.mock` or `pytest-mock`.
+    - Enforce code coverage with `pytest-cov`.
+    - Example:
+	```
+	import pytest
+	from app import get_user
+	
+	def test_get_user():
+	    user = get_user(1)
+	    assert user["id"] == 1
+	    assert user["name"] == "John Doe"
+	```
+
+###### Common Testing Standards
+
+- Automate tests with CI pipelines (e.g., GitHub Actions, CircleCI, Jenkins).
+- Define test coverage thresholds (e.g., 80%+).
+- Tag tests (`@slow`, `@fast`) for grouping and prioritization.
+
+##### 1.6 Logging Standards
+
+###### Node.js
+- **Library:** Use `Winston` for logging. It is versatile, supports multiple transports, and provides log levels.
+- **Standards:**
+  - Configure log levels (e.g., `error`, `warn`, `info`, `debug`) based on the environment.
+  - Use JSON format for structured logging.
+  - Separate transports for:
+    - Console logs in development.
+    - File logs for production.
+    - External services like AWS CloudWatch or Elasticsearch (if needed).
+  - Example:
+    ```javascript
+    const winston = require('winston');
+    const logger = winston.createLogger({
+      level: process.env.LOG_LEVEL || 'info',
+      format: winston.format.json(),
+      transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: 'app.log' }),
+      ],
+    });
+
+    module.exports = logger;
+    ```
+
+###### Python
+- **Equivalent Library:** Use `logging` or `loguru` for simplicity and advanced features.
+- **Standards:**
+  - Use the `logging` module for standardization, or `loguru` for enhanced features.
+  - Define log levels (`DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`).
+  - Structure logs in JSON if used with monitoring tools (e.g., ELK Stack).
+  - Example:
+    ```python
+    import logging
+
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s - %(levelname)s - %(message)s",
+        handlers=[
+            logging.StreamHandler(),
+            logging.FileHandler("app.log")
+        ]
+    )
+    logger = logging.getLogger("app")
+
+    logger.info("This is an info log")
+    logger.error("This is an error log")
+    ```
+
+For either NodeJS or Python, you may want to log to a folder outside of the app and have the team informed where the logs are. You may still log into the app folder, but:
+- Make sure the app's nested log folder is secured from internet user access (because it may reveal sensitive details on crashing) using apache htaccess or nginx vhost
+- You may gitignore the nested log folder to prevent polluting git diff.
 
 ---
 #### 2. **Styling**
@@ -382,13 +568,32 @@ N-tier architecture provides a modelby which developers can create flexible and 
 While the concepts of layer and tier are often used interchangeably, one fairly common point of view is that there is indeed a difference. This view holds that a layer is a logical structuring mechanism for the conceptual elements that make up the software solution, while a tier is a physical structuring mechanism for the hardware elements that make up the system infrastructure.
 
 ##### 5.3 Microservice architecture if needed
-Consider breaking your full-stack app into parts called microservices. That allows you to allocate one part more to cpu and another part more to concurrency, eg respectively: video generator and api. For the microservices to communicate with each other, you give them ports.
+Consider breaking your full-stack app into parts called services. 
+- That allows you to allocate one part more to cpu and another part more to concurrency, eg respectively: video generator and api. 
+	- For NodeJS, you can use pm2 to control whether a service is cpu bound or concurrency bound
+	- For PythonJS, you can use gunicorn to do so.
+- They can run on different ports but you are not required to expose those ports online
+	- For the microservices to communicate with each other, you give them ports.
+	- However you DO NOT expose those ports to the internet
+	- If the frontend connects to a service (api or video generator, for example), have reverse proxy into that port (that doesn't require port exposure)
 
 ##### 5.4. Server level Scaling
 - **Worker Threads**: Offload CPU-intensive tasks to worker threads (e.g., Node.js `worker_threads` or Python `multiprocessing`).
 - **Asynchronous Processing**: Use message queues like **RabbitMQ** or **Kafka** to handle high workloads asynchronously.
 - **Load Balancing**: Distribute requests across multiple instances using load balancers like **NGINX** or **AWS ELB**.
 - **Horizontal Scaling**: Add instances to handle increased traffic (e.g., Kubernetes for container orchestration).
+
+##### 5.5. Consistent Environment
+- Having a consistent environment whether it's the system's node version, python node version, or the nodejs packages' versions, or the pip packages' versions - is important because you may launch different instances to keep up with traffic.
+- Containerized with Docker
+- Pyenv for consistent Python version
+- nvm for consistent NodeJS Version
+- pipenv or Poetry for Python package versions
+- NodeJS with package.json is fine (package.lock.json is specific to the OS and can be gitignored)
+
+##### 5.6 Persistent Services
+- pm2 can restart NodeJS services when server crashes/restarts or when app crashes
+- supervisor can restart Python services when server crashes/restarts or when app crashes
 
 #### 6. **Versioning and Caching**
 
@@ -509,17 +714,37 @@ By employing these approaches, you’ll have a **consistent, reliable versioning
 
 Implement secure coding practices to protect applications from vulnerabilities:
 
-- **Persistent Login**: Strategies such as cookies, json web token, or session ID's to keep user logged in. But make sure it remains secured.
-- **Injection Prevention**: Sanitize inputs to guard against SQL injection, XSS, and other injection attacks. Use parameterized queries or ORM frameworks to mitigate risks.
-- **Passwordless SSH Root Access**: Disable root login over SSH and use passwordless key-based authentication to enhance security.
-- **Error Handling**: Avoid exposing sensitive error messages to end-users (could give hints to bad actors on how to exploit your system); log errors securely for internal debugging.
-- **Handling Secrets**:
+- ##### **7.1. CMS, Web Panels, etc**: 
+	- Keep CMS, web panels, etc updated because often case found vulnerabilities are patched.
+	- SSH tunnel into web panel (eg. cpanel)
+	- Part of the hacker's toolkit is a scanner for old CMS versions that are vulnerable.
+- ##### 7.2.Dot env
+	- Do not commit or push up dot env. In fact, you should gitignore .env.
+	- Most web servers, such as Apache or Nginx, do not serve dotfiles (files starting with a `.`) by default. However, misconfigurations or custom settings can accidentally expose these files. For even more security:
+		- Use a more unique .env filenaming schema. Load that uniquely named .env file directly. Python's dotenv_path. Or NodeJS' dotenv config path.
+		- Explicitly block env files or wildcarded unique env filenames in your apache htaccess or nginx vhost.
+- ##### 7.3. **Persistent Login**: 
+	- Strategies such as cookies, json web token, or session ID's to keep user logged in. But make sure it remains secured.
+- ##### 7.4.**Injection Prevention**: 
+	- Sanitize inputs to guard against SQL injection, XSS, and other injection attacks. 
+	- Use parameterized queries or ORM frameworks to mitigate risks.
+- ##### 7.5. **Passwordless SSH Root Access**: 
+	- Disable Direct Root Login: Prevent direct root login over SSH and instead utilize key-based authentication for a more secure setup.
+	- Use a Non-Root Username: For added security, configure a different username for administrative tasks instead of using the default "root" user.
+	- Implement Temporary Root Access: To maximize security, create a script that temporarily enables or disables root access. This script can be secured using a dual-key authentication system, with unique keys stored on the remote server and your local machine.
+- ##### 7.6. **Ports and Reverse Proxy **
+	- Limit exposing ports to the internet. 
+	- If frontend connects to different API's running on different ports, opt for using reverse proxy urls to those ports. Keep ports closed to internet on iptables, ufw (wrapper of iptables), etc.
+	- Part of the hacker's toolkit is a port scanner.
+- ##### 7.7 **Error Handling**: 
+	- Avoid exposing sensitive error messages to end-users (could give hints to bad actors on how to exploit your system); log errors securely for internal debugging.
+- ##### 7.8. **Handling Secrets**:
     - **Environment Variables**: Use environment variables to store sensitive data like API keys, tokens, or database credentials.
     - **Secret Management Tools**: Utilize tools like **AWS Secrets Manager**, **HashiCorp Vault**, or **Azure Key Vault** for secure storage and rotation of secrets.
     - **Best Practices**: Never hard-code secrets in your source code. Add `*.env` or equivalent files to `.gitignore` to prevent accidental exposure.
 	    - High level developers may casually call it the **secrets layer**.
 	    - You can have git pushes/pulls decrypt/encrypt, simplifying secret sharing with internal team, but making sure Github does not have exposure to it. That is one approach https://medium.com/@slimm609/securely-storing-secrets-in-git-542771d3ed8c
-- **Keep up to date on security practices**: 
+- ##### 7.9. **Keep up to date on security practices**: 
 	- OWASP Top 10 - Regularly review OWASP recommendations for common security risks.
 
 
