@@ -1,9 +1,5 @@
 Aka Get Started
 
-Here’s the enhanced version with **JavaScript commenting guidelines** (with JSDoc integration) and **handling secrets in security strategies** added:
-
----
-
 ## The Role of Standards in Modern Software Development
 
 In today’s fast-paced software development environment, standards are the backbone of quality, consistency, and scalability. They provide clear guidelines and frameworks for teams to build reliable and efficient software, empowering developers and platform engineers alike. Standards foster collaboration and ensure projects align with organizational goals, enabling teams to work with confidence and efficiency.
@@ -16,8 +12,9 @@ This article explores key software development standards, best practices, and to
 
 Software development standards are established guidelines that define best practices for creating software. They promote consistency, reliability, and efficiency across projects. Below are key categories of standards every DevOps professional should understand:
 
-#### 1. **Code Formatting and Style Guidelines**
+#### 1. **Peridevelopment**
 
+##### 1.1 Code Standards
 Readable and maintainable code begins with consistent formatting. Standards define indentation, naming conventions, and structure, streamlining collaboration and debugging.
 
 - **Naming Conventions**: Adopt clear and consistent naming conventions for variables, functions, files, and classes (e.g., `camelCase` for JavaScript or `PascalCase` for React components).
@@ -41,34 +38,64 @@ function calculateArea(width, height) {
 
 - **Tooling**: Generate API documentation automatically with tools like **JSDoc** or **TypeDoc**.
 
+##### 1.2. **Commit Message Guidelines**
+
+Use a consistent format for commit messages to improve readability and collaboration:
+
+- **Format**: `type(scope): short description` (e.g., `feat(auth): add login form validation`).
+- **Types**: Common types include `feat`, `fix`, `chore`, `docs`, `style`, and `test`.
+
+##### 1.3. **Lint and Prettier Configuration**
+
+- **Linting**: Use **ESLint** (JavaScript/TypeScript) or **Pylint** (Python) with a shared configuration to enforce coding standards.
+- **Prettier**: Standardize code formatting with Prettier. Example `.prettierrc`:
+
+```json
+{
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "printWidth": 80
+}
+```
+
+
+
 ---
-#### 2. **CSS and Precompiled Styles**
+#### 2. **Styling**
+
+##### 2.1. **BEM, CSS Preprocessors, White-Labeling, Z-Index Conventions**
 
 A standardized approach to CSS ensures consistent styling across projects while providing flexibility for scaling and maintainability:
 
-- **CSS Preprocessors**: Use tools like **SASS** or **LESS** to simplify CSS management. These preprocessors enable features such as variables, nesting, and mixins, making the code more modular and maintainable.
-    
-    - **Compass**: For projects using SASS, consider integrating **Compass**, a powerful CSS authoring framework that adds utility functions, mixins, and best practices.
-- **Precompiled CSS**: Establish an agreed standard for precompiling styles during the build process, ensuring faster load times and consistent delivery. This approach integrates well with CI/CD pipelines.
-    
-- **White-Labeling**: If future white-labeling is a possibility, design CSS with flexibility in mind:
-    
-    - Use **CSS variables** or SASS variables for branding elements like colors, typography, and logos, making it easy to rebrand the application. Example:
-        
-        scss
-        
-        CopyEdit
-        
-        `$primary-color: #4f46e5; $secondary-color: #64748b; $font-base: 'Inter', sans-serif;  body {   font-family: $font-base;   color: $primary-color; }`
-        
-    - Abstract styles for core components (e.g., buttons, headers) into reusable, themable classes or mixins.
-        
 - **Class Naming Conventions**: Use consistent conventions like **BEM** or utility-first frameworks such as **Tailwind CSS** to maintain modularity and scalability. Example:
     
     - **BEM**: `card__header--highlighted`
     - **Utility-First**: `bg-blue-500 text-white rounded-lg`
 - **Generated Style Guides**: Use tools like **Style Dictionary** or **Storybook** to document and visualize reusable styles and components.
-
+  
+- **CSS Preprocessors**: Use tools like **SASS** or **LESS** to simplify CSS management. These preprocessors enable features such as variables, nesting, and mixins, making the code more modular and maintainable.
+    - **Compass**: For projects using SASS, consider integrating **Compass**, a powerful CSS authoring framework that adds utility functions, mixins, and best practices.
+	- **Precompiled CSS**: Establish an agreed standard for precompiling styles during the build process, ensuring faster load times and consistent delivery. This approach integrates well with CI/CD pipelines.
+    
+- **White-Labeling**: If future white-labeling is a possibility, design CSS with flexibility in mind:
+    
+    - Use **CSS variables** or SASS variables for branding elements like colors, typography, and logos, making it easy to rebrand the application. Example:
+        
+	```
+	$primary-color: #4f46e5;
+	$secondary-color: #64748b;
+	$font-base: 'Inter', sans-serif;
+	
+	body {
+		font-family: $font-base;
+		color: $primary-color; 
+	}
+	```
+        
+    - Abstract styles for core components (e.g., buttons, headers) into reusable, themable classes or mixins.
+        
 ##### Key Considerations for Future White-Labeling
 
 1. **Dynamic Theming**: Use runtime theming solutions (e.g., CSS variables or React Context APIs) to allow customers to customize their brand-specific look and feel dynamically.
@@ -76,14 +103,39 @@ A standardized approach to CSS ensures consistent styling across projects while 
 3. **Modular Architecture**: Structure CSS files and SASS partials for modularity, allowing easy overrides and adjustments for individual themes.
 4. **Branding Tokenization**: Define tokens for branding elements (e.g., `$button-primary-color`, `$header-font-size`) to make rebranding as simple as updating a configuration file.
 
-Below is the revised section labeled as **Section 4**, with subsections **4.1**, **4.2**, etc., ready to be placed after **Section 3** (CSS and Precompiled Styles) and before **Section 5** (Secure Coding Practices).
+##### 2.2. **z-index Magnitudes and Layering**
 
+When multiple UI elements (e.g., dropdowns, tooltips, modals) overlap, a clear **z-index** policy helps avoid unintended collisions and maintain predictable layering:
 
-Below is a **new subsection** within **Section 3 (CSS and Precompiled Styles)** focused on making your application **responsive** across different device screens, while avoiding JavaScript or HTML quirks as much as possible. You can insert it at the end of Section 3 or in any place you see fit.
+- **0–10**
+    
+    - **Usage**: Base layer for page content, images, text, or static components that typically stay beneath overlays.
+    - **Reason**: Ensures standard content doesn’t override interactive elements or dialogs.
+- **10–99**
+    
+    - **Usage**: Interactive overlays such as dropdown menus, tooltips, and pop-ups that must appear on top of base content.
+    - **Reason**: This intermediate layer keeps them above everyday content but still below critical dialogs.
+- **100–119**
+    
+    - **Usage**: High-priority elements like modals, alerts, or other UI components demanding immediate user attention.
+    - **Reason**: Guarantees these must-have elements appear above all other layers, including secondary overlays.
 
----
+**Why Reserve These Ranges?**
 
-Below is a **new subsection** within **Section 3 (CSS and Precompiled Styles)** focused on making your application **responsive** across different device screens, while avoiding JavaScript or HTML quirks as much as possible. You can insert it at the end of Section 3 or in any place you see fit.
+1. **Predictability**: Team members can quickly identify correct z-index values without guesswork or “fighting” with existing overlays.
+2. **Scalability**: If you need new, even higher-priority layers (e.g., global notifications), you can simply allocate another band (e.g., `120–129`).
+3. **Maintainability**: Defining these bands in a centralized location (e.g., a SASS variables file) ensures consistent usage across the codebase.
+
+**Example (SASS Variables)**
+
+```scss
+// _zindex.scss
+$z-index-base: 0 !default;      // 0–10
+$z-index-overlay: 10 !default;  // 10–99
+$z-index-modal: 100 !default;   // 100–119
+```
+
+By sticking to these defined “bands,” you ensure a clean, conflict-free layering strategy that keeps your UI both functional and intuitive.
 
 ---
 
@@ -157,9 +209,9 @@ Even with best practices, unpredictable behaviors can occur on actual hardware:
 By following these guidelines, you’ll have a **robust** and **consistent** user experience across a wide range of devices, including notoriously finicky iOS browsers and aggressively caching iPads.
 
 ---
-#### 4. **Architecture and Design Standards**
+#### 4. **Code Design Standards**
 
-In addition to coding conventions and scaling strategies, it’s essential to follow proven architectural and design patterns. These standards ensure your application remains performant, modular, and maintainable as it grows.
+In addition to coding conventions and scaling strategies, it’s essential to follow proven code design patterns. These standards ensure your application remains performant, modular, and maintainable as it grows.
 
 ##### 4.1 **Algorithms and Data Structures**
 
@@ -212,12 +264,18 @@ Modular code promotes separation of concerns and reusability:
 
 ##### 4.5 **MVC or Other Architectural Patterns**
 
+
+> [!Note] Architecture can be understood on two levels
+System Architecture: This encompasses the broader ecosystem, including how servers, databases, and external services interact with your application—e.g., N-tier architectures.
+Code Architecture: This focuses on the design patterns and structure within your application's code, such as how presentation, logic, and data layers are organized.
+This section delves into code-level architecture, exploring patterns and principles to create maintainable, scalable applications. The next major section will address N-tier architecture in the context of scaling server-side systems to handle user traffic and growing demands.
+>
 When your application grows beyond a certain complexity, adopting a layered architecture like **Model-View-Controller (MVC)** can help separate concerns:
-
-- **Models**: Handle data structures, business logic, and interactions with APIs or databases.
-- **Views**: Manage UI components and user-facing elements (HTML, templates, or framework-based components).
-- **Controllers**: Orchestrate interactions between Models and Views, handling input, output, and validation.
-
+>
+> - **Models**: Handle data structures, business logic, and interactions with APIs or databases.
+> - **Views**: Manage UI components and user-facing elements (HTML, templates, or framework-based components).
+> - **Controllers**: Orchestrate interactions between Models and Views, handling input, output, and validation.
+>
 > **Frameworks**: React, Vue, and Angular loosely follow MVC-like patterns, often blending traditional controllers into components or services.
 
 ##### 4.6 **State Management**
@@ -281,11 +339,29 @@ Designing modules to encapsulate initialization logic and event handlers leads t
 
 ---
 
-#### 5. **Versioning and Caching**
+#### 5. **Scaling Strategies**
+
+##### 5.1 Fetch vs SSE vs WebSockets
+It impacts both architecture (if you have microservices or a heavily asynchronous design) and scalability (long-lived connections, real-time updates, large data streams, etc.).
+
+##### 5.2. N-tier architecture
+N-tier architecture provides a modelby which developers can create flexible and reusable applications. By segregating an application into tiers, developers acquire the option of modifying or adding a specific tier, instead of reworking the entire application. N-tier architecture is a good fit for small and simple applications because of its simplicity and low-cost.
+
+While the concepts of layer and tier are often used interchangeably, one fairly common point of view is that there is indeed a difference. This view holds that a layer is a logical structuring mechanism for the conceptual elements that make up the software solution, while a tier is a physical structuring mechanism for the hardware elements that make up the system infrastructure.
+
+##### 5.3 Microservice architecture if needed
+Consider breaking your full-stack app into parts called microservices. That allows you to allocate one part more to cpu and another part more to concurrency, eg respectively: video generator and api. For the microservices to communicate with each other, you give them ports.
+
+##### 5.4. Server level Scaling
+- **Worker Threads**: Offload CPU-intensive tasks to worker threads (e.g., Node.js `worker_threads` or Python `multiprocessing`).
+- **Asynchronous Processing**: Use message queues like **RabbitMQ** or **Kafka** to handle high workloads asynchronously.
+- **Load Balancing**: Distribute requests across multiple instances using load balancers like **NGINX** or **AWS ELB**.
+- **Horizontal Scaling**: Add instances to handle increased traffic (e.g., Kubernetes for container orchestration).
+
+#### 6. **Versioning and Caching**
 
 Modern web applications benefit greatly from versioning and intelligent caching strategies. Versioning helps you track releases more effectively—especially when aligned with Git commits or repository tags—while proper cache-busting ensures users see the latest code, even on devices (like iPads) with aggressive caching behaviors.
-
-##### 5.1 **Aligning Versioning with Git Commits**
+##### 6.1 **Aligning Versioning with Git Commits**
 
 - **Semantic Versioning**: Follow a structure like `MAJOR.MINOR.PATCH` (e.g., `1.2.3`) and tag your Git commits or releases accordingly.
 - **Auto-Increment/Commit Hash**: Some teams prefer embedding a short Git commit hash (e.g., `abc123`) into the app’s version to pinpoint the exact commit deployed.
@@ -293,7 +369,7 @@ Modern web applications benefit greatly from versioning and intelligent caching 
 
 > **Tip**: Keep a version variable in `package.json` (for Node apps) or a `.version` file, and automate updates via Git hooks or CI/CD scripts.
 
-##### 5.2 **Service Workers and PWA Versioning**
+##### 6.2 **Service Workers and PWA Versioning**
 
 Progressive Web Apps rely on a **service worker** for offline capabilities and caching static assets. Adjusting the service worker’s cache name and version ensures users get fresh assets when you release updates:
 
@@ -340,7 +416,7 @@ Progressive Web Apps rely on a **service worker** for offline capabilities and c
     
     - Prompt the user or automatically update to the new service worker when available. This ensures they’re never stuck on an old version.
 
-##### 5.3 **Cache-Busting in a PHP Application**
+##### 6.3 **Cache-Busting in a PHP Application**
 
 Some environments, especially on iOS (notably iPad), aggressively cache resources, even ignoring cache headers. One effective workaround is to **append a version query parameter** to the asset URLs:
 
@@ -360,7 +436,10 @@ HTML;
 
 > **Note**: Since iPad can ignore certain HTTP caching headers, adding a query parameter ensures that the **URL** itself changes, invalidating old caches.
 
-##### 5.4 **Create React App (CRA) and Vite Hash Filenames**
+##### 6.4 **Aggressive Caching on iPad**:
+- Refer to previous section on Cache-Busting in PHP Application if applicable to you. If it's CRA or Vite or PWA, iPad will respect their versioning. Otherwise, you have to use versioning in the script and link url's, which is tedious and does add noise to git diffs and code reviews. However, for the tedious part, you can run a sed command in terminal to replace the url versions across project files.
+
+##### 6.5 **Create React App (CRA) and Vite Hash Filenames**
 
 Modern JavaScript build tools like **CRA** (Webpack under the hood) and **Vite** (Rollup/Esbuild) **automatically** handle filename hashing for you:
 
@@ -375,7 +454,7 @@ Modern JavaScript build tools like **CRA** (Webpack under the hood) and **Vite**
     - You can customize or **disable** hashing in your `vite.config.js`, but it is highly recommended to keep hashing for robust cache-busting.
     - Similarly, you can define `import.meta.env.VITE_APP_VERSION` or a custom environment variable, referencing it in the code to keep track of the current version.
 
-##### 5.5 **Combining Git Versioning with Asset Hashing**
+##### 6.6 **Combining Git Versioning with Asset Hashing**
 
 Even with automated filename hashing, aligning your app’s “human-readable” version (e.g., `1.2.3`) to your Git repository helps with:
 
@@ -383,7 +462,7 @@ Even with automated filename hashing, aligning your app’s “human-readable”
 - **Rollbacks**: If you need to roll back a release, you can easily identify which version to deploy.
 - **Debugging**: Logging the version in your JS console or showing it on the UI can expedite troubleshooting.
 
-##### 5.6 **Key Takeaways for Versioning and Caching**
+##### 6.7 **Key Takeaways for Versioning and Caching**
 
 1. **Align Versions with Git**: Keep your app’s version in sync with repository tags or commit hashes for traceability.
 2. **Leverage Automatic Hashing**: Tools like CRA and Vite handle hashed filenames, ensuring browsers fetch updated assets.
@@ -394,7 +473,7 @@ Even with automated filename hashing, aligning your app’s “human-readable”
 By employing these approaches, you’ll have a **consistent, reliable versioning** scheme that keeps your application code and assets **fresh**, mitigating the quirks of aggressive caching—particularly on iOS devices—and ensuring smooth user experiences.
 
 ---
-#### 6. **Secure Coding Practices**
+#### 7. **Secure Coding Practices**
 
 Implement secure coding practices to protect applications from vulnerabilities:
 
@@ -406,38 +485,11 @@ Implement secure coding practices to protect applications from vulnerabilities:
     - **Environment Variables**: Use environment variables to store sensitive data like API keys, tokens, or database credentials.
     - **Secret Management Tools**: Utilize tools like **AWS Secrets Manager**, **HashiCorp Vault**, or **Azure Key Vault** for secure storage and rotation of secrets.
     - **Best Practices**: Never hard-code secrets in your source code. Add `*.env` or equivalent files to `.gitignore` to prevent accidental exposure.
-- **OWASP Top 10**: Regularly review OWASP recommendations for common security risks.
+	    - High level developers may casually call it the **secrets layer**.
+	    - You can have git pushes/pulls decrypt/encrypt, simplifying secret sharing with internal team, but making sure Github does not have exposure to it. That is one approach https://medium.com/@slimm609/securely-storing-secrets-in-git-542771d3ed8c
+- **Keep up to date on security practices**: 
+	- OWASP Top 10 - Regularly review OWASP recommendations for common security risks.
 
-#### 7. **Commit Message Guidelines**
-
-Use a consistent format for commit messages to improve readability and collaboration:
-
-- **Format**: `type(scope): short description` (e.g., `feat(auth): add login form validation`).
-- **Types**: Common types include `feat`, `fix`, `chore`, `docs`, `style`, and `test`.
-
-#### 8. **Lint and Prettier Configuration**
-
-- **Linting**: Use **ESLint** (JavaScript/TypeScript) or **Pylint** (Python) with a shared configuration to enforce coding standards.
-- **Prettier**: Standardize code formatting with Prettier. Example `.prettierrc`:
-
-```json
-{
-  "semi": true,
-  "singleQuote": true,
-  "trailingComma": "es5",
-  "tabWidth": 2,
-  "printWidth": 80
-}
-```
-
-#### 9. **Scaling Strategies**
-
-To build scalable applications, implement strategies like:
-
-- **Worker Threads**: Offload CPU-intensive tasks to worker threads (e.g., Node.js `worker_threads` or Python `multiprocessing`).
-- **Asynchronous Processing**: Use message queues like **RabbitMQ** or **Kafka** to handle high workloads asynchronously.
-- **Load Balancing**: Distribute requests across multiple instances using load balancers like **NGINX** or **AWS ELB**.
-- **Horizontal Scaling**: Add instances to handle increased traffic (e.g., Kubernetes for container orchestration).
 
 ---
 

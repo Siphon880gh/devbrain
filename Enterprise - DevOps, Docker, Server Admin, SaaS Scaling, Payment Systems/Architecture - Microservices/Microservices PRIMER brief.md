@@ -1,6 +1,4 @@
-
-
-Consider breaking your app into parts called microservices. That allows you to allocate one part more to cpu and another part more to concurrency, eg respectively: video generator and api. For the microservices to communicate with each other, you give them ports
+Consider breaking your full-stack app into parts called microservices. That allows you to allocate one part more to cpu and another part more to concurrency, eg respectively: video generator and api. For the microservices to communicate with each other, you give them ports.
 
 You can use tools like gunicorn (if python code) to achieve this
 
