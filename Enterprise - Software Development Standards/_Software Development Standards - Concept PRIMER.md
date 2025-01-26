@@ -16,51 +16,52 @@ The Role of Standards in Modern Software Development
 What Are the Software Development Standards?
 1. **Tooling Standards**
 	- 1.1 Code Standards
-	- 1.2. **Lint and Prettier Configuration**
-	- 1.3. **VS Code Settings**
-		- **What to Include in Shared Settings**
-		- **Best Practices for Sharing VS Code Settings**
-	- 1.4. **Commit Message Guidelines**
+	- 1.2. Lint and Prettier Configuration
+	- 1.3. VS Code Settings
+		- What to Include in Shared Settings
+		- Best Practices for Sharing VS Code Settings
+	- 1.4. Commit Message Guidelines
 	- 1.5 Branching and Merging Strategies
-	- 1.6 **Testing Framework Standards**
+	- 1.6 Testing Framework Standards
 		- Node.js
 		- Python
 		- Common Testing Standards
 	- 1.6 Logging Standards
 2. **Styling**
-	- 2.1. **BEM, CSS Preprocessors, White-Labeling, Z-Index Conventions**
-	- 2.2. **z-index Magnitudes and Layering**
-3. **Responsive Design and Device Compatibility** 
+	- 2.1. BEM, CSS Preprocessors
+	- 2.2. Generated Style Guide, White-Labeling
+	- 2.3. z-index Magnitudes and Layering
+1. **Responsive Design and Device Compatibility** 
 	- 3.1. Embrace a Mobile-First Approach 
 	- 3.2. Use Media Queries Strategically 
 	- 3.3. iOS and Safari Quirks
 	- 3.4. Avoiding JavaScript & HTML Quirks in Responsiveness 
 	- 3.5. Testing Across Real Devices 
 	- 3.6. Key Takeaways for Responsive Standards
-4. **Code Design Standards**
-	- 4.1 **Algorithms and Data Structures**
-	- 4.2 **Design Patterns for Maintainable Code**
-	- 4.3 **Object-Oriented Programming (OOP)**
-	- 4.4 **JavaScript Modules**
-	- 4.5 **MVC or Other Architectural Patterns**
-	- 4.6 **State Management**
-	- 4.7 **Module Initialization and Event Binding**
-5. **Scaling Strategies**
+2. **Code Design Standards**
+	- 4.1 Algorithms and Data Structures
+	- 4.2 Design Patterns for Maintainable Code
+	- 4.3 Object-Oriented Programming (OOP)
+	- 4.4 JavaScript Modules
+	- 4.5 MVC or Other Architectural Patterns
+	- 4.6 State Management
+	- 4.7 Module Initialization and Event Binding
+3. **Scaling Strategies**
 	- 5.1 Fetch vs SSE vs WebSockets
 	- 5.2. N-tier architecture
 	- 5.3 Microservice architecture if needed
 	- 5.4. Server level Scaling
 	- 5.5. Consistent Environment
 	- 5.6. Persistent Services
-6. **Versioning and Caching**
-	- 6.1 **Aligning Versioning with Git Commits**
-	- 6.2 **Service Workers and PWA Versioning**
-	- 6.3 **Cache-Busting in a PHP Application**
-	- 6.4 **Aggressive Caching on iPad**:
-	- 6.5 **Create React App (CRA) and Vite Hash Filenames**
-	- 6.6 **Combining Git Versioning with Asset Hashing**
-	- 6.7 **Key Takeaways for Versioning and Caching**
-7. **Secure Coding Practices**
+4. **Versioning and Caching**
+	- 6.1 Aligning Versioning with Git Commits
+	- 6.2 Service Workers and PWA Versioning
+	- 6.3 Cache-Busting in a PHP Application
+	- 6.4 Aggressive Caching on iPad:
+	- 6.5 Create React App (CRA) and Vite Hash Filenames
+	- 6.6 Combining Git Versioning with Asset Hashing
+	- 6.7 Key Takeaways for Versioning and Caching
+5. **Secure Coding Practices**
 	- 7.1. CMS, Web Panels, etc
 	- 7.2.Dot env
 	- 7.3. Persistent Login
@@ -78,7 +79,7 @@ Readable and maintainable code begins with consistent formatting. Standards defi
 
 - **Naming Conventions**: Adopt clear and consistent naming conventions for variables, functions, files, and classes (e.g., `camelCase` for JavaScript or `PascalCase` for React components).
 - **Directory Structure**: Define a logical and scalable directory layout to organize files by functionality (e.g., `src/`, `tests/`, `components/`).
-- JavaScript Commenting Guidelines: Commenting is vital for code maintainability and readability. Follow these guidelines:
+- JavaScript Commenting and Documentation Guidelines: Commenting is vital for code maintainability and readability. Follow these guidelines:
 	- **Purposeful Comments**: Add comments only where the intent of the code might not be immediately obvious. Avoid redundant comments that restate the code.
 	- **Consistent Format**: Use block comments (`/* */`) for documentation and inline comments (`//`) sparingly for clarifications.
 	- **JSDoc for Automation**: Use JSDoc to automate documentation generation and improve consistency. Example:
@@ -283,7 +284,7 @@ For either NodeJS or Python, you may want to log to a folder outside of the app 
 ---
 #### 2. **Styling**
 
-##### 2.1. **BEM, CSS Preprocessors, White-Labeling, Z-Index Conventions**
+##### 2.1. **CSS Class Naming Convention, CSS Preprocessors
 
 A standardized approach to CSS ensures consistent styling across projects while providing flexibility for scaling and maintainability:
 
@@ -291,12 +292,16 @@ A standardized approach to CSS ensures consistent styling across projects while 
     
     - **BEM**: `card__header--highlighted`
     - **Utility-First**: `bg-blue-500 text-white rounded-lg`
-- **Generated Style Guides**: Use tools like **Style Dictionary** or **Storybook** to document and visualize reusable styles and components.
   
 - **CSS Preprocessors**: Use tools like **SASS** or **LESS** to simplify CSS management. These preprocessors enable features such as variables, nesting, and mixins, making the code more modular and maintainable.
     - **Compass**: For projects using SASS, consider integrating **Compass**, a powerful CSS authoring framework that adds utility functions, mixins, and best practices.
 	- **Precompiled CSS**: Establish an agreed standard for precompiling styles during the build process, ensuring faster load times and consistent delivery. This approach integrates well with CI/CD pipelines.
-    
+##### 2.2  Generated Style Guide, White-Labeling
+- **Generated Style Guide**: 
+	- A Generated Style Guide serves as a webpage that showcases the design elements of a website, such as heading sizes, font pairings, color themes, and more. It can also include class names and reusable components like buttons.
+	- This tool is invaluable for verifying how your CSS variables and classes work together. By swapping out CSS files, you can ensure that color priorities and relationships remain consistent across the design system.
+	- You can also consider tools like **Style Dictionary** or **Storybook** to document and visualize reusable styles and components.
+
 - **White-Labeling**: If future white-labeling is a possibility, design CSS with flexibility in mind:
     
     - Use **CSS variables** or SASS variables for branding elements like colors, typography, and logos, making it easy to rebrand the application. Example:
@@ -313,15 +318,13 @@ A standardized approach to CSS ensures consistent styling across projects while 
 	```
         
     - Abstract styles for core components (e.g., buttons, headers) into reusable, themable classes or mixins.
-        
-##### Key Considerations for Future White-Labeling
+    - Key Considerations for Future White-Labeling
+		1. **Dynamic Theming**: Use runtime theming solutions (e.g., CSS variables or React Context APIs) to allow customers to customize their brand-specific look and feel dynamically.
+		2. **Component Encapsulation**: Keep components encapsulated and separate style-related logic to minimize the risk of unwanted overrides during white-labeling.
+		3. **Modular Architecture**: Structure CSS files and SASS partials for modularity, allowing easy overrides and adjustments for individual themes.
+		4. **Branding Tokenization**: Define tokens for branding elements (e.g., `$button-primary-color`, `$header-font-size`) to make rebranding as simple as updating a configuration file.
 
-1. **Dynamic Theming**: Use runtime theming solutions (e.g., CSS variables or React Context APIs) to allow customers to customize their brand-specific look and feel dynamically.
-2. **Component Encapsulation**: Keep components encapsulated and separate style-related logic to minimize the risk of unwanted overrides during white-labeling.
-3. **Modular Architecture**: Structure CSS files and SASS partials for modularity, allowing easy overrides and adjustments for individual themes.
-4. **Branding Tokenization**: Define tokens for branding elements (e.g., `$button-primary-color`, `$header-font-size`) to make rebranding as simple as updating a configuration file.
-
-##### 2.2. **z-index Magnitudes and Layering**
+##### 2.3. **z-index Magnitudes and Layering**
 
 When multiple UI elements (e.g., dropdowns, tooltips, modals) overlap, a clear **z-index** policy helps avoid unintended collisions and maintain predictable layering:
 
