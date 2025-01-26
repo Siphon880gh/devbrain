@@ -47,7 +47,7 @@ In today’s fast-paced software development environment, standards are essentia
 	- 6.1 Aligning Versioning with Git Commits
 	- 6.2 Service Workers and PWA Versioning
 	- 6.3 Cache-Busting in a PHP Application
-	- 6.4 Aggressive Caching on iPad:
+	- 6.4 Aggressive Caching on iPad
 	- 6.5 Create React App (CRA) and Vite Hash Filenames
 	- 6.6 Combining Git Versioning with Asset Hashing
 	- 6.7 Key Takeaways for Versioning and Caching
@@ -390,7 +390,7 @@ iOS Safari can behave unpredictably with fixed elements, `overflow` properties, 
 - **Viewport Meta Tag**: Always include `<meta name="viewport" content="width=device-width, initial-scale=1.0">` in your HTML to ensure proper scaling.
 - **Fixed Positioning**: If you have fixed or sticky headers and footers, test thoroughly on iOS Safari to avoid scrolling or zoom issues. Consider using `position: sticky; top: 0;` where possible.
 - **Double Tap Zoom**: iOS may zoom in when tapping elements quickly. Setting appropriate font sizes (16px or above) and using the `viewport` meta tag helps mitigate this behavior. Refer to [[Preventing iOS Double-Tap Zoom with the Viewport Meta Tag]]
-- **Aggressive Caching on iPad**:
+- **Aggressive Caching on iPad**
     - Use **Cache-Control** headers or versioned file names (`styles.v2.css`) to manage updates properly.
     - For rapid iteration or debugging, temporarily disable client-side caching with no-store directives.
     - Refer to [[iPad Safari aggressively caches - 2. How to mitigate]]
