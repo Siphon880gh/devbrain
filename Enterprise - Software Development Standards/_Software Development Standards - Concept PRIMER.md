@@ -1,5 +1,14 @@
 Aka Get Started
 
+
+### Note on leading teams
+
+You may want to create a repository of the standards when you're starting a new project and team. It makes sure everyone has the same environments. The repo could contain scripts, eg. that new developer who just joined the team can run a script that seeds their database so their baseline database is the same as everyone else's on the team. The repository could contain seed files, package.json, gitignore's, etc.
+
+
+---
+
+
 ### Intro
 
 In today’s fast-paced software development environment, standards are essential for ensuring quality, consistency, and scalability. They provide clear guidelines for teams to build reliable software, foster collaboration, and align projects with organizational goals. By promoting best practices, standards also help mitigate coding errors, reduce technical debt, and avoid common pitfalls. This article delves into key software development standards, best practices, and tools to streamline workflows and drive success.
