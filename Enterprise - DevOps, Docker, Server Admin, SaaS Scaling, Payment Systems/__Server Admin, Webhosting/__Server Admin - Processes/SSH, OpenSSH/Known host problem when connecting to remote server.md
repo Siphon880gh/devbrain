@@ -10,12 +10,12 @@ Error could also be scary like this:
 **Explanation:**
 Inside your ~/.ssh folder not only contains ssh private keys and public keys, but may also contain known_hosts
 
-TheÂ `known_hosts`Â file on your local machine contains a list of host keys for remote servers (hosts) that you have previously connected to using SSH. Each entry in theÂ `known_hosts`Â file corresponds to a remote server and includes the server's hostname or IP address and its associated public key.
+The `known_hosts` file on your local machine contains a list of host keys for remote servers (hosts) that you have previously connected to using SSH. Each entry in the `known_hosts` file corresponds to a remote server and includes the server's hostname or IP address and its associated public key.
 
-When you connect to a remote server using SSH, the SSH client checks the server's public key against the keys stored in theÂ `known_hosts`Â file to verify the server's identity. Why? This is to prevent man-in-the-middle attack where the wireless network you connected is a hacker's that will act like certain servers to intercept your login credentials etc.
+When you connect to a remote server using SSH, the SSH client checks the server's public key against the keys stored in the `known_hosts` file to verify the server's identity. Why? This is to prevent man-in-the-middle attack where the wireless network you connected is a hacker's that will act like certain servers to intercept your login credentials etc.
 
 
-If the key presented by the server matches the key stored in theÂ `known_hosts`Â file, the connection proceeds without any warnings. If there is a discrepancy, SSH will issue a warning or error. However it is possible that your remote server has changed some server settings (Like Hostinger has done)
+If the key presented by the server matches the key stored in the `known_hosts` file, the connection proceeds without any warnings. If there is a discrepancy, SSH will issue a warning or error. However it is possible that your remote server has changed some server settings (Like Hostinger has done)
 
   
 **Solution:**

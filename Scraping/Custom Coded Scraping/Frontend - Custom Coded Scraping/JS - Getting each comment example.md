@@ -3,21 +3,21 @@ var arr = [];
 
 document.querySelectorAll(".recent-discussion-message").forEach(el=>{
 
-    var parsed = el.textContent;
+    var parsed = el.textContent;
 
-    parsed = parsed.replaceAll("\n", "");
+    parsed = parsed.replaceAll("\n", "");
 
-    parsed = parsed.replaceAll(/[\s]{2,}/g, " ");
+    parsed = parsed.replaceAll(/[\s]{2,}/g, " ");
 
-    parsed = parsed.trim()
+    parsed = parsed.trim()
 
-    arr.push(parsed)
+    arr.push(parsed)
 
 })
 
 for(var i = 0; i<arr.length; i++) {
 
-    console.log(arr[i]);
+    console.log(arr[i]);
 
 }
 ```

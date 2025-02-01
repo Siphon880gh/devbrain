@@ -1,6 +1,6 @@
 An implementation of AMD pattern (https://2022.training.plone.org/javascript/requirejs-modules.html) ([[Pattern - AMD]])
 
-There is no need for any globals anymore (except for the `define` and `require` methods)!
+There is no need for any globals anymore (except for the `define` and `require` methods)!
 
 By using a combination of define, require, and callback, you can dictate what loads first.
 

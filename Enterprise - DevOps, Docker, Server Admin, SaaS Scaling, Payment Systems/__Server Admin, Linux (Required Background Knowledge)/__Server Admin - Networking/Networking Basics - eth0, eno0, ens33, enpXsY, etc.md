@@ -1,26 +1,26 @@
 
 ## Old vs New
 
-Eg. In older Linux distributions or in certain environments, the network interface that is called `eno2` on your current system might have been named `eth1` instead. 
+Eg. In older Linux distributions or in certain environments, the network interface that is called `eno2` on your current system might have been named `eth1` instead. 
 ### Naming Conventions:
 
 - **`ethX` Naming:**
 
-   - **Traditional Naming:** Older versions of Linux used `eth0`, `eth1`, etc., to name Ethernet interfaces in the order they were detected by the system.
+   - **Traditional Naming:** Older versions of Linux used `eth0`, `eth1`, etc., to name Ethernet interfaces in the order they were detected by the system.
 
-   - **Consistency Issues:** This naming could change depending on the order in which devices were detected at boot, leading to inconsistencies, especially in systems with multiple network interfaces.
+   - **Consistency Issues:** This naming could change depending on the order in which devices were detected at boot, leading to inconsistencies, especially in systems with multiple network interfaces.
 
 - ** `enoX` and `enpXsY` Naming:**
 
-   - **Predictable Network Interface Names:** Modern Linux distributions, including recent versions of Debian and Ubuntu, have moved to a more predictable naming convention like `enpXsY`, `enoX`, etc., where:
+   - **Predictable Network Interface Names:** Modern Linux distributions, including recent versions of Debian and Ubuntu, have moved to a more predictable naming convention like `enpXsY`, `enoX`, etc., where:
 
-     - `en` stands for Ethernet.
-     - `pX` indicates the PCI bus number.
-     - `sY` indicates the slot number on the bus.
-     - `enoX` typically indicates onboard Ethernet devices.
+     - `en` stands for Ethernet.
+     - `pX` indicates the PCI bus number.
+     - `sY` indicates the slot number on the bus.
+     - `enoX` typically indicates onboard Ethernet devices.
 
-   - **Stability:** These names are stable and don't change based on device detection order, which improves consistency across reboots and hardware changes.
-   
+   - **Stability:** These names are stable and don't change based on device detection order, which improves consistency across reboots and hardware changes.
+   
 - Depends on older vs newer Linux: So, in environments or systems that still use the older naming convention, your `eno2` interface might indeed have been referred to as `eth1`.
 
 ---
@@ -67,9 +67,9 @@ The `ens33` naming convention follows the **predictable network interface names*
 
 - **PCI Slot-Based Naming:**
 
-  - `s33` typically refers to the slot or path on the PCI bus where the network interface is located.
+  - `s33` typically refers to the slot or path on the PCI bus where the network interface is located.
 
-  - The numbering (`33` in this case) reflects the order or a specific identifier for that network device within the system.
+  - The numbering (`33` in this case) reflects the order or a specific identifier for that network device within the system.
 
 
 ### **Comparison to Other Naming Conventions:**

@@ -15,11 +15,11 @@ To turn off all builds on Heroku, you can follow these steps:
 
   
 
-   ```shell
+   ```shell
 
-   heroku login
+   heroku login
 
-   ```
+   ```
 
   
 
@@ -27,11 +27,11 @@ To turn off all builds on Heroku, you can follow these steps:
 
   
 
-   ```shell
+   ```shell
 
-   cd /path/to/your/app
+   cd /path/to/your/app
 
-   ```
+   ```
 
   
 
@@ -39,15 +39,15 @@ To turn off all builds on Heroku, you can follow these steps:
 
   
 
-   ```shell
+   ```shell
 
-   heroku builds:disable
+   heroku builds:disable
 
-   ```
+   ```
 
   
 
-   This command will disable all automatic builds triggered by Heroku's build system.
+   This command will disable all automatic builds triggered by Heroku's build system.
 
   
 

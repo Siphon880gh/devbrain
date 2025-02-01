@@ -88,12 +88,12 @@ The building blocks (*) are the 0, 1, 2, 4
 
 
 Explained the math:
-- **4**Â stands for "read",
-- **2**Â stands for "write",
-- **1**Â stands for "execute", and
-- **0**Â stands for "no permission."
+- **4** stands for "read",
+- **2** stands for "write",
+- **1** stands for "execute", and
+- **0** stands for "no permission."
 
-SoÂ **7**Â is the combination of permissionsÂ **4**+**2**+**1**Â (read, write, and execute),Â **5**Â isÂ **4**+**0**+**1**Â (read, no write, and execute), andÂ **4**Â isÂ **4**+**0**+**0**Â (read, no write, and no execute).
+So **7** is the combination of permissions **4**+**2**+**1** (read, write, and execute), **5** is **4**+**0**+**1** (read, no write, and execute), and **4** is **4**+**0**+**0** (read, no write, and no execute).
 
 Fundamentally remember 0 is no permissions, and that 2 and 4 are write and read, respectively. The lower number 2 is chosen as write, so 3, 6, and 7 include write permission. The higher number 4 is chosen as read, so 5, 6, and 7 include read permissions. Consequently, 6 has both read and write. Because 1 is execute (remember executing on directory lists all the files), then the odd numbers have execute: 1,3,5,7.
 
@@ -118,12 +118,12 @@ Fundamentally remember 0 is no permissions, and that 2 and 4 are write and read,
 ---
 
 SSH popular recommend
-- `.ssh`Â directory:Â `700 (drwx------)`
-- private key (`id_rsa`):Â `600 (-rw-------)`
-- public key (`.pub`Â file):Â `644 (-rw-r--r--)`
+- `.ssh` directory: `700 (drwx------)`
+- private key (`id_rsa`): `600 (-rw-------)`
+- public key (`.pub` file): `644 (-rw-r--r--)`
 - config key should be: `600` (-rw-------)
 - authorized_keys file should be chmod'd to 640 (-rw-r----)
-- your home directory should not be writeable by the group or others (at mostÂ `755 (drwxr-xr-x)`.
+- your home directory should not be writeable by the group or others (at most `755 (drwxr-xr-x)`.
 
 The important things are that nothing in .ssh is writeable to anyone else and none of the secret keys are readable to anyone else. **Execute permission on a directory** grants the ability to list immediate child files/dirs of that directory, files inside the folder don't "inherit" the execute bit of their parent folder
 

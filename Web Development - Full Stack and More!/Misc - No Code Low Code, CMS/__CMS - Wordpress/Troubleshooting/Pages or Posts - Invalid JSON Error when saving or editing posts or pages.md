@@ -7,7 +7,7 @@ https://www.wpbeginner.com/wp-tutorials/how-to-fix-the-invalid-json-error-in-wor
 
 ## Briefly (go to url for details)
 
-#### Â Check WordPress URLs in Settings
+####  Check WordPress URLs in Settings
 The URLs in most cases should be the same url to the folder and including the folder that has the wp-config.php
 #### Fix Wordpress Permalink Structure
 

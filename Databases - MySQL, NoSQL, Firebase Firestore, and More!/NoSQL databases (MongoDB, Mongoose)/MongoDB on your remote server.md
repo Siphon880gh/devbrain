@@ -165,7 +165,7 @@ mongodb://admin:admin1Password@domain.com:27017/?authSource=admin
 If that fails with this:
 ![](TqcR8mk.png)
 
-It's because your server uses an old Mongo. The oldest compass that was still compatible wasÂ version 1.29.5:
+It's because your server uses an old Mongo. The oldest compass that was still compatible was version 1.29.5:
 https://stackoverflow.com/questions/71167180/cannot-connect-to-my-mongodb-using-compass-tool-after-upgrading-from-1-25-to-1-3
 
 

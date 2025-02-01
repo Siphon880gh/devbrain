@@ -1,4 +1,4 @@
-Nginx version **1.7.0** or higher has variables like (in this example `app/**`  public url serves files from `app.test/**` ):
+Nginx version **1.7.0** or higher has variables like (in this example `app/**`  public url serves files from `app.test/**` ):
 ```
 # Process PHP files under /app/<appname>/  
 location ~ ^/app/(?<appname>[^/]+)/(?<phpfile>.*\.php)$ {  
@@ -12,6 +12,6 @@ location ~ ^/app/(?<appname>[^/]+)/(?<phpfile>.*\.php)$ {
 ```
 
 
-`sudo nginx -v`  to get version of your nginx
+`sudo nginx -v`  to get version of your nginx
 
 Note CloudPanel as of 11/2024 uses an older nginx 1.21.4

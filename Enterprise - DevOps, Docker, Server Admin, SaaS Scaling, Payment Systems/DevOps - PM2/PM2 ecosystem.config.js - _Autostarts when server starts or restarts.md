@@ -10,7 +10,7 @@ However pm2 ecosystem actually has a lot of "catch-you's" that make their offici
 
 The robust solution is to guarantee using the Makefile as the source of all truth of how to select the nodejs version for pm2 and how to run pm2 ecosystem.config.js 
 
-Firstly, if you had pm2 startup generated, run: `pm2 unstartup`
+Firstly, if you had pm2 startup generated, run: `pm2 unstartup`
 
 Create a makefile if haven't yet, in the same folder as ecosystem.config.js. The make script will restart pm2 in the desired nodejs version based on installed nvm path. Here we create a make script called "restart"
 

@@ -3,7 +3,7 @@
 
 [Section titled Component Structure](https://docs.astro.build/en/core-concepts/astro-components/#component-structure)
 
-An Astro component is made up of two main parts: the **Component Script** and the **Component Template**. Each part performs a different job, but together they provide a framework that is both easy to use and expressive enough to handle whatever you might want to build.
+An Astro component is made up of two main parts: the **Component Script** and the **Component Template**. Each part performs a different job, but together they provide a framework that is both easy to use and expressive enough to handle whatever you might want to build.
 
 src/components/EmptyComponent.astro
 

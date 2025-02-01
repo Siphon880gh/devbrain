@@ -6,21 +6,21 @@ To start the first column in a row at an offset of 4 columns from the left in Bo
 
 <div class="container">
 
-  <div class="row">
+  <div class="row">
 
-    <div class="col-4 offset-4">
+    <div class="col-4 offset-4">
 
-      <!-- Your content for the first column here -->
+      <!-- Your content for the first column here -->
 
-    </div>
+    </div>
 
-    <div class="col">
+    <div class="col">
 
-      <!-- Your content for the remaining columns here -->
+      <!-- Your content for the remaining columns here -->
 
-    </div>
+    </div>
 
-  </div>
+  </div>
 
 </div>
 

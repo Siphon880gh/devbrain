@@ -7,12 +7,12 @@ For a deep dive into chmod file permissions:
 
 
 SSH popular recommend
-- `.ssh` directory: `700 (drwx------)`
-- private key (`id_rsa`): `600 (-rw-------)`
-- public key (`.pub` file): `644 (-rw-r--r--)`
+- `.ssh` directory: `700 (drwx------)`
+- private key (`id_rsa`): `600 (-rw-------)`
+- public key (`.pub` file): `644 (-rw-r--r--)`
 - config key should be: `600` (-rw-------)
 - authorized_keys file should be chmod'd to 640 (-rw-r----)
-- your home directory should not be writeable by the group or others (at most `755 (drwxr-xr-x)`.
+- your home directory should not be writeable by the group or others (at most `755 (drwxr-xr-x)`.
 
 
 The important things are that nothing in .ssh is writeable to anyone else and none of the secret keys are readable to anyone else. **Execute permission on a directory** grants the ability to list immediate child files/dirs of that directory, files inside the folder don't "inherit" the execute bit of their parent folder

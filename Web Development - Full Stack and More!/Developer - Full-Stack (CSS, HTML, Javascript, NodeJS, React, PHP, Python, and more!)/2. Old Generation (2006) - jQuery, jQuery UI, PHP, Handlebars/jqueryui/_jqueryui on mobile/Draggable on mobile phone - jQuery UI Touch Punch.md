@@ -61,4 +61,4 @@ By following these steps, you should be able to drag and reposition elements on 
 
 ## All you need is the library
 
-Yes, including the jQuery UI Touch Punch library is typically all you need to enable touch support for jQuery UI interactions like draggable, resizable, sortable, and selectable. The library works by converting touch events into mouse events, so no additional JavaScript configuration is usually necessary beyond what you would normally do for jQuery UI.
+Yes, including the jQuery UI Touch Punch library is typically all you need to enable touch support for jQuery UI interactions like draggable, resizable, sortable, and selectable. The library works by converting touch events into mouse events, so no additional JavaScript configuration is usually necessary beyond what you would normally do for jQuery UI.

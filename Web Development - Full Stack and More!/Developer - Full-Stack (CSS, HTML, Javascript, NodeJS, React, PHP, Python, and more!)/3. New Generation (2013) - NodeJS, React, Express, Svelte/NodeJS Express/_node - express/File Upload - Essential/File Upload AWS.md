@@ -59,7 +59,7 @@ AWS.config.update({
 ^ You should have them as .env files that are gitignored and not pushed to your repository
 
 EXPLANATION (DONT HAVE TO COPY THIS CODE)
-When handling an image upload request, use the S3Â `putObject`Â method to upload the image to your bucket:
+When handling an image upload request, use the S3 `putObject` method to upload the image to your bucket:
 ```
 const s3 = new AWS.S3();
 

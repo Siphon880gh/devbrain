@@ -74,4 +74,4 @@ const ShareUI = ({ url }) => {
 
   
   
-UseÂ `<ShareUI url={url}/>`Â  in your component. The url is what copies and shares
+Use `<ShareUI url={url}/>`  in your component. The url is what copies and shares

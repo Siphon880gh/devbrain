@@ -60,7 +60,7 @@ Make sure column G to I are cleared. Sometimes a commit message gets partially p
 
 3. **Add your preferred dates**
     
-- Add a column to the right.Â  This is column G. You can name it "PreferredDate" if you want a header row for this column.
+- Add a column to the right.  This is column G. You can name it "PreferredDate" if you want a header row for this column.
 - Copy date values there, choosing either "Author" or "Commit" to copy from.
 	- Paste special -> Values only.
 - Plan on the dates and times you want.
@@ -329,7 +329,7 @@ Ambiguous warnings: Warnings are actually fatal errors.They stop the date rewrit
 
 If `WARNING: Ref 'refs/heads/main is unchanged` , likely your hash is wrong or you are using the short hash which is wrong. You need the long SHA-1 Hash([https://stackoverflow.com/questions/454734/how-can-one-change-the-timestamp-of-an-old-commit-in-git](https://stackoverflow.com/questions/454734/how-can-one-change-the-timestamp-of-an-old-commit-in-git))
 
-If `Warning: previous backup already exists in refs/original/.... Force overwriting the backup with -f`Â  will ignore your new commit dates rewriting too. But that's prevented by adding a -f already
+If `Warning: previous backup already exists in refs/original/.... Force overwriting the backup with -f`  will ignore your new commit dates rewriting too. But that's prevented by adding a -f already
 
 ---
 

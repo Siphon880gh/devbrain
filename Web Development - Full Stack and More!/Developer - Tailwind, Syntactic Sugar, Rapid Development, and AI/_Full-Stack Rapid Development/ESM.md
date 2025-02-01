@@ -1,4 +1,4 @@
-esm.sh is a modern CDN that allows you to import [es6 modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) from a URL:
+esm.sh is a modern CDN that allows you to import [es6 modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) from a URL:
 
 ```javascript
 import Module from "https://esm.sh/PKG@SEMVER[/PATH]";

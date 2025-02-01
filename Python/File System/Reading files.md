@@ -26,7 +26,7 @@ with open("hello.txt") as my_file:
 ---
 
 
-Unlike `open()` where you have to close the file with the `close()` method, the `with` statement closes the file for you without you telling it to.
+Unlike `open()` where you have to close the file with the `close()` method, the `with` statement closes the file for you without you telling it to.
 
 
 ---

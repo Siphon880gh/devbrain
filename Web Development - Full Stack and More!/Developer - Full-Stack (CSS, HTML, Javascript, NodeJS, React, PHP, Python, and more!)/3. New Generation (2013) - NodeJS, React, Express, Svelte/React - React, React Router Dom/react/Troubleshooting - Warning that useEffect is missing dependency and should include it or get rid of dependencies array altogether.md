@@ -17,7 +17,7 @@ useEffect(() => {
 
 By adding `fetchBusinesses` to the dependency array, React will re-run the effect whenever the `fetchBusinesses` function changes (e.g., when the component re-renders).
 
-2. **Remove the dependency by wrapping the function in a `useCallback` hook**:
+2. **Remove the dependency by wrapping the function in a `useCallback` hook**:
 
 
 ```

@@ -7,7 +7,7 @@ Where:
 - i is called the **index of summation**.
 - a is the **starting value** of the index.
 - b is the **ending value** of the index.
-- f(i) is some function of �i that we're summing over.
+- f(i) is some function of  i that we're summing over.
 - 
 This notation simply represents the sum of the values of the function f(i) for each integer value of i from a to b.
 

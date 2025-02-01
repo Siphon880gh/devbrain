@@ -16,7 +16,7 @@ Left side icon content is from logo=github
 Left side foreground color is from logoColor=white
 Left side background color is from labelColor=darkgray
 Right side text and background is from `https://img.shields.io/badge/`\_\_`?style`
-Style can be: [`flat`,Â `flat-square`,Â `plastic`,Â `for-the-badge`,Â `social`]
+Style can be: [`flat`, `flat-square`, `plastic`, `for-the-badge`, `social`]
 
 ---
 

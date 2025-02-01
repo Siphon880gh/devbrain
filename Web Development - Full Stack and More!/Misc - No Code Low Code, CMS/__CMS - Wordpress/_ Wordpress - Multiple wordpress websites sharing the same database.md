@@ -24,19 +24,19 @@ So when setting up multiple WordPress installations using the same database, you
 
 So you could have wordpress websites at https://domain.tld/site1 and https://domain.tld/site2, and if you look at MySQL shell or PHPMyAdmin (Interface for MySQL), you see one database but with tables differentiated by the prefix that represents your site1 (let's say wp_) and site2 (let's say ai_) under the same database (which could be wp_wordpress_test if following the same screenshot above):
 ```
-Â  Â - `wp_posts`
+   - `wp_posts`
 
-Â  Â - `wp_users`
+   - `wp_users`
 
-Â  Â - `wp_options`
+   - `wp_options`
 
-Â  Â - ...
+   - ...
 
-Â  Â - `ai_posts`
+   - `ai_posts`
 
-Â  Â - `ai_users`
+   - `ai_users`
 
-Â  Â - `ai_options`
+   - `ai_options`
 
-Â  Â - ...
+   - ...
 ```

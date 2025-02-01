@@ -5,7 +5,7 @@ xl vcpu-set vps0 8
 xl mem-set vps0 27648
 ```
 
-^Note that memory is in megabytes. Eg. 1 GB = 1024 MB. So, 27 GB = 27 × 1024 MB = 27,648 MB.
+^Note that memory is in megabytes. Eg. 1 GB = 1024 MB. So, 27 GB = 27   1024 MB = 27,648 MB.
 
 ---
 

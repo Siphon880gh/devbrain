@@ -194,7 +194,7 @@ https://www.youtube.com/watch?v=rsxT4FfRBaM
 ^ Those 128 64 32 16 8 4 2 1 are from:
 2^7, ,2^6, 2^5, 2^4, 2^3, 2^2, 2^1, 2^0
 
-^ 2^7=128 represents the total number of possible permutations (or combinations) of bits when you have 7 bits. Each bit can be either a 0 or a 1, and with 7 bits, you can create 128 different combinations ranging from `0000000` to `1111111`. This is because each additional bit doubles the number of possible combinations, following the formula 2�2n, where �n is the number of bits.
+^ 2^7=128 represents the total number of possible permutations (or combinations) of bits when you have 7 bits. Each bit can be either a 0 or a 1, and with 7 bits, you can create 128 different combinations ranging from `0000000` to `1111111`. This is because each additional bit doubles the number of possible combinations, following the formula 2 2n, where  n is the number of bits.
 
 Most significant bit (the left most)
 

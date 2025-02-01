@@ -23,7 +23,7 @@ module.exports = {
 };
 ```
 
-To ensure the application runs in **production mode** with `pm2` using the environment variables defined under `env_production`, you need to start or reload the application with the `--env production` flag.
+To ensure the application runs in **production mode** with `pm2` using the environment variables defined under `env_production`, you need to start or reload the application with the `--env production` flag.
 
 DO NOT rely on the server's env variables to have Node JS run in production when using pm2 or pm2 ecosystem.
 

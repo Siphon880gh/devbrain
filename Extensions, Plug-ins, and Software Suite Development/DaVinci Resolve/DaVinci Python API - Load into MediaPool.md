@@ -5,13 +5,13 @@ If you imported images like this:
 
 ```
 image_files = [
-    "/Users/wengffung/Downloads/DaVinci Assets 2/clip01.jpg",
-    "/Users/wengffung/Downloads/DaVinci Assets 2/clip02.jpg",
-    "/Users/wengffung/Downloads/DaVinci Assets 2/clip03.jpg",
-    "/Users/wengffung/Downloads/DaVinci Assets 2/clip04.jpg",
-    "/Users/wengffung/Downloads/DaVinci Assets 2/clip05.jpg",
-    "/Users/wengffung/Downloads/DaVinci Assets 2/clip06.jpg",
-    "/Users/wengffung/Downloads/DaVinci Assets 2/clip07.jpg"
+    "/Users/wengffung/Downloads/DaVinci Assets 2/clip01.jpg",
+    "/Users/wengffung/Downloads/DaVinci Assets 2/clip02.jpg",
+    "/Users/wengffung/Downloads/DaVinci Assets 2/clip03.jpg",
+    "/Users/wengffung/Downloads/DaVinci Assets 2/clip04.jpg",
+    "/Users/wengffung/Downloads/DaVinci Assets 2/clip05.jpg",
+    "/Users/wengffung/Downloads/DaVinci Assets 2/clip06.jpg",
+    "/Users/wengffung/Downloads/DaVinci Assets 2/clip07.jpg"
 
 ```
 
@@ -26,7 +26,7 @@ clip07
 
 This is because DaVinci is assuming you want to automatically assemble such named assets into clips based on the filenaming with suffixed numerical sequence. 
 
-Reworded: The inconsistency you're experiencing is due to DaVinci Resolve automatically detecting and grouping sequentially numbered images as image sequences. When images like `clip01.jpg`, `clip02.jpg`, etc., are imported, Resolve assumes they are frames of a video sequence and groups them into a single clip in the Media Pool. This is why you see entries like `clip[01-02].jpg` or `clip[04-05].jpg`.
+Reworded: The inconsistency you're experiencing is due to DaVinci Resolve automatically detecting and grouping sequentially numbered images as image sequences. When images like `clip01.jpg`, `clip02.jpg`, etc., are imported, Resolve assumes they are frames of a video sequence and groups them into a single clip in the Media Pool. This is why you see entries like `clip[01-02].jpg` or `clip[04-05].jpg`.
 
 For your use case, this is either a needed feature or a nuance. The problem or feature extends into the coding that loads assets into media pool, not just a problem when manually importing the files through the DaVinci UI.
 

@@ -12,8 +12,8 @@ Note that proxy and ip rotation is already included in their crawling, as in whe
 About: All-In-One data crawling and scraping platform for business developers.
 
 Key links:
-- API and tokens -Â [https://crawlbase.com/dashboard/account/docs](https://crawlbase.com/dashboard/account/docs)
-- Credits (Crawler API):Â [https://crawlbase.com/dashboard/api](https://crawlbase.com/dashboard/api)
+- API and tokens - [https://crawlbase.com/dashboard/account/docs](https://crawlbase.com/dashboard/account/docs)
+- Credits (Crawler API): [https://crawlbase.com/dashboard/api](https://crawlbase.com/dashboard/api)
 
 To see your credits, Crawling API -> Dashboard
 ![](GilJbZM.png)

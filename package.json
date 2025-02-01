@@ -12,7 +12,8 @@
     "browserMac": "open \"https://wengindustries.com/app/devbrain/curriculum/server-update.php?secret=123\"",
     "browserPC":  "xdg-open \"https://wengindustries.com/app/devbrain/curriculum/server-update.php?secret=123\"",
     "browserLinux":  "start \"https://wengindustries.com/app/devbrain/curriculum/server-update.php?secret=123\"",    
-    "deploy": "npm run commit; npm run push && npm run browserMac;"
+    "uploadDiffImages":  "node \"/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/upload_diff_images.js\"",
+    "deploy": "npm run commit; npm run push && npm run browserMac; npm run uploadDiffImages;"
   },
   "author": "",
   "license": "ISC"

@@ -43,15 +43,15 @@ let mockToPage: number | false;
 
 function processData(data: number | false) {
 
-Â  Â  if (data === false) {
+    if (data === false) {
 
-Â  Â  Â  Â  console.log("No data to process");
+        console.log("No data to process");
 
-Â  Â  } else {
+    } else {
 
-Â  Â  Â  Â  console.log("Processing numbers: ", data);
+        console.log("Processing numbers: ", data);
 
-Â  Â  }
+    }
 
 }
 

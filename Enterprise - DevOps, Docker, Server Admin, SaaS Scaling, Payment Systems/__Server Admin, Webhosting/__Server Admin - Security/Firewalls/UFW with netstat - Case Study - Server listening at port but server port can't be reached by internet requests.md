@@ -9,7 +9,7 @@ sudo netstat -tuln | grep :27017
 
 Result is this which is good:
 ```
-tcp        0      0 0.0.0.0:27017           0.0.0.0:*               LISTEN
+tcp        0      0 0.0.0.0:27017           0.0.0.0:*               LISTEN
 ```
 
 And your /etc/mongod.conf has allowed binding to the internet:
