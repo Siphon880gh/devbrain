@@ -3,14 +3,14 @@ If managing Docker on desktop, you can go with Docker Desktop instead of the doc
 Docker Desktop is a Software that lets you load in Images and then Run Containers off them. Mac, Linux, Windows. Get here https://www.docker.com/products/docker-desktop/
 
 Search the internet (aka Docker Hub) for images here:
-![](https://i.imgur.com/4hi7FLW.png)
+![](4hi7FLW.png)
 ^Containers just search locally which ones you have running from Docker Desktop
 
 From Images, you choose which one to Play
-![](https://i.imgur.com/3tFUTOe.png)
+![](3tFUTOe.png)
 
 Then it creates a random name for the container name. You can manage running or stopped containers (aka Exited) at Containers. Recommend you name the containers customly so you know what they are, otherwise, refer to Image column:
-![](https://i.imgur.com/kmtirzp.png)
+![](kmtirzp.png)
 
 You can look into the files of a container. 
 Keep in mind they’re ephemeral so your file changes are dropped when it shuts down and does not resume your changes on next restart.
@@ -28,4 +28,4 @@ Running a container off an image in docker desktop DOES NOT automatically make i
 
 Proof:
 In Container, if you copy the docker run, and you paste it somewhere, you’ll see there’s no port command:
-![](https://i.imgur.com/h3b8Clg.png)
+![](h3b8Clg.png)

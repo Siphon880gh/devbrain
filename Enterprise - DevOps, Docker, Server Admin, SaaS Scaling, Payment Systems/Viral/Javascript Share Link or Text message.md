@@ -49,6 +49,6 @@ This code handles both clipboard copying and sharing functionality without jQuer
 
 
 With some custom coding the UI, it could look like:
-![](https://i.imgur.com/lRid9Ju.png)
+![](lRid9Ju.png)
 
-![](https://i.imgur.com/PWVTIvs.png)
+![](PWVTIvs.png)

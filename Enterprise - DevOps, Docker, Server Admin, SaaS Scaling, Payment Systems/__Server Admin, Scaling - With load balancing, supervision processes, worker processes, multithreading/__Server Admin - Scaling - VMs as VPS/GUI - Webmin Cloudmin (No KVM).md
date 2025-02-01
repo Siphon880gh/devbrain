@@ -8,7 +8,7 @@ STOP! Has been outdated and not keeping up with more recent OS distros like Debi
 
 ## Archived for historical reasons
 
-![](https://i.imgur.com/LQptMoh.png)
+![](LQptMoh.png)
 
 
 **Cloudmin GPL** **is a module on top of the Control Panel Webmin. Requires [[Webmin]] to be installed first. Cloudmin works inside Webmin.
@@ -28,10 +28,10 @@ sudo ./cloudmin-gpl-debian-install.sh
 ```
 ^In the URL, virtualmin is the name of a control panel, but it is also the name of the company that had developed cloudmin (that is now outdated). They later developed virtualmin in place of cloudmin.
 
-![](https://i.imgur.com/hKDyIj5.png)
+![](hKDyIj5.png)
 
 
-![](https://i.imgur.com/xgOryf4.png)
+![](xgOryf4.png)
 
 ---
 

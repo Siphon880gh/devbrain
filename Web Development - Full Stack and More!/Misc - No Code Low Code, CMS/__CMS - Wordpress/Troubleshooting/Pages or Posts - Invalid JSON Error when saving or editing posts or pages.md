@@ -1,6 +1,6 @@
 
 
-![](https://i.imgur.com/E6K5hb6.png)
+![](E6K5hb6.png)
 
 
 https://www.wpbeginner.com/wp-tutorials/how-to-fix-the-invalid-json-error-in-wordpress-beginners-guide/

@@ -1,7 +1,7 @@
 Problem: Generates readme that could not be escaped in the explanation, preventing apply code because chat breaks
 
 Looks like this:
-![](https://i.imgur.com/NYKWKnd.png)
+![](NYKWKnd.png)
 
 Just prompt with:
 ```

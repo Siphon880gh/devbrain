@@ -130,6 +130,6 @@ services:
 ---
 
 Visiting the subpath https://domain.tld/mb-admin will work. No HTTPS warning
-![](https://i.imgur.com/kpGeM4p.png)
+![](kpGeM4p.png)
 
 Now you can work on creating reports for your cofounders/founders/strategists/investors that they can see live and won't accidentally modify your database.

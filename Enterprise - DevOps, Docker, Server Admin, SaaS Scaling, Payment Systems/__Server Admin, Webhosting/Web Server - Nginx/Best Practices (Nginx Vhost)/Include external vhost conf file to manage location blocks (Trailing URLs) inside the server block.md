@@ -8,20 +8,20 @@ You could have a folder like eco/ that deals with these referred/included vhost 
 ---
 
 
-Using theÂ `include`Â directive inside aÂ `server`Â block to manageÂ `location`Â blocks from separate configuration files is a highly practical approach. It allows for modular, reusable, and cleaner configurations, especially for complex setups with multipleÂ `location`Â directives.
+Using the `include` directive inside a `server` block to manage `location` blocks from separate configuration files is a highly practical approach. It allows for modular, reusable, and cleaner configurations, especially for complex setups with multiple `location` directives.
 
 ---
 
-### **Why IncludeÂ `location`Â Blocks from Another File?**
+### **Why Include `location` Blocks from Another File?**
 
 1. **Modularity**: Separates concerns and makes managing specific configurations easier.
-2. **Reusability**: CommonÂ `location`Â block settings (e.g., caching, headers, or proxy rules) can be reused across multiple server blocks.
-3. **Simplifies Maintenance**: Reduces clutter in the mainÂ `server`Â block, making it more readable and maintainable.
+2. **Reusability**: Common `location` block settings (e.g., caching, headers, or proxy rules) can be reused across multiple server blocks.
+3. **Simplifies Maintenance**: Reduces clutter in the main `server` block, making it more readable and maintainable.
 4. **Collaboration**: Allows different team members to work on different configuration files simultaneously.
 
 ---
 
-### **Example: UsingÂ `include`Â forÂ `location`Â Blocks**
+### **Example: Using `include` for `location` Blocks**
 
 #### Main Server Block (`/etc/nginx/sites-available/example.com`):
 
@@ -65,11 +65,11 @@ location /api/ {
 
 ### **Benefits in This Setup**
 
-1. **SimplifiedÂ `server`Â Block**: TheÂ `server`Â block only contains high-level configurations, while specificÂ `location`Â blocks are moved elsewhere.
-2. **Reuse Across Servers**: If another domain needs the sameÂ `location`Â configuration, simply include the same file.
+1. **Simplified `server` Block**: The `server` block only contains high-level configurations, while specific `location` blocks are moved elsewhere.
+2. **Reuse Across Servers**: If another domain needs the same `location` configuration, simply include the same file.
     
     ```
     include /etc/nginx/server-configs/example-locations.conf;
     ```
     
-3. **Easier Debugging**: IsolatingÂ `location`Â configurations in a separate file helps pinpoint issues faster.
+3. **Easier Debugging**: Isolating `location` configurations in a separate file helps pinpoint issues faster.

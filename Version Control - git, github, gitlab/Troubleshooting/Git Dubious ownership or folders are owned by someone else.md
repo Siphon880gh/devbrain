@@ -13,7 +13,7 @@ Or if VS Code shows:
 The git repositories in the current folder are potentially unsafe as the folders are owned by someone other than the current user.
 ```
 
-![](https://i.imgur.com/Bzs7DE3.png)
+![](Bzs7DE3.png)
 
 The error message you're encountering is due to a safety feature in Git that helps prevent unauthorized access to your repositories. This feature was introduced in more recent versions of Git to address security concerns, specifically related to the ownership of the repository directories.
 

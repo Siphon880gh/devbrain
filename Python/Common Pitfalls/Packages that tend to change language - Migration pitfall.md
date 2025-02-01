@@ -1,13 +1,13 @@
 
 There are packages whose authors like to deprecate and change language entirely often. When you see a deprecated message, you may want to start figuring out the version of the packages being used, then put in your readme the specific versions
 
-You can even use a version range withÂ `pip install`Â command. Something like this:
+You can even use a version range with `pip install` command. Something like this:
 
 ```bash
 pip install 'stevedore>=1.3.0,<1.4.0'
 ```
 
-And if the package is already installed and you want to downgrade it addÂ `--force-reinstall`Â like this:
+And if the package is already installed and you want to downgrade it add `--force-reinstall` like this:
 
 ```lua
 pip install 'stevedore>=1.3.0,<1.4.0' --force-reinstall

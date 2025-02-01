@@ -1,5 +1,5 @@
 TLDR:
-- Authentication with keys involves 2 things: generating a key pair (eg ssh-keygen), and thenÂ _sending the public key to the party to which you want to authenticate_. Did you provide git server with the public key of the user or root or both?
+- Authentication with keys involves 2 things: generating a key pair (eg ssh-keygen), and then _sending the public key to the party to which you want to authenticate_. Did you provide git server with the public key of the user or root or both?
 - The private key stays with your computer that requires authentication
 
 I. Concepts

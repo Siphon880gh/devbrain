@@ -4,4 +4,4 @@ location / {
     # ...
 ```
 
-User visits a URL that is not found, then nginx triesÂ `$uri`Â , then triesÂ `$uri/`Â , and if that fails, then it opens the default 404 page because ofÂ `=404`Â . Order matters.
+User visits a URL that is not found, then nginx tries `$uri` , then tries `$uri/` , and if that fails, then it opens the default 404 page because of `=404` . Order matters.

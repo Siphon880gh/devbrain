@@ -2,7 +2,7 @@
 
 I made sure screenshot=true but screenshot_url does not appear in the response. This one is hard to replicate because it’s random when the screenshot_url doesn’t show
 
-![](https://i.imgur.com/sGem9nj.png)
+![](sGem9nj.png)
 
 It doesn't store any failed attempt at Crawlbase Storage (where it would usually store screenshots).
 

@@ -10,7 +10,7 @@ You will specifically be filtering in gunicorn processes only, thereby seeing ho
 After the test user finishes using the application / api / script, check memory for the multiple worker processes. They should all relatively be the same memory use. Otherwise, you have a memory leak. This is assuming you're on a server that's not touched by strangers.
 
 Let's say all scripts are done running and not all gunicorn worker processes were used. Then this example show memory leaks:
-![](https://i.imgur.com/k2mPPGR.png)
+![](k2mPPGR.png)
 
 ----
 

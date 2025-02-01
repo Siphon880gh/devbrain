@@ -13,7 +13,7 @@ top | head -n 12; top | grep launch
 
 Look at MEM column:
 
-![](https://i.imgur.com/JUkW2JT.png)
+![](JUkW2JT.png)
 
 ---
 

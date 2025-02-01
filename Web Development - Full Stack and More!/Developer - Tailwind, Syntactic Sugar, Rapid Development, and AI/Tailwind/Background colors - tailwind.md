@@ -7,4 +7,4 @@ bg-red-50
 
 At tailwind play sandbox, you can see recommendations:
 https://play.tailwindcss.com/
-![](https://i.imgur.com/N8VPOmc.png)
+![](N8VPOmc.png)

@@ -19,7 +19,7 @@ Salient → General Settings → CSS/Script Related
 
 ### - WPBakery / Visual Composer 
 Click gear icon at the top-right of the content editing
-![](https://i.imgur.com/ODHB7Bi.png)
+![](ODHB7Bi.png)
 
 
 - ### Elementor

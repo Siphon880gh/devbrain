@@ -1,5 +1,5 @@
 
-![](https://i.imgur.com/du3XJ0a.png)
+![](du3XJ0a.png)
 
 ---
 Mac Notes: 

@@ -12,4 +12,4 @@ Then you may need to enable port 9001. Refer to guide [[UFW - Enable specific po
 
 When you visit https://domain.com:9001, you'll get a web browser prompt for username and password
 
-![](https://i.imgur.com/ogTI4P4.png)
+![](ogTI4P4.png)

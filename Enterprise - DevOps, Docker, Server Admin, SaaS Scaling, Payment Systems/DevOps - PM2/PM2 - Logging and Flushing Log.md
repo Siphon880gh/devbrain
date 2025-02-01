@@ -26,25 +26,25 @@ For example, for an app name `note-taking:3006`, we're actually logging from a `
 
 6|note-tak | > node server
 
-6|note-tak |Â 
+6|note-tak | 
 
-6|note-tak | 2024-11-22 02:42 +00:00: 2024-11-22 02:42 +00:00:Â 
+6|note-tak | 2024-11-22 02:42 +00:00: 2024-11-22 02:42 +00:00: 
 
 6|note-tak | > simple-note-taker@1.0.0 start /home/wengindustries/htdocs/wengindustries.com/app/note-taking
 
 6|note-tak | > node server
 
-6|note-tak |Â 
+6|note-tak | 
 
-6|note-tak | 2024-11-22 02:44 +00:00: 2024-11-22 02:44 +00:00:Â 
+6|note-tak | 2024-11-22 02:44 +00:00: 2024-11-22 02:44 +00:00: 
 
 6|note-tak | > simple-note-taker@1.0.0 start
 
 6|note-tak | > node server
 
-6|note-tak |Â 
+6|note-tak | 
 
-6|note-tak | 2024-11-22 02:54 +00:00:Â 
+6|note-tak | 2024-11-22 02:54 +00:00: 
 
 6|note-tak | > simple-note-taker@1.0.0 start
 

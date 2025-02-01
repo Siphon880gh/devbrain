@@ -2,14 +2,14 @@ Warning: Free version will NOT respect  permissions. Even though on free, you ca
 ## Invitation
 
 Yes you can invite team members and assign roles
-![](https://i.imgur.com/DkTFSIG.png)
+![](DkTFSIG.png)
 
 
 You can “invite” entering their first name, last name, and email, and assigning their group:
-![](https://i.imgur.com/YfMM0Eo.png)
+![](YfMM0Eo.png)
 
 Then a temporary password is setup and they’re emailed (if you’ve setup email ability in Metabase):
-![](https://i.imgur.com/biUBJ4N.png)
+![](biUBJ4N.png)
 
   
 
@@ -28,12 +28,12 @@ Or:
 
 You can create custom groups:
 
-![](https://i.imgur.com/4vL3KiW.png)
+![](4vL3KiW.png)
 
 You can adjust permissions to databases per group:
-![](https://i.imgur.com/k9SPRnW.png)
+![](k9SPRnW.png)
 
-![](https://i.imgur.com/F53Wfup.png)
+![](F53Wfup.png)
 
 
 Please remember that on free version, these permissions can be set, but they won't take effect. This only works on Pro and Enterprise versions.

@@ -2,7 +2,7 @@ You can add google search url parameters to assist in the scraping
 
 A cleaner more performant scraper from Google SERP would be to:
 - js turned off
-- mobileÂ 
+- mobile 
 - accessible
 
 However as of 1/2025, there is no way the url can turn off js or enable accessibility. Mobile view is determined responsively rather than by the url.
@@ -39,9 +39,9 @@ num to change how many results per Google SERP page:
 Language and Regional Filtering
 - If changing at the google search parameter level:
 	- **`hl`**: Sets the interface language.
-		- Example:Â `hl=en`Â for English.
+		- Example: `hl=en` for English.
 	- **`gl`**: Specifies the geographic location of results.
-		- Example:Â `gl=us`Â for United States.
+		- Example: `gl=us` for United States.
 	- **`lr`**: Limits results to a specific language.
-		- Example:Â `lr=lang_en`Â (only English results).
-- RECOMMENDED: Just useÂ country=US at the Crawler api level and they will handle that
+		- Example: `lr=lang_en` (only English results).
+- RECOMMENDED: Just use country=US at the Crawler api level and they will handle that

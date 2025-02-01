@@ -40,6 +40,6 @@ Data Warehouse. Why at timemark between 2-3min
 [https://youtu.be/oF_2uDb7DvQ?si=khOKYNW-2nU16jqk](https://youtu.be/oF_2uDb7DvQ?si=khOKYNW-2nU16jqk)
 
 
-![](https://i.imgur.com/4KiobDR.png)
+![](4KiobDR.png)
 
-![](https://i.imgur.com/zscVobf.png)
+![](zscVobf.png)

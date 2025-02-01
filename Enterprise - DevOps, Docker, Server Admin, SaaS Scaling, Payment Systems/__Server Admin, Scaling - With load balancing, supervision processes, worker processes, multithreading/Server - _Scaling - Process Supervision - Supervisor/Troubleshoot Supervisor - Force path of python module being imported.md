@@ -11,15 +11,15 @@ Then check each folder. You get an output like this:
 ```
 sys.path = [
 
-Â  Â  '/home/godaddy_user/public_html/app',
+    '/home/godaddy_user/public_html/app',
 
-Â  Â  '/root/.pyenv/versions/3.6.15/lib/python36.zip',
+    '/root/.pyenv/versions/3.6.15/lib/python36.zip',
 
-Â  Â  '/root/.pyenv/versions/3.6.15/lib/python3.6',
+    '/root/.pyenv/versions/3.6.15/lib/python3.6',
 
-Â  Â  '/root/.pyenv/versions/3.6.15/lib/python3.6/lib-dynload',
+    '/root/.pyenv/versions/3.6.15/lib/python3.6/lib-dynload',
 
-Â  Â  '/root/.pyenv/versions/app4/lib/python3.6/site-packages',
+    '/root/.pyenv/versions/app4/lib/python3.6/site-packages',
 
 ]
 

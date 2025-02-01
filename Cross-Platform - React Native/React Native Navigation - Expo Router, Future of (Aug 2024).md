@@ -3,11 +3,11 @@ Expo Router plans to add React server components soon which means we can do api 
 
 Like this API Routes:
 
-![](https://i.imgur.com/0KSFcv1.png)
+![](0KSFcv1.png)
 
 
 And like this server components:
-![](https://i.imgur.com/7nm7ygj.png)
+![](7nm7ygj.png)
 
 
 ^Pics from https://youtu.be/ZBCUegTZF7M?t=403 6:43

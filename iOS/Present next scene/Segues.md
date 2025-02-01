@@ -16,7 +16,7 @@ Another way to have onclick button to another screen that's easier is doing it i
 
 Creating a segues between a button to the next view controller:
 
-![](https://i.imgur.com/WEbW2DI.png)
+![](WEbW2DI.png)
 
 
-![](https://i.imgur.com/sCPYH6T.png)
+![](sCPYH6T.png)

@@ -15,7 +15,7 @@ Visiting `domain.tld/tools/app1` redirects and the user can see the url change i
 
 Reworded:
 
-[https://wengindustries.com/tools/devbrain/](https://wengindustries.com/app/devbrain/)Â =>Â [https://wengindustries.com/app/devbrain/](https://wengindustries.com/app/devbrain/)  
+[https://wengindustries.com/tools/devbrain/](https://wengindustries.com/app/devbrain/) => [https://wengindustries.com/app/devbrain/](https://wengindustries.com/app/devbrain/)  
 
 ```
 # Redirect tools/ to app/  

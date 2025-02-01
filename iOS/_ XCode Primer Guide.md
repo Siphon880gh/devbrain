@@ -155,7 +155,7 @@ let mainSB : UIStoryboard = UIStoryboard(name: "Main", bundle:.main)
 You can edit as so:
 ￼
 
-![](https://i.imgur.com/32bXsVU.png)
+![](32bXsVU.png)
 
 
 ## UI Storyboard setups
@@ -179,7 +179,7 @@ Have a view inside another view on the UI builder. Have the inner UI view smalle
 
 Later at the Inspector Panel, you can adjust the constant and/or multiplier (gs) which allows you to set it proportionally other than 100% width or height.
 
-![](https://i.imgur.com/YPjxDWm.png)
+![](YPjxDWm.png)
 
 
 
@@ -193,7 +193,7 @@ herotlc.width = 0.15 × width + 2.25
 ```
 
 
-￼![](https://i.imgur.com/RtYeHcR.png)
+￼![](RtYeHcR.png)
 
 
 
@@ -201,7 +201,7 @@ Remember height and width don't show up as constraints in Scene navigator (poor 
 
 WARNING: Sometimes editing the constraints directly in Scene navigator doesn't affect the actual constraints - then you'll have to go to Size inspector instead.
 
-￼![](https://i.imgur.com/UtMgMYW.png)
+￼![](UtMgMYW.png)
 
 
 When resolving conflicting constraints in the scene navigator, it may ask you to delete constraints. Before the modal that lets you choose which constraints to delete, you can click the constraints under Conflicting Constraints, and it'll highlight the control/element/view on the scene
@@ -230,7 +230,7 @@ In Xcode, which is Apple's integrated development environment (IDE) for macOS, y
 	- Approach Storyboard
 		- You can also find out this property from storyBoard too.
 		- Select your `superView` and check on **Clip Subviews
-		- ![](https://i.imgur.com/43YKZGL.png)
+		- ![](43YKZGL.png)
 
 
 #### View Scaling Options - Scale to Fill, Aspect Fit, Aspect Fill:
@@ -252,10 +252,10 @@ These options determine how a view's content is scaled to fit the bounds of the 
 Understanding and using these options effectively can help you create user interfaces that are visually appealing and function well across different device sizes and orientations.
 
 Concept Diagram:
-![](https://i.imgur.com/QZsc6ct.png)
+![](QZsc6ct.png)
 
 Mode:
-![](https://i.imgur.com/kcx7qQC.png)
+![](kcx7qQC.png)
 
 ---
 
@@ -263,13 +263,13 @@ Mode:
 Hugging doesn't wanna grow out (move out)
 Compression resistance don't wanna be compressed
 ￼
-![](https://i.imgur.com/31muA2a.png)
+![](31muA2a.png)
 
 1. **"Hugging doesn't wanna grow out (move out)":** This likely refers to the Content Hugging Priority in Auto Layout. Content Hugging Priority is a metric that tells the system how much a view resists growing larger than its intrinsic content size. In simpler terms, if a view has a high Content Hugging Priority, it does not want to stretch or grow out beyond the size necessary to display its content. For example, if you have a label with some text, and the label's content hugging is set to a high value, the label will prefer to stay just big enough to fit its text and will resist efforts to stretch it larger.
     
 2. **"Compression resistance don't wanna be compressed":** This refers to the Compression Resistance Priority in Auto Layout. Compression Resistance Priority is a metric that tells the system how much a view resists being made smaller than its intrinsic content size. A view with a high Compression Resistance Priority does not want to be squished or compressed to a size smaller than what is required to display its content. For instance, if a button has a high Compression Resistance Priority, the system will try to avoid shrinking the button to a point where its content (like text or image) is distorted or cut off.
 
-![](https://i.imgur.com/E4bjekd.png)
+![](E4bjekd.png)
 
 
 ---
@@ -284,14 +284,14 @@ UI builder has a Top Layout Guide and Bottom Layout Guide that you can click in 
 ### Scene Navigator order of layers:
 Everything going down on the scene navigator will be on top on the phone (because Top Layout Guide and Bottom Layout Guide are the two top items that you can place on top of visually).
 
-![](https://i.imgur.com/kxwrwki.png)
+![](kxwrwki.png)
 
 
 ### Layering controls on top of one another
 
 Image is covering button and label so you need to drag image below the other two.
 
-￼![](https://i.imgur.com/94zfDEq.png)
+￼![](94zfDEq.png)
 
 More info: https://stackoverflow.com/questions/31748602/how-to-make-my-image-behind-my-labels
 

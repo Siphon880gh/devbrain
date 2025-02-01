@@ -1,8 +1,8 @@
 
-![](https://i.imgur.com/Bu6BMJn.png)
+![](Bu6BMJn.png)
 
 
-![](https://i.imgur.com/vRHpMHk.png)
+![](vRHpMHk.png)
 
 
 Issue when exporting file: wp all in one migration file wasn't available on site

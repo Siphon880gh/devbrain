@@ -7,7 +7,7 @@ https://youtu.be/3PdmLQIZpwE
 - Save to a log file to be opened
 - Command Line tool to standard output
 
-![](https://i.imgur.com/wrftZ0k.png)
+![](wrftZ0k.png)
 
 
 ### INSTALLATION
@@ -82,7 +82,7 @@ When you installed memory-profiler with pip3, you installed an importable python
 
 Calling mprof will print the table of memory use of all functions, and will create files. The temp files created allow you to plot visually `mprof plot`. For cleanup, you can remove the temp files with `mprof clean`
 
-![](https://i.imgur.com/4ksbkpr.png)
+![](4ksbkpr.png)
 
 
 ```

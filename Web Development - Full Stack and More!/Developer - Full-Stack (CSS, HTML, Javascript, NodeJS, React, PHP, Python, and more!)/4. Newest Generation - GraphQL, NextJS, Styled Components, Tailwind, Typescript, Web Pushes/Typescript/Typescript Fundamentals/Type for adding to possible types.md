@@ -10,4 +10,4 @@ numberofVisitors = "5" // <-- LINT ERRORS
 
 A type also allows union:
 
-![](https://i.imgur.com/6z25f9p.png)
+![](6z25f9p.png)

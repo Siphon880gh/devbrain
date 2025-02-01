@@ -12,7 +12,7 @@ node index > c.json
 Those files being search results 0-9, 10-19, 20-29
 
 Then you can right click and beautify it in VS Code for each file if necessary:
-![](https://i.imgur.com/BlWT7UQ.png)
+![](BlWT7UQ.png)
 
 Once Pasadena appears to be exhausted (no more emails in search description), pivot to another city nearby.
 

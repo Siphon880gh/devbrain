@@ -1,11 +1,11 @@
 ## ERROR
 
 When editing a page with Elementor, it is stuck on loading Elementor logo
-![](https://i.imgur.com/JZ2wEBl.png)
+![](JZ2wEBl.png)
 
 
 OR it says Preview could not be loaded
-![](https://i.imgur.com/EQkzlQM.png)
+![](EQkzlQM.png)
 
 Console errors show:
 ```

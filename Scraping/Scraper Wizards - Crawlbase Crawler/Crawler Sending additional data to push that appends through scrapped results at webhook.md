@@ -1,11 +1,11 @@
-Titled:Â 
+Titled: 
 Sending additional data to push that appends through scrapped results at webhook
 
-Optionally, you can receive custom headers to your callback if you use theÂ `callback_headers`Â parameter. That is great for passing additional data for identification purposes at your side.
+Optionally, you can receive custom headers to your callback if you use the `callback_headers` parameter. That is great for passing additional data for identification purposes at your side.
 
-The format is the following:Â `HEADER-NAME:VALUE|HEADER-NAME2:VALUE2|etc.`Â And it must be encoded properly.
+The format is the following: `HEADER-NAME:VALUE|HEADER-NAME2:VALUE2|etc.` And it must be encoded properly.
 
-Example for headers and valuesÂ `MY-ID 1234, some-other 4321`
+Example for headers and values `MY-ID 1234, some-other 4321`
 
 ```
 &callback_headers=MY-ID%3A1234%7Csome-other%3A4321

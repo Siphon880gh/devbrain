@@ -133,7 +133,7 @@ supervisord -c /etc/supervisord.conf -l /var/log/supervisor/supervisord.log
 ```
 
 It might not say anything on success because all that std output goes to another file
-![](https://i.imgur.com/0sPPFKn.png)
+![](0sPPFKn.png)
 
 
 ---

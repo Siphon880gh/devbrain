@@ -1,6 +1,6 @@
 
 Say you want some space between two buttons:
-![](https://i.imgur.com/llIszjS.png)
+![](llIszjS.png)
 
 Use this component:
 ```
@@ -21,4 +21,4 @@ const VertSpace = () => {
 ```
 
 Although that works fine on iOS, on Android it will ignore your vertical space:
-![](https://i.imgur.com/dM0NpEQ.png)
+![](dM0NpEQ.png)

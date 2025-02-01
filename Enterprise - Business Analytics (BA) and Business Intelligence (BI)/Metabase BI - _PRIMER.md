@@ -307,10 +307,10 @@ docker compose up metabase -d
 Visit your http://localhost:3500 or http://IP:3500 if not on there yet.
 
 Setup your account and connect your database
-![](https://i.imgur.com/x6QRZ8V.png)
+![](x6QRZ8V.png)
 
 ^ If MongoDB: I recommend connecting to MongoDB on a remote server that's opened to internet requests (not blocked by firewall like iptables or ufw). Connecting to a MongoDB locally takes some tweaking.
-![](https://i.imgur.com/3qPbFI0.png)
+![](3qPbFI0.png)
 
 **Or** you can click “Paste connection string” and paste, eg
 ```

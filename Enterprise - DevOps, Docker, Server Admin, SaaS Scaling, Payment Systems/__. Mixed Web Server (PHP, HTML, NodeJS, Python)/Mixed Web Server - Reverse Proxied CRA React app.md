@@ -12,7 +12,7 @@ React apps that by default uses the `/` root path for loading static assets and 
 
 As a consequence, you have 404 loading static js, css, asset from the root level instead of properly at your base app url level (like `/app/app1`)
 
-![](https://i.imgur.com/RK59PVl.png)
+![](RK59PVl.png)
 
 
 By loading at root level, your reverse proxy location won’t be hit at “/api/book-search”, then the build/  folder (which has build/static , etc) of assets can’t load. So the solution is:

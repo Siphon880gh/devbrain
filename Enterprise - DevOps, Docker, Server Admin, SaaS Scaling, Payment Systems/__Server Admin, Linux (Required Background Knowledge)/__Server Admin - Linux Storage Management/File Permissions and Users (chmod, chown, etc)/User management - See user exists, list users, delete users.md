@@ -11,6 +11,6 @@ cat /etc/passwd | grep USERNAME
 
 Delete user (more correct than editing /etc/passwd):
 ```
-runningÂ `sudo userdel -r USERNAME`
+running `sudo userdel -r USERNAME`
 ```
 

@@ -7,7 +7,7 @@ Your scraped HTML instead mentions captcha's:
 **Just run it again**. It’s probably solved by then (by crawlbase). 
 
 If you have screenshot mode on, you'll see in Crawlbase Storage:
-![](https://i.imgur.com/OOxvzNW.png)
+![](OOxvzNW.png)
 
 Their tech support explains:
 For the Captcha issue, please note that crawling Google can be more challenging compared to other websites, which is why you may encounter such failures. In these cases, we recommend users continue sending their requests, as failed responses are not charged. If the failure rate is high, please report it to us so we can investigate further

@@ -5,12 +5,12 @@ Many of the shortcuts on VS Code transfer over to Cursor AI. Some shortcuts didn
 ### Deleting a line
 
 Try to set keybinding like so:
-![](https://i.imgur.com/9M9QAgm.png)
+![](9M9QAgm.png)
 
-![](https://i.imgur.com/JX6c3sL.png)
+![](JX6c3sL.png)
 
 You'll notice that there are keybind conflicts:
-![](https://i.imgur.com/6hNNzr0.png)
+![](6hNNzr0.png)
 
 On Macs - even if you clear that existing command, this gets in the way - Mac special chars: 
 

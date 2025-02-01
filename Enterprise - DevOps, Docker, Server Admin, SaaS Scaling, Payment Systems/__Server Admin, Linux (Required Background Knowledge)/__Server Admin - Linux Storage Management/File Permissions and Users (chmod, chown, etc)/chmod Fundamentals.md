@@ -70,7 +70,7 @@ Very permissible (only last resort if probs with files)
 
 chown:
 
-![](https://i.imgur.com/WxSBEVU.png)
+![](WxSBEVU.png)
 
 
 The building blocks (*) are the 0, 1, 2, 4

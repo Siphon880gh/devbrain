@@ -1,6 +1,6 @@
 
 Make sure “Disable cache” isn’t enabled
-![](https://i.imgur.com/izgc4R1.png)
+![](izgc4R1.png)
 
 
 When you refresh the page, do not refresh with DevTools (Console, Elements, etc) visible

@@ -4,7 +4,7 @@ source:https://stackoverflow.com/questions/73936598/git-push-and-pull-remote-onl
 
 When managing multiple GIT repositories from multiple servers (and thus using multiple keys) you can ease this by creating a local configuration file which explicit which key is to be used for each servers.
 
-For instanceÂ `~/.ssh/config`:
+For instance `~/.ssh/config`:
 
 ```
 host your.server.com
@@ -13,11 +13,11 @@ host your.server.com
      identityfile ~/.ssh/id_rsa
 ```
 
-Note that it is a general format, you may have to replace the serverÂ `you.server.com`Â and the user nameÂ `git`Â to whatever is expected by your remote server.
+Note that it is a general format, you may have to replace the server `you.server.com` and the user name `git` to whatever is expected by your remote server.
 
 EDIT:
 
-According to the further details you provided, here is theÂ `~/.ssh/config`Â file's content:
+According to the further details you provided, here is the `~/.ssh/config` file's content:
 
 ```
 host github.com
@@ -26,4 +26,4 @@ host github.com
      identityfile ~/.ssh/id_rsa
 ```
 
-Ensure theÂ `~/.ssh/config`Â file access isÂ `-rw-rw-r--`Â to your local user.
+Ensure the `~/.ssh/config` file access is `-rw-rw-r--` to your local user.

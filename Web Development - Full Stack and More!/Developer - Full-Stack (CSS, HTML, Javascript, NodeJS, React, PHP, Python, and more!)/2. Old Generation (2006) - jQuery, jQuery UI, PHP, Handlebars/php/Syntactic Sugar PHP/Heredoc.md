@@ -25,6 +25,6 @@ cbust_ipad;
 ```
 
 Nicer in vs code or cursor ai color linting:
-![](https://i.imgur.com/YCe0M5C.png)
+![](YCe0M5C.png)
 
 Also nicer in future code maintenance when you glance for the assets being loaded from markup or you're adding another asset on a script or link tag

@@ -53,7 +53,7 @@ If `vim ../a.csv` opens an older a.csv, you can clear all by writing the command
 	
 	Now you have a Google Sheet like:
 
-![](https://i.imgur.com/BfiGGWj.png)
+![](BfiGGWj.png)
 
 
 Make sure column G to I are cleared. Sometimes a commit message gets partially parsed into column G. We will not be batch renaming commits (for that, just use `GIT_EDITOR="code --wait" git rebase -i HEAD~20`) to open multiple commits in VS Code for easy editing.
@@ -159,7 +159,7 @@ The L?? is the last row being concatenated (Remember you are concatenating the c
 _Confirm the spreadsheet looks like this_
 _(I added headers for readability: Preferred Date, Concatenated, Concatenated Column)_
 
-![](https://i.imgur.com/DhVouqV.png)
+![](DhVouqV.png)
 
 
 6. Clean the copy and paste script

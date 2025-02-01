@@ -85,7 +85,7 @@ The optimized generative prompt that ChatGPT produced has your app/website requi
 1. Copy the optimized generative prompt that includes requirements in Markdown format.
 2. Signup/Login and paste the prompt into: [https://websim.ai/](https://websim.ai/p/l9wsb3bs1u_20ubk4mo8/1)  
 3. After generation is done, download or copy the generated code. Copying is from opening “View Source”:
-   ![](https://i.imgur.com/PInniTx.png)
+   ![](PInniTx.png)
 4. Get rid of any `<base>` tag in your code. It could become problematic when you host your website or incorporate it into your code base.
 5. See if you can open the code on a local browser.
 
@@ -155,7 +155,7 @@ Convert to tailwind using ChatGPT Model 4o (Do NOT use o1 because it does too mu
 Make sure to adjust the prompt to fit your theme's classes so that they do not get atomized into tailwind classes (which makes changing your theme colors NOT be reflected in your new code). Even if it's the same chat thread as the prompt above where you first introduced the class names, you can't trust the AI to retain it. If you're not using theme css variables, then omit that part of the prompt.
 
 If using the same chat thread as the above prompt, you would change the model from o1 to 4o in the middle of the chat.
-![](https://i.imgur.com/gzME6N1.png)
+![](gzME6N1.png)
 
 
 1. Prompt ChatGPT 4o to convert to tailwind, which is friendly to developers and to further AI transformation prompts in the future.

@@ -5,7 +5,7 @@ You get a known host error when connecting from local terminal to a remote serve
 Add correct host key in /Users/wengffung/.ssh/known_hosts to get rid of this message. Offending RSA key in /Users/wengffung/.ssh/known_hosts:4 Host key for 31.220.18.169 has changed and you have requested strict checking. Host key verification failed.
 
 Error could also be scary like this:
-![](https://i.imgur.com/F7DQCxn.png)
+![](F7DQCxn.png)
 
 **Explanation:**
 Inside your ~/.ssh folder not only contains ssh private keys and public keys, but may also contain known_hosts

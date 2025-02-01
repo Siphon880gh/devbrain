@@ -1,6 +1,6 @@
-![](https://i.imgur.com/lRid9Ju.png)
+![](lRid9Ju.png)
 
-![](https://i.imgur.com/PWVTIvs.png)
+![](PWVTIvs.png)
 
 Note we are using expo. Here's the code:
 ```

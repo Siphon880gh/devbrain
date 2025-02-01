@@ -19,7 +19,7 @@
 
 Or: Chrome → ... -→ More Tools → Extensions. Make sure "Developer mode" is on at the top right  
 
-![](https://i.imgur.com/P89AAGz.png)
+![](P89AAGz.png)
 
 </details>
 
@@ -39,7 +39,7 @@ popup.html
 content.js
 
 More fleshed out:
-![](https://i.imgur.com/10ajaTK.png)
+![](10ajaTK.png)
 
 </details>
 

@@ -126,6 +126,6 @@ services:
 ---
 
 Visiting the root path http://domain.tld:3500 will give this warning. Just click "Continue to site"
-![](https://i.imgur.com/U3U0qFy.png)
+![](U3U0qFy.png)
 
 Now you can work on creating reports for your cofounders/founders/strategists/investors that they can see live and won't accidentally modify your database.

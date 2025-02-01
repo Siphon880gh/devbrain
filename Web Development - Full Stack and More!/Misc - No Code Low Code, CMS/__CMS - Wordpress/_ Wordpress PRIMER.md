@@ -43,20 +43,20 @@ When prompted by the Wordpress wizard to enter your database name, username, pas
 4. Log in and customize: Once the installation is complete, you can log in to your WordPress dashboard by appending "/wp-admin" to your website's URL (e.g., www.example.com/wp-admin). Use the administrator credentials you set up during the installation. From the dashboard, you can customize your website, install themes and plugins, and start creating content.
 
 If setting up locally:
-![](https://i.imgur.com/om4VcrU.png)
+![](om4VcrU.png)
 ^ Yes you can do "localhost:3306". 
 ^ Yes, notice the wp_ is repeated twice. That can cause confusion. It isn't erroneous though. But maybe you should keep it blank. For more information, refer to [[_ Wordpress - Multiple wordpress websites sharing the same database]]
 
 And if using MAMP/LAMP/MAMP, you get the port like here:
-![](https://i.imgur.com/OB1m57b.png)
+![](OB1m57b.png)
 
 
 If you get this message in the wordpress wizard after submitting your database creds, url, and database name - double check the above steps and check the phpmyadmin screenshots here:
-![](https://i.imgur.com/I8nEv43.png)
+![](I8nEv43.png)
 
-![](https://i.imgur.com/vrJ97T7.png)
+![](vrJ97T7.png)
 
-![](https://i.imgur.com/ZneB4qW.png)
+![](ZneB4qW.png)
 
 
 And make sure your db creds have permission to this new database. Your phpmyadmin link may differ but go into the database -> Privileges:
@@ -74,7 +74,7 @@ WP by default shows your blogs. Change to a multipage/single page? Go to Setting
 
 Go to left sidebar -> Pages -> Edit a webpage
 It kicks you right into the default site builder Gutenberg:
-![](https://i.imgur.com/VtQ9O0q.png)
+![](VtQ9O0q.png)
 
 You can quickly read how to use Gutenberg Site builder at [[Gutenberg Site Builder - PRIMER]]
 
@@ -111,7 +111,7 @@ First step is select the menu you're editing at: "Select a menu to edit:". Same 
 
 Second step is you can add menu items from the left sidebar. Usually you add custom links or Wordpress pages:
 
-![](https://i.imgur.com/vZ8SWFx.png)
+![](vZ8SWFx.png)
 
 
 ### Marketable blocks

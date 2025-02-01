@@ -34,5 +34,5 @@ nums = [1,2,3]
 ```
 
 Had you assigned a string value, that position will be linted:
-![](https://i.imgur.com/LltnFzF.png)
+![](LltnFzF.png)
 ^ This is from the editor playcode.io. For VS Code, it'll be under Problems tab

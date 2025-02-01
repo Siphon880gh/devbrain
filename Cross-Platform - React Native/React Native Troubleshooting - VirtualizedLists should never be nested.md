@@ -1,5 +1,5 @@
 
-![](https://i.imgur.com/XFJT89q.png)
+![](XFJT89q.png)
 
 
 Just dont nest a FlatList inside a ScrollView OR

@@ -28,7 +28,7 @@ Detailed: Docker's official registry (Docker Hub)
    - Use the "Search" feature to find images directly on Docker Hub.
    - Click on the desired image to pull it.
 
-![](https://i.imgur.com/4hi7FLW.png)
+![](4hi7FLW.png)
 
 
    **Description:** This method provides a user-friendly way to find and download images using Docker Desktop’s built-in search and pull functionality.

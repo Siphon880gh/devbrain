@@ -1,4 +1,4 @@
-![](https://i.imgur.com/Q4Euioz.png)
+![](Q4Euioz.png)
 
 
 ```

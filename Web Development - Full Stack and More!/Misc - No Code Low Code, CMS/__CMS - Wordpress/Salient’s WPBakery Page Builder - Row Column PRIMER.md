@@ -6,7 +6,7 @@ Everything related to row and columns in Salient's WPBakery Page Builder, specif
 ---
 
 ## Add new row or column
-![](https://i.imgur.com/ZOkDVg7.png)
+![](ZOkDVg7.png)
 
 - Red: Add new row to the final row. If had chosen an element besides row, it’ll add new row with that element
 - Purple: Add new row after current row
@@ -19,21 +19,21 @@ Everything related to row and columns in Salient's WPBakery Page Builder, specif
 Salient’s WPBakery Site Builder’s Backend Editor
 
 When clicked column icons at a row, you can choose number of columns and their sizes by clicking the icons:
-![](https://i.imgur.com/BJqkhCK.png)
+![](BJqkhCK.png)
 
 Or if you had clicked Custom, you can type in the fraction size for each column.. and the number of fractions is the number of columns in a row (unless the sum of the fractions exceed 1, which would push those columns who are exceeding 1 into the next row):
-![](https://i.imgur.com/qAL0tU6.png)
+![](qAL0tU6.png)
 
 Eg.
 1/4 + 1/2 + 1/4
 
-![](https://i.imgur.com/8kp8VBy.png)
+![](8kp8VBy.png)
 
 3/12 + 2/12 + 2/12 + 2/12 + 3/12
-![](https://i.imgur.com/mRKvhHa.png)
+![](mRKvhHa.png)
 
 
-![](https://i.imgur.com/LYpsQPf.png)
+![](LYpsQPf.png)
 
 
 Desktop:
@@ -44,14 +44,14 @@ The responsive settings are in column settings → “Responsive Options” tab.
 Required knowledge: Where to access a column’s setting
 
 Btw the settings are from top to bottom: lg, md, sm, xs
-![](https://i.imgur.com/pGGkSgy.png)
+![](pGGkSgy.png)
 
 Offsets and widths are these options:
-![](https://i.imgur.com/aFnJxQz.png)
+![](aFnJxQz.png)
   
 
 You should design mobile first then change the look on bigger devices at the column responsive settings here:
-![](https://i.imgur.com/LuhsUJc.png)
+![](LuhsUJc.png)
 
 ### Reworded:
 
@@ -68,41 +68,41 @@ Create a row inside a cell, that way two columns in a column.
 Salient’s WPBakery Site Builder - Spacing including responsive settings
 
 For padding, margin, transform, content direction (vertical, horizontal), and text alignment, you go into the block’s settings (eg. Text block)
-![](https://i.imgur.com/kzg0cpt.png)
+![](kzg0cpt.png)
 
-![](https://i.imgur.com/hY3MKTM.png)
+![](hY3MKTM.png)
 
-![](https://i.imgur.com/Pffp2pk.png)
+![](Pffp2pk.png)
 
 Notice there are device icons which means you can modify their responsiveness settings too
 
 ## Edit settings for row, column, or content block
 
-![](https://i.imgur.com/oDpaiQn.png)
+![](oDpaiQn.png)
 
 - Gray’s pencil is Row setting
 - White’s pencil is Column setting
 - Green’s pencil is Content setting (eg. Text block, etc) and appears on mouse hover
 
-![](https://i.imgur.com/L9SlEGI.png)
+![](L9SlEGI.png)
 
 Sometimes the row settings and the column settings are dark gray pencil and light gray pencil:
-![](https://i.imgur.com/DwFZ8Zs.png)
+![](DwFZ8Zs.png)
 
 ---
 
 ## Industry responsive column sizes
 
 From the Backend Editor:
-![](https://i.imgur.com/ECxijBe.png)
+![](ECxijBe.png)
 Column sizes at: 1/4 + 1/2 + 1/4
 
 But it'd look compressed on iPad because of the 1/2 spaces on the left and the right. 
 Mobile is fine because with the two 1/4 sized columns that are empty will be ignored while the 1/2 space will take up the entire mobile - This is Salient doing it.
 
-![](https://i.imgur.com/RogADu0.png)
+![](RogADu0.png)
 
-![](https://i.imgur.com/zhIbB1I.png)
+![](zhIbB1I.png)
 
   
 

@@ -5,12 +5,12 @@ Firebase and Firestore: They're both real time databases
 
 Differences:
 Firebase Realtime Database (Eventual Consistency): After a write, data changes are eventually propagated to all clients, but there's no guarantee that every client will immediately have the most up-to-date version. In most cases, the delay is minimal. Also when it comes to remotely updating the database, it leads to quicker updates. The developer experience at the Console is horrible because the Firebase Realtime Database doesn't follow the typical two-column view that you might be familiar with in SQL databases. Instead, it’s structured as a **NoSQL** JSON tree:
-![](https://i.imgur.com/Bxuu5a2.png)
+![](Bxuu5a2.png)
 
 
 Firestore (Strong Consistency): Gives the most recent data after a successful write operation, even across different clients. But more overhead. When it comes to remotely updating the database, you get slightly slower updates. The developer experience at the Console is great because it has the two column view:
 
-![](https://i.imgur.com/Z0BewEm.png)
+![](Z0BewEm.png)
 
 Differences in transport protocols:
 - Firebase's classic Realtime Database uses websocket as its transport protocol, whereas Cloud Firestore uses grpc as its transport protocol. Firebase-admin is needed for the backend authentication of the app. Firebase package includes "firebase/auth" for the frontend authentication of the frontend sign in user (although you can move this to the backend).
@@ -32,11 +32,11 @@ Confusing branding of products:
 At the Products Page on 9/2024:
 
 Firebase:
-![](https://i.imgur.com/AqHaYEM.png)
+![](AqHaYEM.png)
 
 
 Firestore
-![](https://i.imgur.com/kBmLBBt.png)
+![](kBmLBBt.png)
 
 
 But remember they are both realtime databases. As you can see from the Cloud Firestore's description: "Realtime updates, powerful..."
@@ -46,4 +46,4 @@ But remember they are both realtime databases. As you can see from the Cloud Fir
 Confusing branding:
 
 The Console is also called Firebase Console and the logo is Firebase
-![](https://i.imgur.com/Jus4DAR.png)
+![](Jus4DAR.png)

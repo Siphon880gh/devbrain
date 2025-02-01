@@ -13,7 +13,7 @@ You can start with jn.
 
 Learning objectives:
 - How to start a new notebook:
-![](https://i.imgur.com/XEqGPU2.png)
+![](XEqGPU2.png)
 URL at http://localhost:9999/tree
 - Each line is a cell. So the cells go vertical.
 - You can run all cells aka lines or only the ones you select
@@ -27,20 +27,20 @@ URL at http://localhost:9999/tree
 
 - A cell can render markdown text (such as large headline), or it can run code producing a calculation or pictures or graphs. There are two types of cells: Code and Markdown
 
-![](https://i.imgur.com/QQgclcD.png)
+![](QQgclcD.png)
 
 You select the cell you're changing:
-![](https://i.imgur.com/fIvifmM.png)
+![](fIvifmM.png)
 
 ^ As you can see, the command shortcuts are Y and M
 
 - There is rendered vs non-rendered mode:
 It's a mater of selecting a cell in command mode then pressing CMD+Enter
-![](https://i.imgur.com/BRmu2Dp.png)
+![](BRmu2Dp.png)
 
 
 Using the same command on a code cell (instead of a markdown cell) will evaluate:
-![](https://i.imgur.com/NFUPllx.png)
+![](NFUPllx.png)
 
 
 

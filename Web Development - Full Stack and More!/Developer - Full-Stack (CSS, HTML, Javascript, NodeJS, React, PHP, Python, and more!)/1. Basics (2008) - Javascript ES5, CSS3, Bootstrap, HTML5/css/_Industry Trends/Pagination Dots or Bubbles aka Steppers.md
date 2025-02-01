@@ -1,5 +1,5 @@
 
-![](https://i.imgur.com/4vPX551.png)
+![](4vPX551.png)
 
 The taskbar of bubbles in a navigation UI is typically called a **"pagination indicator"** or **"stepper"**. Specifically, for mobile apps, it's often referred to as:
 

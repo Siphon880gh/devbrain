@@ -32,7 +32,7 @@ Looker Studio is widely used by marketers, data analysts, and business professio
 And you can connect to MySQL:
 https://lookerstudio.google.com/u/0/datasources/create/
 
-![](https://i.imgur.com/TcbNL6u.png)
+![](TcbNL6u.png)
 
 
 ---

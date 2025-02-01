@@ -1,7 +1,7 @@
 https://en.wikipedia.org/wiki/Amortized_analysis
 
 The symbol is:
-![](https://i.imgur.com/FNN6nCI.png)
+![](FNN6nCI.png)
 
 
 The amortized analysis is the average performance in the worse case scenario.

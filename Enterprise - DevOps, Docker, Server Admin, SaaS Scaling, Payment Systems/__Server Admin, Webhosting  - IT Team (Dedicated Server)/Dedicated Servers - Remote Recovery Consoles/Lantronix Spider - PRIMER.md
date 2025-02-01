@@ -21,57 +21,57 @@ Just visit directly the url on the page. If no port number, then dont add port n
 
 FY: No point ssh into it even though you can. there wont be vi, nano, sudo, cat, etc
 
-![](https://i.imgur.com/utq2ajo.png)
+![](utq2ajo.png)
 
 
-![](https://i.imgur.com/cL3vlux.png)
+![](cL3vlux.png)
 
 
 -- Click KVM Console --
 
 In this example, the console is in not a normal situation - you couldn't SSH into the server because the server couldn't boot. The partition has problems mounting. So it went into emergency mode that can still accept commands. A more normal terminal would've a prompt with minimal or no errors. Regardless, both situations will ask for your root password
 
-![](https://i.imgur.com/xePUA0o.png)
+![](xePUA0o.png)
 
 
  It asks for your root password (note copy and paste might say incorrect password because it could insert other characters instead). Type in manually. If it’s still incorrect password, use caps lock instead of holding shift to enter uppercase characters. Enter password and you're in:
  
- ![](https://i.imgur.com/ZTz8zKX.png)
+ ![](ZTz8zKX.png)
 
 
 Perform your command tasks in Emergency Mode terminal or boot into a separate OS, whichever is applicable.
 
 If booting, you can run `reboot`, press the reboot button on the left sidebar, or click CTRL+ALT+DEL:
-![](https://i.imgur.com/vFCvDPA.png)
+![](vFCvDPA.png)
 
 
 Briefly you might see the terminal close reviewing it's a desktop behind the terminal:
-![](https://i.imgur.com/Fv3CWbV.png)
+![](Fv3CWbV.png)
 
 Btw you can optimize the screen:
 - Make sure Chrome is 100% zoom only
 - Make your browser full screen mode (optional)
 - Click Full Screen on the left sidebar:
-![](https://i.imgur.com/4gzgpvL.png)
+![](4gzgpvL.png)
 
 If closing the terminal does not automatically restart, click Shutdown/Reboot on the left sidebar:
-![](https://i.imgur.com/1Lx9oEm.png)
+![](1Lx9oEm.png)
 
 If booting into another OS, hold SHIFT while it's booting:
-![](https://i.imgur.com/rhf4alr.png)
+![](rhf4alr.png)
 
   
 
 At the menu choose the desired OS
-![](https://i.imgur.com/f2s7uY0.png)
+![](f2s7uY0.png)
 
 
 When it boots into the terminal over the desktop and it's loading, and lets say you still have the partition problem. You didn't see how long it took because when you logged into KVM over IP, it was already booted for you by the support team:
-![](https://i.imgur.com/EcnIGRw.png)
+![](EcnIGRw.png)
 
 For that problem, it will seem to hang. It'll eventually time out then let you enter root password in Emergency Mode (rather than a normal terminal because it's a partition problem that prevents a proper OS to load) (if you didn't have such critical booting problems, it would have went to just asking for root password in a more normal mode instead of erroring into Emergency Mode)
 
-![](https://i.imgur.com/xePUA0o.png)
+![](xePUA0o.png)
 
 Fix whatever config file that locked you out of ssh. You will likely edit config files with either vi or nano. Make sure to optimize the view so that the command text editor does not get cut off (Chrome full screen, 100% zoom only, clicked full screen button on the left sidebar)
 
@@ -100,7 +100,7 @@ GRUB_DEFAULT="Xen 4.14.1 with Linux 5.4.0-42-generic"
 ```
 
 Check if escape works (Escape → “:wq”) in the vi editor. If not, you can send escape like this, which then allows you to type ":wq":
-![](https://i.imgur.com/4KQiyuV.png)
+![](4KQiyuV.png)
 
 
 

@@ -13,4 +13,4 @@ POST /endcard/
 ```
 
 Looks like this:
-![](https://i.imgur.com/ECn1Z4p.png)
+![](ECn1Z4p.png)

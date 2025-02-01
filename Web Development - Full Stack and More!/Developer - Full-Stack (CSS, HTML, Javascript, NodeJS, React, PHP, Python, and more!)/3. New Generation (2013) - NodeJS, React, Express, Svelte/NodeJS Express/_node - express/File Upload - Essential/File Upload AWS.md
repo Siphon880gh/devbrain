@@ -13,7 +13,7 @@ Sign up free tier at [https://aws.amazon.com/free/](https://aws.amazon.com/free/
 Console Home -> View all services -> Storage -> S3
 
 Create a new S3 bucket:
-![](https://i.imgur.com/ufZRgIE.png)
+![](ufZRgIE.png)
 Give your bucket a unique name and leave other settings as default. 
 
 Click into your new bucket and go to the "Permissions" tab. Here you can set up a bucket policy to make the bucket public and allow anyone to upload files.

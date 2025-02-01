@@ -16,7 +16,7 @@ nodeMap[NAME] = { NAME, type, prev: [], next: [] };
 //...
 ```
 
-![](https://i.imgur.com/QQcxX4w.png)
+![](QQcxX4w.png)
 
 
 And clicking on it jumps to that line in question.:

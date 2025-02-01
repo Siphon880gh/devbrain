@@ -33,7 +33,7 @@ Preline vs DaisyUI as tailwind component libraries
 
 [https://ui.shadcn.com/](https://ui.shadcn.com/)
 
-![](https://i.imgur.com/gqncZml.png)
+![](gqncZml.png)
 
 
-![](https://i.imgur.com/1oALwkz.png)
+![](1oALwkz.png)

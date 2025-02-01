@@ -3,7 +3,7 @@ As of July 2024, Elements API with Custom Payment does not support Email input. 
 However, there is a workaround when performing the custom payment. You would create an email input above the Elements API and conform its style to the style of what's inside the iframe. When user pays, your server will get the email and then update the existing customer at Stripe with the new email or creating the new customer at Stripe.
 
 Result at Stripe.com:
-![](https://i.imgur.com/xwWV5qb.png)
+![](xwWV5qb.png)
 
 ---
 

@@ -10,7 +10,7 @@ vmstat 1
 
 - **Free Memory:** This is the amount of physical memory that's available for new processes to use. It's not being used by any processes right now.
 
-![](https://i.imgur.com/ZHcoiKI.png)
+![](ZHcoiKI.png)
 
 ^bo shows mostly 0 but every 10th row shows 12. That suggests a pattern in disk write activity that's not constant but has periodic bursts. With such low 12 blocks per operation periodically, it's likely normal behavior of your os or server. If it had used up much memory, you'd use iostat, iotop, strace, or perf to investigate the events related to disk I/O.
 
@@ -74,7 +74,7 @@ But you might find the header titles wiped out, so you can run this - which dele
 while true; do echo "procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu-----"; echo "r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st"; vm_stat; sleep 1; done;
 ```
 
-![](https://i.imgur.com/5ggdnek.png)
+![](5ggdnek.png)
 
 ^The equivalent of 55,163 pages in kilobytes, assuming a page size of 4 KB, is 220,652 KB. ​
 

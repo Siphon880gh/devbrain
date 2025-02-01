@@ -1,11 +1,11 @@
 
 Just think always equal or less than -VS- equal or greater than. Always has an equal.
 
-1. `min-width`: This is used to apply styles when the viewport is at least a certain width. For instance, `@media (min-width: 600px) {...}` means the styles inside will apply when the viewportÂ **is**Â 600 pixelsÂ **or wider.**Â This is often used for progressive enhancement, where you start with a basic design for smaller screens and then enhance it for larger screens.
+1. `min-width`: This is used to apply styles when the viewport is at least a certain width. For instance, `@media (min-width: 600px) {...}` means the styles inside will apply when the viewport **is** 600 pixels **or wider.** This is often used for progressive enhancement, where you start with a basic design for smaller screens and then enhance it for larger screens.
 
   
 
-2. `max-width`: This is used to apply styles when the viewport is at most a certain width. For example, `@media (max-width: 599px) {...}` means the styles inside will apply when the viewportÂ **is**Â 599 pixelsÂ **or narrower**. This approach is typically used for graceful degradation, starting with a design for larger screens and then adapting it for smaller screens.
+2. `max-width`: This is used to apply styles when the viewport is at most a certain width. For example, `@media (max-width: 599px) {...}` means the styles inside will apply when the viewport **is** 599 pixels **or narrower**. This approach is typically used for graceful degradation, starting with a design for larger screens and then adapting it for smaller screens.
 
   
 

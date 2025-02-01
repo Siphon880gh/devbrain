@@ -60,17 +60,17 @@ Run this to test pm2 supervising is working. If it can list the app then it’s 
 ## Orientation - Stop vs Shutdown
 
 When you stop an app, you stop it based on the filename because with the above examples test.js, it shows up as test:
-![](https://i.imgur.com/xw36DcZ.png)
+![](xw36DcZ.png)
 
 If you had pm2 ran two test.js (which is only allowed if different folder paths, otherwise it'll stop you saying that it's already running) - the names are the same:
-![](https://i.imgur.com/CwJf44s.png)
+![](CwJf44s.png)
 
 Therefore when you stop running an app, both those apps stop:
 ```
 pm2 stop test
 ```
 
-![](https://i.imgur.com/S74JRnc.png)
+![](S74JRnc.png)
 
 Shortcut apps: They are "stopped" but persists on the pm2 list. This means the filenames don't have to exist for you to restart them. By running `pm2 start test`, it'll start any apps with the same name in stopped status
 
@@ -78,7 +78,7 @@ You may find this clusters your pm2 list, so to permanently clear them off the l
 ```
 pm2 delete test
 ```
-![](https://i.imgur.com/8qJHIsy.png)
+![](8qJHIsy.png)
 
 Note as a shorter workflow, you can outright delete app(s) without stopping them first.
 

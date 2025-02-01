@@ -1,5 +1,5 @@
 
-![](https://i.imgur.com/9Juct6R.png)
+![](9Juct6R.png)
 
 **SOLUTION 1**
 

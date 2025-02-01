@@ -8,11 +8,11 @@ Free to signup. Uses the free Claude
 ---
 
 Home icon to browse community’s creations. Sidebar icon to see your previous creations (More steps below). Type your prompt into the textfield - it can support multiple lines.
-![](https://i.imgur.com/Vcn58EV.png)
+![](Vcn58EV.png)
 
 
 Sidebar for previous creations:
-![](https://i.imgur.com/qAqJhMA.png)
+![](qAqJhMA.png)
 
 Sidebar for community’s creations:
-![](https://i.imgur.com/HgO7YUY.png)
+![](HgO7YUY.png)

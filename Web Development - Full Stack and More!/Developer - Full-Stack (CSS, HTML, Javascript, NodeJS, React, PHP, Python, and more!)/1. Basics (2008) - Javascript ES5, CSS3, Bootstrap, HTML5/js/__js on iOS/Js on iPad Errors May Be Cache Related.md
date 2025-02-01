@@ -17,6 +17,6 @@ That's in addition to testing on Desktop Chrome....
 See if it's caching using a stale js file that causes glitches on the app.
 
 **Using remote developer:**
-![](https://i.imgur.com/gwkkUjg.png)
+![](gwkkUjg.png)
 
 iPad Safari can exhibit more aggressive caching behavior than iPhone Safari or Desktop/Laptop Safari so far into 12/24. To see why, refer to...

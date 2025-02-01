@@ -61,7 +61,7 @@ Users can add anything from simple audience demographic information (age, level 
 It can also be helpful to specify the tone that you would like the algorithm to use in its response.
 
 
-![](https://i.imgur.com/9OqqnLL.png)
+![](9OqqnLL.png)
 
 
 In this case, instead of asking the model to tell us a joke about penguins, we specified the tone—dad joke.
@@ -74,7 +74,7 @@ In this case, instead of asking the model to tell us a joke about penguins, we s
 
 Let’s say you’re looking for something to watch tonight and you know you’re in the mood for a movie about a killer shark. Instead of just asking the algorithm to suggest a shark movie, you can improve the chances of the model suggesting a movie that you will enjoy by giving the algorithm some insight into your preferences. In your prompt you could tell the algorithm that you like _Jaws_, _The Shallows_, and _Open Water_, but don’t like the _Sharknado_ movies or _The Meg_. This information makes it more likely that you’ll get an output that matches your specific taste in shark movies.
 
-![](https://i.imgur.com/wtUPcSr.png)
+![](wtUPcSr.png)
 
 
 
@@ -137,7 +137,7 @@ As mentioned, the number of examples and detail of input data that the user prov
 **Zero-shot prompting** refers to the technique of providing the model with no additional pieces of data to make its prediction. In our shark movie example, that would look something like this:
 
 
-![](https://i.imgur.com/igrPD8P.png)
+![](igrPD8P.png)
 
 
 Zero-shot prompting is useful when seeking a broad output. Through the use of questions and answers with the algorithm, you can then guide it toward a more specific output if you so choose. Zero-shot prompting can also be a great tool when seeking a creative, out-of-the box output from the model.
@@ -151,7 +151,7 @@ Zero-shot prompting is useful when seeking a broad output. Through the use of qu
 **One-shot prompting**, as you probably guessed, refers to the practice of providing the algorithm with a single example or data-point. In our shark movie example, it would look something like this:
 
 
-![](https://i.imgur.com/MSHg33E.png)
+![](MSHg33E.png)
 
 
 
@@ -162,7 +162,7 @@ One-shot prompting can be useful when you’re seeking to narrow down the output
 It will come as no surprise that **few-shot prompting** is when a user provides more than one example or datapoint—usually between two and five. This technique allows users who have multiple data-points to focus the model and guide it to find more specific outputs. Our original shark movie prompt is an example of few-shot prompting:
 
 
-![](https://i.imgur.com/KUngOve.png)
+![](KUngOve.png)
 
 
 ####   
@@ -178,14 +178,14 @@ It will come as no surprise that **few-shot prompting** is when a user provides 
 
 **Chain of Thought Prompting** (also known as CoT) is a method used to guide the model to providing factually correct responses by forcing it to respond to a series of steps during the process of developing an output response.
 
-![](https://i.imgur.com/lJgoUzp.png)
+![](lJgoUzp.png)
 
 The technique requires the user to explicitly ask the model to take a “step-by-step” process in the instructions. In addition, it is generally best practice to ask the model to explain its reasoning in the output, and to follow a specific format.
 
 
 Here is comparison of results from standard versus CoT prompting:
 
-![](https://i.imgur.com/ZoOEcWu.png)
+![](ZoOEcWu.png)
 
   
 
@@ -214,7 +214,7 @@ Forcing the model to provide citations in its response is an effective way of re
 As with CoT, asking the model to provide sources in its response will have two benefits: it will guide the model toward a more accurate response, and it will also provide you with a method of verifying the response from the model.
 
   
-![](https://i.imgur.com/c85pQhK.png)
+![](c85pQhK.png)
 
 
 ####   
@@ -230,7 +230,7 @@ As with CoT, asking the model to provide sources in its response will have two b
 
 Asking the model to play a specific role is also an effective way to improve your output and reduce the risk of hallucination. Consider the example below:
 
-![](https://i.imgur.com/PuRKLcS.png)
+![](PuRKLcS.png)
 
 ####   
 
@@ -251,7 +251,7 @@ Believe it or not, some transformer models respond well to forceful language, in
 
 
 
-![](https://i.imgur.com/Oz2xPDX.png)
+![](Oz2xPDX.png)
 
 
 

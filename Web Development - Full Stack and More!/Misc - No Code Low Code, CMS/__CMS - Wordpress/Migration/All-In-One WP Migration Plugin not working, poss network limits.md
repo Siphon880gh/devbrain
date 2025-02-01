@@ -7,7 +7,7 @@ Specifically, if for [[Migration Troubleshooting - Import stuck at 0% (Console r
 
 
 Try adding to wp-config.php found in your website files:
-![](https://i.imgur.com/fqzPSOI.png)
+![](fqzPSOI.png)
 
 Adding:
 ```
@@ -50,7 +50,7 @@ Which is your server?.
 - Nginx with CloudPanel? 
 	- If using nginX, the php.ini actually overridden by CloudPanel settings because Vhost will refer to php settings at `fastcgi_param PHP_VALUE "{{php_settings}}";` , so edit your settings at cloudpanel config panel by going to CloudPanel → Settings → PHP Settings group:
 	- See the settings:
-	  ![](https://i.imgur.com/46xmwaA.png)
+	  ![](46xmwaA.png)
 	- **For Nginx restart:** `sudo service nginx restart`
     
 - Nginx without CloudPanel? 

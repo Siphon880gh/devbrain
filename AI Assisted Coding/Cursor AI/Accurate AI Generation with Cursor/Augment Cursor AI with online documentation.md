@@ -2,8 +2,8 @@ You can augment the AI with developer documentations online. This is great to AU
 
 **APPROACH 1**
 CMD+SHIFT+P to open command palette, then search for "Add New Custom Docs":
-![](https://i.imgur.com/ItDBrlO.png)
+![](ItDBrlO.png)
 
 **APPROACH 2**
 If inside a Chat interface, you can type `@Docs` to paste the URL of the document you want to index
-![](https://i.imgur.com/YRae9Qt.png)
+![](YRae9Qt.png)

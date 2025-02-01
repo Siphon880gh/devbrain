@@ -16,7 +16,7 @@ Key links:
 - Credits (Crawler API): [https://crawlbase.com/dashboard/api](https://crawlbase.com/dashboard/api)
 
 To see your credits, Crawling API -> Dashboard
-![](https://i.imgur.com/GilJbZM.png)
+![](GilJbZM.png)
 
 
 
@@ -32,12 +32,12 @@ Crawlbase Crawler (https://crawlbase.com/dashboard/crawler/crawlers) is the wiza
 - By choosing crawlbase storage, it's a more complete wizard where you can see the scraped data on their interface.
 
 At the Crawlbase Crawler product page, go to the tab "Crawlers":
-![](https://i.imgur.com/Y2GsInh.png)
+![](Y2GsInh.png)
 
 Note real browser requests (Javascript) is required if your data is dynamically loaded in at the start of the webpage. Note Google SERP needs Javascript request for better scraping.
 
 A Callback, you type a custom webhook to retrieve information on information being scraped. This means that you have to implement a webpage that takes in the response, and saves it to a file or your database. This could be in the form of a php file, most simply, or it could be a python flask server endpoint or nodejs express server endpoint. If you do not have the time budget for this, then have it stored in crawlbase by clicking "click here to do so" where it mentions "If you prefer to use Crawlbase Storage". Notice if you choose crawlbase storage, it fills the Callback field with their own crawlbase url. That url updates your Crawlbase Storage page at https://crawlbase.com/dashboard/storage
-![](https://i.imgur.com/uqwrCOX.png)
+![](uqwrCOX.png)
 
 You can have additional parameters in the api push endpoint. Refer to [[_PRIMER - Crawlbase API]] or https://crawlbase.com/docs/crawling-api/parameters/. After all, the Crawlbase Crawler is just a wrapper on top of the Crawlbase API.
 
@@ -45,7 +45,7 @@ If you had chosen to use your own webhook, refer to this documentation on how to
 https://crawlbase.com/docs/storage-api/response/
 
 At the Crawlers tab, since you have crawlers now, where it lists your crawlers, it tells you the API endpoint to push a request:
-![](https://i.imgur.com/eJEBtQ3.png)
+![](eJEBtQ3.png)
 
 Besides custom webhook which is a choice, the API endpoint is the only part that is not wizardly. Maybe in a future version, they will create a form for you to customize the api push and make the api push on the same page.
 

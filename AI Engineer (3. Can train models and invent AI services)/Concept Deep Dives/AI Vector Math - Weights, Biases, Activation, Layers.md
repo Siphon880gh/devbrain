@@ -72,6 +72,6 @@ The **activation function** applies further transformations but does not necessa
       
 - The activation function is part of the model's architecture and is defined when constructing each layer. It doesn’t have parameters like weights or biases, but the type of activation function is stored and applied to the output of each neuron in that layer.
 
-![](https://i.imgur.com/u1C5bjE.png)
+![](u1C5bjE.png)
 
 ^ From: https://www.researchgate.net/figure/An-example-of-a-deep-neural-network-with-two-hidden-layers-The-first-layer-is-the-input_fig6_299474560

@@ -142,7 +142,7 @@ export default function App() {
 ```
 
 You can check the store at anytime in Chrome React Dev Tools. Select the Provider component, then on the right details side panel, expand “hooks”:
-![](https://i.imgur.com/0tjOgjn.png)
+![](0tjOgjn.png)
 
 ## Get
 

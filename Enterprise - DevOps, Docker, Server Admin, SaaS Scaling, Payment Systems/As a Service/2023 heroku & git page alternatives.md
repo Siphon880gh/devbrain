@@ -1,6 +1,6 @@
 
 Heroku Alternatives 2023 Q1
-1. Render Â· 2. Cyclic Â· 3. Railway Â· 4. Deta Space Â· 5. Fly.io.
+1. Render · 2. Cyclic · 3. Railway · 4. Deta Space · 5. Fly.io.
 
 
 Static Hosting:

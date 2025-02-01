@@ -9,7 +9,7 @@ Device IP Addresses
 Subnet mask
 
 CIDR Notation is important. See CIDR in setting an Azure Virtual Network:
-![](https://i.imgur.com/loJLi6D.png)
+![](loJLi6D.png)
 
 
 For example, in a private network (like a home or office network), you might use subnetting to divide the network into smaller parts for security, performance, or organizational reasons. Each subnet would have its own range of IP addresses, defined by the subnet mask, but these are typically private IP addresses, not public ones.
@@ -71,7 +71,7 @@ Here is a table of subnet mask, and consequently how many subnets (groups of dev
 - Why? Subnet mask's binary equivalent is `11111111.11111111.11111111.11000000`.
 - The `/26` CIDR notation indicates that 26 bits are used for the network portion, leaving 6 bits for host addressing.
 
-![](https://i.imgur.com/WaUdRdY.png)
+![](WaUdRdY.png)
 https://www.rapidtables.com/convert/number/decimal-to-binary.html
 
 ^ You do not choose "Octal" as the conversion from. You choose "Decimal".
@@ -183,13 +183,13 @@ Certainly! Let's dive into the subnet mask `255.255.255.192` and its implication
 Convert binary to decimal:
 https://www.youtube.com/watch?v=a2FpnU9Mm3E
 
-![](https://i.imgur.com/B5BNeVL.png)
+![](B5BNeVL.png)
 
 Convert decimal to binary
 https://www.youtube.com/watch?v=rsxT4FfRBaM
-![](https://i.imgur.com/dIWoK3j.png)
+![](dIWoK3j.png)
 
-![](https://i.imgur.com/HPdVbYJ.png)
+![](HPdVbYJ.png)
 
 ^ Those 128 64 32 16 8 4 2 1 are from:
 2^7, ,2^6, 2^5, 2^4, 2^3, 2^2, 2^1, 2^0

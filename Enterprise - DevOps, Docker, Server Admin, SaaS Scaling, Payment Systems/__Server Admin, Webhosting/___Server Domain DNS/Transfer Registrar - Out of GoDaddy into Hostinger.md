@@ -15,7 +15,7 @@ Let's say we're moving to Namecheap. You will have to "transfer out" from GoDadd
 The process could take up to 7 days. It'll be faster if you do certain steps beforehand:
 - Disable domain lock
 	- Under "Domain Settings" on the DNS page at GoDaddy:
-	  ![](https://i.imgur.com/43R1hAC.png)
+	  ![](43R1hAC.png)
 
 - Disable privacy block
 
@@ -32,7 +32,7 @@ Additionally, ensure your domain is eligible for transfer by meeting the followi
 
 
 Start the transfer from GoDaddy. They will provide you with an auth code
-![](https://i.imgur.com/LlW80lt.png)
+![](LlW80lt.png)
 
 At Namecheap, where you check eligibility of transfer is also where you can buy the transfer:
 https://www.namecheap.com/domains/transfer/
@@ -40,16 +40,16 @@ https://www.namecheap.com/domains/transfer/
 It'll perform some final checks / reminders what you need to do (For example here it says your domain is locked and you need to unlock it first, though they can help you unlock except that would just take a longer wait closer to 7 days)
 
 Then make sure to enter your Authorization code from GoDaddy
-![](https://i.imgur.com/9SAo9pi.png)
+![](9SAo9pi.png)
 
 
 ---
 
 You'll have to wait and get status updates over the days. Namecheap Managing domains show this saying Transfer will begin shortly:
-![](https://i.imgur.com/gwyC9mb.png)
+![](gwyC9mb.png)
 
 At some point later, it may say it's waiting on GoDaddy. Nothing for you to do. GoDaddy will release it:
-![](https://i.imgur.com/RsCwi99.png)
+![](RsCwi99.png)
 
 GoDaddy might have emailed you to warn you. It said you dont have to do anything and that they're waiting a few days to give you time to cancel the transfer:
-![](https://i.imgur.com/aaJVz2M.png)
+![](aaJVz2M.png)

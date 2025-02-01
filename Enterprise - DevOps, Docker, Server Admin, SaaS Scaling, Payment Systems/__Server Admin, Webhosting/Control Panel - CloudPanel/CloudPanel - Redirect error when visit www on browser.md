@@ -1,7 +1,7 @@
 
 
 - If visiting http://www.domain.com with the "www." is giving this error about too many redirects:
-		![](https://i.imgur.com/v3Cnk6m.png)
+		![](v3Cnk6m.png)
 	- Solution:
 		1. Remove this server block (feel free to backup to your some document if you’re concerned)
 			```

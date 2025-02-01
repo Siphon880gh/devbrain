@@ -28,31 +28,31 @@ If you want to include resources in subdirectories, you would need to specify th
 
 "web_accessible_resources": [
 
-Â  Â  {
+    {
 
-Â  Â  Â  "resources": [
+      "resources": [
 
-Â  Â  Â  Â  "assets-framework-css/*",
+        "assets-framework-css/*",
 
-Â  Â  Â  Â  "assets-framework-css/*/*",Â  // for one level of subdirectory
+        "assets-framework-css/*/*",  // for one level of subdirectory
 
-Â  Â  Â  Â  "assets-framework-css/*/*/*",Â  // for two levels of subdirectory
+        "assets-framework-css/*/*/*",  // for two levels of subdirectory
 
-Â  Â  Â  Â  // ... as many as needed depending on the depth of your directory structure
+        // ... as many as needed depending on the depth of your directory structure
 
-Â  Â  Â  Â  "assets-icons/*",
+        "assets-icons/*",
 
-Â  Â  Â  Â  "https://fonts.googleapis.com/*",
+        "https://fonts.googleapis.com/*",
 
-Â  Â  Â  Â  "*"
+        "*"
 
-Â  Â  Â  ],
+      ],
 
-Â  Â  Â  "matches": ["<all_urls>"]
+      "matches": ["<all_urls>"]
 
-Â  Â  }
+    }
 
-Â  ],
+  ],
 
 ```
 

@@ -386,7 +386,7 @@ If the Let's Encrypt Self-SSL certification has errors, the big picture is: Let'
 		
 		- Notice it said Redirect loop detected. It’s because the Let’s Encrypt is visiting to a www.
 		- This will correlate to visiting http://www.domain.com giving this error:
-			![](https://i.imgur.com/v3Cnk6m.png)
+			![](v3Cnk6m.png)
 	
 		- Solution:
 			1. Comment out this server block (you'll make it active again after installing SSL in the future, but at the moment this will fix the loop problem)

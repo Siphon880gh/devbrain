@@ -10,12 +10,12 @@ In Resource Groups, you can create a Resource Group. (Think of the Resource Grou
 In the Resource Group, you can add tag values from tag keys (in other words, you can add tags from categories)
 
 
-![](https://i.imgur.com/Wv2kRG5.png)
+![](Wv2kRG5.png)
 
 
-![](https://i.imgur.com/gxomssS.png)
+![](gxomssS.png)
 
-![](https://i.imgur.com/7KUlpBt.png)
+![](7KUlpBt.png)
 
 ---
 

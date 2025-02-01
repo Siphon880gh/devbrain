@@ -3,7 +3,7 @@ This is if you decide to enrich previous scraped data (like Google Map) where yo
 
 1. At the app, select source: Email Finder
 2. At the original scraped results in Excel, copy the column of sites into a text file (not copying the header):
-   ![](https://i.imgur.com/Lu2K9QS.png)
+   ![](Lu2K9QS.png)
 
 
 - There may be duplicates of the same domain (eg. some-broker.com) which often the case is a big broker that doesn’t have an individual agent’s email but a more general email, and that’s ok (at later outreach, we try the general email and we may look into other data sources for decision maker emails for these big brokers, or we may target the real estate agents’ emails listed elsewhere on their website). Just copy them over to the text file too.
@@ -22,7 +22,7 @@ This is if you decide to enrich previous scraped data (like Google Map) where yo
 2. Back at the app, under "Custom URL List", load in the text file
 3. Then click "Start Scraper"
 4. The app will give you the email and social links: The app itself will show records. It will also show the location the records are saved to, a csv file
-   ![](https://i.imgur.com/LA6FQtb.png)
+   ![](LA6FQtb.png)
 
 5. Copy the emails/socials columns into the originally scrapped Excel (addresses, websites, etc):
 
@@ -30,11 +30,11 @@ This is if you decide to enrich previous scraped data (like Google Map) where yo
 	- Since you are enriching a previous LocalScraper csv, then you can copy the column(s) (depending if you want socials too, or only email) and insert paste the columns. 
 		- Excel Workflow problem:  
 		    If you want to insert an empty column first in Excel (Have “Insert” instead of “Insert Copied Cells, then you have to make sure no other Excel spreadsheet has any cells highlighted - Press Escape to cancel selection).
-		    ![](https://i.imgur.com/ZR5s7JX.png)
-		    ![](https://i.imgur.com/sHtWd9t.png)
+		    ![](ZR5s7JX.png)
+		    ![](sHtWd9t.png)
 	- With email and all socials, that’s 5 columns you could be copying, as of 1/2025
 6. Now your originally scraped spreadsheet has the emails and socials. 
-   ![](https://i.imgur.com/TeJK0KJ.png)
+   ![](TeJK0KJ.png)
 
    
    However, you may have some emails/socials that dont match up to the rows of the originally scraped information because LocalScraper does not 100% honor the order of the textfile of website urls. It does get pretty close, so at least the cut and pasting is mostly shifting cells down and occasionally swapping rows. Here are tips:

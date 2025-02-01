@@ -9,7 +9,7 @@ ERR_EMPTY_RESPONSE
 ```
 
 
-![](https://i.imgur.com/S5JdFKb.png)
+![](S5JdFKb.png)
 
 
 That are NOT file permission issues. 
@@ -26,7 +26,7 @@ But file permission errors could lead to any of the above errors. File permissio
 
 - Is this visiting the public IP directly to see if a page appears?
 	- Go to your site's CloudPanel Vhost
-		- ![](https://i.imgur.com/TZ0nPkz.png)
+		- ![](TZ0nPkz.png)
 		- Note to replace YOUR_PUBLIC_IP
 		```
 		server {  

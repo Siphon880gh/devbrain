@@ -1,5 +1,5 @@
 
-![](https://i.imgur.com/U0LxTcK.png)
+![](U0LxTcK.png)
 
 The Let’s Encrypt Self SSL looks at the document root to create the file to perform the validation (CloudPanel ->Settings -> Root Directory).
 

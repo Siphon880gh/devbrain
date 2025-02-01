@@ -1,5 +1,5 @@
 
-![](https://i.imgur.com/PSRMzyW.png)
+![](PSRMzyW.png)
 
 <<
 It's Wednesday at 4pm. Can I park at this spot right now? Tell me in 1 line.
@@ -26,7 +26,7 @@ From: evernote:///view/180013553/s715/f3639607-4cb7-3699-a427-ad141119231e/39ec7
 [https://stocktwits.com/symbol/GE](https://stocktwits.com/symbol/GE)
 
   
-![](https://i.imgur.com/E9SnEgU.png)
+![](E9SnEgU.png)
 
   
 

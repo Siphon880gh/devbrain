@@ -153,29 +153,29 @@ const upload = multer({ dest: 'uploads/' });
 
 app.post('/upload', upload.single('file'), (req, res) => {
 
-Â  // Access uploaded file via req.file
+  // Access uploaded file via req.file
 
-Â  const file = req.file;
+  const file = req.file;
 
-Â  console.log(file);
-
-  
-
-Â  // Access form fields (not directly from FormData)
-
-Â  const formField = req.body.fieldName;
-
-Â  console.log(formField);
+  console.log(file);
 
   
 
-Â  // Process the uploaded file and form field data as needed
+  // Access form fields (not directly from FormData)
 
-Â  // ...
+  const formField = req.body.fieldName;
+
+  console.log(formField);
 
   
 
-Â  res.send('File uploaded successfully!');
+  // Process the uploaded file and form field data as needed
+
+  // ...
+
+  
+
+  res.send('File uploaded successfully!');
 
 });
 
@@ -183,7 +183,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
 app.listen(3000, () => {
 
-Â  console.log('Server started on http://localhost:3000');
+  console.log('Server started on http://localhost:3000');
 
 });
 
@@ -205,27 +205,27 @@ In this example, the HTML form would use FormData to submit data, including a fi
 
 1. `multipart/form-data`:
 
-Â Â  - This encoding is commonly used when uploading files through a form. It supports sending binary data, such as images, audio, video, etc.
+   - This encoding is commonly used when uploading files through a form. It supports sending binary data, such as images, audio, video, etc.
 
-Â Â  - The data is formatted into multiple parts, and each part has its own headers, including the "Content-Type" to describe the type of data being sent.
+   - The data is formatted into multiple parts, and each part has its own headers, including the "Content-Type" to describe the type of data being sent.
 
-Â Â  - It allows for multiple file inputs in a single form, and each file is sent as a separate part of the request.
+   - It allows for multiple file inputs in a single form, and each file is sent as a separate part of the request.
 
-Â Â  - It is more efficient for large files because it streams the data rather than encoding it as a long string.
+   - It is more efficient for large files because it streams the data rather than encoding it as a long string.
 
-Â Â  - It is used with the `enctype="multipart/form-data"` attribute in HTML forms.
+   - It is used with the `enctype="multipart/form-data"` attribute in HTML forms.
 
   
 
 2. `application/x-www-form-urlencoded` (URL-encoded form data):
 
-Â Â  - This encoding is used for simple form submissions that only contain textual key-value pairs (ASCII characters).
+   - This encoding is used for simple form submissions that only contain textual key-value pairs (ASCII characters).
 
-Â Â  - The data is encoded as a single string with keys and values separated by "&" and spaces replaced by "+" or percent-encoded "%20".
+   - The data is encoded as a single string with keys and values separated by "&" and spaces replaced by "+" or percent-encoded "%20".
 
-Â Â  - It is less efficient for large data sets or binary data since it is sent as a long string.
+   - It is less efficient for large data sets or binary data since it is sent as a long string.
 
-Â Â  - It is the default encoding used by HTML forms when the `enctype` attribute is not specified (i.e., `enctype="application/x-www-form-urlencoded"`).
+   - It is the default encoding used by HTML forms when the `enctype` attribute is not specified (i.e., `enctype="application/x-www-form-urlencoded"`).
 
   
 
@@ -247,11 +247,11 @@ Here's an example of how you might specify the encoding in an HTML form:
 
 <form action="/upload" method="post" enctype="multipart/form-data">
 
-Â  <input type="text" name="name" />
+  <input type="text" name="name" />
 
-Â  <input type="file" name="avatar" />
+  <input type="file" name="avatar" />
 
-Â  <input type="submit" value="Submit" />
+  <input type="submit" value="Submit" />
 
 </form>
 
@@ -261,11 +261,11 @@ Here's an example of how you might specify the encoding in an HTML form:
 
 <form action="/login" method="post" enctype="application/x-www-form-urlencoded">
 
-Â  <input type="text" name="username" />
+  <input type="text" name="username" />
 
-Â  <input type="password" name="password" />
+  <input type="password" name="password" />
 
-Â  <input type="submit" value="Login" />
+  <input type="submit" value="Login" />
 
 </form>
 
@@ -297,31 +297,31 @@ HTML Form (index.html):
 
 <head>
 
-Â  <title>File Upload Example</title>
+  <title>File Upload Example</title>
 
 </head>
 
 <body>
 
-Â  <h2>File Upload</h2>
+  <h2>File Upload</h2>
 
-Â  <form action="/upload" method="post" enctype="multipart/form-data">
+  <form action="/upload" method="post" enctype="multipart/form-data">
 
-Â  Â  <label for="name">Name:</label>
+    <label for="name">Name:</label>
 
-Â  Â  <input type="text" id="name" name="name" required><br>
-
-  
-
-Â  Â  <label for="avatar">Choose a file:</label>
-
-Â  Â  <input type="file" id="avatar" name="avatar" accept="image/*" required><br>
+    <input type="text" id="name" name="name" required><br>
 
   
 
-Â  Â  <input type="submit" value="Upload">
+    <label for="avatar">Choose a file:</label>
 
-Â  </form>
+    <input type="file" id="avatar" name="avatar" accept="image/*" required><br>
+
+  
+
+    <input type="submit" value="Upload">
+
+  </form>
 
 </body>
 
@@ -351,9 +351,9 @@ const upload = multer({ dest: 'uploads/' });
 
 app.get('/', (req, res) => {
 
-Â  // Serve the HTML form
+  // Serve the HTML form
 
-Â  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/index.html');
 
 });
 
@@ -361,29 +361,29 @@ app.get('/', (req, res) => {
 
 app.post('/upload', upload.single('avatar'), (req, res) => {
 
-Â  // Access uploaded file via req.file
+  // Access uploaded file via req.file
 
-Â  const file = req.file;
+  const file = req.file;
 
-Â  console.log(file);
-
-  
-
-Â  // Access other form fields
-
-Â  const name = req.body.name;
-
-Â  console.log(name);
+  console.log(file);
 
   
 
-Â  // Process the uploaded file and form field data as needed
+  // Access other form fields
 
-Â  // ...
+  const name = req.body.name;
+
+  console.log(name);
 
   
 
-Â  res.send('File uploaded successfully!');
+  // Process the uploaded file and form field data as needed
+
+  // ...
+
+  
+
+  res.send('File uploaded successfully!');
 
 });
 
@@ -391,7 +391,7 @@ app.post('/upload', upload.single('avatar'), (req, res) => {
 
 app.listen(3000, () => {
 
-Â  console.log('Server started on http://localhost:3000');
+  console.log('Server started on http://localhost:3000');
 
 });
 

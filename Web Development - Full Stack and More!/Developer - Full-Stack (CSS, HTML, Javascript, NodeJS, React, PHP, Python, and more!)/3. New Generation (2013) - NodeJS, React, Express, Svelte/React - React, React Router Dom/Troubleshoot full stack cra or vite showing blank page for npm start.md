@@ -191,11 +191,11 @@ This configuration ensures that all asset URLs are prefixed with `/myapp/`, alig
 
 Open Inspect's Network tab and click your local assets (js, css, etc)
 
-![](https://i.imgur.com/1Wzijw8.png)
+![](1Wzijw8.png)
 
-![](https://i.imgur.com/kGGEarH.png)
+![](kGGEarH.png)
 
-![](https://i.imgur.com/HfGvQBM.png)
+![](HfGvQBM.png)
 
 
 They are loading the front page instead of the asset because your routes/index.js has the frontpage served when there's a URL it doesn't recognize (you could've had this or a url endpoint to \*)

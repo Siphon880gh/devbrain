@@ -20,18 +20,18 @@ X86_64 are the 74 bit of Intel and AMD
 ## Initial Setup
 
 Register a new server under the server group
-![](https://i.imgur.com/Kge3sX2.png)
+![](Kge3sX2.png)
 
 Give the server a name under General tab (Eg. Localhost)
-![](https://i.imgur.com/eHeJ2j9.png)
+![](eHeJ2j9.png)
 
 Under Connection tab, fill in hostname, username, password (Port is prefilled 5432, Database is prefilled `postgre` which is a default existing database):
-![](https://i.imgur.com/4LxRKUw.png)
+![](4LxRKUw.png)
 
 Then click "Save" to connect
 
 When successfully connected, it'll show the Database sessions (right) as well as a list of your Databases (left)
-![](https://i.imgur.com/9vY0BvL.png)
+![](9vY0BvL.png)
 
 You can right click your database on the left to create new items:
-![](https://i.imgur.com/ZJqJCxk.png)
+![](ZJqJCxk.png)

@@ -125,4 +125,4 @@ $v = "?v=$version";
 
   
 The coloring in VS Code / Cursor looks helpful too
-![](https://i.imgur.com/YCe0M5C.png)
+![](YCe0M5C.png)

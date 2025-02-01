@@ -14,6 +14,6 @@ Select HTML
 Create a console log in a script block
 
 Have the option set to end of `<body>`
-![](https://i.imgur.com/sDOk0qr.png)
+![](sDOk0qr.png)
 
 Visit the website to check DevTools console for "REACHED". Once successful, swap your actual script into place and update.

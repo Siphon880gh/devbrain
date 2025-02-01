@@ -49,9 +49,9 @@ Move checkout.js script src to near bottom of body
 
 Make sure you’ve opened http://localhost:4242/checkout.html and not use VS Code Live Preview or Open Default. When in VS Code Live Preview, you probably get an additional error “Method not allowed” for the POST because it would be posting to the VS Code’s Live Preview Port! Remember server.js sets public assets to public/ so that the filepath opens the filepath so http://localhost:4242/checkout.html opens the public/checkout.html file AND its fetch will connect on the same 4242 port.
 
-![](https://i.imgur.com/ynd203z.png)
+![](ynd203z.png)
 
-![](https://i.imgur.com/fLNqc3d.png)
+![](fLNqc3d.png)
 
 ---
 
@@ -83,7 +83,7 @@ app.post("/create-payment-intent", async (req, res) => {
 
 “requires_payment_method" which is normal because card etc not selected yet. This endpoint is hit with frontend's initialize()
 
-![](https://i.imgur.com/jPRmV8v.png)
+![](jPRmV8v.png)
 
 
 Now test with a test credit card. For how to get a test credit card, refer to my Business notes for Stripe: 
@@ -91,7 +91,7 @@ https://wengindustries.com/app/bizbrain/?open=Stripe%20-%20_Test%20Credit%20Card
 
 
 And check your dashboard! Make sure you are in the Test version of the dashboard as you are testing with test keys
-![](https://i.imgur.com/a65eQfM.png)
+![](a65eQfM.png)
 
 Click one of the successful rows like the $1 to see:
 ```
@@ -118,7 +118,7 @@ Customize being able to associate email to paid account (force sign in if email 
 Unfortunately Stripe Elements (provided ui's to developers) as of 7/2024 do not support email field. But we can work around that
 
 Notice the fields are iframe, so you can’t modify them
-![](https://i.imgur.com/a7TYN1i.png)
+![](a7TYN1i.png)
 
 Trying to modify the iframe directly gets you the error: VM3841:1 Uncaught DOMException: Failed to read a named property 'document' from 'Window': Blocked a frame with origin "[http://localhost:4242](http://localhost:4242)" from accessing a cross-origin frame.  
 at `<anonymous>:1:80`
@@ -151,7 +151,7 @@ But you can insert your email above the iframe. So you have code to insert that 
 ```
 
 You want the styling of your email to look right
-![](https://i.imgur.com/v80Wf8y.png)
+![](v80Wf8y.png)
 
 Use this css:
 
@@ -293,19 +293,19 @@ Their sample code expects the page to have redirected already otherwise the else
 
 Payments can now be associated with emails, Which means we are a lot closer to tracking if an user has paid their bills in our web app.
 
-![](https://i.imgur.com/RPPb3w9.png)
+![](RPPb3w9.png)
 
 
 My small checkout form is updated with email field:
-![](https://i.imgur.com/S6c7UMF.png)
+![](S6c7UMF.png)
 
 You’ll want to test that new customers are created when you paid with an email address. Go to Customers. If you use a new email and pay, it creates a new customer. If using an old email and pay, it does not create a new customer.
-![](https://i.imgur.com/3eptchc.png)
+![](3eptchc.png)
 
-![](https://i.imgur.com/KbhyvCa.png)
+![](KbhyvCa.png)
 
 Clicking the customer will show you ALL previous payments
-![](https://i.imgur.com/p2XpgTY.png)
+![](p2XpgTY.png)
   
 Now for your app to fully work you’ll need another endpoint to retrieve successful payments. Our goal is to fetch the backend like [http://localhost:4242/payments/:customerID](http://localhost:4242/payments/:customerID) and it could return something like this:
 ```
@@ -356,10 +356,10 @@ Visit [http://localhost:4242/payments/:customerID](http://localhost:4242/paymen
 
 Btw to have a smoother developer experience I recommend at the Dashboard Customers, you add the column customer id:
 
-![](https://i.imgur.com/BPAppZW.png)
+![](BPAppZW.png)
   
 The default view didn’t have customer id which is a bad move on Stripe. Now we have customer_id column:
-![](https://i.imgur.com/jBSnK8j.png)
+![](jBSnK8j.png)
 
 This Primer could go on and on to create you a full app but you should have enough foundation at this point. Next things you might want to consider. When you’re checking users’ latest tier, you have to use logic to check the payments to see which one most relevant (the most latest payment). You may need other identifying or meta data. You can add metadata to both customers and payment intents in Stripe, depending on what you need to achieve. Refer to [[Stripe - Add meta data (Payment or Customer)]]. For your full app, you might also need a live server that takes web hooks: Stripe has webhooks for many events like new customer or new payment creations, then Stripe can send that information to your live server, and your live server can update your app’s database.  
 

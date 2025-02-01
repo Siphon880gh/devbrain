@@ -3,13 +3,13 @@ After a long chat session, Cursor AI may cause problems by removing your code un
 ## Problem: Literally replaced your old code with “Rest of existing code”
 
 **Example 1:**
-![](https://i.imgur.com/kNeJfCN.png)
+![](kNeJfCN.png)
 
 Prompt to get back:
 The update photo button no longer works. I see that you literally added the comment "// Rest of existing text drawing code..." and "//Rest of exiting export code"
 
 **Example 2:**
-![](https://i.imgur.com/C4ggIJ0.png)
+![](C4ggIJ0.png)
 
 **Prompt** to get back:  
 You've removed my code and instead have the comment "//Convert other functions similarly"  
@@ -20,7 +20,7 @@ But if it’s been erased a few prompts back, you have to undo. Worse case, you 
 
 ## Problem: Removed code and doesn’t add comment either
 
-![](https://i.imgur.com/sLufhhs.png)
+![](sLufhhs.png)
 
 In this case, it removed my event handler function, even though it’s still required on the new approaches that the AI recommended. There’s no comment such as “The rest of handleFileUpload” code like in the above problem. I only found out when testing the app as an user.
 

@@ -2,7 +2,26 @@
 This is how it’s organized at [https://platform.openai.com/](https://platform.openai.com/)
 
 Organizations:
-![](https://i.imgur.com/kZhhwqH.png)
+![](kZhhwqH.png)
 
 And their Projects:
-![](https://i.imgur.com/TAL7EaQ.png)
+![](TAL7EaQ.png)
+
+---
+
+Change organization name here:
+![](EfjVkDi.png)
+
+---
+
+ALL PROJECTS: Rename or archive any projects at the organization:
+![](IU3TdCr.png)
+
+---
+
+Rename the current project:
+![](Dtas4r9.png)
+
+
+Get API key (for the specific project) here:
+![](1cQujQJ.png)

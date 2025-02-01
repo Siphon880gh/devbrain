@@ -10,10 +10,10 @@ https://runwayml.com/resources/how-to-animate-pictures/
 Motion Brush understands what you're trying to move:
 
 Eg. Makes him move his head up, eyes slightly drift, naturally
-![](https://i.imgur.com/bvSQGmg.png)
+![](bvSQGmg.png)
 
 Eg. Make his robe flying in the wind
-![](https://i.imgur.com/GExS38G.png)
+![](GExS38G.png)
 
 You can also do clouds
 

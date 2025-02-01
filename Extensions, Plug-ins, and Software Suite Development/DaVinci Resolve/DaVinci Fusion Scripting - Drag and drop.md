@@ -1,7 +1,7 @@
 
-![](https://i.imgur.com/XIWISwK.png)
+![](XIWISwK.png)
 
-![](https://i.imgur.com/a45Ney6.png)
+![](a45Ney6.png)
 
 
 You can drop `tlc.setting` or any fusion scripted nodes content files named with file extension .setting, into the Fusion screen, and it’ll accept it!

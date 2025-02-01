@@ -154,7 +154,7 @@ But that might not be helpful still. You’ll have to troubleshoot outside of gu
 ---
 
 This is how it'll look:
-![](https://i.imgur.com/CY4lPHy.png)
+![](CY4lPHy.png)
 
 You may want to run gunicorn in the background. Supervisor with the right settings can help with running in the background the process that start multiple process workers (and hence run the multiple process workers in the background too). In addition, Supervisor lets you manage turning them on and off based on app name in the command.
 

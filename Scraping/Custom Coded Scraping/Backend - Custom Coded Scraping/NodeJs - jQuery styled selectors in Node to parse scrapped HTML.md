@@ -1,6 +1,6 @@
-After scraping html,Â you can use jQuery-style selectors to easily extract information from the HTML you've fetched. You can choose to re-save the HTML files or save to your database, whatever your mechanism is.
+After scraping html, you can use jQuery-style selectors to easily extract information from the HTML you've fetched. You can choose to re-save the HTML files or save to your database, whatever your mechanism is.
 
-You will need bothÂ jsdom and jquery in node to parse scrapped information. Notice this is the node implementation of jquery, not the traditional js library.
+You will need both jsdom and jquery in node to parse scrapped information. Notice this is the node implementation of jquery, not the traditional js library.
 
 Example:
 ```

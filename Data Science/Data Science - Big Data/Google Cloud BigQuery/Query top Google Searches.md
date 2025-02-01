@@ -1,7 +1,7 @@
 
 At the BigQuery console (https://console.cloud.google.com/bigquery), you can simply click "Compose A New Query" without opening any specific dataset
 
-![](https://i.imgur.com/Oh1GpA2.png)
+![](Oh1GpA2.png)
 
 
 

@@ -2,7 +2,7 @@ This is localhost:3001/sandbox for a vite-react 18 full stack app. The backend h
 
 Creating an user will give you a token because that's how on the frontend you sign up.
 
-![](https://i.imgur.com/P73TmeX.png)
+![](P73TmeX.png)
 ^ Opps admittingly the Documentation panel wasn't on the createUser query. This brings up the point that the Documentation panel can be separate from the Operation panel.
 
 >A note on the mutation syntax:
@@ -37,9 +37,9 @@ Variables:
 
 
 See that the response returned a token. You can be "logged in" because you just signed up. And you can view member only resources. Just make sure to send it as Headers, not Variables:
-![](https://i.imgur.com/0DXjlE4.png)
+![](0DXjlE4.png)
 
-![](https://i.imgur.com/ZTYbf9n.png)
+![](ZTYbf9n.png)
 
 
 You switch to Headers tab
@@ -51,7 +51,7 @@ Place your token in place of "user-1"
 ---
 
 The left strip toolbar:
-![](https://i.imgur.com/SFov0Pf.png)
+![](SFov0Pf.png)
 
 First icon that looks like a mindmap lists all the schemas of your graphql backend typedefs.js.  Lets call the window that loads from this icon the Schema window.
 

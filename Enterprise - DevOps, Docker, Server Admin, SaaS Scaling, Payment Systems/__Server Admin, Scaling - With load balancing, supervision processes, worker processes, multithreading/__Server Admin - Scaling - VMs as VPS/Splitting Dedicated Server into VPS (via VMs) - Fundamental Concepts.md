@@ -13,12 +13,12 @@ You'd, briefly:
 - Results: Both your host (the dedicated server) and the VM (the VPS) can host websites at different IP addresses. But you'll probably leave the dedicated server alone and make the VPS the public facing web server. This way you can mitigate the risk of a hacker compromising your entire dedicated server, and you can maintain the ability to restart the VPS from the dedicated server as a host shell restarting the VM.
 
 Diagram of Host OS (real computer) connected to VM (aka guest OS, aka VPS). Doesn't show virtual bridge or gateway/router:
-![](https://i.imgur.com/rvZk1J3.png)
+![](rvZk1J3.png)
 ^Above pic is from https://contabo.com/blog/what-is-vps-how-does-vps-work/
 
 
 Here is the diagram of a router being able to sense the physical computer and VMs (two VMs here) because we have a virtual bridge
-![](https://i.imgur.com/ygb12aV.png)
+![](ygb12aV.png)
 ^ Above pic is from https://unix.stackexchange.com/questions/572261/virtual-network-bridge-why-does-it-have-to-have-an-ip-address-assigned-to-it
 
 

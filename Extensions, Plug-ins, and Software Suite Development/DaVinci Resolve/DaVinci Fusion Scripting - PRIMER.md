@@ -18,7 +18,7 @@ Selecting one or multiple nodes in Fusion then Copying to clipboard will let you
 
 Optional - VS Code setup: Get this extension (BMD stands for BlackMagic Design, company behind DaVinci Resolve)
 [https://github.com/EmberLightVFX/BMD-Fusion-extension-for-VSCode](https://github.com/EmberLightVFX/BMD-Fusion-extension-for-VSCode)
-![](https://i.imgur.com/dhcWYxe.png)
+![](dhcWYxe.png)
 
 
 ---

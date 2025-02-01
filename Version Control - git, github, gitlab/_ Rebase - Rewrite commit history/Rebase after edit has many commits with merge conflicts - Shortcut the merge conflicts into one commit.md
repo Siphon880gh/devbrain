@@ -12,7 +12,7 @@ git rebase -i ... --committer-date-is-author-date
 Where the ... is up to you, could be `HEAD~100` for example. Preserving author name and contact is by default so no option for it needed.
 
 Then when it complains of merge conflicts, open the Source Control tab:
-![](https://i.imgur.com/qAE9hH0.png)
+![](qAE9hH0.png)
 
 Select all files marked to have merge conflicts (exclamation mark). Here it’s all selected and we right click to:
 

@@ -8,9 +8,9 @@ You can switch between Backend and Classic Mode by clicking the toggle mode butt
 
 https://wpbakery.com/features/wordpress-editor/
 
-![](https://i.imgur.com/Ym8CNID.png)
+![](Ym8CNID.png)
 
-![](https://i.imgur.com/wPL8JB9.png)
+![](wPL8JB9.png)
 
 
 When in backend mode, the toggle button's text is "Classic Mode" because the button label is what you go into when clicked. And vice versa.
@@ -28,7 +28,7 @@ To find your place among the short codes you may have to rely on the RTF element
 Notice on the top right of the content editing is Visual and Text. Think of Visual as "Visual RTF" mode that shows you shortcuts, your styled text, and your images and renders some of the text formatting and images.
 
 
-![](https://i.imgur.com/HYlCxhm.png)
+![](HYlCxhm.png)
 
 But notice the Classic Mode is not only re-skinned but enhanced with new design elements. The Nectar shortcodes button is a library of shortcodes that add designed elements. Refer to [[Salient WPBakery Site Builder - Nectar Shortcodes]]
 
@@ -38,7 +38,7 @@ But notice the Classic Mode is not only re-skinned but enhanced with new design 
 
 ### Both Visual RTF mode and Text are the same code. 
 It's a combination of shortcodes (Wordpress plugin code) and HTML. You can have sections of shortcodes and HTML, or you can have them mixed together like this:
-![](https://i.imgur.com/BhpWZTc.png)
+![](BhpWZTc.png)
 
 ```
 <div style="margin-top:10px; text-align:center;">[nectar_animated_title heading_tag="h3" style="color-strip-reveal" color="Accent-Color" text="Pricing" custom_css="text-align:center;"]</div>
@@ -47,7 +47,7 @@ It's a combination of shortcodes (Wordpress plugin code) and HTML. You can have 
 Style and script blocks are allowed in Classic Mode. Make sure to add them in Text Mode instead of Visual RTF mode. Refer to "Text mode is ALL Text" implications for rationale.
 
 ### Visual RTF mode renders text formats and images:
-![](https://i.imgur.com/dzBy3ST.png)
+![](dzBy3ST.png)
 
 
 ### Text mode is ALL TEXT. 

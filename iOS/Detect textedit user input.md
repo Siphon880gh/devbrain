@@ -2,7 +2,7 @@ Detect textedit user input, etc: You have to add delegate with two steps (Storyb
 
 Storyboard dragging: https://www.youtube.com/watch?v=jxTEzf1EY08
 ￼
-![](https://i.imgur.com/hLRZdLA.png)
+![](hLRZdLA.png)
 
 Coding: https://www.youtube.com/watch?v=jxTEzf1EY08
 

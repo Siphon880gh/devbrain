@@ -4,11 +4,11 @@
 
 ## Frontend mode
 
-![](https://i.imgur.com/i1bT7P5.png)
+![](i1bT7P5.png)
 
 Wordpress Frontend is like having access to how the website looks more accurately when live by having the same proportion, showing the texts, images, etc. Hovering your mouse still lets you edit your blocks.
 ## Backend mode
-![](https://i.imgur.com/m6htZMf.png)
+![](m6htZMf.png)
 
 Wordpress backend is like laying out the bricks of your website. You can more easily see how the elements are arranged and move them around
 
@@ -24,7 +24,7 @@ Refer to [[WPBakery Page Builder - _PRIMER - Backend, Classic, Frontend, Visual,
 
 ## Main Builder ("Edit with WPBakery Page Builder")
 
-![](https://i.imgur.com/lvFNTq4.png)
+![](lvFNTq4.png)
 
 
 ----
@@ -33,4 +33,4 @@ Refer to [[WPBakery Page Builder - _PRIMER - Backend, Classic, Frontend, Visual,
 ## Live Editing - Appearance -> Customize
 
 At wp admin left sidebar, you go to Appearance -> Customize, for live editing
-![](https://i.imgur.com/oIUoSOI.png)
+![](oIUoSOI.png)

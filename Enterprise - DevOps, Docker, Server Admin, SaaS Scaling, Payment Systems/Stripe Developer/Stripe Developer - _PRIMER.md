@@ -16,7 +16,7 @@ https://docs.stripe.com/samples
 You have to create a Stripe account and I recommend you get setup with Test Mode and testing credit cards so you can connect your code to Stripe and test your code before going into production. This setup does not require coding knowledge. Follow the instructions on my business notes on Stripe:  https://wengindustries.com/app/bizbrain/?open=Stripe%20-%20_PRIMER
 
 Make sure you’re in Test Mode first. For more information on Test Mode:
-![](https://i.imgur.com/460aIq1.png)
+![](460aIq1.png)
 
 ### API Keys
 

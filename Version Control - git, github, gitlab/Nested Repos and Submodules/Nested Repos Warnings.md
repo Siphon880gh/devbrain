@@ -1,7 +1,7 @@
 
 When you have a main repository that contains folders of other repositories (nested repositories), Git does not automatically track the changes in these nested repositories as part of the main repository's changes. These nested repositories are treated as separate entities, each with their own separate Git history and repository management. When you run git status and sometimes when running git add -A, you’ll see a warning like this:
 
-![](https://i.imgur.com/2bM9RxK.png)
+![](2bM9RxK.png)
 
 ```
 On branch main                                                                           .           

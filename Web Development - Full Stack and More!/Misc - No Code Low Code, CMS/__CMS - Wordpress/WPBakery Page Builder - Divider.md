@@ -6,20 +6,20 @@ A divider is spacing to move element to the next line or down more. It is NOT a 
 
 Sometimes your elements are in the same line
 
-![](https://i.imgur.com/6DrcBRG.png)
+![](6DrcBRG.png)
 
 Your goal is:
-![![](https://i.imgur.com/mToifPv.png)
+![![](mToifPv.png)
 
 ---
 
 So in WPBakery Builder's Frontend Editor:
 
 You have:
-![](https://i.imgur.com/fWZouhw.png)
+![](fWZouhw.png)
 
 You can add a Divider element inbetween button and icon:
-![](https://i.imgur.com/sEO2Edb.png)
+![](sEO2Edb.png)
 
 And you can adjust the vertical spacing:
-![](https://i.imgur.com/FcjY2dM.png)
+![](FcjY2dM.png)

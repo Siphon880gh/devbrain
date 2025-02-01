@@ -3,11 +3,11 @@ Android tabs are at the top and you can swipe left and right to switch tabs. The
 
 Removed the icon at each tab component for Android because each tab would be two lines (icon one line, text another line) which doesn’t look too Material UI.
 
-![](https://i.imgur.com/0mDgWLX.png)
+![](0mDgWLX.png)
 
 iOS tabs are at the bottom. User cannot switch tabs by swiping left and right. These tabs look like Apple iOS style tabs. There's a momentary tinting when you press a tab
 
-![](https://i.imgur.com/f3S2aQw.png)
+![](f3S2aQw.png)
 
 
 Although for the most part React Native takes care of Android style and iOS style automatically. It's not the case for some components and that includes the tab bar.

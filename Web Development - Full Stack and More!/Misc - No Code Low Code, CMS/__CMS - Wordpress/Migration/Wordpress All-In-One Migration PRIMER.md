@@ -10,7 +10,7 @@ https://wordpress.org/plugins/all-in-one-wp-migration/
 Unzip and move into /wp-content/plugins
 
 If this error:
-![](https://i.imgur.com/Gk36O6t.png)
+![](Gk36O6t.png)
 
 cd into the wp-content/plugins/
 
@@ -39,7 +39,7 @@ If it complains still, then the settings are not taking. Here are other ways.
 
 Try going into CPanel or WHM. Like ...cpsess0787040780/scripts2/multiphp_ini_editor/basic?login=1&post_login=29735274873117
 
-![](https://i.imgur.com/VO1nkh4.png)
+![](VO1nkh4.png)
 
 
 
@@ -84,7 +84,7 @@ You may see folders/files named "ai1wm" which stands for all-in-1 wordpress migr
 Where to use the plugin
 
 Shows on the left side:
-![](https://i.imgur.com/PEANKGc.png)
+![](PEANKGc.png)
 
 
 

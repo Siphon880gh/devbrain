@@ -11,7 +11,7 @@ Both runtimes use the JS Engine
 
 
 Here is a diagram of the browser context:
-![](https://i.imgur.com/hA5rFPZ.png)
+![](hA5rFPZ.png)
 
 Here’s a quick overview of what each part represents:
 

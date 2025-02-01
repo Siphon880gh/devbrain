@@ -2,7 +2,7 @@
 
 #### SafeAreaView from library (Can’t rely on the default!)  
 Proof. Left is SaveAreaView imported from React-Native. Right is from the new library:
-![](https://i.imgur.com/BMkHCgb.png)
+![](BMkHCgb.png)
 
 How to implement:
 ```

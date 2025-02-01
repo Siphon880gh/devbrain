@@ -11,7 +11,7 @@ Key links:
 - Credits (Crawler API): [https://crawlbase.com/dashboard/api](https://crawlbase.com/dashboard/api)
 
 Menu of products:
-![](https://i.imgur.com/Kldeygd.png)
+![](Kldeygd.png)
 - Note that proxy and ip rotation is already included in their Crawling API and Crawler products, as in when you use their product to scrape, you dont have to worry about an IP being blocked. The Smart Proxy is a separate product that lets you use their proxy for whatever reason (may not necessarily be for scraping).
 - For Crawler API vs Crawler, refer to [[Crawlbase API vs Crawlbase Crawler]]
 
@@ -20,7 +20,7 @@ Token types
 - Otherwise use the Normal request token which is more performant.
 
 To see your credits, Crawling API -> Dashboard
-![](https://i.imgur.com/GilJbZM.png)
+![](GilJbZM.png)
 
 
 Their offers
@@ -72,7 +72,7 @@ Crawlbase offers libraries but is unnecessary. Those are just syntactic sugar sy
 >  Crawlbase has libraries to make implementing the API easier:
 > [https://crawlbase.com/crawling-libraries-sdk](https://crawlbase.com/crawling-libraries-sdk)
 > 
-> ![](https://i.imgur.com/mEOM63C.png)
+> ![](mEOM63C.png)
 > 
 > NodeJs / Python:
 > [https://www.npmjs.com/package/crawlbase](https://www.npmjs.com/package/crawlbase)
@@ -92,7 +92,7 @@ And these two parameters make up the basic API endpoint
 
 The documentation auto populates with your tokens if you are logged in. Two types of tokens. One where content to be scrapped is loaded in by js during loading instead of already part of the html. The regular token is more performant.
 
-![](https://i.imgur.com/1EgpMLl.png)
+![](1EgpMLl.png)
 
 Let's test the API endpoint to scrape HTML with only the mandatory parameters. We'll get more complex by adding optional parameters in a bit. Bare bones (use python equivalent, or library equivalent, etc depending on your preferred coding style)
 ```
@@ -129,7 +129,7 @@ https://crawlbase.com/docs/crawling-api/scrapers/
 
 > [!note] Scraper presets
 > Partial screenshot of scraper presets:
-> ![](https://i.imgur.com/OhUvaKp.png)
+> ![](OhUvaKp.png)
 > ^ Scroll down on webpage for more
 > 
 > Again - scraped= is an optional parameter. If you don't use it, you will receive back the full HTML of the page so you can scrape it freely.
@@ -255,7 +255,7 @@ For scraping next pages, you adjust Google url
 - Page 4: `start=30`
 
 > [!note] Curious: To prove, you can turn on screenshot to true and look at the screenshot for start=20 which will say Page 3
-> ![](https://i.imgur.com/5uzrYog.png)
+> ![](5uzrYog.png)
 >
 
 **Caveat**: There could be captcha errors from Google Search every so often. Your code or developer has to catch the word captcha or other keywords, then retry the fetch until no more captcha. You do not have to visit the url to the captcha. By the time you re-fetch, likely Crawlbase API already has performed this for you. If you don't want to developer further, the Crawler (Not the API) will automatically retry each request, including those that encounter captchas, to ensure optimal data retrieval, and can send to your custom webhook or save to Crawlbase Storage. For a better success rate, we recommend testing using the JS Crawler at the Crawler.
@@ -304,4 +304,4 @@ Other optional parameters will better fit your workflow
 https://crawlbase.com/docs/crawling-api/parameters/
 
 These are some more optional parameters at their documentation
-![](https://i.imgur.com/hHlzkU0.png)
+![](hHlzkU0.png)

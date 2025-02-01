@@ -167,7 +167,7 @@ Web works but iOS still failing? (Tried previous fix)
 
 Basically, Android Studio → Tools → SDK Manager → Languages & Frameworks: Android SDK → SDK Tools → Select the Android Emulator
 
-![](https://i.imgur.com/xSmTpOk.png)
+![](xSmTpOk.png)
 Copy the path and export as a path variable: `export ANDROID_HOME=$HOME/Library/Android/sdk`
 
 Setup ANDROID_HOME path. May want to setup in your bash_profile or equivalent then source or restart the terminal.
@@ -176,7 +176,7 @@ Setup ANDROID_HOME path. May want to setup in your bash_profile or equivalent t
 Make sure to setup the android emulator too
 
 On the Android Studio main screen (File → Close Project), access Virtual Device Manager.
-![](https://i.imgur.com/wLVbnDb.png)
+![](wLVbnDb.png)
 
 
 Click the Create device button.----Under Select Hardware, choose the type of hardware you'd like to emulate. We recommend testing against a variety of devices, but if you're unsure where to start, the newest device in the Pixel line could be a good choice.----On next, select an OS version to load on the emulator (probably one of the system images in the Recommended tab), and download the image.
@@ -189,14 +189,14 @@ cd android and ./gradlew clean before trying
 
 Working on iOS Simulator:  
 It’s CMD+d to open the developer menu (only if keyboard is connected with CMD+shift+K)
-![](https://i.imgur.com/jFTdJUm.png)
+![](jFTdJUm.png)
 
 
 Working on Android Simulator:
 
 It’s CMD+m or Ctrl+m to open developer menu. You’ll briefly see three dots which represents a three finger press (sneak peak: that’s how you’ll open the developer menu on the physical device)
 
-![](https://i.imgur.com/ud8ZjKS.png)
+![](ud8ZjKS.png)
 
 ### Setup Synchronizing to physical phones
 
@@ -221,11 +221,11 @@ Check the terminal of `npx expo start` 
 Is the QR code white? Or is it green and broken up?
 
 Bad:
-![](https://i.imgur.com/Ug3WZFo.png)
+![](Ug3WZFo.png)
 
 
 Good:
-![](https://i.imgur.com/5RABv8F.png)
+![](5RABv8F.png)
 
 
 There’s no known solution that seems to work. Most solutions are to check your terminal settings or to reinstall expo or make sure there’s no conflicting global expo vs local expo. Try using terminal vs using VS Code’s terminal. If those solutions dont work, synchronize to the physical phone in the other way.

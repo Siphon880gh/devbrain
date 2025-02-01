@@ -10,17 +10,17 @@ Let’s walk this through
 
 You’re changing which css file loads based on what company logged in on your app. One company’s color is all red. There’s a .btn-danger that you overlooked, because as you can see, the button is red on the red card:
 
-![](https://i.imgur.com/gOZuhyZ.png)
+![](gOZuhyZ.png)
 
 Your default for misc companies that you haven’t white labeled for or for any guest who didn’t sign up as a company (maybe a test trial), you have default colors and styling, which is usually your own company’s brand colors. The default btn-danger which is red may be from bootstrap css or inspired by bootstrap:
-![](https://i.imgur.com/Uz4FkQt.png)
+![](Uz4FkQt.png)
 
 So that’s why the Delete button at the white labeled company has happened, because when you swapped out the branded css file and forgot that the company’s primary color is red (which means the dominant card has a red background) yet the btn-danger is red
 
 If you had a generated style guide, you would see any buttons that dont look right! Well in this case, you would be thinking what if the card is a primary color, and we have a btn-danger in it. You can configure the css file to have a tinted version of red.
 
 Here’s an example of a generated style guide:
-![](https://i.imgur.com/CZks0uF.png)
+![](CZks0uF.png)
 
 ---
 
@@ -103,6 +103,6 @@ brand-default-none.css:
 ```
 
 When creating a new css file for a new company’s colors you want to white label, your VS Code shows the color swaps. That allows you to think about the rest of the styling classes for that branded css file:
-![](https://i.imgur.com/TUJAL9s.png)
+![](TUJAL9s.png)
 
 But you should STILL revisit the generated style guide in case you made a mistake!

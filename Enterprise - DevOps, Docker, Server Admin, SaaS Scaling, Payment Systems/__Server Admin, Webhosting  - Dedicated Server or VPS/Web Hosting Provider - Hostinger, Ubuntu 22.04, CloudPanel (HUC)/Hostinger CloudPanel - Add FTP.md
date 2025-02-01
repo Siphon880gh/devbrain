@@ -7,10 +7,10 @@ The “FTP Users” requires more setting security, firewall, etc.
 
 More easily, just add SSH Users. You can connect via SFTP
 
-![](https://i.imgur.com/O5ntdHk.png)
+![](O5ntdHk.png)
 
 
-![](https://i.imgur.com/ds9P9Hq.png)
+![](ds9P9Hq.png)
 
 ---
 

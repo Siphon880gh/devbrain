@@ -5,7 +5,7 @@ By defining screens to be in a stack, you can navigate to a previous screen beca
 - They can use back button if on a web browser
 - Back button at the top header that lets user go back
 
-![](https://i.imgur.com/mBTgJsw.png)
+![](mBTgJsw.png)
 
 A Stack Navigator allows the developer to define what screens when visited through links, as long as the user visits a screen from an older screen where both screens belong to the same Stack Navigator, can have this swiping animation and user experience.
 

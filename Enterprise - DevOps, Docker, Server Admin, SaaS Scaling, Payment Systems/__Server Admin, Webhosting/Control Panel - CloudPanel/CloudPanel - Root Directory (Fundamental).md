@@ -1,6 +1,6 @@
 
 Changing document root at CloudPanel
-![](https://i.imgur.com/r4gKBlk.png)
+![](r4gKBlk.png)
 
 Which the Cloudpanel Vhost text entry is:
 ```

@@ -28,4 +28,4 @@ Metabase can perform churn and retention analysis:
 ---
 
 The databases that Metabase can work with as a BI tool are: MySQL, Mongo, etc:
-![](https://i.imgur.com/x6QRZ8V.png)
+![](x6QRZ8V.png)

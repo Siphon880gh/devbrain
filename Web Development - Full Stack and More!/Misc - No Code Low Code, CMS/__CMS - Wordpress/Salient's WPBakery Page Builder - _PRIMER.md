@@ -7,7 +7,7 @@ Salient theme has a couple site builders and site building features
 To compare with other site builders, see: [[Wordpress Site Builders]]
 
 Its theme:
-![](https://i.imgur.com/dmtQ5C2.png)
+![](dmtQ5C2.png)
 
 
 ---

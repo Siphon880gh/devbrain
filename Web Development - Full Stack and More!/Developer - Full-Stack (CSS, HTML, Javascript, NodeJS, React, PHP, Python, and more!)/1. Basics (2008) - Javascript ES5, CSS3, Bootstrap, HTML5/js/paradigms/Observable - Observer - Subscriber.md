@@ -4,7 +4,7 @@ TLDR: RxJS
 
 ## Dev - JS Observables, Observers, Subscribers
 
-<<Â Does JS have observables and subscribers and observers? Or do I need to do setInterval to implement it?
+<< Does JS have observables and subscribers and observers? Or do I need to do setInterval to implement it?
 
   
 

@@ -2,7 +2,7 @@ Situation: A webpage has a lot of data points but doesn't make it easy for you t
 
 Data often found in Chrome DevTools network tab. However you want to restart the webpage with the network tab on, otherwise may not show up the content that gets sent to the webpage during the loading. 
 
-![](https://i.imgur.com/ZzH6H9u.png)
+![](ZzH6H9u.png)
 
 You may want to disable cache and filter by Fetch/XHR depending on use case. JSON files, XML files, even txt files may apply. “Response” tab has unprettied json but clicking “Preview” will have easier to read prettified json. Look for keys that could be “data” or named after what type of data you’re looking for. 
 

@@ -89,5 +89,5 @@ plt.show()
 But that doesn't work in the sandbox. You'll have to run the code in **Jupyter Notebook**
 
 
-![](https://i.imgur.com/P53XSLk.png)
+![](P53XSLk.png)
 

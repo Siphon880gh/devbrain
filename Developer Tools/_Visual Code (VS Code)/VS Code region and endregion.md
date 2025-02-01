@@ -18,7 +18,7 @@ https://marketplace.visualstudio.com/items?itemName=maptz.regionfolder
 ```
 
 But notice you can collapse and expand next to line number
-![](https://i.imgur.com/VZb3ADd.png)
+![](VZb3ADd.png)
 
 
 **CSS:**
@@ -41,4 +41,4 @@ var CONFIG = {
 ```
 
 Bottom left has Region Viewer (is NOT Outline), so you can navigate regions at a glance and jump to regions:
-![](https://i.imgur.com/oxKPvnu.png)
+![](oxKPvnu.png)

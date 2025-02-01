@@ -36,11 +36,11 @@ newElement.textContent = "I'm the new first child!";
 
 if (parentDiv.firstChild) {
 
-Â  Â  parentDiv.insertBefore(newElement, parentDiv.firstChild);
+    parentDiv.insertBefore(newElement, parentDiv.firstChild);
 
 } else {
 
-Â  Â  parentDiv.appendChild(newElement);
+    parentDiv.appendChild(newElement);
 
 }
 
@@ -60,15 +60,15 @@ If you're finding yourself doing this often, you can create a utility function f
 
 function prependChild(parent, newChild) {
 
-Â  Â  if (parent.firstChild) {
+    if (parent.firstChild) {
 
-Â  Â  Â  Â  parent.insertBefore(newChild, parent.firstChild);
+        parent.insertBefore(newChild, parent.firstChild);
 
-Â  Â  } else {
+    } else {
 
-Â  Â  Â  Â  parent.appendChild(newChild);
+        parent.appendChild(newChild);
 
-Â  Â  }
+    }
 
 }
 

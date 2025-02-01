@@ -299,7 +299,7 @@ Then visit domain.tld:9001, and attempt to login
 
 If successful, save the Supervisor Web Portal credentials and URL to your webhost details document.
 
-![](https://i.imgur.com/phza97X.png)
+![](phza97X.png)
 
 
 11. Be familiar with supervisord management

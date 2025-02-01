@@ -19,7 +19,7 @@ header("Pragma: no-store");
 
 If looking into DevTools, it corresponds to Response header's Pragma:
 DevTools → Network → Headers at the file
-![](https://i.imgur.com/FY2H802.png)
+![](FY2H802.png)
 
 ---
 

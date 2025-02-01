@@ -5,5 +5,5 @@ Complement is represented as '
 Union of A and B (A ∪ B)
 Intersection of A and B (A ∩ B)
 
-![](https://i.imgur.com/NX4vd7o.png)
+![](NX4vd7o.png)
 Diagram from: https://www.researchgate.net/figure/A-Venn-diagram-of-unions-and-intersections-for-two-sets-A-and-B-and-their-complements_fig1_332453167

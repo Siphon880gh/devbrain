@@ -67,9 +67,9 @@ Here's how to connect your Proxy service (likely you are paying) to LocalScraper
 4. When it finishes scraping: The app itself will show records. It will also show the location the records are saved to, a csv file
 
 In this example, we scrape for real estate agents and brokers in Pasadena, California:
-![](https://i.imgur.com/uvp8Ois.png)
+![](uvp8Ois.png)
 
-![](https://i.imgur.com/ZdikxJW.png)
+![](ZdikxJW.png)
 
 Next sections will be specific types of scraping. The example used in GENERAL PROCEDURE here is a Google Maps scraping, which we will cover immediately next.
 
@@ -93,9 +93,9 @@ Required Setup
 4. It starts scraping. Chrome may get opened per General Procedure.
 5. When it finishes scraping: The app itself will show records. It will also show the location the records are saved to, a csv file
 
-![](https://i.imgur.com/uvp8Ois.png)
+![](uvp8Ois.png)
 ^ Just visit that folder and sort by last modified to get the most recent saved csv.
 ^Or if you use the Mac terminal, you can run a command open "__"  where you copied and pasted the csv filepath.
 
-![](https://i.imgur.com/ZdikxJW.png)
+![](ZdikxJW.png)
 

@@ -1,7 +1,7 @@
 
 **Disclaimer**: This note on scraping LinkedIn is for educational purposes only.
 
-![](https://i.imgur.com/CGTlAJD.png)
+![](CGTlAJD.png)
 
 Can have an autoclicker like https://www.murgaa.com/auto-clicker-mac/ (depends on your OS)
 

@@ -78,4 +78,4 @@ You can manage push notifications at the push notifications dashboard:
 
 https://icloud.developer.apple.com/dashboard/notifications
 
-![](https://i.imgur.com/ifmSQmQ.png)
+![](ifmSQmQ.png)

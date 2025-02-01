@@ -23,7 +23,7 @@ app/(root)/home.tsx matches /home
 ---
 
 Screenshots and explanations of filenames and their url route equivalents (so you can .navigate to the relative url):
-![](https://i.imgur.com/k2JfOWc.png)
+![](k2JfOWc.png)
 
-![](https://i.imgur.com/RUxCq7x.png)
+![](RUxCq7x.png)
 ^ Above pics from https://youtu.be/ZBCUegTZF7M

@@ -10,7 +10,7 @@ End-to-end testing is essential as modern software has grown to be intricate wit
 
 "AUT" stands for "Application Under Test." This term refers to the specific software application or system that is being tested.
 
-![](https://i.imgur.com/hVvbytT.png)
+![](hVvbytT.png)
 
 Obligated:
 

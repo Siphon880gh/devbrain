@@ -17,13 +17,13 @@ If the current repo is drastically different (eg. a ui app when the video tutori
 
 Eg. Main/master commit. See all commits and get the specific commit ID based on date
 (if date not specific eg. says last week, then web browser inspect it which has date)
-![](https://i.imgur.com/2Enfew2.png)
+![](2Enfew2.png)
 
 If looking into branches, you need to visit the branches/all
-![](https://i.imgur.com/bTkdSnI.png)
+![](bTkdSnI.png)
 
 Make sure you’re under “All” tab and not “Overview”. If Updated column shows “months ago” or “years ago”. Inspect for the date
-![](https://i.imgur.com/cOBQ1Yd.png)
+![](cOBQ1Yd.png)
 
 **Get into local development**  
 To clone a specific branch:

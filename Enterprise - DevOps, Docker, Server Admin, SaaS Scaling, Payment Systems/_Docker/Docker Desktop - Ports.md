@@ -1,5 +1,5 @@
 Does not automatically expose the container’s app port to your computer. You would have to input the port settings at the time you run the container off the image:
-![](https://i.imgur.com/rT1us9I.png)
+![](rT1us9I.png)
 
 Problem is sometimes it will say there are no ports and then it won’t let you enter any ports, even though if you had ran the docker compose file or ran docker run terminal command with the ports opened, it would work.
 
@@ -9,11 +9,11 @@ Problem is sometimes it will say there are no ports and then it won’t let you 
 Visually confirm the ports
 
 At the top:
-![](https://i.imgur.com/fATjqVm.png)
+![](fATjqVm.png)
 
 
 Also port column at Containers screen:
-![](https://i.imgur.com/lAOrUn6.png)
+![](lAOrUn6.png)
 
 Remember:
 Host_port:Container_app_port

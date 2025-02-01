@@ -1,6 +1,6 @@
 
 ```
-**Fatal error**: Array and string offset access syntax with curly braces is no longer supported inÂ **/home/wengindustries/htdocs/wengindustries.com/app/exrx-searcher/assets/php/includes/phpQuery/phpQuery/phpQueryObject.php**Â on lineÂ **1059**
+**Fatal error**: Array and string offset access syntax with curly braces is no longer supported in **/home/wengindustries/htdocs/wengindustries.com/app/exrx-searcher/assets/php/includes/phpQuery/phpQuery/phpQueryObject.php** on line **1059**
 ```
 
 It works on one php environment (eg. computer), but not remote environment (eg. remote server)

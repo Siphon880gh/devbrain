@@ -1,4 +1,4 @@
-First determine if your system is running SysVÂ **init or systemd**, for that use:
+First determine if your system is running SysV **init or systemd**, for that use:
 ```
 ps -p 1
 ```

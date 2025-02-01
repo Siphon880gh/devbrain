@@ -1,9 +1,9 @@
 
 
 Sneak peak:
-![](https://i.imgur.com/9s9f72R.png)
+![](9s9f72R.png)
 
-![](https://i.imgur.com/nEUqzOf.png)
+![](nEUqzOf.png)
 
 
 From:
@@ -13,4 +13,4 @@ From:
 
 Whatever  changes you make under Elements -> Styles will show up in a git diff format in a second drawer Changes. Open that panel by going to ... -> More Tools -> Changes
 
-![](https://i.imgur.com/8JwISBH.png)
+![](8JwISBH.png)

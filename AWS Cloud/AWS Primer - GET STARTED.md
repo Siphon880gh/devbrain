@@ -52,4 +52,4 @@ Services -> Containers -> Elastic Container Service
 EC2 vs Fargate
 Fargate - serverless. dont need to know about the hardware or os
 https://www.youtube.com/watch?v=DVrGXjjkpig
-![](https://i.imgur.com/kokZ6ka.png)
+![](kokZ6ka.png)

@@ -7,7 +7,7 @@ However, `require()` is still available in environments that use CommonJS, such 
 
 ### URL to module
 
-esm.sh is a modern CDN that allows you to importÂ [es6 modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)Â from a URL:
+esm.sh is a modern CDN that allows you to import [es6 modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) from a URL:
 
 ```
 import confetti from "https://esm.sh/canvas-confetti@1.6.0"

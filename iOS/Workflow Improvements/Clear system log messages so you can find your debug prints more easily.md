@@ -18,7 +18,7 @@ If these messages are overwhelming and you'd like to focus on your own output, y
    
    Product -> Scheme ->
    
-￼![](https://i.imgur.com/kUcbKeD.png)
+￼![](kUcbKeD.png)
 
 5. **Use Breakpoints for Debugging**: Instead of relying solely on print statements, you can use breakpoints in Xcode for debugging. You can even add a log message to a breakpoint without stopping the program. Right-click on a breakpoint, select Edit Breakpoint, and then add a log message action. This way, you can get specific messages in the console without additional clutter.
 

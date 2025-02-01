@@ -9,7 +9,7 @@ Badges are "linktree" and status pieces often found on Github repo pages, that c
 <img class="my-badge" src="https://img.shields.io/badge/-white?style=flat&amp;logo=github&amp;labelColor=darkgray&amp;logoColor=white" alt="Youtube" data-canonical-src="https://img.shields.io/badge/-white?style=flat&amp;logo=github&amp;labelColor=darkgray&amp;logoColor=white"></a>
 ```
 
-![](https://i.imgur.com/80Am5bU.png)
+![](80Am5bU.png)
 
 Rules:
 Left side icon content is from logo=github
@@ -26,5 +26,5 @@ Right side text and background must have some value. At minimum it can be:
 https://img.shields.io/badge/-white?
 ```
 
-![](https://i.imgur.com/nGb0TIp.png)
+![](nGb0TIp.png)
 

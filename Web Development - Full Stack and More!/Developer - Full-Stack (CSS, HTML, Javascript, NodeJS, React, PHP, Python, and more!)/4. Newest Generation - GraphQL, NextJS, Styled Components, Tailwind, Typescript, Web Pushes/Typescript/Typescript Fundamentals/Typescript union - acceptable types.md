@@ -18,7 +18,7 @@ polyVar = [1,2 ]// <-- LINT ERRORS
 ```
 
 
-![](https://i.imgur.com/6z25f9p.png)
+![](6z25f9p.png)
 
 
 ---

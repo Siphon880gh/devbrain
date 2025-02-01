@@ -61,7 +61,7 @@ If you have multiple php pages sourcing tufte, you may want a partial php that h
 ```
 
 Example Tufte
-![](https://i.imgur.com/KajLILs.png)
+![](KajLILs.png)
 
 - **Typographic**: Typographic is an SCSS responsive typography framework with vertical rhythm. It has sensible defaults and is designed to be overridden. It's an excellent tool for ensuring consistency in your typography across different devices and screen sizes.
 - **Text.css**: Text.css is a minimal CSS framework that provides basic styling for typography without the need for classes. It's designed to make the text on web pages more readable and visually appealing.

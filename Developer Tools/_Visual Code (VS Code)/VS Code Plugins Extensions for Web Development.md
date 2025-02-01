@@ -10,7 +10,7 @@ https://github.com/r5n-dev/vscode-react-javascript-snippets/tree/185bb91a0b692c5
 - Snippet list: https://github.com/r5n-dev/vscode-react-javascript-snippets/blob/HEAD/docs/Snippets.md
 
 Class Collapse by Etsi0
-To toggle theÂ **Class Collapse**Â extension, open the Command Palette withÂ `Shift+Ctrl+P`, search forÂ `Class Collapse: Toggle Collapsing`, or use the shortcutÂ `Alt+Ctrl+Shift+C`.
+To toggle the **Class Collapse** extension, open the Command Palette with `Shift+Ctrl+P`, search for `Class Collapse: Toggle Collapsing`, or use the shortcut `Alt+Ctrl+Shift+C`.
 
 Region Viewer
 Make regions in the code collapsible:

@@ -7,7 +7,7 @@ PYTHONUNBUFFERED=1 gunicorn...
 ```
 
   
-2. Have console logs and errors show on the same terminal showing that gunicorn Â is running (debug level and up includes info warn and critical). Add to the gunicorn command:
+2. Have console logs and errors show on the same terminal showing that gunicorn  is running (debug level and up includes info warn and critical). Add to the gunicorn command:
 ```
 --log-level=debug --capture-output  
 ```

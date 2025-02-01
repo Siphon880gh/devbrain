@@ -55,4 +55,4 @@ If App fails to load, connect to the remote heroku logs from your cli:
 heroku logs --tail
 ```
 
-11. Slow? Note on free version of heroku, first run in one hour is slow becauseÂ it gets started up again. After an hour of inactivity, the script is closed.
+11. Slow? Note on free version of heroku, first run in one hour is slow because it gets started up again. After an hour of inactivity, the script is closed.

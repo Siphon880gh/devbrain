@@ -36,7 +36,7 @@ Your php and python script can also print the user and group ownership of itself
 
 Files created inside File Manager at CloudPanel as site user wengindustries vs Those from Filezilla as weng
 
-![](https://i.imgur.com/bW4x7jv.png)
+![](bW4x7jv.png)
 
 
 Now you’re gonna have a problem if you have index.php write a log.txt of user activities because the folder is not owned by the same user. So make sure you have the site user setup. The site user can also log into SFTP:

@@ -10,13 +10,13 @@ Useless caching strategies:
 ## Etag useless on iPad Cache Busting
   
 Etag:
-- TheÂ `ETag`Â is specific to the HTTP response for the current request.
-- If you set anÂ `ETag`Â in your PHP file, it only affects the caching behavior of that PHP response,Â **not the individual assets (e.g., JS or CSS files) linked within the HTML served by the PHP file.**
+- The `ETag` is specific to the HTTP response for the current request.
+- If you set an `ETag` in your PHP file, it only affects the caching behavior of that PHP response, **not the individual assets (e.g., JS or CSS files) linked within the HTML served by the PHP file.**
 ```
 header('ETag: "my-custom-version-123"');  
 ```
 
-Etag used at the server level is also individual files. You can write match rules to change Etag for each file but that is impractical. Instead, using no-cache header, the web browser Â validates with server that the file exists (fallback to cached copy if file not exists or can't connect on server) and then checks the Last Modified Time to determine if need a fresh redownload
+Etag used at the server level is also individual files. You can write match rules to change Etag for each file but that is impractical. Instead, using no-cache header, the web browser  validates with server that the file exists (fallback to cached copy if file not exists or can't connect on server) and then checks the Last Modified Time to determine if need a fresh redownload
 
 Unfortunately, it fails at cache busting on iPads.
 
@@ -27,4 +27,4 @@ What about: `Clear-Site-Data: "*"`. Unfortunately, Safari (both on macOS and iOS
 
 ## Cache-Control and Pragma Headers
 
-For iPad, even no-store vs no-cache, must-revalidate - at nginx vhost or php header code Â  can't be depended on. Apples philosophy is not giving control to the user nor the developer, so you're forced to use new url by appending a version number, which is not friendly to code reviews because of multiple script and link tags crowding the git diffs. Optimal solution that forces new url without irritating code reviewers (or those who want a clean organized commit history) is atÂ [[iPad Safari aggressively caches - 2. How to mitigate]]
+For iPad, even no-store vs no-cache, must-revalidate - at nginx vhost or php header code   can't be depended on. Apples philosophy is not giving control to the user nor the developer, so you're forced to use new url by appending a version number, which is not friendly to code reviews because of multiple script and link tags crowding the git diffs. Optimal solution that forces new url without irritating code reviewers (or those who want a clean organized commit history) is at [[iPad Safari aggressively caches - 2. How to mitigate]]

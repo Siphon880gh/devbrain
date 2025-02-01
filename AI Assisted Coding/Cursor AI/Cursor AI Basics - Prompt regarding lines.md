@@ -20,4 +20,4 @@ Selected lines where user clicks the button and something happens, then pressed 
 **Prompt:**
 how to have a refractory period so people dont spam this button and overwhelm the resources
 
-![](https://i.imgur.com/umMKR6Z.png)
+![](umMKR6Z.png)

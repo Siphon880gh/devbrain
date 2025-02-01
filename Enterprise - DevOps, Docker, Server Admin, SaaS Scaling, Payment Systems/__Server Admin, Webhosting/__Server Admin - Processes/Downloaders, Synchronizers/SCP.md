@@ -18,4 +18,4 @@ scp myimage.img user@remote-server:/home/user/images/
 This command will copy `myimage.img` from your local machine to the `/home/user/images/` directory on the remote server `remote-server`.
 
 **Summary:**
-SCPÂ is generally simple and works well for one-time transfers.
+SCP is generally simple and works well for one-time transfers.

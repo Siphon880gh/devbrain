@@ -29,7 +29,7 @@ https://noorsplugin.com/wordpress-colorbox-plugin/
 
 The shortcode generates a link "click here to open external page" in this example:
 
-![](https://i.imgur.com/BgylDk7.png)
+![](BgylDk7.png)
 
 You can place the appropriate lightbox shortcode in a textbox. You may see a "Nectar Shortcodes" button you can press to have some characters to type the shortcode.
 
@@ -43,7 +43,7 @@ Let's say I had a normal button from WPBakery or other themes and I want to stic
 
 What you need to do is to have the normal button programmatically click the text link "click here to open external page". And you use CSS to hide the text link.
 
-![](https://i.imgur.com/iGeq2Id.png)
+![](iGeq2Id.png)
 
 That link is a javascript link that runs javascript when clicked:
 ```

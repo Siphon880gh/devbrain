@@ -64,7 +64,7 @@ my_tuple = (3, 4, 5) # Your tuple
 
 def my_function(a, b, c, d, e):
 
-Â  Â  print(a, b, c, d, e)
+    print(a, b, c, d, e)
 
   
 

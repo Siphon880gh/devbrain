@@ -64,13 +64,13 @@ Define the skeleton gray backgrounds in HTML:
 ```
 
 Animation Preview:
-![](https://i.imgur.com/0EXsw4t.png)
+![](0EXsw4t.png)
 
 
-![](https://i.imgur.com/1g9jdpY.png)
+![](1g9jdpY.png)
 
 
-![](https://i.imgur.com/eYvA03r.png)
+![](eYvA03r.png)
 
 Then in CSS, add a forward slash that animates across the gray skeleton backgrounds. Notice each gray skeleton background has the class skeleton. Notice I have ID's skeleton-1 and skeleton-2 which are to show different sized backgrounds depending on mobile or desktop, demonstrating that the skeleton can still fit your responsive designs
 

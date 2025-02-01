@@ -16,7 +16,7 @@ In computer science, control flow, also known as flow of control, refers to the 
 ### Bigger world
 Here are the two major paradigms and smaller paradigms that follow:
 
-![](https://i.imgur.com/nXLPVTa.jpeg)
+![](nXLPVTa.jpeg)
 
 ### React is Declarative
 

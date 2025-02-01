@@ -22,7 +22,7 @@ You can easily signup with github oauth
 https://www.datastax.com/langflow
 
 Choose the Rag starter template
-![](https://i.imgur.com/KxjigDH.png)
+![](KxjigDH.png)
 
 
 Know these shortcuts to make your life easier:  
@@ -33,12 +33,12 @@ Use the cards’ controls for setup/use.
 
 There are two important features here:
 - Ingest Data **(Do this step first)**
-  ![](https://i.imgur.com/oUqhvYl.png)
+  ![](oUqhvYl.png)
 
 	AstraDB used to store your document's embeddings (after using OpenAI text embeddings model) is very generous even at free version - 10GB.
 
 - Retrieve
-  ![](https://i.imgur.com/MkHC2x2.png)
+  ![](MkHC2x2.png)
   
   Remember you must first ingest the data (which enhances the AI with your documents, usually by you loading documents in), before you can retrieve (aka prompt the model!). That is RAG - Retrieval-augmented generation.
 

@@ -9,7 +9,7 @@ The model can get "stuck" in a local minimum because the optimization algorithm 
 > [!note] Local Minima and Global Minimum
 > The graph below represents a **loss surface**, which is a conceptual representation of how the loss (or error) changes as the model's parameters (weights and biases) are adjusted. The **y-axis** represents the loss, while the **x-axis** represents possible configurations of the model's parameters.
 > 
-![](https://i.imgur.com/jHvaEnq.png)
+![](jHvaEnq.png)
 
 
 During training, the model uses an optimization algorithm like gradient descent to move "downhill" on the loss surface. The goal is to reach the point with the lowest possible loss (the global minimum).

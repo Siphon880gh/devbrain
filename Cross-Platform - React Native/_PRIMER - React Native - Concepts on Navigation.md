@@ -25,7 +25,7 @@ When your app has multiple pages, the code isn’t simply opening the filename 
 	- **Bottom Tab Navigator:** Similar to Tab Navigator but places the tabs at the bottom of the screen.  
 	- For more information on the tab bar, refer to [[3. Tab bar]]
 		
-		![](https://i.imgur.com/ie28FiP.png)
+		![](ie28FiP.png)
 		^ [https://reactnavigation.org/](https://reactnavigation.org/)
 
 	- **Optional: NativeBase Component Substitutions:**

@@ -46,7 +46,7 @@ Sizes of cache
 L1 and L2 are very small sizes and are close to the CPU. They are per Core.
 L3 are shared among the Cores.
 
-![](https://i.imgur.com/mdjer2g.png)
+![](mdjer2g.png)
 ^ The above from https://teivah.medium.com/go-and-cpu-caches-af5d32cc5592
 
 

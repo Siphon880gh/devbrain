@@ -89,7 +89,7 @@ Decide if you want to create a collection
 - Optional: You could click "Start collection" on the left, and create a "users" collection or desired collection. 
 - Why optional: If a collection doesn't exist when code adds a document to that collections path, it'll automatically create the collection. So this is all personal preference (you might want to see the collections at the Console dashboard because it helps you)
   
-![](https://i.imgur.com/Z0BewEm.png)
+![](Z0BewEm.png)
 
 
 6. Refer to [[Firebase, Firestore PRIMER - Authentication Process]] that includes creating required users at the Console (dashboard), authenticating the app, and authenticating frontend users. If your app doesnt require user login for your customers, you have two options:

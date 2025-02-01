@@ -15,7 +15,7 @@
 ---
 
 
-![](https://i.imgur.com/om4VcrU.png)
+![](om4VcrU.png)
 ^ Yes, notice the wp_ is repeated twice. That can cause confusion. It isn't erroneous though if the website is indeed related to wordpress
 
 However when installing another wordpress like for say ai lessons wordpress website, you may set the table prefix as `ai_`

@@ -5,7 +5,7 @@ Goal: Scrape pickleball companies and their key decision maker contacts that may
 **LinkedIn**
 
 Firstly, look up Pickleball companies (eg. Selkirk) on LinkedIn if you have Sales Navigator access or you have ever tried Sales Navigator (then LinkedIn gives a sneak peak a few decision maker connections):
-![](https://i.imgur.com/bqDSE9h.png)
+![](bqDSE9h.png)
 
 ---
 
@@ -16,15 +16,15 @@ Searched for in our area Pasadena:
 - Pickleball
 - Tennis
 
-![](https://i.imgur.com/ZEDuENN.png)
+![](ZEDuENN.png)
 
 
-![](https://i.imgur.com/74vQpLT.png)
+![](74vQpLT.png)
 
 You can see where the problem is. Google Map or LocalScraper is not appropriate.  We want  decision maker contacts that may want us to manufacture with or without us design bags. Instead, "Sports Bag" in Google Map (or many of the other sources on LocalScraper) would've given us retail stores (like Big 5) instead of an organizations that want to push a brand and often sell paddles, bags, decals, etc. 
 
 And when it's "Pickleball" or "Tennis", it will be that city's courts/parks/recreation centers that get scraped. You may think about an exclusion operator with `-` like in Google Search, however that doesn't work on Google Map, and neither does it work on LocalScraper. And even if you chose to ignore the courts/parks/recreation centers, it's often the case that most if not all are just that:
-![](https://i.imgur.com/as7ncod.png)
+![](as7ncod.png)
 
 Let's move onto the next step
 
@@ -36,15 +36,15 @@ You can use Semrush's Organic Research (Unfortunately free is limited in how man
 [https://www.semrush.com/analytics/organic/overview?db=us](https://www.semrush.com/analytics/organic/overview?db=us)
 
 1. Let's choose Selkirk. Then checking out insights at Semrush's Organic Research:
-![](https://i.imgur.com/aPX3hks.png)
+![](aPX3hks.png)
 
-![](https://i.imgur.com/4tEgxwa.png)
+![](4tEgxwa.png)
 
-![](https://i.imgur.com/lGWJCV6.png)
+![](lGWJCV6.png)
 
-![](https://i.imgur.com/Zg7NhIO.png)
+![](Zg7NhIO.png)
 
-![](https://i.imgur.com/suONZwC.png)
+![](suONZwC.png)
 
 
 2. From the above insights, we figured some keywords are paddles, shoes, bags, decal, and sports.
@@ -74,7 +74,7 @@ We should generate another set of scraped results that are weighted towards rela
 
 1. Find similar companies to selkirk:
 	- By Google search: type vs to see dropdown suggestions:
-	  ![](https://i.imgur.com/LXqoVl9.png)
+	  ![](LXqoVl9.png)
 
 	- Use similiarweb.com to look up its alternative websites. Unfortunately, SimilarWeb is not free, but they do offer a free trial.
 2. Your Crawler API line may be:

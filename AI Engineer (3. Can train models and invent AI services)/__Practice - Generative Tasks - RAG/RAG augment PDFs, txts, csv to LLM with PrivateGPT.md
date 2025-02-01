@@ -380,7 +380,7 @@ If you have CleanMyMac, it will remove all packages you installed into poetry vi
 
 While in poetry shell , run pip show pip  and look for the line that says “Location:”. That will be the folder path to pip packages that python can import from.
 
-![](https://i.imgur.com/KhV6eMU.png)
+![](KhV6eMU.png)
 
 ### **“Eject” Poetry**
 

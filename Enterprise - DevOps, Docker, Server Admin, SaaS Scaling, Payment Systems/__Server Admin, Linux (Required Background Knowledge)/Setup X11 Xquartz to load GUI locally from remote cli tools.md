@@ -75,11 +75,11 @@ sudo apt-get install x11-apps
     
 
 3. Right click XQuarts from taskbar to see if it created a window named after your app:
-![](https://i.imgur.com/ALep1rV.png)
+![](ALep1rV.png)
 
 4. Test that the actual GUI works. Try to open XQuarts xeyes. You should see this:
 
-![](https://i.imgur.com/FmbWvag.png)
+![](FmbWvag.png)
 ^ The GUI is eyes follow your mouse cursor
 
 If it fails and your computer has a firewall, make sure it’s allowing XQuarts to receive incoming connections (because it’s loading GUI from your remote cli X11 apps)  

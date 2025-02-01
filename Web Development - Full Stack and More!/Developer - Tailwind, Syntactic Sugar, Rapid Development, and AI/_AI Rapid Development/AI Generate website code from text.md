@@ -137,4 +137,4 @@ THEN I am met with a fluid layout that effortlessly conforms to my viewing envir
 </html>
 ```
 
-![](https://i.imgur.com/FJRaVKZ.png)
+![](FJRaVKZ.png)

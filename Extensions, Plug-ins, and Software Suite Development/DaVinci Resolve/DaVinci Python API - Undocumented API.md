@@ -17,9 +17,9 @@ timeline = project.GetCurrentTimeline()
 timeline.AddTrack("video")
 ```
 
-In Resolve 18 I've found that you can no longer use "adaptive" forÂ _audioChannelSubType_Â when adding an audio track.  
+In Resolve 18 I've found that you can no longer use "adaptive" for _audioChannelSubType_ when adding an audio track.  
 ```
-boolÂ **AddTrack**(stringÂ trackType,Â _stringÂ audioChannelSubType_)  
+bool **AddTrack**(string trackType, _string audioChannelSubType_)  
 ```
   
 You have to specify "adaptive1" up to "adaptive24" (or "mono", "stereo", "5.1film", "7.1film" like before).

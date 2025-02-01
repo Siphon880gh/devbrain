@@ -3,6 +3,6 @@ Cursor AI basically duplicates your current VS Code IDE environment along with t
 https://www.cursor.com/
 
 You'll see some key stages during installation:
-![](https://i.imgur.com/Vx8SWVj.png)
+![](Vx8SWVj.png)
 
-![](https://i.imgur.com/khhxVKf.png)
+![](khhxVKf.png)

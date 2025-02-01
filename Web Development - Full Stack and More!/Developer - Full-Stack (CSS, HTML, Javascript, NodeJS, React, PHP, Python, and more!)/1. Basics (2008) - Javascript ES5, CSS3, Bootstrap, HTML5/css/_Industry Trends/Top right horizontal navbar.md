@@ -10,4 +10,4 @@ padding: 20px 60px;
 
 
 
-![](https://i.imgur.com/BXsz9Tp.png)
+![](BXsz9Tp.png)

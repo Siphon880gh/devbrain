@@ -24,13 +24,13 @@ Setup a Google Sheet App at Google Cloud Console
     [https://console.cloud.google.com/apis/dashboard?authuser=3&project=***](https://console.cloud.google.com/apis/dashboard?authuser=3&project=***)
 - Check top right avatar that you’re still in the correct Google account. Google Cloud likes to keep switching profiles even in 9/2024
 
-![](https://i.imgur.com/nSFnhsE.png)
+![](nSFnhsE.png)
 
 - Add Google Sheets API. Don't click "TRY THIS API" because then you lose the opportunity to create credentials
 
 - Click "CREATE CREDENTIALS"
 
-![](https://i.imgur.com/QLJoNAQ.png)
+![](QLJoNAQ.png)
 
 
 - Create a Service Account.
@@ -40,35 +40,35 @@ Setup a Google Sheet App at Google Cloud Console
 	    
 	    FYI: Why not API Key? May seem a simpler way but API Keys only allow reading public spreadsheet and private spreadsheets are not supported. If you go with API Key, there's a separate restful API that you use ([https://developers.google.com/sheets/api/reference/rest](https://developers.google.com/sheets/api/reference/rest))
 
-![](https://i.imgur.com/NRxbLcz.png)
+![](NRxbLcz.png)
 
 
 - At IAM & Admin, go to Service Accounts to get your credential JSON file
 	- Service Accounts -> Keys -> ADD KEY -> Create new key -> JSON  
     Or click “Actions ...” on your service account → Manage Keys → Add key → Create new key → JSON
 
-![](https://i.imgur.com/WYHLF2J.png)
+![](WYHLF2J.png)
 
 - Download the PRIVATE KEY to a proper place (it might have auto-download as soon as you created it)
 	- Then rename it to credentials.json or however fits your filenaming convention for the code
 	- If will be pushing to an online repository, make sure NOT to push your credentials.json file unless you know what you're doing
 	- This is technically a public-private key pairing. You don't have to worry about the public key because that would be on Google's side and managed automatically.
 
-![](https://i.imgur.com/Mye5ynn.png)
+![](Mye5ynn.png)
 
 
 - Get your service account's client email to give it permission to that specific spreadsheet
 	- Either open the private JSON key or go to Credentials at the API dashboard (Not the IAM dashboard). See blurred in screenshot - that’s the email address
 	  [https://console.cloud.google.com/apis/credentials?project=*](https://console.cloud.google.com/apis/credentials?project=temporal-fx-381723&authuser=1)**
 	
-	![](https://i.imgur.com/8ez2JCh.png)
+	![](8ez2JCh.png)
 	  
 	- If you opened the JSON file, your service account's client email is at the key "client_email"
 	    
 	- Go to your Google Sheet (making sure the top right Google User is the correct one)
 	
 	- Make sure your google sheet is google sheet and not an .xlsx
-		![](https://i.imgur.com/b4rYP54.png)
+		![](b4rYP54.png)
 	
 	
 		- Google Sheet API doesnt work with .xlsx even if it’s on Google Drive and can be opened with Google Sheet app. It has to be a Google Sheet file.
@@ -78,7 +78,7 @@ Setup a Google Sheet App at Google Cloud Console
 
 	- After confirming is a Google Sheet, share to your service account email address:
 		
-		![](https://i.imgur.com/91Mj7pv.png)
+		![](91Mj7pv.png)
 
 ---
 

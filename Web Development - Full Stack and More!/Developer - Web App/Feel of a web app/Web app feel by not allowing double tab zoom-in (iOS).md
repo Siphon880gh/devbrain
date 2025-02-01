@@ -6,9 +6,9 @@ We can prevent double-tap zoom on iOS by adding a meta tag and some touch-action
 
 <head>
 
-Â  Â  // ... existing head content ...
+    // ... existing head content ...
 
-Â  Â  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 </head>
 
@@ -16,35 +16,35 @@ We can prevent double-tap zoom on iOS by adding a meta tag and some touch-action
 
 <style>
 
-Â  Â  /* Add these CSS rules */
+    /* Add these CSS rules */
 
-Â  Â  * {
+    * {
 
-Â  Â  Â  Â  touch-action: manipulation;
+        touch-action: manipulation;
 
-Â  Â  Â  Â  -webkit-touch-callout: none;
+        -webkit-touch-callout: none;
 
-Â  Â  Â  Â  -webkit-user-select: none;
+        -webkit-user-select: none;
 
-Â  Â  Â  Â  user-select: none;
+        user-select: none;
 
-Â  Â  }
-
-  
-
-Â  Â  /* Keep text selection enabled for textarea */
-
-Â  Â  #textarea {
-
-Â  Â  Â  Â  -webkit-user-select: text;
-
-Â  Â  Â  Â  user-select: text;
-
-Â  Â  }
+    }
 
   
 
-Â  Â  /* ... rest of existing styles ... */
+    /* Keep text selection enabled for textarea */
+
+    #textarea {
+
+        -webkit-user-select: text;
+
+        user-select: text;
+
+    }
+
+  
+
+    /* ... rest of existing styles ... */
 
 </style>
 

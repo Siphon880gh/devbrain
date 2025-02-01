@@ -1,6 +1,6 @@
 This one lets you create / automate social media:
 
-![](https://i.imgur.com/cmKwDyC.png)
+![](cmKwDyC.png)
 
 
 ^ Is from 5:33

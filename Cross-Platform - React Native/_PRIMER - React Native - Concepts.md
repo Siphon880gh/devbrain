@@ -5,9 +5,9 @@ By Weng
 #### WHY REACT NATIVE
 
 Learn Once, Code Anywhere
-![](https://i.imgur.com/TQXKTRv.png)
+![](TQXKTRv.png)
 
-![](https://i.imgur.com/z4Lu8sH.png)
+![](z4Lu8sH.png)
 
 Companies using it: Facebook, Insta, AirBnB, Burger King, Coinbase, Xbox
 
@@ -324,7 +324,7 @@ Refer to [[React Native - SafeAreaView]]
 #### ActivityIndicator
 Show a spinner or loading indicator
 
-![](https://i.imgur.com/WrcWUyO.png)
+![](WrcWUyO.png)
 
 ```
 <ActivityIndicator size="large" color="#0000ff"/>

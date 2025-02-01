@@ -1,11 +1,11 @@
 Titled: Import stuck at 0% (Console reviews 413 Request Entity Too Large)
 
 The import is stuck at 0%:
-![](https://i.imgur.com/mKT7WRJ.png)
+![](mKT7WRJ.png)
 
 
 If you open DevTools console, looks like:
-![](https://i.imgur.com/EbxEtB8.png)
+![](EbxEtB8.png)
 
 ---
 

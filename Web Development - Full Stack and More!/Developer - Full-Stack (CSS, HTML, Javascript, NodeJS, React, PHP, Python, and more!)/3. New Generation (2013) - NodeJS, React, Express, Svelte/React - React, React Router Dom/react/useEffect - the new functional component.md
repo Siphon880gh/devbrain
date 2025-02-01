@@ -1,6 +1,6 @@
 
 
-![](https://i.imgur.com/opoER54.png)
+![](opoER54.png)
 
 `useEffect` in React is a hook that enables you to perform side effects in function components. It can be considered as a combination of `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` lifecycle methods from class components. When you use `useEffect`, you can think of it as telling React to do something after render. React will remember the function you passed (we’ll refer to it as our “effect”), and call it later after performing the DOM updates.
 

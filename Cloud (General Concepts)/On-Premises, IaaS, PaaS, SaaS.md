@@ -1,5 +1,5 @@
 
-![](https://i.imgur.com/bJGc2Y1.png)
+![](bJGc2Y1.png)
 
 
 As a small nonprofit, WPS started with a SaaS model. While this move brings technology efficiencies and cost savings, the SaaS model can also raise issues. “If we choose a provider that has a great tool we want to work with, we have to be concerned if the tool will be available in the future” because the provider might discontinue it or go out of business altogether, says Matt Morrisette, a software engineer for the organization. WPS is also running into non-SaaS issues where it needs regional support to ensure it remains in compliance with the General Data Protection Regulation, better known as GDPR, the law on data protection and privacy in the EU, as its operations expand into new areas. “If you don’t host your data in Europe, you can’t launch projects there,” Morrisette  

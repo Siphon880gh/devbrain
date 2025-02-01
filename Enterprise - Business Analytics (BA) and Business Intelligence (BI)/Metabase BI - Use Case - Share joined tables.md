@@ -11,12 +11,12 @@ In this example, we are working with MongoDB connected data to Metabase.
 
 Click join icon and join the two tables:
 
-![](https://i.imgur.com/Nm9bhtB.png)
+![](Nm9bhtB.png)
 
 Click Play icon on the right to see the resultant inner join.
 
 If satisfied, then click the “>_” at the top right
-![](https://i.imgur.com/JVoN6B2.png)
+![](JVoN6B2.png)
 
 If result table is empty and you KNOW that the inner join is correct, you may have an older metabase problem. Refer to next section
 
@@ -31,7 +31,7 @@ However on Metabase newer versions (Like the image `metabase/metabase:latest` as
 In the case you need to cast BJSON Object ID manually:
 
 Convert the question into a native query by clicking this button (Otherwise the query is read-only so that the Config UI does not conflict):
-![](https://i.imgur.com/rRSGtCq.png)
+![](rRSGtCq.png)
 
 By converting it into a native query (aggregate leverage), we can also leverage AI like ChatGPT:
 ```

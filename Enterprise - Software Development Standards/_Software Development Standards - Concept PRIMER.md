@@ -15,17 +15,20 @@ In today’s fast-paced software development environment, standards are essentia
 ### Table of Contents
 1. **Tooling Standards**
 	- 1.1 Code Standards
-	- 1.2. Lint and Prettier Configuration
-	- 1.3. VS Code Settings
+	- 1.2. App Configuration Layers
+		- `<app-name>`.config.json
+		- .env and .env sample
+	- 1.3. Lint and Prettier Configuration
+	- 1.4. VS Code Settings
 		- What to Include in Shared Settings
 		- Best Practices for Sharing VS Code Settings
-	- 1.4. Commit Message Guidelines
-	- 1.5 Branching and Merging Strategies
-	- 1.6 Testing Framework Standards
+	- 1.5. Commit Message Guidelines
+	- 1.6 Branching and Merging Strategies
+	- 1.7 Testing Framework Standards
 		- Node.js
 		- Python
 		- Common Testing Standards
-	- 1.6 Logging Standards
+	- 1.8 Logging Standards
 2. **Styling**
 	- 2.1. BEM, CSS Preprocessors
 	- 2.2. Generated Style Guide, White-Labeling
@@ -45,14 +48,15 @@ In today’s fast-paced software development environment, standards are essentia
 	- 4.5 MVC or Other Architectural Patterns
 	- 4.6 State Management
 	- 4.7 Module Initialization and Event Binding
-3. **Scaling Strategies**
+	- 4.8 Module Commenting
+1. **Scaling Strategies**
 	- 5.1 Fetch vs SSE vs WebSockets
 	- 5.2. N-tier architecture
 	- 5.3 Microservice architecture if needed
 	- 5.4. Server level Scaling
 	- 5.5. Consistent Environment
 	- 5.6. Persistent Services
-4. **Versioning and Caching**
+2. **Versioning and Caching**
 	- 6.1 Aligning Versioning with Git Commits
 	- 6.2 Service Workers and PWA Versioning
 	- 6.3 Cache-Busting in a PHP Application
@@ -60,7 +64,7 @@ In today’s fast-paced software development environment, standards are essentia
 	- 6.5 Create React App (CRA) and Vite Hash Filenames
 	- 6.6 Combining Git Versioning with Asset Hashing
 	- 6.7 Key Takeaways for Versioning and Caching
-5. **Secure Coding Practices**
+3. **Secure Coding Practices**
 	- 7.1. CMS, Web Panels, etc
 	- 7.2. Dot env
 	- 7.3. Persistent Login
@@ -96,8 +100,35 @@ function calculateArea(width, height) {
 ```
 
 - **Tooling**: Generate API documentation automatically with tools like **JSDoc** or **TypeDoc**.
-
-##### 1.2. **Lint and Prettier Configuration**
+##### 1.2. App Configuration Layers
+- `<app-name>`.config.json
+	- Have a config file at the root so that when there are variables that need to be switched like flags or important variables that are referenced by your app at different points, you know where to go in order to config it. 
+	  An example (3dbrain.config.json):
+	```
+	{
+	    "domainBaseUrl": "https://wengindustries.com/hosted/obs-imgur/"
+	}
+	```
+	- We DO NOT name it app.config.json because that's too similar to expo (and we don't want confusion). Here we chose to name it after the app's name, which is 3d brain, my published 3d modeling notes app
+	- And that could be loaded like:
+	```
+	fetch("./3dbrain.config.json")
+	.then(response => response.json())
+	.then(data => {
+		if(typeof window?.config === "undefined") {
+			window.config = {};
+		}
+		window.config.imgHostedUrl = data.imgHostedUrl
+	});
+	```
+	- Or if modularly:
+	```
+	const config = require('./3dbrain.config.json');
+	console.log(config.domainBaseUrl);
+	```
+- .env and .env sample
+	- Your .env file will contain sensitive data that your app uses, however it's never committed, so how can others using your code know what values to set? They could read a README.md, but even better, we should provide an `.env.sample` THAT IS committed, which have the direct variables and placeholder values. In that way, the developer can make an exact copy of the sample and then fill in the values.
+##### 1.3. **Lint and Prettier Configuration**
 
 - **Linting**: Use **ESLint** (JavaScript/TypeScript) or **Pylint** (Python) with a shared configuration to enforce coding standards.
 - **Prettier**: Standardize code formatting with Prettier. Example `.prettierrc`:
@@ -112,7 +143,7 @@ function calculateArea(width, height) {
 }
 ```
 
-##### 1.3. **VS Code Settings**
+##### 1.4. **VS Code Settings**
 ###### **What to Include in Shared Settings**
 
 1. **Workspace Settings:**
@@ -145,14 +176,14 @@ function calculateArea(width, height) {
 5. **Allow Some Flexibility:**
     - Recognize that some settings (like themes or fonts) may be personal preferences and don’t need to be standardized.
 
-##### 1.4. **Commit Message Guidelines**
+##### 1.5. **Commit Message Guidelines**
 
 Use a consistent format for commit messages to improve readability and collaboration:
 
 - **Format**: `type(scope): short description` (e.g., `feat(auth): add login form validation`).
 - **Types**: Common types include `feat`, `fix`, `chore`, `docs`, `style`, and `test`.
 
-##### 1.5 Branching and Merging Strategies
+##### 1.6 Branching and Merging Strategies
 - **Branch Naming:**
     - Use descriptive branch names:
         - `feature/<feature-name>` for new features.
@@ -178,7 +209,7 @@ Use a consistent format for commit messages to improve readability and collabora
     - Use **rebase** for cleaner commit history in feature branches.
     - Use **merge commits** to preserve history when integrating into `main` or `develop`.
 
-##### 1.6 **Testing Framework Standards**
+##### 1.7 **Testing Framework Standards**
 
 ###### Node.js
 
@@ -226,7 +257,7 @@ Use a consistent format for commit messages to improve readability and collabora
 - Define test coverage thresholds (e.g., 80%+).
 - Tag tests (`@slow`, `@fast`) for grouping and prioritization.
 
-##### 1.6 Logging Standards
+##### 1.8 Logging Standards
 
 ###### Node.js
 - **Library:** Use `Winston` for logging. It is versatile, supports multiple transports, and provides log levels.
@@ -327,23 +358,20 @@ A standardized approach to CSS ensures consistent styling across projects while 
 
 When multiple UI elements (e.g., dropdowns, tooltips, modals) overlap, a clear **z-index** policy helps avoid unintended collisions and maintain predictable layering:
 
-- **0–10**
-    
+- **0–99**
     - **Usage**: Base layer for page content, images, text, or static components that typically stay beneath overlays.
     - **Reason**: Ensures standard content doesn’t override interactive elements or dialogs.
-- **10–99**
-    
+- **100–199
     - **Usage**: Interactive overlays such as dropdown menus, tooltips, and pop-ups that must appear on top of base content.
     - **Reason**: This intermediate layer keeps them above everyday content but still below critical dialogs.
-- **100–119**
-    
+- **200–299**
     - **Usage**: High-priority elements like modals, alerts, or other UI components demanding immediate user attention.
     - **Reason**: Guarantees these must-have elements appear above all other layers, including secondary overlays.
 
 **Why Reserve These Ranges?**
 
 1. **Predictability**: Team members can quickly identify correct z-index values without guesswork or “fighting” with existing overlays.
-2. **Scalability**: If you need new, even higher-priority layers (e.g., global notifications), you can simply allocate another band (e.g., `120–129`).
+2. **Scalability**: If you need new, even higher-priority layers (e.g., global notifications), you can simply allocate another band (e.g., `1000–2000` even).
 3. **Maintainability**: Defining these bands in a centralized location (e.g., a SASS variables file) ensures consistent usage across the codebase.
 
 **Example (SASS Variables)**
@@ -547,6 +575,23 @@ Designing modules to encapsulate initialization logic and event handlers leads t
     - Accept additional callbacks or configuration objects to handle different events (e.g., form submissions, data fetch triggers, that have been binded by the modular object) without rewriting core logic at the module object.
     - Keep your `init` function minimal and focused on wiring up events, not business logic.
 
+
+##### 4.8 **Module Commenting**
+
+If your app is not using modules but instead loading in script tags in order of dependencies like:
+```
+<script src="assets/js/modal.js"></script>
+<script src="assets/js/note-opener.js"></script>
+<script src="assets/js/index.js"></script>
+<script src="assets/js/searchers.js"></script>
+```
+
+Then at the top of .js file you may want to comment it as if you are importing. Here at the top of note-opener.js:
+```
+// imported config.domainBaseUrl from index.php (which imported from 3dbrain.config.json)
+```
+
+^Note it follows the same convention of `import VARIABLE from FILE` or `import FILE` depending on what's imported. However by adding the past tense `imported`, it emphasizes it's describing the dependencies rather than it's an actual module importing that got commented out.
 ##### Key Takeaways (Architecture and Design Standards)
 
 - **Choose Appropriate Data Structures**: Optimize search, retrieval, and storage based on project needs.

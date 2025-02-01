@@ -5,4 +5,4 @@ Why: The AI can get things really wrong then after several generations of change
 How: Take a look at the colors on the right scrollbar to know where to scroll to read their proposed changes.
 
 You can also click the arrows to go to the next proposed changes:
-![](https://i.imgur.com/lcfPzlM.png)
+![](lcfPzlM.png)

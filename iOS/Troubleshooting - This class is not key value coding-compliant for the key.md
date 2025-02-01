@@ -7,7 +7,7 @@ https://becodable.com/this-class-is-not-key-value-coding-compliant-for-the-key/
 - Check the Outlets Inspector on the right side (two icon tabs to the right of the Attributes Inspector tab and looks like an opened circle with a dot inside) and some will have exclamation marks. Fix the outlets with exclamation marks. But be careful it can't detect all problems and put an exclamation mark. Some may be old outlet variable names in code or old ui names in the ui navigator - those might not have exclamation marks - but you have to ex out / remove them.
     - You want to check the Outlets Inspector for the View that contains all the views, but also you might need to check the individual views (UIButton, UIImageView, etc)
 
-￼![](https://i.imgur.com/l86mFZP.png)
+￼![](l86mFZP.png)
 
 ---
 
@@ -33,12 +33,12 @@ By following these steps, you should be able to resolve the "this class is not k
 # "this class is not key value coding-compliant for the key X" error?"
 Right click every button/control that applies at a storyboard to look for a orange triangle/ exclamation
 ￼
-![](https://i.imgur.com/FbnvZIK.png)
+![](FbnvZIK.png)
 
 
 And also right click for the whole story board: 
 ￼
-![](https://i.imgur.com/wkJDS0g.png)
+![](wkJDS0g.png)
 
 
 From: https://stackoverflow.com/questions/3088059/xcode-how-to-fix-nsunknownkeyexception-reason-this-class-is-not-key-valu
