@@ -82,3 +82,7 @@ https://iconscout.com/
 
 ### Library: SVG Repo
 https://www.svgrepo.com/vectors/gif/
+
+## Library: IconScout (Has LottieFiles Icons)
+Mixed free and premium icons
+https://iconscout.com/

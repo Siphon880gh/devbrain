@@ -1,6 +1,5 @@
 Aka Get Started
 
-
 ### Note on leading teams
 
 You may want to create a repository of the standards when you're starting a new project and team. It makes sure everyone has the same environments. The repo could contain scripts, eg. that new developer who just joined the team can run a script that seeds their database so their baseline database is the same as everyone else's on the team. The repository could contain seed files, package.json, gitignore's, etc.
@@ -182,7 +181,7 @@ Use a consistent format for commit messages to improve readability and collabora
 
 - **Format**: `type(scope): short description` (e.g., `feat(auth): add login form validation`).
 - **Types**: Common types include `feat`, `fix`, `chore`, `docs`, `style`, and `test`.
-
+- Or you can opt for a more simplistic commit messages like "Updated...", "Added...", "Fixed...", "Refactored...", "Documented..."
 ##### 1.6 Branching and Merging Strategies
 - **Branch Naming:**
     - Use descriptive branch names:
