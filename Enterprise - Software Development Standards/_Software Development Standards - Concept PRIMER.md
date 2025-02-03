@@ -13,7 +13,7 @@ You may want to create a repository of the standards when you're starting a new 
 In today’s fast-paced software development environment, standards are essential for ensuring quality, consistency, and scalability. They provide clear guidelines for teams to build reliable software, foster collaboration, and align projects with organizational goals. By promoting best practices, standards also help mitigate coding errors, reduce technical debt, and avoid common pitfalls. This article delves into key software development standards, best practices, and tools to streamline workflows and drive success.
 ### Table of Contents
 1. **Tooling Standards**
-	- 1.1 Code Standards
+	- 1.1. Code Standards
 	- 1.2. App Configuration Layers
 		- `<app-name>`.config.json
 		- .env and .env sample
@@ -21,13 +21,14 @@ In today’s fast-paced software development environment, standards are essentia
 	- 1.4. VS Code Settings
 		- What to Include in Shared Settings
 		- Best Practices for Sharing VS Code Settings
-	- 1.5. Commit Message Guidelines
-	- 1.6 Branching and Merging Strategies
-	- 1.7 Testing Framework Standards
+	- 1.5. Shared Scripts
+	- 1.6. Commit Message Guidelines
+	- 1.7. Branching and Merging Strategies
+	- 1.8. Testing Framework Standards
 		- Node.js
 		- Python
 		- Common Testing Standards
-	- 1.8 Logging Standards
+	- 1.9. Logging Standards
 2. **Styling**
 	- 2.1. BEM, CSS Preprocessors
 	- 2.2. Generated Style Guide, White-Labeling
@@ -84,21 +85,71 @@ Readable and maintainable code begins with consistent formatting. Standards defi
 - JavaScript Commenting and Documentation Guidelines: Commenting is vital for code maintainability and readability. Follow these guidelines:
 	- **Purposeful Comments**: Add comments only where the intent of the code might not be immediately obvious. Avoid redundant comments that restate the code.
 	- **Consistent Format**: Use block comments (`/* */`) for documentation and inline comments (`//`) sparingly for clarifications.
-	- **JSDoc for Automation**: Use JSDoc to automate documentation generation and improve consistency. Example:
+	- **Documentation Automation**: Use JSDoc  or TypeDoc to automate documentation generation and improve consistency. JS Doc example:
+		
+		```javascript
+		/**
+		 * Calculates the area of a rectangle.
+		 * @param {number} width - The width of the rectangle.
+		 * @param {number} height - The height of the rectangle.
+		 * @returns {number} The area of the rectangle.
+		 */
+		function calculateArea(width, height) {
+		  return width * height;
+		}
+		```
 
-```javascript
-/**
- * Calculates the area of a rectangle.
- * @param {number} width - The width of the rectangle.
- * @param {number} height - The height of the rectangle.
- * @returns {number} The area of the rectangle.
- */
-function calculateArea(width, height) {
-  return width * height;
+		- Regions to take average of the Regions panel in VS Code / Cursor AI:
+	  
+JS - 
+```
+// #region Authentication Functions
+function login(user, password) {
+    console.log("Logging in user...");
 }
+
+function logout() {
+    console.log("Logging out user...");
+}
+// #endregion
+
+// #region Utility Functions
+function formatDate(date) {
+    return date.toISOString().split("T")[0];
+}
+
+function generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+// #endregion
 ```
 
-- **Tooling**: Generate API documentation automatically with tools like **JSDoc** or **TypeDoc**.
+Python -
+```
+# region Authentication Functions
+def login(user, password):
+    print("Logging in user...")
+
+def logout():
+    print("Logging out user...")
+# endregion
+
+# region Utility Functions
+def format_date(date):
+    return date.strftime("%Y-%m-%d")
+
+def generate_uuid():
+    import uuid
+    return str(uuid.uuid4())
+# endregion
+```
+
+Region Viewer panel at the bottom left lets you click and jump to defined regions:
+![[Pasted image 20250202214034.png]]
+
 ##### 1.2. App Configuration Layers
 - `<app-name>`.config.json
 	- Have a config file at the root so that when there are variables that need to be switched like flags or important variables that are referenced by your app at different points, you know where to go in order to config it. 
@@ -175,14 +226,33 @@ function calculateArea(width, height) {
 5. **Allow Some Flexibility:**
     - Recognize that some settings (like themes or fonts) may be personal preferences and don’t need to be standardized.
 
-##### 1.5. **Commit Message Guidelines**
+##### 1.5. **Shared Scripts**
+
+
+If applicable: Add global npm scripts that you or team members run as long as they're placed at their home directory (~/npm). Speeds up migration and onboarding because your cli doesn't require editing/re-sourcing .bash_profile or .zshrc.
+
+Npm can switch package.json directory temporarily to run your Npm script located at home directory:
+```
+npm run SCRIPT --prefix ~/npm/
+```
+
+You can also pass in arguments.
+
+Have all your users on your team create a folder npm at their home directory (eg. on mac, that’s `/users/USER` ) (refer to equivalent for git bash, cygwin etc) (cygwin is /home/USER) (Git bash on windows is C:\Users\USER)
+
+More information:
+- You can read more in-depth instructions at 
+- You can get my global npm scripts at the repo: 
+  [https://github.com/Siphon880gh/global-npm-scripts](https://github.com/Siphon880gh/global-npm-scripts)
+
+##### 1.6. **Commit Message Guidelines**
 
 Use a consistent format for commit messages to improve readability and collaboration:
 
 - **Format**: `type(scope): short description` (e.g., `feat(auth): add login form validation`).
 - **Types**: Common types include `feat`, `fix`, `chore`, `docs`, `style`, and `test`.
 - Or you can opt for a more simplistic commit messages like "Updated...", "Added...", "Fixed...", "Refactored...", "Documented..."
-##### 1.6 Branching and Merging Strategies
+##### 1.7 Branching and Merging Strategies
 - **Branch Naming:**
     - Use descriptive branch names:
         - `feature/<feature-name>` for new features.
@@ -208,7 +278,7 @@ Use a consistent format for commit messages to improve readability and collabora
     - Use **rebase** for cleaner commit history in feature branches.
     - Use **merge commits** to preserve history when integrating into `main` or `develop`.
 
-##### 1.7 **Testing Framework Standards**
+##### 1.8 **Testing Framework Standards**
 
 ###### Node.js
 
@@ -524,6 +594,12 @@ When your application grows beyond a certain complexity, adopting a layered arch
 > - **Controllers**: Orchestrate interactions between Models and Views, handling input, output, and validation.
 >
 > **Frameworks**: React, Vue, and Angular loosely follow MVC-like patterns, often blending traditional controllers into components or services.
+
+Helpful tip:
+When using mvc, you may want to navigate at the Outline panel in VS Code / Cursor AI:
+![[Pasted image 20250202213502.png]]
+
+Note it's recommended to have all your javascript code in js files rather than mixed into a script block in HTML, although the outline works there too.
 
 ##### 4.6 **State Management**
 
