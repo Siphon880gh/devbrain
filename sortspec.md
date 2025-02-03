@@ -9,8 +9,9 @@ sorting-spec: |-
   AWS Cloud
   CompSci - DS, Algos, Systems, Logic
   Cross-Platform - React Native
+  DevOps, CI CD, Build tools, JS Package Managers
   Enterprise - Software Development Standards
-  Enterprise - DevOps, Docker, Server Admin, SaaS Scaling, Payment Systems
+  Enterprise - Docker, Kubernetes, Server Admin, SaaS Scaling, Payment Systems
   Enterprise - Business Analytics (BA) and Business Intelligence (BI)
   Extensions, Plug-ins, and Software Suite Development
   Version Control - git, github, gitlab

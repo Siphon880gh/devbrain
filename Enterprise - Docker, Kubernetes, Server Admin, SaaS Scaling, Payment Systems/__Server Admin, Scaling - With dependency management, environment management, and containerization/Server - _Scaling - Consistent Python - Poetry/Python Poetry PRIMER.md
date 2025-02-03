@@ -41,3 +41,17 @@ fi
 ```
 
 If you were fixing the python path for poetry shell, exit out of the poetry shell (sourcing bash_profile etc wont work), restart your terminal, then return back to the poetry shell.
+
+---
+
+## CleanMyMac with Poetry
+
+CleanMyMac would wipe out all your poetry virtualenvs because Poetry decided the virtualenvs are placed in Cache. Here's how to add to ignore list:
+
+1. Add to CleanMyMac:
+Settings -> Ignore List -> Large & Old Files
+
+2. Add your equivalent:
+~/Library/Caches/pypoetry/virtualenvs
+
+it will ignore that folder **and all its contents recursively**
