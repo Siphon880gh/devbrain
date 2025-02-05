@@ -1,4 +1,3 @@
-
 ## Situation
 
 As of February 2025, I noticed that resources like jquery.js and font-awesome.css from Cloudflare’s CDN could take up to 30 seconds to load on certain internet connections. However, when testing other pages with no cache, I didn’t experience any issues. Cloudflare status webpage showed it was all good to go. At the time, I was exploring internet cafes, and this led me to suspect that Cloudflare's CDN might be particularly sensitive to router configurations.
