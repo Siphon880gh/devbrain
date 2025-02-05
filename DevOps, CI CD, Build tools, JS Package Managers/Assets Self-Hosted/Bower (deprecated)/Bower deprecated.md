@@ -20,7 +20,7 @@ In addition, the majority of frontend developers have moved to build tools that 
 		- Yarn is the alternative to npm but suffers the same problems as this list. You can install yarn through npm or the Linux/Unix package manager
 - External assets through CDNs:
 	- You can still use CDNs to deliver the external js and css
-	- Caveat: cdnjs.cloudflare.com slows on on some internet connections on Feb 2025. Refer to [[Migrate away from Cloudflare CDN for external scripts and stylesheets]]
+	- Caveat: cdnjs.cloudflare.com slows on on some internet connections on Feb 2025. Refer to [[Migrate away from Cloudflare CDN for external scripts and stylesheets - Using jsdelivr]]
 	- Caveat: jsdelivr largely relies on donations. As interest is drawn away from directly linking external scripts and stylesheets, their donations could run dry, then their CDN servers will not work in the future. I'm sure people have made backups or they're available from Github. If this becomes a problem, you may have to download the online backups and perform self-host.
 
 With all these downsides, why did people NOT switch to CRA/Vite/Webpack/etc that downloads and bundles js files from other libraries and your own code? In other words, why not use React?

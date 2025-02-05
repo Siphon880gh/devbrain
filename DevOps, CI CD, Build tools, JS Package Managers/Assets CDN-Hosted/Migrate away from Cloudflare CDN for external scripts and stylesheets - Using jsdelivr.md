@@ -2,7 +2,12 @@
 
 As of February 2025, I noticed that resources like jquery.js and font-awesome.css from Cloudflare’s CDN could take up to 30 seconds to load on certain internet connections. However, when testing other pages with no cache, I didn’t experience any issues. Cloudflare status webpage showed it was all good to go. At the time, I was exploring internet cafes, and this led me to suspect that Cloudflare's CDN might be particularly sensitive to router configurations.
 
-Bad IPv6 router settings could slow down js and css files delivered from Cloudflare CDN. I decided to migrate away from Cloudflare’s CDN so that users with misconfigured internet could still load my pages smoothly. I had numerous apps that relied on cdnjs.cloudflare.com. Here is a collection of scripts to help in this task.
+Bad IPv6 router settings could slow down js and css files delivered from Cloudflare CDN. I decided to migrate away from Cloudflare’s CDN so that users with misconfigured internet could still load my pages smoothly. 
+
+The pages on bad connections are either white screens for a long time or it loads but the font-awesome icons don't load:
+![[Pasted image 20250205013424.png]]
+
+I had numerous apps that relied on cdnjs.cloudflare.com. Here is a collection of scripts to help in this task.
 
 ## Instructions
 
