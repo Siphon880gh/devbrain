@@ -159,6 +159,20 @@ OPTIONAL: If you find there are still some cdnjs.cloudflare.com because they're 
 find . -type f \( -name "*.php" -o -name "*.html" -o -name "*.handlebars" -o -name "*.txt" \) -exec perl -pi -e "$(cat ../req.txt)" {} +
 ```
 
+For some gotchas... you might get some bad results:
+```
+    <script src="https:https://cdn.jsdelivr.net/npm/jquery-ui-touch-punch@0.2.3/jquery.ui.touch-punch.min.js"></script>  
+    <link rel="stylesheet" href="//https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.min.css">
+```
+
+So run this one over:
+```
+find . -type f \( -name "*.php" -o -name "*.html" -o -name "*.handlebars" -o -name "*.txt" \) -exec perl -pi -e '
+s|//https://|https://|gi;
+s|https:https://|https://|gi;
+' {} +
+```
+
 **Congratulations!** This should. cover it all.
 
 ---
