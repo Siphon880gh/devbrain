@@ -94,7 +94,19 @@ Now comes the next tedious part which is to fill in their jsdelivery equivalent 
 
 ---
 
-Once the table is finished, you’ll wan to copy all of the command column (excluding header) and paste into a sh script. Make sure to enable execution (`chmod u+x foo.sh`) and you run like this (`./foo.sh`). You may need this at the top of the .sh file: `#!/bin/bash`
+Once the table is finished, you want to double check the accuracy. It's quite possible to copy the js to the css or vice versa.
+
+search css
+![[Pasted image 20250206214632.png]]
+
+anything else is js
+the convention is js ends with js or not
+Eg. https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0 serves a js file
+Eg. https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js serves a js file, which is obvious from the url
+
+---
+
+Then, you’ll want to copy all of the command column (excluding header) and paste into a sh script. Make sure to enable execution (`chmod u+x foo.sh`) and you run like this (`./foo.sh`). You may need this at the top of the .sh file: `#!/bin/bash`
 
 Then perform a final grep to see that the Cloudflare sources have been changed in all your apps/pages.
 
