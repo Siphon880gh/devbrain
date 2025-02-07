@@ -30,9 +30,11 @@ In today’s fast-paced software development environment, standards are essentia
 		- Common Testing Standards
 	- 1.9. Logging Standards
 2. **Styling**
-	- 2.1. BEM, CSS Preprocessors
-	- 2.2. Generated Style Guide, White-Labeling
-	- 2.3. z-index Magnitudes and Layering
+	- 2.1. CSS Class Naming and Organization Systems (BEM, etc)
+	- 2.2. CSS Preprocessors
+	- 2.3. Order of CSS Properties
+	- 2.4. Generated Style Guide, White-Labeling
+	- 2.5. z-index Magnitudes and Layering
 1. **Responsive Design and Device Compatibility** 
 	- 3.1. Embrace a Mobile-First Approach 
 	- 3.2. Use Media Queries Strategically 
@@ -383,19 +385,38 @@ For either NodeJS or Python, you may want to log to a folder outside of the app 
 ---
 #### 2. **Styling**
 
-##### 2.1. **CSS Class Naming Convention, CSS Preprocessors
+##### 2.1. **CSS Class Naming and Organization Systems (BEM, etc)**
 
 A standardized approach to CSS ensures consistent styling across projects while providing flexibility for scaling and maintainability:
 
-- **Class Naming Conventions**: Use consistent conventions like **BEM** or utility-first frameworks such as **Tailwind CSS** to maintain modularity and scalability. Example:
+- **Class Naming Conventions**: Use consistent conventions like **BEM**, **SMACSS*, **OOCSS**, or utility-first frameworks such as **Tailwind CSS** to maintain modularity and scalability. Example:
     
     - **BEM**: `card__header--highlighted`
+    - **SMACSS**: Base, layout, modular, and state classes
+    - **OOCSS**: design vs structure classes. the classes may need to be stacked like `class="btn btn-primary"`
     - **Utility-First**: `bg-blue-500 text-white rounded-lg`
-  
+      
+    - BEM, SMACSS, and OOCSS are outside the scope of this document. Refer to [[CSS Standards - BEM, SMACSS, OOCSS]]
+##### 2.2. **CSS Preprocessors**
 - **CSS Preprocessors**: Use tools like **SASS** or **LESS** to simplify CSS management. These preprocessors enable features such as variables, nesting, and mixins, making the code more modular and maintainable.
     - **Compass**: For projects using SASS, consider integrating **Compass**, a powerful CSS authoring framework that adds utility functions, mixins, and best practices.
 	- **Precompiled CSS**: Establish an agreed standard for precompiling styles during the build process, ensuring faster load times and consistent delivery. This approach integrates well with CI/CD pipelines.
-##### 2.2  Generated Style Guide, White-Labeling
+
+##### 2.3  Order of CSS Properties
+
+Your stylesheet should have an expected order of properties from top to bottom. The team should be aware of it, so they can quickly find the property they need.
+
+Consider this order:
+- root variables
+- tag styles
+- heading h1, h2, …
+- spacing (padding margin classes to keep spacing consistent across deisgn)
+- utility styling classes (like text-red)
+- layout (go head to toe)
+- modular (like cards, buttons)
+- states (eg. is-hidden)
+
+##### 2.4  Generated Style Guide, White-Labeling
 - **Generated Style Guide**: 
 	- A Generated Style Guide serves as a webpage that showcases the design elements of a website, such as heading sizes, font pairings, color themes, and more. It can also include class names and reusable components like buttons.
 	- This tool is invaluable for verifying how your CSS variables and classes work together. By swapping out CSS files, you can ensure that color priorities and relationships remain consistent across the design system.
@@ -423,7 +444,7 @@ A standardized approach to CSS ensures consistent styling across projects while 
 		3. **Modular Architecture**: Structure CSS files and SASS partials for modularity, allowing easy overrides and adjustments for individual themes.
 		4. **Branding Tokenization**: Define tokens for branding elements (e.g., `$button-primary-color`, `$header-font-size`) to make rebranding as simple as updating a configuration file.
 
-##### 2.3. **z-index Magnitudes and Layering**
+##### 2.5. **z-index Magnitudes and Layering**
 
 When multiple UI elements (e.g., dropdowns, tooltips, modals) overlap, a clear **z-index** policy helps avoid unintended collisions and maintain predictable layering:
 

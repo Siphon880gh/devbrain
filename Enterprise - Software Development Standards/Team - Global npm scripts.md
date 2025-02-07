@@ -41,3 +41,38 @@ Make sure ~/npm/ or whatever path in your npm scripts is accurate on the new mac
 ```
 npm run help --prefix THEIR_DIRECTORY
 ```
+
+---
+
+## BONUS:
+
+If you prefer a shorter shortcut like:
+```
+npmg gr -- `pwd` SEARCH
+```
+
+Or
+```
+npmg help
+```
+^ Instead of `npm run help --prefix ~/npm`
+
+1. Add the following function to your ~/.bash_profile or ~/.bashrc or ~/.zshrc, depending on what's appropriate for your system:
+
+```sh
+# Function to run npm scripts from a global package.json in ~/npm/
+npmg() {
+    npm run --prefix ~/npm/ "$@"
+}
+```
+
+2. Apply the changes by running (eg. if you're using bash_profile):
+```
+source ~/.bash_profile
+```
+
+3. Now you can use `npmg` as a shortcut:
+
+```sh
+npmg SCRIPT -- "$(pwd)"
+```
