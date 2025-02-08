@@ -19,7 +19,7 @@ There are three requirements: langflow account (free), astradb account (free), o
 
 Signup langflow
 You can easily signup with github oauth
-https://www.datastax.com/langflow
+https://www.datastax.com/products/langflow
 
 Choose the Rag starter template
 ![](KxjigDH.png)
