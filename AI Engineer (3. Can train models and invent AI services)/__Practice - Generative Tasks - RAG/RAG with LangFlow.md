@@ -1,1 +1,1 @@
-Refer to [[Langflow PRIMER]] where I used RAG as the example use case.
+Refer to [[Langflow - PRIMER - Online GUI]] where I used RAG as the example use case.

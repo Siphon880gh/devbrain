@@ -1,8 +1,8 @@
 Aka Get Started
 
-Langflow. No code low code rapid development of AI apps with AI and DevOps and Agents workflow!!! Drag and drop connections and set the options at each card. The code is implemented behind cards and connections. This means you dont have to manually code RAG, usually in python.
+This tutorial will cover Langflow using their online service (not local use).
 
-This tutorial will cover the use case of RAG which is the loading of documents then asking AI questions that it can answer using your documents. Typically you would upload MD, PDF, or docx files
+For AI example, we will use RAG which is the loading of documents then asking AI questions that it can answer using your documents. Typically you would upload MD, PDF, or docx files
 
 There are three requirements: langflow account (free), astradb account (free), openai api account (not free but you load in funds).
 
