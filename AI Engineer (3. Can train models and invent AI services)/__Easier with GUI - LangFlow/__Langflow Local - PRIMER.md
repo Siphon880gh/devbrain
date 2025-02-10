@@ -69,6 +69,7 @@ Now let's begin using it.
 2. Let's create a simple prompting that can ask OpenAI any factual information. This is without system instructions
 3. Notice Prompt message is piped into System Message. For simplicity, this tutorial should not cover System Message. We'll cover System Message on level 2. So let's erase Prompt by selecting the Prompt component and pressing delete:
    
+   Simplify the pipe for our beginner lesson:
    ![[Pasted image 20250209214038.png]]
 
 4. For the User Input component, let's try:
