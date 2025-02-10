@@ -20,7 +20,7 @@ You can ask perplexity.ai:
 With a 16GB MacBook Pro on a M1 chip, what's an appropriate model for LM Studio?
 ```
 
-And you can ask for better settings with ChatGOT:
+And you can ask for better settings with ChatGPT:
 ```
 Im using DeepSeek R1 Distill Qwen 7B on LM Studio. How to improve performance. These are the settings 
 - Context Length
