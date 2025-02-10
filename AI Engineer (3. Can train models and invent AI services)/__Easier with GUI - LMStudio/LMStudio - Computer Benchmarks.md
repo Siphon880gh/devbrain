@@ -7,10 +7,3 @@ Give me a 60k business with 10k investment
 
 Easier question:
 - 24 seconds on the Apple...
-
----
-
-Apple... on Msty
-
-1m40secs Llama 3.2 Vision
-![[Pasted image 20250207043827.png]]
