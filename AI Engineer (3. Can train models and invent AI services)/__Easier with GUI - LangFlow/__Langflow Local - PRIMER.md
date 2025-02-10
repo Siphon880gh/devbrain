@@ -44,36 +44,40 @@ Chosen basic prompt, components are already dropped into the canva and connected
 
 Recommendation: Try to get familiar with all the components under each category. Some components you won't understand yet, and that's okay because it really depends on your knowledge of how AI works.
 
+
+Know these shortcuts to make your life easier:  
+- drag to pan
+- cmd+drag to zoom
+- More shortcuts are at [[_Langflow Commonly Needed - Shortcuts and Workflow]]
+
 Going back to the canvas:
 ![[Pasted image 20250209202100.png]]
 
 Lets do a quick orientation:
-- Chat Input is the user prompt
-- Prompt is the system instructions (System instructions shape how the model, Eg. You are a {ROLE/EXPERTISE}... Eg. respond only to questions about... Eg. response only in json). It is NOT optional. In the programming world, the system instructions are hidden from the user.
+- Chat Input is:
+	- You type what the user types when "asking ChatGPT", before clicking Play on the farthest right component (Chat Output)
+	- Or you open Playground at the top right to start chatting, and the chat bot will go through this pipeline from Chat Input to Model to Chat Output
+- Chat Output is:
+	- When you run the flow in canvas mode by clicking the play button on Chat Output, the chat response is saved inside Message (you have to click to open)
+	- Or you open Playground mode and this node represents that chat bot responding back to you after running this pipeline behind the hood to understand your prompt
+- Prompt. This does not necessarily represent what the user types when "asking Chat GPT". If it were piped into Input, then yes it would, but it's piped into System Message. Prompt has basic prompt and can also create variables using the `{variable}` syntax when you're typing into the Template field. More details about prompt will be in level 2. We will get rid of prompt for level 1
 
 ## Learn with: Basic Prompting
 
 Now let's begin using it. 
 1. Make sure to add an Open API Key to OpenAI model component
-2. Let’s have prompt in the Prompt component say:
-	```
-	You are an expert historian in US affairs and events and cultures.
-	```
+2. Let's create a simple prompting that can ask OpenAI any factual information. This is without system instructions
+3. Notice Prompt message is piped into System Message. For simplicity, this tutorial should not cover System Message. We'll cover System Message on level 2. So let's erase Prompt by selecting the Prompt component and pressing delete:
+   
+   ![[Pasted image 20250209214038.png]]
 
-> [!note] Prompt variables?
-> That’s optional  
-  > You are an expert historian in {Country} affairs and events and cultures.  
-  > It just makes future iterations with slightly different system instructions easier in your workflow, because it creates a field for you to configure the component:
-  > ![[Pasted image 20250209202420.png]]
-  
-
-3. For the User Input component, let's try:
+4. For the User Input component, let's try:
 	```
-	Give me summary of what happened on 12/31/2012
+	How tall is Mt Everest?
 	```
 
 Here's what we have so far (Prompt variables optional):
-![[Pasted image 20250209202536.png]]
+![[Pasted image 20250209214656.png]]
 
 Then click the play button at the Chat Output (farthest right):
 ![[Pasted image 20250209202631.png]]
@@ -86,16 +90,17 @@ To review the chat outputs in this round and all previous rounds, at the Chat Ou
 ![[Pasted image 20250209202642.png]]
 
 You get a table from opening "Message" at "Chat Output". Notice the response is in that field. Double click the field to expand:
-![[Pasted image 20250209202835.png]]
+![[Pasted image 20250209214758.png]]
 
-
-![[Pasted image 20250209202845.png]]
+![[Pasted image 20250209214820.png]]
 
 ---
 
-## In retrospect, another way to run the flow
+## Another way to run the flow is through Playground
 
 You also could have chatted with your “bot” by going into Playground instead of clicking Play on the farthest right component:
 ![[Pasted image 20250209202925.png]]
 
-![[Pasted image 20250209202932.png]]
+![[Pasted image 20250209214937.png]]
+
+![[Pasted image 20250209214908.png]]
