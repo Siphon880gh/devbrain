@@ -10,8 +10,9 @@ Add these components:
 - "If-Else" is found in "Logic" components category
 - "Chat Output" x2 are found in "Outputs" components category
 
+As of 2/2025, no WYSIWYG drag-drop way to set specific text to appear in chat output based on the results of if/else (in this case, does the text match or not). Text would pass through for true and it would pass through for false, so you can’t tell which ran successfully by lookin at the text output. The only way is if you create a custom component that will spit out different text for True or different text for False.
 
-The two Override Message's are custom components. Add custom component button is at the bottom left:
+For that reason, we can define a custom component that lets you define that unique text. Add custom component button is at the bottom left:
 ![[Pasted image 20250210010621.png]]
 Use this code which will add the logic for the pipe in and out and also design the card onto the canvas:
 ```
@@ -80,10 +81,13 @@ If-else Operator: "equals"
 Override Message (if true): "True - Was a match"
 Override Message (if false): "False - Not a match"
 
+> [!note] Override Message
+> Recall that this is a custom components because there is no pre-built component as of 2/2025 that simply lets you set the text in the middle of the flow.
+
 When several chat outputs possible, you generally click play on all the chat outputs. Usually if you drag and drop components in columns, you click play on all the components on the right most column, so click these two play buttons:
 ![[Pasted image 20250210010923.png]]
 
-After running, a way to quickly see which branch executed is to hover mouse over to compare timestamps:
+After running, a way to quickly see which branch executed is to hover mouse over to compare timestamps (Ignore the new icon and color fields - sneak peak for the next section):
 ![[Pasted image 20250210010943.png]]
 
 ![[Pasted image 20250210010953.png]]
