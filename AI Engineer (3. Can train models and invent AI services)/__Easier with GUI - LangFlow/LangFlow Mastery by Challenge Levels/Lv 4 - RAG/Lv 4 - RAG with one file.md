@@ -1,5 +1,3 @@
-Status: 85% done. Please come back later. This is a very long tutorial. - Weng.
-
 GOAL: RAG test with a small text file first. We use small text embedding model from OpenAI. This is to limit cost and so we can quickly see that the RAG works. After working, you can adapt it for multiple PDF files (Hint: Use "Directory" component instead of "File" component)
 
 ---
@@ -35,6 +33,8 @@ Question: {question}
 
 Answer: 
 ```
+
+  Remember you must first ingest the data (which enhances the AI with your documents, usually by you loading documents in), before you can retrieve (aka prompt the model!). That is RAG - Retrieval-augmented generation.
 
 ---
 
@@ -75,6 +75,17 @@ Get **application token** under the database:
 - **LEAVE ALONE** collection name
 
 ---
+
+**Double check the API and DB details are entered**
+
+Load flow looks like:
+![[Pasted image 20250211020132.png]]
+
+Retrieval flow looks like:
+![[Pasted image 20250211020456.png]]
+
+---
+
 
 **Have Langflow create the AstraDB collection**
 
@@ -465,15 +476,58 @@ Click Search results to see what happened. Likely it'll be OpenAI errors if anyt
 > ![[Pasted image 20250211015651.png]]
 
 
-
-
-
 ----
 
 **Retrieve/query**
 
+CHECK 1: Make sure the Prompt component is connected to OpenAI component's Input and that System Message is kept empty:
+![[Pasted image 20250211020722.png]]
 
+And make sure the prompt template is:
+```
+{context}
 
+---
+
+Given the context above, answer the question as best as possible.
+
+Question: {question}
+
+Answer: 
+```
+
+Rationale for check 1:
+There is no need for system message because the ChatGPT will take your prompt which has the AstraDB answer and your question, then reword it into a proper answer, as if ChatGPT was the one that did the querying into your RAG content.
+
+CHECK 2:
+Make sure Chat Input outbounds to Search Query as well as Prompt's "{question}" variable:
+
+![[Pasted image 20250211021153.png]]
+
+Rationale for check 2:
+You are querying the AstraDB vector for answers, so the AstraDB needs to receive your question. Then AstraDB's answer data is extracted into the Prompt. You also concatenate the Prompt with your original question because your Prompt is asking ChatGPT to reword the prompt into a response as if ChatGPT was the one that looked up your AstraDB. Remember the prompt has both the answer already and the original question.
+
+After all checks passed, proceed to ask the question.
+
+Enter either at the Chat Input or the Playground (the playground knows which flow to use BECAUSE there's only one Chat Input and it's connected to the Retrieval flow):
+```
+The Knights originally consisted of how many brethen?
+```
+
+So you've entered:
+![[Pasted image 20250211021618.png]]
+
+Then run the Retrieval flow (by clicking play on the farthest right component, which is the Chat Output), or wait for Playground to finish running the flow.
+
+If in canvas, you'll get this:
+![[Pasted image 20250211021717.png]]
+
+If in Playground, you'll get this:
+![[Pasted image 20250211021743.png]]
+
+When you open the text, you'll find the Knight Templars originally had nine members and discusses who the unknown ninth member may be:
+
+![[Pasted image 20250211021949.png]]
 
 
 
@@ -489,24 +543,3 @@ There are two important features here:
 - Retrieve
   ![](MkHC2x2.png)
   
-  Remember you must first ingest the data (which enhances the AI with your documents, usually by you loading documents in), before you can retrieve (aka prompt the model!). That is RAG - Retrieval-augmented generation.
-
----
-
-Sign up with astradb 
-[https://astra.datastax.com/signup](https://astra.datastax.com/signup)  
-
-
-> [!note] AstraDB free  
-> Yes, AstraDB offers a free tier with limited resources. Here are the key details:
-> 
-> 1. AstraDB provides a free tier with 10 GB of storage, allowing users to get started without any upfront cost
-> 2. On AWS Marketplace, there's a free trial option for AstraDB
-> 3. Microsoft Azure offers a 3-month free trial for AstraDB, which includes up to 80GB of storage and 20 million read/write operations per month
-> 4. AstraDB uses a "Pay as you go" model, where you only pay for what you use beyond the free tier limits
-> 5. The free tier includes one 'Standard' support ticket at no additional cost
-> 
->   
-
-Example astradb dashboard url:
-[https://astra.datastax.com/langflow/3b168471-973e-43bc-a4cd-2d0e3fbb9ba2/flows](https://astra.datastax.com/langflow/3b168471-973e-43bc-a4cd-2d0e3fbb9ba2/flows)
