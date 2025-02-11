@@ -21,7 +21,7 @@ These are the credentials and database/collection details missing:
 
 **Quick Orientation:**
 - At loading data, your file is chunked over to a text embedding model that knows how to vectorize your words into a queryable vector database. It saves the vectors to your queryable vector database.
-- At retrieval (aka prompting), your Chat Input will search for the relevant answers in the queryable vector database, using the same text embedding model to do so. The relevant answer (aka variable `context` ) and your Chat Input (aka variable `question` ) gets passed into ChatGPT model, then it rewords the combined text into a prompt response. The only generative part was from AstraDB, and ChatGPT was use for transformation (rewording). Here’s ChatGPT’s transformation work:
+- At retrieval (aka prompting), your Chat Input will search for the relevant answers in the queryable vector database, using the same text embedding model to do so. The relevant answer (aka variable `{context}` ) and your Chat Input (aka variable `{question}` ) gets passed into ChatGPT model, then it rewords the combined text into a prompt response. The only generative part was from AstraDB, and ChatGPT was use for transformation (rewording). Here’s ChatGPT’s transformation work:
 ```
 {context}
 
@@ -539,4 +539,19 @@ When you open the text, you'll find the Knight Templars originally had nine memb
 
 If you had asked "How tall is Mt Everest" instead of asking about Knight Templars, then the AI's response would've been: "The text does not provide information on the height of Mt Everest."
 
-This works because your prompt under the hood had instructed ChatGPT to reword the relevant answer into replying to your question.
+This works because your prompt under the hood had instructed ChatGPT to reword the relevant answer (aka variable `{context}`) into replying to your question (variable `{question}`).
+
+If you want to allow the user to ask about Knight Templars OR about Mt Everest, then your Prompt component (to ChatGPT model component) would have the template:
+```
+{context}
+
+---
+
+Given the context above, answer the question as best as possible.
+
+But... the user is also allowed to ask about Mt Everest
+
+Question: {question}
+
+Answer: 
+```
