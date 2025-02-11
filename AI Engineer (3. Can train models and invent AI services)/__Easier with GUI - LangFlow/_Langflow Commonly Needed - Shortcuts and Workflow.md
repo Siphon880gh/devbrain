@@ -1,5 +1,5 @@
 Delete a connection:
-Select the connection, then press Delete
+Select the connection (the noddle or connector), then press Delete
 ![[Pasted image 20250209192929.png]]
 
 ---
