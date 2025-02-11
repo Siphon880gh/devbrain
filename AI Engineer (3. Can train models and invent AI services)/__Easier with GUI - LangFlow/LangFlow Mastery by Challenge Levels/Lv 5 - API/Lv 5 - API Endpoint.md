@@ -55,11 +55,83 @@ fetch(
 Then just run in the Chrome DevTools console
 Chrome: CMD+SHIFT+I → Console tab
 
----
+Wait a few seconds for the response
+![[Pasted image 20250211031012.png]]
 
-FYI:  
-Tweaks is where you can override some settings already in the flow:
-![[Pasted image 20250211023223.png]]
+The path to it was:
+`data.outputs[0].outputs[0].results.message.text;`
+
+Message object was:
+```
+{
+    "text_key": "text",
+    "data": {
+        "timestamp": "2025-02-11T11:09:23+00:00",
+        "sender": "Machine",
+        "sender_name": "AI",
+        "session_id": "4dcc99b0-abbc-4ead-ac35-f06662ca7076",
+        "text": "Mt Everest is approximately 8,848 meters or 29,029 feet tall.",
+        "files": [],
+        "error": false,
+        "edit": false,
+        "properties": {
+            "text_color": "",
+            "background_color": "",
+            "edited": false,
+            "source": {
+                "id": "OpenAIModel-vkFdj",
+                "display_name": "OpenAI",
+                "source": "gpt-4"
+            },
+            "icon": "OpenAI",
+            "allow_markdown": false,
+            "positive_feedback": null,
+            "state": "complete",
+            "targets": []
+        },
+        "category": "message",
+        "content_blocks": [],
+        "id": "b6ff6ffe-33ed-4db1-9448-ac67e141ceaa",
+        "flow_id": "4dcc99b0-abbc-4ead-ac35-f06662ca7076"
+    },
+    "default_value": "",
+    "text": "Mt Everest is approximately 8,848 meters or 29,029 feet tall.",
+    "sender": "Machine",
+    "sender_name": "AI",
+    "files": [],
+    "session_id": "4dcc99b0-abbc-4ead-ac35-f06662ca7076",
+    "timestamp": "2025-02-11T11:09:23+00:00",
+    "flow_id": "4dcc99b0-abbc-4ead-ac35-f06662ca7076",
+    "error": false,
+    "edit": false,
+    "properties": {
+        "text_color": "",
+        "background_color": "",
+        "edited": false,
+        "source": {
+            "id": "OpenAIModel-vkFdj",
+            "display_name": "OpenAI",
+            "source": "gpt-4"
+        },
+        "icon": "OpenAI",
+        "allow_markdown": false,
+        "positive_feedback": null,
+        "state": "complete",
+        "targets": []
+    },
+    "category": "message",
+    "content_blocks": []
+}
+```
+
+Results object was just:
+```
+{
+	message: {..}
+}
+```
+
+**Congratulations! You made an API call with a desired prompt, and you've gotten a proper response back with an AI answer from the flow**
 
 ---
 
@@ -81,6 +153,13 @@ curl -X POST \
 That's pretty similar to the API endpoint that we've used from the API page. The difference is that the curl command here is using the two variables to build the URL. The URL would've still equated similar to `http://127.0.0.1:7860/api/v1/run/4dcc99b0-abbc-4ead-ac35-f06662ca7076?stream=false`
 
 ---
+
+
+**FYI:**  
+Tweaks is where you can override some settings already in the flow:
+![[Pasted image 20250211023223.png]]
+
+----
 
 **Challenge**
 A good challenge is to dockerize this so you can easily launch it on your server and connect to a specific port. This would mean you can create AI apps or microservices with minimal coding because you can leverage the drag and drop nature of Langflow, then deploy to your server!

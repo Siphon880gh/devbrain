@@ -530,4 +530,13 @@ When you open the text, you'll find the Knight Templars originally had nine memb
 ![[Pasted image 20250211021949.png]]
 
 
-Congratulations, you've successfully performed RAG!
+**Congratulations, you've successfully performed RAG!**
+
+
+---
+
+**And if you had asked an unrelated question**
+
+If you had asked "How tall is Mt Everest" instead of asking about Knight Templars, then the AI's response would've been: "The text does not provide information on the height of Mt Everest."
+
+This works because your prompt under the hood had instructed ChatGPT to reword the relevant answer into replying to your question.
