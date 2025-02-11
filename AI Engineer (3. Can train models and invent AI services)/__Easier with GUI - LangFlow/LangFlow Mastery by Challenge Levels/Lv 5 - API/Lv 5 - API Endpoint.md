@@ -63,5 +63,24 @@ Tweaks is where you can override some settings already in the flow:
 
 ---
 
+**Correlating to the official docs**
+
+If you read the official docs on how to trigger a flow to run:
+https://docs.langflow.org/api-reference-api-examples
+
+You'll see it recommended saving the domain URL to langflow gui and the flow id. One of the api endpoints in the docs is:
+```
+curl -X POST \
+  "$LANGFLOW_URL/api/v1/build/$FLOW_ID/flow" \
+  -H "accept: application/json" \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: $LANGFLOW_API_KEY" \
+  -d '{"input_value": "hello, how are you doing?"}'
+```
+
+That's pretty similar to the API endpoint that we've used from the API page. The difference is that the curl command here is using the two variables to build the URL. The URL would've still equated similar to `http://127.0.0.1:7860/api/v1/run/4dcc99b0-abbc-4ead-ac35-f06662ca7076?stream=false`
+
+---
+
 **Challenge**
 A good challenge is to dockerize this so you can easily launch it on your server and connect to a specific port. This would mean you can create AI apps or microservices with minimal coding because you can leverage the drag and drop nature of Langflow, then deploy to your server!
