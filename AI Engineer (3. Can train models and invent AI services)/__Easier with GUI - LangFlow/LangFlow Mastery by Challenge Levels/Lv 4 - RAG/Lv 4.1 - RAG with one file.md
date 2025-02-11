@@ -458,7 +458,7 @@ Or download txt file from here: https://cdn.preterhuman.net/texts/history/americ
 At Load flow's File, browse for the txt file:
 ![[Pasted image 20250211014124.png]]
 
-Run the Load flow by pressing the play at the farthest right component:
+Run the Load flow by pressing the play at the farthest right component, thereby "ingesting" the data into the vector collection for later "retrieval" or querying:
 ![[Pasted image 20250211014249.png]]
 
 See if there are errors. There is an error if the Search Results icon changed red:
