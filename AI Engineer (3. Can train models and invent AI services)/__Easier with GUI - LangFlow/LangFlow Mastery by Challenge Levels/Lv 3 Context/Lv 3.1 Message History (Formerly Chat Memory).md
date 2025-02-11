@@ -20,7 +20,7 @@ Even though the subsequent prompt and response is on the same screen, the AI doe
 
 Let's add a prompt with prompt variables (therefore rendering a control field):
 ```
-You are a helpful assistant named that answer questions.
+You are a helpful assistant named Sam that answer questions.
 
 Use markdown to format your answer, properly embedding images and urls.
 
