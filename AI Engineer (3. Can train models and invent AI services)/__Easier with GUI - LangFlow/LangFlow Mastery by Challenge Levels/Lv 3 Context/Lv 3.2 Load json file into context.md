@@ -32,7 +32,7 @@ Below are the datasets for employees:
 {JSONString}
 ```
 
-This will create a field called JSONString:
+This will create a field called JSONString. Although we could type into that field, instead we will be connecting a component into it (sneak peak):
 ![[Pasted image 20250210185045.png]]
 
 The canvas so far
