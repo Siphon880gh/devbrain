@@ -530,16 +530,4 @@ When you open the text, you'll find the Knight Templars originally had nine memb
 ![[Pasted image 20250211021949.png]]
 
 
-
----
-
-
-There are two important features here:
-- Ingest Data **(Do this step first)**
-  ![](oUqhvYl.png)
-
-	AstraDB used to store your document's embeddings (after using OpenAI text embeddings model) is very generous even at free version - 10GB.
-
-- Retrieve
-  ![](MkHC2x2.png)
-  
+Congratulations, you've successfully performed RAG!
