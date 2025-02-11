@@ -1,5 +1,3 @@
-Status: Coming soon - Weng
-
 RAG with multiple files is pretty much the same with one small difference.
 
 This tutorial assumes you already know how to perform RAG with one file.
