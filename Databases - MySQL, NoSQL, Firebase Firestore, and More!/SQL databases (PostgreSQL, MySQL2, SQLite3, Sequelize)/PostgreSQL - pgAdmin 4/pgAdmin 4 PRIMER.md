@@ -2,6 +2,9 @@ Aka Get Started
 
 Desktop software that allows a GUI to your PostgreSQL database/tables at local server or remote server. It allows you to run SQL queries as well.
 
+Download free:
+https://www.pgadmin.org/
+
 ---
 
 **Add new connection**
