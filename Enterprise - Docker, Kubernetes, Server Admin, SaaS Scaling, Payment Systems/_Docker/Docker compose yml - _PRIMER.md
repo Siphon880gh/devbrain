@@ -1,6 +1,6 @@
 Docker Compose is for managing multiple containers because of the "deps" field.
 
-When you're downloading libraries to use for your server, you may encounter a `docker-compose.yml` file. That's the file that Docker Compose (`docker compose` commands) reads in order to download/build/run containers automatically. Note this is different from a Dockerfile which is used to build an image that can be built into a container. And note that `docker run` commands do not read the `docker-compose.yml` file and instead read directly your options in the command line (Often multi line with `\`)
+When you're downloading libraries to use for your server, you may encounter a `docker-compose.yml` file. That's the file that Docker Compose (`docker compose` commands) reads in order to download/build/run containers automatically. Note this is different from a Dockerfile which is used to build a CUSTOM IMAGE that can be built into a container. And note that `docker run` commands do not read the `docker-compose.yml` file and instead read directly your options in the command line (Often multi line with `\`). The `docker-compose.yml` uses NON-CUSTOM IMAGES.
 
 For an example of docker-compose.yml file and its usage to install Metabase with PostgresQL, refer to [[Metabase BI - _PRIMER]]
 
