@@ -1,5 +1,3 @@
-STATUS: Coming soon. Weng is working on it - 2/11/25
-
 Unlike many youtube and online tutorials you find, where they teach you how to install and run Langflow with Docker from a fresh slate, this tutorial will let you design a flow in Langflow then deploy it ready for use with docker.
 
 ---
@@ -83,9 +81,9 @@ docker compose up
 
 ---
 
-**Checkpoint**
+**Checkpoint A**
 
-You will not be able to persist any changes in the dockerized Langflow:
+You will not be able to make changes to any json flows at your folder path
 Renaming:
 ![[Pasted image 20250212021341.png]]
 To:
@@ -94,6 +92,15 @@ To:
 It will just bounce back to the old name, especially after restarting the docker:
 ![[Pasted image 20250212021406.png]]
 
-Also, the API keys are currently hard coded into your flow json file which is not good practice.
+However, this is because your exported json file will never be edited the the Dockerized Langflow. 
 
-These non-persistent and hard coded API keys will be overcome on the next Langflow docker challenges.
+You could however make a duplicate, then start editing - those changes will persist because they're saved to PostgreSQL which is persisted by being mounted to a path at Docker Desktop's virtual system:
+![[Pasted image 20250212022635.png]]
+
+---
+
+**Checkpoint B**
+
+The API keys are currently hard coded into your flow json file which is not good practice.
+
+The next challenge will be to parametrize that API key as an environmental variable.
