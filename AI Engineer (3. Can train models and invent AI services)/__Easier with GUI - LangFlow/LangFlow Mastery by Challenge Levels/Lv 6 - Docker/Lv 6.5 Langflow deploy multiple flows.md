@@ -162,5 +162,5 @@ volumes:
 
 What's been changed are:
 - Service names `langflow1` and `postgres1` (otherwise Docker will close the other instance if you try to run both docker compose files with the same service names)
-- Volume paths on computer drive of Docker Desktop virtual drive (if on Mac)
+- Volume paths on computer drive or on Docker Desktop virtual drive (if on Mac)
 - Host port number for both langflow and postgres.
