@@ -14,7 +14,9 @@ Find the current U.S. average mortgage interest rate for a 30-year fixed loan an
 Give me a diagram of how this is usually calculated.
 ```
 
-Remember that the Agent decides which tool to use to solve a problem.
+You can build an AI Agent that can do market research (google for stats and then crunch those numbers into a calculator, then give you an intelligent answer) in a short time.
+
+Remember that the AI Agent decides which tool to use to solve a problem.
 
 ---
 
