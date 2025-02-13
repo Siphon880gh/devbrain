@@ -141,9 +141,10 @@ Here are some questions that require both the ability to go online and use a cal
 
 Questions Requiring **Only Online Search**:
 
-1. What are the latest interest rates for 1-year fixed deposits in major U.S. banks?
-2. Who won the Super Bowl this year?
-3. What is the latest GDP growth rate for the U.S.?
+1. What are the top products on Product Hunt today?
+2. What are the latest interest rates for 1-year fixed deposits in major U.S. banks?
+3. Who won the Super Bowl this year?
+4. What is the latest GDP growth rate for the U.S.?
 
 Questions Requiring **Only Calculator**:
 
