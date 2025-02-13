@@ -1,5 +1,5 @@
 Goal:
-Asynchronously invoke flows to run in the background.
+Asynchronously invoke flows to run in the background. No waiting for response.
 
 Requirement:
 You already know how to change Langflow into an api call that can invoke the flow to run, per [[Lv 5.4 - Langflow - Flow API Endpoint]]
