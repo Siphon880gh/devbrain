@@ -1,3 +1,3 @@
-This will be covered after covering the basics of API Endpoints.
+This will be covered at the API series.
 
-Refer to [[Lv 5.2 - Langflow - Load URL or API endpoint into RAG]]
+Proceed to [[Lv 5.1 - Langflow - Load URL or API endpoint into RAG]]

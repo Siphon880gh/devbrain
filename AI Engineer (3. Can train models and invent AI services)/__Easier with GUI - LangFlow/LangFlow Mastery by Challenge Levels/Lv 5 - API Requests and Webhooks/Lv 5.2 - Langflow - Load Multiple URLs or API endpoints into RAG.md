@@ -1,5 +1,5 @@
 Required knowledge:
-Know how to RAG with one file per [[Lv 5.2 - Langflow - Load URL or API endpoint into RAG]]
+Know how to RAG with one file per [[Lv 5.1 - Langflow - Load URL or API endpoint into RAG]]
 
 ---
 
@@ -16,6 +16,7 @@ Let's say we have two URL's both to the same:
 ```
 https://cdn.preterhuman.net/texts/history/american/Knights_Templar.txt
 ```
+^ If the url is 404, you may choose another txt url or upload your own txt file to your own web hosting instead
 
 URL’s data points are (Clicking Data out port at URL) are as expected:
 ![[Pasted image 20250212192221.png]]

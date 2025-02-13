@@ -1,3 +1,8 @@
+Goal:
+Invoke flow to run and get back the AI response in a callback.
+
+---
+
 You can change langflow into an api call. So whatever flow gets designed in langflow, it can be called at an api endpoint. You can also pass in a text prompt into that api endpoint.
 
 Go to the API section (next to Playground):
@@ -22,8 +27,7 @@ fetch(
   "http://127.0.0.1:7860/api/v1/run/4dcc99b0-abbc-4ead-ac35-f06662ca7076?stream=false",  
   {  
     method: "POST",  
-    headers: {  
-      "Authorization": "Bearer <TOKEN>",  
+    headers: {
       "Content-Type": "application/json",  
       "x-api-key": ""  
     },  
