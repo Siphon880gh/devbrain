@@ -3,8 +3,6 @@ Note returning LangFlow veterans:
 
 ---
 
-
-
 With a basic prompting template:
 ![[Pasted image 20250210020543.png]]
 

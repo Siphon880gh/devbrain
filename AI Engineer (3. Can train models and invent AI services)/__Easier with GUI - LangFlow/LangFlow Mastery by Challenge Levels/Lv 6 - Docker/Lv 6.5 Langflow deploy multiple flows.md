@@ -118,6 +118,8 @@ Going to the API screen will show you the API calls with their respective ports:
 
 Calling either API calls at different ports should both work
 
+If you have difficulty making more than one docker work, try combining them into one docker-compose.yml file.
+
 ---
 
 **Discussion**
