@@ -92,7 +92,7 @@ To:
 It will just bounce back to the old name, especially after restarting the docker:
 ![[Pasted image 20250212021406.png]]
 
-However, this is because your exported json file will never be edited the the Dockerized Langflow. 
+However, this is because your exported json file will never be edited by the Dockerized Langflow. 
 
 You could however make a duplicate, then start editing - those changes will persist because they're saved to PostgreSQL which is persisted by being mounted to a path at Docker Desktop's virtual system:
 ![[Pasted image 20250212022635.png]]
