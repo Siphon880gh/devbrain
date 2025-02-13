@@ -14,7 +14,7 @@ Find the current U.S. average mortgage interest rate for a 30-year fixed loan an
 Give me a diagram of how this is usually calculated.
 ```
 
-The key idea is that the Agent decides which tool to use to solve a problem.
+Remember that the Agent decides which tool to use to solve a problem.
 
 ---
 
@@ -107,13 +107,17 @@ And you can expand to see its work (here it tells you two tools are used):
 	- Already done for you with these components, but the Langflow team named and described tools to help agents understand when to use each tool.
 	- You can see these descriptions by going into Tools Mode for a component, then clicking "Edit tools"
 	- The "Edit tools" buttons:
-	  ![[Pasted image 20250213033902.png]]
-	- Web browser:
-	  ![[Pasted image 20250213034002.png]]
+		![[Pasted image 20250213033902.png]]
 	  
-	  - Calculator:
+	- Web browser:
+		![[Pasted image 20250213034002.png]]
+	  
+	- Calculator:
 	    ![[Pasted image 20250213034021.png]]
-	- Agent:	  ![[Pasted image 20250213034047.png]]
+	    
+	- Agent:	
+		![[Pasted image 20250213034047.png]]
+		
 	- The Agent component's code is an instance of the AgentComponent class which maintains a list of tools at `self.tools` based on incoming connections to Tools field, and that's how it's able to access the definitions of the tools.
 
 ---
