@@ -296,7 +296,7 @@ TWEAKS = {
 }
 ```
 
-For a review on how to make API requests when a Langflow server is running: [[Lv 5 - Langflow API Endpoint]]
+For a review on how to make API requests when a Langflow server is running: [[Lv 5.1 - Langflow - Flow API Endpoint]]
 
 This "third approach" is not recommended because it can be very confusing to users. It may be an anti-pattern.
 
