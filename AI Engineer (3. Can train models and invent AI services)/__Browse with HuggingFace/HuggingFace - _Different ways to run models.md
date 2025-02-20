@@ -18,15 +18,15 @@ If an option is missing, then that means that model DOES NOT support that method
 
 To help remember Inference Providers vs Inference Endpoint
  - Inference: **inference** refers to the process of using a trained model to make predictions or generate outputs based on new, unseen data.
- - Inference Provider means HuggingFace's servers and partner servers will host it for you so your code can just make requests to their hugging face facing server Aka serverless
- - Inference Endpoints mean you choose the Cloud service and resources (eg. 4 GB space). It can cost very cheaply like cents every hour. Aka Dedicated.
+ - Inference Provider means HuggingFace's servers and partner servers will host it for you so your code can just make requests to their hugging face facing server. Aka serverless
+ - Inference Endpoints mean you choose the Cloud service and resources (eg. 4 GB storage). It can cost very cheaply like cents every hour. Aka Dedicated.
 
 
 Here’s a table summarizing the differences between **Hugging Face Inference API (Router-based)** and **Hugging Face Inference Endpoints**:
 
 | **Feature**                | **Hugging Face Inference API**                                 | **Hugging Face Inference Endpoint**                                                                                                    |
 | -------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| **Aka's**                  | Serverless, Router                                             | Dedicated, Cloud                                                                                                                       |
+| **Aka's**                  | Serverless, Router, Provider                                   | Dedicated, Cloud                                                                                                                       |
 | **API URL**                | `https://router.huggingface.co/hf-inference/models/{model_id}` | Custom URL: `https://<your-endpoint-subdomain>.hf.space/`<br><br>Or could be:<br>`https://<your-endpoint-subdomain>.huggingface.cloud` |
 | **Hosting & Scaling**      | Managed by Hugging Face, shared across users                   | Fully private, dedicated to you                                                                                                        |
 | **Rate Limits**            | May have rate limits depending on your HF plan                 | No rate limits (depends on your hosting setup)                                                                                         |
@@ -42,9 +42,11 @@ Here’s a table summarizing the differences between **Hugging Face Inference A
 
 ## Spaces (Remote GUI)
  Space is using Gradio which is similar to Streamlit. It looks at your AI use code then generate common UI elements on a webpage so people can use it (eg. if your AI code takes in images, it'll have an upload image form). Then the space is available on the model's page (HuggingFace owns Gradio after acquisition on 2021):
-   
 
-Bottom right shows spaces created from that model:
+Here's the whole page:
+![[Pasted image 20250219191153.png]]
+
+Look to the bottom right for Spaces created from that model:
 ![[Pasted image 20250219181627.png]]
 
 Clicking "klick/gabor..." opens a space:
