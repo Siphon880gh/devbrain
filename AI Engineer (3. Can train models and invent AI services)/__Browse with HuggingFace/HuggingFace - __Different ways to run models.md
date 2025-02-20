@@ -26,7 +26,8 @@ Here’s a table summarizing the differences between **Hugging Face Inference A
 
 | **Feature**                | **Hugging Face Inference API**                                 | **Hugging Face Inference Endpoint**                                                                                                    |
 | -------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| **Aka's**                  | Serverless, Router, Provider                                   | Dedicated, Cloud                                                                                                                       |
+| **Aka's**                  | Serverless, Provider, Router                                   | Dedicated, Cloud                                                                                                                       |
+| **Purposes**               | Great for quick testing and access.                            | Better for production use, with dedicated hosting and no rate limits.                                                                  |
 | **API URL**                | `https://router.huggingface.co/hf-inference/models/{model_id}` | Custom URL: `https://<your-endpoint-subdomain>.hf.space/`<br><br>Or could be:<br>`https://<your-endpoint-subdomain>.huggingface.cloud` |
 | **Hosting & Scaling**      | Managed by Hugging Face, shared across users                   | Fully private, dedicated to you                                                                                                        |
 | **Rate Limits**            | May have rate limits depending on your HF plan                 | No rate limits (depends on your hosting setup)                                                                                         |
