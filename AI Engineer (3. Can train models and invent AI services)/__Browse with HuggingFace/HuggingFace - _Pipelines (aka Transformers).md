@@ -32,17 +32,17 @@ If the model is **public**, you can use transformers/pipelines without authenti
 
 	```
 	from huggingface_hub import login  
-	login("YOUR_ACCESS_TOKEN")
+	login("YOUR_ACCESS_TOKEN") # OR: os.getenv("HUGGINGFACE_TOKEN")
 	```
 	
-	- Then proceed with transformers/pipelines AI tasks (We assume you will adjust the code to use env variables):
-	- 
+	- Then proceed with transformers/pipelines AI tasks:
+
 	```
 	from huggingface_hub import login
 	from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 	
 	# Log into Hugging Face (enter token when prompted)
-	login("YOUR_ACCESS_TOKEN")
+	login("YOUR_ACCESS_TOKEN") # OR: os.getenv("HUGGINGFACE_TOKEN")
 	
 	# Define the model name (e.g., a GPT-style model)
 	model_name = "mistralai/Mistral-7B-Instruct-v0.1"
