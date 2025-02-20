@@ -38,7 +38,7 @@ You need:
 - You need an access token from Hugging Face. You can get your access token at [[HuggingFace - Create access token]].
 - You need the endpoint URL for the deployed model. It becomes available when the starting is successful.
 
-STATUS: Untested
+STATUS below: Untested
 
 Depending on what AI task you're performing, the code will slightly differ.
 - Text gen is the simplest
