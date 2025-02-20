@@ -146,3 +146,14 @@ model = AutoModelForTokenClassification.from_pretrained("dbmdz/bert-large-cased-
 tokenizer = AutoTokenizer.from_pretrained("google-bert/bert-base-cased")  
 recognizer = pipeline("ner", model=model, tokenizer=tokenizer)
 ```
+
+---
+
+If you're adding transformers feature to your own HF model that other people can use, you have to add library and pipeline key-values to the model card (YAML section above Readme.md or click Edit model card):
+![[Pasted image 20250219185006.png]]
+
+Make sure you add the key-values are at the root level. For example:
+```
+library_name: transformers
+pipeline_tag: font-identifier
+```
