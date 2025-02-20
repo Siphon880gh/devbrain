@@ -1,4 +1,4 @@
-Ollama's model name from HuggingFace is in this format:
+Ollama's model name from HuggingFace is in the URL format:
 hf.co/QuantFactory/Lite-Oute-1-300M-Instruct-GGUF
 
 For example:
