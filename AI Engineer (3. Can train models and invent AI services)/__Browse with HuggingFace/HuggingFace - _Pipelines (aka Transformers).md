@@ -63,7 +63,7 @@ If the model is **public**, you can use transformers/pipelines without authenti
 	```
 	
 - Code authentication using token syntax:
-- 
+
 	```
 	import os
 	from transformers import AutoModel, AutoTokenizer
