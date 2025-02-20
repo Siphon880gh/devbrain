@@ -59,16 +59,16 @@ If the model is **public**, you can use transformers/pipelines without authenti
 	print(output[0]['generated_text'])
 	```
 - Code authentication using token syntax:
-```
-import os
-from transformers import AutoModel, AutoTokenizer
-
-model_name = "your-private-model"
-token = "YOUR_ACCESS_TOKEN" # OR: os.getenv("HUGGINGFACE_TOKEN")
-
-tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=token)
-model = AutoModel.from_pretrained(model_name, use_auth_token=token)
-```
+	```
+	import os
+	from transformers import AutoModel, AutoTokenizer
+	
+	model_name = "your-private-model"
+	token = "YOUR_ACCESS_TOKEN" # OR: os.getenv("HUGGINGFACE_TOKEN")
+	
+	tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=token)
+	model = AutoModel.from_pretrained(model_name, use_auth_token=token)
+	```
 - CLI authentication using storage space (where token is stored as a file)
 	- Before running the script, authenticate with hf cli (hf cli can be installed as follows https://huggingface.co/docs/huggingface_hub/main/en/guides/cli):
   ```
