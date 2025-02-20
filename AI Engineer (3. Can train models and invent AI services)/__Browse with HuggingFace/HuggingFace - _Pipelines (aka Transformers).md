@@ -29,11 +29,14 @@ Make sure you have HF Transformers installed https://huggingface.co/docs/transfo
 
 If the model is **public**, you can use transformers/pipelines without authentication. Otherwise
 - Code authentication using login syntax:
-  ```
-	  from huggingface_hub import login  
-	  login("YOUR_ACCESS_TOKEN")
+
 	```
+	from huggingface_hub import login  
+	login("YOUR_ACCESS_TOKEN")
+	```
+	
 	- Then proceed with transformers/pipelines AI tasks (We assume you will adjust the code to use env variables):
+	- 
 	```
 	from huggingface_hub import login
 	from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
@@ -58,7 +61,9 @@ If the model is **public**, you can use transformers/pipelines without authenti
 	# Print result
 	print(output[0]['generated_text'])
 	```
+	
 - Code authentication using token syntax:
+- 
 	```
 	import os
 	from transformers import AutoModel, AutoTokenizer
@@ -69,49 +74,53 @@ If the model is **public**, you can use transformers/pipelines without authenti
 	tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=token)
 	model = AutoModel.from_pretrained(model_name, use_auth_token=token)
 	```
+	
 - CLI authentication using storage space (where token is stored as a file)
 	- Before running the script, authenticate with hf cli (hf cli can be installed as follows https://huggingface.co/docs/huggingface_hub/main/en/guides/cli):
-  ```
-	  huggingface-cli login
+
 	```
+	huggingface-cli login
+	```
+
 	- It will ask for your access token which you can get from [[HuggingFace - Create access token]], then it saves the access token to your computer at a location such as (if Mac) /Users/USER/.cache/huggingface/token
 	- Your script code needs to transmit the parameter "use_auth_token=True" to model and tokenizer. It'll know where to look for your access token on the computer:
-		```
-		from transformers import pipeline
-		
-		# Define the private model name
-		model_name = "your-private-model"  # Replace with your actual private model
-		
-		# Example 1: Text Generation Pipeline (e.g., GPT-style model)
-		generator = pipeline("text-generation", model=model_name)
-		
-		prompt = "Once upon a time, there was a"
-		output = generator(prompt, max_length=50, do_sample=True)
-		print("Generated Text:", output[0]['generated_text'])
-		
-		# Example Output:
-		# "Once upon a time, there was a brave young knight who set out on a journey to find the legendary sword of his ancestors. 
-		# Along the way, he encountered fierce dragons and made unexpected allies..."
-		
-		# Example 2: Text Classification Pipeline (e.g., sentiment analysis)
-		classifier = pipeline("text-classification", model=model_name)
-		
-		text = "I love AI! It's so exciting."
-		classification = classifier(text)
-		print("Classification Result:", classification)
-		
-		# Example Output:
-		# [{'label': 'POSITIVE', 'score': 0.98}]
-		
-		# Example 3: Embedding Pipeline (for feature extraction)
-		embedding_pipeline = pipeline("feature-extraction", model=model_name)
-		
-		text_embedding = embedding_pipeline("Transformers make NLP easy!")
-		print("Embedding:", text_embedding[0][:5])  # Print first 5 values for preview
-		
-		# Example Output:
-		# Embedding: [[0.123, -0.045, 0.789, -0.342, 0.512], ...] (List of floats representing text embeddings)
-		```
+
+	```
+	from transformers import pipeline
+	
+	# Define the private model name
+	model_name = "your-private-model"  # Replace with your actual private model
+	
+	# Example 1: Text Generation Pipeline (e.g., GPT-style model)
+	generator = pipeline("text-generation", model=model_name)
+	
+	prompt = "Once upon a time, there was a"
+	output = generator(prompt, max_length=50, do_sample=True)
+	print("Generated Text:", output[0]['generated_text'])
+	
+	# Example Output:
+	# "Once upon a time, there was a brave young knight who set out on a journey to find the legendary sword of his ancestors. 
+	# Along the way, he encountered fierce dragons and made unexpected allies..."
+	
+	# Example 2: Text Classification Pipeline (e.g., sentiment analysis)
+	classifier = pipeline("text-classification", model=model_name)
+	
+	text = "I love AI! It's so exciting."
+	classification = classifier(text)
+	print("Classification Result:", classification)
+	
+	# Example Output:
+	# [{'label': 'POSITIVE', 'score': 0.98}]
+	
+	# Example 3: Embedding Pipeline (for feature extraction)
+	embedding_pipeline = pipeline("feature-extraction", model=model_name)
+	
+	text_embedding = embedding_pipeline("Transformers make NLP easy!")
+	print("Embedding:", text_embedding[0][:5])  # Print first 5 values for preview
+	
+	# Example Output:
+	# Embedding: [[0.123, -0.045, 0.789, -0.342, 0.512], ...] (List of floats representing text embeddings)
+	```
 
 
 During the first time you use a specific model (`pipe = pipeline("fill-mask", model="model_name")`), it will download the necessary model files and tokenizer to your local cache directory. Subsequent uses will load the model from the local cache, speeding up the process
