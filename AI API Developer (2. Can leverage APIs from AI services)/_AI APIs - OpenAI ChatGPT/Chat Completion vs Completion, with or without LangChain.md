@@ -2,6 +2,9 @@ There are two main endpoints at OpenAI:
 - Chat Completion (Chat thread on newest models)
 - Completion (Single prompt and response on older models)
 
+These endpoints are:
+- /v1/completions **vs** /v1/chat/completions endpoints
+
 Keep in mind that Chat Completion DOES require you to send back the previous prompt and response with each API call if you want to keep the context for further responses. You can, however, truncate those previous messages. You do need to distinguish if a chat belonged to the code/backend/frontend/user (which is role user) or the OpenAI API (which is role assistant)
 
 ---
