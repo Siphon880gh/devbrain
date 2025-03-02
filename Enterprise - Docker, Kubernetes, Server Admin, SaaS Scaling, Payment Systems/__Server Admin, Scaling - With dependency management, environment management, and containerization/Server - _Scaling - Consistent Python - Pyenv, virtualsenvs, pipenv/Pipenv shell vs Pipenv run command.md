@@ -1,0 +1,3 @@
+`pipenv shell` runs the current terminal in the virtualenv that had been created when you ran `pipenv install` against a Pipfile, therefore making those packages installed available for the current shell session
+
+`pipenv run <command>` which executes the commands using the Pipenv's virtual environment tied to the Pipfile WITHOUT changing the shell's virtual environment or session. Can be helpful when you're already in another virtual env like Pyenv's instead but want to use the packages managed by the Pipfile/Pipenv while inside Pyenv's virtual env (which is usually the case to keep a particular python version).
