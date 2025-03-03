@@ -4,13 +4,21 @@ Whether **ARM64** is superior to **x86-64** depends on the specific context and 
 
 ### **ARM64 vs. x86-64 - General Comparison**
 
-|**Aspect**|**ARM64**|**x86-64**|
-|---|---|---|
-|**Architecture**|RISC (Reduced Instruction Set Computing): Simple, efficient, and low-power designs.|CISC (Complex Instruction Set Computing): Complex, versatile, but more power-hungry.|
-|**Power Efficiency**|Highly energy-efficient, ideal for mobile and portable devices.|Higher power consumption, suitable for high-performance desktops and servers.|
-|**Performance**|Excellent for workloads optimized for parallelism and efficiency.|Strong performance for single-threaded and complex computing tasks.|
-|**Software Support**|ARM64 is growing but still lags slightly behind x86-64 in legacy software compatibility.|Extensive legacy software support, especially for older applications and enterprise tools.|
-|**Customization**|ARM designs allow for custom optimizations (e.g., Apple's M1/M2 SoCs).|Standardized designs, less room for customization.|
+| **Aspect**                             | **ARM64**                                                                                | **x86-64**                                                                                 |
+| -------------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| **Instruction Set Architecture (ISA)** | RISC (Reduced Instruction Set Computing): Simple, efficient, and low-power designs.      | CISC (Complex Instruction Set Computing): Complex, versatile, but more power-hungry.       |
+| **Power Efficiency**                   | Highly energy-efficient, ideal for mobile and portable devices.                          | Higher power consumption, suitable for high-performance desktops and servers.              |
+| **Performance**                        | Excellent for workloads optimized for parallelism and efficiency.                        | Strong performance for single-threaded and complex computing tasks.                        |
+| **Software Support**                   | ARM64 is growing but still lags slightly behind x86-64 in legacy software compatibility. | Extensive legacy software support, especially for older applications and enterprise tools. |
+| **Customization**                      | ARM designs allow for custom optimizations (e.g., Apple's M1/M2 SoCs).                   | Standardized designs, less room for customization.                                         |
+
+
+**Compatibility**:
+    - **x86-64** has better compatibility with older software (Windows, traditional PC apps).
+    - **ARM64** is growing in software support, especially with macOS (Apple Silicon) and Linux.
+**Usage**:
+    - **ARM64**: Mobile phones, tablets, embedded devices, Apple Macs (M1/M2/M3), and some cloud servers.
+    - **x86-64**: Windows/Linux/Mac desktops, laptops, gaming PCs, and traditional cloud servers.
 
 ---
 
