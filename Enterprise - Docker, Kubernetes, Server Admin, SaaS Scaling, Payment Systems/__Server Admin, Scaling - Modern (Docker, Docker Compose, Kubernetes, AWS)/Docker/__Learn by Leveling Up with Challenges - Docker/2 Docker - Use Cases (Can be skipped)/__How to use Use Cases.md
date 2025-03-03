@@ -1,0 +1,3 @@
+It's still recommended you follow the sequence of challenges in order of the prefixed number because they can get more complex in that order.
+
+However, many of these can be skipped in the sense that you might not want to push images to Docker Hub, or you might not want to create CLI tools distributed as Docker images. Skipping these do not affect your understanding of the basics of Docker or impede you from progressing to Docker Compose or Kubernetes.
