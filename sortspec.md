@@ -11,7 +11,7 @@ sorting-spec: |-
   Cross-Platform - React Native
   DevOps, CI CD, Build tools, JS Package Managers
   Enterprise - Software Development Standards
-  Enterprise - Docker, Kubernetes, Server Admin, SaaS Scaling, Payment Systems
+  Enterprise - DOCKER, Kubernetes, Server Admin, SaaS Scaling, Payment Systems
   Enterprise - Business Analytics (BA) and Business Intelligence (BI)
   Extensions, Plug-ins, and Software Suite Development
   Version Control - git, github, gitlab
