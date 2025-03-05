@@ -1,0 +1,5 @@
+Note difference between [[Using tailwindcss watcher]] and [[Using postcss watcher]]
+
+postcss is superior because it includes tailwindcss and also autoprefixer. So not only does it perform like tailwindcss (scanning html files for tailwind classes, then creating a destination css file like styles.css that only includes the needed css rules) - it also can perform autoprefixing (adding moz- and related vendor fixes so that css rules work on older web browsers). And with postcss, you can add other plugins that transform the css in other ways (eg. uglification/minification). however, postcss is a lot of steps and is more complex.
+
+tailwindcss is simple. you run a npm script that will have tailwindcss scan your html files, then create a destination css file that only uses the css rules needed for the tailwind classes matched in the html files.

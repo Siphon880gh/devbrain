@@ -1,0 +1,99 @@
+
+---
+
+To choose whether to use postcss or tailwindcss, refer to [[Choosing watchers - postcss vs tailwindcss]]
+
+---
+
+1. Install Tailwind CSS
+Install tailwindcss, @tailwindcss/postcss, and postcss via npm:
+```
+npm install tailwindcss @tailwindcss/postcss postcss
+```
+
+Also install PostCSS CLI so that the npm script can build your target css file based on watching your html files for new tailwind classes:
+```
+npm install postcss-cli --save-dev
+```
+
+Also install autoprefixer which helps with adding moz-and related vendor prefixes, so that the css rules in the styling classes work for older web browsers. This is a common practice with adding tailwind:
+```
+npm install autoprefixer --save-dev
+```
+
+
+2. Add Tailwind and Autoprefixer to your PostCSS configuration
+postcss.config.js was created after installing postcss. This is a configuration file that helps postcss transforms your css using plugins which have the transformation recipes.
+
+Add the plugins tailwind and autoprefixer to postcss.config.js:
+```
+
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+} 
+```
+
+3. Add file types to scan for new tailwind classes at tailwind.config.js:
+```
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./public/**/*.{html,js}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+} 
+```
+
+4. Import Tailwind CSS
+Import into the top of your index.css file:
+```
+- @tailwind base;
+- @tailwind components;
+- @tailwind utilities;
+```
+
+This method enables Tailwind's base styles, component classes, and utility classes in your project. Here's what each directive does:
+
+- @tailwind base; → Imports Tailwind’s preflight styles (a minimal CSS reset).
+- @tailwind components; → Imports any custom component classes defined in @layer components.
+- @tailwind utilities; → Imports all utility classes (e.g., flex, text-center, mt-4).
+
+5. Setup command to build and monitor process
+At package.json scripts:
+```
+  "scripts": {
+    "build": "npx postcss ./public/index.css -o ./public/styles.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+```
+
+^ Notice that the index.css is passed into Postcss for watching and transformation. Postcss's tailwind plugin knows how to expand the @tailwind directives inside index.css into css rules (and particularly with the tailwind utilities directive, will cherrypick which classes are actually expanded based on which tailwind classes are used in the html files - and knows to scan the files patterned in tailwind.config.js). 
+
+The css is expanded into styles.css per the Postcss npm script. Autoprefixing is also applied to the final results of styles.css
+
+Therefore, index.html needs to reference destination target style.css (NOT index.css)
+```
+<link href="styles.css" rel="stylesheet"/>
+```
+
+Run command to build and monitor index.css -> style.css:
+```
+npm run build
+```
+
+
+6. Start using Tailwind in your HTML
+You can insert this at the `<body>`:
+```
+<h1 class="text-4xl text-orange-400">Title</h1>
+```
+
+7. You can right click in VS Code -> Open Live Server:
+![[Pasted image 20250305062859.png]]
+
+You will see hot reload changes as you're changing tailwind classes:
+![[Pasted image 20250305063326.png]]

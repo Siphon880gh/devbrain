@@ -24,13 +24,39 @@ src
 └── main.jsx
 ```
 
+---
+
 Looking at App.jsx:
+
+Various logo assets imported:
+```
+import reactLogo from './assets/react.svg'  
+import viteLogo from '/vite.svg'
+```
+
+CSS imported at
+```
+import './App.css'
+```
+
+
+Count button works via initial value of 0 at the variable `count`.
+```
+const [count, setCount] = useState(0)
+```
+
+onClick handling is incrementing `count`:
+```
+<button onClick={() => setCount((count) => count + 1)}>
+```
+
+And because the `{count}` is a **reactive, interpolated JSX expression** derived from React useState, it ensures that whenever `count` changes, the UI updates accordingly at:
 ```
 count is {count}
 ```
 
-So
+So user sees this:
 ![[Pasted image 20250305052201.png]]
 
-Upon clicking becomes:
+And after the user clicks the text, it becomes:
 ![[Pasted image 20250305052210.png]]

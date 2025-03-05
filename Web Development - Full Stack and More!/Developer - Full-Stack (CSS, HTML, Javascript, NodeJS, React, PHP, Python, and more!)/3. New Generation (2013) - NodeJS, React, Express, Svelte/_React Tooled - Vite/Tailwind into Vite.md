@@ -57,3 +57,5 @@ Modify:
 ```
 
 ^ Provided this better instruction because official docs suggested adding index.html in a code snippet that doesn't match what Vite generated for the index.html boilerplate.
+
+![[Pasted image 20250305053713.png]]
