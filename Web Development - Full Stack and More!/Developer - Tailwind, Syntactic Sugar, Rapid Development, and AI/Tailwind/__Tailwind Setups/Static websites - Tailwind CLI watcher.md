@@ -48,3 +48,12 @@ You can insert this at the `<body>`:
 
 8. You will see instant changes on the web browser page, as you're changing tailwind classes in your HTML code because you've started a Live Server that performs hot reload:
 ![[Pasted image 20250305063326.png]]
+
+---
+
+**More strealined:**
+
+You can save that as a npm script “build” and the build runs continuously as you’re developing/changing code. Refer to [[Using npm tailwindcss watcher]]
+
+**Even more streamlined:**
+You can use postcss command in npm script “build” instead. Then postcss command allows you to chain tailwindcss AND autoprefixer so it can handle backward compatibility by adding moz- and other related vendor prefixes. Postcss allows tailwindcss and autoprefixer to run CSS transformations into a target css file. Refer to [[Using npm postcss watcher]]
