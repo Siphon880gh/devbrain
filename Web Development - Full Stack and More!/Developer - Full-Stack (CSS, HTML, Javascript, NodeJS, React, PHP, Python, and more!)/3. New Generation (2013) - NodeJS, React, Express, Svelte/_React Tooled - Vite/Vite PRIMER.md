@@ -1,4 +1,3 @@
-
 Aka: Get Started
 https://vite.dev/guide/
 
@@ -39,7 +38,6 @@ CSS imported at
 import './App.css'
 ```
 
-
 Count button works via initial value of 0 at the variable `count`.
 ```
 const [count, setCount] = useState(0)
@@ -60,3 +58,7 @@ So user sees this:
 
 And after the user clicks the text, it becomes:
 ![[Pasted image 20250305052210.png]]
+
+----
+
+Going back to imports, you should know all the different types of import paths that Vite supports at [[Vite Import Paths]]
