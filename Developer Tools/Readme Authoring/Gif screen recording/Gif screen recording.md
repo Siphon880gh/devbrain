@@ -16,7 +16,7 @@ B. QuickTime -> FFmpeg
 720
 1080p
 ```
-ffmpeg -i zz.mp4 -vf scale=1080:-1 -r 10 -f image2pipe -vcodec ppm - | convert -delay .75 -loop 0 - gif:- | convert -layers Optimize - demo.gif
+ffmpeg -i z.mov -vf scale=1080:-1 -r 10 -f image2pipe -vcodec ppm - | convert -delay .75 -loop 0 - gif:- | convert -layers Optimize - z.gif
 ```
 
 Notice the scale is small. The -1 makes sure to keep aspect ratio. I also set delay to .75 to increase the speed of the screen recording, further reducing file size. You can google these options.
