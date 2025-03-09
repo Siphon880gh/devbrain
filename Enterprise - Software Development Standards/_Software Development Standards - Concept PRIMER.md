@@ -443,6 +443,18 @@ Consider this order:
 		2. **Component Encapsulation**: Keep components encapsulated and separate style-related logic to minimize the risk of unwanted overrides during white-labeling.
 		3. **Modular Architecture**: Structure CSS files and SASS partials for modularity, allowing easy overrides and adjustments for individual themes.
 		4. **Branding Tokenization**: Define tokens for branding elements (e.g., `$button-primary-color`, `$header-font-size`) to make rebranding as simple as updating a configuration file.
+		5. **Tailwind**: If using Tailwind, take advantage of `@apply` directive that allows you to create reuseable classes using other Tailwind utility classes - also minimizes scrolling and you can find your custom class to redesign more easily:
+```
+@tailwind base;  
+@tailwind components;  
+@tailwind utilities;  
+
+@layer components {
+	.btn-custom-blue {  
+	    @apply bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 mx-auto w-fit cursor-pointer transition-all duration-300;  
+	}
+}
+```
 
 ##### 2.5. **z-index Magnitudes and Layering**
 
