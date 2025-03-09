@@ -1,6 +1,13 @@
-Next.js serves static assets, like images, from the /public folder. Files inside /public can be referenced directly in your application using absolute paths:
+Next.js serves static assets, like images, from the /public folder. Files inside /public can be referenced directly in your `<img>` or `<Image>` (imported from "next/image") using absolute paths:
 ```
-import Logo from "/logo.png";
+<img src="/Logo.png" alt="Logo" />
+```
+
+However, if imported for use as a variable to the src attribute:
+```
+import Logo from "@/public/Logo.png";
+//...
+<img src={Logo} alt="Logo" />
 ```
 
 For relative imports within the project, you can reference files using either of these syntaxes:
