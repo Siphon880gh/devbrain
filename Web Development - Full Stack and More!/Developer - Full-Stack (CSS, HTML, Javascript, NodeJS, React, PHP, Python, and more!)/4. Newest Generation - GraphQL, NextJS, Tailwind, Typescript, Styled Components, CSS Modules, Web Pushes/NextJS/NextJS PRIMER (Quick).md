@@ -1,3 +1,10 @@
+
+Aka: Get Started
+
+This is a quick guide to NextJS. If you want a full primer and mastery of NextJS, refer to the "Learn by Editing Code - NextJS" folder.
+
+---
+
 ### 1. Setup
 
 #### Prerequisites:
