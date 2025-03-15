@@ -21,7 +21,7 @@ git rm -r --cached .
 
 Don’t worry - this command does not remove the folder from your local system
 
-Then cd out of the current folder and `git add -A` .
+Then: `git add -A` .
 
 Now make a commit then push up. The case characters should show now.
 
