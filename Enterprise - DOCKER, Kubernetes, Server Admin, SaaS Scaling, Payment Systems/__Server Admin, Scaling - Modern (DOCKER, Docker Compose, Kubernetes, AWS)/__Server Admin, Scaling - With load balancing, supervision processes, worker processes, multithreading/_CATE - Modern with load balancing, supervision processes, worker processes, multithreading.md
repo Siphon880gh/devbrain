@@ -1,0 +1,1 @@
+Please refer to [[AWS Primer - GET STARTED]]'s folder
