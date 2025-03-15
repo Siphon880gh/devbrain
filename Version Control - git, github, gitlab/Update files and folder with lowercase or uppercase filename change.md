@@ -13,7 +13,7 @@ METHOD 1 Switch and bait names
 ---
 
 
-OR METHOD 2 Removing from Git cache
+OR METHOD 2 Removing from Git cache (**BEST**)
 Remove the folder from Git cache by `cd`  into that folder on your terminal then running:
 ```
 git rm -r --cached .
