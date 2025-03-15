@@ -1,2 +1,0 @@
-
-Classification wise, query is getting. Mutation is changing data at the database, creating data, or deleting data; In addition, mutation is also logging in by tradition of there having only GET and POST back in the older days of HTML

@@ -1,3 +1,0 @@
-A NextJS project that has server parts like accessing database - when deployed - will run continuously at a port. If you only have static content, then you can export a static HTML-CSS-Page with `next export` command
-
-Recall that NextJS components can be server components, so we retrieved data from the database Postgres directly and rendering it directly all within the components (no need for an intermediate json or fetching to and receiving at url endpoints). No need for ExpressJS. But it has to continuously run so it can access the database during runtime when needed.
