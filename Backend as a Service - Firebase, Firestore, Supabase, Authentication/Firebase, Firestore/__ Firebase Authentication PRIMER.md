@@ -1,3 +1,4 @@
+Aka: Get Started
 ## Guide
 
 ### Fundamentals:
@@ -54,12 +55,12 @@ const auth = getAuth(app); // Initialize Firebase Auth
 const db = getFirestore(app); // Initialize Firestore
 ```
 
-The auth is important for managing the frontend users. Both creating and logging in frontend users require the auth. The db is important for modifying collection data (Firebase classic Realtime Database or Cloud Firestore). Note that the above generated code from Console is an overkill (has storage, messaging, and analytics, in addition to database) - we will trim down later at [[Firestore PRIMER]].
+The auth is important for managing the frontend users. Both creating and logging in frontend users require the auth. The db is important for modifying collection data (Firebase classic Realtime Database or Cloud Firestore). Note that the above generated code from Console is an overkill (has storage, messaging, and analytics, in addition to database) - we will trim down later at [[__ Firestore PRIMER]].
 4. Then the app can authenticate your frontend user for logging in or creating. Your two strings email and password AND the auth object from authenticating the app are passed into:
 	- createUserWithEmailAndPassword
 	- signInWithEmailAndPassword
 5. You may modify documents and collections depending on the security rules you've set for the corresponding Firebase or Firestore database. You import the methods and objects from the appropriate Firebase or Firestore package. Because you have authenticated the app AND have authenticated the user, when you authenticated the user, the auth object has been updated to reflect the authenticated user as well. Then subsequent collection or document modifications and reading becomes possible, up to and limited by your Security Rules.
-6. The full code for app authentication and frontend user sign in are at [[Firestore PRIMER]]
+6. The full code for app authentication and frontend user sign in are at [[__ Firestore PRIMER]]
 
 ### Decide if separating the processes
 

@@ -1,7 +1,6 @@
 Aka Get Started
 By Weng
 
-
 ## Team Alignment
 
 1. Decide if you want Firebase or Firestore: [[Firebase vs Firestore]]. This tutorial is for FIRESTORE, the more user friendly and more real-time database.
@@ -92,7 +91,7 @@ Decide if you want to create a collection
 ![](Z0BewEm.png)
 
 
-6. Refer to [[Firebase, Firestore PRIMER - Authentication Process]] that includes creating required users at the Console (dashboard), authenticating the app, and authenticating frontend users. If your app doesnt require user login for your customers, you have two options:
+6. Refer to [[__ Firebase Authentication PRIMER]] that includes creating required users at the Console (dashboard), authenticating the app, and authenticating frontend users. If your app doesnt require user login for your customers, you have two options:
 	- You can authenticate the **app itself** without authenticating users and still be able to modify documents in **Firebase Firestore** or other Firebase services. There is just no uid (user id) that comes from frontend users that you can compare to documents that stored the uid.
 	- You can choose to still authenticate a user and you'll add this single master user account at All Products -> Authentication -> Users. Then authenticate the master user on the backend instead of the frontend because your tech savvy customers don't need to see it. This is having one foot in the door in case you will scale up the app to have users in the future
 	
@@ -188,7 +187,7 @@ Note to toggle the comments on and off for either Logging in or Creating the use
 	const { API_KEY, AUTH_DOMAIN, PROJECT_ID, APP_ID, MASTER_EMAIL, MASTER_PASSWORD } = process.env;
 	```
 
-	- You may consider breaking the code apart into backend and frontend, or keep them both backend. This was discussed in [[Firebase, Firestore PRIMER - Authentication Process]] under section "Decide if separating the processes"
+	- You may consider breaking the code apart into backend and frontend, or keep them both backend. This was discussed in [[__ Firebase Authentication PRIMER]] under section "Decide if separating the processes"
 	- Add database modification methods. You import methods from the firebase package or firestore package depending on which database you are using. Their documentations are at:
 		- Reference for Firebase classic Realtime Database: https://firebase.google.com/docs/database/admin/save-data
 		- Reference Cloud Firestore: https://firebase.google.com/docs/firestore/manage-data/add-data
