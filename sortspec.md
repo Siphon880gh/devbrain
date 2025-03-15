@@ -1,7 +1,8 @@
 ---
 sorting-spec: |-
   Web Development - Full Stack and More!
-  Databases - MySQL, NoSQL, Firebase Firestore, and More!
+  Databases - MySQL, PostgreSQL, Mongo, and ORMs
+  Backend as a Service - Firebase, Firestore, Supabase, Authentication
   AI Assisted Coding
   AI Prompt Engineer (1. Can optimize prompts)
   AI API Developer (2. Can leverage APIs from AI services)
