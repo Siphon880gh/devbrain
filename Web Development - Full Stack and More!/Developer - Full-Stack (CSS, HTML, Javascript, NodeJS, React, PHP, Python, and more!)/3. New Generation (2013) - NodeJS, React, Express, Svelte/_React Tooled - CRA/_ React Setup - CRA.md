@@ -1,5 +1,3 @@
-
-
 # How it works
 
 react-scripts will insert the <src src='...bundled.min.js' automatically into <body> at index.html (react-scripts also run the build tools required to transform React JSX syntax into plain JavaScript programmatically)
