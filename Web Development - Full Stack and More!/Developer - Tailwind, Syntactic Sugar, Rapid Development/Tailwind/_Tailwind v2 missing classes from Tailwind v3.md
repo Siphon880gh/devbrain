@@ -1,4 +1,3 @@
-
 Tailwind CSS v3 introduced both a new defaults-based engine (the JIT engine by default) and a large set of additional classes, variants, and configuration options that do not exist in v2. Below is a broad overview of what you’d miss by staying on Tailwind v2. (Note that some of these features can be added partially through plugins, but in general these are first-class features that ship out-of-the-box with Tailwind v3.)
 
 ---
