@@ -1,11 +1,13 @@
 When inline prompting, CMD+K.
 - Think as Code/Kode generation
 
-When want to chat about a file that's currently opened, CMD+L:
-- Think as chat paneL
+Cursor shortcuts while code editor focused
+- CMD+L (Open)
+- CMD+SHIFT+L (Open new)
 
-When want to create and edit code across multiple files (codebase) in Composer Mode, CMD+I
-- Think the key I is above K and L, and supersedes in hierarchy because it's all the files
-
+Cursor shortcuts while chat panel focused
+- CMD+L (Ask)  
+- CMD+I (Agent)
+  ![[Pasted image 20250318031435.png]]
 
 But really, those three keys are because J K L I makes up the gamer keys on the right side. The shortcut J opens the terminal which is pretty important too.
