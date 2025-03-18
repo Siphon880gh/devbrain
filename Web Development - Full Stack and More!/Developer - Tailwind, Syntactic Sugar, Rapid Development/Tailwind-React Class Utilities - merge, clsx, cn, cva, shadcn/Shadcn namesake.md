@@ -1,0 +1,5 @@
+Shadcn is a collection of pre-built user interface elements and patterns created by **Shad**ab Ahmed, a software engineer and UI/UX designer. The elements can easily be implemented into your codebase by selectively choosing the elements with the Shadcn CLI tool. There are other nice features like ready out of the box icons and accessibility. This makes Shadcn commonly used by developers for building user interfaces in web applications.
+
+The cn suffix is from the cn utility function that gets created when installing Shadcn or first adding any Shadcn components. The cn utility function combines both clsx and tailwind-merge to make it easy to manage classes for conditional rendering.
+
+The name "Shadcn" points to the developer named Shadab and a reminder that it has a bunch of ways to make design easier such as cn utility function. Its CLI tool lets you add the components easily into your code.
