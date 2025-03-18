@@ -1,4 +1,4 @@
-Refer to Shadcn at [[History of merge, clsx, cn, cva, shadcn]] if you want to see how you can see the underlying code that uses Radix UI library and Radix UI utilities (Slot) behind any component that you add to your codebase using the Shadcn CLI tool.
+Refer to Shadcn at [[_History of merge, clsx, cn, cva, shadcn - PRIMER]] if you want to see how you can see the underlying code that uses Radix UI library and Radix UI utilities (Slot) behind any component that you add to your codebase using the Shadcn CLI tool.
 
 When viewing the underlying code for any component you add with Shadcn CLI (truncated parts of the code for brevity):
 ```

@@ -1,5 +1,7 @@
 **History and Emergence of Tailwind Merge, cn, shadcn, and CVA**
 
+Aka: Get Started
+
 For many of the demonstrations, the page looks like either
 Or A (`readyToGenerate` true):
 ![[Pasted image 20250318040239.png]]
