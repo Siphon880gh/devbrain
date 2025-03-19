@@ -1,8 +1,10 @@
 
 In the provided example, the content_security_policy is defined as follows:
 
+```
 "content_security_policy": "default-src 'self' https://tradingview.com/ https://platform.openai.com; script-src 'self', object-src 'self'",
 "extension_pages": "script-src 'self'; object-src 'self';"
+```
 
 Here, the default-src directive permits resources from the extension's own domain ('self'), in addition to resources from https://tradingview.com/ and https://platform.openai.com. It serves as a fallback for other directives like img-src that are not explicitly set, ensuring a secure default behavior.
 

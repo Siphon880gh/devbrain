@@ -14,7 +14,7 @@ Let's say you want to add color classes to tailwind
           '950': '#1d2b4e',  
         },
 ```
-- so you can follow the same convention for text or background etc:
+- So you can follow the same convention for text or background etc:
 	- Background: `<div class="bg-chambray-500 text-white p-4">...`
 	- Text: `<p class="text-chambray-500">...`
 	- Border: `<div class="border-4 border-chambray-700 p-4">...`
