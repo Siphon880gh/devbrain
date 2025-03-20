@@ -1,5 +1,8 @@
 By Weng
 
+**How to use**: Navigate/reinforce with the Table of Contents!
+
+---
 ### Concepts
 
 #### WHY REACT NATIVE
