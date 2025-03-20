@@ -1,5 +1,4 @@
 
-
 ## Instructions
 
 1. Open Chrome Extensions page so you can install/reinstall your chrome extension as it’s being developed. Make sure “Developer Mode” on.
