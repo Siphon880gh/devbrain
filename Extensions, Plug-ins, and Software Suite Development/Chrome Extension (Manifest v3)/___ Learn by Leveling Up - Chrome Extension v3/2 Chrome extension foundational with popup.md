@@ -241,6 +241,8 @@ document.getElementById("change-style").addEventListener("click", function() {
 });
 ```
 
+Note you cannot simply have a `<script>` block at the html file because manifest v3 does not allow it for security versions. So you must have a separate js file.
+
 ---
 ---
 

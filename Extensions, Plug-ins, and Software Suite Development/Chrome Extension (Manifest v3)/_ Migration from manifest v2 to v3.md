@@ -61,8 +61,8 @@ Here’s a breakdown of what was **removed**, what was **added**, and what was *
 - **MV2:** Allowed `unsafe-inline` in `style-src` and `script-src`.
 - **MV3:** **Removes `'unsafe-inline'` and `'unsafe-eval'`**.
     - No inline scripts (`<script>` tags in HTML won’t work).
-    - No style block (`<style>...</style>`)... that's still covered under unsafe-inline and will error in console as an error about inline. Use css file instead.
-    - No script block (`<script>...</script>`)... that's still covered under unsafe-eval and will error in console as an error about eval. Use js file instead.
+    - No style block (`<style>...</style>`)... because it's no longer covered under unsafe-inline and will error in console as an error about inline. Use css file instead.
+    - No script block (`<script>...</script>`)... because it's no longer covered under unsafe-eval and unsafe inline and will error in console. Use js file instead.
     - No inline event handlers (`onclick=""` won't work).
     - No `eval()` or `setTimeout("code", delay)`.
     
