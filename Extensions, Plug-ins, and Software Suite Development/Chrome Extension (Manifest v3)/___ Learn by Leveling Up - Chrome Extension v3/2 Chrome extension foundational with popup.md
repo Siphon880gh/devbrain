@@ -1,0 +1,467 @@
+
+## Instructions
+
+1. Open Chrome Extensions page so you can install/reinstall your chrome extension as it’s being developed. Make sure “Developer Mode” on.
+
+>[!note] Details
+>Open in address bar: chrome://extensions
+>Or: Chrome → ... -→ More Tools → Extensions. 
+>
+>Make sure "Developer mode" is on at the top right:
+>![](P89AAGz.png)
+>
+>Decide on what parts you’ll need (popup when clicking extension, content, background, devtools sidebar, devtools panel).
+>^ You can think of popup as popover because it's a HTML panel that appears over the top near where you clicked the pinned extension icon on Chrome
+
+---
+
+## Foundational and Popup
+
+### Chrome Extension and Popup Files
+
+Create manifest.json among other files which will be the popup html, css, js. Create also content.js to modify/read from the current webpage on the web browser.
+
+>[!note] File Structure
+>Bare minimum example:
+>-manfiest.json
+>-popup.js
+>-popup.html
+>-content.js
+> 
+> More fleshed out:
+> ![](10ajaTK.png)
+### manifest.json
+
+#### manifest.json Overview
+
+manifest.json for a popup (for learning foundations):
+- Manifest version 3. Version 2 is on the way out. This is syntax and language Chrome Extension will use.
+- Include your app name, version and description (affects Chrome extension store) and icons to show on the web browser pinned extensions area, the Google chrome extension store, etc.
+- Includes Content Security Policy rules which is permission and scoping. Google is now focused on making chrome extensions more secured and less risky to add.
+- Sections of markup for the type of panels/sidebars/pages that your chrome extension uses.
+- For our purpose of learning foundations we will in this tutorial cover popup, but note there are other types of presentation in Chrome Extension like content, devtools panel, devtools sidebar. We'll cover those in other tutorials
+	- popup (official name) is the popover small html ui that shows up after clicking a chrome extension icon that's pinned at the top of chrome. 
+- Popup and content sections of manifest.json will be discussed when it's the appropriate point in time to discuss in this tutorial.
+	
+manifest.json:
+```
+{  
+    "manifest_version": 3,  
+    "name": "<APP_NAME>",  
+    "version": "1.0",  
+    "description": "<APP_DESCRIPTION>.",  
+    "author": "Weng Fei Fung",
+    "icons": {  
+        "16": "icon16x16.png",  
+        "32": "icon32x32.png",  
+        "48": "icon48x48.png",  
+        "128": "icon128x128.png"  
+    },
+    "content_security_policy": {  
+        "extension_pages": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; object-src 'self';"
+    },
+    "action": {  
+        "default_icon": "icon.png",  
+        "default_popup": "popup.html"  
+    }
+}
+```
+#### manifest.json CSP
+
+We'll go more into detail on content_security_policy at a later tutorial, but briefly:
+- `default-src` isn't set, so Chrome Extension will default to `default src self` which means all assets are only allowed to be sourced from the chrome extension, unless explicitly overridden (by scripts-src, style-src, object-src, or img-src)
+- img-src is set to self so `<img src` will only be valid for image assets from the chrome extension file themselves (so linking to external png's, for example, will be blocked)
+- There are more in the content_security_policy, but this is to briefly discuss a few
+
+#### manifest.json Icons
+
+You must have icon sets (differently sized icons) for your chrome extension to even be allowed to be installed. You can create the icon, and then use system's ImageMagick convert to create the other dimensions. OR you can use npm package sharp-cli to create an icon set of black squares.
+
+If you dont have icons, the installation will fail with the error:
+![[Pasted image 20250319004613.png]]
+
+OR METHOD A: Decide on an icon at flaticon and download biggest 128x128:
+https://www.flaticon.com/free-icon/candlestick-chart_6353961?term=candlestick&page=1&position=6&origin=search&related_id=6353961
+
+Run this command on your 128x 128 to generate various sized icons:
+```
+convert icon.png -resize 16x16 icon-16.png
+```
+
+For:
+icon16x16.png
+icon32x32.png
+icon48x48.png
+icon128x128.png
+
+
+OR METHOD B: Use npm package sharp-cli to create an icon set of black squares.
+
+You'll make a folder, go into it to initiate a npm project, then install sharp-cli, then run nodejs code at the terminal to generate the multiple icon files:
+
+```
+mkdir generate_icons  
+cd generate_icons  
+npm install -y  
+npm install sharp-cli  
+node -e "const fs = require('fs'); const sharp = require('sharp'); [16,32,48,128].forEach(size => sharp({ create: { width: size, height: size, channels: 4, background: 'black' } }).png().toFile(\`icon\${size}x\${size}.png\`));"  
+  
+cp icon16x16.png icon.png
+```
+
+It’ll create icon files:
+```
+.  
+├── icon128x128.png  
+├── icon16x16.png  
+├── icon32x32.png  
+├── icon48x48.png  
+├── node_modules  
+├── package-lock.json  
+└── package.json
+```
+
+An icon file may look like:
+![[Pasted image 20250319003015.png]]
+
+Copy the icon files to your chrome extension app folder
+
+#### manifest.json Popup Action
+
+manifest.json → action -> default_popup: 
+You need to set the html file that opens over the Chrome browser when you click the Chrome Extension. At manifest.json:
+
+    "action": {  
+        "default_icon": "icon.png",  
+        "default_popup": "popup.html"  
+    },
+
+You have a popup.html and popup.js? You have to enable running code from popup.js.:
+
+    "content_security_policy": {  
+        "extension_pages": "script-src 'self'; object-src 'self';"  
+    },  
+
+
+### Popup Action
+
+#### Popup action's presentation
+
+popup.html:
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup</title>
+    <link rel="stylesheet" href="popup.css">
+    
+    <style>
+	body {
+	    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+	}
+	</style>
+</head>
+
+<body>
+    <h1>YOUR_APP</h1>
+
+    <main>
+        <div>
+            By Weng:
+        </div>
+
+        <aside>
+            <a target="_blank" href="https://www.github.com/Siphon880gh/" rel="nofollow">
+                <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"
+                    data-canonical-src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&amp;logo=github&amp;logoColor=white"
+                    style="max-width: 100%; height:20px;">
+            </a>
+            <a target="_blank" href="https://www.linkedin.com/in/weng-fung/" rel="nofollow">
+                <img src="https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue"
+                    alt="Linked-In"
+                    data-canonical-src="https://img.shields.io/badge/LinkedIn-blue?style=flat&amp;logo=linkedin&amp;labelColor=blue"
+                    style="max-width:100%;">
+            </a>
+            <a target="_blank" href="https://www.youtube.com/@WayneTeachesCode/" rel="nofollow">
+                <img src="https://img.shields.io/badge/Youtube-red?style=flat&logo=youtube&labelColor=red" alt="Youtube"
+                    data-canonical-src="https://img.shields.io/badge/Youtube-red?style=flat&amp;logo=youtube&amp;labelColor=red"
+                    style="max-width:100%;">
+            </a>
+        </aside>
+
+        <div class="spacer-vertical"></div>
+        <h2>TITLE:</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus hic sit libero? Excepturi, optio aut reiciendis doloremque tempore, iste harum aspernatur et, officiis earum aliquam. Quibusdam cum nostrum quos commodi?</p>
+    
+
+        <div class="spacer-vertical"></div>
+        <button id="change-style">Alert me</button>
+    </main>
+  
+  
+	<script src="popup.js"></script>
+</body>
+
+</html>
+```
+
+
+#### Appearance of popup.html
+
+popup.css:
+```
+.spacer-vertical {
+    margin-top: 11px;
+}
+```
+
+style block... refer to popup.html but as a brief recall:
+```
+<style>
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+</style>
+```
+
+You can have style block or link tag to a css file (popup.css) but forget you’ll have to enable self permissions for style-src in manifest.json
+
+
+#### Javascript of popup presentation
+
+how the popup modal (popup.hml) that appears on top of Chrome looks. It would have a script src to popup.js at the same folder of the chrome extension code
+
+popup.js:
+```
+document.getElementById("change-style").addEventListener("click", function() {
+	alert("Alerted");
+});
+```
+
+---
+---
+
+
+### Popup Chrome Extension
+
+We will install our code which creates a chrome extension icon that when clicked makes a popup appear over the top of Chrome, that the user can interact with:
+
+![[Chrome-Extension-Popup-Open.gif]]
+#### Install Popup Chrome Extension
+
+
+Drag and drop into chrome extensions to install:
+
+![[Chrome-Extension-Drag-Drop.gif]]
+
+#### Testing PopupChrome Extension
+
+After drag and drop installing the chrome extension, see if popup images load:
+![[Pasted image 20250319002125.png]]
+
+Click "Alert me" button to get an alert, which proves the js file worked:
+![[Pasted image 20250320154847.png]]
+#### Debugging popup chrome extension
+
+You may notice that the author social images appear broken:
+![[Pasted image 20250319002125.png]]
+
+Let's  inspect the chrome extension's popup HTML. To do so, right click inside the popup and go to Inspect:
+
+![[Chrome-Extension-Popup-Inspect.gif]]
+
+You may see images blocked from other origins and inline style attribute errors:
+![[Pasted image 20250319002238.png]]
+
+> [!note] As proof that popup is its own html
+> As proof that popup is its own html, you can inspect the code of any chrome extension you pin. Take a look at Awesome Screenshot's html being inspected:
+> - Hovering over HTML code would highlight which part of the popup is the HTML code about.
+> - We can change the popup style using javascript which proves DevTool's console is also connected to that presentation:
+> ![[Chrome-Extension-Popup-Inspect.gif]]
+> 
+By the way, you could've also changed the Awesome Screenshot chrome extension backgound to green if you edited the Sidepanel "Styles" after selecting the element "<body.." at the Element panel.
+
+
+---
+
+#### Updating the Chrome extension - How
+
+Before we fix any errors in the Chrome extension, we should review how to update the Chrome extension so that the Chrome extension can get fixed.
+
+You’ll drag and drop between the chrome window and the window of the folder.
+No need to remove the old chrome extension first.
+It will not prompt you that it got updated or replaced.
+
+---
+
+##### Update permissions for the broken images and remove the inline styles
+
+What we learned from debugging is that the images are not loading because they're blocked (Here's a copy and paste of that console):
+```
+Refused to apply inline style because it violates the following Content Security Policy directive: "style-src 'self'". Either the 'unsafe-inline' keyword, a hash ('sha256-IhiR1j2Fl9KjKzjPh1o7eI5g0LwYHIlUQtCt0wY4B7E='), or a nonce ('nonce-...') is required to enable inline execution.
+Understand this errorAI
+popup.html:29 Refused to apply inline style because it violates the following Content Security Policy directive: "style-src 'self'". Either the 'unsafe-inline' keyword, a hash ('sha256-esnYxjO7CXYs59aB9AzEapj1vREheIXXsLYq/uteAUk='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present.
+Understand this errorAI
+popup.html:35 Refused to apply inline style because it violates the following Content Security Policy directive: "style-src 'self'". Either the 'unsafe-inline' keyword, a hash ('sha256-AA17aOy5cA/4xzH/mR8tACRxFVBorVSvmMoW9DCSYGQ='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present.
+```
+
+![[Pasted image 20250319002238.png]]
+
+What it is saying that `"img-src 'self'".` is blocking external images from loading. It's also saying you can't style inline (manifest version 3 removed allowing `unsafe-inline` so the recommendation wouldn't work anyways)
+
+Take a look at the manifest.json here:
+```
+    "content_security_policy": {  
+        "extension_pages": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; object-src 'self';"
+    },  
+```
+
+**Fix it** to (adding an external subdomain/domain to img-src):
+```
+    "content_security_policy": {  
+        "extension_pages": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https://img.shields.io; object-src 'self';"
+    },
+```
+
+Take a look at the HTML here:
+```
+
+        <aside>
+            <a target="_blank" href="https://www.github.com/Siphon880gh/" rel="nofollow">
+                <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"
+                    data-canonical-src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&amp;logo=github&amp;logoColor=white"
+                    style="max-width: 100%; height:20px;">
+            </a>
+            <a target="_blank" href="https://www.linkedin.com/in/weng-fung/" rel="nofollow">
+                <img src="https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue"
+                    alt="Linked-In"
+                    data-canonical-src="https://img.shields.io/badge/LinkedIn-blue?style=flat&amp;logo=linkedin&amp;labelColor=blue"
+                    style="max-width:100%;">
+            </a>
+            <a target="_blank" href="https://www.youtube.com/@WayneTeachesCode/" rel="nofollow">
+                <img src="https://img.shields.io/badge/Youtube-red?style=flat&logo=youtube&labelColor=red" alt="Youtube"
+                    data-canonical-src="https://img.shields.io/badge/Youtube-red?style=flat&amp;logo=youtube&amp;labelColor=red"
+                    style="max-width:100%;">
+            </a>
+        </aside>
+```
+
+**Fix it** to this (getting rid of `style="..."`) (we can leave alone data-canonical-src because those are not inline styling so won't cause errors):
+```
+        <aside>
+            <a target="_blank" href="https://www.github.com/Siphon880gh/" rel="nofollow">
+                <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"
+                    data-canonical-src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&amp;logo=github&amp;logoColor=white">
+            </a>
+            <a target="_blank" href="https://www.linkedin.com/in/weng-fung/" rel="nofollow">
+                <img src="https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue"
+                    alt="Linked-In"
+                    data-canonical-src="https://img.shields.io/badge/LinkedIn-blue?style=flat&amp;logo=linkedin&amp;labelColor=blue">
+            </a>
+            <a target="_blank" href="https://www.youtube.com/@WayneTeachesCode/" rel="nofollow">
+                <img src="https://img.shields.io/badge/Youtube-red?style=flat&logo=youtube&labelColor=red" alt="Youtube"
+                    data-canonical-src="https://img.shields.io/badge/Youtube-red?style=flat&amp;logo=youtube&amp;labelColor=red">
+            </a>
+        </aside>
+```
+
+Update the Chrome Extension then test it. The images should load now (looks awful visually - we will re-add the styling rules into the css file in a bit):
+![[Pasted image 20250320160112.png]]
+
+---
+
+##### Updating the popup width
+
+The popup looks awful visually because the images are too wide and the popup is too skinny. 
+
+Adjust the css file, then update the Chrome Extension:
+- popup.css:
+```
+.spacer-vertical {
+    margin-top: 11px;
+}
+aside a {
+    text-decoration: none;
+}
+aside a img {
+    max-height: 20px;
+    max-width: 140px;
+}
+body {
+    min-width:300px;
+}
+```
+
+Update the Chrome Extension and see how it looks. Looks better:
+![[Pasted image 20250320160934.png]]
+
+##### Updating away the style block (shows as an error about inline)
+
+You may notice the Chrome extension still has one more of these errors (Right click inside the popup -> Inspect -> Console tab at the DevTools panel):
+```
+Refused to apply inline style because it violates the following Content Security Policy directive: "style-src 'self'". Either the 'unsafe-inline' keyword...
+```
+
+The inline style refers to BOTH inline style attribute AND style blocks. They're both unsafe because of the risk of Cross-Site Scripting (XSS) attacks. Move the gradient background from the style block into the css file.
+
+So move away:
+```
+    <style>
+    body {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+    </style>
+```
+
+Update the Chrome Extension and test opening it. Notice there's a gradient background because our gradient css is no longer being ignored:
+![[Pasted image 20250320162105.png]]
+
+---
+---
+
+### Action syntax, Popup is an action, All action types
+
+Back at manifest.json, we have this code that made popup possible when clicking the Chrome Extension:
+```
+    "action": {  
+        "default_icon": "icon.png",  
+        "default_popup": "popup.html"  
+    }
+```
+
+Here are the full options of action:
+```
+"action": {
+  "default_popup": "popup.html",
+  "default_icon": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "default_title": "My Extension Tooltip",
+  "default_badge_text": "ON"
+}
+```
+
+| Property           | Description                                                                                               |
+| ------------------ | --------------------------------------------------------------------------------------------------------- |
+| default_popup      | OPTIONAL. Specifies an HTML file (popup.html) that appears when clicking the extension icon.              |
+| default_icon       | Defines the icon for the extension button (supports different sizes).                                     |
+| default_title      | OPTIONAL. Sets a tooltip when the user hovers over the extension icon. Otherwise refers to your app name. |
+| default_badge_text | OPTIONAL. Displays a small text badge over the icon. Otherwise refers to your app description.            |
+
+Although popup is actually an action, not all actions are popup.
+
+What Actions can do:
+1. **Popup**    
+    - Clicking the icon opens `popup.html`.
+2. **Icon Click Event (without a popup)**
+    - If `default_popup` is **not** defined, clicking the icon triggers `chrome.action.onClicked`.
+3. **Badge Indicators**
+    - Use `setBadgeText` and `setBadgeBackgroundColor` for notifications.
+
+
+Refer to [[Action types - Chrome Extension]] on implementation guides. We will, however cover all these types at the next tutorial [[3. Popup more in-depth - Multipage]]

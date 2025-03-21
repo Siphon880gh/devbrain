@@ -1,1 +1,1 @@
-Refer to [[2 Chrome extension foundational with popup and content]]
+Refer to [[2 Chrome extension foundational with popup]]
