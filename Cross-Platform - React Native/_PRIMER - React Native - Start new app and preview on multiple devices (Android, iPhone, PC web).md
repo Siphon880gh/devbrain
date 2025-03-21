@@ -57,7 +57,7 @@ Or follow my guide which is more complete and covers edge cases during installat
 ```
 npx create-expo-app@latest  
 ```
-^ default comes with router. If you want to deconstructingly what you want to install, refer to Manual Installation at
+^ default comes with router. If you want to deconstruct what you want to install, refer to Manual Installation at
 
 [https://docs.expo.dev/router/installation/](https://docs.expo.dev/router/installation/)
 
@@ -200,7 +200,7 @@ It’s CMD+m or Ctrl+m to open developer menu. You’ll briefly see three dots w
 
 ### Setup Synchronizing to physical phones
 
-Check synchronizing to a physical android and physical ios simulator (where applicable)
+Check synchronizing to a physical android and physical ios device (whichever you have)
 
 Either QRCode or opening the app Expo Go on the same server (will list your server as being active and selectable)
 
@@ -232,7 +232,7 @@ There’s no known solution that seems to work. Most solutions are to check your
 
 If QR Code is good, you can follow the instruction at the QR Code regarding scanning with camera or opening Expo App to scan
 
-#### METHOD APP:
+#### METHOD EXPO APP:
 
 Having ran `npx expo start` , open Expo Go on your physical phone. Make sure your development computer and the physical phone are both on the same wireless network. Make sure VPN set to OFF.
 

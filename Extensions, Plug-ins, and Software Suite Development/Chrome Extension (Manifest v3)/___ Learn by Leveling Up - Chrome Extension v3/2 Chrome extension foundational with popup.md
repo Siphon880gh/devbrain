@@ -131,16 +131,20 @@ Copy the icon files to your chrome extension app folder
 manifest.json → action -> default_popup: 
 You need to set the html file that opens over the Chrome browser when you click the Chrome Extension. At manifest.json:
 
+```
     "action": {  
         "default_icon": "icon.png",  
         "default_popup": "popup.html"  
     },
+```
 
 You have a popup.html and popup.js? You have to enable running code from popup.js.:
 
+```
     "content_security_policy": {  
         "extension_pages": "script-src 'self'; object-src 'self';"  
     },  
+```
 
 
 ### Popup Action

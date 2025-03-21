@@ -18,7 +18,7 @@ You should also know from reading that, concept level the different ways of arch
 When your app has multiple pages, the code isn’t simply opening the filename of the screen. Each page/screen has a unique way to call them so the app knows who to open. What you call them are the routes. React Native has multiple libraries to do just that. Depending on the library, how you name the route is different .
 
 1. **React Navigation:**
-	- The React Navigator uses named routes. Imagine an About page, and that would be the name “About” in `Tabs.Navigator>(Tabs.Screen[name=”...”]*N)`  or `Stack.Navigator>(Stack.Screen[name=”...”]*N).` Then your pressible whose onPress can open that page by calling its name route like `on Press={()=> { ()=>{ return useNavigation(); })().navigate(”ROUTE_NAME”) }}`
+	- The React Navigator uses named routes. Imagine an About page, and that would be the name "About" in (emmet psueodocode) `Tabs.Navigator>(Tabs.Screen[name="..."]*N)`  or `Stack.Navigator>(Stack.Screen[name="..."]*N).` Then your pressible whose onPress can open that page by calling its name route like (emmet psueodocode) `onPress={()=> { ()=>{ return useNavigation(); })().navigate("ROUTE_NAME") }}`
 	- **Stack Navigator:** Allows you to navigate between different screens in a stack, where each screen can be pushed onto the stack and popped off. It’s similar to the way web pages work. For more information on how stack behaves and what the user experience is, refer to [[React Native Navigation - How Stack Navigator or the Stacking of Screens Work]]
 	- **Tab Navigator:** Used for navigation between different tabs, each containing a different stack or set of screens.
 	- **Drawer Navigator:** Provides a drawer that slides in from the side of the screen, allowing you to navigate between different screens.
@@ -33,11 +33,11 @@ When your app has multiple pages, the code isn’t simply opening the filename 
 		- NativeBase is now: gluestack-ui
 			https://nativebase.io/
 			https://gluestack.io/
-			But `npx create-expo APP --example with-native-base` stills works as of Aug 2028
+			But `npx create-expo APP --example with-native-base` stills works as of Aug 2024
 
 
 2. **React Router Native:**
-	- The React Router Native uses url routes. Imagine an About page, and that would be the url “/about” instead of “About” in `Router>(Link[push][to="URL_ROUTE_TO_NAVIGATE_TO"]+Route[path="URL_ROUTE_TO_DEFINE"][component={COMPONENT_NAME}])` . Alternately you can programmatically visit the page with `(()=>{ return useHistory(); })().push` , `(()=>{ return useHistory(); })().replace` , etc. The mobile app does not have an address bar but this React Router Native is an offbranch of React Router Dom which meant to leverage the History API on web browsers. However it’s recommended you DO NOT use React Router Native because of shortcomings in the React Native cross-platform world. Refer to [[_WARNING - Skip using React Router Native]]
+	- The React Router Native uses url routes. Imagine an About page, and that would be the url "/about" instead of "About" in (emmet pseudocode) `Router>(Link[push][to="URL_ROUTE_TO_NAVIGATE_TO"]+Route[path="URL_ROUTE_TO_DEFINE"][component={COMPONENT_NAME}])` . Alternately you can programmatically visit the page with `(()=>{ return useHistory(); })().push` , `(()=>{ return useHistory(); })().replace` , etc. The mobile app does not have an address bar but this React Router Native is an offbranch of React Router Dom which meant to leverage the History API on web browsers. However it’s recommended you DO NOT use React Router Native because of shortcomings in the React Native cross-platform world. Refer to [[_WARNING - Skip using React Router Native]]
 
 
 3. **Expo Router**
@@ -59,7 +59,7 @@ For Expo Router, it's not automatically a stack for the routes you define. You h
 
 ### Passing Data
 
-Usually with traditional web url routes (node js, express, etc) you pass data between pages using url queries. In the case of React Navigation or Expo Router (syntax varies slightly with expo router being more pedantic having keys), we pass data in an object at the same navigate function call that opens a page based on its route. It doesn’t matter if the route it passes data to belongs to a stack or not. Pass The data is intercepted as props.params
+Usually with traditional web url routes (node js, express, etc) you pass data between pages using url queries. In the case of React Navigation or Expo Router (syntax varies slightly with expo router being more pedantic having keys), we pass data in an object at the same navigate function call that opens a page based on its route. It doesn’t matter if the route it passes data to belongs to a stack or not. Passed data is intercepted as props.params
 
 ---
 
