@@ -204,9 +204,20 @@ chrome.permissions.request({
 }
 ```
 
+
 ---
 
-### **6. `offscreen` API for Hidden Background Work**
+### **6. All scripts must be local in Manifest V3**
+
+**All JavaScript must be included in the extension package itself.**
+- ❌ Wildcards (`*`) or remote domains are **not allowed** for `script-src` in Chrome Extension CSP.  
+- ✅ `'self'` is permitted.
+
+Wildcards like `*` **were allowed** in `script-src` and `style-src`,  in V2, although **not recommended**. In V3, it’s completely not allowed.
+
+---
+
+### **7. `offscreen` API for Hidden Background Work**
 
 - Allows running tasks like audio playback without a visible tab.
 - Used when service workers **cannot handle background tasks**.
