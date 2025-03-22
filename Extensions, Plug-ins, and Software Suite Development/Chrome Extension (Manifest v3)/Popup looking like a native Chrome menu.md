@@ -1,7 +1,13 @@
 
 ## Basics
 
-To make your Chrome extension popup look like a native Chrome menu, follow these steps:
+You can make your Chrome extension popup look like a native Chrome menu:
+
+Your menu:
+![[Pasted image 20250321193920.png]]
+
+Chrome's menu:
+![[Pasted image 20250321193907.png]]
 
 ### 1. **Mimicking Chrome’s UI with CSS**
 
@@ -72,21 +78,7 @@ Create a simple HTML popup:
 
 ---
 
-### 3. **Dynamic Theme Adaptation (Optional)**
-
-To match Chrome’s theme, use the `chrome.theme` API
-
-```js
-chrome.theme.getCurrent((theme) => {
-    if (theme && theme.colors) {
-        document.body.style.background = `rgb(${theme.colors.frame.join(",")})`;
-    }
-});
-```
-
----
-
-### 4. **Making the Popup Floating & Natural**
+### 3. **Making the Popup Floating & Natural**
 
 To ensure the popup behaves more like a Chrome menu:
 
@@ -135,4 +127,4 @@ To ensure the popup behaves more like a Chrome menu:
         color: #e8eaed;
     }
     ```
-    
+
