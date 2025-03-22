@@ -47,6 +47,7 @@ Let me know if you need any clarification on creating extensions for the DevTool
 
 
 manifest.json:
+```
 {
     "name": "Design Tailwind Bootcamp Components into Inspect Element",
     "description": "Add tailwind and/or bootcamp components into Inspect Elements even if a webpage does not support tailwind. In the future, various components will be selectable.",
@@ -76,8 +77,10 @@ manifest.json:
     }],
     "devtools_page": "devtools.html"
 }
+```
 
 Bare minimum:
+```
 {
     "name": "Design Tailwind Bootcamp Components into Inspect Element",
     "description": "Description.",
@@ -93,12 +96,14 @@ Bare minimum:
     ],
     "devtools_page": "devtools.html"
 }
+```
 
 Also bare minimum: 
 you need a panel.html that shows up to the developer in DevTools panels
 
 And you need a devtools.js:
 This example shows you the memory stats
+```
 let availableMemoryCapacity;
 let totalMemoryCapacity;
 let panel; // so you can manipulate from an elements subpanel, for example
@@ -122,6 +127,7 @@ setInterval(() => {
         }
     });
 }, 1000);
+```
 
 
 

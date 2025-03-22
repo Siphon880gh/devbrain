@@ -470,4 +470,4 @@ What Actions can do:
     - Use `setBadgeText` and `setBadgeBackgroundColor` for notifications.
 
 
-Refer to [[Action types - Chrome Extension]] on implementation guides. We will, however cover all these types at the next tutorial [[3. Popup more in-depth - Multipage]]
+Refer to [[Action types - Chrome Extension]] on implementation guides. We will, however cover all these types at the next tutorial [[3. Popup more in-depth - Multipage, Tab API]]
