@@ -2,9 +2,6 @@
 ### Runtime Message
 
 You can pass messages from your popup script to your content script, and then log those messages to the console of the main webpage (the content script's execution environment). To achieve this, you can use the `chrome.runtime.sendMessage` method in your popup script to send a message, and then listen for that message in your content script using the `chrome.runtime.onMessage` event listener.  
-
-  
-  
 #### 1. Popup Script (`popup.js`):  
 ```javascript  
 document.getElementById('myButton').addEventListener('click', function() {  
