@@ -154,7 +154,34 @@ chrome.scripting.executeScript({
 
 ---
 
-### **3. Improved Security & Permissions Model**
+### **3. Separation of API and Hosting Permissions**
+
+
+In Manifest V2, everything was lumped together under `permissions`, which led to **overly broad permissions**. V3 splits them to encourage **least privilege**:
+
+- `permissions`: Core Chrome features
+- `host_permissions`: Access to specific sites
+
+Chrome can now also **request host permissions at runtime** (via the **optional permissions** model), which gives users more control.
+
+Example:
+```
+"permissions": [
+  "storage",
+  "tabs",
+  "scripting",
+  "notifications"
+],
+"host_permissions": [
+  "https://*.example.com/*",
+  "*://*.google.com/*"
+]
+```
+
+---
+
+
+### 4. Improved Security & Permissions Model**
 
 - Extensions must **declare all host permissions explicitly** in `manifest.json` (`activeTab` no longer allows access to all sites).
 - **Optional permissions** can now be requested dynamically.
@@ -168,9 +195,10 @@ chrome.permissions.request({
 });
 ```
 
+
 ---
 
-### **4. New `declarativeNetRequest` API**
+### **5. New `declarativeNetRequest` API**
 
 - **MV3's replacement for `webRequest` API**.
 - Predefined rules in `rules.json` control network requests.
@@ -191,7 +219,7 @@ chrome.permissions.request({
 
 ---
 
-### **5. New Host Permission Model**
+### **6. New Host Permission Model**
 
 - In **MV2**, declaring `"host_permissions"` granted immediate access.
 - In **MV3**, `"host_permissions"` must be **explicitly requested at runtime**.
@@ -207,7 +235,7 @@ chrome.permissions.request({
 
 ---
 
-### **6. All scripts must be local in Manifest V3**
+### **7. All scripts must be local in Manifest V3**
 
 **All JavaScript must be included in the extension package itself.**
 - ❌ Wildcards (`*`) or remote domains are **not allowed** for `script-src` in Chrome Extension CSP.  
@@ -217,7 +245,7 @@ Wildcards like `*` **were allowed** in `script-src` and `style-src`,  in 
 
 ---
 
-### **7. `offscreen` API for Hidden Background Work**
+### **8. `offscreen` API for Hidden Background Work**
 
 - Allows running tasks like audio playback without a visible tab.
 - Used when service workers **cannot handle background tasks**.
@@ -236,15 +264,22 @@ chrome.offscreen.createDocument({
 
 ## **📌 Summary of Key Differences**
 
-|Feature|Manifest V2|Manifest V3|
-|---|---|---|
-|**Background Scripts**|Persistent `background.js`|Uses **service workers** (no persistence)|
-|**Inline Scripts & Styles**|Allowed (`unsafe-inline`)|🚫 **Blocked** (Use external scripts & styles)|
-|**Blocking `webRequest` API**|Allowed|🚫 **Replaced with `declarativeNetRequest`**|
-|**Permissions Model**|Implicit host permissions|🚫 **Must be declared explicitly**|
-|**Executing Scripts**|`tabs.executeScript()`|🚀 **Use `chrome.scripting.executeScript()`**|
-|**Event Handling**|`onclick=""` allowed|🚫 **Must use `addEventListener()`**|
-|**Long-running Background Tasks**|Persistent pages|**Use `offscreen` API** or `alarms`|
+| Feature                                  | Manifest V2                              | Manifest V3                                              |
+| ---------------------------------------- | ---------------------------------------- | -------------------------------------------------------- |
+| **Background Scripts**                   | Persistent `background.js`               | **Service workers** (non-persistent)                     |
+| **Long-running Background Tasks**        | Persistent pages                         | **Use `offscreen` API** or `alarms`                      |
+| **`browserAction` / `pageAction`**       | Two separate APIs                        | ✅ **Merged into `chrome.action`**                        |
+| **`chrome.runtime.getBackgroundPage()`** | ✅ Available                              | 🚫 **Removed** (use messaging instead)                   |
+| **Inline Scripts & Styles**              | ✅ Allowed (`unsafe-inline`)              | 🚫 **Blocked** (Use external files only)                 |
+| **Blocking `webRequest` API**            | ✅ Allowed                                | 🚫 **Replaced with `declarativeNetRequest`**             |
+| **`chrome.runtime.onSuspend`**           | ✅ Available                              | 🚫 **Removed** (service workers suspend automatically)   |
+| **Executing Scripts**                    | `tabs.executeScript()`                   | 🚀 **Use `chrome.scripting.executeScript()`**            |
+| **Split Permissions Model**              | All in `permissions`                     | ✅ **Split into `permissions` + `host_permissions`**      |
+| **Permissions Model**                    | Implicit host permissions                | 🚫 **Must be declared explicitly**                       |
+| **Event Handling**                       | Inline handlers (`onclick=""`) allowed   | 🚫 **Use `addEventListener()` instead**                  |
+| **All Scripts Must Be Local**            | Remote scripts allowed (not recommended) | 🚫 **Only local scripts allowed**                        |
+| **`offscreen` API**                      | ❌ Not available                          | ✅ **New API for hidden background tasks**                |
+| **Dynamic Host Permissions**             | ❌ Not supported                          | ✅ **Can request at runtime via `permissions.request()`** |
 
 ✅ **Pros of Manifest V3**
 
