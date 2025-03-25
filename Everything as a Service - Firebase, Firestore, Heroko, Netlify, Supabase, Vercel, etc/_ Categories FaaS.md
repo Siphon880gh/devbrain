@@ -1,5 +1,5 @@
 
-FaaS is functions as service.
+FaaS is "functions as service".
 
 Probably most trend in 2022-2023:
 - Netlify Functions
