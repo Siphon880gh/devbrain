@@ -1,5 +1,5 @@
-Moved to 
-[[2. Supabase Authentication with New Project (Starter boilerplate)]]
+Moved to NextJS tutorials.
 
-Or
-[[3. Supabase Authentication Adding into Existing Project]]
+Go to
+- Or: [[2. Supabase Authentication with New Project (Starter boilerplate)]]
+- Or: [[3. Supabase Authentication Adding into Existing Project]]
