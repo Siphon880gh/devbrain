@@ -1,4 +1,9 @@
 
+Let's say you are creating a chrome extension that reads from a web stocks trading page (at tradingview.com). Then opening the chrome extension popup, you get some recommended strategies
+
+---
+
+
 manifest.json → content.js: For instance, you are injecting javascript into the active page from the chrome extension: Then you need to have a content.js and have that setup at manifest.json:
 
 ```
@@ -15,20 +20,47 @@ To allow links to external websites in your extension's popup, you can add the w
 
 ```
 {  
-  "name": "My Extension",  
-  "version": "1.0",  
-  "manifest_version": 2,  
   "content_security_policy": "default-src 'self' https://tradingview.com/ https://platform.openai.com; script-src 'self', object-src 'self'",  
-  "browser_action": {  
-    "default_popup": "popup.html"  
-  }  
 }
 ```
 
 For more information on Content Security Policy that whitelists script sources and external links, refer to
 Reference reading: Content Security Policy in manifest.json
 
-5. Implement the various parts (eg. popup.html, popup.js, content.js):
+5. Implement the various parts (eg. popup.html, popup.js, content.js). We add popup into manifest.json so that clicking the chrome extension icon will show a popup over the web browser:
+- An action is clicking the Chrome extension:
+
+```
+  "browser_action": {  
+    "default_popup": "popup.html"  
+  }  
+```
+
+So the manifest.json file could end up looking like:
+```
+{
+	"name": "My Extension",  
+	"version": "1.0",  
+	"manifest_version": 2,  
+	{  
+		"content_security_policy": "default-src 'self' https://tradingview.com/ https://platform.openai.com; script-src 'self', object-src 'self'",  
+	},
+	"content_scripts": [{  
+		"matches": ["<all_urls>"],  
+		"js": ["content.js"]  
+	}],  
+	"browser_action": {  
+		"default_popup": "popup.html"  
+	}  
+}
+```
+
+---
+
+You will be passing information from popup to content, and possibly from content back to popup.
+Reference reading: [[__Passing information between parts]]
+
+
 
 content.js
 ```
@@ -76,6 +108,6 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
 ---
 ---
 
-You will be passing information from popup to content, and possibly from content back to popup.
-Reference reading: Passing information between parts
-  
+
+  The rest of the code here
+  https://github.com/Siphon880gh/stocks-technical-analysis

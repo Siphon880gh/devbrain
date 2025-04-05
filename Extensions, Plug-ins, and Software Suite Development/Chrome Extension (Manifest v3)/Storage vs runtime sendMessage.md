@@ -1,6 +1,6 @@
-Yes, exactly! In Chrome extension development:
+In Chrome extension development:
 
-- **`chrome.storage` (sync or local)** is used to persist settings. When the options page (or any other part of the extension) is opened fresh, it can read from storage to restore the saved settings.
+- **`chrome.storage` (sync or local)** is used to persist settings. When the options page (or any other part of the extension) is opened fresh, it can read from storage to restore the saved settings. You can store at the local Chrome or to all Chrome across your devices where you signed in.
 - **`chrome.runtime.sendMessage` & `chrome.runtime.onMessage`** enable real-time communication between different parts of the extension (popup, options, background script, content script). This is useful for applying changes live without needing a refresh.
 
 ### Example Workflow:
