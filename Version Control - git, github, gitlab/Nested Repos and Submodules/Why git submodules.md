@@ -1,3 +1,9 @@
+### TLDR:
+Git submodules are separate Git repositories that can be nested inside your main repository without interfering with its version control. They’re a practical way to include entire folders from other GitHub or GitLab repositories directly into your project. Each submodule, if they're also remote repositories, maintains its own origin independent of the parent repo.
+
+To add a submodule, navigate to your repository and use the git submodule add command. This links the nested folder as a tracked submodule in your project—but managed separately from your main repo's history. While you can use the same external repository as a submodule across multiple projects, each project will have its own copy, so this approach doesn’t reduce storage space.
+
+---
 
 Adding submodules for nested repository folders in a Git project offers several advantages, particularly when managing complex projects with dependencies on specific versions of other projects or libraries. Here are some key benefits of using submodules:
 
