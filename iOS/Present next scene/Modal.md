@@ -16,7 +16,7 @@ There are a few ways to do this. An easy way is to create a new storyboard. Then
 
 Go to the properties of the actual scene board (not a view controller), and select Presentation -> "Over Full Screen" (default was Automatic). 
 ^A good "Transition Style" for modal popup is "Cross Dissolve"
-^In addition, there's a tickbox you need to tick: Is Initial View Controller
+^In addition, there's a checkbox you need to tick: Is Initial View Controller
 
 Now when designing the scene board, create another view inside the main view. And this inner view should be the smaller view that is constrained by centering horizontally and centering vertically, and constrained with fixed height and fixed width.
 

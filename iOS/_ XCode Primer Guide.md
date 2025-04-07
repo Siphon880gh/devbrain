@@ -137,7 +137,7 @@ Next you may want to add gesture recognizers / actions / logic into the screen. 
 
 Now add the same class name to the scene board where you previously had added the ID. It will let you add the class now.
 
-The scene board that is the initial controller... there's a tickbox you need to tick: Is Initial View Controller
+The scene board that is the initial controller... there's a checkbox you need to tick: Is Initial View Controller
 
 Now generally how you switch between scenes in the app is this:
 ```
