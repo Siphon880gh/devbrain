@@ -7,11 +7,10 @@ devtools.js has direct access to creating panel or creating sidebar, and their q
  eg. 
 ```
 chrome.devtools.panels.elements.createSidebarPane("Design Templates", (mySidebar) => {
-    sidebar = mySidebar;
     mySidebar.setPage('sidebar.html')
 
-    mySidebar.onShown.addListener(function(content) {
-
+    mySidebar.onShown.addListener(function(sidebarWindow) {
+	    sidebar = sidebarWindow;
     });
 }); // created sidebar
 ```
