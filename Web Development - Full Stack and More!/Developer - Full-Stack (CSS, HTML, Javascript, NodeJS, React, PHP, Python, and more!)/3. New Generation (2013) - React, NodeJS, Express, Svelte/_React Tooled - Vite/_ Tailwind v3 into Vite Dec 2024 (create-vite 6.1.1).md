@@ -1,0 +1,1 @@
+Moved to [[Tailwind v3 - With React Vite Dec 2024 (create-vite 6.1.1)]]
