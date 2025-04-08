@@ -14,3 +14,10 @@ That's the basic websites where you have like:
 </body>
 </html>
 ```
+
+✅ Custom HTML Webpages
+These are the classic example of static websites:
+- You write HTML, CSS, and maybe JavaScript by hand.
+- The content is fixed until you manually change the code or files.
+- When a user visits, they just get those exact files.
+
