@@ -17,6 +17,13 @@ npx expo start -c
 ```
 ^ `-c` is optional and makes sure it clears cache
 
+### On exporting to web
+```
+npx expo export -p web
+```
+
+You may have a deployment README for your project on specific instructions for exporting.
+
 ---
 #### Navigation Concepts
 - Know the different routing systems at [[_PRIMER - React Native - Concepts on Navigation]]
