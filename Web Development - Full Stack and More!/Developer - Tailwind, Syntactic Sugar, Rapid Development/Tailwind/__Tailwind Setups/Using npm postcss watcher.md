@@ -1,4 +1,4 @@
-To choose whether to use postcss or tailwindcss, refer to [[Choosing watchers - postcss vs tailwindcss]]
+To choose whether to use postcss or tailwindcss, refer to [[Concept - Choosing watchers - postcss vs tailwindcss]]
 
 ---
 
