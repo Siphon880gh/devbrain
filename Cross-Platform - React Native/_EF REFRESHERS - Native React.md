@@ -11,17 +11,18 @@ How to use:
 
 ## Reorientation
 
-### Starting new app
+### Working
+#### - Starting new app
 Use Expo. For example: `npx create-expo-app@latest --example with-router`
 
-### Or resuming old app
+#### - Or resuming old app
 You probably have a package.json so you can run `npm run start`. Otherwise:
 ```
 npx expo start -c
 ```
 ^ `-c` is optional and makes sure it clears cache
 
-### On exporting to web
+### Exporting to web
 ```
 npx expo export -p web
 ```
