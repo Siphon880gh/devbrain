@@ -1,5 +1,5 @@
 This tutorial is a more detailed form of the official guide on using postcss:
-https://tailwindcss.com/docs/installation/tailwind-cli
+https://v3.tailwindcss.com/docs/installation
 
 Can work with:
 - Custom HTML webpage: [[Concept, Categories - Custom HTML Webpage]]

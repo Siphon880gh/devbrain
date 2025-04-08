@@ -21,12 +21,7 @@ mkdir public; touch public/index.css; touch public/index.html;
 ```
 
 This tutorial is a more detailed form of the official guide on using tailwind css cli:
-https://tailwindcss.com/docs/installation/tailwind-cli
-
-
-If tailwind is way ahead, then the URL might have migrated to (use this instead):
-https://v4.tailwindcss.com/docs/installation
-
+https://v3.tailwindcss.com/docs/installation
 
 The official guide is missing many steps which could be a gotcha situation that stops you from setting up tailwind correctly. So just follow my guide.
 
