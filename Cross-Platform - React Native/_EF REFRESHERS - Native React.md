@@ -3,6 +3,10 @@ EF REFRESHERS: EASILY FORGOTTEN REFRESHERS
 
 EF are things you easily forget if you haven't done the language/framework in a while. These Easily Forgotten aspects need to be reviewed, especially to avoid wasting time relearning or rediscovering, especially if the errors are not obvious or may mislead you to wasting time.
 
+How to use: 
+- The next section are most common commands to manage development of your React Native app.
+- Use a persistent table of contents to review Native React's important components and quirks (so you don't spend hours trying to fix something you think is bad code when it's a React Native quirk or limitation).
+
 ---
 
 ## Reorientation
@@ -279,3 +283,44 @@ export default App;
 	- This may have been an oversight by the React Native developers. 
 	- Btw, the related `<Pressable>` also supports styling.
 - `<Button>` does NOT have styling.
+
+
+### Pressibles / Buttons
+
+#### ✅ `Pressable`
+- **Highly customizable**
+- You can pass in custom styles directly, including:
+  - `backgroundColor`
+  - `borderRadius`
+  - `padding`, `margin`, etc.
+- Can also use functions for conditional styling (`style={({ pressed }) => ({ backgroundColor: pressed ? 'gray' : 'blue' })}`)
+
+```jsx
+<Pressable
+  onPress={() => console.log('Pressed!')}
+  style={({ pressed }) => [
+    {
+      backgroundColor: pressed ? '#ddd' : '#0af',
+      padding: 10,
+      borderRadius: 5,
+    },
+  ]}
+>
+  <Text style={{ color: 'white' }}>Custom Button</Text>
+</Pressable>
+```
+
+#### 🚫 `Button`
+- It's a **pre-styled native component** with limited styling options.
+- You can only change:
+  - `title`
+  - `color` (which usually just changes the **text color** on iOS, and **background color** on Android)
+- You **cannot** pass in a custom `style` prop or override layout/styling like `backgroundColor`, `borderRadius`, etc.
+
+```jsx
+<Button
+  title="Click Me"
+  color="#0af" // limited use
+  onPress={() => console.log('Button pressed')}
+/>
+```
