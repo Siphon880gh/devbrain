@@ -26,6 +26,7 @@ npx expo start -c
 ```
 npx expo export -p web
 ```
+If specific folder name instead of "dist": `npx expo export -p web --output-dir DIST_FOLDER`
 
 You may have a deployment README for your project on specific instructions for exporting.
 
