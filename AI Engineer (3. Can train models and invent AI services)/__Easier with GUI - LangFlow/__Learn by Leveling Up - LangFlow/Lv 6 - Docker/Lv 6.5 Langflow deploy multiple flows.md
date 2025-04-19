@@ -126,13 +126,14 @@ If you have difficulty making more than one docker work, try combining them into
 
 The diff of the second docker compose file:
 services:
-  **langflow1**:
-    image: langflowai/langflow:latest # or another version tag on https://hub.docker.com/r/langflowai/langflow
+```
+langflow1:
+	image: langflowai/langflow:latest # or another version tag on https://hub.docker.com/r/langflowai/langflow
     pull_policy: always               # set to 'always' when using 'latest' image
     ports:
-      - "**7861**:7860"
+      - "7861:7860"
     depends_on:
-      - **postgres1**
+      - postgres1
     environment:
       - LANGFLOW_DATABASE_URL=postgresql://langflow:langflow@postgres:5432/langflow
       # This variable defines where the logs, file storage, monitor data and secret keys are stored.
@@ -142,11 +143,11 @@ services:
       - LANGFLOW_AUTO_LOGIN=true
       - OPENAI_API_KEY=sk-proj-UTxxxxxxxxxxxx
     volumes:
-      - **langflow-data1**:/app/langflow
+      - langflow-data1:/app/langflow
       # Mount your local flow file into the container
       - /Users/wengffung/dev/web/langflow/docker/:/app/langflow/flows
 
-  **postgres1**:
+  postgres1:
     image: postgres:16
     environment:
       POSTGRES_USER: langflow
@@ -155,11 +156,12 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - **langflow-postgres1**:/var/lib/postgresql/data
+      - langflow-postgres1:/var/lib/postgresql/data
 
 volumes:
-  **langflow-postgres1**:
-  **langflow-data1**:
+  langflow-postgres1:
+  langflow-data1:
+```
 
 
 What's been changed are:
