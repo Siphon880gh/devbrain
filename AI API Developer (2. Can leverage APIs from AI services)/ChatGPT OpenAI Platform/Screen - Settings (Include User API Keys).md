@@ -1,4 +1,3 @@
-
 ## Scope
 
 Settings screen is either organization specific or project specific
@@ -35,11 +34,24 @@ At OpenAI Platform’s setting screens, see model limits, manage members who can
 ---
 ## API Keys
 
-Organization API keys that work across all projects at the organization is deprecated. However, they still work as of 4/2025.
+Note: User API keys that work across all projects at the organization is deprecated and accessed at a different menu. But will be discussed how to access before the end of section.
 
-Depending on which API Keys menu item you click, you either access the Dashboard or the Project API key:
+At Settings page, you can access either:
+- All projects' api keys under the same organization, if you click "API Keys" menu item under "ORGANIZATION" section. The organization name at the top left is how it knows.
+- The current project's API keys, if you click "API Keys" menu item under "PROJECT" section. The dropdown of the project names at the top left is how it knows.
+- User API keys access will be discussed later
+
+Depending on which API Keys menu item you click, you either access all projects' API Keys or that one project's API keys:
 
 ![[Pasted image 20250416012932.png]]
+
+To access User API Keys:
+
+Go to Settings -> Your Profile:
+![[Pasted image 20250418221757.png]]
+
+After removing User API Keys or if you don't have API Keys, that tab won't exist for you:
+![[Pasted image 20250418222410.png]]
 
 ---
 
@@ -58,5 +70,3 @@ This is what appears when you open the Settings Screen:
 Projects subscreen lets you see a quick snapshot which project is spending more or to get a feel of the spend across projects. This is akin to having multiple product lines in a business’ portfolio and they’re all using OpenAI AI services:
 
 ![[Pasted image 20250416011406.png]]
-
-----
