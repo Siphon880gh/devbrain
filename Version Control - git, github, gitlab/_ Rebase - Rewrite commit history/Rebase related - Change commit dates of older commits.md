@@ -28,39 +28,45 @@ https://github.com/siphon880gh/
 
 1. **Get long hashes and dates of all your commits in a consumable format for automation**
 
-	You may want to clear the terminal (Run `clear`)
-	
-	Then run the confirm command. It should be in CSV format already. And copy and paste it into a csv file on the outer folder (so it wont affect current git tracking)
-	- This would be running the confirm command, then copying terminal output to ../a.csv:
-	  `touch ../a.csv; vim ../a.csv;`
-	- Then paste into vim screen
-	  
-	- Or do the above steps all in one command:
-```
-echo "ShortHash, LongHash, AuthorDate, CommitDate, Author, CommitMessage";
-git log --pretty=tformat:"%h, %H, %ad, %cd, %an, %s" --date=iso | cut -c 1-170 > ../a.sh;
-```
-	
-If `vim ../a.csv` opens an older a.csv, you can clear all by writing the commands
-`:%d`
+	You may want to clear the terminal (Run `clear`). Make sure to be in the folder where the hidden `.git/` folder is.
 
-2. **Convert into Google Sheet for you to tweak the automation**
+	We will create a .csv file outside of the current .git folder so it won't affect your local git repo's working directory. 
+	`touch ../a.csv;
+	
+	The cat command shows content if there is an old csv file:
+	- If there's old content, you may want to remove the file (`rm ../a.csv`) and recreate it from the previous command, or you can clear its content with Vim (Specifically, `vim ../a.csv` opens the a.csv, then you clear all by typing in command mode this `:%d`)
+	`cat ../a.csv;`
+
+	Once we have a clean a.csv file outside the git working directory, we run the command to list all the git commits. So you have to be in the working directory of the local git folder. More importantly, this command lists the commits in a format we can edit to change commit and author dates. Notice we list and save the results to ../a.csv:
+```
+echo "ShortHash, LongHash, AuthorDate, CommitDate, Author, CommitMessage" > ../a.csv;
+git log --pretty=tformat:"%h, %H, %ad, %cd, %an, %s" --date=iso | cut -c 1-170 >> ../a.csv;
+```
+	
+
+Keep the .csv file handy. We will open it using Google Sheet (because it's quick).
+
+2. **Convert the csv into Google Sheet for you to tweak the automation**
 
 	Go to Google Sheet:
 	https://docs.google.com/spreadsheets/u/0/
 	
 	At Google Sheet, File -> Import -> Upload -> Browse.
+	Select the csv file you had created (Hint: You can run `pwd` at the terminal, and at browse dialog, you can go up one folder.)
+
 	
 	Now you have a Google Sheet like:
 
 ![](BfiGGWj.png)
 
 
-Make sure column G to I are cleared. Sometimes a commit message gets partially parsed into column G. We will not be batch renaming commits (for that, just use `GIT_EDITOR="code --wait" git rebase -i HEAD~20`) to open multiple commits in VS Code for easy editing.
+Make sure column G to I are cleared. Sometimes a commit message gets partially parsed into column G and beyond because you have comma's in the commit message. 
+
+We will not be batch renaming commits (for that, just use `GIT_EDITOR="code --wait" git rebase -i HEAD~20`) to open multiple commits in VS Code for easy editing or just `git rebase -i HEAD~20` to edit in VIM, and in either case you change "pick" word to "reword" to choose what commit messages to rename.
 
 3. **Add your preferred dates**
     
-- Add a column to the right.  This is column G. You can name it "PreferredDate" if you want a header row for this column.
+- Add a column to the right.This is column G. You can name the column at the header row "PreferredDate" if you want.
 - Copy date values there, choosing either "Author" or "Commit" to copy from.
 	- Paste special -> Values only.
 - Plan on the dates and times you want.
@@ -74,7 +80,7 @@ Make sure column G to I are cleared. Sometimes a commit message gets partially p
 	- If modifying the first commits too, you want to have a sprint of early commit days because of natural excitement for the new repo
 	- Because formatting won't affect the script, you may plan with formatting
 		- Bold changed dates after a second check on their date and times.
-	- You can use the Author column to plan dates too writing key pivot dates. You can choose to empty this row and type on the commits you have planning notes for.
+	- You can use the Author column to plan dates too writing key pivot dates. You can choose to empty this column and type on the commits you have planning notes for.
 - When you're ready, edit the date and time you want at column G "PreferredDate" (if you named the header)
 - Leave alone the dates you're not changing **OR remove their row to speed up the script**.
 
@@ -82,21 +88,26 @@ Make sure column G to I are cleared. Sometimes a commit message gets partially p
     
 Continue adding columns. Make sure to duplicate down the columns. Column H,I,J,K,L are:
 
-H
+- Making sure it's copied into a cell and not into multiple rows:
+	- Correct:
+	- Incorrect:
+	  ![[Pasted image 20250428004038.png]]
+
+H all rows with content (not needed at header row)
 ```
 git filter-branch -f --commit-filter '
 
 if [ "$GIT_COMMIT" = "
 ```
 
-I
+I all rows with content (not needed at header row)
 ```
 " ]; then
 
 GIT_AUTHOR_DATE="
 ```
 
-J
+J all rows with content (not needed at header row)
 ```
 "
 
@@ -104,7 +115,7 @@ GIT_COMMITTER_DATE="
 ```
 
 
-K
+K all rows with content (not needed at header row)
 
 ```
 "
@@ -118,13 +129,13 @@ git commit-tree "$@"
 fi' -- --all;
 ```
 
-L
+L all rows with content (not needed at header row)
 
 ```
 =Concatenate(H2,B2,I2,G2,J2,G2,K2)
 ```
 
-_Confirm that first cell of L looks like:_
+_Confirm that first cell of L column looks like:_
 ```
 git filter-branch -f --commit-filter '
 
@@ -154,7 +165,7 @@ Concatenate the entire L column into one cell. You can place directly underneath
 =Concatenate(L2:L??)
 ```
 
-The L?? is the last row being concatenated (Remember you are concatenating the column L downwards, skipping the column header hence the range starts at L2).
+^ REPLACE the **L??** to the final row being concatenated (Remember you are concatenating the column L downwards, skipping the column header hence the range starts at L2).
 
 _Confirm the spreadsheet looks like this_
 _(I added headers for readability: Preferred Date, Concatenated, Concatenated Column)_
@@ -164,7 +175,7 @@ _(I added headers for readability: Preferred Date, Concatenated, Concatenated Co
 
 6. Clean the copy and paste script
 
-Copy the cell into VS Code to make sure the copy and paste is quoted right, maybe into a `../a.sh` like you had done for `../a.csv`.
+Copy the final L concatenated cell into VS Code to make sure the copy and paste is quoted right, maybe into a `../a.sh` like you had done for `../a.csv`.
 
 - 1. Remove double quotation marks surrounding entire text contents if applicable
 - 2. Fix repeated double quotation marks globally
@@ -327,9 +338,24 @@ Replace the long hash of the commit and the two dates. Do not use short hash.
 
 Ambiguous warnings: Warnings are actually fatal errors.They stop the date rewriting from working. Git needs to work on their error reporting more.
 
+It may take a small while before you see the terminal is showing you progress.
+
 If `WARNING: Ref 'refs/heads/main is unchanged` , likely your hash is wrong or you are using the short hash which is wrong. You need the long SHA-1 Hash([https://stackoverflow.com/questions/454734/how-can-one-change-the-timestamp-of-an-old-commit-in-git](https://stackoverflow.com/questions/454734/how-can-one-change-the-timestamp-of-an-old-commit-in-git))
 
-If `Warning: previous backup already exists in refs/original/.... Force overwriting the backup with -f`  will ignore your new commit dates rewriting too. But that's prevented by adding a -f already
+If `Warning: previous backup already exists in refs/original/.... Force overwriting the backup with -f` will ignore your new commit dates rewriting too. But that's prevented by adding a -f already
+
+If you see these errors:
+```
+
+mmit-tree: line 55: 23:46:10: command not found
+git commit-tree: line 57: 23:46:10: command not found
+```
+- Then that means you didn't fix the double double quotes because that's part of those commands. Eg. `git commit-tree ""@""` is wrong
+
+---
+
+Make sure to do it right. You could absolutely mess up by having a future date:
+![[Pasted image 20250428005724.png]]
 
 ---
 
