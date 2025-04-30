@@ -1,9 +1,16 @@
+
+**How to use:**
+Open persistent Table of Contents
+
+---
+
+
 ## WPBakery / Visual Composer / Salient
 Classic Mode allows you to fine tune the layout and design with the shortcodes of WPBakery (AKA Visual Composer) which is the backbone of Salient theme's site builder
 
 ## Elementor
 
-You can switch between Visual or **Text Mode**. Text Mode is the raw html and css of that page
+You can switch between Visual or **Text Mode**. Text Mode is the raw html / css / shortcodes of that page
 
 
 ----
@@ -11,16 +18,21 @@ You can switch between Visual or **Text Mode**. Text Mode is the raw html and cs
 ## Add CSS Globally on Website
 
 Appearance -> Customize -> Additional CSS
-
-## Add CSS Per Page
+![[Pasted image 20250429181759.png]]
+## 
+Add CSS Per Page
 
 ### - Salient
-Salient → General Settings → CSS/Script Related
+Sidebar item "Salient" -> General Settings -> CSS/Script Related
+![](2pA53x4.png)
+
 
 ### - WPBakery / Visual Composer 
 Click gear icon at the top-right of the content editing
 ![](ODHB7Bi.png)
 
+
+Will look like this:
 
 - ### Elementor
 Pages -> All Pages -> Find Your Page: Edit -> Wordpress Editor -> Text mode
