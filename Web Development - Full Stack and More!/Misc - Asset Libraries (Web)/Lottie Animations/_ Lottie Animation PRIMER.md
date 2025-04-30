@@ -7,6 +7,10 @@ AirBnB created Lottie. It was the work of engineers Brandon Withrow (iOS), Gabri
 
 While Airbnb created the tech and open-sourced it in 2017, it was **[LottieFiles](https://lottiefiles.com)** — an independent platform — that **made it accessible to designers and developers globally**. LottieFiles provided a web-based previewer, marketplace, editor tools, and a growing ecosystem that brought attention to Lottie animations outside of Airbnb’s ecosystem.
 
+----
+
+**How to use**: Open the persistent Table of Contents.
+
 ---
 
 # 🌟 Lottie Tools Overview & Tips
@@ -59,31 +63,8 @@ Lottie animations are often in the form of .lottie or .json file extensions. You
 3. Edit to match brand colors
 4. Save, download, and implement on your site
 
-
+---
 ## 🎨 Editing Lottie Colors
-
-
-
----
-
-## 🧰 Extra Tools
-
-### ✅ Download Lotties without account limits
-
-[Lottie Downloader (Unofficial)](https://lottie-downloader.mihaiblaga.dev/)
-
-### ✅ Replace Colors with Custom Palette
-
-- Open the animation in LottieFiles
-    
-- Modify colors via palette
-    
-- Manually paste accurate hex codes
-    
-- Avoid using browser’s auto-conversion from RGB — it's often incorrect!
-    
-
----
 
 ### Editing Lottie Colors with Google AI
 
