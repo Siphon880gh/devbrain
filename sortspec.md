@@ -11,7 +11,7 @@ sorting-spec: |-
   CompSci - DS, Algos, Systems, Logic
   Cross-Platform - React Native
   DevOps, CI CD, Build tools, JS Package Managers
-  Enterprise - Software Development Standards
+  Enterprise - Code Standards, Security, Compliance
   Enterprise - DOCKER, Kubernetes, Server Admin, SaaS Scaling, Payment Systems
   Enterprise - Business Analytics (BA) and Business Intelligence (BI)
   Extensions, Plug-ins, and Software Suite Development

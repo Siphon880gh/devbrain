@@ -173,7 +173,7 @@ Tip: You can get your website's brand colors by inspecting html element most of 
 
 ### REQUIREMENT: Upload the lottie json file to the same server your website or Wordpress is at
 
-1. Upload `animation.json` to your FTP (e.g., If Wordpress: `wp-content/uploads/lottie/`)
+1. Upload `animation.json` to your FTP (e.g., If Wordpress: `wp-content/uploads/lottie/` or any folder that makes sense - their Media Library doesn't allow json uploads, but then there are plugins that do allow it, or you can just use Filezilla to access your server's FTP.)
 
 ### Option 1: Use Once
 1. If Wordpress:
