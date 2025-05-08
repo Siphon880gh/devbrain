@@ -94,7 +94,7 @@ FYI: The final command to substitute text recursively at the folder you’re in 
 find . -type f \( -name "*.php" -o -name "*.html" \) -exec perl -pi -e '
 s|//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css|https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.css|gi;
 s|//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js|https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js|gi;
-s|//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css|https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/fontawesome.min.css|gi;
+s|//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css|https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css|gi;
 s|//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js|https://cdn.jsdelivr.net/npm/moment@2.18.1/min/moment.min.js|gi;
 ' {} +
 ```
