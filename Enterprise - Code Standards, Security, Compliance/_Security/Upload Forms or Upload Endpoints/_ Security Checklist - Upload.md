@@ -26,6 +26,7 @@ Practice?
 - Upload Unrestricted File Type RCE (Remote code execution)
 - Upload Error with Verbose Messages
 - Upload XSS via File Name
+- Server-Side Request Forgery (SSRF)
 
 ### Upload Arbitrary File Write with Path Traversal
 
@@ -252,3 +253,14 @@ https://example.com/uploader.php?filename=shell.php&content=<?php%20system($_GET
 ```
 
 Then the hacker visits https://example.com/uploaded/shell.php?cmd=whoami or whatever the url for any downloads is (for example, if uploaded an image and the website previews that image, then the hacker can inspect for the uploaded folder path). Boom - in this case, a privileged username appears. 
+
+---
+
+## Highlights
+
+- Whitelist / allow only specific file extensions and MIME at frontend where user interacts with Upload interface AS WELL as backend where the temp file is created and moved to final destination. 
+- Here's an example of a "hacked.php" being uploaded, then the hacker can visit hacked.php to run various php functions that can access the server system or can take in url search parameters that passes to shell_exec:
+  ![[Pasted image 20250508002108.png]]
+- If you're blocking file uploads based on a blacklist of file extensions instead of using a whitelist, you can't just block common extensions and assume you're safe. For example, an ethical hacker was able to bypass a filter by uploading a file with a .pHp5 extension instead of .php. This worked because the validation didn't account for variations in capitalization and php version file extensions. Such issues can be mitigated by converting file extensions to lowercase before checking them and also safe guarding against php version extensions currently in existence (and future php version extensions).  
+[https://sagarsajeev.medium.com/file-upload-bypass-to-rce-76991b47ad8f](https://sagarsajeev.medium.com/file-upload-bypass-to-rce-76991b47ad8f)
+- Blocking the frontend is not enough. Hacker can still use API tools to make a POST request directly to your file upload backend endpoint if they inspect Network tab and/or code to figure out the endpoint.
