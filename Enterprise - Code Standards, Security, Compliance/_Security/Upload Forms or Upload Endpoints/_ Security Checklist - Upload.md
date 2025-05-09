@@ -1,3 +1,8 @@
+
+How to use: Turn on persistent "Table of Contents"
+
+---
+
 Whenever there is file upload, there could be vulnerabilities.
 
 This is especially true if using PHP for file upload, although similar vulnerabilities are not limited to PHP. For this checklist, we will use PHP.
