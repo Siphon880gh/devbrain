@@ -131,7 +131,7 @@ By fetching directly the url, any "../" can't go beyond the web root document, n
 
 #### **SOLUTION:**
 
-Much of PHP's opening of filenames can handle encoded urls. The hacker may encode the url to hide code from being obvious, and they may encode once/twice/thrice/etc. You have to recursively decode the input value before trying to fix it
+Much of PHP's opening of filenames can handle encoded urls. The hacker may encode the url to hide code from being obvious, and they may encode once/twice/thrice/etc. You have to recursively decode the input value before trying to fix it (Recursive decoding code is at [[Sanitization of inputs (form inputs, url search param, etc)]])
 
 Then you may use regular expression to remove zero or more `../` - OR - simply use basename() in PHP to extract only the filename `$safeName = basename($filepath;` then reading from the appropriate folder.
 
