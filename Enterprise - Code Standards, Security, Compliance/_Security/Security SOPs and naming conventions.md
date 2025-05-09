@@ -1,0 +1,1 @@
+A vulnerability could be named in many different ways. The naming convention you want it to be understandable and to the point for developers, security teams, and stakeholders. Or you can use the naming from the major compliance organizations.
