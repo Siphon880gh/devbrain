@@ -20,7 +20,7 @@ This type of security vulnerability occurs when a website includes user-provided
 But if the website is not built securely to validate / sanitize inputs it gets from the URL in order to know how to display information on the webpage, the hacker could craft a link that includes harmful code instead of a name. When the webpage displays that code, it acts like javascript affecting the user. It could be anything as harmless as an alert dialogue to even more severe like accessing the logged in user's credentials/cookies then sending that cookie information to an external server (the hacker's API endpoint that has CORS enabled).  
 
 The real danger comes when the hacker shares the link with others—such as customers, employees, or site administrators. The hacker can also spoof an email to pretend to be a trusted source of the recipient. The hacker could also obscure the link, usually be encoding the code portion of the url so it doesn't pop up as code for programmers. The older way is to shorten the url using services like bitly, but now email providers are privy to that and will automatically label such emails as spam.
-#### Reflected Non-Persistent XSS
+#### Reflected Persistent XSS
 
 If a webpage or web app shows user inputs that were saved unsanitized through a form or api endpoints, usually to a database, or more rarely a json file, then it gets displayed on the webpage, it is also a cross site scripting. An example is user comment having bad javascript and all users can see these comments, which could have included javascript that steals cookies and sends to an API endpoint  
 
