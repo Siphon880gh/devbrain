@@ -1,0 +1,5 @@
+
+Run:
+```
+heroku logs --tail
+```
