@@ -7,12 +7,14 @@ It'll ask you to press any key other than q, and then it can open the login webp
 And if `heroku login` command doesn't work because the command doesn't exist, you'd have to install heroku
 
 **On macOS:**
-
-`brew tap heroku/brew && brew install heroku`
+```
+brew tap heroku/brew && brew install heroku
+```
 
 **On Ubuntu/Debian:**
-
-`curl https://cli-assets.heroku.com/install.sh | sh`
+```
+curl https://cli-assets.heroku.com/install.sh | sh
+```
 
 **On Windows:**  
 Download the installer from: https://devcenter.heroku.com/articles/heroku-cli
