@@ -2,7 +2,11 @@
 
 To improve SEO for your Vite-powered site, you’ll want to generate a fresh `sitemap.xml` every time you build your app and correctly serve it along with a `robots.txt` file from the root of your deployed domain (e.g., `https://yourapp.herokuapp.com/sitemap.xml`).
 
-This guide assumes you're deploying a Vite app to Heroku, but the core setup can be adapted for any platform.
+This guide assumes you're deploying a Vite app to Heroku, and that you do not have a domain name yet, but the core setup can be adapted for any platform.
+
+If you DO own a domain and you intend for google to list your domain address rather than a herokuapp.com space url, then adjust the steps as follow:
+- robots.txt will point to sitemap at your domain rather than herokuapp.com
+- when testing that you can visit sitemap.xml and robots.txt directly, you visit domain.com/sitemap.xml and domain.com/robots.txt
 
 ---
 
@@ -124,12 +128,6 @@ export default {
 After deploying, visit:
 
 - `https://yourapp.herokuapp.com/sitemap.xml`
-    
 - `https://yourapp.herokuapp.com/robots.txt`
-    
 
 Both files should load correctly, and Google's search crawler will be able to discover and index your site efficiently.
-
----
-
-Would you like me to generate the full `generateSitemap.js` file for dynamic routes too?
