@@ -1,0 +1,1 @@
+Your mongoose is returning empty for a find() when you expect it to list objects? Check connection string whether you had the port number. Localhost without port number will silently fail and just return empty arrays for queries. In addition you might want to have 127.0.0.1 for localhost
