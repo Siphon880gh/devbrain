@@ -7,6 +7,11 @@ Another important sanitation method is stripping html tags. In PHP that could be
 
 Note that for htmlspecialchars: htmlspecialchars($name, ENT_QUOTES, 'UTF-8'); , the ENT_QUOTES flag doesn't mean to just convert quotes. The ENT_QUOTES  flag ensures both double (") and single (') quotes are converted, otherwise only double quotes will be converted.
 
+A more practical code is to combine both strip_tags and htmlspecialchars in a **sanitization chain**:
+```
+$username = htmlspecialchars(strip_tags(trim($_GET["username"])), ENT_QUOTES, 'UTF-8');
+```
+
 If URLs are involved, hackers may try to bypass your validations by encoding or even double encoding. For example, the usual XSS via the URL could contain `<script>alert('XSS')</script>` but the encoded url could be: `%3Cscript%3Ealert%28%27XSS%27%29%3C%2Fscript%3E`. Hackers can and do use double encoding (or even triple, etc.) to further obfuscate malicious payloads and bypass weak input filters or poorly implemented sanitization. Double encoding: `%253Cscript%253Ealert%2528%2527XSS%2527%2529%253C%252Fscript%253E` (Here, % becomes %25, so %3C becomes %253C, etc.). What to do?
 
 You'll have to recursively decode until the value stops changing, like:
