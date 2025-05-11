@@ -1,4 +1,4 @@
-# These are the basic steps to deploy an Express server to Heroku and some basic troubleshooting if it fails:
+## These are the basic steps to deploy an Express server to Heroku and some basic troubleshooting if it fails:
 
 1. Login at heroku.com on web browser
 2. Create app on web browser.

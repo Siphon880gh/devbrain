@@ -1,0 +1,7 @@
+- If you ran `heroku login` at the terminal, then it opened the web browser, and now you're logging in at the web browser, and it says "IP address mismatch":
+	- Make sure VPN is not enabled. 
+	- Make sure you're in the correct terminal (especially if you have multiple terminal windows eg. one window to local computer, one ssh window to your remote server).
+	- Updating Heroku might help (If Mac, `brew install heroku`). 
+	- Restarting the web browser might help. 
+	- Last resort: If you're on macOS 12 Monterey or later and using Private Relay, try disabling it temporarily..
+		- Choose Apple menu > System Settings, then click your name at the top of the sidebar. If you don't see your name, click “Sign in,” enter your Apple Account email address or phone number, then enter your password. Click iCloud, click Private Relay, then turn off Private Relay.

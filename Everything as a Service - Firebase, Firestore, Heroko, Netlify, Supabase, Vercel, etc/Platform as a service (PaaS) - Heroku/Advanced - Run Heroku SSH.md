@@ -1,4 +1,3 @@
-## Advanced - Run Heroku SSH
 Advanced - Run Heroku SSH:
 `heroku run bash`
 
