@@ -1,3 +1,0 @@
-Why combined: Docker, Kubernetes, Server Admin, SaaS Scaling, and Payment Systems
-
-If you’re making a SaaS app with subscriptions and other pricing models, you’re expecting a lot of traffic and users. Hence you need to know how to manage a server or cloud server to leverage as much processing power and or concurrency and or clustering and scaling as possible. There is the high paced expectations of a working app at all times and the need to update it to user requests, to keep users interested, and minimizing code changes that an app’s reputation when it has live audience.
