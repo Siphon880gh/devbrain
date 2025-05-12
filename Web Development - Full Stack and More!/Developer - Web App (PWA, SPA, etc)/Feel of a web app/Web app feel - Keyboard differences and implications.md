@@ -1,4 +1,6 @@
 
+How to use: Turn on persistent "Table of Contents". This material is very dense.
+
 Here’s a dedicated section focused on **keyboard behavior** and **form UX differences** between Android and iOS, which often affect layout stability, user frustration, and completion rates in mobile web apps:
 
 ## 🎹 Mobile Keyboard Behavior & Form UX Differences (Android vs iOS)

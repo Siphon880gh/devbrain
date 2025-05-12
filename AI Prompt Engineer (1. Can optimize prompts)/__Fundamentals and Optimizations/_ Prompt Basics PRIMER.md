@@ -9,7 +9,7 @@ You can tell it you expect output formatted a certain way (csv, json, table, etc
 
 You can tell its expertise, what it can do, your role, and your objective, then the actual prompt
 
-You can zero shot, one shot, few shot it. Refer to [[_Gen Text - Shot Prompts]]
+You can zero shot, one shot, few shot it. Refer to [[N-Shot Prompts]]
 
 ---
 
