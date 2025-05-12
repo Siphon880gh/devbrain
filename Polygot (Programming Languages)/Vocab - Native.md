@@ -1,0 +1,1 @@
+When a developer says a webpage has a "native look" on iPhone, they mean it behaves and feels similar to a real iPhone app when viewed on the device.
