@@ -50,3 +50,7 @@ Yes, `.env` files are a practical compromise for **local dev and small projec
 - Multi-user systems
 
 → you need **infrastructure-level** solutions: `systemd`, Docker secrets, or CI/CD-managed environments.
+
+### NextJS
+
+NextJS server accessing env variables that are not in .env file tricky, but not impossible. Refer to [[NextJS - Runtime environmental variables not in .env file]]
