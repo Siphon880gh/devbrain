@@ -1,0 +1,3 @@
+If a startup has their repo readily accessible on GitHub under the BSL, it’s just a way for the company to look open source. But it’s not. You can browse the code, but you can’t use it commercially without paying. It’s fine to look at or test, but the moment you try to use it commercially, the license gets in your way and you risk getting sued.
+
+They do this to gain goodwill from the dev community, show up on GitHub, and attract contributions — all without giving up control. They get free engineering help from enthusiasts, while developers are more likely to star, fork, or try a repo that _looks_ open, which helps them build hype and community.
