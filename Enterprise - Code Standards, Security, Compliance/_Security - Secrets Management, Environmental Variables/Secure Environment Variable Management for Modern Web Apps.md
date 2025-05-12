@@ -40,6 +40,20 @@ Below is a comprehensive list of service-level, web server-level, and more manag
 | ---------------------------- | -------------------------------------------------- | ------------------------------------------------------ |
 | 📜 **.env + dotenv parsing** | Local dev or minimal apps (e.g., Laravel, Symfony) | Convenient, but must be protected from public exposure |
 
+### 🧯 Why Shell Config Files Aren’t Enough
+
+You might wonder — why not just set environment variables in `.bashrc`, `.bash_profile`, or use tools like `z` or `direnv`?
+
+These methods only apply to **interactive shell sessions** — meaning they affect what’s available when you open a terminal and run commands manually. Web servers, background services, and deployment tools **don’t source your shell configs**, so any variables set there won’t be available to your app in production.
+
+For example:
+- A Node.js or PHP app launched by `systemd` or a process manager like `pm2` won’t see variables set in `.bashrc`.
+- CI/CD pipelines (e.g., GitHub Actions) don’t load your local shell configs.
+- Web servers like Apache and Nginx spawn child processes that inherit variables **only** if explicitly configured at the service or server level.
+
+In short: **CLI-based env config is isolated to your terminal.** For secure, reliable access to environment variables across different contexts, you need to define them at the service, container, or platform level.
+
+---
 
 ### 👇 Bottom Line
 
