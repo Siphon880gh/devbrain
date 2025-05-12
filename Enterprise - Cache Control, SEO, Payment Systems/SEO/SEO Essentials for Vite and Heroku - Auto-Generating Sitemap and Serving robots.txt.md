@@ -4,9 +4,13 @@ To improve SEO for your Vite-powered site, you’ll want to generate a fresh `si
 
 This guide assumes you're deploying a Vite app to Heroku, and that you do not have a domain name yet, but the core setup can be adapted for any platform.
 
-If you DO own a domain and you intend for google to list your domain address rather than a herokuapp.com space url, then adjust the steps as follow:
-- robots.txt will point to sitemap at your domain rather than herokuapp.com
+If you DO own a domain, then your domain address will be showing the heroku app while hiding the heroku url.
+
+If you DO own a domain, then adjust the steps as follow so that Google search results will list your domain name branded pages:
+- The `generateSitemap.js` should have `BASE_URL` adjusted. That's because it generates the sitemap.xml which contains full absolute URL to your webpages for google search results indexing.
+- sitemap.xml will point to the domain.com/robots.txt
 - when testing that you can visit sitemap.xml and robots.txt directly, you visit domain.com/sitemap.xml and domain.com/robots.txt
+- when submitting the sitemap to Google Search Console, submit the url of the domain's sitemap
 
 ---
 
@@ -21,7 +25,7 @@ Add a postbuild step in your `package.json`:
 }
 ```
 
-Create `scripts/generateSitemap.js` that writes to the `dist/` directory:
+Create `scripts/generateSitemap.js` that writes `sitemap.xml` to the `dist/` directory:
 
 ```js
 import fs from 'fs';
@@ -131,3 +135,16 @@ After deploying, visit:
 - `https://yourapp.herokuapp.com/robots.txt`
 
 Both files should load correctly, and Google's search crawler will be able to discover and index your site efficiently.
+
+Note if you can't see anything from the url's, then the Google search crawler won't see anything either!
+
+### 6. 🧪 Submit to Google Search Console
+
+Submit the sitemap url to under your domain name (aka property) at Google Search:
+http://search.google.com/search-console/
+
+For instructions how, refer to my business notes on Google Search Console:
+- Adding/verifying a domain (aka property at Google Search Console):
+  https://wengindustries.com/app/bizbrain/?open=SaaS%20Metrics%20Math
+- Submitting a sitemap url to the property:
+  wengindustries.com/app/bizbrain/?open=How%20to%20submit%20a%20site%20map
