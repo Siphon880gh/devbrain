@@ -48,13 +48,14 @@ If you need to access environment variables that are only available at **runtime
 > ```
 > // lib/config.ts
 > export function getRuntimeConfig() {
- >  const secret = process.env.MY_SECRET;
-  >  if (!secret) throw new Error("Missing MY_SECRET");
-  >   return { secret };
+>  const secret = process.env.MY_SECRET;
+>  if (!secret) throw new Error("Missing MY_SECRET");
+>    return { secret };
 > }
 > ```
 > 
 > ✅ Only call from server-only logic (e.g., API routes, Server Actions).
+>
 
 
 These execution contexts safely read fresh values from `process.env` at runtime:
