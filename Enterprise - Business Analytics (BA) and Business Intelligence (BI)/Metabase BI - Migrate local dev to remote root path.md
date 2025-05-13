@@ -12,7 +12,7 @@ Requirement:
 ### Server
 - Make sure server has postgres and docker installed
 	- Setup if needed: [[PostgreSQL - _PRIMER]]
-	- Setup if needed: [[Docker - __PRIMER Concept]]
+	- Setup if needed: [[_ Docker Concepts - _PRIMER]]
 
 #### PostgresQL
 Compared to local environment, there are additional considerations to make PostgresQL work with Metabase in a public way (business partners being able to visit the web portal).
