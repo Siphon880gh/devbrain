@@ -106,7 +106,7 @@ For deeper comparisons, you can refer to [[_ Docker Concepts - Encountered in th
 
 Here are guides for each Docker workflow:
 - [[Docker CLI - _Management]]
-- [[Docker - Dockerfile for image - _PRIMER]]
+- [[_ Docker Concepts - Dockerfile]]
 - [[Docker compose yml - _PRIMER]]
 
 ---

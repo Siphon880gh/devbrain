@@ -1,6 +1,6 @@
 Dockerfile is a file that has commands to prepare your app, open any port for the container, and what command to run to start your app. So a Dockerfile can have commands to setup a NodeJS app (Select Node version, select working directory, copy over the files into the image directory, running `npm install`), a Dockerfile setting to enable port 3000 (with `EXPOSE 3000`), and then `node server.js` as a command (In that case it's: `CMD ["node", "server.js]"` in the Docker file).
 
-Here's a sample Dockerfile to build a node.js app:
+Sample Dockerfile to build a node.js app:
 ```
 # Use an official Node.js image from the Docker Hub as the base image
 FROM node:14
