@@ -50,13 +50,19 @@ server_name www.therunner.app therunner.app www1.therunner.app;
 ```
 ^ Rationale: We’ve removed www server catch (that had redirected to non-www), so www version needs to be recognized because Let’s Encrypt will create a secret challenge file from CloudPanel, then it’ll fetch that secret challenge file via a [http://www.](http://www.) url!
 
+**^ In fact, keep the "www."**
+
+--> **AND THIS IS KEY:** <--
 4. Make sure none of your server_name block is pointing to a subfolder from the expected root, because Let's Encrypt creates a file relative to the expected root and then checks the http url to that file as verification. Change to expected root temporarily, for example, changing `root /home/wengindustries/htdocs/wengindustries.com/app/run-app;` TO `root /home/wengindustries/htdocs/wengindustries.com/;`
+   
+   And if you have reverse proxying from a subdomain, turn off the reverse proxy and let it reach the root `root /home/wengindustries/htdocs/wengindustries.com/;`
 
+5. Reload nginx settings via SSH terminal before re-attempting SSL creation:
+```
+nginx -t reload;
+```
 
-5. Last resort - If still not working, reload nginx settings via SSH terminal:
-```
-nginx -t; service nginx reload;
-```
+Or this command: `service nginx reload;`
 
 6. Last resort - If still not working, try to have only ONE 8080 block. Therefore, could look like:
 ```

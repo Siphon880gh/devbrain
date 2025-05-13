@@ -1,6 +1,7 @@
 If you have ports like 300X and 500X for NodeJS Express servers or Python Flask servers, you don't want users to even know the underlying technology or port. So instead of accessing your app at: `domain.tld:3000`. They access the app at `domain.tld/app/app1`. Other advantages include actually appearing on google search results, easier urls to memorize for your users, SSL certificates to avoid the warning on users' web browsers.
 
 Take a look at a reverse proxy vhost:
+- ATTENTION: You adjust the URL at the location line AND rewrite line. Usually to the same URL.
 ```
 
   # Reverse proxy
