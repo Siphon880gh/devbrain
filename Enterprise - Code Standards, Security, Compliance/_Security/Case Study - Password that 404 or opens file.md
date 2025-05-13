@@ -1,5 +1,9 @@
+You are entering a password and that password will open whatever filename is spelled by that password. But this opens you up to vulnerabilities because it can open files outside the web document root if you aren't careful. eg. User enters `../../.env` and spams the path to be further up until they've opened an .env file which can contain API keys. Or they might go for a more damning file.
 
-You are entering a password and that password will open whatever filename is spelled by that password. It should leave a lot of vulnerabilities to consider. This code covers the vulnerabilities.
+This code covers the vulnerabilities:
+- sanitize the password input
+- recursively decode url
+- get rid of any going up folders by using only the basename
 
 ### hints/index.php
 Receives the password entered by the user then tries to open a file with that password as the filename. Secured against some vulnerabilities.
