@@ -20,9 +20,10 @@ So while they aren’t strictly the same, they’re commonly used as synonyms in
 
 **Map of standards**
 
-
+Map 1:
 ![[Pasted image 20250514015657.png]]
 
+Map 2:
 ![[Pasted image 20250514015722.png]]
 
 From: https://complianceforge.com/grc/nist-800-53-vs-iso-27002-vs-nist-csf-vs-scf
