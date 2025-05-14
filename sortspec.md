@@ -15,6 +15,7 @@ sorting-spec: |-
   Enterprise - DOCKER, Kubernetes, Server Admin, Scaling
   Enterprise - Cache Control, SEO, Payment Systems
   Enterprise - Business Analytics (BA) and Business Intelligence (BI)
+  E-Commerce - Technical Guides
   Extensions, Plug-ins, and Software Suite Development
   Version Control - git, github, gitlab
   Data Science
