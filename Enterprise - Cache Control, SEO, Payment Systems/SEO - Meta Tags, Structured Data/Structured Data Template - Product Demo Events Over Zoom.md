@@ -1,4 +1,3 @@
-
 Structured data for events helps your product demo **appear in Google Search with enhanced visibility**, including:
 
 - 📅 Date & time of the event

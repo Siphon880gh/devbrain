@@ -237,4 +237,6 @@ This generates something like:
 <meta name="twitter:site" content="@yourbrand" />
 ```
 
+## Consider hard coding some meta tags or og at public/index.html
+
 ✋ But if you want the same og and twitter regardless of the URL, then you can just hard code those meta tags at `public/index.html`.
