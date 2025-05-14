@@ -3,7 +3,7 @@ Below are a list of challenges so you can learn Structure Data for Google search
 A suggested workflow is to:
 - Select a challenge
 - Use ChatGPT to generate a mock webpage with tailwind. 
-- Then build out the structure data following documentation on supported Schema types based on your webpage type at [[Structured Data Documentation - Supported Schema Types]]. 
+- Then build out the structure data following documentation on supported Schema types based on your webpage type at [[_Reference - Supported Schema Types]]. 
 - And validate your structured data syntax using [[Structured Data - Validation Tools]]
 
 ---

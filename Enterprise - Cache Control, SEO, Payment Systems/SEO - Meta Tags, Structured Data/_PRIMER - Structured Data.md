@@ -56,7 +56,7 @@ Validate your code (Learn through trial and error):
 - [[Structured Data - Validation Tools]]
 
 Take on challenges while building out the Structured Data using supported types, per the Schema documentation:
-[[Structured Data Documentation - Supported Schema Types]]
+[[_Reference - Supported Schema Types]]
 
 ---
 
