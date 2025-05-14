@@ -16,5 +16,7 @@
 |**Treasury**|Department of the Treasury|Secures financial systems, enforces sanctions, and AML related to cyber-finance.|Policy, Enforcement|
 ### **Related: Other Countries' Government Agencies in Cybersecurity**
 
-Other countries also have cybersecurity government agencies. For example, this webpage is from Ireland's NCSC (National Cyber Security Center) reporting on a CVE-2023-46604 vulnerability in ActiveMQ by Apache (was a protocol architecture for sending messages between clients and producers):
+Other countries also have cybersecurity government agencies. 
+
+For example, this webpage is from **Ireland's NCSC** (National Cyber Security Center) advising on a CVE-2023-46604 vulnerability in ActiveMQ by Apache (was a protocol architecture for sending messages between clients and producers):
 https://www.ncsc.gov.ie/emailsfrom/Shadowserver/CVE/CVE-2023-46604/
