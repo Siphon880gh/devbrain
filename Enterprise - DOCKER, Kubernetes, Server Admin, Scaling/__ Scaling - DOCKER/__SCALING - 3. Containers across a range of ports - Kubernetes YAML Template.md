@@ -106,7 +106,9 @@ kubectl apply -f hpa.yaml
 
 ---
 
-## 🛠 Optional: Ingress for Domain Routing (if you have a domain name)
+## 🛠 What's Next: Ingress for Domain Routing (if you have a domain name)
 
 If you want `myapp.example.com` routed to this service, you'll have to work on an Ingress config and TLS with cert-manager.
+
+Let's continue to [[__SCALING - 4. Containers across a range of ports - Ingres Controller]]
 

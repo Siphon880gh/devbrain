@@ -75,10 +75,12 @@ spec:
 ✅ In this example:
 
 - Requests to `www.example.com` route to `my-service` on port 8080.
-    
 - Requests to `api.example.com` route to `api-service` on port 80.
-    
 
 ---
 
-Let me know if you want to add TLS with cert-manager or redirect HTTP to HTTPS next.
+## 🛠 What's Next: TLS with Cert-Manager
+
+You will probably want to add TLS with cert-manager or redirect HTTP to HTTPS.
+
+Let's continue to [[__SCALING - 5. Containers across a range of ports - TLS with cert-manager]]
