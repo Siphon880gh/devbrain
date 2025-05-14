@@ -22,13 +22,32 @@ There are indexing (aka classification system) that uses a format with _slashes
 - **CVSS (Common Vulnerability Scoring System) Vector Format**
 	- Format: `AV:/AC:/PR:/UI:/S:/C:/I:/A:`
 	- Purpose: Describes vulnerabilities’ exploitability and impact comprehensibly.
-	- Example: `AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H`
+	- Example Format: `AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H`
 		- AV (Attack Vector): Network.
 		- AC (Attack Complexity): Low.
 		- PR (Privileges Required): None.
 		- UI (User Interaction): None.
 		- S (Scope): Unchanged.
 		- C/I/A (Confidentiality, Integrity, Availability): High.
+	- Example: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
+		- URL: https://www.invicti.com/web-vulnerability-scanner/vulnerabilities/classification/cvss3-0-avn-acl-prn-uin-sc-ch-ih-ah/
+		- Interpretation:
+			
+			| Metric                         | Value       | Meaning                                                                                                             |
+			| ------------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------- |
+			| **CVSS**                       | 3.0         | This follows version 3.0 of the CVSS (Common Vulnerability Scoring System).                                         |
+			| **AV (Attack Vector)**         | N (Network) | Can be exploited remotely over a network. No local or physical access required.                                     |
+			| **AC (Attack Complexity)**     | L (Low)     | Exploiting the vulnerability is straightforward with no special conditions.                                         |
+			| **PR (Privileges Required)**   | N (None)    | Attacker doesn't need any privileges or access to exploit it.                                                       |
+			| **UI (User Interaction)**      | N (None)    | No user interaction (like clicking a link) is required.                                                             |
+			| **S (Scope)**                  | C (Changed) | The vulnerability affects resources beyond its security scope (e.g., one user's actions compromise another's data). |
+			| **C (Confidentiality Impact)** | H (High)    | Major loss of confidentiality (e.g., full data disclosure).                                                         |
+			| **I (Integrity Impact)**       | H (High)    | Major loss of integrity (e.g., data tampering or modification).                                                     |
+			| **A (Availability Impact)**    | H (High)    | Major loss of availability (e.g., service crash or downtime).                                                       |
+			
+			Invicti lists vulnerabilities with the same CVSS Score situation:
+			![[Pasted image 20250514023252.png]]
+
 
 - **MITRE ATT&CK Tactic/Technique Classification**  
 	- Format: Layers, with slashes to separate Tactics, Techniques, and Sub-techniques.

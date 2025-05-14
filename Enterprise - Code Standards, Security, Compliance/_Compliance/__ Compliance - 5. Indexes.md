@@ -62,6 +62,26 @@ USUALLY PAIRED WITH: CVSS Score that tells you vulnerability score and CVEs. Ref
 - **Use case:** Helps SOC teams detect, investigate, and respond to specific adversarial actions.
 - **Maintained by:** MITRE
 - **Example:** T1059 = Command and Scripting Interpreter (used in malware and lateral movement)
+- Example: Supply Chain Compromise
+	- Information Paper: https://attack.mitre.org/techniques/T0862/
+	- ID: T0862
+	- Tactic: Initial Access
+	- Description: Supply chain compromise can occur at all stages of the supply chain, from manipulation of development tools and environments to manipulation of developed products and tools distribution mechanisms.
+	- Procedure Examples (ID, Name, Description):
+		- S0093, Backdoor.Oldrea: The Backdoor.Oldrea RAT is distributed through trojanized installers planted on compromised vendor sites.
+		- G0035, Dragonfly: Dragonfly trojanized legitimate ICS equipment providers software packages available for download on their websites.
+		- G0088, TEMP.Veles: TEMP.Veles targeted several ICS vendors and manufacturers.
+	- Targeted Assets
+		- A0008	Application Server
+		- A0007	Control Server
+		- A0009	Data Gateway
+		- ...
+		- A0001	Workstation
+	- Mitigation
+		- M0945, Code Signing: When available utilize hardware and software root-of-trust to verify the authenticity of a system. This may be achieved through cryptographic means, such as digital signatures or hashes, of critical software and firmware throughout the supply chain.
+		- ...
+	- Detection (ID, Data Source, Data Component, Description):
+		- DS0022, File, File Metadata: Use verification of distributed binaries through hash checking or other integrity checking mechanisms. Scan downloads for malicious signatures.
 
 ###  **STIX/TAXII (Structured Threat Information Expression / Trusted Automated eXchange of Indicator Information)**
 
