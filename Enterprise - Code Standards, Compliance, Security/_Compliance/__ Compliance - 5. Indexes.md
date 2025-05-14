@@ -37,6 +37,11 @@ Key Aspects:
 - Facilitates rapid identification and tracking of vulnerabilities (e.g., CVE-2022-22965 for Spring4Shell).
 - Aligns teams using severity ratings such as CVSS.
 - Widely supported by scanning tools like Nessus and OpenVAS for efficient vulnerability management.
+- Example:
+	- CVE-2023-46604
+	- As reported by Mitre: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-46604
+	- Or as reported by NIST https://nvd.nist.gov/vuln/detail/cve-2023-46604
+	- Mitre tries to rebrand as a CVE Program Mission, where a more modern report is at https://www.cve.org/CVERecord?id=CVE-2023-46604
 
 USUALLY PAIRED WITH: CVSS Score that tells you vulnerability score and CVEs. Refer to [[Scores - CVSS (Common Vulnerability Scoring System)]]
 
@@ -99,7 +104,11 @@ USUALLY PAIRED WITH: CVSS Score that tells you vulnerability score and CVEs. Ref
 | **CWE**        | Software weakness types. Aka: Type of flaw that caused it | CWE-79 (XSS)       | MITRE         |
 | **CAPEC**      | Known attack patterns. Refer to ___                       | CAPEC-137          | MITRE         |
 | **ATT&CK**     | Attacker tactics and techniques                           | T1059              | MITRE         |
-| **STIX/TAXII** | Threat intel formatting & sharing                         | IOC exchange       | OASIS         |
+| **STIX/TAXII** | Threat intel formatting & sharing                         | IOC exchange       | OASIS*        |
+
+OASIS*:
+- STIX was developed by the MITRE Corporation as part of a U.S. Department of Homeland Security (DHS) initiative to enhance automated cyber threat information sharing. In 2015, DHS transitioned the stewardship of STIX and its companion protocol, TAXII (Trusted Automated eXchange of Indicator Information), to OASIS to promote broader international adoption and community-driven development
+- Today, STIX is widely used across government agencies, private sector organizations, and cybersecurity vendors to represent and exchange structured threat intelligence in a standardized, machine-readable format.
 
 ### Related:
 
