@@ -145,6 +145,6 @@ http://search.google.com/search-console/
 
 For instructions how, refer to my business notes on Google Search Console:
 - Adding/verifying a domain (aka property at Google Search Console):
-  https://wengindustries.com/app/bizbrain/?open=SaaS%20Metrics%20Math
+  wengindustries.com/app/bizbrain/?open=_PRIMER%20-%20Google%20Search%20Verify%20Property%20(Domain)
 - Submitting a sitemap url to the property:
   wengindustries.com/app/bizbrain/?open=How%20to%20submit%20a%20site%20map
