@@ -1,3 +1,5 @@
+First time after installing Docker:
+
 If you ran docker and it suggests to install the missing docker with snap install docker  - **DON'T**
 
 Snap packages are sandboxed. This can cause issues with mounting volumes (-v option) because Snap Docker runs inside a restricted environment.

@@ -23,4 +23,4 @@ Eg. `/var/lib/docker/volumes/b3d9e096a3f8e9b26180789a45e786e1b9f685abf423fdd0840
 
 If it's a host volume path, you can easily cd into that with your own terminal.
 
-If it's a Docker volume, it's being managed by the Docker VM, then you need to find the section "To see contents of that VM mounted folder" at [[_ Docker Concepts - Volumes]]
+If it's a Docker volume, it's being managed by the Docker VM, then you need to find the section "To see contents of that VM mounted folder" at [[__ Docker Concepts - Volumes]]

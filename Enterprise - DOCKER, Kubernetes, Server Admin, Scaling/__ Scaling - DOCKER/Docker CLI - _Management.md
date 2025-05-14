@@ -46,7 +46,7 @@ docker --version
 
 ## Usage with Image
 
-Assuming you already build the image from a Dockerfile or you loaded in the image into Docker Desktop (or equivalently, you pulled the image using `docker pull` into the local Docker folder), THEN you can create a container from the image. (To review what's an image and what's a container - [[_ Docker Concepts - _PRIMER]]) (To get an image, refer to [[Docker Images - Get Images]])
+Assuming you already build the image from a Dockerfile or you loaded in the image into Docker Desktop (or equivalently, you pulled the image using `docker pull` into the local Docker folder), THEN you can create a container from the image. (To review what's an image and what's a container - [[_ PRIMER - Docker Concepts]]) (To get an image, refer to [[Docker Images - Get Images]])
 
 ```
 docker run -p 3000:3000 my-node-app

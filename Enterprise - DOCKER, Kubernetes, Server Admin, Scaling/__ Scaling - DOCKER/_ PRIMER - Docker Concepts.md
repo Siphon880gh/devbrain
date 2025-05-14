@@ -102,11 +102,11 @@ Let me know if you want that explanation added to the article.
 
 ---
 
-For deeper comparisons, you can refer to [[_ Docker Concepts - Encountered in the wild of open source codebases]]
+For deeper comparisons, you can refer to [[__ Docker Concepts - Encountered in the wild of open source codebases]]
 
 Here are guides for each Docker workflow:
 - [[Docker CLI - _Management]]
-- [[_ Docker Concepts - Dockerfile]]
+- [[__ Docker Concepts - Dockerfile]]
 - [[Docker compose yml - _PRIMER]]
 
 ---
