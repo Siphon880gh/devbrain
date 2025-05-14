@@ -1,4 +1,3 @@
-
 Manually spinning up containers and mapping ports doesn't scale well. You want **container orchestration and auto-scaling**, and there _are_ easier and more powerful ways to handle it. Here's a breakdown of your options:
 
 ---

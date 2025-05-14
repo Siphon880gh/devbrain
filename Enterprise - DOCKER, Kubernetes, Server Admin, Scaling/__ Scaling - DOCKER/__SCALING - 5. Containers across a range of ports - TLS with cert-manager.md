@@ -1,4 +1,4 @@
-**Where we are**: Docker containers spin up to the next available port number and spin down automatically -> So I added adding Kubernetes -> But now I need Ingress to have domain and subdomains -> But those domains must be over https, so I need cert-manager
+**Where we are**: Docker containers spin up to the next available port number and spin down automatically -> So I added Kubernetes -> But now I need Ingress to have domain and subdomains -> But those domains must be over https, so I need cert-manager
 
 Here’s how to **add TLS with cert-manager** and optionally **redirect HTTP to HTTPS** in your Ingress configuration.
 
