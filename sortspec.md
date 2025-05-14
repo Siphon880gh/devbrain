@@ -14,7 +14,7 @@ sorting-spec: |-
   Enterprise - Code Standards, Compliance, Security
   Enterprise - DevOps, CI CD, Build tools, JS Package Managers
   Enterprise - DOCKER, Kubernetes, Server Admin, Scaling
-  Enterprise - Cache Control, SEO, Payment Systems
+  Enterprise - Cache Control, Cloudflare, SEO, Payment Processors
   Enterprise - Business Analytics (BA) and Business Intelligence (BI)
   E-Commerce - Technical Guides
   Extensions, Plug-ins, and Software Suite Development
