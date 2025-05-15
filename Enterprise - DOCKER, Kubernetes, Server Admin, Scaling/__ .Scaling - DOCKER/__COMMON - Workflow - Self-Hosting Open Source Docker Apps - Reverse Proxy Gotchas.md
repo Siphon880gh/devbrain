@@ -38,7 +38,7 @@ Check whether the app allows configuring a custom "site URL" or base path (e.g.,
 	- Embedded in build tools like Webpack or frameworks like Vue, React, etc.
 	- Less often - inside the app code
 	
-	To change a file inside the container (like a config file), refer to: [[Docker zContainer - Modify containerized files permanently]]
+	To change a file inside the container (like a config file), refer to: [[Docker zContainers - Modify containerized files permanently]]
 
 - If **no**:  
     The app can’t support subpath hosting without serious modifications — you’ll need to switch to a subdomain approach.
