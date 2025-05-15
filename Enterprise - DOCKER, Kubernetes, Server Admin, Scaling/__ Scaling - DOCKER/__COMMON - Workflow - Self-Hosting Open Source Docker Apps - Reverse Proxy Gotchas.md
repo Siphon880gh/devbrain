@@ -1,5 +1,9 @@
 Titled: Self-Hosting Open Source Docker Apps - Reverse Proxy Gotchas
 
+How to use: Turn on persistent "Table of Contents"
+
+---
+
 If you're a developer exploring open source apps and trying to self-host them with Docker, you're likely doing it to save time building tools from scratch. Many of these apps come with prebuilt Docker solutions, making setup relatively painless — until reverse proxying gets involved.
 
 One common challenge arises when you want to expose these Dockerized apps through a reverse proxy like Nginx, especially when using custom paths or subdomains.
@@ -79,7 +83,7 @@ If reverse proxying proves too complex or not viable, or the app is only for int
 
 ---
 
-### 🔍 Summary
+### 🔍 Summary of Open Source Readiness for Reverse Proxies
 
 |Approach|Works With `/some/app`?|HTTPS Ready?|Best Use Case|
 |---|---|---|---|
@@ -87,3 +91,88 @@ If reverse proxying proves too complex or not viable, or the app is only for int
 |Use subdomain|✅ Always|✅ With setup|Most Docker apps with hardcoded `/`|
 |Direct port access|❌|❌|Local/internal only, not for production|
 
+---
+## 🔁 Refresher - Reverse Proxy Setup (with Security & WebSocket Support)
+
+Once you've chosen whether to reverse proxy to a **subpath** or **subdomain**, here’s a practical refresher to get it working securely — including support for **WebSockets**, which some Dockerized apps use for real-time updates.
+
+At a high level, your reverse proxy listens on a public URL (like `domain.com/some/app` or `app.domain.com`) and forwards traffic to your Docker app running on a local port (e.g., `localhost:8000`).
+
+---
+
+### 📄 Nginx Example
+
+```nginx
+server {
+    listen 80;
+    server_name yourdomain.com;
+
+    location /some/app/ {
+        proxy_pass http://localhost:8000/;
+
+        # WebSocket support
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        # Standard headers
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+```
+
+---
+
+### 📄 Apache Example
+
+```apache
+<VirtualHost *:80>
+    ServerName yourdomain.com
+
+    ProxyPreserveHost On
+
+    # Reverse proxy for app
+    ProxyPass /some/app/ http://localhost:8000/
+    ProxyPassReverse /some/app/ http://localhost:8000/
+
+    # WebSocket route (adjust path if needed)
+    ProxyPass /ws/ ws://localhost:8000/ws/
+    ProxyPassReverse /ws/ ws://localhost:8000/ws/
+</VirtualHost>
+```
+
+> If your app uses WebSockets (e.g., for live chat, dashboard updates, or syncing), make sure to proxy WebSocket routes like `/ws/`, `/socket.io/`, or whichever your app uses. You can confirm this using browser DevTools → Network → WS tab.
+
+---
+
+### 🔒 Restrict Port Access with a Firewall
+
+Your app runs on a local port (like `8000`), but **you don’t want that port exposed to the public** — only your reverse proxy should access it. Use a firewall to lock it down.
+
+#### UFW (Ubuntu)
+
+```bash
+sudo ufw deny in on eth0 to any port 8000
+```
+
+#### iptables
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 8000 -s 127.0.0.1 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 8000 -j DROP
+```
+
+#### firewalld (CentOS/RHEL)
+
+```bash
+sudo firewall-cmd --permanent --add-rich-rule='rule family=ipv4 source address=127.0.0.1 port port=8000 protocol=tcp accept'
+sudo firewall-cmd --permanent --remove-port=8000/tcp
+sudo firewall-cmd --reload
+```
+
+---
+
+By correctly reverse proxying, supporting WebSockets, and securing open ports, your Dockerized app will be production-ready — whether it lives on a subpath or subdomain.
+
+Let me know if you want to include HTTPS configuration (e.g., Let’s Encrypt with Certbot) as a next step.
