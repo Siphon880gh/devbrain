@@ -17,3 +17,4 @@ Mnemonic:
 	(base) wengffung@Wengs-MacBook-Pro-New push %
 	```
 - Think that the left side of the double colon ":" is closer to the host machine (where it has the command indicator)
+- In other words: To remember this, where you type commands at user%,  the direction is user << host:container. The host is closer to the user% machine.
