@@ -41,6 +41,12 @@ volumes:
   - langflow-data:/app/langflow
 ```
 
+Another place where named volumes come from is when you run a container off the image but mount using a Docker named volume in place of a host path. Notice:
+- `docker run -it -v ~/fbdata:/opt/focalboard/data -p 80:8000 focalboard`
+- `docker run -it -v "fbdata:/opt/focalboard/data" -p 80:8000 focalboard`
+
+The first command mounts to hosting machine, whereas the second command mounts to a Docker-managed named volume called `fbdata`.
+
 ---
   
 **What exactly does it mean that Docker manages the volumes?**

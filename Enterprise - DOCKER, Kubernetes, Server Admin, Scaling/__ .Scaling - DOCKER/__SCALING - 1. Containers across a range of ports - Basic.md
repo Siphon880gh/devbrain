@@ -52,6 +52,52 @@ Repeat with different host ports to run as many instances as you need.
 
 ---
 
+You're right — the section titled **"Is your app okay?"** doesn't clearly convey its purpose. It's really about **how to safely scale your app**, with a focus on **data sharing limitations** and **storage architecture** when running multiple containers. Here's a clearer rewrite with a more accurate heading and improved readability:
+
+---
+
+### ⚠️ Data Sharing When Scaling: Is Your App Ready?
+
+Let’s compare two example Docker commands:
+
+```bash
+docker run -it -v ~/fbdata:/opt/focalboard/data -p 8000:8000 focalboard
+docker run -it -v ~/fbdata2:/opt/focalboard/data -p 8001:8000 focalboard
+```
+
+Each container is using a **different volume** (`fbdata` vs `fbdata2`). That’s fine for development or testing, but it **won’t work for scalable production** — the containers don’t share state or data.
+
+If your app stores persistent data, you'll need to decide how containers share that data safely. Here are two common approaches:
+#### ✅ Option 1: Use a Shared Docker Volume (With Caution)
+
+You can mount the **same named volume** into multiple containers:
+
+```bash
+docker volume create focalboard-data
+```
+
+```bash
+docker run -d -v focalboard-data:/opt/focalboard/data -p 80:8000 focalboard
+docker run -d -v focalboard-data:/opt/focalboard/data -p 81:8000 focalboard
+```
+
+> ⚠️ **Be careful**: Most apps (like Focalboard) aren’t built to support multiple instances writing to the same local storage. This can lead to **data corruption** or race conditions.
+
+#### ✅ Option 2: Externalize App State (Recommended for Scaling)
+
+For proper horizontal scaling:
+
+- Run the app in **server mode** (if available) and connect to an external **database** (e.g., PostgreSQL or MySQL)
+    
+- Store uploads (like attachments) in **external object storage** (e.g., AWS S3)
+    
+- Containers now become **stateless app servers**, free to scale up/down
+    
+
+This is the approach used by scalable architectures — each container runs independently and talks to a shared backend.
+
+---
+
 ## ✋ Orchestration?
 
 But you ask: There's gotta be an easier way, like a script or a load balancer that automatically spins up the containers and adds them to the next available port in some defined range. Also, it ought to automatically exit containers (and maybe have to remove them?) when user activity dies down.

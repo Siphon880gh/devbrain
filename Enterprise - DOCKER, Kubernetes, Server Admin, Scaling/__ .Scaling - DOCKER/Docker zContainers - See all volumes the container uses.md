@@ -2,15 +2,13 @@
 To list **all volumes** that a container uses—whether they are:
 - **Docker-managed volumes** (`docker volume ls`) which are volumes inside VM's d
 - **Bind mounts** (mounted to a host path)
-    
+
 —you can use the following command:
 ```
 docker inspect CONTAINER_ID
 ```
 
-
 If you don't know the CONTAINER_ID, list all running containers with `docker ps` to find your container. You can list all running AND exited containers with `docker ps -a`.
-
 
 At the inspection report, look for "Mounts" section. That will provide you the Name and the Source. That Source is the volume path.
 
