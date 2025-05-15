@@ -35,4 +35,4 @@ TLS (formerly SSL) uses encryption to secure data in transit between your server
 Even if a sysadmin sets it up, knowing the basics helps you debug issues and enforce secure defaults (like HSTS or redirecting HTTP to HTTPS).
 #### 🌐 6. **URL Encoding & Parsing**
 
-Encoding isn't encryption, but it's still essential. Misparsed or unvalidated URLs can lead to **XSS**, **open redirects**, or bypassed auth rules. Know how to **encode, decode, and validate** URLs safely
+I’ve included **encoding** here for organizational reasons—it’s conceptually similar to encryption in that it transforms data into a less human-readable format. But more importantly, encoding is also **crucial for web security**. Mishandled URLs can lead to serious vulnerabilities like **XSS**, **open redirects**, or **authentication bypasses**.
