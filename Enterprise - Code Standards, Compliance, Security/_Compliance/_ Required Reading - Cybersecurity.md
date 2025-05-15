@@ -1,4 +1,0 @@
-
-Before diving into the **Compliance** notes, you should be familiar with the core concepts found in the `Cybersecurity` root folder. This foundational knowledge will help you understand the underlying principles behind many compliance standards aimed at securing your application or tech business.
-
-You may also explore the `Enterprise - Code Standards -> _Security*` folders, which contain practical security implementations for enterprise or tech environments. While optional, these resources are helpful when interpreting Compliance index topics—especially references to vulnerabilities like **LFI (Local File Inclusion)** or **XSS (Cross-Site Scripting)**.

@@ -1,2 +1,0 @@
-**MITRE** is a U.S.-based nonprofit that operates **Federally Funded Research and Development Centers (FFRDCs)**. It works closely with federal agencies to solve problems in national defense, aviation, cybersecurity, and public health. In **2023**, MITRE reported **$2.37 billion in revenue**, the majority from **government contracts and grants**. Additional income came from **royalties, investments, and collaborative programs**.
-
