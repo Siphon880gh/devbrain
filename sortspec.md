@@ -13,6 +13,7 @@ sorting-spec: |-
   Cybersecurity
   Enterprise - Code Standards, Compliance, Security
   Enterprise - DevOps, CI CD, Build tools, JS Package Managers
+  Enterprise - Open Source Web Apps and CLI-Powered Web Tools
   Enterprise - DOCKER, Kubernetes, Server Admin, Scaling
   Enterprise - Cache, Cloudflare, Chat Bot, SEO, Payment Processors
   Enterprise - Business Analytics (BA) and Business Intelligence (BI)

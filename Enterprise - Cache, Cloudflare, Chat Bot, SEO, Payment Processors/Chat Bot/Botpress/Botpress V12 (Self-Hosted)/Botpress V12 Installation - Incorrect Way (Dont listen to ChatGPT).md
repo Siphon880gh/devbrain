@@ -8,9 +8,16 @@ Instead of their main botpress repo then commit reset/checkout back to v12 becau
 ---
 
 
-While it's tempting to have ChatGPT guide you through installation, as of 5/2025, ChatGPT often suggests you to clone https://github.com/botpress/botpress directly, then reset to the tag `v12.26.7`. When it fails because `yarn start` couldn't load a messaging module, asking ChatGPT will tell you that `v12.26.6` has removed messaging module and instead have it as a separate repo, then it suggests you to reset to `v12.26.5` instead.
+While it's tempting to have ChatGPT guide you through installation, as of 5/2025, ChatGPT often suggests you to clone https://github.com/botpress/botpress directly, then reset to the tag `v12.26.7`. 
 
-You go on `v12.26.5` and then encounter the same error about a missing messaging module when you run `yarn start`. ChatGPT when asked, now says it was wrong and that the last the messaging module was still found was in `v12.26.4`. This keeps happening and then you realize ChatGPT is just hallucinating.
+After installing, you run `yarn start`. The terminal shows that a messaging module is missing. But it appears the port has been successfull started and listening at. You visit localhost at the port anyways, but you see this on the web browser:
+```
+Error occured while trying to proxy: localhost:4000/
+```
+
+Going back to the messaging module is missing error on the terminal: You ask ChatGPT about it. It tells you that `v12.26.6` has removed messaging module and instead have it as a separate repo, then it suggests you to reset to `v12.26.5` instead because it has the messaging module in the codebase.
+
+You go on `v12.26.5` and then encounter the same error about a missing messaging module when you run `yarn start`. ChatGPT when asked, now corrects itself and apologizes, and then claims that the last the messaging module was still found was in `v12.26.4`. This keeps happening and then you realize ChatGPT is just hallucinating.
 
 You realize it doesn't matter that the messaging module is missing, because you can find the botpress organization on github and get their messaging repo https://github.com/botpress/messaging. You cd into packages/ and then you clone that messaging into the folder messaging so you have a new folder `packages/messaging`. You know to do this because the missing module error gave you the path that was ENOENT (Error No Entity):
 ```
@@ -43,7 +50,17 @@ After those errors are resolved, you still find them failing because of various 
 
 You can use nvm to switch to using v12.22.12 at the botpress root, but when you install and it changes into other folders (because the npm scripts have `yarn workspaces` command which allows recursively going into folder to install more packages with yarn), that's when node conflicts happen. You research into whether nvm or volta can switch node version. You find that with volta, you can update the npm scripts to switch versions before the `yarn workspace` command. That's going to take a lot of trial and error because there are several package.json and you have to map out which folder the `yarn workspace` command references and when it references. 
 
-You figured it's a matter of package.json dependencies updating to latest minor and patch versions because much of the versions are prefixed with `^` which is best practice and the default of what happens when the original author installed packages and npm adds the packages to package.json... however developers of these dependencies did not practice NOT breaking their package with minor and patch updates. Recall that the version number is conventionally: `[major].[minor].[patch]` and breaking changes are what advances the number at `[major]`. So the solution is to make all dependencies install at their exact versions. You perform a wide sed to replace all `"^` in package.json's to `"`, however the sed command that ChatGPT gave you was wrong because it's platform specific and you forgot to mention you're on a Mac. Instead, you opted to go to VS Code to do a replacement.
+You figured it's a matter of package.json dependencies updating to latest minor and patch versions because much of the versions are prefixed with `^` which is best practice and the default of what happens when the original author installed packages and npm adds the packages to package.json... however developers of these dependencies did not practice NOT breaking their package with minor and patch updates. Recall that the version number is conventionally: `[major].[minor].[patch]` and breaking changes are what advances the number at `[major]`. 
+
+So the solution is to make all dependencies install at their exact versions or the troublesome package to install at the exact version or lower version. 
+
+Note that the package complaining could actually be the name of your repo:
+- error bp_main@12.25.0: The engine "node" is incompatible with this module. Expected version "^12". Got "16.0.0" 
+There is no bp_main package in npm registry as of 5/2025. That's the name assigned to the root package.json, and the expected node version here is really from package.json's engines.node field. You either correct that package.json's node version or add a .nvmrc to yield to that node version (make sure to `nvm use`). This is in addition to replacing all the package.json's prefix `^`.
+
+Consideration: You may think that's an overkill to exact all the dependencies because you know what the problematic dependency is because it complained about the node expect and got mismatch. (Eg. `parcel@2.15.1: The engine "node" is incompatible with this module. Expected version ">= 16.0.0". Got "12.22.12"`). You can indeed remove that package and re-add it at a lower version OR remove the prefix "^". There is still the chance that you'll bump into another package downstream that complains about node version! So may as well lock down all the versions exactly - let's continue.
+
+You perform a wide sed to replace all `"^` in package.json's to `"`, however the sed command that ChatGPT gave you was wrong because it's platform specific and you forgot to mention you're on a Mac. Instead, you opted to go to VS Code to do a replacement.
 ![[Pasted image 20250517031153.png]]
 
 You click Replace All after you've mapped out search and replacing to `"\^` and `"` and the files to include to be `**/package.json`
@@ -67,3 +84,113 @@ warning workspace-aggregator-d607b464-b697-46b8-8629-8052949d2851 > @botpress/me
 warning workspace-aggregator-d607b464-b697-46b8-8629-8052949d2851 > @botpress/messaging > @parcel/transformer-babel > @parcel/babel-ast-utils > @parcel/babylon-walk > lodash.clone@4.5.0: This package is deprecated. Use structuredClone instead.
 ```
 
+
+
+---
+---
+
+## 🛠️ Guide: Fixing Node Version & Dependency Chaos in Large Open Source Projects
+
+Working with large open-source codebases—especially those with **monorepos** or **nested submodules**—often leads to cryptic `node-gyp` or `npm install` errors. One common culprit? **Node version mismatches** and overly permissive dependency versions.
+
+Here’s how to fix it:
+
+---
+
+### 🚧 Problem 1: `nvm use` Alone Isn’t Enough
+
+Skip this section if not applicable.
+
+You set your Node version correctly via:
+
+```bash
+nvm use 14
+```
+
+…but the project still complains about expected Node version X but got Node version Y. Why?
+
+For example:
+- error bp_main@12.25.0: The engine "node" is incompatible with this module. Expected version "^12". Got "16.0.0" 
+- parcel@2.15.1: The engine "node" is incompatible with this module. Expected version ">= 16.0.0". Got "12.22.12"
+
+**Nested repos or packages** in the codebase may each define their own `engines` field or rely on incompatible Node versions. Simply placing a `.nvmrc` file in each folder doesn’t help much—`nvm` doesn’t auto-switch when you run a top-level command like `yarn install`.
+
+This is especially problematic when:
+
+- The root `package.json` uses a `workspaces` field
+- Or `yarn workspace` commands are triggered via install scripts
+    
+These cause Yarn to traverse and install all nested packages in one go—**without switching Node versions between them**.
+
+If the project isn’t too deeply nested or complex, you might consider using **Volta**, which can pin and enforce Node versions **at the script level**. Eg.
+
+```
+volta run --node 14.21.3 -- yarn workspaces run install
+```
+
+
+But Volta becomes less practical when you're dealing with many custom `package.json` files scattered across a large monorepo (not to be confused with those inside `node_modules`).
+
+If you can't switch node versions between the root and nested folders that have package.json, then working on the dependency versions may be enough (that's the next level)
+
+---
+
+### 📦 Problem 2: Overly Permissive Dependencies
+
+By default, when package maintainers run:
+
+```bash
+npm install <package>
+```
+
+…the entry in `package.json` gets saved with a caret (`^`) like:
+
+```json
+"some-lib": "^1.2.3"
+```
+
+This **allows minor and patch updates**, which is usually okay—**but not always**.
+
+#### 🤦 The Catch:
+
+Some dependency authors publish **breaking changes under minor or patch versions**, violating semver (semantic versioning). This means:
+
+- `^1.2.3` might pull in `1.3.0` or `1.2.9`, which can unexpectedly break your build.
+    
+
+---
+
+### ✅ Solution: Lock All Dependencies to Exact Versions
+
+You want to remove **all `^` prefixes** so only exact versions are used.
+
+Consideration: You may think that's an overkill to exact all the dependencies because you know what the problematic dependency is because it complained about the node expect and got mismatch. (Eg. `parcel@2.15.1: The engine "node" is incompatible with this module. Expected version ">= 16.0.0". Got "12.22.12"`). You can indeed remove that package and re-add it at a lower version OR remove the prefix "^". There is still the chance that you'll bump into another package downstream that complains about node version! So may as well lock down all the versions exactly - let's continue.
+
+Note that the package complaining could actually be the name of your repo:
+- error bp_main@12.25.0: The engine "node" is incompatible with this module. Expected version "^12". Got "16.0.0" 
+There is no bp_main package in npm registry as of 5/2025. That's the name assigned to the root package.json, and the expected node version here is really from package.json's engines.node field. You either correct that package.json's node version or add a .nvmrc to yield to that node version (make sure to `nvm use`). This is in addition to replacing all the package.json's prefix `^`.
+
+Let's remove all package.json's `^` prefix
+
+You could use `sed`  to replace across package.json files, but don't forget to account for syntax differences between **Mac vs Linux** (Mac uses **BSD sed**, not GNU.). You could use VS Code as well:
+
+1. Open the workspace in **VS Code**.
+2. Press `Cmd + Shift + F` (global search).
+3. In the search bar:
+    - **Find**: `"\^`
+    - **Replace**: `"`
+        
+4. Click the **files to include** input below the search bar, and enter:
+    ```
+    **/package.json
+    ```
+    
+5. Hit **Replace All**.
+
+---
+
+### 🎯 Summary
+
+- Lock all `package.json` dependencies to **exact versions** by removing `^`.
+- Use **VS Code’s global replace** for speed and visual confirmation.
+- Don’t trust that all minor/patch versions are safe—many break things.
