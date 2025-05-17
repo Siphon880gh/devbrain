@@ -47,6 +47,7 @@ The next fundamental is the botID. You can find this at
 - Then at Config page, you'll see the bot id:
   ![[Pasted image 20250517024306.png]]
 
+And there's a final check. Make sure the host and port number points to where you manage the bot with the dashboard. The host and port are at the script tag that sources inject.js, and at the sdk code that injects into your HTML.
 
 ----
 
