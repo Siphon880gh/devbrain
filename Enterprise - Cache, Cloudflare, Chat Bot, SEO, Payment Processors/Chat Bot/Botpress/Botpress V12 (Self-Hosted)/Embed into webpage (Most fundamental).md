@@ -41,6 +41,13 @@ However, it won't matter. The button CSS actually position it fixed to the botto
 
 Make sure this script is ran AFTER body is done loading most elements, therefore you should place this script near end of body tag.
 
+The next fundamental is the botID. You can find this at
+- Firstly, by pressing Config button on your bot, to reach its Config page:
+  ![[Pasted image 20250517024251.png]]
+- Then at Config page, you'll see the bot id:
+  ![[Pasted image 20250517024306.png]]
+
+
 ----
 
 The boilerplate is:
