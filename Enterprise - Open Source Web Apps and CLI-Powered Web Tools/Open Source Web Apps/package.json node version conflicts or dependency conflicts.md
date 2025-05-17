@@ -35,7 +35,12 @@ These cause Yarn to traverse and install all nested packages in one go—**witho
 If the project isn’t too deeply nested or complex, you might consider using **Volta**, which can pin and enforce Node versions **at the script level**. Eg.
 
 ```
-volta run --node 14.21.3 -- yarn workspaces run install
+volta run --node 14.21.3 -- yarn workspace run install
+```
+
+Or Eg.
+```
+volta run --node 14.21.3 -- yarn workspace @org/some-package build
 ```
 
 
@@ -81,6 +86,8 @@ Note that the package complaining could actually be the name of your repo:
 There is no bp_main package in npm registry as of 5/2025. That's the name assigned to the root package.json, and the expected node version here is really from package.json's engines.node field. You either correct that package.json's node version or add a .nvmrc to yield to that node version (make sure to `nvm use`). This is in addition to replacing all the package.json's prefix `^`.
 
 Let's remove all package.json's `^` prefix
+
+If you have package-lock.json or yarn-lock.json (kept intentionally because it had previously installed successfully on your same system), then those had the exact versions that worked. It wouldn't have `~` prefixes unless you personally edited them into the lock file. But since you are experiencing dependency errors, the lock file's versions are incorrect. In that case, delete the lock files so `npm install` does not refer to the lock files over the package.json for dependency versions.
 
 You could use `sed`  to replace across package.json files, but don't forget to account for syntax differences between **Mac vs Linux** (Mac uses **BSD sed**, not GNU.). You could use VS Code as well:
 

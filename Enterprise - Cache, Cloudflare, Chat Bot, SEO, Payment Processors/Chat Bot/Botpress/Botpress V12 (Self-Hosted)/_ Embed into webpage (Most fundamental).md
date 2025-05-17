@@ -86,3 +86,6 @@ Just open the page in a http server on local server (like MAMP)
 ---
 
 Once satisfied, you may want to move to trying this on a production server. Note you should run this behind a reverse proxy with https, so that web browsers will allow your chatbot through.
+
+
+Weng's eyes only: ChatGPT for more advanced embed use cases [https://chatgpt.com/c/68285234-de90-800f-b2a6-28aaa8d48a36](https://chatgpt.com/c/68285234-de90-800f-b2a6-28aaa8d48a36)

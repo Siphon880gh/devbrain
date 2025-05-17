@@ -7,6 +7,7 @@ Instead of their main botpress repo then commit reset/checkout back to v12 becau
 
 ---
 
+## Explanation why incorrect
 
 While it's tempting to have ChatGPT guide you through installation, as of 5/2025, ChatGPT often suggests you to clone https://github.com/botpress/botpress directly, then reset to the tag `v12.26.7`. 
 
@@ -87,3 +88,73 @@ warning workspace-aggregator-d607b464-b697-46b8-8629-8052949d2851 > @botpress/me
 warning workspace-aggregator-d607b464-b697-46b8-8629-8052949d2851 > @botpress/messaging > @parcel/transformer-babel > @parcel/babel-ast-utils > @parcel/babylon-walk > lodash.clone@4.5.0: This package is deprecated. Use structuredClone instead.
 ```
 
+Possibilities why it's hanging when no error is being shown is some sort of network timeout or some tool that's running outside of the npm/yarn is in a while loop. Another possibility is that a node module's url has been retired! More technically:
+- You’re likely hitting native packages that hang or fail silently during build (e.g., `node-gyp`).
+- Even the registry resolution may pause indefinitely due to incompatibilities or lack of polyfills in Node 12.
+
+Even trying to rule out the problems don't help:
+```
+YARN_IGNORE_ENGINES=1 arch -x86_64 yarn install --ignore-optional --network-timeout 60000 --ignore-scripts  --ignore-engines --verbose
+```
+
+This shows that you can't just revert to an old commit and install modules. Fortunately, Botpress as of 5/2025 has been maintaining V12, not in the sense of adding features, but in the sense that whenever dependencies have changed so far that their automated build test fails, there's a reconcile, commit, and bumping up of the version. This occurs at their official V12 repo:
+https://github.com/botpress/v12. Follow our guide [[Botpress V12 Installation - Build from Source]] which will involve the official V12 repo.
+
+
+---
+
+## Appendix
+
+Here's a short retelling of the commands and actions that have been taken:
+
+**Build from Source**
+```
+git clone https://github.com/botpress/botpress.git  
+cd botpress  
+git checkout v12.30.9 
+```
+
+
+Go into packages to clone in messaging that's a separate repo
+```
+cd packages  
+git clone https://github.com/botpress/messaging.git messaging  
+cd messaging  
+git checkout v1.2.10  
+```
+
+
+Then replaced all `"\^`  with `"` in all package.json's (but not inside node_modules)
+
+cd back into the root of botpress, then switch to node 12.22.12 (`nvm use 12.22.12` ). It's to avoid this future error `error bp_main@12.26.7: The engine "node" is incompatible with this module.`:
+
+```
+nvm use 12.22.12
+```
+- if nvm cli instructs you to, then install 12.22.12 too
+
+Install older version gulp (which is used for yarn building botpress):
+```
+yarn add gulp@^4.0.2 -W  
+```
+
+Install modules:
+```
+yarn  
+```
+^  If you're on Mac ARM (arch arm64), your screen will look crazy with a lot of lines that starts with `c++` . There will be many and it'll take a while. Node.js doesn't ship a precompiled binary for your platform and it's building from source.  
+
+Remove ndu because it'll complain about node-svm when building botpress. The node-svm is no longer available on Yarn registry because it has been removed for security concerns. The ndu is optional in botpress, used for NLU training and intent/entity detection or debugging NLU related workflows
+```
+rm -rf modules/ndu  
+```
+
+Build botpress using yarn (which will referring to package.json then use gulp) - this will be a long process:
+```
+yarn build
+```
+
+Start:
+```
+yarn start
+```

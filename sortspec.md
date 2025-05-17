@@ -12,7 +12,7 @@ sorting-spec: |-
   Cross-Platform - React Native
   Cybersecurity
   Enterprise - Code Standards, Compliance, Security
-  Enterprise - DevOps, CI CD, Build tools, JS Package Managers
+  Enterprise - DevOps, CI CD
   Enterprise - Open Source Web Apps and CLI-Powered Web Tools
   Enterprise - DOCKER, Kubernetes, Server Admin, Scaling
   Enterprise - Cache, Cloudflare, Chat Bot, SEO, Payment Processors

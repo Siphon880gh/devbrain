@@ -62,3 +62,5 @@ Still, **Cloud Studio could be the right choice** if your project requires featu
     
 - ❌ **Limited Ongoing Support**  
     Botpress is focusing new features, integrations, and messaging platform support exclusively on the **Cloud version**. The self-hosted version receives limited updates.
+
+Note: When asking ChatGPT as of 5/2025, it will erroneously say that Botpress v12 does have Autonomous nodes.
