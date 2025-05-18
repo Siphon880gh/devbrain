@@ -1,11 +1,15 @@
 AKA: Getting Started
 
+## What is it
+
 **Docusaurus is a free-to-use software** built by engineers at Meta. Docusaurus is a customizable open-source tool built on ReactJS. It can be self-hosted and self-managed. It supports MDX – Markdown language standards and JSX – Javascript XML to write HTML in ReactJS
 
 Their official website:
 https://docusaurus.io/
 
 ---
+
+## Build
 
 Example offline docs using Docusaurus - Botpress V12 documentations:
 https://github.com/botpress/documentation-v12
@@ -77,7 +81,7 @@ See package.json has:
 
 ---
 
-Taking it online
+## Deploy Online
 
 **URL**
 
