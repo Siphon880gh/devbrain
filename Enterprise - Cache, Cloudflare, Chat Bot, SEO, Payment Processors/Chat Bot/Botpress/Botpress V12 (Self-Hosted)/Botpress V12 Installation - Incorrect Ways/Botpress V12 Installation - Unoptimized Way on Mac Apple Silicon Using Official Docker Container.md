@@ -8,12 +8,14 @@ That said, in production environments—especially on Linux servers with x86_64 
 
 In case fails on MacBook Pro 2021, what worked was: `botpress/server:v12_26_7` 
 
+Firstly, pull image from Docker Hub:
+```
+docker pull botpress/server
+```
+
 Botpress run container on DockerHub:
 ```
-docker run -it \  
-  -p 127.0.0.1:3000:3000 \  
-  -v ~/botpress_v12:/botpress/data \  
-  botpress/server
+docker run -it --name botpress_v12 -p 127.0.0.1:3000:3000 -v ~/botpress_v12_data:/botpress/data botpress/server
 ```
 
 On a Mac, it's being emulated because there's no class for ARM64 architecture, so there will be errors and slowness.
@@ -79,6 +81,40 @@ But after MINUTES (if on Mac because of ARM64), it'll finally output this:
 And the page loads
 ![[Pasted image 20250517064235.png]]
 
+If creating account Times Out, very likely the start has frozen at NLU and forgot to start other servers. If the tail of the tail is like this:
+```
+05/18/2025 10:08:10.342 **[NLU] Launcher** ===========================================================================
+
+                                                                 **Botpress Standalone NLU**                          
+
+                                                         Version 1.0.2 - Build 20220909-2040_BIN                  
+
+                                       ===========================================================================
+
+05/18/2025 10:08:16.939 **[NLU] Launcher** Loading config from environment variables
+
+05/18/2025 10:08:17.053 **[NLU] Launcher** limit: disabled (no protection - anyone can query without limitation)
+
+05/18/2025 10:08:17.183 **[NLU] Launcher** duckling: enabled url=http://localhost:8000
+
+05/18/2025 10:08:17.518 **[NLU] Launcher** lang server: url=https://lang-01.botpress.io
+
+05/18/2025 10:08:17.680 **[NLU] Launcher** body size: allowing HTTP requests body of size 2mb
+
+05/18/2025 10:08:17.801 **[NLU] Launcher** models stored at "/botpress"
+
+05/18/2025 10:08:18.035 **[NLU] Launcher** batch size: allowing up to 1 predictions in one call to POST /predict
+
+05/18/2025 10:09:23.104 **[NLU] Launcher** NLU Server is ready at http://localhost:3200/. Make sure this URL is not publicly available.
+
+05/18/2025 10:09:25.230 **Mod[nlu]** Standalone NLU Server is ready.
+```
+
+
+And signup keeps timing out:
+![[Pasted image 20250518031118.png]]
+
+Then shut down and restart container. It should proceed to the next port listening
 
 ---
 
