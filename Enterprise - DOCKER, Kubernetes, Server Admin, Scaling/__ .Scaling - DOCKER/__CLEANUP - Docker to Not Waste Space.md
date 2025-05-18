@@ -93,3 +93,67 @@ And you can remove a volume with:
 ```
 docker volume rm VOLUME_NAME
 ```
+
+
+----
+
+### Cleanup Builds
+
+Go to Docker Desktop -> Builds
+
+![[Pasted image 20250518022322.png]]
+
+Check them all and delete. 
+![[Pasted image 20250518022346.png]]
+
+Make sure to go to next pages too, if applicable
+
+
+---
+
+## Cleanup Misc
+
+### 🔍 1. **Check What's Taking Up Space**
+
+Run:
+
+```
+docker system df
+```
+
+This shows how much space is used by:
+- Images (including dangling ones)
+- Containers
+- Volumes
+- Build cache
+
+### 🧹 2. **Remove Failed/Unused Layers**
+
+#### 🗑️ Remove all **dangling images** (often from failed builds):
+
+```
+docker image prune
+
+```
+#### 🧹 Remove all **build cache and dangling images**:
+
+```
+docker builder prune
+```
+
+#### 🚿 Remove **everything unused** (images, containers, networks, and volumes not referenced by any containers):
+
+> **Careful**: This can delete useful items.
+
+```
+docker system prune -a
+```
+
+---
+
+### 🔁 3. **Reclaim Volume Space (if used unintentionally)**  
+WARNING! This will remove anonymous local volumes not used by at least one container.
+
+```
+docker volume prune
+```

@@ -1,5 +1,9 @@
 Dockerfile is a file that has commands to prepare your app, open any port for the container, and what command to run to start your app. So a Dockerfile can have commands to setup a NodeJS app (Select Node version, select working directory, copy over the files into the image directory, running `npm install`), a Dockerfile setting to enable port 3000 (with `EXPOSE 3000`), and then `node server.js` as a command (In that case it's: `CMD ["node", "server.js]"` in the Docker file).
 
+The Dockerfile setups NodeJS because it'll expose an express port as the main application for the Docker container that will eventually run off the image that's being built from the Dockerfile. NodeJS process needs to be running inside an VM operating system so that a process listening at a port and a network exposing the port to outside the VM is possible.
+
+The Dockerfile has already addressed the need of an OS. `FROM node:14` actually resolves to something like `node:14-buster` or `node:14-bullseye` depending on when the image is built, and that is a Debian based distribution coded in x86_64 architecture. The image will actually install an OS, then the NodeJS. If you need details on how to adjust the OS and/or architecture instruction set, refer to [[Docker Dockerfile - OS]]
+
 Sample Dockerfile to build a node.js app:
 ```
 # Use an official Node.js image from the Docker Hub as the base image
