@@ -1,4 +1,4 @@
-### TL;DR:
+## TL;DR:
 * **Botpress Cloud**:
   * Actively maintained with new features and integrations
   * Freemium model with usage limits (e.g. 2,000 messages/month)
@@ -7,6 +7,7 @@
   * No longer receiving feature updates
   * Fully free with **unlimited usage**
   * Requires manual creation of each step and transition in the conversation flow
+
 
 ---
 
