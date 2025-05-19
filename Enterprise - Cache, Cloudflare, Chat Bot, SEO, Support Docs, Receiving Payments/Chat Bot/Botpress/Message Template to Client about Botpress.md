@@ -8,6 +8,10 @@ Botpress is one of the leading platforms in the enterprise chatbot space. It’s
 
 The closest alternative is **Rasa**, another powerful open-source tool. However, Rasa is highly code-driven. Unless your team includes developers ready to manage both the backend logic and frontend flow, it can be a heavy lift for MVPs or rapid prototyping.
 
+How does this compare to Chatling? Chatling is a solid choice for non-technical users, offering a clean, template-driven setup that's easy to launch quickly. However, it lacks the extensibility and customization depth needed for complex workflows or enterprise use cases. Botpress is more suitable when future scalability, logic handling, and platform control matter.
+
+How does it compare with Voiceflow? Voiceflow is well-regarded for its intuitive interface, making it a strong choice for non-technical teams and beginners. It offers a more generous free plan and supports telephony as a built-in channel — something Botpress currently lacks, though this can often be addressed with custom development. However, Botpress has the edge when it comes to integrations, offering over 50 direct connectors that Voiceflow does not currently match.
+
 Botpress hits the sweet spot:
 - Drag-and-drop simplicity for quick setups
 - Deep customization options when you need them
