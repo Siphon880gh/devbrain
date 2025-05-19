@@ -9,6 +9,8 @@ Take advantage that you can disengage and engage with different flows:
 
 ![[Pasted image 20250518033723.png]]
 
+All the alternate flows (Autonomous Node or hard wired flow) can connect to End node without problem.
+
 The goal is to switch completely to standard nodes to limit your use of AI credit spend using Autonomous Node. You'll have to test for all kinds of possible user questions/answers.
 
 

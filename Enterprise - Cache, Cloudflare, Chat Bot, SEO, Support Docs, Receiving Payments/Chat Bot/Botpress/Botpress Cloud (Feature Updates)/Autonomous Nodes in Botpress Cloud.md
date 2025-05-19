@@ -1,3 +1,9 @@
+
+Required reading: Know how AI Agents work as Chat Bots at: [[_PRIMER - AI Agents as Chat Bots]]
+
+
+---
+
 **Autonomous Nodes** in Botpress Cloud let you power entire multi-step conversations using a single AI-driven prompt. Instead of building out complex conversation trees with multiple standard nodes, you define the _intent and flow_ in plain language—and the AI takes care of guiding the user.
 
 ### Key Benefits

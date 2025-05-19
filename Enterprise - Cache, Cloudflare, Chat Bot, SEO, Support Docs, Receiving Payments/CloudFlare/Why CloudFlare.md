@@ -1,8 +1,10 @@
-Many companies take advantage of Cloudflare’s free features, including SSL certificates, basic DDoS protection, IP blocking, and human verification (to prevent automated bots from scraping your content). Larger businesses often upgrade to paid plans to gain access to regional caching, though basic caching is available on both free and paid tiers.
+Many companies take advantage of Cloudflare’s free features, including SSL certificates, basic DDoS protection, IP blocking, and human verification (to prevent automated bots from scraping your content). Even on the free plan, Cloudflare provides basic analytics—showing total visits, unique visitors, and the countries they’re coming from.
 
-If you're on the **Pro Plan**, Cloudflare’s **Polish** feature can automatically optimize and compress your images. This reduces image file sizes, decreases bandwidth usage, and improves page load speed. You can choose between **lossless** or **lossy** compression depending on your quality and performance needs.
+- For a table comparison of the types of visitor stats among the free versus paid tiers, refer to [[Cloudflare Visitor Statistics - Free vs Paid Plans]]
 
-Additionally, Cloudflare maintains a reputation system for IP addresses. If an IP has already been verified on another Cloudflare-protected site, that trust can carry over, helping streamline access across different websites. This system helps detect suspicious behavior like VPN usage or IP rotation often associated with malicious activity.
+Larger businesses often upgrade to paid plans to unlock features like regional caching, though basic caching is available on all tiers. If you're on the **Pro Plan**, Cloudflare’s **Polish** feature can automatically optimize and compress images—using either **lossless** or **lossy** compression—to reduce file sizes, save bandwidth, and improve page load times.
+
+Additionally, Cloudflare maintains a global IP reputation system. If an IP address has already been verified as safe on another Cloudflare-protected site, that trust can carry over—streamlining access and reducing friction for legitimate users. At the same time, it helps flag suspicious behavior such as VPN usage or rapid IP rotation often associated with scraping or attacks.
 
 ---
 
