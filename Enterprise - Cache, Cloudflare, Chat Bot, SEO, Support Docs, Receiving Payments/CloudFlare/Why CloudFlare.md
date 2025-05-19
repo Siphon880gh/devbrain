@@ -14,6 +14,10 @@ In your own experience of visiting many websites, you may encounter a Human Veri
 
 ---
 
+The SiteGround WordPress plugin keeps showing the same IP address repeatedly attempting to access wp_login or other parts of WordPress. If you were using Cloudflare, that IP likely would’ve already been blocked—because Cloudflare monitors malicious activity across millions of websites (free and paid Cloudflare users alike). When hackers use services that rotate IPs, those addresses often get flagged quickly due to repeated attack patterns seen across the network.
+
+---
+
 Rumors are they will be aggressive about contacting you to upgrade to enterprise
 
 [https://youtu.be/8zj7ei5Egk8](https://youtu.be/8zj7ei5Egk8)
