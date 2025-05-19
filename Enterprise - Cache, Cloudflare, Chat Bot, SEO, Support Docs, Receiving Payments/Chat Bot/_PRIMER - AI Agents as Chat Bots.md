@@ -51,10 +51,6 @@ These design principles help your AI agent stay helpful, respectful, and outcome
 
 ---
 
-Let me know if you’d like this turned into a printable doc or styled as internal training material!
-
----
-
 ## Botpress' Autonomous Node
 
 Botpress has this AI Agent feature that lets you instruct all of the above in one mega prompt. The AI Agent takes over the entire conversation flow in only one node - known as the Autonomous Node, only available on Botpress Cloud free and higher tiers.

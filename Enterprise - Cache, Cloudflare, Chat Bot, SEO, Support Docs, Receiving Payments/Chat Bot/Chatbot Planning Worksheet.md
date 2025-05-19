@@ -75,4 +75,8 @@ User: Where’s my order?
 
 ---
 
-Would you like this as a downloadable Google Doc or editable template? I can generate that too.
+### **Example Flowchart**
+
+![[Pasted image 20250518213158.png]]
+
+^ Above from: https://dribbble.com/shots/3448105-Facebook-Messenger-Chatbot-Conversation-Flow-Chart
