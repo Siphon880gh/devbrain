@@ -13,6 +13,8 @@ In addition to referencing information, the chatbot can take action using **skil
 
 It should also be able to collect and store relevant user information—such as name, email, or phone number—into variables (like `global.name`) that the chatbot can reference later in the conversation or pass along to a human agent during handoff or when reviewing chat logs.
 
+To keep the conversation focused, the chatbot should be aware of its **scope**—the specific topics or tasks it is designed to handle. The AI should politely deflect off-topic or unrelated questions (e.g., “What’s the capital of France?” in a product support bot) and guide the user back to the intended flow. This ensures the experience stays productive and on-brand, rather than becoming a curiosity test for the user.
+
 Finally, your chatbot should follow important **guardrails** to ensure trust and safety:
 - Not asking overly personal or sensitive questions (e.g., personal ID numbers or financial info).
 - Avoiding sensitive or invasive question
@@ -28,6 +30,8 @@ These design principles help your AI agent stay helpful, respectful, and outcome
 
 
 - **Role** – The defined persona or function the AI represents in the conversation. Examples include “customer support assistant,” “technical onboarding coach,” or “billing help agent.” Giving the AI a clear role helps set user expectations and keeps responses focused and relevant.
+  
+- **Scope** – The defined boundaries of what the chatbot is designed to handle. A clear scope prevents the AI from attempting to answer unrelated or out-of-domain questions (e.g., trivia in a billing assistant). The bot should recognize when a question is outside its scope and politely steer the user back to the intended topic or escalate if needed.
 
 - **Tone** – The personality or voice the chatbot uses when speaking. It could be friendly, formal, playful, professional, or empathetic—depending on the brand and use case. Consistent tone builds user trust and makes the bot feel more human-like and aligned with your brand identity.
 
