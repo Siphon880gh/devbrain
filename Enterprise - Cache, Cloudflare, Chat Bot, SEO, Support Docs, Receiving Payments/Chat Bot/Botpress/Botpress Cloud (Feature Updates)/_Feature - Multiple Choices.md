@@ -29,3 +29,11 @@ Because of this behavior, you might prefer to encourage users to _type out_ thei
 > “What are your two favorite colors from this list?”
 
 In this case, you can use a **Raw Input** card, which only displays the question and expects users to type their answer. It will still correctly detect and store their selections.
+
+
+---
+
+
+The selection buttons are replaced with a dropdown if there too many choices. In this example, we've added an "Other" option, which is an option too many, so it became a dropdown:
+
+![[Pasted image 20250519041607.png]]
