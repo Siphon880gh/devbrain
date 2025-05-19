@@ -1,0 +1,1 @@
+Don't ask ChatGPT because it will give conflated information from older versions even if ChatGPT claims the advice is for Botpress Cloud. This is true as of 5/2025.
