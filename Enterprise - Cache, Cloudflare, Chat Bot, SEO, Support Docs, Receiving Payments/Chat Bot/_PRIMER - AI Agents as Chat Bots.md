@@ -7,11 +7,9 @@ The conversation should end when the goal is reached. But the AI should also be 
 
 To make the experience feel natural and aligned with your brand, you should assign the AI a **role** (e.g., “customer support assistant” or “onboarding coach”) and define its **tone** (e.g., friendly, professional, playful). This helps maintain a consistent voice and user experience across conversations.
 
-The AI chatbot should function more like an **agent** than a simple question-and-answer tool. It can use external **tools or skills**, such as:
+A chatbot agent can reference a **knowledge base** to provide accurate, context-aware answers. This knowledge base may come from documents the user uploads during the conversation—such as PDFs, spreadsheets, or text files—or from a static collection of reference materials provided by the chatbot developer (e.g., company FAQs, manuals, or policy documents). The AI uses this information to respond intelligently to questions, drawing from both session-specific and persistent sources.
 
-- A **calendar** for scheduling
-- A **calculator** for price or estimate calculations
-- A **knowledge base**, such as uploaded **PDFs, spreadsheets, or documents** the user has shared through the chat interface
+In addition to referencing information, the chatbot can take action using **skills** or **tools**. These are external functions connected to the bot, such as a calendar for scheduling, a calculator for estimates, a database lookup, or a **webhook** that triggers an **API call**. Skills let the AI agent do more than just answer questions—they allow it to complete tasks, drive outcomes, and deliver a more interactive and productive user experience.
 
 It should also be able to collect and store relevant user information—such as name, email, or phone number—into variables (like `global.name`) that the chatbot can reference later in the conversation or pass along to a human agent during handoff or when reviewing chat logs.
 
@@ -28,23 +26,32 @@ These design principles help your AI agent stay helpful, respectful, and outcome
 
 ## **Common Terms When Programming an AI Chatbot Agent**
 
-- **Intent** – What the user wants to do. For example, “book a meeting,” “reset my password,” or “talk to support.” The AI listens for clues in the user’s message and maps them to these predefined actions.
-    
-- **Trigger** – What the bot does in response to a detected intent. This could be sending a specific message, starting a structured form, running an API call, or changing the flow of the conversation.
-    
-- **Capture** – When the bot asks for and stores a specific piece of information from the user (e.g., name, email, phone number). If your chatbot platform supports it, captured data is often saved to variables like `global.name` or `session.email`, which can be referenced later by the bot or accessed by human agents during handoff or in chat logs.
-    
-- **Escalation** – When the bot recognizes that a human should take over. This can happen automatically based on certain inputs or when the user requests help. Escalation may happen live (within the same chat) or by collecting contact info for follow-up.
-    
-- **Goal** – The target outcome of the conversation, such as scheduling a meeting, completing a sign-up, or answering a support question. Once the goal is reached, the conversation can end or shift to a new intent.
-    
+
+- **Role** – The defined persona or function the AI represents in the conversation. Examples include “customer support assistant,” “technical onboarding coach,” or “billing help agent.” Giving the AI a clear role helps set user expectations and keeps responses focused and relevant.
+
+- **Tone** – The personality or voice the chatbot uses when speaking. It could be friendly, formal, playful, professional, or empathetic—depending on the brand and use case. Consistent tone builds user trust and makes the bot feel more human-like and aligned with your brand identity.
+
 - **Question Sequence (Flow Map)** – A predefined path of questions the bot uses to guide users toward the goal. Also called a “question sequence,” this ensures the bot collects the necessary context step-by-step, while still allowing flexibility to skip or jump ahead when needed.
+
+- **Goal** – The target outcome of the conversation, such as scheduling a meeting, completing a sign-up, or answering a support question. Once the goal is reached, the conversation can end or shift to a new intent.
+
+- **Intent** – What the user wants to do. For example, “book a meeting,” “reset my password,” or “talk to support.” The AI listens for clues in the user’s message and maps them to these predefined actions.
+
+- **Trigger** – What the bot does in response to a detected intent. A trigger might send a message, start a form, call an external **API** or **webhook**, or reroute the flow of the conversation. Triggers are how intents translate into action.
+
+- **Capture** – When the bot asks for and stores specific information from the user (e.g., name, email, phone number). Captured data is typically saved into variables like `global.name` or `session.email`, which can be used later by the AI or accessed by a human during escalation or review.
+
+- **Knowledge Base** – External content the AI can reference to answer user questions accurately. This can include user-uploaded documents during the session (PDFs, spreadsheets, etc.) and developer-provided materials like help articles or internal documentation. The AI draws from these sources in real-time.
+
+- **Skills / Tools** – External functions the AI can use to complete tasks, such as booking appointments via a calendar, calculating estimates, querying a database, or submitting forms. These are often called “skills” or “tools” depending on the chatbot platform and can include deeper integrations beyond messaging.
     
-- **Guardrails** – Boundaries and ethical constraints placed on the bot. These include avoiding overly personal or sensitive questions, allowing users to request a human at any time, clearly identifying when AI is responding, and maintaining a respectful tone throughout the conversation.
+- **Escalation** – When the bot determines that a human should take over. This can happen based on user input (e.g., "I need to speak to someone") or bot limitations. Escalation can be live (in the same chat) or delayed (by collecting contact details for follow-up).
     
-- **Knowledge Base** – External content the AI can refer to in real-time, such as uploaded PDFs, spreadsheets, documents, or help articles. These sources are often provided through the chatbot interface and help the AI answer questions based on your business-specific information.
-    
-- **Skills / Tools** – External functions the AI can use to perform actions, like booking a meeting through a calendar integration, generating a quote with a calculator, or submitting a form. These are often referred to as “skills” or “tools” depending on the chatbot platform.
+- **Guardrails** – Built-in constraints that ensure ethical and user-friendly behavior. These include not asking sensitive or private questions, always offering a human fallback, making it clear when the user is speaking to AI, and maintaining a respectful, appropriate tone throughout the conversation.
+
+---
+
+Let me know if you’d like this turned into a printable doc or styled as internal training material!
 
 ---
 
