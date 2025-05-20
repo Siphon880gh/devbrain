@@ -1,0 +1,4 @@
+
+Capture is basically user entering input and it gets stored as a variable. This can be freely typed text via the Raw Input card, or could be a selected option via the Multiple Choices card.
+
+Extraction is an additional step before saving the captured input as a variable. Usually you allow the user to free type and that may allow decorative words (eg. "My name is John"), however you only want the actual name "John" to be stored in the variable "Name". You'd enable extraction up to 1 message by clicking the Advanced Configuration button -> Advanced, to reveal that option. How it works is that under the hood, that Botpress Cloud uses a small model AI called Duckling that helps understand user input. You'll want to be clear what you asked the user and what the variable is named, so that extraction can be done properly.
