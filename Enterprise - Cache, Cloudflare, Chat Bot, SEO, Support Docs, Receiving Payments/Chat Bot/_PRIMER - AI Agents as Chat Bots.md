@@ -15,6 +15,8 @@ It should also be able to collect and store relevant user information—such as 
 
 To keep the conversation focused, the chatbot should be aware of its **scope**—the specific topics or tasks it is designed to handle. The AI should politely deflect off-topic or unrelated questions (e.g., “What’s the capital of France?” in a product support bot) and guide the user back to the intended flow. This ensures the experience stays productive and on-brand, rather than becoming a curiosity test for the user.
 
+Similar to defining scope, you may also want to specify whether the AI agent is allowed to **search the web**. Web access is treated as another tool or skill—one the AI has been trained to use, depending on the underlying model (e.g., ChatGPT or similar). You can guide the AI by setting boundaries on acceptable sources, such as favoring official documentation, trusted websites, or even specific domains. This helps ensure that responses pulled from the web remain accurate and aligned with your standards.
+
 Finally, your chatbot should follow important **guardrails** to ensure trust and safety:
 - Not asking overly personal or sensitive questions (e.g., personal ID numbers or financial info).
 - Avoiding sensitive or invasive question
@@ -48,7 +50,9 @@ These design principles help your AI agent stay helpful, respectful, and outcome
 - **Knowledge Base** – External content the AI can reference to answer user questions accurately. This can include user-uploaded documents during the session (PDFs, spreadsheets, etc.) and developer-provided materials like help articles or internal documentation. The AI draws from these sources in real-time.
 
 - **Skills / Tools** – External functions the AI can use to complete tasks, such as booking appointments via a calendar, calculating estimates, querying a database, or submitting forms. These are often called “skills” or “tools” depending on the chatbot platform and can include deeper integrations beyond messaging.
-    
+  
+- **Search the web** - A skill you can tell the AI whether it's enabled or not. Through prompting, you can set boundaries on acceptable sources.
+
 - **Escalation** – When the bot determines that a human should take over. This can happen based on user input (e.g., "I need to speak to someone") or bot limitations. Escalation can be live (in the same chat) or delayed (by collecting contact details for follow-up).
     
 - **Guardrails** – Built-in constraints that ensure ethical and user-friendly behavior. These include not asking sensitive or private questions, always offering a human fallback, making it clear when the user is speaking to AI, and maintaining a respectful, appropriate tone throughout the conversation.
