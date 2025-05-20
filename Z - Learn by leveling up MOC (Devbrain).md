@@ -1,3 +1,7 @@
+
+BotPress Cloud (ChatBot with AI)
+- [[1.1 Botpress Cloud]]
+
 Chrome Extension Manifest v3:
 - [[1. Chrome extension concepts - Presentations and considerations]]
 
@@ -6,7 +10,6 @@ Docker:
 
 LangFlow (AI):
 - [[Lv 0. Versions - LangFlow]]
-
 NextJS and/or NextAuth:
 - [[0. Preface - Learn by Editing Code on NextJS]]
 
