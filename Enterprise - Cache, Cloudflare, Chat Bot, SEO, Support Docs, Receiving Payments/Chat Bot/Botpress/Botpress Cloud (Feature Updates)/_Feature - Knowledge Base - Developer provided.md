@@ -17,3 +17,8 @@ Select the url's to save to the knowledge base:
 
 You can select one or more knowledge bases at the Start node:
 ![[Pasted image 20250518221211.png]]
+
+
+---
+
+If adding text documents, etc, refer to [[_Feature - Knowledge Base - Developer provided]]
