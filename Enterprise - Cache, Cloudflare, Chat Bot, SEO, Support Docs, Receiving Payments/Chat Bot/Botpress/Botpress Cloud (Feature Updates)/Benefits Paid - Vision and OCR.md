@@ -1,0 +1,2 @@
+At the Knowledge Base, had you uploaded PDFs that don't have selectable text, screenshots, photos of documents, you would need to have the paid version of Botpress Cloud that can perform OCR and Vision processing:
+![[Pasted image 20250520192837.png]]
