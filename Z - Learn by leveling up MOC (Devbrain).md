@@ -8,6 +8,9 @@ Chrome Extension Manifest v3:
 Docker:
 - [[1.01 Consistent Python Interpreter]]
 
+Docusaurus:
+- [[1.01 - What is Docusaurus]]
+
 LangFlow (AI):
 - [[Lv 0. Versions - LangFlow]]
 NextJS and/or NextAuth:
