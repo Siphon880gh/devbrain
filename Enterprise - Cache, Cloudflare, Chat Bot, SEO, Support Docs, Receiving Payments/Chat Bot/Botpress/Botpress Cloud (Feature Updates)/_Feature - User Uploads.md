@@ -1,5 +1,4 @@
 
-
 If you take a look at the Chat interface (Emulator), at the bottom left is a plus "+" button to upload files:
 ![[Pasted image 20250520054205.png]]
 

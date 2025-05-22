@@ -4,6 +4,6 @@ Go to Dashboard and click Usage on the left sidebar:
 
 ---
 
-Navigate to Dashboard from Studio (Where workflow is)?
+Navigate to Dashboard from Studio (Where workflow and tables are):
 Click top left Botpress logo for the option to go "Back to Dashboard":
 ![[Pasted image 20250521004116.png]]
