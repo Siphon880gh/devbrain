@@ -18,4 +18,19 @@ If it's your Share or Publish link that needs to be cache busted because it just
   ![[Pasted image 20250521222903.png]]
 - Append some url string at the end of the url to cache bust:
   Instead of `https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/17/14/SOMETHING-SOMETHING.json` , visit `https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/17/14/SOMETHING-SOMETHING.json&v=3`
-- Visit Incognito
+- Visit Incognito to see if that resets the conversation
+
+
+Looking carefully at the Dashboard -> Webchat settings, you can see the Storage location could be the web browser:
+![[Pasted image 20250521225900.png]]
+
+---
+
+The Webchat at dashboard seems to be old? Even using on old workflow?
+![[Pasted image 20250521230410.png]]
+
+Click the refresh icon at the top right of the chat:
+![[Pasted image 20250521230425.png]]
+
+The new chat which is a new workflow that just echoes the conversation ID:
+![[Pasted image 20250521230449.png]]
