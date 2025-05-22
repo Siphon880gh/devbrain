@@ -10,7 +10,6 @@ You can freely write Markdown (`.md`) files using any folder structure, and Docu
 For advanced use cases, Docusaurus supports MDX (Markdown + JSX), letting you embed React components directly within your docs. You can also choose to start your project with TypeScript if preferred.
 
 Its lightweight architecture makes it easy to customize both the website layout and the documentation content. Write your docs using your favorite Markdown editor, or use the Markdown Preview extension in VS Code for live feedback.
-
 #### Key Features:
 - ReactJS-based framework
 - Automatic sidebar generation from folder structure
@@ -24,3 +23,22 @@ Its lightweight architecture makes it easy to customize both the website layout 
 - Localization and translation support
 - Versioning for managing multiple doc versions
 - Automatic pagination with Previous/Next navigation
+
+---
+
+Versioning:
+![[Pasted image 20250521233403.png]]
+
+Prev/Next Pagination:
+![[Pasted image 20250521233415.png]]
+
+Localization/Translation:
+docusaurus.config.js:
+```
+export default {  
+  i18n: {  
+    defaultLocale: 'en',  
+    locales: ['en', 'fr'],  
+  },  
+};
+```

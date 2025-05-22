@@ -1,76 +1,40 @@
+## Init Docusaurus  Project
 
-## Build
-
-Example offline docs using Docusaurus - Botpress V12 documentations:
-https://github.com/botpress/documentation-v12
-
-To set this up:
 ```
-nvm use 14
-yarn install
-yarn build
-yarn start
+npx create-docusaurus@latest app classic
 ```
 
-See package.json has:
+Creates a new Docusaurus project using the starter pack boilerplate called "classic". The new project is in a folder `app/` from where you ran the command
+
+Note: npx takes care of any necessary installation of docusaurus. So this stage is called Init a Docusaurus Project
+
+FYI - If curious, you can see package.json has the standard start and build scripts:
 ```
 {
-  "name": "docs-v-2",
-  "version": "0.0.0",
-  "private": true,
+...
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "docusaurus build",
-    "swizzle": "docusaurus swizzle",
-    "deploy": "docusaurus deploy",
-    "clear": "docusaurus clear",
-    "serve": "docusaurus serve",
-    "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids"
-  },
-  "dependencies": {
-    "@docusaurus/plugin-google-gtag": "^2.0.0-beta.15",
-    "@docusaurus/preset-classic": "^2.0.0-beta.15",
-    "@docusaurus/theme-classic": "^2.0.0-beta.15",
-    "@docusaurus/theme-live-codeblock": "^2.0.0-beta.15",
-    "@docusaurus/theme-search-algolia": "^2.0.0-beta.15",
-    "@mdx-js/react": "^1.6.21",
-    "@svgr/webpack": "^5.5.0",
-    "clsx": "^1.1.1",
-    "docusaurus-gtm-plugin": "^0.0.2",
-    "file-loader": "^6.2.0",
-    "front-matter": "^4.0.2",
-    "prism-react-renderer": "^1.2.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-player": "^2.10.0",
-    "remark-admonitions": "^1.2.1",
-    "url-loader": "^4.1.1"
-  },
-  "browserslist": {
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@docusaurus/module-type-aliases": "^2.0.0-beta.16",
-    "@tsconfig/docusaurus": "^1.0.4",
-    "typescript": "^4.6.2"
-  }
-}
+...
+```
 
+## Develop
+
+You can turn on hotreload developing:
+```
+npm run start
 ```
 
 ---
+## Build
 
+Create a build/ folder that can be self-hosted:
+```
+npm run build
+```
+
+---
 ## Deploy Online
 
 **URL**
@@ -90,7 +54,7 @@ See
 
 **Build**
 ```
-yarn build
+npm run build
 ```
 
 **Deploy**

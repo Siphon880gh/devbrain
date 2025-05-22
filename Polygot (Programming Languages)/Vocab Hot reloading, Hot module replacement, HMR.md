@@ -1,0 +1,1 @@
+Hot reloading, also known as Hot Module Replacement(HMR), offers a streamlined development experience where changes to your code are reflected in the browser without requiring a full page reload.
