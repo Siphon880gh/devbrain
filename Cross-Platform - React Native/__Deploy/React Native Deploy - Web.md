@@ -39,10 +39,10 @@ You can set the public path at: `app.json`
 
 Your webpack.config.js before it returns the config, you add the publicPath like so:
 ```
-  // Ensure that publicPath is set to /mixo/
+  // Ensure that publicPath is set to /app/
   config.output = {
     ...config.output,
-    publicPath: '/wengs-app/',  // Force publicPath to be /mixo/
+    publicPath: '/app/',  // Force publicPath to be /app/
   };
 ```
 
@@ -62,10 +62,10 @@ module.exports = async function (env, argv) {
     argv,
   );
 
-  // Ensure that publicPath is set to /mixo/
+  // Ensure that publicPath is set to /app/
   config.output = {
     ...config.output,
-    publicPath: '/APP_NAME/',  // Force publicPath to be /mixo/
+    publicPath: '/app/',  // Force publicPath to be /app/
   };
 
   config.module.rules.push({

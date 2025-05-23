@@ -1,5 +1,5 @@
 
 Run:
 ```
-heroku logs --tail
+heroku logs --tail -a APP_NAME
 ```

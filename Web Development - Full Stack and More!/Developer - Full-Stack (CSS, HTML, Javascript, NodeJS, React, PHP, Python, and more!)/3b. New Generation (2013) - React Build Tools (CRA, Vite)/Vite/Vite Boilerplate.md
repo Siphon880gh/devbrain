@@ -39,17 +39,17 @@ app.get('/api/books', async (req, res) => {
 
 // --- Static Asset Serving in Production ---
 function setupProductionStaticRoutes() {
-  const publicPath = path.join(__dirname, 'public');
+//   const publicPath = path.join(__dirname, 'public');
   const distPath = path.join(__dirname, 'dist');
 
-  if (fs.existsSync(publicPath)) {
-    console.log('📂 Serving static from:', publicPath);
-    console.log('📁 Contents:', fs.readdirSync(publicPath));
+  if (fs.existsSync(distPath)) {
+    console.log('📂 Serving static from:', distPath);
+    console.log('📁 Contents:', fs.readdirSync(distPath));
   } else {
-    console.error('❌ Public directory not found:', publicPath);
+    console.error('❌ Static directory not found:', distPath);
   }
 
-  app.use(express.static(publicPath));
+  app.use(express.static(distPath));
 
   app.get('/sitemap.xml', (req, res) =>
     res.sendFile(path.join(distPath, 'sitemap.xml'))
@@ -60,7 +60,7 @@ function setupProductionStaticRoutes() {
   );
 
   app.get('*', (req, res) =>
-    res.sendFile(path.join(publicPath, 'index.html'))
+    res.sendFile(path.join(distPath, 'index.html'))
   );
 }
 
