@@ -1,0 +1,1 @@
+In caching, TTL (Time To Live) determines how long data remains in the cache before being considered expired and discarded. It's a crucial factor in optimizing website performance and ensuring data consistency. A higher TTL can reduce latency, but it may also lead to outdated information if the cached data is no longer accurate.
