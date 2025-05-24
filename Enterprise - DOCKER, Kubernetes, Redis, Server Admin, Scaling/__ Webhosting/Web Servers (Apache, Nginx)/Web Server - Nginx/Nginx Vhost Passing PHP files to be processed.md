@@ -1,7 +1,7 @@
 
 If you dont have php setup correctly, opening a php file may get the php file downloaded instead of viewed on the webpage. This is because the server didn't send the php file to process it into html and/or run server scripts
 
-This is a partial vhost where it matters. Note the variables `{...}` are expanded by CloudPanel
+This is a partial vhost where it matters. Note the variables `{{...}}` are expanded by CloudPanel
 ```
 server {
   listen 80;

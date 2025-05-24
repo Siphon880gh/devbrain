@@ -8,13 +8,9 @@ Managing the `<head>` section of an HTML document is crucial for search engine o
 ## 🔧 Why React Helmet Async?
 
 - ✅ **SEO Benefits**: Search engines and social networks rely on correct metadata (title, description, canonical links).
-    
 - ✅ **Component-Level Metadata**: Each page or component can manage its own metadata.
-    
 - ✅ **Server-Side Rendering (SSR)**: Easily extract head content during SSR for better indexing and share previews.
-    
 - ✅ **Asynchronous Safe**: Unlike the original `react-helmet`, this version is fully compatible with async rendering and React 18+.
-    
 
 ---
 

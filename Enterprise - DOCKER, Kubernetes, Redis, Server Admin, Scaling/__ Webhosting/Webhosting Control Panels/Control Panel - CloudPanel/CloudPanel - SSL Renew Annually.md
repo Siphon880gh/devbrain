@@ -44,6 +44,7 @@ You can CUT them away from Vhost for now. It should look like this that needs to
   #}
 ```
 
+IF you dont plan to have www redirect to non-www on the webpage, then www will need to be https protected too:
 3. Add **www server_name** to the Web and PHP :8080 server blocks (so 80/443 block AND 8080 block) for every domain:
 ```
 server_name www.therunner.app therunner.app www1.therunner.app;

@@ -157,4 +157,4 @@ You should either see the “Hello world” or the redirect depending on if you 
 
 Now setup the https at Cloudpanel.
 
-Refer to [[CloudPanel - Let's Encrypt Self-Signed SSL]]
+Refer to [[CloudPanel - SSL _FUNDAMENTALS - Let's Encrypt Self-Signed]]
