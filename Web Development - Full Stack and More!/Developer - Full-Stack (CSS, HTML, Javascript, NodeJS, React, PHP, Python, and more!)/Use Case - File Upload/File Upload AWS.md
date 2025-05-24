@@ -1,4 +1,7 @@
+See Weng's repo:
 https://github.com/Siphon880gh/weng-teaches-react-aws-s3-file-upload
+
+---
 
 Warning 2024 will have new API. This api is deprecated and will eventually be sunsetted.
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/migrating-to-v3.html
@@ -59,7 +62,7 @@ AWS.config.update({
 ^ You should have them as .env files that are gitignored and not pushed to your repository
 
 EXPLANATION (DONT HAVE TO COPY THIS CODE)
-When handling an image upload request, use the S3 `putObject` method to upload the image to your bucket:
+When handling an image upload request, use the S3ï¿½`putObject`ï¿½method to upload the image to your bucket:
 ```
 const s3 = new AWS.S3();
 

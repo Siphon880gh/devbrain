@@ -1,12 +1,12 @@
-
-express-fileupload
+See npm package:
 https://www.npmjs.com/package/express-fileupload
 
+Situation:
 Fixed her group's file uploading. Her group is using express-fileupload. For production server, we made sure to create a build/ by running npm run build, we made sure that static settings is pointing to build/ and made sure the upload route points to build/uploads folder, making sure the upload route receives the fetch body which has the file data, then save that file data to the client/build/uploads from from express.js. Henceforth, the file can be accessed from React side too (eg. displaying uploaded image). For development/HMR server, we changed React's axios into a fetch that sends formData (of the uploading File) in case axios doesn't work with proxying, added a proxy to 3001 at client package.json so that the HMR server will do relative fetches to the express server.js, however ran out of time to test if that worked (Should work because we also fixed a typo at the upload route); she is happy the file upload works in production and later will test if the development/proxy file upload works too.
 
 ---
 
-Got it! If you're using React and the `express-fileupload` middleware in your Express backend to handle file uploads from a form, here's a general outline of how you can set it up:
+If you're using React and the `express-fileupload` middleware in your Express backend to handle file uploads from a form, here's a general outline of how you can set it up:
 
 1. Install the necessary dependencies:
    - In your React project, you'll need to install a form library (e.g., `react-hook-form`, `formik`, or `react-final-form`) to handle form submission.
