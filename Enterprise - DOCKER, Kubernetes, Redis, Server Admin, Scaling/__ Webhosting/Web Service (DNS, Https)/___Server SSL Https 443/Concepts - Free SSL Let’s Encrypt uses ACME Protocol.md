@@ -4,13 +4,10 @@ http://<your-domain>/.well-known/acme-challenge/<challenge-token>
 ```
 
 TLDR: how it works? it checks the domain url to a temporary file to prove the domain name has been pointed? - Yes
-
-
 ## ACME Protocol History
 
 The term "ACME" in the ACME Challenge refers to the "Automated Certificate Management Environment," which is a protocol created by the Internet Security Research Group (ISRG) to facilitate the automatic issuance and management of digital certificates for securing websites. The ACME protocol is most notably implemented by Let's Encrypt, a certificate authority that provides free SSL/TLS certificates to enable secure HTTPS connections on the web.
 
-  
 
 The name "ACME" was chosen to reflect the goal of the protocol: to provide a standardized, automated environment for certificate management. "Acme" is a term that means the peak or highest point, which aligns with the aim of achieving the highest level of automation and efficiency in certificate management. Additionally, the name is likely a playful nod to the fictional ACME Corporation from the Looney Tunes cartoons, which was known for providing an extensive range of products, often with humorous results.
 
@@ -64,3 +61,17 @@ For example, if your domain is `example.com` and the challenge token is `1234567
 ```  
   
 The file at this URL should contain the token or a specific content provided by the CA. When the CA performs the HTTP request to this URL, it checks the file's content to verify domain ownership.
+
+
+
+Here’s a clearer and more professional rewrite:
+
+---
+
+## ACME / Let’s Encrypt Certificate Limits
+
+Let’s Encrypt SSL/TLS certificates expire every 90 days. If you prefer a longer-term “set it and forget it” solution, you’ll need to purchase a certificate valid for a year or more.
+
+To avoid service disruptions, it's recommended to automate the renewal process and schedule it a few days before the 90-day expiration—around day 87 is a safe margin. This gives you time to catch and fix any potential HTTPS issues.
+
+Option: Buy a **1-year wildcard SSL** from a provider like **Namecheap** or **SSLs.com**
