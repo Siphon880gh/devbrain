@@ -158,7 +158,3 @@ Then add a line like:
 ```
 
 This checks daily at 3 AM and reloads NGINX if renewal occurs.
-
----
-
-Let me know if you're using CloudPanel, Apache, or something else—I'll tailor the setup for that.
