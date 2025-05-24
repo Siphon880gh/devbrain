@@ -20,11 +20,11 @@ sorting-spec: |-
   E-Commerce - Technical Guides
   Extensions, Plug-ins, and Software Suite Development
   Version Control - git, github, gitlab
-  Data Science
-  Python
-  Scraping
-  Regex (Regular Expression)
   Developer Tools
+  Regex (Regular Expression)
+  Python
+  Data Science
+  Scraping
   %
   README
   package.json
