@@ -14,7 +14,7 @@ sorting-spec: |-
   Enterprise - Code Standards, Compliance, Security
   Enterprise - Open Source Web Apps and CLI-Powered Web Tools
   Enterprise - DevOps, CI CD
-  Enterprise - DOCKER, Kubernetes, Server Admin, Scaling
+  Enterprise - DOCKER, Kubernetes, Redis, Server Admin, Scaling
   Enterprise - Cache, Cloudflare, Chat Bot, SEO, Support Docs, Receiving Payments
   Enterprise - Business Analytics (BA) and Business Intelligence (BI)
   E-Commerce - Technical Guides
