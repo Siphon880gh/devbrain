@@ -1,4 +1,7 @@
+Weng's personal notes:
 https://chat.openai.com/c/e468d0fc-6972-4ab8-9eac-88792f08982c
+
+---
 
 Designing a database schema for an online merchandise store involves several key entities and their relationships. Here's a basic schema:
 
