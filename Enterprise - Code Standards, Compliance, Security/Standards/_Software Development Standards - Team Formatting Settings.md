@@ -131,23 +131,10 @@ This auto-formats staged files during `git commit`.
 
 ## 📁 Suggested Config Files
 
-### 🔧 `.editorconfig`
-
-```ini
-root = true
-
-[*]
-charset = utf-8
-indent_style = space
-indent_size = 2
-end_of_line = lf
-insert_final_newline = true
-trim_trailing_whitespace = true
-```
-
 ---
 
 ### 🎯 `.prettierrc`
+- Requirement: esbenp.prettier-vscode (VS Code Extension) and prettier in npm dev deps
 
 ```json
 {
@@ -163,6 +150,7 @@ trim_trailing_whitespace = true
 ---
 
 ### 🚫 `.prettierignore`
+- Requirement: esbenp.prettier-vscode (VS Code Extension) and prettier in npm dev deps
 
 ```
 node_modules
@@ -176,6 +164,7 @@ coverage
 ---
 
 ### 💼 `.vscode/settings.json`
+- Requirement: VS Code
 
 ```json
 {
@@ -191,6 +180,7 @@ coverage
 ---
 
 ### 🧩 `.vscode/extensions.json`
+- Requirement: VS Code
 
 ```json
 {
@@ -201,13 +191,30 @@ coverage
 }
 ```
 
+
+### Optional: 🔧 `.editorconfig`
+- Requirement: EditorConfig for VS Code (VS Code Extension)
+
+```ini
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+```
+
+Background: EditorConfig is designed to be editor-agnostic. The filename does not hint at any specific editor like `.vscode/` or `.vsconfig` does
+
+
 ---
 
 ## 🚀 Optional: Advanced VS Code Workspace Setup
 
 If your team is using **VS Code’s built-in debugger** or wants to automate common scripts, these files can help:
-
----
 
 ### 🧨 `.vscode/launch.json` – Debug Configuration
 
@@ -229,8 +236,6 @@ If your team is using **VS Code’s built-in debugger** or wants to automate com
 ```
 
 > Trigger from the **Run & Debug** sidebar. Great for Node.js, TypeScript, or frontend frameworks.
-
----
 
 ### 🛠 `.vscode/tasks.json` – Custom Task Automation
 
