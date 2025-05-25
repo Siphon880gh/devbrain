@@ -7,7 +7,6 @@ You may want to create a repository of the standards when you're starting a new 
 
 ---
 
-
 ### Intro
 
 In today’s fast-paced software development environment, standards are essential for ensuring quality, consistency, and scalability. They provide clear guidelines for teams to build reliable software, foster collaboration, and align projects with organizational goals. By promoting best practices, standards also help mitigate coding errors, reduce technical debt, and avoid common pitfalls. This article delves into key software development standards, best practices, and tools to streamline workflows and drive success.
@@ -28,7 +27,7 @@ In today’s fast-paced software development environment, standards are essentia
 		- Node.js
 		- Python
 		- Common Testing Standards
-	- 1.9. Logging Standards
+
 2. **Styling**
 	- 2.1. CSS Class Naming and Organization Systems (BEM, etc)
 	- 2.2. CSS Preprocessors
@@ -73,9 +72,8 @@ In today’s fast-paced software development environment, standards are essentia
 	- 7.4. Injection Prevention
 	- 7.5. Passwordless SSH Root Access
 	- 7.6. Ports and Reverse Proxy
-	- 7.7. Error Handling Securely
-	- 7.8. Handling Secrets
-	- 7.9. Keep up to date on security practices
+	- 7.7. Handling Secrets
+	- 7.8. Keep up to date on security practices
 
 #### 1. **Tooling Standards**
 
@@ -328,59 +326,6 @@ Use a consistent format for commit messages to improve readability and collabora
 - Define test coverage thresholds (e.g., 80%+).
 - Tag tests (`@slow`, `@fast`) for grouping and prioritization.
 
-##### 1.8 Logging Standards
-
-###### Node.js
-- **Library:** Use `Winston` for logging. It is versatile, supports multiple transports, and provides log levels.
-- **Standards:**
-  - Configure log levels (e.g., `error`, `warn`, `info`, `debug`) based on the environment.
-  - Use JSON format for structured logging.
-  - Separate transports for:
-    - Console logs in development.
-    - File logs for production.
-    - External services like AWS CloudWatch or Elasticsearch (if needed).
-  - Example:
-    ```javascript
-    const winston = require('winston');
-    const logger = winston.createLogger({
-      level: process.env.LOG_LEVEL || 'info',
-      format: winston.format.json(),
-      transports: [
-        new winston.transports.Console(),
-        new winston.transports.File({ filename: 'app.log' }),
-      ],
-    });
-
-    module.exports = logger;
-    ```
-
-###### Python
-- **Equivalent Library:** Use `logging` or `loguru` for simplicity and advanced features.
-- **Standards:**
-  - Use the `logging` module for standardization, or `loguru` for enhanced features.
-  - Define log levels (`DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`).
-  - Structure logs in JSON if used with monitoring tools (e.g., ELK Stack).
-  - Example:
-    ```python
-    import logging
-
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s - %(levelname)s - %(message)s",
-        handlers=[
-            logging.StreamHandler(),
-            logging.FileHandler("app.log")
-        ]
-    )
-    logger = logging.getLogger("app")
-
-    logger.info("This is an info log")
-    logger.error("This is an error log")
-    ```
-
-For either NodeJS or Python, you may want to log to a folder outside of the app and have the team informed where the logs are. You may still log into the app folder, but:
-- Make sure the app's nested log folder is secured from internet user access (because it may reveal sensitive details on crashing) using apache htaccess or nginx vhost
-- You may gitignore the nested log folder to prevent polluting git diff.
 
 ---
 #### 2. **Styling**
@@ -891,8 +836,6 @@ Implement secure coding practices to protect applications from vulnerabilities:
 	- Limit exposing ports to the internet. 
 	- If frontend connects to different API's running on different ports, opt for using reverse proxy urls to those ports. Keep ports closed to internet on iptables, ufw (wrapper of iptables), etc.
 	- Part of the hacker's toolkit is a port scanner.
-- ##### 7.7 **Error Handling**: 
-	- Avoid exposing sensitive error messages to end-users (could give hints to bad actors on how to exploit your system); log errors securely for internal debugging.
 - ##### 7.8. **Handling Secrets**:
     - **Environment Variables**: Use environment variables to store sensitive data like API keys, tokens, or database credentials.
     - **Secret Management Tools**: Utilize tools like **AWS Secrets Manager**, **HashiCorp Vault**, or **Azure Key Vault** for secure storage and rotation of secrets.
