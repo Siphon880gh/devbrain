@@ -1,4 +1,3 @@
-
 ### 🧠 Error Handling Standards
 
 #### Graceful User-Facing Errors
@@ -125,11 +124,8 @@ MODULE-SEVERITY-ID
 Examples:
 
 - `AUTH-E-101` – Authentication error
-    
 - `DB-W-002` – Database warning
-    
 - `UI-F-900` – UI failure
-    
 
 #### Track Your Codes In:
 
@@ -141,15 +137,22 @@ Examples:
 
 ##### Examples Formats
 
+Full format:
+
 | Code        | Message                                 | Description            | Priority | Notes                        |
 | ----------- | --------------------------------------- | ---------------------- | -------- | ---------------------------- |
 | AUTH-E-103  | "Something went wrong. Contact support" | Generic fallback error | Medium   | Triggered on failed writes   |
 | SERV-F-5001 | "Service temporarily unavailable"       | DB timeout             | High     | Escalate to DevOps on repeat |
 
-| Code  | Message                                 | Description            | Priority | Notes                        |
-| ----- | --------------------------------------- | ---------------------- | -------- | ---------------------------- |
-| A103  | "Something went wrong. Contact support" | Generic fallback error | Medium   | Triggered on failed writes   |
-| S5001 | "Service temporarily unavailable"       | DB timeout             | High     | Escalate to DevOps on repeat |
+
+Short format that doesn't have severity level (Your logging utility could look at the Severity column of your spreadsheet to determine whether to console log or to log file):
+
+| Code  | Severity | Message                                 | Description            | Priority | Notes                        |
+| ----- | -------- | --------------------------------------- | ---------------------- | -------- | ---------------------------- |
+| A103  | Error    | "Something went wrong. Contact support" | Generic fallback error | Medium   | Triggered on failed writes   |
+| S5001 | Fatal    | "Service temporarily unavailable"       | DB timeout             | High     | Escalate to DevOps on repeat |
+
+More formats:
 
 | Pattern                | Description               | Example               |
 | ---------------------- | ------------------------- | --------------------- |
@@ -160,11 +163,12 @@ Examples:
 
 ---
 
-#### Weng's Error Logger Utility
+### Weng's Error Logger Utility
 
 Checkout Weng's error logging utility for NodeJS at:
 https://github.com/Siphon880gh/error-logger
 
 ---
+### Key Point:
 
-> ✅ A strong logging and error handling system protects your users, simplifies debugging, and hardens your application.
+✅ A strong logging and error handling system protects your users, simplifies debugging, and hardens your application.
