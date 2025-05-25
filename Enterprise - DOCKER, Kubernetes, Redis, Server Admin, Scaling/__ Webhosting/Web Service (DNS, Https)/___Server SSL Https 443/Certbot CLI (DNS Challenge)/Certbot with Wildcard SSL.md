@@ -1,6 +1,6 @@
 ### Wildcard SSL Certificate with Certbot for Multiple Domains
 
-In this case, I needed to secure two separate Namecheap-managed domains:  
+In this scenario, I needed to secure two separate Namecheap-managed domains:  
 [**wengindustry.com**](https://wengindustry.com/) and [**wengindustries.com**](https://wengindustries.com/), including wildcard coverage for their subdomains.
 
 To request the wildcard SSL certificates, I ran the following:
@@ -158,3 +158,13 @@ Then add a line like:
 ```
 
 This checks daily at 3 AM and reloads NGINX if renewal occurs.
+
+---
+
+### ACME / Let’s Encrypt Certificate Limits
+
+Certbox SSL/TLS certificates expire every 90 days. If you prefer a longer-term “set it and forget it” solution, you’ll need to purchase a certificate valid for a year or more.
+
+To avoid service disruptions, it's recommended to automate the renewal process and schedule it a few days before the 90-day expiration—around day 87 is a safe margin. This gives you time to catch and fix any potential HTTPS issues.
+
+Option: Buy a **1-year wildcard SSL** from a provider like **Namecheap** or **SSLs.com**
