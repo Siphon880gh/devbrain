@@ -17,6 +17,7 @@ Guidelines:
 > ✅ In production, logs should go to files, which developers can review later as needed without exposing internal details to users. 
 > ✅ In production, fatal errors should trigger alerts to developers—such as an email, text message, or notification—so they're aware of critical issues immediately.
 > ✅ Returning a graceful error message with a reference code keeps the experience professional and non-technical for the user, while still giving developers a traceable identifier to debug the issue.
+> ✅ Log file paths may vary across environments—for example, between macOS and a production Linux server. To handle this consistently, add a configurable layer (e.g., `environments.config.json`) to define environment-specific paths.
 
 
 #### 🚫 Production Mode (`NODE_ENV === 'production'`)
@@ -176,9 +177,9 @@ except ZeroDivisionError:
 ```
 
 
-#### Weng's Logger Utility
+#### Weng's Error Logger Utility
 
-Checkout Weng's logging utility for NodeJS at:
+Checkout Weng's error logging utility for NodeJS at:
 https://github.com/Siphon880gh/error-logger
 
 ---

@@ -151,12 +151,19 @@ Examples:
 | A103  | "Something went wrong. Contact support" | Generic fallback error | Medium   | Triggered on failed writes   |
 | S5001 | "Service temporarily unavailable"       | DB timeout             | High     | Escalate to DevOps on repeat |
 
-|Pattern|Description|Example|
-|---|---|---|
-|Prefix + Number|`DB1001`, `AUTH2002`|Groups similar codes|
-|Module + Severity + ID|`CACHE-E-001`, `UI-W-003`|Clear triage levels|
-|Shortcode + Number|`A103`, `B201`|User-friendly|
-|HTTP-based Style|`E5001`, `W3021`|Mirrors HTTP statuses|
+| Pattern                | Description               | Example               |
+| ---------------------- | ------------------------- | --------------------- |
+| Prefix + Number        | `DB1001`, `AUTH2002`      | Groups similar codes  |
+| Module + Severity + ID | `CACHE-E-001`, `UI-W-003` | Clear triage levels   |
+| Shortcode + Number     | `A103`, `B201`            | User-friendly         |
+| HTTP-based Style       | `E5001`, `W3021`          | Mirrors HTTP statuses |
+
+---
+
+#### Weng's Error Logger Utility
+
+Checkout Weng's error logging utility for NodeJS at:
+https://github.com/Siphon880gh/error-logger
 
 ---
 
