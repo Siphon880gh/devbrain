@@ -1,4 +1,3 @@
-
 This guide outlines essential team practices for Git workflows, branching, and naming strategies and standards. This promote consistency, collaboration, and more streamlined deployments.
 
 ---
@@ -135,3 +134,10 @@ Pruning doesn’t affect history; it just removes references to completed work:
 Pruning is good hygiene—just ensure the branch was fully merged and is no longer needed before deleting.
 
 For more in-depth guide on pruning, refer to [[_Fundamental - Pruning]]
+
+---
+## 🤖 Let Weng Help You
+
+- You can follow this guide on configuring your team's Git standards **OR** you can use Weng's Automated Enforcer. A CLI Tool, it asks you the questions about tab spaces, git naming conventions, etc, then it generates the configuration files you can copy over to your project.
+- Check out Weng's repo at:
+  https://github.com/Siphon880gh/automate-enforcements

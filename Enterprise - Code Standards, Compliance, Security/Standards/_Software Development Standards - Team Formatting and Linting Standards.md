@@ -11,6 +11,13 @@ Maintaining a consistent, auto-formatted codebase improves readability, reduces 
 - By automating formatting and aligning settings, every teammate writes clean code **automatically**—without thinking about it.
 
 ---
+## 🤖 Let Weng Help You
+
+- You can follow this guide on configuring your team's standards **OR** you can use Weng's Automated Enforcer. A CLI Tool, it asks you the questions about tab spaces, git naming conventions, etc, then it generates the configuration files you can copy over to your project.
+- Check out Weng's repo at:
+  https://github.com/Siphon880gh/automate-enforcements
+
+---
 
 ## 🧼 Prettier with Linter
 
@@ -124,6 +131,114 @@ To make everything work seamlessly:
 
 > 🛎️ VS Code will prompt team members to install these when they open the project.
 
+## 🔧 Setup the Standards
+
+Consider adding these to `.vscode/settings.json`:
+```
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.tabWidth": 2,
+  "editor.insertSpaces": true,
+  "files.insertFinalNewline": true,
+}
+```
+
+And to `.prettierrc`:
+```
+{
+  "tabWidth": 2,
+  "useTabs": false,
+  "endOfLine": "lf",
+  "trailingComma": "es5",
+  "semi": true,
+  "singleQuote": true,
+  "printWidth": 80
+}
+```
+
+And `.eslintrc`:
+```
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "indent": [
+      "error",
+      2
+    ],
+    "linebreak-style": [
+      "error",
+      "lf"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ]
+  }
+}
+```
+
+You may want to prevent an overzealous prettier. Setup `.prettierignore`:
+```
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+
+# Cache
+.cache/
+.npm/
+.eslintcache
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated files
+generated/
+coverage/
+```
 
 ---
 

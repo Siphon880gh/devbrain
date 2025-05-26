@@ -1,6 +1,13 @@
 Keeping your Git history clean and consistent isn’t just about discipline—it’s about automation. You can enforce standards for commit messages and branch names using Git hooks or CI/CD pipelines. Here’s how to do both.
 
 ---
+## 🤖 Let Weng Help You
+
+- You can follow this guide on configuring your team's Git standards **OR** you can use Weng's Automated Enforcer. A CLI Tool, it asks you the questions about tab spaces, git naming conventions, etc, then it generates the configuration files you can copy over to your project.
+- Check out Weng's repo at:
+  https://github.com/Siphon880gh/automate-enforcements
+
+---
 
 ## ✅ Enforce Commit Message Format
 
