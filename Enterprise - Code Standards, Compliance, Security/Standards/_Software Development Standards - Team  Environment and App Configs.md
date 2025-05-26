@@ -31,11 +31,11 @@ In smaller teams or simpler projects, this streamlined alternative may be easier
 |---|---|
 |`.env`|Shared values for **both development and deployment environments**|
 |`.env.local`|Developer- or machine-specific overrides(e.g., local DB, log path)|
-#### Example Use Case:
+Example Use Case:
 - `.env` may include `API_URL=https://dev-api.example.com`
 - `.env.local` on your machine overrides with `API_URL=http://localhost:3000`
 
-### 🏗 Optional: `.env.shared` for Monorepos
+### 🧩 Alternate Simpler Scheme: `.env.shared` for Monorepos
 
 If you're working in a **monorepo** with many nested sub-projects:
 - Create a top-level `.env.shared` that includes global/shared variables.
@@ -68,8 +68,7 @@ Use a structured JSON config file (e.g., `app.config.json`) to centralize non-se
 }
 ```
 
-#### Benefits:
-
+**Benefits:**
 - Keeps logic for switching environments clean
 - Makes app behavior predictable across environments
 - Avoids hardcoding machine-specific paths
