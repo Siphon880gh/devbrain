@@ -1,1 +1,1 @@
-Compliance is more about a business following standards to get the seal of approval to do business and/or to mitigate legal issues. As such, I've moved the notes to my business notes at https://wengindustries.com/app/bizbrain/ under the folder `Compliance`.
+Compliance is more about a business following standards to get the seal of approval to do business and/or to mitigate legal issues. As such, I've moved the notes to my business notes at https://wengindustries.com/app/bizbrain/ under the folder `Legal... -> Compliance`.

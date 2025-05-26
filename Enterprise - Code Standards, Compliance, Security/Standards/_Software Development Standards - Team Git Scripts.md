@@ -1,4 +1,3 @@
-
 Keeping your Git history clean and consistent isn’t just about discipline—it’s about automation. You can enforce standards for commit messages and branch names using Git hooks or CI/CD pipelines. Here’s how to do both.
 
 ---
