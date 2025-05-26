@@ -1,5 +1,4 @@
 
-
 Purpose: When an user completes a form on your website, you want the details to be emailed to you. However, you can’t receive emails without a FROM, so the backend will email on the behalf of employee@yourcompany.com to your email. 
 
 Requirements:
