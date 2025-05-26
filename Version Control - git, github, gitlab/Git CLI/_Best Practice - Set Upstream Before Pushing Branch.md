@@ -37,3 +37,15 @@ git config --global push.autoSetupRemote true
 ```
 
 That way, Git will auto-link new branches to the remote when you push them for the first time.
+
+---
+
+**QUICKER WAY**
+
+You push to remote on a new branch that hasn't been pushed up before. So you see this message:
+![[Pasted image 20250526072241.png]]
+
+Just copy and paste the command it recommends:
+![[Pasted image 20250526072255.png]]
+
+Now you're setup to just run `git push`.
