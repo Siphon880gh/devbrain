@@ -110,7 +110,7 @@ YYYY.MM.DD-description-with-hyphens
 2025.05.22-Weng-Dockerfile
 ```
 
-### 🧪 Local Hook: `pre-push`
+### 🧪 OPTION 1 - Local Hook: `pre-push`
 
 1. Create the `pre-push` hook:
 
@@ -119,8 +119,8 @@ touch .git/hooks/pre-push
 chmod +x .git/hooks/pre-push
 ```
 
-2. Add this script to `.git/hooks/pre-push`:
-
+2. Edit `.git/hooks/pre-push`:
+- You can edit with `vim .git/hooks//pre-push
 ```bash
 #!/bin/sh
 
@@ -137,10 +137,9 @@ fi
 
 ---
 
-### 🛠 Enforce via GitHub Actions (CI/CD)
+### 🧪 OPTION 2 - Enforce via GitHub Actions (CI/CD)
 
 For team-wide enforcement, use GitHub Actions:
-
 #### `.github/workflows/branch-name-check.yml`
 
 ```yaml
@@ -163,13 +162,11 @@ jobs:
           fi
 ```
 
----
-
-## 🧠 Bonus: Helper Script to Create Branches
+### 🧪🧪 Bonus: Helper Script to Create Branches
 
 Make it easy to follow the convention:
 
-#### `scripts/create-branch.sh`
+Edit `scripts/create-branch.sh`:
 
 ```bash
 #!/bin/bash
@@ -181,11 +178,9 @@ git checkout -b "$branch"
 echo "✅ Created and switched to: $branch"
 ```
 
----
+Make sure to:
+```
+chmod +x scripts/create-branch.sh
+```
 
-## ✅ Summary
-
-| Aspect          | Enforced With                          | Example Format                 |
-| --------------- | -------------------------------------- | ------------------------------ |
-| Commit Messages | `commit-msg` hook / `husky+commitlint` | `feat(auth): add login button` |
-| Branch Names    | `pre-push` hook / GitHub Actions       | `2025.05.22-Weng-Dockerfile`   |
+Then you probably want to add the execution of that sh script into a npm script that you can run when you intend to create a new branch.
