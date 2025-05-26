@@ -27,21 +27,21 @@ chmod +x .git/hooks/commit-msg
 ```
 
 2. Edit `.git/hooks/commit-msg`:
-- You can edit with `vim .git/hooks/commit-msg`
+- You can edit with `vi .git/hooks/commit-msg`:
 ```bash
-bin/sh
+#!/bin/sh
 
 # Regex for Conventional Commit (e.g., feat: message, fix: message)
-commit_regex="^(feat|fix|docs|style|refactor|test|chore)(\([a-z0-9\-]+\))?: .+"
+commit_regex="(?i)^(feat|fix|docs|style|refactor|test|chore)(\([a-z0-9\-]+\))?: .+"
 
 commit_msg=$(cat "$1")
 
 if ! echo "$commit_msg" | grep -Eq "$commit_regex"; then
   echo "⛔️ Commit message must follow Conventional Commits format:"
-  echo "'''"
-  echo "^(feat|fix|docs|style|refactor|test|chore)(\([a-z0-9\-]+\))?: .+"
-  echo "'''"
   echo ""
+  echo "'''"
+  echo "(?i)^(feat|fix|docs|style|refactor|test|chore)(\([a-z0-9\-]+\))?: .+"
+  echo "'''"
   echo "Example: feat: add login button"
   echo "Example: feat(auth): add login button"
   exit 1
@@ -110,6 +110,13 @@ YYYY.MM.DD-description-with-hyphens
 2025.05.22-Weng-Dockerfile
 ```
 
+Git does **not natively support hooks** for actions like `git checkout -b`, so you can’t directly enforce branch naming at the moment of creation. However, there are workarounds—though they rely on developers using **custom commands** instead of the standard Git flow:
+- **Shell function wrapper**: Add a function to your `~/.bash_profile`, `~/.zprofile`, or similar shell config that wraps `git checkout -b` with validation logic.
+- **Local shell script**: Place a `create-branch.sh` script in the project folder. Developers run this script with the new branch name as an argument to create branches with enforced naming.
+- **Git alias (user-level only)**: Define a `git new-branch` alias in your `~/.gitconfig` that includes validation logic. Note: aliases with shell commands only work in the global or system Git config—not in the repo’s `.git/config`.
+
+A more proper solution is to validate the branch name when the developer is pushing the branch to the remote github.com repo.
+
 ### 🧪 OPTION 1 - Local Hook: `pre-push`
 
 1. Create the `pre-push` hook:
@@ -120,15 +127,15 @@ chmod +x .git/hooks/pre-push
 ```
 
 2. Edit `.git/hooks/pre-push`:
-- You can edit with `vim .git/hooks//pre-push
+- You can edit with `vi .git/hooks/pre-push`:
 ```bash
 #!/bin/sh
-
 branch_name=$(git symbolic-ref --short HEAD)
 pattern='^[0-9]{4}\.[0-9]{2}\.[0-9]{2}-[A-Za-z0-9\-]+$'
 
 if ! echo "$branch_name" | grep -Eq "$pattern"; then
   echo "⛔️ Branch name '$branch_name' is invalid."
+  echo ""
   echo "Format must be: YYYY.MM.DD-description-with-hyphens"
   echo "Example: 2025.05.22-Weng-Dockerfile"
   exit 1
@@ -140,7 +147,8 @@ fi
 ### 🧪 OPTION 2 - Enforce via GitHub Actions (CI/CD)
 
 For team-wide enforcement, use GitHub Actions:
-#### `.github/workflows/branch-name-check.yml`
+
+Edit/create `.github/workflows/branch-name-check.yml`
 
 ```yaml
 name: Branch Name Check
@@ -166,8 +174,7 @@ jobs:
 
 Make it easy to follow the convention:
 
-Edit `scripts/create-branch.sh`:
-
+Edit/create `scripts/create-branch.sh`:
 ```bash
 #!/bin/bash
 

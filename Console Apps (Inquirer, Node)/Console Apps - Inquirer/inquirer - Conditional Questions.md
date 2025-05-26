@@ -1,4 +1,3 @@
-# Inquirer conditional questions
 
 Questions can appear based on previous answers. These questions are conditional and have a method called when.
 
