@@ -45,13 +45,33 @@ Each cron job follows this structure:
 └──────────── Minute (0 - 59)
 ```
 
-### Example:
+The `*` symbol means “every possible value” in that position. You can also use **division syntax** (`*/N`) to create intervals.
+
+### Examples:
+
+#### 🔁 Every 5 Minutes
+
+```
+*/5 * * * * /usr/bin/heartbeat.sh
+```
+
+Runs **every 5 minutes**. The `*/5` in the minute field means "every 5th minute": 0, 5, 10, 15, etc.
+
+#### 🕑 Every 2 Hours
+
+```
+0 */2 * * * /usr/bin/report.sh
+```
+
+Runs **every 2 hours** on the hour. The `*/2` in the **hour** field means it runs at 0:00, 2:00, 4:00, and so on. The `0` in the minute field means it triggers at the start of the hour.
+
+#### 📦 Weekly Backup
 
 ```
 15 5 * * 1 /usr/bin/backup.sh
 ```
 
-Runs every **Monday** at **5:15 AM**.
+Runs **every Monday at 5:15 AM**.
 
 ---
 
