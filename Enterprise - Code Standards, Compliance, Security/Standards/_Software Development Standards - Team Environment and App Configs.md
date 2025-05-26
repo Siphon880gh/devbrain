@@ -23,7 +23,7 @@ To manage environment-specific and machine-specific settings securely and consis
 
 - **Optional:** Use `.env.local` for developer- or machine-specific overrides (e.g., log paths, local database)
 
-### 🧩 Alternate Simpler Scheme: Fewer Files, Same Power
+### 🧩 Alternate Simpler Scheme: Fewer Env Files
 
 In smaller teams or simpler projects, this streamlined alternative may be easier to maintain:
 

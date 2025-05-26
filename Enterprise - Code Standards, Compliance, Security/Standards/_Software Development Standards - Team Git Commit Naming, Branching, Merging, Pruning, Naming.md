@@ -1,6 +1,65 @@
-This guide outlines essential team practices for Git workflows, branching, and naming strategies and standards. This promote consistency, collaboration, and more streamlined deployments.
+This guide outlines essential team practices for Git workflows, naming, and branching and standards. This promote consistency, collaboration, and more streamlined deployments.
 
 ---
+
+## 📥 Commit Message Naming
+
+A consistent commit message format improves readability, helps with automation (like changelogs), and makes collaboration easier across the team.
+
+### ✅ Option 1: Conventional Commit Format
+
+This widely-used convention prefixes your commit with a keyword that explains **what kind of change** it is. Optionally, you can include a scope in parentheses to clarify what part of the codebase was affected.
+
+**Format:**
+
+```
+<type>(<optional-scope>): <description>
+```
+
+**Examples:**
+
+```
+feat(auth): add login with magic link
+fix(api): correct typo in error response
+docs(readme): update usage instructions
+```
+
+**Common Types:**
+
+|Type|Purpose|
+|---|---|
+|`feat`|A new feature|
+|`fix`|A bug fix|
+|`docs`|Documentation changes|
+|`style`|Code style (formatting, missing semis)|
+|`refactor`|Refactoring without behavior changes|
+|`test`|Adding or fixing tests|
+|`chore`|Other changes like build tools or CI|
+
+This style is great for teams using semantic versioning or tools that auto-generate changelogs.
+
+### ✅ Option 2: Action-Based Summary
+
+If your team prefers a more casual but still clear approach, you can follow a simpler “action + subject” format. This emphasizes **what changed** in plain language.
+
+**Examples:**
+
+```
+Add signup form
+Update navbar layout
+Fix crash on upload
+Remove unused settings
+Refactor calendar logic
+```
+
+**Tips:**
+- Start with an action verb (`Add`, `Fix`, `Refactor`, `Update`, etc.)
+- Write in the imperative mood (“Add” instead of “Added”)
+- Keep it short and focused on **what changed**
+
+---
+---
+
 ## 🌿 Branching Strategies
 
 Branching defines how your team organizes work-in-progress. It influences collaboration, code stability, and how features get delivered. The right branching model depends on team size, release cadence, and codebase complexity.
@@ -62,7 +121,6 @@ Example:
 Let's say instead you have all hyphens or periods, then it becomes a huge blur of lines at where the Branches would be:
 
 ![[Pasted image 20250523054104.png]]
-
 
 ---
 

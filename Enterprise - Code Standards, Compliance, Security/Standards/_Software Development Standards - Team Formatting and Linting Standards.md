@@ -1,5 +1,3 @@
-# 👨‍💻 Team Code Formatting & VS Code Configuration Guide
-
 Maintaining a consistent, auto-formatted codebase improves readability, reduces friction in code reviews, and minimizes "chore commits" for simple formatting issues. This guide helps you and your team align your development environment using **VS Code**, **Prettier**, and shared project-level configurations.
 
 ---
