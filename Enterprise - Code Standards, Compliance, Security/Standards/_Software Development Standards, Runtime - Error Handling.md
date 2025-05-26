@@ -169,6 +169,6 @@ Checkout Weng's error logging utility for NodeJS at:
 https://github.com/Siphon880gh/error-logger
 
 ---
-### Key Point:
+### Key Point
 
 ✅ A strong logging and error handling system protects your users, simplifies debugging, and hardens your application.
