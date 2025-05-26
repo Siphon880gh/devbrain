@@ -6,104 +6,6 @@ Keeping your Git history clean and consistent isn’t just about discipline—it
 
 Git doesn’t natively enforce commit message formatting, but you can use a `commit-msg` hook to validate messages before they’re committed.
 
-### 🧪 Local Hook: `commit-msg`
-
-1. Create the `commit-msg` hook:
-
-```bash
-touch .git/hooks/commit-msg
-chmod +x .git/hooks/commit-msg
-```
-
-2. Add this script to `.git/hooks/commit-msg`:
-
-```bash
-#!/bin/sh
-
-# Regex for Conventional Commit (e.g., feat: message, fix: message)
-commit_regex="^(feat|fix|docs|style|refactor|test|chore)(\([a-z0-9\-]+\))?: .+"
-
-commit_msg=$(cat "$1")
-
-if ! echo "$commit_msg" | grep -Eq "$commit_regex"; then
-  echo "⛔️ Commit message must follow Conventional Commits format:"
-  echo "Example: feat(auth): add login button"
-  exit 1
-fi
-```
-
-
----
-
-
-## 📦 Optional: Use `commitlint` + `husky` (JS/TS Projects)
-
-If you’re working on a JavaScript or TypeScript project—especially with teams—it's better to **automate commit validation** using tools built for the JS ecosystem:
-
-### 🔧 What These Tools Do
-
-|Tool|Purpose|
-|---|---|
-|`husky`|Manages Git hooks (like `commit-msg`) using config files inside your repo.|
-|`commitlint`|Validates commit messages using rules (e.g., [Conventional Commits](https://www.conventionalcommits.org/)).|
-
-Together, they help you reject invalid commit messages automatically.
-
----
-
-### 🛠 Step-by-Step Setup
-
-1. Install Dev Dependencies
-
-```bash
-npm install --save-dev @commitlint/config-conventional @commitlint/cli husky
-```
-
-- `@commitlint/cli`: The core CLI to run checks
-- `@commitlint/config-conventional`: Ruleset that enforces standard formats like `feat: ...` or `fix(auth): ...`
-- `husky`: Makes it easy to hook commitlint into Git
-
-2. Configure Commitlint
-
-Create a file called `commitlint.config.js` in your root directory:
-
-```js
-// commitlint.config.js
-module.exports = {
-  extends: ['@commitlint/config-conventional']
-};
-```
-
-This tells `commitlint` to use the conventional commit rules.
-
-3. Initialize Husky and Add a Hook
-
-```bash
-npx husky install
-```
-
-Add to your `package.json`:
-
-```json
-{
-  "scripts": {
-    "prepare": "husky install"
-  }
-}
-```
-
-Then create the hook that triggers `commitlint`:
-
-```bash
-npx husky add .husky/commit-msg 'npx --no commitlint --edit $1'
-```
-
-Now, whenever someone runs `git commit`, this hook will validate the message and block the commit if it doesn't follow the rules.
-
----
-
-### ✅ Example of Allowed Commit Messages
-
 These will pass:
 - `feat: add login button`
 - `fix(api): handle null response`
@@ -115,21 +17,81 @@ These will be rejected:
 - `bug fix`
 - `update file`
 
----
+### 🧪 OPTION 1 - Local Hook: `commit-msg`
 
-### 🧠 Why This Is Better for Teams
+1. Create the `commit-msg` hook:
 
-- **Repeatable**: Everyone gets the same checks, no matter their OS or IDE.
-- **Extendable**: You can define custom rules (e.g., max length, allowed scopes).
-- **Team-Ready**: Git hooks live in the repo, so they’re version-controlled and shared.
+```bash
+touch .git/hooks/commit-msg
+chmod +x .git/hooks/commit-msg
+```
 
----
+2. Edit `.git/hooks/commit-msg`:
+- You can edit with `vim .git/hooks/commit-msg`
+```bash
+bin/sh
 
-Let me know if you'd like to:
+# Regex for Conventional Commit (e.g., feat: message, fix: message)
+commit_regex="^(feat|fix|docs|style|refactor|test|chore)(\([a-z0-9\-]+\))?: .+"
 
-- Add **custom scopes** (e.g. only allow `auth`, `ui`, `api`)
-- Generate a `.commitlintrc` instead of `commitlint.config.js`
-- Use **commitizen** to guide commit formatting interactively
+commit_msg=$(cat "$1")
+
+if ! echo "$commit_msg" | grep -Eq "$commit_regex"; then
+  echo "⛔️ Commit message must follow Conventional Commits format:"
+  echo "'''"
+  echo "^(feat|fix|docs|style|refactor|test|chore)(\([a-z0-9\-]+\))?: .+"
+  echo "'''"
+  echo ""
+  echo "Example: feat: add login button"
+  echo "Example: feat(auth): add login button"
+  exit 1
+fi
+```
+
+
+### 🧪  OPTION 2 - Husky with CommitLint
+
+For JavaScript/TypeScript projects, use `husky` + `commitlint` to **automatically reject invalid commit messages**.
+
+**🧰 Tools**
+
+- `husky` – Manages Git hooks.
+	- Mnemonic: Think husky the dog species. Think git fetch command. Think dog fetches a stick. Therefore, Husky is a tool that manages git hooks.
+- `commitlint` – Checks commit messages (e.g., `feat: add auth`)
+
+**⚙️ Quick Setup**
+
+1. **Install dependencies**:
+```bash
+npm install --save-dev husky @commitlint/cli @commitlint/config-conventional
+```
+
+2. **Create config** (`commitlint.config.js`):
+```js
+module.exports = {
+  extends: ['@commitlint/config-conventional']
+};
+```
+
+3. **Initialize husky**:
+```bash
+npx husky install
+```
+
+In `package.json`:
+```json
+"scripts": {
+  "prepare": "husky install"
+}
+```
+
+4. **Add hook**:
+```bash
+npx husky add .husky/commit-msg 'npx --no commitlint --edit $1'
+```
+^ Explanation: `--edit $1` will validate against the `commitlint.config.js` rule(s) whenever the developer is making a commit message. That `--no` ensures `npx` doesn't auto-install if `commitlint` missing.
+
+Now every `git commit` is validated automatically.
 
 ---
 ---
@@ -223,7 +185,7 @@ echo "✅ Created and switched to: $branch"
 
 ## ✅ Summary
 
-|Aspect|Enforced With|Example Format|
-|---|---|---|
-|Commit Messages|`commit-msg` hook / `commitlint`|`feat(auth): add login button`|
-|Branch Names|`pre-push` hook / GitHub Actions|`2025.05.22-Weng-Dockerfile`|
+| Aspect          | Enforced With                          | Example Format                 |
+| --------------- | -------------------------------------- | ------------------------------ |
+| Commit Messages | `commit-msg` hook / `husky+commitlint` | `feat(auth): add login button` |
+| Branch Names    | `pre-push` hook / GitHub Actions       | `2025.05.22-Weng-Dockerfile`   |
