@@ -1,5 +1,3 @@
-
-
 ## **Developer Certificate of Origin (DCO) vs. Contributor License Agreement (CLA)**
 
 While some projects require a **Contributor License Agreement (CLA)** (a formal legal document signed once per contributor), the **DCO is much simpler** and is accepted per commit instead.

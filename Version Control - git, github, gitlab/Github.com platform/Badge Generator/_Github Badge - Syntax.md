@@ -16,7 +16,7 @@ Left side icon content is from logo=github
 Left side foreground color is from logoColor=white
 Left side background color is from labelColor=darkgray
 Right side text and background is from `https://img.shields.io/badge/`\_\_`?style`
-Style can be: [`flat`, `flat-square`, `plastic`, `for-the-badge`, `social`]
+Style can be: [`flat`, `flat-square`, `plastic`, `for-the-badge`, `social`]
 
 ---
 
@@ -28,3 +28,20 @@ https://img.shields.io/badge/-white?
 
 ![](nGb0TIp.png)
 
+---
+---
+
+## ðŸ”§ Customize Your Own Badge  
+  
+You can create custom badges like this:  
+  
+```md  
+![custom badge](https://img.shields.io/badge/<LABEL>-<MESSAGE>-<COLOR>)  
+```  
+  
+**Example:**  
+  
+```md  
+![Status](https://img.shields.io/badge/status-stable-brightgreen)  
+```  
+  
