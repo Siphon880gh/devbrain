@@ -1,7 +1,7 @@
 Aka: Get Started
 
 Required knowledge
-- Know what is BA vs BI: [[_What is BA and BI]]
+- Know what is BA vs BI: [[_BI vs BA - What is]]
 - What is Metabase and why we choose Metabase: [[Metabase BI - _Choosing Metabase]]
 
 Required technical specs

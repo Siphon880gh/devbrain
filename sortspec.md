@@ -15,9 +15,9 @@ sorting-spec: |-
   Enterprise - Open Source Web Apps and CLI-Powered Web Tools
   Enterprise - DevOps, CI CD
   Enterprise - DOCKER, Kubernetes, Redis, Server Admin, Scaling
+  Enterprise - Email, Forms, Internal Tools
   Enterprise - Cache, Cloudflare, Chat Bot, SEO, Support Docs, Receiving Payments
-  Enterprise - Business Analytics (BA) and Business Intelligence (BI)
-  E-Commerce - Technical Guides
+  Enterprise - Analytics, Business Analytics (BA), Business Intelligence (BI)
   Extensions, Plug-ins, and Software Suite Development
   Version Control - git, github, gitlab
   Developer Tools
