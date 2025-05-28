@@ -1,18 +1,29 @@
-### 🎯 Purpose
 
-When a user submits a form on your website, you may want their email address too. If they authenticate using Google OAuth2, you've captured their email address, AND they can email you from their email address. They don't even have to enter their gmail address because they've "logged in".
+Note: This approach is appropriate for websites or web apps where the user would've signed up or logged in using their Google account. 
 
-This streamlines you replying back to them, and also allows you to email back to them with links or images without damaging your email domain's deliverability score. You will literally see an email from the visitor's gmail address.
+### ✅ **Big Picture**
+
+When someone submits a form on your website—whether it’s a contact request or a quote inquiry—you don’t want to rely on checking a dashboard to catch new leads. A more reliable approach is to have those submissions automatically emailed to you.
+
+To make that happen, your backend needs to send emails programmatically. This requires a valid `FROM` address, which usually means sending on behalf of an authorized sender. That authorized sender could be the owner's personal gmail address or the owner's Google Workspace email address. But you have something better than the owner's email addresses...
+
+The `From` address could be the visitor's gmail address because they're already authenticated on your website or web app using Google OAuth2. You can capture the visitor's gmail address from their login session. And because you will see the emailed form submission as though the visitor actually emailed you themselves, you can reply with urls, images, or html without deliverability penalty. For good user experience, you may want to show the user their gmail address that they will be contacted back on.
+
+Since the "sender" is not your custom domain, if you own multiple websites with forms, you may want to incorporate the business or website name in the subject to identify which website the message is from.
+
+This guide will show you how to use the visitor's gmail account (authorized when they signed into your website using Google OAuth2) and **Node.js** to send emails via the Gmail API.
 
 ---
 
-### ✅ Requirements
+## 🔐 Requirements
 
-- The recipient (`TO`) email can be any address (Gmail or not). Usually you set it to your business email because you're having the visitor's gmail address email you.
+- User needs to authenticate as a Google user on your website or web app. If you had offered multiple ways to sign up, you may want to consider conditionally displaying another type of form for non-Google users. This is a form where the non-Google visitor can enter their email address and the actual sender is the owner's email address. For that too, refer to [[Send Email as Owner from a Website Form Using Personal Gmail, App Password, and Nodemailer]] or [[Send Email as Owner from a Website Form Using Google Workspace, Service Account, Nodemailer]] depending on if the owner's email address is a personal gmail or a Google Workspace email, respectively.
+- You want an email at the same time the user submits the form. If instead you are throttling to the next hour, you will need to store the refresh token, then later request for a fresh access token at the time of emailing. That is outside the scope of this document but has been alluded to at [[OAuth2 Standards - OAuth2 Credentials JSON File, Redirect URI, Authorization code, Access token,  Refresh token]]
+
 
 ---
 
-### ⚙️ Google Cloud Setup
+## 1. ⚙️ Google Cloud Setup
 
 1. Go to [Google Cloud Console](https://console.cloud.google.com/).
 2. Create a **new project** (or use an existing one).
@@ -26,17 +37,10 @@ This streamlines you replying back to them, and also allows you to email back to
     - Select "Desktop App" as application type
     - **Download** the `.json` file—it contains your client ID and secret
 
----
-
-### 🔒 Security Best Practices
-
-- Store your `.json` credentials securely.
-- Use environment variables to store the file path and sensitive details.
-- Run the code on the **backend only**—never expose credentials on the frontend.
 
 ---
-
-### 📦 Required Packages
+## 2. 🔧 NodeJS Setup
+### a. 📦 Install Dependencies
 
 Add these dependencies to your `package.json`:
 
@@ -49,9 +53,7 @@ Add these dependencies to your `package.json`:
 }
 ```
 
----
-
-### 🧪 Node.js Script
+### b. 💻 Node.js Script
 
 Make sure to replace:
 
@@ -164,26 +166,29 @@ app.listen(port, () => {
 >   
 
 
+c. 🧪 Test It?
+
+You can't really test this yet because the frontend is really necessary
+
+
 ---
 
-### 🧪 How to Use (First Step)
+### 3. Adopt the backend for security reasons
 
-This example runs without a frontend. You visit the printed OAuth2 URL directly in your browser to trigger the authentication flow. It’s a quick way to test the script and confirm email sending works via your backend.
+Don't forget to sanitizer users's inputs.
+
+You are sending the emails in real time in line with the user form submissions. 
+
+If instead you are throttling to the next hour, you will need to store the refresh token, then later request for a fresh access token at the time of emailing. That is outside the scope of this document but has been alluded to at [[OAuth2 Standards - OAuth2 Credentials JSON File, Redirect URI, Authorization code, Access token,  Refresh token]]
 
 ---
 
-### 🚀 Add Frontend Integration (Second Step)
+## 4. Create your frontend
 
-In production, your frontend should request the OAuth2 URL from your backend (e.g., via `/get-auth-url`), then redirect the user to that URL. After the user signs in and grants access, Google redirects them to your site’s `/oauth2callback` route with a `code` query param, for example:
+You'll need a form that capture's the visitor's message. The user's gmail address is captured by the OAuth2 Client SDK because the user has logged in. That information is POST with payload to an API end point where your backend receives the user's information, and then it sanitizes, and then it emails to you.
+
+Your frontend should request the OAuth2 URL from your backend (e.g., via `/get-auth-url`), then redirect the user to that URL. After the user signs in and grants access, Google redirects them to your site’s `/oauth2callback` route with a `code` query param, for example:
 - http://localhost:3000/oauth2callback?code=AUTHORIZATION_CODE
 - https://domain.com/oauth2callback?code=AUTHORIZATION_CODE
 
 Your backend (as already implemented in `app.get('/oauth2callback')`) handles this by calling `const { tokens } = await oauth2Client.getToken(code);` to exchange the code for OAuth2 tokens. These tokens are then set as credentials and used to send the email—all in the same route.
-
----
-
-### 🔐 Manage Access
-
-To review or revoke app permissions:  
-👉 [https://myaccount.google.com/security-checkup](https://myaccount.google.com/security-checkup)  
-Look for the OAuth app name you created.

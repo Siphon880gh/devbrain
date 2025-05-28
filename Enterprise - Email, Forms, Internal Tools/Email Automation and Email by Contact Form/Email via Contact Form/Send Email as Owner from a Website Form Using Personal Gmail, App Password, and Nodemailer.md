@@ -1,37 +1,41 @@
+### ✅ **Big Picture**
 
-If your website form collects user submissions, you’ll likely send the data from your own domain email—either your own or an employee’s—to keep everything consistent and manageable. Typically, you’ll send the form results back to an address on your domain, which helps maintain deliverability.
+When someone submits a form on your website—whether it’s a contact request or a quote inquiry—you don’t want to rely on checking a dashboard to catch new leads. A more reliable approach is to have those submissions automatically emailed to you.
 
-### 1. Sending Form Submissions from Your Domain
+To make that happen, your backend needs to send emails programmatically. This requires a valid `FROM` address, which usually means sending on behalf of an authorized sender like `your_business@gmail.com`. 
 
-When a user submits a form on your website, the resulting email should be sent from an address on your own domain—typically your own or an employee’s. Ideally, the recipient is also on the same domain. This keeps communication organized, especially if you manage multiple domains, and helps preserve your deliverability score. Emails sent within the same domain, or even to the same email address (i.e., sender and recipient are the same), are less likely to be flagged or penalized.
+Because the `FROM` is not actually the visitor, your code should capture and incorporate the visitor’s email address in the message body, so you can actually follow up with the visitor. But that means your first email to them cannot contain urls, images, or html, to prevent deliverability penalties.
 
-Make sure the user’s email address is collected from the form and included in the email body so you can follow up. If this is your first time contacting them, avoid using HTML, images, or links in the initial message, as these can negatively affect deliverability.
+You will be using a personal gmail email address. If you run multiple websites that you intend to have web forms, you may want to consider signing up for gmail accounts named after your business, eg. `yourbusinessname@gmail.com` so it helps you instantly identify which business the submission came from. 
+- As of 2021, gmail requires a phone number to sign up unless you're signing up on a phone's google app. Expectations are that they will eventually require all gmail signups to be tied to a unique phone number. The conflict of interest here is that gmail wants small businesses to pay for Google Workspace.
+- Instead of creating a new gmail address, you could program the subject to have the business or website in it.
 
-If you prefer the message to appear as if it came directly from the user’s personal Gmail account, see:  
-**[[Send Email as Visitor from a Website Form Using Personal Gmail, OAuth2, and Nodemailer]]**  
-This method has an advantage: when you receive the email, it will look like the visitor emailed you directly—so your reply (with links or rich content) won’t trigger any deliverability penalties.
+In addition, your code should email form submissions from the same email address that receives it. Gmail generally considers this safe behavior, so it helps maintain high deliverability—provided the message content doesn’t appear spammy. 
 
+This guide will show you how to use a **personal gmail** and **Node.js** to send emails via the Gmail App Password.
+
+---
+## 🔐 Requirements
+
+- For this setup, you **must** have generated an App Password for your personal gmail address. If you haven't, first refer to [[1. Create Gmail app password]].
 
 ---
 
-### 2. CLI Emailer Using Owner's Gmail
+### 1. CLI Emailer Using Owner's Gmail
 
-We’ve created a CLI-based email sender that uses the owner’s Gmail address. You can adapt it into a full stack solution with a contact form. The approach would be to wrap the CLI in a backend endpoint. See:  [[2a. Gmail CLI with NodeMailer and App Password]]
+We’ve created a CLI-based email sender that uses the owner’s Gmail address. You can adapt it into a full stack solution with a contact form. The approach would be to wrap the CLI in a backend endpoint. See:  [[2. Gmail CLI with NodeMailer and App Password]]
+
+You can test the API endpoint with tools like Postman, Insomniac, or a cURL call in the terminal.
 
 ✋ Once that's working, continue on the rest of this guide to complete the setup.
 
 ---
 
-### 3. Connecting to a Frontend (Safely)
+### 2. Adopt the backend for security reasons and development time constraints
 
-Although you _can_ connect your email script directly to a frontend form, it’s risky. Abuse (like spam submissions) could damage your sender reputation and reduce email deliverability with services like Gmail, Outlook, or Yahoo.
+Refer to [[Levels of development shortcuts for web forms]]
 
-**Best practice:**  
-Have the frontend submit data to a message queue. Then use a backend script to:
+---
+### 3. Create your frontend
 
-- Run periodically (e.g., hourly)
-- Filter spam or duplicate submissions
-- Send emails in controlled batches to avoid deliverability penalties
-
-**Note:**  
-If you’re sending emails _to yourself_ (i.e., sender and recipient are the same), Gmail typically delivers them instantly and without penalty.
+You'll need a form with at least inputs to capture the visitor's email address and message. That information is POST with payload to an API end point where your backend receives the user's information, and then it sanitizes, and then it emails or saves to a folder for later emailing, whichever method you adopted form #2. The visitor's email address input should be programmed to be part of the message body so that you can easily follow up with them.

@@ -1,11 +1,11 @@
-When working with Google APIs like Gmail, Drive, or Sheets, your app needs to authenticate itself. Google provides **two distinct types of JSON credentials**, each suited for a different use case:
+When working with Google APIs like Gmail, Drive, or Sheets, your app needs to be authenticated. Google provides **two distinct types of JSON credential files** as part of the app authentication, each suited for a different use case:
 
 - **OAuth2 Client JSON File** – for **user-based** access (e.g. logging in with Gmail)
 - **Service Account JSON File** – for **server-to-server** access (e.g. reading a Sheet in the background)
 
-And Google's services may limit you to specific types of JSON Files for authorization:
+And the type of Google service also limits you to a specific type of JSON credential files:
 - **OAuth2 Client JSON File** - For personal Gmail accounts. Example: Sending email as a logged-in user (`you@gmail.com`)
-- **Service Account JSON File** – For Google Workspace (formerly G Suite) organizations, which does **not** support personal Gmail accounts anyways and requires domain-wide delegation and admin setup.
+- **Service Account JSON File** – In Google Workspace, a service account JSON file allows your app to act on behalf of any user in the domain using domain-wide delegation. This means your app can impersonate individual users to access their emails or files. Only service accounts are supported in Google Workspace because OAuth2 is based on individual user consent, which doesn’t fit Google Workspace’s model—Workspace accounts belong to organizations, not individuals.
 
 Understanding the difference is critical to avoid misusing them.
 

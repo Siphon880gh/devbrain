@@ -82,7 +82,6 @@ LOG_PATH=./logs/app.log
 ### 📦 Log File Security Best Practices
 
 - Place logs **outside the app folder** if possible.
-    
 - If inside the app, block access:
     
 
@@ -109,6 +108,12 @@ location ~* /logs/ {
 logs/
 *.log
 ```
+
+---
+
+### 🥇 Other Best Practices
+
+On fatal crashes, it should send a text message or email to the developer. For a backend script that emails you, refer to [[2. Gmail CLI with NodeMailer and App Password]]
 
 ---
 

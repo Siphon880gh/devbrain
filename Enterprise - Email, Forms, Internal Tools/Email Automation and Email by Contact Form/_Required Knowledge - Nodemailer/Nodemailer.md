@@ -1,9 +1,21 @@
 
-This refers to the previous tutorial [[2a. Gmail CLI with NodeMailer and App Password]]
+**Nodemailer** is a module for **Node.js** that allows you to send emails easily from your server-side JavaScript code.
 
-### 🔍 Under the Hood: `service: "gmail"` in Nodemailer
+For full working code that emails you from a script or from a backend server:
+ [[2. Gmail CLI with NodeMailer and App Password]]
+ 
+---
+
+### 🔍  Nodemailer with `service: "gmail"`
 
 When you specify `service: "gmail"` in `nodemailer.createTransport()`, you're using a built-in shortcut that tells Nodemailer to automatically configure the correct SMTP settings for Gmail.
+
+Your code (For example, [[2. Gmail CLI with NodeMailer and App Password]]):
+```
+{
+  service: "gmail"
+}
+```
 
 Behind the scenes, Nodemailer maps `"gmail"` to:
 
@@ -15,11 +27,11 @@ Behind the scenes, Nodemailer maps `"gmail"` to:
 }
 ```
 
-So instead of manually specifying the `host`, `port`, and `secure` options, you're letting Nodemailer use Gmail's official SMTP server configuration.
+So instead of manually specifying the `host`, `port`, and `secure` options, you're letting Nodemailer refer to Gmail's official SMTP server configuration.
 
 ---
 
-### 🌐 SMTP and Your Local Machine
+### 🌐 Under the hood: SMTP at Machine
 
 - When you send an email using this transport, your **local machine (Mac/Linux)** connects to Gmail’s SMTP server over the internet.
 - The connection is made using **TCP on port 465 (SSL) or 587 (STARTTLS)**, depending on how Gmail's server expects it.
