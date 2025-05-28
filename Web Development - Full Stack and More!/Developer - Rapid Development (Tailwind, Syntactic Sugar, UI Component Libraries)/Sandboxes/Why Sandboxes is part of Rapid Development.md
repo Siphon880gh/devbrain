@@ -1,0 +1,1 @@
+You may find code or design that you like and then copy and paste them into your app.
