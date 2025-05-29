@@ -1,6 +1,40 @@
 Aka: Get Started
 https://vite.dev/guide/
 
+To create a new Vite app, use the following command:
+
+```bash
+npm create vite@latest
+```
+
+This will prompt you to enter the project name and select a framework (like React, Vue, Svelte, etc.).
+
+Alternatively, you can specify the project name and template in the command, for example:
+
+```bash
+npm create vite@latest my-vite-app -- --template react
+```
+
+Replace my-vite-app with your desired project name and react with your preferred template (vue, svelte, vanilla, etc.).
+
+If you prefer using Yarn or PNPM, the commands are:
+
+```bash
+yarn create vite
+```
+or
+```bash
+pnpm create vite
+```
+
+---
+
+Install dependencies next.
+
+Run `npm install`
+
+---
+
 npm scripts:
 - `vite` is a command that starts a dev server in the current directory
 - `vite build` to build for production preview
