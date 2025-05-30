@@ -27,17 +27,10 @@ Fill in your **Database Name** and **Collection Name**:
 
 ---
 
-### 3. Upload Using `mongoimport`
-
-If MongoDB is installed locally, use the CLI tool `mongoimport`:
-
-```bash
-mongoimport <options> <connection-string> --db <DB_NAME> --collection <COLLECTION_NAME> compass_exported.ndjson
-```
 
 ---
 
-## ✅ Requirements for Successful Upload
+## 3. Review the three requirements for uploading
 
 ### 📌 Requirement 1: Valid Connection String
 
@@ -96,7 +89,7 @@ Failed: cannot decode array into a primitive.D
 Compass does **not** support NDJSON export:  
 ![[Pasted image 20250523064427.png]]
 
-#### 🔁 Convert with `jq`:
+#### 🔁 Convert exported json into ndjson with `jq`:
 
 Use this command:
 
@@ -116,14 +109,21 @@ jq -c '.[]' compass_exported.json > compass_exported.ndjson
 
 ---
 
-## 🎉 Once All 3 Requirements Are Met
+## 🎉 Once All 3 Requirements Are Met - Upload ndjson into Atlas
 
 You’re ready to import:
-
 ```bash
-mongoimport "mongodb+srv://<USERNAME>:<PASSWORD>@cluster0.mongodb.net" \
-  --db my_database --collection my_collection \
-  --file compass_exported.ndjson
+mongoimport <optional_options> <connection-string> --db <DB_NAME> --collection <COLLECTION_NAME> compass_exported.ndjson
+```
+
+
+Eg. 
+```bash
+mongoimport "mongodb+srv://<USERNAME>:<PASSWORD>@cluster0.mongodb.net" --db my_database --collection my_collection compass_exported.ndjson
 ```
 
 This will upload your local data to MongoDB Atlas and make it available to your cloud-deployed app.
+
+Note it's a ndjson file which Mongo Compass does not export. Read the requirements for successsful upload. It will have a jq command to convert the json file into ndjson
+
+![[Pasted image 20250530021731.png]]

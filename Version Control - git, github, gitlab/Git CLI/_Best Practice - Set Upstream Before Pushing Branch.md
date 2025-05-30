@@ -40,12 +40,19 @@ That way, Git will auto-link new branches to the remote when you push them for t
 
 ---
 
-**QUICKER WAY**
+**QUICKER WAY / SOP for Handling New Branches Locally and Pushing Them Remotely**
 
-You push to remote on a new branch that hasn't been pushed up before. So you see this message:
+You may want to adopt this habit when it's in your workflow to create new branches for new features on the local machine then later pushing to the remote repo. You will purposely trigger the error to make it easy for you to setup upstream so later pushes are simple.
+
+1. You push the current branch to remote for the first time (the branch was never pushed before):
+```
+git push
+```
+
+2. So you see this message:
 ![[Pasted image 20250526072241.png]]
 
-Just copy and paste the command it recommends:
+3. Just copy and paste the command it recommends:
 ![[Pasted image 20250526072255.png]]
 
-Now you're setup to just run `git push`.
+4. Now you're setup to just run `git push`.
