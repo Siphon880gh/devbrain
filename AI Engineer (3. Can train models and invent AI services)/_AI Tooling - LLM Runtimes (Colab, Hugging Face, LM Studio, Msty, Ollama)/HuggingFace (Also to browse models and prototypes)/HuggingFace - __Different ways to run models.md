@@ -9,6 +9,7 @@ Inference Providers, Inference Endpoints, and Spaces
 
 Under Use this model is:
 Transformers
+- More info at: [[HuggingFace - _Pipelines (aka Transformers)]]
 ![[Pasted image 20250219181304.png]]
 
 
