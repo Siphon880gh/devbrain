@@ -12,18 +12,19 @@ You may want to create a repository of the standards when you're starting a new 
 In today’s fast-paced software development environment, standards are essential for ensuring quality, consistency, and scalability. They provide clear guidelines for teams to build reliable software, foster collaboration, and align projects with organizational goals. By promoting best practices, standards also help mitigate coding errors, reduce technical debt, and avoid common pitfalls. This article delves into key software development standards, best practices, and tools to streamline workflows and drive success.
 ### Table of Contents
 1. **Tooling Standards**
-	- 1.1. Code Standards
-	- 1.2. App Configuration Layers
+	- 1.1. Code Standards - Variable Naming, File Structure
+	- 1.2. Commenting Standards - Commenting, JSDoc, Regions
+	- 1.3. App Configuration Layers
 		- `<app-name>`.config.json
 		- .env and .env sample
-	- 1.3. Lint and Prettier Configuration
-	- 1.4. VS Code Settings
+	- 1.4. Lint and Prettier Configuration
+	- 1.5. VS Code Settings
 		- What to Include in Shared Settings
 		- Best Practices for Sharing VS Code Settings
-	- 1.5. Shared Scripts
-	- 1.6. Commit Message Guidelines
-	- 1.7. Branching and Merging Strategies
-	- 1.8. Testing Framework Standards
+	- 1.6. Shared Scripts
+	- 1.7. Commit Message Guidelines
+	- 1.8. Branching and Merging Strategies
+	- 1.9. Testing Framework Standards
 		- Node.js
 		- Python
 		- Common Testing Standards
@@ -77,30 +78,33 @@ In today’s fast-paced software development environment, standards are essentia
 
 #### 1. **Tooling Standards**
 
-##### 1.1 Code Standards
+##### 1.1 Code Standards - Variable Naming, File Structure
 Readable and maintainable code begins with consistent formatting. Standards define indentation, naming conventions, and structure, streamlining collaboration and debugging.
 
 - **Naming Conventions**: Adopt clear and consistent naming conventions for variables, functions, files, and classes (e.g., `camelCase` for JavaScript or `PascalCase` for React components).
-- **Directory Structure**: Define a logical and scalable directory layout to organize files by functionality (e.g., `src/`, `tests/`, `components/`).
-- JavaScript Commenting and Documentation Guidelines: Commenting is vital for code maintainability and readability. Follow these guidelines:
+- **File Structure**: Define a logical and scalable directory layout to organize files by functionality (e.g., `src/`, `tests/`, `components/`).
+
+#####  1.2 Commenting Standards - Commenting, JSDoc, Regions
+- **JavaScript Commenting and Documentation Guidelines**: Commenting is vital for code maintainability and readability. Follow these guidelines:
 	- **Purposeful Comments**: Add comments only where the intent of the code might not be immediately obvious. Avoid redundant comments that restate the code.
 	- **Consistent Format**: Use block comments (`/* */`) for documentation and inline comments (`//`) sparingly for clarifications.
-	- **Documentation Automation**: Use JSDoc  or TypeDoc to automate documentation generation and improve consistency. JS Doc example:
-		
-		```javascript
-		/**
-		 * Calculates the area of a rectangle.
-		 * @param {number} width - The width of the rectangle.
-		 * @param {number} height - The height of the rectangle.
-		 * @returns {number} The area of the rectangle.
-		 */
-		function calculateArea(width, height) {
-		  return width * height;
-		}
-		```
-
-		- Regions to take average of the Regions panel in VS Code / Cursor AI:
+- **Documentation Automation**: Use JSDoc  or TypeDoc to automate documentation generation and improve consistency. You begin comment with `/** `. Also it adds to the VSCode intellisense if the commented object is imported in another file, and the developer hovers their mouse over the object - they will see the exact JSDoc comment describing that object in an Intellisense hover tooltip.
 	  
+  Doc example:
+	```javascript
+	/**
+	 * Calculates the area of a rectangle.
+	 * @param {number} width - The width of the rectangle.
+	 * @param {number} height - The height of the rectangle.
+	 * @returns {number} The area of the rectangle.
+	 */
+	function calculateArea(width, height) {
+	  return width * height;
+	}
+	```
+
+	- Regions to take average of the Regions panel in VS Code / Cursor AI:
+  
 JS - 
 ```
 // #region Authentication Functions
@@ -150,7 +154,7 @@ def generate_uuid():
 Region Viewer panel at the bottom left lets you click and jump to defined regions:
 ![[Pasted image 20250202214034.png]]
 
-##### 1.2. App Configuration Layers
+##### 1.3. App Configuration Layers
 - `<app-name>`.config.json
 	- Have a config file at the root so that when there are variables that need to be switched like flags or important variables that are referenced by your app at different points, you know where to go in order to config it. 
 	  An example (3dbrain.config.json):
@@ -178,7 +182,7 @@ Region Viewer panel at the bottom left lets you click and jump to defined region
 	```
 - .env and .env sample
 	- Your .env file will contain sensitive data that your app uses, however it's never committed, so how can others using your code know what values to set? They could read a README.md, but even better, we should provide an `.env.sample` THAT IS committed, which have the direct variables and placeholder values. In that way, the developer can make an exact copy of the sample and then fill in the values.
-##### 1.3. **Lint and Prettier Configuration**
+##### 1.4. **Lint and Prettier Configuration**
 
 - **Linting**: Use **ESLint** (JavaScript/TypeScript) or **Pylint** (Python) with a shared configuration to enforce coding standards.
 - **Prettier**: Standardize code formatting with Prettier. Example `.prettierrc`:
@@ -193,7 +197,7 @@ Region Viewer panel at the bottom left lets you click and jump to defined region
 }
 ```
 
-##### 1.4. **VS Code Settings**
+##### 1.5. **VS Code Settings**
 ###### **What to Include in Shared Settings**
 
 1. **Workspace Settings:**
@@ -226,7 +230,7 @@ Region Viewer panel at the bottom left lets you click and jump to defined region
 5. **Allow Some Flexibility:**
     - Recognize that some settings (like themes or fonts) may be personal preferences and don’t need to be standardized.
 
-##### 1.5. **Shared Scripts**
+##### 1.6. **Shared Scripts**
 
 
 If applicable: Add global npm scripts that you or team members run as long as they're placed at their home directory (~/npm). Speeds up migration and onboarding because your cli doesn't require editing/re-sourcing .bash_profile or .zshrc.
@@ -245,14 +249,14 @@ More information:
 - You can get my global npm scripts at the repo: 
   [https://github.com/Siphon880gh/global-npm-scripts](https://github.com/Siphon880gh/global-npm-scripts)
 
-##### 1.6. **Commit Message Guidelines**
+##### 1.7. **Commit Message Guidelines**
 
 Use a consistent format for commit messages to improve readability and collaboration:
 
 - **Format**: `type(scope): short description` (e.g., `feat(auth): add login form validation`).
 - **Types**: Common types include `feat`, `fix`, `chore`, `docs`, `style`, and `test`.
 - Or you can opt for a more simplistic commit messages like "Updated...", "Added...", "Fixed...", "Refactored...", "Documented..."
-##### 1.7 Branching and Merging Strategies
+##### 1.8 Branching and Merging Strategies
 - **Branch Naming:**
     - Use descriptive branch names:
         - `feature/<feature-name>` for new features.
@@ -278,7 +282,7 @@ Use a consistent format for commit messages to improve readability and collabora
     - Use **rebase** for cleaner commit history in feature branches.
     - Use **merge commits** to preserve history when integrating into `main` or `develop`.
 
-##### 1.8 **Testing Framework Standards**
+##### 1.9 **Testing Framework Standards**
 
 ###### Node.js
 
