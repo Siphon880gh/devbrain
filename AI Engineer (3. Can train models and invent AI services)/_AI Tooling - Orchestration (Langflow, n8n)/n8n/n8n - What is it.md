@@ -22,13 +22,13 @@ It’s billed as "workflow automation"—but that barely scratches the surface.
 ## 🧠 AI Workflows & Logic
 
 - Supports **OpenAI**, **Hugging Face**, **Anthropic**, and **local LLMs**
-- Build **RAG** (Retrieval-Augmented Generation) workflows
 - Add custom logic with `Code` nodes.
 
-✅ **Yes, it can RAG**  
-✅ **Yes, it can tag with AstraDB**
-
-![[Pasted image 20250606221657.png]]
+- Build **RAG** (Retrieval-Augmented Generation) workflows
+	- ✅ **Yes, it can RAG**  
+	- ✅ **Yes, it can tag with AstraDB**
+	- See in this AI Agent node, there is a "Memory" parameter connection:
+	  ![[Pasted image 20250606221657.png]]
 
 #### Example: AstraDB Integration
 
