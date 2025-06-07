@@ -13,6 +13,10 @@ Docusaurus:
 
 LangFlow (AI):
 - [[Lv 0. Versions - LangFlow]]
+
+n8n (AI and automation):
+- [[Lv 0. Versions - n8n]]
+
 NextJS and/or NextAuth:
 - [[0. Preface - Learn by Editing Code on NextJS]]
 
@@ -24,3 +28,6 @@ NextJS with Supabase Authentication:
 
 React Native:
 - [[0. Preface - Learn by Leveling Up on React Native]]
+
+Tailwind Setups (Learn all environments):
+- Open all documents at the folder, starting with [[_v3 vs v4 Breaking TailwindCSS Changes]]
