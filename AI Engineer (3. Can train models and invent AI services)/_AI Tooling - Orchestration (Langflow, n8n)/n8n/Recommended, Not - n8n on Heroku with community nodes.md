@@ -7,6 +7,8 @@ This applies to you if:
 - You’ve installed **community nodes**
 - You frequently see an **"Unrecognized node type"** error in your workflows, often daily when you log back into n8n to manage your workflows.
 
+![[Pasted image 20250606213458.png]]
+
 If so, read on—your setup is likely running into Heroku platform limitations.
 
 ---
@@ -98,4 +100,5 @@ If you're using Heroku to host n8n with community nodes:
 - You’ll run into issues with missing nodes due to Heroku’s **ephemeral filesystem**
 - **S3 Hero Dev** can help with file storage, but **can’t be used to persist node installations**
 - You **can’t mount S3** using FUSE-based tools like `s3fs` or `goofys`, because Heroku lacks FUSE support
+- If you must stay on Heroku with community nodes, set `N8N_REINSTALL_MISSING_PACKAGES=true` and build a retry loop that waits for the dyno to be ready
 - The best fix is to migrate to a platform that supports **persistent storage**.
