@@ -15,7 +15,7 @@ LangFlow (AI):
 - [[Lv 0. Versions - LangFlow]]
 
 n8n (AI and automation):
-- [[Lv 0. Versions - n8n]]
+- [[0.0. Versions - n8n]]
 
 NextJS and/or NextAuth:
 - [[0. Preface - Learn by Editing Code on NextJS]]
