@@ -17,6 +17,11 @@ Favicon images are small in size, only 16 pixels in height by 16 pixels in width
 [SVGRepo](https://www.svgrepo.com/)
 
 
+#### Library: Google Cloud Icons
+
+Download from:
+[https://cloud.google.com/icons](https://cloud.google.com/icons)
+
 #### Library: Remix Icon (Free Font-Awesome Alternative)
 Cheat sheet: https://remixicon.com/
 ```
