@@ -25,14 +25,10 @@ It’s billed as "workflow automation"—but that barely scratches the surface.
 - Add custom logic with `Code` nodes.
 
 - Build **RAG** (Retrieval-Augmented Generation) workflows
-	- ✅ **Yes, it can RAG**  
+	- ✅ **Yes, it can RAG**. Refer to [[n8n Rag]]
 	- ✅ **Yes, it can tag with AstraDB**
-	- See in this AI Agent node, there is a "Memory" parameter connection:
+	  See in this AI Agent node, there is a "Memory" parameter connection:
 	  ![[Pasted image 20250606221657.png]]
-
-#### Example: AstraDB Integration
-
-Use **HTTP Request** node to access AstraDB REST API, making AstraDB as a vector database for your AI Agent.
 
 ---
 
