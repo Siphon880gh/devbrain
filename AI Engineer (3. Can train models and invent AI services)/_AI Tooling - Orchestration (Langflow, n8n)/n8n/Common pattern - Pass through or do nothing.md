@@ -18,4 +18,16 @@ This brings up another point - your do nothing or pass through nodes should stil
 
 ---
 
-Another node you can use besides "Do nothing" is "Filter"
+Another node you can use besides "Do nothing" is "Filter" because you can just filter the same inputs to outputs by having no conditions:
+
+1 of 2:
+![[Pasted image 20250607001035.png]]
+
+2 of 2:
+![[Pasted image 20250607001211.png]]
+
+
+But the "Filter" icon just isn't as representative as the "Do nothing" icon:
+![[Pasted image 20250607001331.png]]
+
+^ The "Do nothing" has an arrow implying that information just passes through. Furthermore, the Do nothing node is meant for this. The Filter node isn't. When working in a team, you want to use the appropriate nodes to communicate your intentions.
