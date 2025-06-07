@@ -3,6 +3,7 @@ sorting-spec: |-
   Web Development - Full Stack and More!
   Databases - MySQL, PostgreSQL, Mongo, and ORMs
   Everything as a Service - Firebase, Firestore, Heroko, Netlify, Supabase, Vercel, etc
+  API Services (Google Cloud Console and more)
   AI Assisted Coding
   AI Prompt Engineer (1. Can optimize prompts)
   AI API Developer (2. Can leverage APIs from AI services)
@@ -19,6 +20,7 @@ sorting-spec: |-
   Enterprise - Cache, Cloudflare, Chat Bot, SEO, Support Docs, Receiving Payments
   Enterprise - Analytics, Business Analytics (BA), Business Intelligence (BI)
   Extensions, Plug-ins, and Software Suite Development
+  Extensions - Chrome Extensions
   Version Control - git, github, gitlab
   Developer Tools
   Regex (Regular Expression)
