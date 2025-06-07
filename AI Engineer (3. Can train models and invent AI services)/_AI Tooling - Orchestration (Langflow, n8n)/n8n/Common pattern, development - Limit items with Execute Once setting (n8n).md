@@ -1,6 +1,6 @@
-Say you have a node that runs for each item in the input. 
+Say you have a node that runs for each item in the input. You are still developing your workflow.
 
-That could be costly if it's a community node that connects to a third party service that charges you by the credit.
+That could be costly if it's a community node that connects to a third party service that charges you by the credit. It also slows down the execution of your workflow as you're still testing it.
 
 You are still developing the logic in n8n and don't need it to run for every item at inputs. Go to the node's Settings and tick on "Execute Once". 
 
