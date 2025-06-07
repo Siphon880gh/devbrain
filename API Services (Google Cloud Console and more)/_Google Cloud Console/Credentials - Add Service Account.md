@@ -26,3 +26,5 @@ Choose json. it will download to your computer.
 
 Open the downloaded JSON file and copy the "private_key"'s value:
 ![[Pasted image 20250607034508.png]]
+
+Finally, make sure you share the Google Doc / Google Sheet / etc with the service account's email address and make them an editor.
