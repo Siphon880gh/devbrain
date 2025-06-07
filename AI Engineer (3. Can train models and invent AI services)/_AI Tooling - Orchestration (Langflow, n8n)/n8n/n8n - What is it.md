@@ -1,7 +1,3 @@
-Got it. Here's a cleaner, more scannable version with tighter phrasing and better flow for easier reading:
-
----
-
 ## 🧩 What is **n8n**?
 
 **n8n** is more than just a workflow tool. It’s:
