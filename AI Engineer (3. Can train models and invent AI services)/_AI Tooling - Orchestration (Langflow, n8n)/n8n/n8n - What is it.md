@@ -25,53 +25,40 @@ It’s billed as "workflow automation"—but that barely scratches the surface.
 - Build **RAG** (Retrieval-Augmented Generation) workflows
 - Add custom logic with `Code` nodes.
 
+✅ **Yes, it can RAG**  
+✅ **Yes, it can tag with AstraDB**
+
+![[Pasted image 20250606221657.png]]
+
+#### Example: AstraDB Integration
+
+Use **HTTP Request** node to access AstraDB REST API, making AstraDB as a vector database for your AI Agent.
+
 ---
 
 ## 🔄 Example: Hybrid Workflow
 
 > 🔔 Slack alert → ✏️ Summarize with OpenAI → 🔍 Query AstraDB → 📧 Send email → 🧠 Save to knowledge base
 
-✅ **Yes, it can RAG**  
-✅ **Yes, it can tag with AstraDB**
-
-![[Pasted image 20250606221657.png]]
-
----
-
-## 🌐 Example: AstraDB Integration
-
-Use **HTTP Request** node to access:
-- ✅ AstraDB REST API
-
-Works seamlessly in your flows.
 
 ---
 
 ## 🕷️ Web Scraping Power
 
 - Scrape Google Search
-    
 - Scrape sites with **IP rotation**
-    
 - Enrich scraped data with AI or third-party APIs
-    
 - Powered by **community nodes** (e.g. SerpApi, BrightData, etc.)
-    
 
 ---
 
 ## 💡 Other Use Cases
 
 - AI data pipelines
-    
 - Customer enrichment
-    
 - Auto-email workflows
-    
 - Blog post summaries
-    
 - Monitoring dashboards
-    
 
 ---
 
