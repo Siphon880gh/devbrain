@@ -1,4 +1,4 @@
-Why needed: You're implementing an app that uses an API service from Google Cloud Console, and you have to code in a service account file. Or you're using a service that integrates with that API, and you have to the service account email and private key. 
+Why needed: You're implementing an app that uses an API service from Google Cloud Console, and you have to authorize the user so that you can act on their behalf (the user sees OAuth2 screen). Or you're using a service that integrates with that API, and it needs to act on your behalf (you will see OAuth2 screen). 
 - For example, n8n adding a Google Sheet node for appending rows will requires your Google credentials in either forms:
 	- Service account email and private key.
 	- OR OAuth2.
