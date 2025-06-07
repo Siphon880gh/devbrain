@@ -63,7 +63,7 @@ It’s billed as "workflow automation"—but that barely scratches the surface.
 Yes—there’s a free **Community Edition** you can self-host (Docker).  
 👉 [n8n.io/pricing](https://n8n.io/pricing/)
 
-
+---
 
 Weng’s Personal Notes:
 [https://chatgpt.com/c/6843c9c7-da18-800f-bb09-481acffa4ea0](https://chatgpt.com/c/6843c9c7-da18-800f-bb09-481acffa4ea0)
