@@ -5,7 +5,7 @@ This applies to you if:
 - You're running **n8n on Heroku**, including in a **Docker container**
 - You access your instance via the Heroku app URL (to receive webhooks or edit workflows)
 - You’ve installed **community nodes**
-- You frequently see an **"Unrecognized node type"** error in your workflows
+- You frequently see an **"Unrecognized node type"** error in your workflows, often daily when you log back into n8n to manage your workflows.
 
 If so, read on—your setup is likely running into Heroku platform limitations.
 
@@ -58,6 +58,24 @@ FUSE (Filesystem in Userspace) allows userspace programs to implement a fully fu
 In short: **Heroku is not compatible with FUSE-based mounting**, so there's no way to make community node installs persist through this method.
 
 ---
+### 🛠️ Can't Leave Heroku? A Workaround if Speed Not an Issue
+
+If you're not ready to move off Heroku, there's a partial workaround using:
+#### `N8N_REINSTALL_MISSING_PACKAGES=true`
+
+This environment variable tells n8n to reinstall missing community nodes automatically when it starts.
+
+However, there's a catch:
+- **Container restarts take time**, and the n8n server may not be immediately available
+- You’ll likely need a **startup script or external monitor** that:
+    1. Pings the Heroku URL every few minutes
+    2. Waits until the app becomes reachable (i.e., not 503 or down)
+    3. Triggers a health check or webhook call once n8n is fully ready
+    4. If your app relies on n8n, consider showing a loading screen, loading sprite, or loading message to the user until a successful connection to n8n. Community nodes usually reinstall quickly, so the delay is minimal.
+
+Note: This issue is most common on **eco or free plans**, which automatically shut down dynos after 30 minutes of inactivity. When the dyno restarts, the community nodes are lost due to Heroku’s **ephemeral filesystem**. Upgrading to a higher plan that avoids automatic shutdowns can help reduce these interruptions, but won’t fully solve the persistence issue.
+
+---
 
 ### ✅ Real Alternatives: Use a Platform with Persistent Volumes
 
@@ -74,11 +92,10 @@ To run n8n with community nodes reliably, move to a platform that supports persi
 These platforms let your container retain installed nodes and other local changes even after restarts or redeploys.
 
 ---
-
 ### 🔁 Summary
 
 If you're using Heroku to host n8n with community nodes:
 - You’ll run into issues with missing nodes due to Heroku’s **ephemeral filesystem**
 - **S3 Hero Dev** can help with file storage, but **can’t be used to persist node installations**
 - You **can’t mount S3** using FUSE-based tools like `s3fs` or `goofys`, because Heroku lacks FUSE support
-- The best fix is to migrate to a platform that supports **persistent storage**
+- The best fix is to migrate to a platform that supports **persistent storage**.
