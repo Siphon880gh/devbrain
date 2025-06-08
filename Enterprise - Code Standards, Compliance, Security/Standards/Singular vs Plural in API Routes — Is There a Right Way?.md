@@ -61,7 +61,3 @@ The key is **clear communication**:
     
 
 Whether you stick to plurals or adapt a singular/plural distinction for clarity, make your intent obvious — and stick to it.
-
----
-
-Let me know if you’d like this turned into a doc, blog post, or Swagger guideline format.
