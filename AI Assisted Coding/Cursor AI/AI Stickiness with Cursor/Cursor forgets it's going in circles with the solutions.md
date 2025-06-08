@@ -4,3 +4,6 @@ Situation: It keeps suggesting approaches that failed, and eventually cycles bac
 
 1. Still same problem. can you give me a short summary of what we attempted and failed so far  
 2. Lets fix the problem. Try a new approach. Our previous approaches that failed were: {Copy the previous failed approaches}
+
+An alternative prompt sequence is:
+1. Look into the previous conversations. You'll see we're alternating between two solutions

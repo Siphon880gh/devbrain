@@ -1,0 +1,1 @@
+Notes moved to "AI Assisted Coding" root folder.
