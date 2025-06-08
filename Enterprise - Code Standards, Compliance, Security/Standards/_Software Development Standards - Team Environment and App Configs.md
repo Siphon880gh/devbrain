@@ -46,6 +46,45 @@ If you're working in a **monorepo** with many nested sub-projects:
 
 ---
 
+## ◾️ Why sh files and how to fix their executable permissions
+
+In an enterprise environment, team members may need to run `.sh` files from their local copy of the repository. Shell scripts are often more portable and consistent than `npm` or Python scripts for setting up the workspace—especially when everyone is using the same Dockerized operating system (Eg. Debian).
+
+If you are the one developing the .sh shell scripts, you can ask ChatGPT to adapt it to the target OS that everyone will use — for example, _“Make sure this shell script works for Debian.”_ Then, ensure all team members or environments spin up using that same OS image (e.g., Debian or Ubuntu) to avoid compatibility issues. AWS lets you spin up instances with the same operating system every time, which makes environment consistency much easier in production as well.
+
+However, the sh files don't retain their executable permissions. A `Makefile` can help automate `chmod u+x` so the scripts become runnable right away.
+
+Here's a basic `Makefile` that applies `chmod u+x` to all `.sh` scripts in the current directory (or recursively):
+
+#### **Option 1: For all `.sh` files in the current directory**
+
+Makefile:
+```
+.PHONY: setup  
+  
+setup:  
+	chmod u+x *.sh
+```
+
+#### **Option 2: Recursive (subdirectories too)**
+
+Makefile:
+```
+.PHONY: setup  
+  
+setup:  
+	find . -name "*.sh" -exec chmod u+x {} \;
+```
+
+#### 🛠 Usage
+
+Run:
+```
+make setup
+```
+
+---
+
 ### 🛠️ App Configuration Management
 
 Use a structured JSON config file (e.g., `app.config.json`) to centralize non-sensitive, environment-specific settings:
