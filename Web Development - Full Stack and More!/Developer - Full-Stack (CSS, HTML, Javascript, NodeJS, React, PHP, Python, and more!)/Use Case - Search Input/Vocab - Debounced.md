@@ -1,0 +1,1 @@
+Debounced meaning the user stops typing for a second. You don't want to fetch for every keystroke. This is crucial for [[Autocomplete dropdown for input - MUI]]
