@@ -1,6 +1,7 @@
 ---
 sorting-spec: |-
   Web Development - Full Stack and More!
+  Web Development - Wordpress, CMS, No Code Low Code
   Databases - MySQL, PostgreSQL, Mongo, and ORMs
   Everything as a Service - Firebase, Firestore, Heroko, Netlify, Supabase, Vercel, etc
   API Services (Google Cloud Console and more)

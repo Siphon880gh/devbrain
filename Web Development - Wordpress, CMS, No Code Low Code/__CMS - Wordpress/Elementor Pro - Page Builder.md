@@ -1,5 +1,5 @@
 
-It takes over the WPBakery Page Builder. But you can switch back by clicking "Back to Wordpress Editor"
+It takes over the WPBakery Page Builder, replacing the WPBakery Page Builder. But you can switch back by clicking "Back to Wordpress Editor"
 
 ![](IcMHvWP.png)
 
