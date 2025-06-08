@@ -24,4 +24,5 @@
 - **Pricing**: Weebly has four plans, ranging from $0 to $26/month, billed annually. The Free plan suits basic sites, while the Personal plan ($10/month) allows custom domain connections. The Professional plan ($12/month) and Performance plan ($26/month) are geared towards more professional, business-focused websites​[](https://www.websitebuilderexpert.com/website-builders/weebly-pricing/)​.
   
 
+Weng's Personal Notes:
 [https://chat.openai.com/c/612a24a8-b829-4b78-b155-849ab950d701](https://chat.openai.com/c/612a24a8-b829-4b78-b155-849ab950d701)
