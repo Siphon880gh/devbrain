@@ -124,7 +124,3 @@ loadESM();
 |Modern Node.js backend|`import` + `"type": "module"`|Preferred for new code|
 |Mixed usage|Use dynamic `import()` inside CJS|Only way to load ESM in CJS|
 |Frontend|`import`|Browser standard|
-
----
-
-Let me know if you want code examples scaffolded for each environment or a snippet to convert CommonJS to ESM.
