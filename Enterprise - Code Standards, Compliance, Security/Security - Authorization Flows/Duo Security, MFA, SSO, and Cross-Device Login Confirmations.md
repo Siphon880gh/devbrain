@@ -57,6 +57,8 @@ SSO lets users log in **once** to access **multiple services** — think logging
 
 SSO reduces password reuse and makes enforcing MFA more manageable.
 
+The underlying protocol is SAML
+
 ---
 
 ## 📨 Real-World MFA: Gmail and Apple Examples
