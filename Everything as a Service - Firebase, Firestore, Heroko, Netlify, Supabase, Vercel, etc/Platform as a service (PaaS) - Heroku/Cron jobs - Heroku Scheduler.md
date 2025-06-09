@@ -17,7 +17,6 @@ Heroku dynos sleep on free plans, so ensure you're on a paid tier for reliable c
 - However, cold start time may delay the actual execution by a few seconds to a minute.
 - Scheduler-triggered wakeups count against your quota
 
-
 **Example Usage**
 Configure the scheduler in the Heroku dashboard:
 - Go to Resources → Heroku Scheduler

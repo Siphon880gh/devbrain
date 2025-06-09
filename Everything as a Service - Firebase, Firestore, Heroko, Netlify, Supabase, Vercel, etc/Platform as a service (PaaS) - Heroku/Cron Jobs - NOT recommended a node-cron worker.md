@@ -1,4 +1,4 @@
-You may think of introducing a service worker in Heroku by editing the Procfile with:
+You may think of introducing a worker in Heroku by editing the Procfile with:
 ```
 web: node server.js  
 worker: node worker.js

@@ -22,11 +22,8 @@ Create an article from the prior responses
 You can improve clarity by asking the AI to:
 
 - Rename section titles
-    
 - Rearrange content
-    
 - Enhance flow and readability
-    
 
 ---
 
@@ -41,6 +38,31 @@ When you ask new questions, request that the answer be added to the article:
 ```
 
 ---
+
+
+#### ⚠️ You may end up with multiple articles
+
+ChatGPT may ignore you on creating one mega article. If that happens, you can prompt it to combine the two articles:
+
+```
+Combine these two articles:
+
+"""
+{ARTICLE_1}
+"""
+
+And:
+
+
+"""
+{ARTICLE_2}
+"""
+
+```
+
+
+---
+
 
 ### 💡 Why This Works
 
