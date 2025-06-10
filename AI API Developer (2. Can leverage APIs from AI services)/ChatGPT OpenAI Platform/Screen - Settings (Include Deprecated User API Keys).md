@@ -32,26 +32,30 @@ Make sure roles and permissions are assigned carefully to control who can make c
 At OpenAI Platform’s setting screens, see model limits, manage members who can view the dashboard for this organization, and which members can affect billing, manage billing, and adjust billing limits and credits to repurchase when hit a number of credits use.
 
 ---
-## API Keys
+## Deprecated User API Keys
 
-Note: User API keys that work across all projects at the organization is deprecated and accessed at a different menu. But will be discussed how to access before the end of section.
+WARNING: User API keys that work across all projects at the organization is deprecated and accessed at a different menu. But will be discussed how to access before the end of section.
 
-At Settings page, you can access either:
-- All projects' api keys under the same organization, if you click "API Keys" menu item under "ORGANIZATION" section. The organization name at the top left is how it knows.
-- The current project's API keys, if you click "API Keys" menu item under "PROJECT" section. The dropdown of the project names at the top left is how it knows.
-- User API keys access will be discussed later
-
-Depending on which API Keys menu item you click, you either access all projects' API Keys or that one project's API keys:
-
-![[Pasted image 20250416012932.png]]
 
 To access User API Keys:
 
 Go to Settings -> Your Profile:
 ![[Pasted image 20250418221757.png]]
 
-After removing User API Keys or if you don't have API Keys, that tab won't exist for you:
+After removing User API Keys or if you don't have API Keys, that tab won't exist for you anymore because this is a deprecated type of User API that OpenAI intends to permanently sunset:
 ![[Pasted image 20250418222410.png]]
+
+
+---
+
+
+At Settings page, you can access either:
+- All Project API Keys under the same organization, if you click "API Keys" menu item under "ORGANIZATION" section. The organization name at the top left is how it knows.
+- The current project's API keys, if you click "API Keys" menu item under "PROJECT" section. The dropdown of the project names at the top left is how it knows.
+
+Depending on which API Keys menu item you click, you either access all projects' API Keys or that one project's API keys:
+
+![[Pasted image 20250416012932.png]]
 
 ---
 
