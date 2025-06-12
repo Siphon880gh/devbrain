@@ -77,6 +77,36 @@ However, there's a catch:
 
 Note: This issue is most common on **eco or free plans**, which automatically shut down dynos after 30 minutes of inactivity. When the dyno restarts, the community nodes are lost due to Heroku’s **ephemeral filesystem**. Upgrading to a higher plan that avoids automatic shutdowns can help reduce these interruptions, but won’t fully solve the persistence issue.
 
+How to add this environmental variable? Add to "Settings" -> "Reveal Config Vars". Then add `N8N_REINSTALL_MISSING_PACKAGES` set to `true`
+
+> [!note] Test if this auto install still works on your current version of n8n
+> Test the same version n8n locally. You can run container passing in the environmental variable like so:
+> ```
+> (base) wengffung@Wengs-MBP-New ~ % docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n --env N8N_REINSTALL_MISSING_PACKAGES=true docker.n8n.io/n8nio/n8n
+> ```
+> Visit community nodes list to confirm your nodes are not broken (at least not yet - we will break them)
+> ![[Pasted image 20250612051834.png]]
+> 
+> Let's try to break the community node. Run command to get name of volume we mounted (likely will be n8n_data, but anyways...): ` docker volume ls`. 
+> 
+> At Docker Desktop, open up that corresponding volume:
+> ![[Pasted image 20250612052013.png]]
+> 
+> Open up the folder nodes -> node_modules -> desired community node to test what happens if you corrupt it
+> ![[Pasted image 20250612052157.png]]
+> 
+> Back to the community nodes list, we can see that the corresponding community node is now corrupted. Do not re-install it:
+> ![[Pasted image 20250612052318.png]]
+> 
+> Close and restart the container with the environmental flag option. Then revisit the community nodes page (or refresh it if you're still on that page). You'll see that the community node is reinstalled automatically without you having to manually reinstall it:
+> ![[Pasted image 20250612051834.png]]
+> 
+> If you had not passed the auto reinstall environmental flag, it would have stayed corrupted, possibly breaking your workflow that depends on that node.
+> 
+
+
+
+
 ---
 
 ### ✅ Real Alternatives: Use a Platform with Persistent Volumes
