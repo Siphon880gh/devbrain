@@ -1,0 +1,4 @@
+Langchain is a visual node-based flow editor that simplifies building applications powered by large language models (LLMs). It provides tools and abstractions to connect LLMs to various data sources, create chains of prompts, and manage complex workflows. One powerful use case is querying a RAG (Retrieval-Augmented Generation) system, made with Langchain's ability to integrate a vector database, an embedding model, and a LLM (Like a ChatGPT model) into a single, queryable pipeline. To get started, check out the Langchain Level-Up Mastery series, beginning at: [[Lv 0. Versions - LangFlow]]
+
+A scaled down self-hotsable privategpt that interacts with local documents
+https://bdtechtalks.com/2023/06/01/create-privategpt-local-llm/

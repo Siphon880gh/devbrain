@@ -37,7 +37,7 @@ These design principles help your AI agent stay helpful, respectful, and outcome
   
 - **Scope** – The defined boundaries of what the chatbot is designed to handle. A clear scope prevents the AI from attempting to answer unrelated or out-of-domain questions (e.g., trivia in a billing assistant). The bot should recognize when a question is outside its scope and politely steer the user back to the intended topic or escalate if needed.
 
-- **Tone** – The personality or voice the chatbot uses when speaking. It could be friendly, formal, playful, professional, or empathetic—depending on the brand and use case. Consistent tone builds user trust and makes the bot feel more human-like and aligned with your brand identity.
+- **Tone** – The personality or voice the chatbot uses when speaking. It could be friendly, formal, playful, professional, or empathetic—depending on the brand and use case. Consistent tone builds user trust and makes the bot feel more human-like and aligned with your brand identity. You could also have the 
 
 - **Question Sequence (Flow Map)** – A predefined path of questions the bot uses to guide users toward the goal. Also called a “question sequence,” this ensures the bot collects the necessary context step-by-step, while still allowing flexibility to skip or jump ahead when needed.
 
@@ -57,7 +57,17 @@ These design principles help your AI agent stay helpful, respectful, and outcome
 
 - **Escalation** – When the bot determines that a human should take over. This can happen based on user input (e.g., "I need to speak to someone") or bot limitations. Escalation can be live (in the same chat) or delayed (by collecting contact details for follow-up).
     
-- **Guardrails** – Built-in constraints that ensure ethical and user-friendly behavior. These include not asking sensitive or private questions, always offering a human fallback, making it clear when the user is speaking to AI, and maintaining a respectful, appropriate tone throughout the conversation.
+- **Guardrails** – Built-in constraints that ensure ethical and user-friendly behavior. These include not asking sensitive or private questions, always offering a human fallback, making it clear when the user is speaking to AI, and maintaining a respectful, appropriate tone throughout the conversation. 
+  
+  You can ask the AI agent to match the user’s tone—unless the tone is angry, hostile, or profane. In such cases, the guardrail is that the agent should respond in a calm, professional, and empathetic manner that acknowledges the user’s frustration and focuses on resolving the issue or clarifying any misunderstandings.
+
+“Adapt your writing style to mirror the user’s tone—_except_ when the user’s tone is angry, hostile, or profane.  
+• If the user is calm, formal, casual, or humorous: respond in a matching style.  
+• If the user is angry, aggressive, insulting, or uses profanity: do **not** mirror that tone. Instead, reply in a calm, professional, and empathetic manner that:  
+– acknowledges the user’s feelings without endorsing hostility,  
+– avoids any angry or profane language, and  
+– focuses on solving the user’s issue or clarifying misunderstandings.  
+In every case, remain helpful, concise, and respectful.”
 
 ---
 

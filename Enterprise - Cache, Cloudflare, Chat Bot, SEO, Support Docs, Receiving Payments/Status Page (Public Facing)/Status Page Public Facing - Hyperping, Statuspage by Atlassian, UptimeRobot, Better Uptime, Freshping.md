@@ -52,12 +52,13 @@ If you want a **public-facing status page** like [status.hrflow.ai](https://stat
 
 ## 🆓 Other Free Public Status Page Services
 
-|Service|Free Tier Highlights|Notes|
-|---|---|---|
-|**Hyperping**|5 monitors, 1 limited status page|Clean UI, great for startups|
-|**UptimeRobot**|50 monitors, 1 public status page|Generous limits, widely used|
-|**Better Uptime**|10 monitors, 1 page + on-call integration|Alert routing and Slack/webhook support|
-|**Freshping**|50 checks, basic public page|Simple and fast to set up|
+| Service                 | Free Tier Highlights                            | Notes                                                         |
+| ----------------------- | ----------------------------------------------- | ------------------------------------------------------------- |
+| Hyperping               | 5 monitors, 1 limited status page               | Clean UI, great for startups                                  |
+| Statuspage by Atlassian | Free for 1 page, 100 subscribers, basic metrics | Industry standard, best for branding + incident communication |
+| UptimeRobot             | 50 monitors, 1 public status page               | Generous limits, widely used                                  |
+| Better Uptime           | 10 monitors, 1 page + on-call integration       | Alert routing and Slack/webhook support                       |
+| Freshping               | 50 checks, basic public page                    | Simple and fast to set up                                     |
 
 ---
 
