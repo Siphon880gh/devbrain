@@ -158,3 +158,8 @@ Then use the `dark` class to toggle themes:
 - **CSS Variables** are web-specific and great for dynamic updates via JavaScript.
 - **Tailwind** supports design tokens (and distinguishes between primitive tokens and semantic tokens) through its config system, making it easy to build consistent, theme-aware designs—especially with dark mode support.
 - Use **primitive tokens** for raw values and **semantic tokens** for meaningful styling that scales.
+
+---
+
+Weng's personal notes:
+https://www.getmerlin.in/chat/6c4af635-39cf-4e9b-9e1d-0f3745b22969
