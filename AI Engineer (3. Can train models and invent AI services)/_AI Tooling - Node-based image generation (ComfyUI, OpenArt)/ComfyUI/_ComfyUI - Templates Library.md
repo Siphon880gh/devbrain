@@ -35,16 +35,33 @@ Here's a niche generator: One click to generate Ultraman funny type pictures
 
 ---
 
-Huge caveat about OpenArt's templates
+**⚠️ Big Caveat About Using OpenArt Templates in ComfyUI**
 
-Many OpenArt AI workflows are not intended to work with ComfyUI. Recall that OpenArt is the online platform and Comfy UI is the local app platform. You can drag and drop a workflow json file you download from OpenArt's template community, but very likely you'll run into missing node problems, and the nodes can't be found in the Node store.
+Many OpenArt AI workflow templates are **not designed for ComfyUI**. Remember:
+
+* **OpenArt** is an *online platform*.
+* **ComfyUI** is a *local application*.
+
+While you *can* drag and drop a `.json` workflow file from OpenArt’s template library into ComfyUI, you’ll likely run into **missing node errors**. Some nodes can be found and installed, but others aren’t available to be found at all.
+
+> **Bottom line:** If you're using ComfyUI, it’s best to avoid OpenArt templates unless you're ready to manually patch or rebuild the workflow—or just use them **directly on OpenArt** instead.
+
 
 ---
 
-More galleries:
-
-[https://youml.com/recipes](https://youml.com/recipes)  
-
+Galleries:
 [https://comfyworkflows.com/](https://comfyworkflows.com/)  
 
   
+There are a lot of low quality random beginner's produced templates. For high quality templates, look into the featured creators:
+https://comfyworkflows.com/creators
+
+And try to avoid old workflows (like 2 years or older) because likely they will have outdated nodes.
+
+You can quickly import in a template by downloading the JSON then drag and dropping into ComfyUI. However, there could be missing nodes - it might prompt you to install them. And then there may be missing nodes that can't be found that will prevent the workflow from running.
+
+You could choose export instead which is more likely to be error-free:
+![[Pasted image 20250615084655.png]]
+
+However it's a little involved. Usually involves setting up a server locally then connecting to it from Comfy UI. However, it has an automatic resolver for missing nodes and dependencies:
+![[Pasted image 20250615084844.png]]

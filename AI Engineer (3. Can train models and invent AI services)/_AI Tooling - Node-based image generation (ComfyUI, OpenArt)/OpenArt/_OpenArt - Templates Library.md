@@ -1,8 +1,6 @@
 
 Huge caveat about OpenArt's templates
 
-Many OpenArt AI workflows are not intended to work with ComfyUI. Recall that OpenArt is the online platform and Comfy UI is the local app platform. You can drag and drop a workflow json file you download from OpenArt's template community, but very likely you'll run into missing node problems, and the nodes can't be found in the Node store.
-
 Many OpenArt AI workflows include extra or overly complex nodes that aren't actually needed. You can safely remove some of these without breaking the workflow if you understand the nodes enough. Also, several workflows rely on outdated nodes, which is often why they no longer function properly.
 
 There is consensus on this:
