@@ -1,5 +1,7 @@
 **ComfyUI** is a **node-based graphical interface** for running **Stable Diffusion** image generation workflows. It lets you visually build, modify, and control generative pipelines using blocks (called _nodes_), rather than writing code.
 
+Reworded: The most powerful open source node-based application for creating images, videos, and audio with GenAI. Can also upscale.
+
 ---
 
 ### 🧩 What ComfyUI Does
