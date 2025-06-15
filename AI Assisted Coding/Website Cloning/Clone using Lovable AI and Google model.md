@@ -23,6 +23,8 @@ As of **June 2025**, a free account gives you **5 credits per day**. Each credit
 Go to the website you want to clone. Using **Awesome Screenshot**, take a **full-page screenshot**.
 
 <center>Open Chrome Extension to the tab "Capture" and select the action button "Full Page":</center>
+
+
 ![[Pasted image 20250615033607.png]]  
 <center>On the next panel page, make sure to click "Download" to get the full screenshot of the webpage:</center>
 
