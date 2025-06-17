@@ -19,6 +19,14 @@ osascript -e 'tell application "Terminal"
 end tell'
 ```
 
+A more general example you can work with:
+```
+osascript -e 'tell application "Terminal"  
+    activate  
+    do script "echo Hello; ls -al ~; echo Done"  
+end tell'
+```
+
 Back at the shortcuts home, right click your newly created item to change its icon:
 ![[Pasted image 20250617012659.png]]
 
