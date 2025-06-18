@@ -1,4 +1,4 @@
-Required knowledge: Know how to use webhooks already. Refer to [[Webhook Triggers Workflow - Testing vs Production (n8n)]]
+Required knowledge: Know how to use webhooks already. Refer to [[Webhook inbound triggers workflow]]
 
 ---
 
