@@ -1,4 +1,4 @@
-React apps built with tools like **Vite** use client-side rendering by default, which means there's no server-side rendering (SSR). This can be a problem for SEO and social sharing, because tools like **Ahrefs** and other static crawlers don't execute JavaScript. As a result, key content—such as meta tags, page text, and outbound links—might be missing in the initial HTML, leading to poor SEO scores or false errors.
+React apps built with tools like **Vite** use client-side rendering by default, which means there's no server-side rendering (SSR). This can be a problem for SEO, because tools like **Ahrefs** and other static crawlers don't execute JavaScript. As a result, key content—such as meta tags, page text, and outbound links—might be missing in the initial HTML, leading to poor SEO scores or false errors.
 
 On the other hand, some platforms **do** render JavaScript before scraping:
 - **Googlebot** (used by Google Search)

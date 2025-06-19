@@ -1,5 +1,5 @@
 
-If you're building a frontend-only React app with **Vite**, a practical way to boost SEO and social sharing is by **pre-rendering your key pages into static HTML during the production build**.
+If you're building a frontend-only React app with **Vite**, a practical way to boost SEO is by **pre-rendering your key pages into static HTML during the production build**.
 
 This approach works best when:
 - You have a small, fixed number of routes (e.g., 10–20)
