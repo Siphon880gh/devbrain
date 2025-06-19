@@ -136,6 +136,10 @@ const outputPath = process.argv[3];
 ```
 
 ---
+### 🧠 Enhancements You SHOULD ADD
+
+Any endpoint that updates data that pertains to a specific page, check if the pre-rendered file exists. If it exists, then delete the file. Then future visits to the URL will help pre-render the file from your database.
+
 
 ### 🧠 Enhancements You Can Add
 
@@ -146,7 +150,7 @@ const outputPath = process.argv[3];
 - Status indicators or retry logic if render fails
     
 - Separate endpoint to invalidate a cached HTML manually
-    
+
 
 ---
 
