@@ -135,6 +135,24 @@ const outputPath = process.argv[3];
 })();
 ```
 
+
+In another version of puppeteer, if you want more control:
+- Here it waits 5 seconds for content to load, but at least wait until the element ".modal-content" exists, before scraping into a pre-rendered HTML file. It times out at 90 seconds in case of certain errors.
+```
+    renderer: new PuppeteerRenderer({
+      // Wait for content to load
+      renderAfterTime: 5000,
+      
+      // Wait for specific elements to be present
+      renderAfterElementExists: '.modal-content',
+      
+      // Additional options for better rendering
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      timeout: 90000,
+    }),
+```
+
 ---
 ### 🧠 Enhancements You SHOULD ADD
 
