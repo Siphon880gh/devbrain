@@ -1,6 +1,6 @@
 If your app supports **hundreds or thousands of routes**, or user-generated content (e.g. `/profile/:username`, `/article/:slug`), pre-rendering everything at build or startup isn’t realistic.
 
-Instead, you can **generate pre-rendered HTML the first time a route is visited**, then **cache it for future requests**. This gives you the best of both worlds:
+Instead, you can **generate pre-rendered HTML the first time a route is visited**, then **cache it for future requests**. And if the cache is too old, it'll re-generate the pre-rendered HTML. This gives you the best of both worlds:
 
 - Real-time coverage of any route
 - Static HTML delivery for crawlers and performance
@@ -103,9 +103,11 @@ Make sure to have setup `.env`:
 
 ---
 
-Does the pre-rendering on a new URL take too long? You can consider the main URL point `/exercise/:slug` to check if the prerendered file exists. If the prerendered file exists, send user the file.
+**Does the pre-rendering on a new URL take too long?** 
 
-But if the prerendered file does not exist, you send a HTML file you construct in that endpoint. The HTML file will render an animation and a script block. The script block could ajax to `/exercise/:slug/prerender` which will perform the actual rebuilding / prerendering. Every 1 second, that script block polls `/exercise/:slug/poll` for a successful message. On success, refresh the webpage, which will deliver the prerendered file because the api endpoint will detect the prerendered file exists this time. You should have a timeout where the poll stops and just refreshes the page from a meta tag level after some seconds timeout, which could help out with crawlers that follow redirects.
+You can consider the main URL point `/exercise/:slug` to check if the prerendered file exists. If the prerendered file exists, send user the file.
+
+But if the prerendered file does not exist, you send a HTML file you construct in that endpoint. The HTML file will render an animation and a script block. User will see a funny animation while waiting. The script block could ajax to `/exercise/:slug/prerender` which will perform the actual rebuilding / prerendering. Every 1 second, that script block polls `/exercise/:slug/poll` for a successful message. On success, refresh the webpage, which will deliver the prerendered file because the api endpoint will detect the prerendered file exists this time. You should have a timeout where the poll stops and just refreshes the page from a meta tag level after some seconds timeout, which could help out with crawlers that follow redirects.
 
 ---
 
