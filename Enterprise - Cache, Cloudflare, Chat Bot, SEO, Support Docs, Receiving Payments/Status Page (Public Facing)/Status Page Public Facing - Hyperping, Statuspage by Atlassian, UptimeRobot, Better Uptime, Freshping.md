@@ -46,8 +46,6 @@ If you want a **public-facing status page** like [status.hrflow.ai](https://stat
 | ------------------------------------ |
 | ![[Pasted image 20250607202808.png]] |
 
-
-
 ---
 
 ## 🆓 Other Free Public Status Page Services
