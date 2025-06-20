@@ -1,0 +1,1 @@
+Are you sure the nodejs package is under dependencies? if under devDependencies, heroku is production and wont install it.
