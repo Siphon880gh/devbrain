@@ -70,7 +70,3 @@ await client.set('test', 'hello');
 const result = await client.get('test');
 console.log(result); // → 'hello'
 ```
-
----
-
-Let me know your setup (macOS, Linux, Docker, or remote), and I’ll guide you with exact steps if needed.
