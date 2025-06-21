@@ -73,22 +73,22 @@ If you want extra runtime protection, you can:
 - **Don’t commit your passphrase.** Store that in your secrets store or fetch it via the same IP-restricted service above.
     
 > [!note] File produced
-By default, GPG will take your `.env` file and write out an encrypted file with the same name plus a `.gpg` extension. So running:
+> By default, GPG will take your `.env` file and write out an encrypted file with the same name plus a `.gpg` extension. So running:
 >
-> ```bash
-gpg --symmetric --cipher-algo AES256 .env
+> ```
+> gpg --symmetric --cipher-algo AES256 .env
 > ```
 > 
 > will produce:
 > 
 > ```
-.env.gpg
+> env.gpg
 >```
 >
-If you add `--armor` (`-a`), you’ll get an ASCII-armored file rather than a binary file. The env file that would've been produced is:
+> If you add `--armor` (`-a`), you’ll get an ASCII-armored file rather than a binary file. The env file that would've been produced is:
 >
 > ```
-.env.asc
+> .env.asc
 > ```
 > 
 
