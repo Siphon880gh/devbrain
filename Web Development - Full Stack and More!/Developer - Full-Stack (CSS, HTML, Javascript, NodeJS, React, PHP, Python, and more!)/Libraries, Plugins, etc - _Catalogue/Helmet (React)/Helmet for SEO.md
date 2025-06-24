@@ -1,1 +1,1 @@
-Refer to: [[Dynamic Head Management in React with React Helmet Async]]
+Refer to: [[React Helmet Async - _PRIMER - Dynamic Head Management]]

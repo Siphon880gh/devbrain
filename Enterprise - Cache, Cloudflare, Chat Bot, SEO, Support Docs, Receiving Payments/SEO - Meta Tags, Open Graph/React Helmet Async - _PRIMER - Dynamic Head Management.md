@@ -1,7 +1,7 @@
 
 Managing the `<head>` section of an HTML document is crucial for search engine optimization (SEO), social media previews, and overall web standards. In Single Page Applications (SPAs) built with React, this can be tricky — content often updates dynamically without a full page reload.
 
-**React Helmet Async** solves this by allowing each component to define its own `<title>`, `<meta>`, and `<link>` tags that are injected into the document head in a safe and declarative way.
+**React Helmet Async** solves this by allowing each component to define its own `<title>`, `<meta>`, and `<link>` tags that are injected into the document head in a safe and declarative way. If your React root index.html that has `<body id="root"></body>` has default meta tags and title (as it ought to), React Helmet Async will replace them if given newer tags at a page/component render.
 
 ---
 
