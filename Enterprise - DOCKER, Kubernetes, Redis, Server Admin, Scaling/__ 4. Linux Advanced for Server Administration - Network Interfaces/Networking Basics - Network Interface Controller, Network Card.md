@@ -1,6 +1,3 @@
-
-
-
 ## What is a controller?
 NIC - Network Interface Controller
 

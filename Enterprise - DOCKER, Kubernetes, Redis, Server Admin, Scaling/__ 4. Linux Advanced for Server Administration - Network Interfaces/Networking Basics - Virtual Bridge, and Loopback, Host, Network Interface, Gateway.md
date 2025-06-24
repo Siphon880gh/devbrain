@@ -105,3 +105,10 @@ You can see how your network is connected and how it's configured virtually by r
 ```
 cat /etc/network/interfaces.d
 ```
+
+
+---
+
+## xenbr0 vs br0
+
+Please refer to [[Networking Basics - Virtual Bridge - br0, xenbr0]]
