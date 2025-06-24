@@ -13,7 +13,7 @@ To remember the evolution, use this mnemonic:
 
 ---
 
-## 🧭 Timeline of JavaScript Module Systems
+## 🧭 Timeline of Older JavaScript Module Systems
 
 |Era|Module System|Short Name|Primary Use|Loading Style|
 |---|---|---|---|---|
@@ -24,6 +24,13 @@ To remember the evolution, use this mnemonic:
 |2012–2016|RequireJS|**R**|Browser, async (AMD)|Asynchronous|
 |2014+|UMD|**U**|Cross-platform libs|Multi-style|
 |2015+|ES Modules|**E**|Standard everywhere|Static/dynamic|
+
+## 🧭 Timeline of More Modern JavaScript Module Systems:
+
+1. **2015**: ES Modules were specified in ECMAScript 2015 (ES6).
+2. **2017**: Major browser vendors (Chrome, Firefox, Safari) began adding support for ESM in native JavaScript.
+3. **2019**: Node.js introduced experimental support for ES Modules starting with **v12.0.0**.
+4. **2020**: Node.js added stable support for ES Modules in **v14.0.0**.
 
 ---
 

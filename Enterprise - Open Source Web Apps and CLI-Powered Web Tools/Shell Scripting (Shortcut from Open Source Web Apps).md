@@ -1,0 +1,1 @@
+For shell scripting, automation, or backend shell scripts that support your app—such as processes triggered when frontend users interact with your application—refer to the folder containing [[__PRIMER Shell Scripting]]
