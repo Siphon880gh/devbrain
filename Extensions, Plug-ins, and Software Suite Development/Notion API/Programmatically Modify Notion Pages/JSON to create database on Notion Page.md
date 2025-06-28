@@ -199,6 +199,26 @@ fetch('https://api.notion.com/v1/databases', {
 });
 ```
 
+Wait! Do you want inline or as a page?
+
+Inline:
+![[Pasted image 20250627231116.png]]
+Page:
+![[Pasted image 20250627231335.png]]
+
+Page is default. If you want inline, you can add `"is_inline": true` in the JSON file or programmatically add it in the script like was done here:
+```
+// Set the parent page ID dynamically
+payload.parent = {
+  "type": "page_id",
+  "page_id": PARENT_PAGE_ID
+}
+
+// And you would add:
+payload.is_inline = true;
+```
+^ And even better, you could abstract that out into .env file.
+
 After you adjusted .env file to set the database you're creating and which page the database gets created into, you can run the script to connect to your Notion via your integration app:
 ```
 npm run deploy
