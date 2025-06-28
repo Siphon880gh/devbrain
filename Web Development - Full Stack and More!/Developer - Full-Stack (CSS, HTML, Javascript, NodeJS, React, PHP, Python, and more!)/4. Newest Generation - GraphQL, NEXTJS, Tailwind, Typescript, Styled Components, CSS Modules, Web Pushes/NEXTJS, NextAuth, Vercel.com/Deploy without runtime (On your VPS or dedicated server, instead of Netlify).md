@@ -107,45 +107,35 @@ wengindustries.com/
 
 Add this configuration to your Nginx server block:
 ```nginx
-
 # Handle exact /me - redirect to /me/
 location = /me {
-	return 301 /me/;
-}
-
-# Handle Next.js static assets with long cache
-location /me/_next/ {
-	alias /home/wengindustries/htdocs/wengindustries.com/me/out/_next/;
-	expires 1y;
-	add_header Cache-Control "public, immutable";
-	access_log off;
+  return 301 /me/;
 }
 
 
 # Serve all /me/ requests from static export
 
-location /me/ {
-	alias /home/wengindustries/htdocs/wengindustries.com/me/out/;
-	index index.html;
-	
-	# For static assets (js, css, images, etc.), try exact file first, return 404 if not found
-	location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|webp|avif|mp4|webm|ogg|mp3|wav|flac|aac)$ {
-		expires 1y;
-		add_header Cache-Control "public, immutable";
-		access_log off;
-		try_files $uri =404;
-	}
-	
-	# For everything else (HTML pages and routes), use Next.js fallback logic
-	try_files $uri $uri/index.html /index.html;
-	
-	# Set proper headers for HTML files
-	location ~* \.html$ {
-		expires -1;
-		add_header Cache-Control "public, must-revalidate, proxy-revalidate";
-	}
+location /me/ {  
+	alias /home/wengindustries/htdocs/wengindustries.com/me/out/;  
+	index index.html;  
+	  
+	# For static assets (js, css, images, etc.), try exact file first, return 404 if not found  
+	location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|webp|avif|mp4|webm|ogg|mp3|wav|flac|aac)$ {  
+		expires 1y;  
+		add_header Cache-Control "public, immutable";  
+		access_log off;  
+		try_files $uri =404;  
+	}  
+	  
+	# For everything else (HTML pages and routes), use Next.js fallback logic  
+	try_files $uri $uri/index.html /index.html;  
+	  
+	# Set proper headers for HTML files  
+	location ~* \.html$ {  
+		expires -1;  
+		add_header Cache-Control "public, must-revalidate, proxy-revalidate";  
+	}  
 }
-
 ```
 
 
