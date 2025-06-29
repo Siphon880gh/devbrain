@@ -43,7 +43,7 @@ Paste:
 #!/bin/bash
 set -e
 
-cd /home/wengindustries/htdocs/wengindustries.com/app/abc123
+cd /home/path/to/app/abc123
 
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
