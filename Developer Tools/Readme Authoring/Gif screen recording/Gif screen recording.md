@@ -139,3 +139,13 @@ ffmpeg -i zz.mov -i palette.png -lavfi "fps=30,scale=640:-1:flags=lanczos [x]; [
 4. **FFmpeg's Efficient Compression**: Keeps quality high while optimizing file size.
 
 Let me know how it looks or if you'd like further refinements!
+
+
+---
+
+### 💡 Tips on file size
+
+- Consider optimizing the GIF with tools like:
+    - ezgif.com
+    - `gifsicle` CLI tool
+- Or optimize the source video with tools like `handbrake` before converting into GIF.
