@@ -3,6 +3,8 @@
 
 ## 🧊 ComfyUI Freezes at 80% on Mac? Here’s Why — and What to Do (Flux Kontext Fixes for Apple Silicon)
 
+![[Pasted image 20250701061559.png]]
+
 If you're running **ComfyUI v0.3.43** on a **Mac** (M1, M2, M3), and try using a template like `flux_kontext_dev_basic` to stylize an image (e.g., turning a swan into a Simpsons-style image), you’ve likely run into this issue:
 
 > ✅ The workflow loads successfully  

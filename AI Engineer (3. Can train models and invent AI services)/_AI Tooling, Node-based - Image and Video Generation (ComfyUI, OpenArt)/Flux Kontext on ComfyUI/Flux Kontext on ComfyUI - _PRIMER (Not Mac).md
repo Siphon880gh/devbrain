@@ -73,6 +73,13 @@ PYTORCH_ENABLE_MPS_FALLBACK=1 python3 main.py --force-fp16 --use-split-cross-att
 
 For more details, refer to [[Troubleshooting - Trying to convert Float8 to the MPS backend but it does not have support for that dtype]]
 
+
+### Gotcha 4 - Stuck on 80%
+
+![[Pasted image 20250701061559.png]]
+
+You tried to make Flux Kontext in ComfyUI work on a Mac. That won't work. You can downgrade to a similar workflow though, per [[Flux Kontext on ComfyUI downgraded to an inferior alternative to work on Mac]], though you lose some of that Flux model realism.
+
 ---
 
 ## Mac?
