@@ -1,4 +1,6 @@
 
+Titled: Why Use Puppeteer IDE or Headful Mode, Instead of Headless
+
 If you want to **test your scraping logic first**, watch it interact with the page, and debug in real time, then using Puppeteer in **headful mode** (or via the Puppeteer IDE) is the way to go. It lets you see exactly how your script behaves—clicking buttons, filling forms, scrolling, etc.—before you let it run automatically in headless mode behind the scenes.
 
 Headful mode is also helpful if you:

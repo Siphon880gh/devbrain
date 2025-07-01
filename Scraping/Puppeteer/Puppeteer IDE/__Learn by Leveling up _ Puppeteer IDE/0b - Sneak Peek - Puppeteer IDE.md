@@ -19,6 +19,8 @@ Optional - The json is condensed down and the actual workflow json are saved as 
 ![[Pasted image 20250701005132.png]]
 
 Optional - So you can create a browsable experience:
+- No more clicking "Load more" to view more results like on n8n page
+- Can search by name, integration, and category unlike the n8n page
 ![[Pasted image 20250701005231.png]]
 
-The above optional milestones is really going beyond scraping to enriching the scraped data and make it useable/visualized.
+The above optional milestones is really going beyond scraping, and towards enriching the scraped data and making it useable/visualized, which are often tasks coupled with scraping activities. Those enrichment and browsing code are at https://github.com/Siphon880gh/n8n-templates/tree/main/n8n-partners, if you're curious.
