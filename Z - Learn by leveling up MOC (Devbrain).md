@@ -5,6 +5,9 @@ BotPress Cloud (ChatBot with AI)
 Chrome Extension Manifest v3:
 - [[1. Chrome extension concepts - Presentations and considerations]]
 
+ComfyUI:
+- [[0. Version - ComfyUI v0.3.43]]
+
 Docker:
 - [[1.01 Consistent Python Interpreter]]
 

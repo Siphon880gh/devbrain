@@ -15,7 +15,7 @@ These instructions set up **ComfyUI v0.3.43** using **Python 3.10** inside its o
 
 ## ✅ Prerequisites
 
-- Install pyenv in the way that's appropriate for your OS. For example, if on Mac, you use homebrew's brew:
+- Install pyenv in the way that's appropriate for your OS. For example, if on Mac, you use homebrew's `brew`:
 ```bash
 brew install pyenv
 ```
