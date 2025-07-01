@@ -6,7 +6,7 @@ Here you'll learn a semi automated way to renew your certificate.
 ---
 
 **Problem**:
-You're renewing the SSL/TLS certificate for HTTPS in CloudPanel. You may see an old certificate that's expired or no longer relevant—especially if you're adding new domains or subdomains to the web host for public access, which requires HTTPS.
+You're renewing the SSL/TLS certificate for HTTPS in CloudPanel. You may see an old certificate that's expired or no longer relevant—especially if you're adding new domains or subdomains to the web host for public access, which requires HTTPS. Or that 3 months is up/coming up.
 
 ![[Pasted image 20250524042303.png]]
 
@@ -28,6 +28,10 @@ var wildcards = [
     "www.wengindustry.com",  
     "wengindustries.com",   
     "www.wengindustries.com",   
+    "n8n.wengindustries.com",   
+    "n8n.wengindustry.com",   
+    "automation.wengindustries.com",  
+    "automation.wengindustry.com",   
     "3dnotes.wengindustry.com",   
     "3dnotes.wengindustries.com",   
     "biznotes.wengindustry.com",   
@@ -59,3 +63,5 @@ document.querySelectorAll(".domain-input input").forEach((el,i)=>{
 ```
 
 The textfields will be created and filled in with your desired subdomains and domains. Save this snippet somewhere save for you to renew whenever the Let's Encrypt expires.
+
+WAIT - before you click "Create and Install". You still have to double check the gotchas at [[CloudPanel - SSL Renew Annually]]
