@@ -29,6 +29,9 @@ NextJS with Supabase Databases:
 NextJS with Supabase Authentication:
 - [[2. Supabase Authentication with New Project (Starter boilerplate)]]
 
+Puppeteer IDE (Headful as Chrome Extension)
+- [[0a - Version - Puppeteer IDE]]
+
 React Native:
 - [[0. Preface - Learn by Leveling Up on React Native]]
 
