@@ -13,3 +13,8 @@ PYTORCH_ENABLE_MPS_FALLBACK=1 python3 main.py --force-fp16 --use-split-cross-att
 Recall that MPS:
 
 **MPS is Apple’s GPU backend** for accelerating machine learning workloads using **Apple Silicon GPUs** (e.g., M1, M2, M3). Recall that the Apple chip M1/M2/M3 is actually a CPU with an integrated GPU, although it's not a discrete GPU like NVIDIA or AMD.
+
+---
+
+Also, check all the parameters at your nodes for options to run CPU instead:
+![[Pasted image 20250701052725.png]]
