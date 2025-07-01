@@ -58,9 +58,12 @@ python --version
 # Should show: Python 3.10.13
 ```
 
+Your directory should now look like:
+![[Pasted image 20250701050348.png]]
+
 ---
 
-### 3. 📦 Create Virtual Environment
+### 3. 📦 **Optional**: Create Virtual Environment
 
 Still inside the `ComfyUI` folder:
 
@@ -127,8 +130,10 @@ python main.py
 You’ll see something like:
 
 ```
-Uvicorn running on http://127.0.0.1:8188
+...go to: http://127.0.0.1:8188
 ```
+
+![[Pasted image 20250701050113.png]]
 
 Then open: [http://localhost:8188](http://localhost:8188/)
 
@@ -150,3 +155,19 @@ python main.py
 
 - You're using **ComfyUI v0.3.43**, which works with Python 3.10.
 - Using `pyenv local` keeps your Python scoped to this folder only.
+
+
+----
+
+## Mac?
+
+Recommend you create a Shortcut. Then you can click an icon in the Dock to automatically run the launch command. Refer to [[Shell commands in Mac Dock - Okay with approximate custom icons]]
+
+The Shortcut script would be:
+- Adjust the path to the locally cloned git repo
+```
+osascript -e 'tell application "Terminal"
+    activate
+    do script "cd /Users/wengffung/dev/web/comfyui && PYTORCH_ENABLE_MPS_FALLBACK=1 python3 main.py --verbose"
+end tell'
+```

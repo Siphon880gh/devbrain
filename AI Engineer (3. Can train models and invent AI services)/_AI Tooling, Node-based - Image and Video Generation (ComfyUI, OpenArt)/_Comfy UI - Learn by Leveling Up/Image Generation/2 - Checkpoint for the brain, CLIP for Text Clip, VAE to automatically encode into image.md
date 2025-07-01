@@ -33,7 +33,7 @@ You’ll use **two `CLIP Text Encode` nodes** — one for the prompt, one for th
 
 ## 🌈 **3. `KSampler`** – Generates the Image
 
-(Already explained in [[Level 1 - KSampler for diffusion, Latent Image the canvas]].)
+(Already explained in [[1 - KSampler for diffusion, Latent Image the canvas]].)
 
 > It combines model + prompt + image size + noise seed to generate your image over time.
 
@@ -41,7 +41,7 @@ You’ll use **two `CLIP Text Encode` nodes** — one for the prompt, one for th
 
 ## 📄 **4. `Empty Latent Image`** – Blank Image Space
 
-(Already explained in [[Level 1 - KSampler for diffusion, Latent Image the canvas]].)
+(Already explained in [[1 - KSampler for diffusion, Latent Image the canvas]].)
 
 > This sets the width and height of your image before it’s turned into pixels.
 

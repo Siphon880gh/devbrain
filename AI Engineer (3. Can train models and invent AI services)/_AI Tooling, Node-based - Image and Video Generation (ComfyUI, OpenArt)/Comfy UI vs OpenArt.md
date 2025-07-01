@@ -1,4 +1,7 @@
 
+**TLDR:**
+OpenArt’s “Workflows” is essentially a cloud-hosted version of ComfyUI, but with some added UI features and paid infrastructure behind it.
+
 ### 🔍 Quick Overview
 
 |Feature|**OpenArt**|**ComfyUI**|

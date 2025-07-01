@@ -46,3 +46,23 @@ Clicking that icon for our example, opens the terminal:
 
 Then I don't have to memorize the long terminal command each time.
 
+---
+
+## Library
+
+n8n docker terminal run:
+```
+osascript -e 'tell application "Terminal"
+    activate
+    do script "docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n"
+end tell'
+```
+
+ComfyUI python web app terminal run:
+- Adjust the path to the locally cloned git repo
+```
+osascript -e 'tell application "Terminal"
+    activate
+    do script "cd /Users/wengffung/dev/web/comfyui && PYTORCH_ENABLE_MPS_FALLBACK=1 python3 main.py --verbose"
+end tell'
+```

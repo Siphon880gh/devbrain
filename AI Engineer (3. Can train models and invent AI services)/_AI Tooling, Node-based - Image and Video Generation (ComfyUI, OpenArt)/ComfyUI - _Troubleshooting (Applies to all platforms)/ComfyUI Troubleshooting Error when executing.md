@@ -3,14 +3,14 @@ For example, you see a similar screen to this when running a workflow:
 
 Paste the screenshot into ChatGPT and ask it for help on how to fix ComfyUI not running the workflow because of this error.
 
-If you had opened to http://127.0.0.1:8000/ which you find from the terminal ([[ComfyUI Debugging - Open Terminal]])
+If you had opened to http://127.0.0.1:8000/ which you find from the terminal ([[ComfyUI - _Best Practice - Open Terminal]])
 ![[Pasted image 20250617030226.png]]
 
 Then you see it renders without that popup as an error
 ![[Pasted image 20250617030305.png]]
 
 Although there's no popup error, in actuality, the errors show up on the web app's terminal.
-- How to open the terminal at the web app? Same instructions at ([[ComfyUI Debugging - Open Terminal]]) except you click the terminal icon in the web browser rather than the ComfyUI app.
+- How to open the terminal at the web app? Same instructions at ([[ComfyUI - _Best Practice - Open Terminal]]) except you click the terminal icon in the web browser rather than the ComfyUI app.
 ![[Pasted image 20250617030516.png]]
 
 Notice the same errors reading at the top of the terminal.

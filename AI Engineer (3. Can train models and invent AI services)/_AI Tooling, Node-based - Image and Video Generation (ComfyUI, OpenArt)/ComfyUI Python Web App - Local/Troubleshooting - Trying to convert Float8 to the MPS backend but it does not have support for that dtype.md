@@ -3,6 +3,11 @@ Got this error?
 `Trying to convert Float8... to the MPS backend but it does not have support for that dtype.`
 ![[Pasted image 20250701015259.png]]
 
+Are you on the **Mac App**?
+Tough luck, you should've installed the python web app or run one of the cloud options. If you install the python web app, then you will run into the same problem because this is a Mac issue, then you may come back to this tutorial to continue forward on how to fix
+
+---
+
 Run main.py with MPS fallback to cpu for pytorch operations and use memory optimization split cross attention for performance if it can (some workflows could make it work for CPU/MPS, but it definitely works on GPU CUDA) and explicitly force cpu processing.
 ```
 PYTORCH_ENABLE_MPS_FALLBACK=1 python3 main.py --force-fp16 --use-split-cross-attention --cpu

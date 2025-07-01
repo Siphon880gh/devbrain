@@ -46,9 +46,12 @@ python --version
 # Should show: Python 3.10.13
 ```
 
+Your directory should now look like:
+![[Pasted image 20250701050534.png]]
+
 ---
 
-### 3. 📦 Create Virtual Environment
+### 3. 📦 **Optional**: Create Virtual Environment
 
 Still inside the `ComfyUI` folder:
 
@@ -115,10 +118,10 @@ python main.py
 You’ll see something like:
 
 ```
-Uvicorn running on http://127.0.0.1:8188
+...go to: http://127.0.0.1:8188
 ```
 
-Then open: [http://localhost:8188](http://localhost:8188/)
+Then open an url that's reverse proxied to [http://localhost:8188](http://localhost:8188/) or visit http://example.com:81811 directly if you do not have UFW etc firewall (in that case, you'd have to open the port).
 
 ---
 
