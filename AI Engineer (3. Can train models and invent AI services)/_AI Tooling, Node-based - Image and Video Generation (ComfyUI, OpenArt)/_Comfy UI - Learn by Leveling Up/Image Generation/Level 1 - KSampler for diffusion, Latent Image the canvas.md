@@ -2,6 +2,13 @@ Let’s walk through some of the **core ComfyUI nodes** like `KSampler`, `Empty 
 
 ![[Pasted image 20250615072843.png]]
 
+For walking through these levels, we will use the basic template "Image Generation:
+
+1 of 2: Select Workflow -> Browse Templates
+![[Pasted image 20250701031238.png]]
+
+2 of 2: Select "Image Generation" under "Basics"
+![[Pasted image 20250701031500.png]]
 
 ---
 
