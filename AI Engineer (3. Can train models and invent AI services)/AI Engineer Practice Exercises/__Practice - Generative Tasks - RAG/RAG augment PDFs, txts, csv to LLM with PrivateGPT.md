@@ -187,7 +187,7 @@ Their GPT4all model:
 !wget -P models/ https://huggingface.co/Pi3141/alpaca-native-7B-ggml/resolve/397e872bf4c83f4c642317a5bf65ce84a105786e/ggml-model-q4_0.bin
 ```
 
-For the more superior Llama model. If you refer to [[Download Model - Llama]], Meta provides the .pth version of the model, which you have to convert to GGML format (.bin). There are .gguf versions which only the newer version of llamaccp supports and our privateGPT is using the older version. So we need to find .bin version (GGML format)
+For the more superior Llama model. If you refer to [[_Download Model - Llama]], Meta provides the .pth version of the model, which you have to convert to GGML format (.bin). There are .gguf versions which only the newer version of llamaccp supports and our privateGPT is using the older version. So we need to find .bin version (GGML format)
 
 Search HuggingFace for Llama model that ends with .bin. You can download the file directly under tab “Files and versions”
 

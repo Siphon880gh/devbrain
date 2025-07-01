@@ -41,7 +41,7 @@ Many model-loading scripts or frameworks (e.g., PyTorch, Hugging Face) will refe
 
 For example, in Meta's LLaMA model, hyperparameters are stored in configuration files like `params.json`. This file can contain a variety of settings that govern how the model was structured and trained. The exact contents and format may vary depending on the specific model version.
 
-When you download a LLaMA model from [[Download Model - Llama]], it'll come with multiple files including .pth (python torch model) and the params.json
+When you download a LLaMA model from [[_Download Model - Llama]], it'll come with multiple files including .pth (python torch model) and the params.json
 
 ### Common Hyperparameters in `params.json`:
 
