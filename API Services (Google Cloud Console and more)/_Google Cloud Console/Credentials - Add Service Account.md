@@ -9,7 +9,7 @@ At your project, go to Credentials to create a new service account:
 Specifically, you click "+ Create credentials" -> Service account:
 ![[Pasted image 20250607033712.png]]
 
-Copy your service email account (The blurred yellow region)
+**Copy your service email account** (The blurred yellow region)
 ![[Pasted image 20250607033741.png]]
 
 You can see all the service accounts created:
@@ -27,4 +27,17 @@ Choose json. it will download to your computer.
 Open the downloaded JSON file and copy the "private_key"'s value:
 ![[Pasted image 20250607034508.png]]
 
-Finally, make sure you share the Google Doc / Google Sheet / etc with the service account's email address and make them an editor (not just a viewer).
+Finally, make sure you **share** the Google Doc / Google Sheet / etc with the service account's email address and make them an editor (not just a viewer).
+
+For example, Google Sheet sharing with the service account email address as an editor:
+
+- 1 of 2:
+![[Pasted image 20250702153015.png]]
+
+- 2 of 2:
+![[Pasted image 20250702153038.png]]
+
+
+---
+
+You now have the service account email AND pass key, which is a way to authenticate in your code. Another way to authenticate is to load the JSON file.
