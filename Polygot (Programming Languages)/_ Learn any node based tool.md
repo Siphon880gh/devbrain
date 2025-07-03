@@ -7,6 +7,7 @@
 - What are the major groups of nodes (data manipulation, AI agents, etc)
 - Is there a color code on connector arrows and nodes (eg. all red nodes, all red connectors)
 - What are the types of inputs/ouputs a type of node can receive/send out.
+- Is there programming or expressions allowed inside some nodes? Eg. n8n lets you type expressions into the field and also has nodes that lets you type full code in either JS or Python.
 
 ---
 
