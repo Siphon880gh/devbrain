@@ -1172,10 +1172,16 @@ Pm2 dashboard: ...
 $
 ```
 
+Even better, you can configure your SSH login to automatically change into the directory where you’ll be working—typically the website’s htdocs folder.
+
+^ How? Below is various alias strategies depending your method of login. The command changes depending on your choice. For example, you can have the session automatically cd into a specific folder if using SSH root key-pair login with an alias:
+```
+alias hotsinger='echo -e "Local: /Users/wengffung/dev/web/weng/apps/\nRemote: /path/to/apps"; ssh -i ~/.ssh/PRIVATE_KEY -p 22 root@XX.XX.XXX.XX -tt "cd /path/to/apps && bash --login"'
+```
 
 Choose alias strategy depending on your method of login
 
-- SSH (interactive password)
+- **SSH (interactive password) (NOT RECOMMENDED)**
 	```
 	alias coloa='ssh root@XXX.XX.XXX.XX'
 	```
@@ -1183,31 +1189,36 @@ Choose alias strategy depending on your method of login
 	- You won't have to copy and paste the public IP or memorize it.
 	- But you'll be prompted interactively to enter your password. If you want an even more streamlined developer experience, check out the next alias strategy.
 
-- SSHPass (workaround to interactive password)
+- **SSHPass (workaround to interactive password) (Also NOT RECOMMENDED)**
 ```
-alias coloa='echo -e "Local: /Users/wengffung/dev/web/weng/tools/\nRemote: /home/.."; sshpass -p "YOUR_PASSWORD" ssh root@XXX.XX.XXX.XX'
+alias coloa='echo -e "Local: /Users/wengffung/dev/web/weng/apps/\nRemote: /home/.."; sshpass -p "YOUR_PASSWORD" ssh root@XXX.XX.XXX.XX'
 ```
 - You don't have to memorize or copy and paste the public IP or the password
 - Downside is you need to install sshpass because ssh command forces you to interactively enter a password. Look for installation instructions. eg. Google: Mac brew install sshpass
 
-- Passwordless Authentication (aliased path to private key)
+- **Passwordless Authentication (aliased path to private key) (RECOMMENDED)**
 ```
-alias hostinger='echo -e "Local: /Users/wengffung/dev/web/weng/tools/\nRemote: /home/XX/htdocs/YY.com/"; ssh root@REMOTE_IP -p 22 -i ~/.ssh/PRIVATE_KEY'
+alias hostinger='echo -e "Local: /Users/wengffung/dev/web/weng/apps/\nRemote: /home/XX/htdocs/YY.com/"; ssh -i ~/.ssh/PRIVATE_KEY -p 22 root@XX.XX.XXX.XX'
 ```
 
-- If you want the tightest security, you have paired SSH keys. The ssh command requires you to enter the path to the SSH private key on your local computer. But with an alias, you won't have to copy and paste the private key path or memorize it.
+- You have paired SSH keys. The ssh command requires you to enter the path to the SSH private key on your local computer. This is enough to authenticate you since you've placed the public key into the server. Thereby, no more need to enter password, making automated scripts on your computer possible. As an example of automation, you can add an alias so you don't have to memorize or copy and paste this long SSH command - you can just type the alias in the terminal and it'll repeat the SSH key login command for you.
   
-- SSH with Root Login Disabled
+- Recommended Addon: Disable SSH Password Login
+  
+  As it is right now, even though you can perform passwordless authentication login with SSH keys, password login still works. Tighten security even more by blocking all password login. As part of the security feature, it would mislead hackers by still allowing their shell interactively to ask for the password, meanwhile all password attempts including the correct password says incorrect password. This misleads brute-force attackers, making it appear like their credentials are just wrong, not that password login is entirely disabled.
+	
+- Recommended Addon: Disable Root Login
+  
+  Disable root login. This means your SSH key login needs to change. The normal authentication flow is to login into SSH with a non-root user like `adminuser`. Then while inside the remote SSH shell, you run `su` and enter the root password to login into root.
+	
+	However this may get annoying. 
+	
+	You can setup alias on the local machine to also echo the su command to copy and paste and also the password for the higher privilege while inside the shell session (assuming no one will have their eyes on your screen). Then at your remote server, you could run the `su` and copy and paste the root password from the same terminal. 
+	
+	Another way is to install the package `expect` at the remote server that lets you write a shell script to automatically enter the password when the expected prompt is "Password:"
+#### Caveat about SSH Login
 
-	If you tightened security, you have in the settings block `ssh root@XXX.XX.XXX.XX`. It would still let interactively ask for the password but will always say incorrect password (does not give hint that root ssh login has been disabled because you don't want to let the hackers know to attempt other methods)
-	
-	The normal authentication flow is to login into SSH with a non-root user. Then while inside the remote SSH shell, you run `su` and enter the root password to login into root.
-	
-	However it may be annoying to remember or copy and paste or memorize two separate passwords from text files. 
-	
-	You can setup alias on the local machine to perform SSHPass into the non-root user, in addition to first echoing the root password. Then at your remote server, you could run `su` and copy and paste the root password from the same terminal. Another way is to install the package `expect` at the remote server that lets you write a shell script to automatically enter the password when the expected prompt is "Password:"
-
-When you reinstall the server (often times you're setting up the dedicated server from scratch and you mess up locking yourself out, you ask support team to reinstall the server), the SSH fingerprint changes. This will cause SSH to deny the connection due to a mismatch with the fingerprint stored in the `~/.ssh/known_hosts` file. You would remove the old SSH fingerprint (has the webhost domain name or webhost public IP), then re-attempt to connect with SSH to be asked to accept the new fingerprint.
+You may get a fingerprint mismatch error some time in the future. When you reinstall the server or it gets reinstalled for server updates, this could cause SSH to deny the connection due to a mismatch with the fingerprint stored in the fingerprint file `~/.ssh/known_hosts` file. You would remove the old SSH fingerprint from that file (has the webhost domain name or webhost public IP), then re-attempt to connect with SSH, then you'll be asked if you want to accept the new fingerprint.
 
 If using sshpass, it won't ask you interactively to accept new fingerprint, and therefore you can't connect to the reinstalled server. Either run normal ssh command when the server is reinstalled, or come up with an alias for normal ssh for your webhost (eg. if your webhost company is called coloa).
 

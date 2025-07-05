@@ -18,8 +18,11 @@ Absolutely must
 - **Ports - Reverse Proxying**: Using NGINX vhost or Apache `htaccess` to have a regular url for api access. Meanwhile, the API's true ports like 3XXX (NodeJS usually Express) or 5XXX (Python usually Flask) are blocked from internet traffic per firewall cli rules. For Nginx, refer to [[Reverse proxy to app ports]] and [[Nginx Vhost - Reverse proxy internal ports]].
 
 - **SSH Hardening**
-	- Disable root login via SSH by setting PermitRootLogin no or PermitRootLogin prohibit-password in /etc/ssh/sshd_config. This prevents direct root access and forces users to log in as a regular user and escalate privileges via sudo.
 	- Use key-based authentication instead of passwords (PasswordAuthentication no).
+	- Disable SSH password login. 
+		- NOT the same as using key-based authentication. Using key-based authentication does not automatically disable SSH password login from working.
+		- Disabling SSH password login has a nice additional security feature: All password attempts including the correct password says incorrect password. This misleads brute-force attackers, making it appear like their credentials are just wrong, not that password login is entirely disabled.
+	- Disable root login via SSH by setting PermitRootLogin no or PermitRootLogin prohibit-password in /etc/ssh/sshd_config. This prevents direct root access and forces users to log in as a regular user (like `adminuser`) and escalate privileges via sudo. This could mean updating your SSH login command if you had been using root to SSH login.
 	- Limit SSH access by IP or IP range via firewall rules or AllowUsers/AllowGroups in sshd_config.
 	- Change the default SSH port from 22 to a non-standard port to reduce brute-force attempts.
 
@@ -32,3 +35,22 @@ Absolutely must
     
 - **VM Isolation**: Partitioning and bridging for VPS-like control.
 	- Reworded: Create vm through partition and bridge to it as a VPS with dedicated ip exposed to internet. That way I can restart the VM or VPS from my root shell.
+
+
+---
+
+## Appendix - Key Points on SSH and Root Access
+
+1. **Using SSH key (passwordless) to root**  
+    ➤ _Does not_ mean SSH password login is disabled.  
+    ✅ You can still log in with a password if allowed.
+    
+2. **Disabling SSH password login**  
+    ➤ _Does not_ block SSH key (passwordless) login to root.  
+    ✅ SSH key access continues to work.
+    ✅ Misleads hackers because it still asks interactively for password - just all attempts correct or wrong will say invalid password.
+    
+3. **Disabling root SSH login**  
+    ➤ _Blocks_ all SSH logins as root — **both password and key-based**.  
+    ➤ Usual practice is to log in as a regular user (like `adminuser`) and escalate privileges via sudo. 
+    ❌ You can’t SSH directly as root anymore.
