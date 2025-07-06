@@ -168,7 +168,10 @@ Again, only proceed here if you are working with an existing website with conten
 
 ChatGPT will ask you questions or guide you through multiple conversations. 
 
-> [!note] Here is a rough guideline for you on how to respond to the ChatGPT (Likely these will be separate replies from you, especially if the XML is long):
+> [!note] Tip: How to reply to the answers
+> 
+> Here is a rough guideline for you on how to respond to the ChatGPT (Likely these will be separate replies from you, especially if the XML is long):
+> 
 > ```
 > About page is the first page when visiting /.  This is the entry point for users
 > About page:
@@ -189,6 +192,7 @@ ChatGPT will ask you questions or guide you through multiple conversations.
 > ...
 > """
 
+<br/>
 <center>Tip: Index often between generations</center>
 
 ![[Pasted image 20250628221825.png]]
@@ -217,9 +221,9 @@ AI looks at the user's code, asks additional clarifying questions, then give sty
 >- **Builds a full Next.js app** using the **App Router (`/app` directory)** with:
 >
 >- Server components by default
-  >  
+> 
 >-  `generateMetadata()` for SEO
- >   
+>  
 > - Static, accessible, semantic pages
 >  
 > - Uses **Shadcn UI components** for all UI elements (buttons, cards, CTAs, etc.)

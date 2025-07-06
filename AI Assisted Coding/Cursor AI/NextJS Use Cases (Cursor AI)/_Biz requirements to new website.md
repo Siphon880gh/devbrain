@@ -145,11 +145,10 @@ AI generates a plain undesigned website from the copywrite layout XML's
 > - Clear, structured content blocks
 >    
 >- Copy written in **active voice**, using **simple, global English** (Oxford 3000/NGSL root words)
-  >  
+> 
 >- Text tailored to a target **Flesch–Kincaid Grade Level**
-  >  
+> 
 >- A logical, linked **multi-page site structure**
-  >  
 >
 > ---
 >
@@ -158,26 +157,27 @@ AI generates a plain undesigned website from the copywrite layout XML's
 > - Starts by asking about your **business, audience, tone, and goals**
 >    
 >- Suggests a **site map** (menu/navigation) and **footer layout**
-  >  
+> 
 >- **Always begins with the homepage**, as the main entry point for users and search engines
-  >  
+> 
 >- Generates each page one at a time in **clean, valid XML** using **semantic section tags**
-  >  
+> 
 >- Ensures content is **easy to skim**, persuasive, and aligned with your audience
- >   
+> 
 >- Supports long, flexible conversations — allowing for **revisions, additions, and custom page types**
- >
+>
 > ---
 >
 > ### 🧠 Ideal For:
 > 
 > - Freelancers showcasing portfolios
->     
+>   
 > - SaaS startups building multi-page sites
->     
+>   
 > - Teams needing content handoff for devs or no-code tools
->     
+>   
 > - Anyone wanting structured, clean, and conversion-ready website content
+>   
 
 ^ Help improve this prompt which will be another AI assistant that we will call in the pipeline after obtaining the XML's
 
@@ -315,12 +315,12 @@ AI looks at the user's code, asks additional clarifying questions, then give sty
 > - Identifies page types, layout sections, internal links, and meta information
 >    
 >- **Builds a full Next.js app** using the **App Router (`/app` directory)** with:
-  >  
+> 
 >
 >- Server components by default
-  >  
+> 
 >-  `generateMetadata()` for SEO
- >   
+> 
 > - Static, accessible, semantic pages
 > 
 > - Uses **Shadcn UI components** for all UI elements (buttons, cards, CTAs, etc.)
