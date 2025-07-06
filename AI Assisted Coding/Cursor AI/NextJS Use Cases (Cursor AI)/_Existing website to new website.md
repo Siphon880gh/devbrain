@@ -120,7 +120,7 @@ Use a software or chrome extension that can scroll and continue taking a full lo
 > >
 >
 
-Follow the instructions of ChatGPT because the prompt has instructed ChatGPT to ask you questions. You may want to provide both the screenshot and the original texts in the same reply-prompt.
+ChatGPT will ask you questions or guide you through multiple conversations. You may want to provide both the screenshot and the original texts in the same reply-prompt.
 
 
 ---
@@ -166,37 +166,35 @@ Again, only proceed here if you are working with an existing website with conten
 >
 
 
-Follow the instructions of ChatGPT because the prompt has instructed ChatGPT to ask you questions.
+ChatGPT will ask you questions or guide you through multiple conversations. 
 
-Here is a rough guideline for you (Likely these will be separate replies from you, especially if the XML is long):
-```
-About page is the first page when visiting /.  This is the entry point for users
-About page:
-"""
-{XML Contents}
-"""
+> [!note] Here is a rough guideline for you on how to respond to the ChatGPT (Likely these will be separate replies from you, especially if the XML is long):
+> ```
+> About page is the first page when visiting /.  This is the entry point for users
+> About page:
+> """
+> {XML Contents}
+> """
+> 
+> 
+> Contact page:  
+> """  
+> ...  
+> """
+> 
+> Notice the Testimonial page, at the bottom is a carousel that plays several seconds a slide unless mouse is over it), ... .... 
+>
+> Testimonial page:
+> """
+> ...
+> """
 
+<center>Tip: Index often between generations</center>
 
-Contact page:  
-"""  
-...  
-"""
-
-
-Notice the Testimonial page, at the bottom is a carousel that plays several seconds a slide unless mouse is over it), ... .... 
-
-Testimonial page:
-"""
-...
-"""
-
-```
-
-
-Tip: Index often between generations
 ![[Pasted image 20250628221825.png]]
 
-Tip: If your home page entry has navbar, then expect Cursor AI to tell you what pages remain after each time you provide a page's copy-layout XML
+<center>Tip: If your home page entry has navbar, then expect Cursor AI to tell you what pages remain after each time you provide a page's copy-layout XML</center>
+
 ![[Pasted image 20250628221929.png]]
 
 ---
@@ -205,7 +203,7 @@ Tip: If your home page entry has navbar, then expect Cursor AI to tell you what 
 AI looks at the user's code, asks additional clarifying questions, then give style guide with tips on how to use the style guide, awaiting user approval. Upon user approval, the website code is refactored to be aesthetic and brand-aligned.
 
 > [!note] Development - Context that explains Agent 2
-The **Next.js App Generator Agent** transforms structured XML content into a fully functional, SEO-optimized web application using **Next.js App Router** and **Shadcn UI components**.
+> The **Next.js App Generator Agent** transforms structured XML content into a fully functional, SEO-optimized web application using **Next.js App Router** and **Shadcn UI components**.
 >
 > It is designed to generate **clean, modular, and conversion-focused** websites — prioritizing structure, clarity, and functionality over visual design.
 >
@@ -217,25 +215,22 @@ The **Next.js App Generator Agent** transforms structured XML content into a f
 > - Identifies page types, layout sections, internal links, and meta information
 >    
 >- **Builds a full Next.js app** using the **App Router (`/app` directory)** with:
-  >  
 >
 >- Server components by default
   >  
 >-  `generateMetadata()` for SEO
  >   
 > - Static, accessible, semantic pages
->     
-> 
+>  
 > - Uses **Shadcn UI components** for all UI elements (buttons, cards, CTAs, etc.)
->     
+> 
 > - Constructs a **global layout** with navigation and footer based on the homepage XML
->     
+> 
 > - Starts by generating the **homepage**, as it is the entry point for users and links to all subpages
->    
+>   
 > - Ensures **clear routing and internal linking** across the entire site
 >    
 >- Focuses on helping the user **reach their conversion goal** (e.g., contact, signup, hiring)
-  >  
 >
 > ---
 >
@@ -369,6 +364,7 @@ Stay on the same Cursor AI thread to prompt:
 > - Target audience  
 > - Brand message
 > 
+
 
 
 ---

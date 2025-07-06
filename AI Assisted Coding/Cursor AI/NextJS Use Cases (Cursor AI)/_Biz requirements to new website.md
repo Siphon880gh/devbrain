@@ -166,8 +166,7 @@ AI generates a plain undesigned website from the copywrite layout XML's
 >- Ensures content is **easy to skim**, persuasive, and aligned with your audience
  >   
 >- Supports long, flexible conversations — allowing for **revisions, additions, and custom page types**
-  >  
->
+ >
 > ---
 >
 > ### 🧠 Ideal For:
@@ -304,7 +303,7 @@ AI generates a plain undesigned website from the copywrite layout XML's
 AI looks at the user's code, asks additional clarifying questions, then give style guide with tips on how to use the style guide, awaiting user approval. Upon user approval, the website code is refactored to be aesthetic and brand-aligned.
 
 > [!note] Development - Context that explains Agent 2
-The **Next.js App Generator Agent** transforms structured XML content into a fully functional, SEO-optimized web application using **Next.js App Router** and **Shadcn UI components**.
+> The **Next.js App Generator Agent** transforms structured XML content into a fully functional, SEO-optimized web application using **Next.js App Router** and **Shadcn UI components**.
 >
 > It is designed to generate **clean, modular, and conversion-focused** websites — prioritizing structure, clarity, and functionality over visual design.
 >
@@ -323,7 +322,6 @@ The **Next.js App Generator Agent** transforms structured XML content into a f
 >-  `generateMetadata()` for SEO
  >   
 > - Static, accessible, semantic pages
->     
 > 
 > - Uses **Shadcn UI components** for all UI elements (buttons, cards, CTAs, etc.)
 >     
@@ -334,7 +332,6 @@ The **Next.js App Generator Agent** transforms structured XML content into a f
 > - Ensures **clear routing and internal linking** across the entire site
 >    
 >- Focuses on helping the user **reach their conversion goal** (e.g., contact, signup, hiring)
-  >  
 >
 > ---
 >
