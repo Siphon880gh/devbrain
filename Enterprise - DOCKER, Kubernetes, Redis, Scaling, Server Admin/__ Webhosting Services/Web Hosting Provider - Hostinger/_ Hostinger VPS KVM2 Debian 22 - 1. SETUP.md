@@ -56,11 +56,8 @@ Use either:
 
 You **do not** need to create a new SFTP/FTP user in CloudPanel.  
 You can use:
-
 - `"root"`
-    
 - Or the **existing site user**
-    
 
 👉 If login fails (which is likely on fresh installs), you'll need to manually fix FTP/SFTP.  
 **Refer to the FTP setup instructions** ([[_ Hostinger VPS KVM2 Debian 22 - 2. FTP Setup]]), complete the steps, and then return here once FileZilla works.

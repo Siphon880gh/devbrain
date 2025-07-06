@@ -6,7 +6,7 @@ Setting up FTP users on a fresh server can be tricky—especially if you're not 
 To test if FileZilla can connect via FTP or SFTP, you need valid user accounts. **You do NOT need to create new users manually** in CloudPanel—users like `"root"` or the **CloudPanel site-specific user** are automatically set up with FTP/SFTP access.
 
 Where's the Cloudpanel site-specific user?
-> CloudPanel -> Settings tab -> Site User Settings
+> At CloudPanel clicked a site or site's Manage button -> Stay on Settings tab
 > ![[Pasted image 20250706132614.png]]
 >
 

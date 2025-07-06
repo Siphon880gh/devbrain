@@ -6,9 +6,8 @@ For improved security in hardened setups, which is recommended, the root account
 
 ---
 
-Where's the Cloudpanel site-specific user?
-> CloudPanel -> Settings tab -> Site User Settings
+**Where's the Cloudpanel site-specific user?**
+What's it used for: SFTP/FTP into your website's files. All Cloud site-specific username are automatically SFTP/FTP accounts too.
+> At CloudPanel clicked a site or site's Manage button -> Stay on Settings tab
 > ![[Pasted image 20250706132614.png]]
-> 
-
 
