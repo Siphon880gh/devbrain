@@ -12,10 +12,10 @@ How to use**: Recommend you open a screen-persistent Table of Contents so you ca
 ## Setup
 ### Setup Wordpress
 
-1. Download WordPress: Visit the official WordPress website at https://www.wordpress.org and download the latest version of WordPress. Unzip the downloaded file on your computer.
-2. Configure FTP: Use an FTP client (such as FileZilla) to connect to your server using the FTP account credentials provided to you. This allows you to transfer files between your computer and the server.
-3. Upload WordPress files: Once connected via FTP, navigate to the root directory of your server (usually public_html or www). Upload all the files and folders from the unzipped WordPress folder to the root directory of your server.
-4. Create a database: Most hosting providers offer a control panel (such as cPanel or WHM) where you can create a MySQL database. Locate the database section and create a new database. Make note of the database name, username, and password, as you'll need them during the WordPress installation process. You may want to prefix the table name like (wp_site1)
+1. **Download WordPress**: Visit the official WordPress website at https://www.wordpress.org and download the latest version of WordPress. Unzip the downloaded file on your computer.
+2. **Configure FTP**: Use an FTP client (such as FileZilla) to connect to your server using the FTP account credentials provided to you. This allows you to transfer files between your computer and the server.
+3. **Upload WordPress files**: Once connected via FTP, navigate to the root directory of your server (usually public_html or www). Upload all the files and folders from the unzipped WordPress folder to the root directory of your server.
+4. **Create a database**: Most hosting providers offer a control panel (such as cPanel or WHM) where you can create a MySQL database. Locate the database section and create a new database. Make note of the database name, username, and password, as you'll need them during the WordPress installation process. You may want to prefix the table name like (wp_site1)
 	1. You can run in SQL tab: `CREATE wp_site1`
 	2. You can (make sure to have your password in place of 'password')
 ```

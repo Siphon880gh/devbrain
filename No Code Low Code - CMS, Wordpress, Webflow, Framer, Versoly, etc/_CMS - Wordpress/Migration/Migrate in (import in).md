@@ -1,7 +1,7 @@
 
 Let's say you have a .wpress file because you had exported (can be many hundred megabytes huge)
 
-Firstly, setup a fresh installation of wordpress at your desired folder. For information on how to install a new wordpress, refer to [[_ Wordpress PRIMER]] and there are instructions on setting up the database user credentials if necessary
+Firstly, setup a fresh installation of wordpress at your desired folder. For information on how to install a new wordpress, refer to [[_ Wordpress PRIMER (Includes Setup)]] and there are instructions on setting up the database user credentials if necessary
 
 Your installation wizard could look like this:
 ![](reZNk1g.png)
@@ -21,7 +21,7 @@ Here's the Cloudpanel where you can create databases and/or users:
 
 ![](nYGriDW.png)
 
-You may need to grant all tables to a database user. Refer to [[_ Wordpress PRIMER]] which includes the SQL command to do so (CloudPanel isn't matured enough to handle specific privileges of database users)
+You may need to grant all tables to a database user. Refer to [[_ Wordpress PRIMER (Includes Setup)]] which includes the SQL command to do so (CloudPanel isn't matured enough to handle specific privileges of database users)
 
 ---
 
