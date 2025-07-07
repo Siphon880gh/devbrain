@@ -460,7 +460,6 @@ For your responsibility to guide the user through a structured series of questio
 ```
 
 For your understanding, lets preview that meta mega prompt with placeholders here:
-- An AI powered chat prompt could be from [[5.03 Autonomous Node - One Sequence with Best Practices]]
 ```
 I found this successful mega prompt used to guide an AI-powered chatbot's conversation flow. I'd like to adapt it for my own business.
 
