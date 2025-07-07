@@ -32,7 +32,7 @@ apt-get install supervisor
 	1. Run `ls /etc/supervisor/conf.d` then `ls ~/supervisor/conf.d` to figure out which one exists. 
 		- FYI, the conf.d where d is stands for directory
 		- You can cd into it to confirm it's a folder.
-		- For example, apps could have settings at the folder: `/etc/supervisord/conf.d/` and one of yoru apps could have their settings at the file `/etc/sueprvisord/conf.d/app1.conf`
+		- For example, apps could have settings at the folder: `/etc/supervisord/conf.d/` and one of your apps could have their settings at the file `/etc/sueprvisord/conf.d/app1.conf`
 	   
 4. Copy down these paths (Supervisor central settings filepath and Supervisor apps' settings folder path) to your webhost's details document. You may add them to the pre-echo before ssh/sshpass if you login SSH via an alias.
 
@@ -168,7 +168,7 @@ Open port 9001 with iptables, ufw, firewalld, depending on what you're using for
 
 6. Cd into the folder where your Supervisor apps can have settings at.
 
-Create an app like so:
+Create an app like so at :
 app1.conf:
 ```
 [program:app1]  
