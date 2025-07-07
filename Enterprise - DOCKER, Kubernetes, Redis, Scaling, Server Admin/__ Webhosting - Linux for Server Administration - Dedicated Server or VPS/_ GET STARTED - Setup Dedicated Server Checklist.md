@@ -942,8 +942,21 @@ if __name__ == "__main__":
 	- See if you have mongo already installed `mongo --version` or `mongosh --version`, as long as one of them works. Cloudpanel does NOT come with Mongo.
 	- Look up instructions how to install MongoDB: 
 	  eg. Google: Ubuntu 22 install mongo. 
-		  - Debian 12: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-debian/
-			  - If status of mongod service is failure, check `tail /var/log/mongodb/mongod.log`.
+		- There are a lot of steps—follow the full MongoDB installations (not going to repeat it in this tutorial)
+			 - Ubuntu 22/24: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
+			 - Debian 12: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-debian/
+			   
+			- Verification instructions on making sure MongoDB is installed, is on the instructions page as well.
+			- Caveat - Make sure it's Enabled for rebooting. This status of `sudo systemctl status mongodb` has not been enabled for reboot because notice the word "disabled" at the Loaded line:
+				```
+				# sudo systemctl status mongod
+				> ● mongod.service - MongoDB Database Server
+				Loaded: loaded (/usr/lib/systemd/system/mongod.service; disabled; preset:
+				Active: active (running) since Mon 2025-07-07 00:01:49 UTC; 3s ago
+				```
+				- Enable for reboot startup with: `sudo systemctl enable mongod`
+			    
+			 - If status of mongod service is failure, check `tail /var/log/mongodb/mongod.log`.
 				  - If the `mongod.log` has the line "Permission denied" (You can specifically check with 
 				 `tail /var/log/mongodb/mongod.log | grep Permission`):
 					  - And if the "Permission denied" error is because "Failed to unlink socket file"
@@ -974,12 +987,12 @@ if __name__ == "__main__":
 
 	^Make sure you've switched into admin collection (`use admin`), otherwise the db.createUser will silently work, but later the mongo invoke command will say incorrect credentials. The reason is because if you haven't switched into another collection, the authentication collection on the outside is "test", despite you specifying admin in the createUser method. The "admin" db setting passed to createUser would be ignored because you haven't proven access yet by successfully changing into admin collection.
 
-	- Test you can invoke mongo with credentials (mongo or mongosh depending on version):
+	- Verify login in the SSH session. Test you can invoke mongo with credentials (mongo or mongosh depending on version):
 	```
 	mongosh -u 'USERNAME' -p 'PASSWORD' --authenticationDatabase 'admin'
 	```
 
-- Test the alternate invoke mongo using a URL because that will be roughly the URL you will use in your backend for NodeJS, etc to authenticate (your code would have the domain address instead of the numeric localhost IP):
+- Verify login the other way too with..  a URL because that will be roughly the URL you will use in your backend for NodeJS, etc to authenticate (your code would have the domain address instead of the numeric localhost IP)... if using characters like #, they must be in their url encoded form like `%23` for `#`:
 ```
 mongosh 'mongodb://USERNAME:PASSWORD@127.0.0.1:27017/?authSource=admin'
 ```
@@ -1012,7 +1025,7 @@ mongosh 'mongodb://USERNAME:PASSWORD@127.0.0.1:27017/?authSource=admin'
 	  
 - Decide whether to open the Mongo to remote IPs or keep local. If you open to remote IPs, then you can connect from your Mongo Compass. The inner steps here are to enable for remote IPs / Mongo Compass
 
-	 1. Enabling external connections (and Mongo Compass)
+	 1. Enabling external connections (and Mongo Compass) at the service level
 		By default `etc/mongod.conf` settings allow files on the same host as the mongo server to connect (127.0.0.1, aka localhost). Let's open Mongo to the internet/world.
 		Edit your `/etc/mongod.conf`:
 		
@@ -1026,8 +1039,9 @@ mongosh 'mongodb://USERNAME:PASSWORD@127.0.0.1:27017/?authSource=admin'
 	sudo systemctl restart mongod
 	```
 
-	3. If you have firewall (either uwf or iptables), you have to allow in internet 0.0.0.0 into port 27017:
-		- Check if ufw firewall is enabled with `sudo ufw status`. If it's enabled, you should open the Mongo port by running `sudo ufw allow 27017`. Check port allowed rules by running same `sudo ufw status`. Apply the rules immediately with `sudo ufw reload`.
+	3. Enabling external connections (and Mongo Compass) at the OS level
+	   If you have firewall (either uwf or iptables), you have to allow in internet 0.0.0.0 into port 27017:
+		- Check if ufw firewall is enabled with `sudo ufw status`. If it's enabled, you should open the Mongo port by running `sudo ufw allow 27017/tcp`. Check port allowed rules by running same `sudo ufw status`. Apply the rules immediately with `sudo ufw reload`.
 		- Check if iptables is managing firewall by running `sudo iptables -L -v -n` to see if there are any port rules which implies that iptables is enabled. Note that there doesn't need to be a iptables service for this firewall to work because iptables works at the kernel level. 
 			- If it's enabled, you should open the Mongo port by running `sudo iptables -A INPUT -p tcp --dport 27017 -j ACCEPT`. No need to reboot; Rules are hot applied right way. Check ports allowed by running `sudo iptables -L -n`.
 		  
