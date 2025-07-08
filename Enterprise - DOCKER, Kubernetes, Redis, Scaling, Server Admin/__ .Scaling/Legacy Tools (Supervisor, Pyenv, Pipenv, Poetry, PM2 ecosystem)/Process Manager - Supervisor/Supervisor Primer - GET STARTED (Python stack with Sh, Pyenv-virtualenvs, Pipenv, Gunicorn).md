@@ -163,8 +163,9 @@ port = 127.0.0.1:9001
 supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 ```
 
+Run `supervisorctl update` to see for any errors. If no output, that means no syntax errors. Also, please note you have to run the update command everytime you make changes to the central config for it to apply.
 
-Open port 9001 with iptables, ufw, firewalld, depending on what you're using for firewall. Refer to [[IPTables - Enable specific ports]], or [[UFW - Enable specific ports]], or [[firewalld - Enable specific ports]]
+Open port 9001 with iptables, ufw, firewalld, depending on what you're using for firewall, OR reverse proxy it to a nice URL for supervisor web portal. Refer to [[IPTables - Enable specific ports]], or [[UFW - Enable specific ports]], or [[firewalld - Enable specific ports]]
 
 6. Cd into the folder where your Supervisor apps can have settings at.
 
@@ -172,16 +173,18 @@ Create an app like so at :
 app1.conf:
 ```
 [program:app1]  
-command=/tmp/test.sh  
 directory=/tmp/  
+command=/tmp/test.sh  
 autostart=true  
 autorestart=true
 stopsignal=TERM
-redirect_stderr=false  
+redirect_stderr=true  
 stdout_logfile=/var/log/supervisor/app1-stdout.log
 stderr_logfile=/var/log/supervisor/app1-error.log
 user=root
 ```
+
+^ Note: Always `directory`  before `command` or it could get buggy per https://serverfault.com/questions/686551/directory-setting-in-supervisor#answer-834182. Real reason is because the `directory` sets the working directory for the `command` script that may run relative paths. 
 
 When you create a set of new app settings for Supervisor to manage an app (via command key value), make sure you have the app's logging filepaths (standard out and standard error)
 - Copy down these paths (Supervisor central settings filepath and Supervisor apps' settings folder path) to wherever you keep track of important account information for your web host / VPS / dedicated services
@@ -192,7 +195,7 @@ When you create a set of new app settings for Supervisor to manage an app (via c
 
  ^ Command refers to a .sh script that probably doesn't exist yet. We will create it for testing later. Yes, a shell script file path can run as a command without any process name leading it.
  
- ^ We want redirect_stderr=false to keep standard out and error logs separately. This is up to you. If you prefer all standard out and error logs to go into one file, set redirect_stderr=true in order to redirect errors to the standard out log.
+ ^ We want redirect_stderr=true to keep errors out of standard logs, and to keep them in two separate log files. This is up to you. If you prefer all standard out and error logs to go into one file, set redirect_stderr=false.
  
  ^ Make sure no duplicate section headers
 
@@ -214,15 +217,19 @@ sudo chmod 0775 /var/run/supervisor
 Copy down these paths (PID run path, logging path, and test temp path for testing supervisor works) to wherever you keep track of important account information for your web host / VPS / dedicated services
 
 8. Lets test if Supervisor have the ability to restart processes and keep them running
-- Make sure your app settings have `/tmp/test.sh` and `/tmp/`, as command and directory, respectively.
-- Create that test.sh file with this combined one-liner that echos to that filepath and allows permissions: 
+- Make sure your app settings have `/tmp/test.sh` and `/tmp/`, as command and directory, respectively. The idea is that the directory is the folder of the sh file (the command).
+- Create and setup that test.sh file to allow execution permissions: 
 
 ```
-sudo echo '#!/bin/bash' >> /tmp/test.sh; echo 'echo "hi";' >> /tmp/test.sh; chown -R root:root /tmp/test.sh; sudo chmod 0775 /tmp/test.sh
+touch /tmp/test.sh
+sudo echo '#!/bin/bash' >> /tmp/test.sh
+echo 'echo "hi";' >> /tmp/test.sh
+chown -R root:root /tmp/test.sh
+sudo u+x /tmp/test.sh
 ```
 
 
-8. Run supervisor in the foreground:
+9. Run supervisor in the foreground:
 
 Please notice we add `-n` at the end which stands for nodaemon (no background spirit)
 If you have to adjust the filepaths, the first filepath is the main settings file and the second path is the supervisor logging file (not the app logging file)
@@ -262,7 +269,7 @@ hi
 
 ^ It's been truncated for this guide. It would repeat "hi" many times before it crashes because of "too many start retries too quickly". Normally you use Supervisor for processes that run continuously like a node server or a flask server / gunicorn server. So this is exactly what we want to see to pass Supervisor.
 
-9. Cleanup of testing Supervisor
+10. Cleanup of testing Supervisor
 
 Remove test.sh file with:
 ```
@@ -270,7 +277,7 @@ rm /tmp/test.sh
 ```
 
 
-10. Setup the 9001 Supervisor Web Portal
+11. Setup the 9001 Supervisor Web Portal
 
 Useful to see all your Supervisor apps
 
@@ -302,7 +309,7 @@ If successful, save the Supervisor Web Portal credentials and URL to your webhos
 ![](phza97X.png)
 
 
-11. Be familiar with supervisord management
+12. Be familiar with supervisord management
 
 Restart supervisord in the BACKGROUND
 
@@ -331,11 +338,34 @@ For CentOS 6.1, it's:
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash  
 ```
 
-For Ubuntu 22.04 or Debian 12, it's:
+For Debian 12, it's:
 ```
 sudo apt-get update && sudo apt-get install make build-essential libssl-dev \
 zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
 libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+```
+
+For Ubuntu 24, it's:
+```
+sudo apt update
+sudo apt install -y \
+  build-essential \
+  libssl-dev \
+  zlib1g-dev \
+  libbz2-dev \
+  libreadline-dev \
+  libsqlite3-dev \
+  wget \
+  curl \
+  llvm \
+  libncursesw5-dev \
+  xz-utils \
+  tk-dev \
+  libxml2-dev \
+  libxmlsec1-dev \
+  libffi-dev \
+  liblzma-dev \
+  python3-openssl
 ```
 
 ```
@@ -344,16 +374,16 @@ curl https://pyenv.run | bash
 
 Then restart the shell (or log out and log back in on SSH).
 
+You want this pyenv.run script ran as both root and the site's user (You can run `su USER` to go into an user's shell), because this makes sure the .bashrc / .bash_profile or whatever it modifies has pyenv initiated and ready to be used.
+
+
 2. We will make sure the pyenv command works permanently.
 
 When you ran the install script for pyenv, the last lines will tell you whether or not you have to add to your login shell's settings in order to initate pyenv so it can run virtual environments at a later time in the session
 
 You might see something like this:
 ```
-# Load pyenv automatically by appending
-# the following to
-# ~/.bash_profile if it exists, otherwise ~/.profile (for login shells)
-# and ~/.bashrc (for interactive shells) :
+# Load pyenv automatically by appending path to PATH, leveraging that $HOME is a default variable:
 
 export PYENV_ROOT="$HOME/.pyenv"
 
@@ -362,7 +392,9 @@ export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init -)"
 ```
 
-Where to append this to? Refer to [[Fundamental - login shell, interactive shell, profile, bash_profile, bashrc, zshrc, zprofile]]. First figure out what shell you have by running `echo $SHELL` so that you know which shell configuration file to edit to. Then add the settings to the profile file (which is associated with login shells which you are using with SSH).
+Double check `~/.bash_profile` or `~/.bashrc` or whatever for both accounts (root and the site user). If does not exist, then add it. Nothing about that is dynamically generated so it will work as long as you add it
+
+Where to append this to? Refer to [[Fundamental - login shell, interactive shell, profile, bash_profile, bashrc, zshrc, zprofile]]. First figure out what shell you have by running `echo $SHELL` so that you know which shell configuration file to edit to (.bash_profile/.bashrc OR .z_profile/.zshrc). Then add the settings to the profile file (which is associated with login shells which you are using with SSH).
 
 No need to add to the rc file which is for Interactive Non-Logged in Sessions. You wouldn't want to start supervisor, pyenv, etc without user authentication.
 
@@ -385,13 +417,18 @@ If not found, refer to the script that the installer recommends you to add. For 
 
 ## 3. Switch to python version with pyenv: Pyenv python version
 
-Checkpoint: We now install pyenv and select a version for the folder/app
+Checkpoint: We now install pyenv and select a version for the folder/app. Stay as root user because it has permissions to supervisor probably.
 
 1. **Cd into the folder of your app. If you have no python app. We will create a test app. Create the folder first**
    
 2. Decide which version of python you want which is based on your python syntax, compatible libraries, and your OS compatibility.
 
 Then install the python to be available to pyenv
+
+If there's already a .python-version file, then just run install based on the version inside that file:
+```
+pyenv install
+```
 
 GoDaddy CentOS 6.1: Limited to 3.6.15 because the OS is old and no longer supported
 ```
