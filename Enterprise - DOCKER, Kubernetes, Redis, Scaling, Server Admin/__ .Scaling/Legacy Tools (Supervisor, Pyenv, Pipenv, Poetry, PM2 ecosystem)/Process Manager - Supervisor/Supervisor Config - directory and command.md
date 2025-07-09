@@ -1,0 +1,1 @@
+The `directory` sets the working directory for the `command` script that may run relative paths. 

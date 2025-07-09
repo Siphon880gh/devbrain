@@ -55,7 +55,7 @@ Why database to admin? That admin is a collection that exists in all Mongo serve
 The credentials will appear under admin.system.users (`use admin; db.system.users.find())` or running to get all users (`use admin; db.getUsers()`)
 
 4. **Enable Authentication on the MongoDB Server:**
-   If you haven't already enabled authentication on the server, you'll need to do so. This often involves editing the MongoDB configuration file (`mongod.conf`) and adding or ensuring these lines are present:
+   If you haven't already enabled authentication on the server, you'll need to do so. By default, Mongo has no authorization, meaning a hacker can just go in. This often involves editing the MongoDB configuration file (`mongod.conf`) and adding or ensuring these lines are present:
 
    ```yaml
    security:
@@ -165,7 +165,7 @@ mongodb://admin:admin1Password@domain.com:27017/?authSource=admin
 If that fails with this:
 ![](TqcR8mk.png)
 
-It's because your server uses an old Mongo. The oldest compass that was still compatible was version 1.29.5:
+It's because your server uses an old Mongo. The oldest compass that was still compatible wasï¿½version 1.29.5:
 https://stackoverflow.com/questions/71167180/cannot-connect-to-my-mongodb-using-compass-tool-after-upgrading-from-1-25-to-1-3
 
 

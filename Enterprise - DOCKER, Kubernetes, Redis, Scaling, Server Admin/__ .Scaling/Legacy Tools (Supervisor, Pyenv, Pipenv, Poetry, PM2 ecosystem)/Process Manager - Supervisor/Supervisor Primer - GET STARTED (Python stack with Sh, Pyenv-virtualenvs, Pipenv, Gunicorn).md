@@ -216,7 +216,7 @@ sudo chmod 0775 /var/run/supervisor
 
 Copy down these paths (PID run path, logging path, and test temp path for testing supervisor works) to wherever you keep track of important account information for your web host / VPS / dedicated services
 
-8. Lets test if Supervisor have the ability to restart processes and keep them running
+8. Lets test Sh file
 - Make sure your app settings have `/tmp/test.sh` and `/tmp/`, as command and directory, respectively. The idea is that the directory is the folder of the sh file (the command).
 - Create and setup that test.sh file to allow execution permissions: 
 
@@ -228,6 +228,7 @@ chown -R root:root /tmp/test.sh
 sudo u+x /tmp/test.sh
 ```
 
+Lets test if Supervisor have the ability to restart processes and keep them running
 
 9. Run supervisor in the foreground:
 
@@ -448,6 +449,11 @@ pyenv install 3.12.4
 pyenv local 3.12.4
 ```
 
+If there is already a `.python-version` file, you can simply run this command to use the version that's in that file:
+```
+pyenv local
+```
+
 What running `local` does is have the specified Python version (e.g., `3.8.10`) written to the `.python-version` file in the current directory AND `pyenv` determines which Python version.
 
 You want to perform two checks to make sure this is successful:
@@ -480,6 +486,12 @@ Checkpoint: Now `pyenv local VERSION` selected a particular python version for t
 pyenv virtualenv 3.12.4 app-test
 ```
 
+If there is already a `.python-version` file, then:
+```
+pyenv virtualenv 3.12.4 app-test
+```
+
+^/^^ Note if you're migrating codebase to a new server and that app is started by sh script, you may want to use the same app name. You would see a line in the sh file that starts with `pyenv virtualenv`
 
 3. Now make sure to activate that pyenv-virtualenv in the current shell session (Adjusting the app name if you had changed it from the previous step):
 ```
@@ -502,9 +514,9 @@ pyenv activate app-test
 Checkpoint: Now that you have the enhanced pyenv with pyenv-virtualenvs, we will enhance further with pipenv. The package pipenv could work independently from pyenv or pyenv-virtualenvs, but we will force pipenv to work with pyenv-virtualenvs to leverage all their benefits. Pipenv allows you to isolate dependencies to a folder using a Pipfile which is more reliable than running commands around requirements.txt.
 
 1. Requirement 1: Proper Pip
-You will install pipenv using the pip that's associated with the pyenv's python you specified. As long as your shell session is still in the pyenv-virtualenv,  you're using the pip associated with pyenv-virtualenv, or when you run `which pip` and the path mentions pyenv like `/root/.pyenv/shims/pip`
+You will install pipenv using the pip that's associated with the pyenv's python you specified. As long as your shell session is still in the pyenv-virtualenv (eg. your CLI prompt looks like it has the pyenv app name in parenthesis: `(virt-env) root@path/to/pwd$ `,  you're using the pip associated with pyenv-virtualenv, or when you run `which pip` and the path mentions pyenv like `/root/.pyenv/shims/pip` which has a pyenv-like path, which further confirms we are good.
 
-Troubleshooting: If an anaconda pip is overriding your pyenv's pip: 
+Troubleshooting not pyenv-like path: If an anaconda pip is overriding your pyenv's pip: 
 - Move the $PATH around by prepending the pyenv's pip path (`/root/.pyenv/shims/pip`) inside $PATH at your bash profile. If that shims pip doesn't exist, the pip is found in your pyenv's current python path or your current virtualenv app path, for example  `/root/.pyenv/versions/3.12.4/bin/pip` or `/root/.pyenv/versions/3.12.4/envs/app-test/bin/pip`
 
 2. Requirement 2: Latest build chains
@@ -522,12 +534,12 @@ pip install pipenv
 ```
 
 
-You can confirm that the pipenv is associated with the pyenv's pip's site-packages by running this command and checking the path:
+You can confirm that the pipenv is successfully installed and associated with the pyenv's pip's site-packages by running this command and checking the path:
 ```
 pip show pipenv
 ```
 
-Eg. This passes:
+Eg. This passes because the pipenv has a pyenv-like path:
 `Location: /root/.pyenv/versions/3.12.4/envs/app-vlai/lib/python3.12/site-packages`
 
 1. Run this command to create a virtual environment using Pipenv and Pyenv working together:
@@ -638,6 +650,8 @@ fi
 cd /home/wengindustries/htdocs/wengindustries.com/test
 python test.py
 ```
+
+^ The `python test.py` is a very basic test. But imagine there's a use case that you can run gunicorn there, which means you can persistently have scalable API server running.
 
 Add execution to supervisor.sh:
 ```

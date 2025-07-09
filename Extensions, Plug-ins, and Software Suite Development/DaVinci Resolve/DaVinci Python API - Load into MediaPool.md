@@ -15,7 +15,7 @@ image_files = [
 
 ```
 
-Or you drag and drop thoes files into the Media Pool Panel 
+Or you drag and drop those files into the Media Pool Panel 
 
 What actually gets imported into the Media Pool will be:
 ```

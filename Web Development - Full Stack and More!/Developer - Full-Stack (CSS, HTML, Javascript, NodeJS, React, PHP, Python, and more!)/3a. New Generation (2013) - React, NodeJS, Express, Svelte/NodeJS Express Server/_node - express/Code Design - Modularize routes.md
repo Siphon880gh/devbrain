@@ -9,7 +9,7 @@ The separate files would all require a Router object that's returned: `Router = 
 
 Each file with Router will route to "/api/users", "api/books" just like app would. All those files would be in a folder like /routes.
 
-Then ./server.js has the usual `app = require("express")` but also `routes = require("./routes)` and then you can load thoes routes into app with `app.use("/", usersRoutes)`,  `app.use("/", booksRoutes);`
+Then ./server.js has the usual `app = require("express")` but also `routes = require("./routes)` and then you can load those routes into app with `app.use("/", usersRoutes)`,  `app.use("/", booksRoutes);`
 
 ## Cascade approach
 Alternately, the route files can be inside deeper and deeper folders. Say you have the file hierarchy routes/api/users. Each folder would have their own index.js and is required.

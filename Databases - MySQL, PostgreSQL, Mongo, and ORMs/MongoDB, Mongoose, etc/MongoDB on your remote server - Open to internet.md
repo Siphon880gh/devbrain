@@ -24,3 +24,6 @@ If you have firewall (either uwf or iptables), you have to allow in internet 0.0
 sudo ufw allow 27017/tcp
 ```
 
+---
+
+Make sure to also enable authorization, so hackers can't just remote in without a Mongo username/password. Yes that's the default - Mongo has no authorization as the default.

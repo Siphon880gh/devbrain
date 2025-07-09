@@ -739,7 +739,7 @@ ini_set('default_socket_timeout', 300);  // Adjust as needed
 	  Edit ~/.bash_profile or equivalent. You can run `which python3` and `which pip3` to get their paths. Then you add to the bash profile similar to `alias python='/usr/bin/python3'` and `alias pip='/usr/bin/pip3'`. Then you source: `source ~/.bash_profile`.
 	- Method 2:
 	  You can run `which python3` and `which pip3` to get their paths. Then get one of the paths found in `echo $PATH`. Create symbolic links from `python` to `python3` and `pip` to `pip3` in one of the earlier $PATH paths.
-#### NodeJS
+#### NodeJS and NVM
 - Check if you have node installed. Run `node --version`. If you have CloudPanel installed, NodeJS may not be installed globally.
 - If installing node, look up how to install node. Eg. Google: Ubuntu 22 install nodejs. Could look similar to: `apt install nodejs`. After installation, run `node --version` to check it succeeded.
 - Sometimes npm comes with nodejs. Check if it did install: `npm --version`. If not, see if npm installation instructions are at the same guide for installing nodejs. Otherwise, look up how to install npm. eg. Google: Ubuntu 22 install npm. 
@@ -749,6 +749,12 @@ ini_set('default_socket_timeout', 300);  // Adjust as needed
 	- Check npm version with `npm --version`
 	- If the version is v7 or v8 families, then NodeJS switches user to the user owning the folder to the package.json when running npm script which is not desirable in most cases (you would prefer to keep the same user that runs the npm script `npm run scriptX`) and usually causes file permission problems when running a npm script
 		- Then you install nvm to install and change the node version. Then you make it permanent beyond your current shell session. Refer to the tutorial [[NVM - npm scripts say permission denied on the cli command]]
+- Install NVM
+	- Why: If you're developing apps, you sometimes want a specific version of NodeJS at a folder especially if package conflicts or legacy packages. NVM makes this possible.
+	- NVM installation instructions at: https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating
+		- You may want to test nvm is installed by listing: `ls ~/.nvm`
+		- And you want to test their cli/alias is installed by running in the command line: `nvm`
+		- If the cli/alias refuses to install, then you have to copy the init script that the Readme mentions the cURL/wget install command should've added. To figure out if you're editing .bash_profile/.bashrc/.zprofile/.zshrc, run `echo $SHELL`.
 #### Yarn
 - Make sure Node is at least v20.11.0 to install a newer yarn (https://www.redswitches.com/blog/install-yarn-in-ubuntu/), otherwise look up classic yarn installation instructions.
 	- Install npm's repo corepack (tool to help with managing versions of your package managers) which allows you to install yarn
@@ -1000,19 +1006,20 @@ mongosh 'mongodb://USERNAME:PASSWORD@127.0.0.1:27017/?authSource=admin'
 ^ If fails, check port and bindIp in `/etc/mongod.conf` have 127.0.0.1 and 27017. If you have special characters like "!", you have to encode into URI (! is %21).
 ^ We are using single quotes to reduce the chances of the shell interpreting and rewriting characters when inside double quotes.
 
-- Enable authorization for the mongo daemon (so that you can't just run `mongosh` or `mongo` then be able to show any databases):
+
+- **Authentication is disabled by default** when you install MongoDB. This is one of the most common and dangerous misconfigurations. Hackers often scan new servers for mongo and try to ransom the data. Without authentication, hackers can log into your Mongo database without needing credentials then have full permission to read/write/delete databases.
+	- Enable authorization for the mongo daemon (so that you can't just run `mongosh` or `mongo` then be able to show any databases):
 	```
 	sudo vi /etc/mongod.conf
 	```
 
-	
-- Add or strip comment (be careful with spacing otherwise starting service will say illegal map value for a YAML config file):
+	- Add or strip comment (be careful with spacing otherwise starting service will say illegal map value for a YAML config file):
 	```
 	security: 
 	  authorization: enabled
 	```
 
-- Restart mongo service so the settings apply:
+	- Restart mongo service so the settings apply:
 	```
 	sudo systemctl restart mongod
 	```
