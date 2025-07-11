@@ -113,3 +113,23 @@ You need a new database credentials to login to Mongo remotely or locally from y
 
 Depending on your use case, you may need to open the port 27017 to the internet by configuring the MongoDB service and by enabling the port through ufw. Connecting to MongoDb Compass app on your local machine requires the port to be opened to the internet. Your Express or PHP app connecting to MongoDB does NOT require port 3306 to be opened to the internet because it's running in the backend on the same remote machine. If you decide to open the port to the internet, follow the guide at: [[MongoDB on your remote server - Open to internet]]
 
+Make sure to turn on authentication. Mongo by default allows anyone locally or remotely to mongosh in without passwords, even if you created an admin credential.
+
+**Enable Authentication on the MongoDB Server:**
+   If you haven't already enabled authentication on the server, you'll need to do so. By default, Mongo has no authorization, meaning a hacker can just go in. This often involves editing the MongoDB configuration file (`mongod.conf`) and adding or ensuring these lines are present:
+
+   ```yaml
+   security:
+     authorization: enabled
+   ```
+
+
+Need help finding mongod.conf file?
+- **Linux**: `/etc/mongod.conf`
+- **Windows**: In the installation directory, typically something like `C:\Program Files\MongoDB\Server\{version}\bin\mongod.cfg` (note that on Windows, the file might have a `.cfg` extension).
+- **macOS**: `/usr/local/etc/mongod.conf` if installed with Homebrew, or a path within the installation directory if installed manually.
+
+5. Restart: After modifying the configuration, restart the MongoDB server for the changes to take effect.
+   
+   To restart, refer to [[Restart Mongo Server]]
+

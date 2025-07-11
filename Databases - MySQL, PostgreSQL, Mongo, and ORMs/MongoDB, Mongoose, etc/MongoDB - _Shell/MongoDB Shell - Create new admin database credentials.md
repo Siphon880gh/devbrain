@@ -40,3 +40,8 @@ Verify login the other way too with..  a URL because that will be roughly the UR
 ```
 mongosh 'mongodb://USERNAME:PASSWORD@127.0.0.1:27017/?authSource=admin'
 ```
+
+---
+
+Search Index:
+Add user, add users
