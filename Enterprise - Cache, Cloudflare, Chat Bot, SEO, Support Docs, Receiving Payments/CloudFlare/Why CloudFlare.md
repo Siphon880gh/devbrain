@@ -12,7 +12,12 @@ In your own experience of visiting many websites, you may encounter a Human Veri
 
 ![[Pasted image 20250513051753.png]]
 
-And relatedly, Cloudflare has an option for you to block bots from scraping.
+---
+
+And relatedly to that, instead of verifying for a human, Cloudflare can straight up block bots from scraping - or from hacking.
+
+You gain protection against automated bots scanning for vulnerabilities. Cloudflare uses data from millions of connected sites to detect and block malicious IPs before they reach your server.
+
 
 ---
 

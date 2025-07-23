@@ -1,6 +1,8 @@
-**ComfyUI** is a **node-based graphical interface** for running **Stable Diffusion** image generation workflows. It lets you visually build, modify, and control generative pipelines using blocks (called _nodes_), rather than writing code.
+**ComfyUI** is a **node-based graphical interface** for running image and video generation workflows. It lets you visually build, modify, and control generative pipelines using blocks called _nodes_, rather than writing code.
 
-Reworded: The most powerful open source node-based application for creating images, videos, and audio with GenAI. Can also upscale.
+Reworded: **ComfyUI works like a visual flowchart**—you connect nodes such as your text prompt, settings, and effects to guide the AI in generating an image or video exactly the way you want. You don’t need any coding experience to get started. Unlike traditional text-to-image tools that can feel random, ComfyUI gives you full control over each step in the process, so results are consistent and customizable. 
+
+Possibilities: In addition to text-to-image and text-to-video, it can do image-to-video and image-to-image. In image-to-image, it can generate a different image from an original image, OR it can upscale.
 
 ---
 

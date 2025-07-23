@@ -198,7 +198,7 @@ Here’s my style block and html markup:
 <link href="//cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
 ```
 
-For a full list of missing classes from tailwind v2, refer to [[_Tailwind v2 missing classes from Tailwind v3]]
+For a full list of missing classes from tailwind v2, refer to [[_Migration - Tailwind v2 missing classes from Tailwind v3]]
 
 ---
 
