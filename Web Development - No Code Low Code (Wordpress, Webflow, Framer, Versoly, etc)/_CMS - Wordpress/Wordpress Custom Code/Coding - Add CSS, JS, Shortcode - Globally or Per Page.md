@@ -39,13 +39,10 @@ Pages -> All Pages -> Find Your Page: Edit -> Wordpress Editor -> Text mode
 You can add style block
 
 ## Add JS Per Page
-Try [[Code Snippets Plugin]]
 
 At Elementor you can go into Text mode and add script block.
 
 ## Add JS Globally on Website
-
-Try [[Code Snippets Plugin
 
 At Salient, you can: Salient → General Settings → CSS/Script Related
 
