@@ -1,0 +1,4 @@
+
+If you want to add a new row in WPBakery but on the webpage you want the new row to belong in the same section, then you may want to adjust the two row's styles so that the first row has some margin at the top but 0 margin at the bottom, and the second row has 0 margin at the top and some margin at the bottom. To the visitor, it just looks like rows in the same section.
+
+Note if you must have background image, then this won't work because only one of the WPBakery rows will have the image background. In this case, just create a new column that wraps over in the same WPBakery row, per [[WPBakery Page Builder - Row Can Wrap Columns]], so that both "rows" to the visitor are in the same section (that section is a WPBakery row) and that section has a background image.
