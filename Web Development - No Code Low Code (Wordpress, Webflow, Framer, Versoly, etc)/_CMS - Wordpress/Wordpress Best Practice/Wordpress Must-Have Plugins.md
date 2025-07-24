@@ -22,7 +22,7 @@ SEO:
 
 
 Customization:
-- Header and Footer cripts. Add scripts at the wp builder. By Anand Kumar
+- Header and Footer Scripts, by Anand Kumar. Add scripts at the wp builder.
 - Duplicate Page → Duplicate pages and custom poses using single click. By mndpsingh287
 - WPBakery Page Builder
 - Happyforms
