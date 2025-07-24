@@ -21,10 +21,60 @@ Aar 2 of 2:
 - Press Row:
   ![[Pasted image 20250723065128.png]]
 
+You can **edit** row settings at the pencil at the top right of a row:
+![[Pasted image 20250724043321.png]]
+
+Zoomed out, you see it's at the top right of the row:
+![[Pasted image 20250724043649.png]]
+
+---
+
+Row controls is also where you change the column distributions:
+![[Pasted image 20250724044701.png]]
+-->
+![[Pasted image 20250724044735.png]]
+
+If you add more columns than the distribution allocates, that column will just wrap over to the next line but remains inside the row.
+
+For more details on row grids: [[WPBakery Page Builder - Row Column Divisible System]]
+For more details on wrapping columns inside the row: [[WPBakery Page Builder - Row Can Wrap Columns]]
+
+---
+
+Rows can collapse if there's too much information on the WPBakery and it's overstimulating you:
+Here all the rows are collapsed except one:
+![[Pasted image 20250723054755.png]]
+
+You can rearrange rows on the webpage layout:
+![[Pasted image 20250724045009.png]]
+- You would click and drag to below/above another row.
+
+---
+
+
 Row settings can notably allow you to:
 - Add background image to the entire section on the webpage
 - Add spacing above/below the row
 - Row can let you set the grid layout of the columns
+- Save as template
+
+---
+
+You can save a row as a template inside Row Settings:
+![[Pasted image 20250724043514.png]]
+
+You can load a saved template at the top left of the WPBakery Page Builder:
+![[Pasted image 20250724043539.png]]
+
+Zoomed out, the top of the WPBakery Page Builder is:
+![[Pasted image 20250724043740.png]]
+
+Btw, that's also where you can undo or redo changes to the website layout from adding row/column/elements.
+
+---
+
+If editing in Frontend Editor, the row buttons collapsed will appear when hovering mouse over the row. You have to expand the row buttons to access crucial buttons such as editing the row:
+![[Pasted image 20250724044434.png]]
 
 ---
 
@@ -57,13 +107,22 @@ Going back to this screenshot:
   ![[Pasted image 20250723070432.png]]
   
   Or if it's an empty column that's not the final column:
-  
-You can edit a block only if you hover your mouse over the block, and edit option appears
+
+
+**Another way to add** a block in the column is to click the Plus at the bottom of the column:
+![[Pasted image 20250724033841.png]]
+Note the Plus icon may display a **tooltip** reading "Prepend to this column", but clicking it actually appends the block, not prepends it. The element would be added at the bottom of the container inside.
+
+
+You can **edit** a block only if you **hover your mouse over the block/element**, and edit option appears
 - Mouse not hovered:
   ![[Pasted image 20250723070655.png]]
 - Mouse hovered:
   ![[Pasted image 20250723070731.png]]
 
+
+Some elements are **container-type or collection-type elements** that have their own edit pencil icon that doesn't need your mouse hover to be accessed:
+![[Pasted image 20250724034409.png]]
 
 ---
 
