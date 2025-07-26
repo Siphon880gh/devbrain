@@ -5,6 +5,7 @@ SEO:
 - SEOPress > Yoast (SEOPress is better, even if free. Refer to [[_SEOPress vs Yoast]])
 - SiteKit by Google
 - WP Rocket - caching for performance
+- Search Regex by John Godley - If specific word pop up in reports that need fixing (like SEO reports) but that report is missing the source page, then use this plugin to find what the source page(s) are, so you know where to fix the problem. Access at Plugins or Sidebar Tools -> Search Regex
 
 - Redirect 404 to Homepage by pipdig
 - Link Whisper - tells you internal links from and to content. For SEO. By Link Whisper
@@ -15,7 +16,7 @@ SEO:
 	  ![[Pasted image 20250723214706.png]]
 	- Click the Source link to go to the webpage that has the broken link. Then update the link there. OR conveniently update the link at the dashboard:
 	  ![[Pasted image 20250725205028.png]]
-	- As you fix those links at their respective pages, the dashboard automatically removes the respective row.
+	- As you fix those links at their respective pages, the dashboard automatically removes the respective row unless it's done that too many times (then it will say "Unchecked", and it'll check and remove on the next refresh (CMD+R))
 - Redirection by John Godley (Setup particular url to 301 to another url. eg. use case. you optimize url slug for seo but older link already indexed, so older link can redirect to your new url slug with shared SEO equity). It can also detect your current 301 redirects and displays them. Can redirect 404 too.
       
     ~~Redirect 404 to Homepage. Redirect 404 missing pages to the homepage. By pipdig~~  (Obsoleted by Redirection by John Godley)
@@ -68,7 +69,7 @@ How to access:
 - Link Broken Checker: Access at Plugins
 - Link Checker (same as Link Broken Checker): Can access at sidebar
 - Link Whisper: Can access at sidebar
-- Redirection: Access at Plugins
+- Redirection: Access at Plugins or Sidebar Tools -> Redirection
 
 Does activating plugin "**Redirect 404 to Homepage**" by pipdig block reporting of 404 hits at Redirection plugin? Yes, we are good:
 
