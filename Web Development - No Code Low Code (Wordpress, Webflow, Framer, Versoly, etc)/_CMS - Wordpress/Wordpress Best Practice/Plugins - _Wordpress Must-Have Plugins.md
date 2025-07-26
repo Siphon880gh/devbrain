@@ -5,7 +5,7 @@ SEO:
 - SEOPress > Yoast (SEOPress is better, even if free. Refer to [[_SEOPress vs Yoast]])
 - SiteKit by Google
 - WP Rocket - caching for performance
-- Search Regex by John Godley - If specific word pop up in reports that need fixing (like SEO reports) but that report is missing the source page, then use this plugin to find what the source page(s) are, so you know where to fix the problem. Access at Plugins or Sidebar Tools -> Search Regex
+- Search Regex by John Godley - If specific word pop up in reports that need fixing (like SEO reports) but that report is missing the source page, then use this plugin to find what the source page(s) are, so you know where to fix the problem. Access at Plugins or Sidebar Tools -> Search Regex. Be careful with that plugin though. The default is search and **replace** (although if you left the replace field empty, it wont let you use it, which is a good safeguard).
 
 - Redirect 404 to Homepage by pipdig
 - Link Whisper - tells you internal links from and to content. For SEO. By Link Whisper
