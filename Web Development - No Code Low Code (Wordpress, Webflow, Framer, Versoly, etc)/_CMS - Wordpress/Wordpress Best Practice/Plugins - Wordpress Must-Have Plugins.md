@@ -13,7 +13,9 @@ SEO:
 	  ![[Pasted image 20250723214342.png]]
 	- L 2 of 2:
 	  ![[Pasted image 20250723214706.png]]
-	- What's also cool is that as you fix those links at their respective pages, the dashboard automatically removes the respective row.
+	- Click the Source link to go to the webpage that has the broken link. Then update the link there. OR conveniently update the link at the dashboard:
+	  ![[Pasted image 20250725205028.png]]
+	- As you fix those links at their respective pages, the dashboard automatically removes the respective row.
 - Redirection by John Godley (Setup particular url to 301 to another url. eg. use case. you optimize url slug for seo but older link already indexed, so older link can redirect to your new url slug with shared SEO equity). It can also detect your current 301 redirects and displays them. Can redirect 404 too.
       
     ~~Redirect 404 to Homepage. Redirect 404 missing pages to the homepage. By pipdig~~  (Obsoleted by Redirection by John Godley)
@@ -56,7 +58,7 @@ Why is the Broken Link Checker good (if you consider using other plugins): Both 
 ![[Pasted image 20250725195424.png]]
 
 **Hint**: If it's a long document that is hard to find strike out, you can inspect and search for the class "broken_link"
-**Note:** The plugin flags links as broken if they don’t start with `https://`. Starting with just `www.` or using `http://` will still trigger a broken link warning—even if the link opens successfully when clicked. Additionally, links that redirect to a different final URL will also be marked as broken. To avoid this, simply replace the redirecting URL with the final destination link.
+**Note:** The plugin flags links as broken if they don’t start with `https://`. Starting with just `www.` or using `http://` will still trigger a broken link warning—even if the link opens successfully when clicked. Additionally, links that redirect to a different final URL will also be marked as broken. To avoid this, simply replace the redirecting URL with the final destination link. A lot of links that may have been reported broken are the twitter.com links because they will redirect to x.com links.
 
 Link Whisper: Shows internal links and outbound links but also outbound links to your own website. Yoast has internal links and outbound links column at the page listing, but does not have the third type.
 
