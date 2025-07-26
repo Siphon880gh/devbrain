@@ -1,4 +1,4 @@
-Regarding plugin Redirections by John Godley
+Regarding plugin: Redirections by John Godley
 
 It can log users hitting links that 404. It **does not** scan webpages for 404 links. Refer to [[Plugins - Wordpress Must-Have Plugins]] for such plugin.
 
