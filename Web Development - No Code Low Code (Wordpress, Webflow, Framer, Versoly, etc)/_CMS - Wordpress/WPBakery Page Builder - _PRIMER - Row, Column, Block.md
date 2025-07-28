@@ -124,6 +124,12 @@ You can **edit** a block only if you **hover your mouse over the block/element**
 Some elements are **container-type or collection-type elements** that have their own edit pencil icon that doesn't need your mouse hover to be accessed:
 ![[Pasted image 20250724034409.png]]
 
+You can save as **element** which is a template of the block/element. In the element settings, for example, here for the block called Button Group:
+![[Pasted image 20250727184403.png]]
+
+Let's say you saved it as `_Stacked_Buttons`, then you can add the same element settings/content at another column when at the "Add Element" modal. You're adding element -> "My elements" or searching the element name directly:
+![[Pasted image 20250727184555.png]]
+
 ---
 
 ## Assigning class and IDs for styling
