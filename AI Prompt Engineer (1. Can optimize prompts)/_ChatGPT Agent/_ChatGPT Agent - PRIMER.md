@@ -13,20 +13,24 @@ Help me research competitors for my startup {STARTUP_NAME} which is a {DESCRIBE_
 
 ---
 
+## Reworded
 
-## Usage Stats
+What is ChatGPT Agent:
 
-On pro plan, you get like 40 a month or something
-
+- Does deep research but shows you step by step how it looks up the internet through a playback of the ChatGPT Agent user using a virtual desktop and usually involving a virtual web browser
+- As an agent, the AI is trained on how to interact with various tools, such as Google Sheet, Notion, etc. As a ChatGPT Agent, it's trained on how to interact with GUI's too.
+- You can usurp control at anytime in the virtual ChatGPT Agent user session, and then give control back to the Agent, enabling you to course correct if the ChatGPT Agent is failing at a task.
+- The Agent might ask you to take control (eg. Login on a webpage at the virtual web browser before it can perform other tasks)
 
 ---
-
 
 ## How to turn on ChatGPT Agent
 
 **T**urn on **A**gent (if doesnt appear to you, it's under Tools) in web on Chrome:
 
 ta 1 of 2:
+- Btw, ChatGPT Plus users get 40 ChatGPT Agent queries per month
+
 ![[Pasted image 20250726011908.png]]
 ta 2 of 2:
 ![[Pasted image 20250726011928.png]]
