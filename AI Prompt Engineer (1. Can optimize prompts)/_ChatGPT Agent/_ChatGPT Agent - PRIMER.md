@@ -26,7 +26,7 @@ What is ChatGPT Agent:
 
 ## How to turn on ChatGPT Agent
 
-**T**urn on **A**gent (if doesnt appear to you, it's under Tools) in web on Chrome:
+**T**urn on **A**gent (if doesn't appear to you, it's under Tools) in web on Chrome:
 
 ta 1 of 2:
 - Btw, ChatGPT Plus users get 40 ChatGPT Agent queries per month
