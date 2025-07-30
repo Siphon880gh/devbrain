@@ -60,7 +60,7 @@ Row settings can notably allow you to:
 
 ---
 
-You can save a row as a template inside Row Settings:
+You can save a **row as a template** inside Row Settings:
 ![[Pasted image 20250724043514.png]]
 
 You can load a saved template at the top left of the WPBakery Page Builder:
