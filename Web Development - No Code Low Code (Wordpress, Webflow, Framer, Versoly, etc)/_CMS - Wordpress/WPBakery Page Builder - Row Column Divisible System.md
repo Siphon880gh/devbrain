@@ -37,16 +37,12 @@ As long as your spans total 12, WPBakery will line them up in a single row.
 
 ---
 
-## 🧠 Custom Layout Example:
+## 🧠 Custom Layout Example 1:
 
 Let’s say you want:
-
 - Narrow on left
-    
 - Three even middle blocks
-    
 - Narrow on right
-    
 
 You could write:
 
@@ -59,7 +55,31 @@ Why does this work?
 - 3 + 2 + 2 + 2 + 3 = **12**
     
 - Total = 12 units = fits perfectly in one row
-    
+
+
+
+---
+
+## 🧠 Custom Layout Example 2 - Limitations:
+
+Let’s say you want:
+- Narrow on left
+- Four even middle blocks
+- Narrow on right
+
+You could write:
+
+```
+1/12 + 1/5 + 1/5 + 1/5 + 1/5 + 1/12
+```
+
+But the limitation is that there is some space on the right. Things won't be perfectly aligned:
+![[Pasted image 20250730023408.png]]
+
+Mathematically, this would be the solution:
+1/10 + 1/5 + 1/5 + 1/5 + 1/5 + 1/10
+
+But unfortunately this solution is NOT supported. It'll complain incorrect numbers.
 
 ---
 
