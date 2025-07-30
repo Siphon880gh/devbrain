@@ -95,6 +95,9 @@ To edit the settings of a column, you click the pencil icon that's NOT associate
 - Note you are not clicking the cancel at the top right, which is associated with the row
 - 👀 The pencil icon of a column is always at the center of some rectangular area
 
+You may often need to edit spacing and borders at columns:
+![[Pasted image 20250729232514.png]]
+
 ---
 
 ## Block aka Element

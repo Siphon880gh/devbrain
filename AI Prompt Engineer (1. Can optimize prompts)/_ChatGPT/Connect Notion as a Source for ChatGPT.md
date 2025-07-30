@@ -43,3 +43,10 @@ At the right side panel is the sources:
 ## Limitations
 
 As of July 2025, you can disconnect your Notion connection, but it doesn’t display which workspace it's linked to, nor does it support adding or managing multiple workspaces for data access.
+
+limitations 1 of 2:
+![[Pasted image 20250730001504.png]]
+
+limitations 2 of 2:
+![[Pasted image 20250730001438.png]]
+
