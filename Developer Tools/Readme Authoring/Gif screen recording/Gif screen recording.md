@@ -12,9 +12,9 @@ B. QuickTime -> FFmpeg
  1. Record the screen with QuickTime Player.
  2. Convert the video file to gif using FFmpeg. This example uses `video.mov` converts it as `demo.gif`:
 
-320 resolution
-720
-1080p
+**320 resolution**
+**720**
+**1080p**
 ```
 ffmpeg -i z.mov -vf scale=1080:-1 -r 10 -f image2pipe -vcodec ppm - | convert -delay .75 -loop 0 - gif:- | convert -layers Optimize - z.gif
 ```
@@ -30,7 +30,7 @@ If your gif surpassed the 10mb limit on Github:
 
 ---
 
-To adjust the speed and size of your GIF, you can modify the `-delay` value and `scale` in the `ffmpeg` command. Here’s a modified version:
+To **adjust the speed and size of your GIF**, you can modify the `-delay` value and `scale` in the `ffmpeg` command. Here’s a modified version:
 
 1. **Slow it down** by increasing the `-delay` value in the `convert` command (higher values will make it slower).
 2. **Make it larger** by adjusting the `scale` filter in the `ffmpeg` command.
@@ -49,11 +49,11 @@ This should create a slower, larger GIF. Let me know if you need more customizat
 
 ---
 
-To increase the quality of a GIF created with `ffmpeg`, you can:
+**To increase the quality** of a GIF created with `ffmpeg`, you can:
 
-1. **Increase the Frame Rate**: Increase the frames per second (`fps`), but keep in mind this can make the file size larger.
-2. **Use a Higher Resolution**: Ensure the `scale` filter uses a higher resolution.
-3. **Use the `-q:v` Option**: This option sets the video quality (lower values are higher quality for GIF encoding).
+1. Increase the Frame Rate: Increase the frames per second (`fps`), but keep in mind this can make the file size larger.
+2. Use a Higher Resolution: Ensure the `scale` filter uses a higher resolution.
+3. Use the `-q:v` Option: This option sets the video quality (lower values are higher quality for GIF encoding).
 
 Here’s an example command:
 
