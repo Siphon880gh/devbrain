@@ -58,7 +58,7 @@ This should create a slower, larger GIF. Let me know if you need more customizat
 Here’s an example command:
 
 ```bash
-ffmpeg -i z.mov -vf "scale=800:-1, fps=15" -q:v 2 demo.gif
+ffmpeg -i z.mp4 -vf "scale=800:-1, fps=30" -q:v 2 Reception.gif
 ```
 
 ### Explanation:

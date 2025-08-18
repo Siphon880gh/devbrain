@@ -8,7 +8,6 @@ How to use**: Recommend you open a screen-persistent Table of Contents so you ca
 
 ---
 
-
 ## Setup
 ### Setup Wordpress
 
@@ -16,16 +15,15 @@ How to use**: Recommend you open a screen-persistent Table of Contents so you ca
 2. **Configure FTP**: Use an FTP client (such as FileZilla) to connect to your server using the FTP account credentials provided to you. This allows you to transfer files between your computer and the server.
 3. **Upload WordPress files**: Once connected via FTP, navigate to the root directory of your server (usually public_html or www). Upload all the files and folders from the unzipped WordPress folder to the root directory of your server.
 4. **Create a database**: Most hosting providers offer a control panel (such as cPanel or WHM) where you can create a MySQL database. Locate the database section and create a new database. Make note of the database name, username, and password, as you'll need them during the WordPress installation process. You may want to prefix the table name like (wp_site1)
-	1. You can run in SQL tab: `CREATE wp_site1`
+	1. You can run in SQL tab: `CREATE Database wp_site1`
 	2. You can (make sure to have your password in place of 'password')
 ```
-CREATE USER 'username'@'host' IDENTIFIED BY 'password';
-
+CREATE USER 'USERNAME'@'localhost' IDENTIFIED BY 'password';
 ```
 ^ Make sure to replace username and password
 
 ```
-GRANT ALL PRIVILEGES ON *.* TO 'username'@'%' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'USERNAME'@'localhost' WITH GRANT OPTION;
 ```
 ^ Make sure to replace username. The % means allow from any IP address or hostname. If that doesn't serve your needs, you can secure it by replacing `%` with `localhost`
 
@@ -37,12 +35,16 @@ FLUSH PRIVILEGES;
 
 When prompted by the Wordpress wizard to enter your database name, username, password, etc, your database name should be like "wp_site1" even though your prefix setting is "wp_"
 
+TWO OPTIONS
+OPTION 1 - Edit manually:
 1. Configure wp-config.php: In the root directory of your server, find the file named "wp-config-sample.php" and rename it to "wp-config.php". Open the file in a text editor and enter the database information you obtained in the previous step (database name, username, and password).
-2. Install WordPress: Open your web browser and enter the URL of your website. The WordPress installation wizard should start automatically. If it doesn't, make sure you have uploaded the files correctly or check the URL you entered.
-3. Complete the installation: Follow the on-screen instructions to complete the WordPress installation. You'll need to provide details such as the site title, administrator username, password, and email address.
-4. Log in and customize: Once the installation is complete, you can log in to your WordPress dashboard by appending "/wp-admin" to your website's URL (e.g., www.example.com/wp-admin). Use the administrator credentials you set up during the installation. From the dashboard, you can customize your website, install themes and plugins, and start creating content.
+
+OPTION 2 - Go through wizard (recommended):
+1. Install WordPress: Open your web browser and enter the URL of your website. The WordPress installation wizard should start automatically. If it doesn't, make sure you have uploaded the files correctly or check the URL you entered.
+2. Complete the installation: Follow the on-screen instructions to complete the WordPress installation. You'll need to provide details such as the site title, administrator username, password, and email address.
 
 If setting up locally:
+- Notice Database Name field value includes the Table Prefix. It's more of a validation step as well.
 ![](om4VcrU.png)
 ^ Yes you can do "localhost:3306". 
 ^ Yes, notice the wp_ is repeated twice. That can cause confusion. It isn't erroneous though. But maybe you should keep it blank. For more information, refer to [[_ Wordpress - Multiple wordpress websites sharing the same database]]
@@ -63,6 +65,10 @@ And make sure your db creds have permission to this new database. Your phpmyadmi
 [http://localhost:8888/phpMyAdmin5/index.php?route=/server/privileges&db=wp_wordpress-test&checkprivsdb=wp_wordpress-test&viewing_mode=db](http://localhost:8888/phpMyAdmin5/index.php?route=/server/privileges&db=wp_wordpress-test&checkprivsdb=wp_wordpress-test&viewing_mode=db)  
 
 Then Try Again
+
+
+3. Log in and customize: Once the installation is complete, you can log in to your WordPress dashboard by appending "/wp-admin" to your website's URL (e.g., www.example.com/wp-admin). Use the administrator credentials you set up during the installation. From the dashboard, you can customize your website, install themes and plugins, and start creating content.
+
 ### Setup for a website, not a blog service
 
 WP by default shows your blogs. Change to a multipage/single page? Go to Settings -> Reading -> A static page (Rather than "Your latest posts")

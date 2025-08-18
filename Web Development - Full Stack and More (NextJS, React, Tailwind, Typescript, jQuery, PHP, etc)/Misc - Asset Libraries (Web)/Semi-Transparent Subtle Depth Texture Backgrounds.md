@@ -1,6 +1,6 @@
 Browse options at [TransparentTextures.com](https://www.transparenttextures.com/).
 
-**What is it**: Refer to my Business notes on CRO Visual Design Principles -> Semi-Transparent Subtle Depth Texture Backgrounds at wengindustries.com/app/devbrain/?open=Use%20for%20Plain%20White%20Page%20Background%20-%20Semi-Transparent%20Subtle%20Depth%20Texture%20Backgrounds
+**What is it**: Refer to my Business notes on CRO Visual Design Principles -> Semi-Transparent Subtle Depth Texture Backgrounds at https://biznotes.wengindustries.com/?open=Use%20for%20Plain%20White%20Page%20Background%20-%20Semi-Transparent%20Subtle%20Depth%20Texture%20Backgrounds
 
 **Library:**
 
