@@ -49,6 +49,31 @@ This should create a slower, larger GIF. Let me know if you need more customizat
 
 ---
 
+**To lower file size** (decreases file size):
+
+```bash
+ffmpeg -i z.mp4 -vf "scale=800:-1:flags=lanczos,fps=10" -loop 0 -gifflags +transdiff -y z.gif
+```
+
+**Explanation**:
+- **`scale=800:-1:flags=lanczos`** → resizes to 800px wide, keeping aspect ratio, and uses `lanczos` scaling for sharper downscaling.
+- **`fps=10`** → sets frame rate directly (avoids jitter, makes motion smoother than variable frame duplication).
+- **`-gifflags +transdiff`** → optimizes GIF size by storing only changed pixels between frames.
+- **`-loop 0`** → makes the GIF loop infinitely (like your `-loop 1` in `convert`, but using ffmpeg’s built-in flag avoids piping through ImageMagick, which usually increases file size).
+- **`-y`** → overwrite output file without prompt.
+    
+
+👉 If you still find the GIF too large, you can try:
+- Lowering frame rate further: `fps=8` or `fps=6`.
+- Using fewer colors: `-lavfi "fps=10,scale=800:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse"` (palette optimization, best quality vs. size tradeoff).
+    
+Would you like me to give you a **palette-optimized version** (usually 50–70% smaller files with smoother colors) instead of just using `-gifflags`? Making it **even smaller filesize**:
+```
+ffmpeg -i z.mp4 -filter_complex "[0:v]scale=720:-1:flags=lanczos,mpdecimate,setpts=N/FRAME_RATE/TB,fps=8,split[a][b];[a]palettegen=max_colors=128[p];[b][p]paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle" -loop 0 -y z.gif
+```
+
+---
+
 **To increase the quality** of a GIF created with `ffmpeg`, you can:
 
 1. Increase the Frame Rate: Increase the frames per second (`fps`), but keep in mind this can make the file size larger.
