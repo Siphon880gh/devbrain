@@ -22,3 +22,20 @@ When using WP Rocket (or any caching plugin), two common issues can cause your s
 - Align cache lifespan to be **shorter than nonce lifespan**.
 - Exclude **nonce-heavy pages** (checkout, dashboards, forms, etc.) from caching at WPRocket -> Advanced Rules ->  Never Cache URL(s)
 - If you _must_ cache nonce-heavy pages, adjust the **cache lifespan under WP Rocket → Advanced Rules** so the cache refreshes before nonces expire.
+
+---
+
+Possibly a more permanent fix is to always clear and reload cache automatically for all URLs whenever any page or post is edited. Note with this setup, you still have to manually clear and reload cache after changing wprocket settings.
+
+WPRocket to purge everytime a page/post saved.  
+URL:  
+```
+/.*
+```
+
+Where?
+Under Advanced Rules:
+![[Pasted image 20250830200515.png]]
+
+Scroll down until you find "Always Purge URL(s)" and enter the wildcard there:
+![[Pasted image 20250830200542.png]]
