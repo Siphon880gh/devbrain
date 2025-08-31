@@ -9,6 +9,7 @@ Access WPRocket at the top admin bar:
 
 Siteground Speed Optimizer:
 - Dynamic caching and Memcached should both be on, but remember you’ll need to activate Memcached in Siteground -> Site Tools before enabling it in SiteGround Optimizer (found under Speed →  Caching → Memcached)
+  ![[Pasted image 20250830214303.png]]
 - Choose one plugin to perform File Caching. Recommend you choose WPRocket because it has more options regarding the File Caching.
 
 Why WPRocket. Without WPRocket, the lighthouse report could appear with high LCP:
@@ -40,3 +41,6 @@ Or:
         type="video/mp4"
         crossorigin>
 ```
+
+
+This way the web browser can immediately fetch the video. It will not redundantly load the same file. This should improve the LCP.
