@@ -7,6 +7,7 @@ Git? Vi is needed for more advance commands in Git cli. For example, you can cha
 - When you are in COMMAND MODE, you can either type or press commands.
 
 - Typing : will let you type command(s) at the bottom of the CLI text screeen.
+- :%d delete all lines
 - :wq means to write and quit vi
 - :q! means to quit vi without saving.
 - Press enter to commit the commands (leave blank to exit out of typing commands)

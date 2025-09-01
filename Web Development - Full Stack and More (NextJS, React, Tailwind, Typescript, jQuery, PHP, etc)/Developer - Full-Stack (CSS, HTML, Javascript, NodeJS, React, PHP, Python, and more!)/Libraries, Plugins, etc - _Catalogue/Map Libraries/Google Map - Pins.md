@@ -18,6 +18,8 @@ Without a map id, your code wont run. The console would error with:
 ```
 The map is initialized without a valid Map ID, which will prevent use of Advanced Markers.
 ```
+And the webpage would display this unhelpful error modal:
+![[Pasted image 20250901030001.png]]
 
 ### 2. Add Code:
 - Add your Google Map API key at `<script async defer src="https://maps.googleapis.com/maps/api/js?key=XXX&callback=initMap&libraries=marker"></script>`
