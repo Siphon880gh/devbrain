@@ -1,5 +1,0 @@
-You can test if prerendered file is being delivered by going in and editing the HTML file and maybe adding some custom attribute to body tag like custom-prerendered=“1”. Then visit that url based modal directly by url instead of clicking to it on the homepage. Inspect elements and see if the custom attribute is there. Or you can have the prerender script add a script block that console logs that it's pre-rendered
-
-If the pre-rendering does a bad job at copying something that looks right.. before delivering the prerendered html you can add a script block to redirect (modify the HTML at the express endpoint level before sending HTML to client). This usually means regex’ing for the closing head tag. Make sure to add a no follow so that non js crawlers like ahrefs don’t land on the client rendering page after a redirect it follows. You could have an env variable you can switch on and off like in Heroku that determines whether or not there's redirections, so you can briefly test for whether prerendered file's been delivered.
-
-Best approach is to look at logs and have server.js log if it's the prerendered file or not being delivered.

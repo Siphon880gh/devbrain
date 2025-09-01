@@ -1,1 +1,0 @@
-Client-only apps dont render content in time for the crawler - That's called Dynamic Rendering
