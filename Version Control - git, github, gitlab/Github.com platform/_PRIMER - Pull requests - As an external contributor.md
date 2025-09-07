@@ -120,9 +120,23 @@ git push origin feature/my-fix
 ### 8. Open a Pull Request
 
 - Go to your fork on GitHub (`https://github.com/YOUR-USERNAME/REPO-NAME`).
-- You’ll see a **Compare & Pull Request** banner.
+- You’ll see a **Contribute** button.
+  
+  Eg. Let's say you are `Siphon880gh`:
+  ![[Pasted image 20250907042235.png]]
+  
+  ![[Pasted image 20250907041935.png]]
+
 - Click it, choose the branch, and submit your PR against the original repo’s `main` branch.
 - Add a clear title and description explaining your change.
+
+
+Alternate path:
+- If you had visited the maintainer/author's repo instead, you will see a **Compare & Pull Request** banner
+  
+  Eg. Let's say the maintainer/author is `cacoos`:
+  
+  ![[Pasted image 20250907042729.png]]
 
 ---
 
