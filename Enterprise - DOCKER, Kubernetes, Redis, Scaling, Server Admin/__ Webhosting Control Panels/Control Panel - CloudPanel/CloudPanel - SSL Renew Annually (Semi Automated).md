@@ -1,5 +1,5 @@
 **Requirements**: 
-You know how to renew your SSL through Let's Encrypt at Cloud Panel already
+You know how to renew your SSL through Let's Encrypt at Cloud Panel already which requires commenting away certain vhost to allow the challenge file at the http url to be reached - [[CloudPanel - SSL Renew Annually]]
 
 Here you'll learn a semi automated way to renew your certificate.
 
@@ -41,7 +41,9 @@ var wildcards = [
     "healthnotes.wengindustry.com",   
     "healthnotes.wengindustries.com",   
     "ctrl-tw-pm.wengindustry.com",   
-    "ctrl-tw-pm.wengindustries.com",   
+    "ctrl-tw-pm.wengindustries.com",  
+    "nae.wengindustry.com",   
+    "nae.wengindustries.com",   
     "therunner.app",   
     "www.therunner.app",  
     "nursing.icu",   

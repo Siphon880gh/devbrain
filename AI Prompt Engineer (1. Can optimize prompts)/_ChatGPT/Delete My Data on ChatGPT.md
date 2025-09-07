@@ -5,3 +5,8 @@ Settings:
 
 Data Controls:
 ![[Pasted image 20250728064735.png]]
+
+---
+
+You may want to turn have privacy over your chat (not have them trained into the AI model):
+[[Privacy for Chats on ChatGPT]]
