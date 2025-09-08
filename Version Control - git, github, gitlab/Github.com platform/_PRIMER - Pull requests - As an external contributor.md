@@ -5,7 +5,7 @@ If you want to contribute to a project that you **don’t own** or where you are
 - ✅ **Fork the repository**: You copy the original repo into your own GitHub account. This gives you your own “sandbox” version.    
 - ✅ **Work in a branch**: Just like approved contributors, you should make your fixes or features in a new branch inside your fork.
 - ✅ **Push branch to your fork**: Your changes live in your fork, not the original repository.
-- ✅ **Create a pull request back to the upstream repository**: This is your request to the maintainers of the original repo, asking them to review and merge your contributions.
+- ✅ **Create a pull request back to the upstream repository**: This is your request to the maintainers of the original repo, asking them to review and merge your contributions, usually to their main branch or develop branch.
 
 ### Typical Conditions
 
