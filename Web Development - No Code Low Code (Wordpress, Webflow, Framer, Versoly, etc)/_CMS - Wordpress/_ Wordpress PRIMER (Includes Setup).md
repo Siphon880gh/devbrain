@@ -18,12 +18,12 @@ How to use**: Recommend you open a screen-persistent Table of Contents so you ca
 	1. You can run in SQL tab: `CREATE Database wp_site1`
 	2. You can (make sure to have your password in place of 'password')
 ```
-CREATE USER 'USERNAME'@'localhost' IDENTIFIED BY 'password';
+CREATE USER 'USERNAME' IDENTIFIED BY 'password';
 ```
 ^ Make sure to replace username and password
 
 ```
-GRANT ALL PRIVILEGES ON *.* TO 'USERNAME'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'xny_admin' WITH GRANT OPTION;
 ```
 ^ Make sure to replace username. The % means allow from any IP address or hostname. If that doesn't serve your needs, you can secure it by replacing `%` with `localhost`
 
@@ -55,6 +55,9 @@ And if using MAMP/LAMP/MAMP, you get the port like here:
 
 If you get this message in the wordpress wizard after submitting your database creds, url, and database name - double check the above steps and check the phpmyadmin screenshots here:
 ![](I8nEv43.png)
+
+Or you might get this even more vague message:
+![[Pasted image 20250915232633.png]]
 
 ![](vrJ97T7.png)
 
