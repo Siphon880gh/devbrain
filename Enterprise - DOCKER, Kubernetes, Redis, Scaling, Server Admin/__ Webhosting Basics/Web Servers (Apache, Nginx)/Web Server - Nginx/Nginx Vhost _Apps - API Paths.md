@@ -24,3 +24,13 @@ location = /abc/appName/api/index.php {
 }
 ```
 
+Go to the server block on port **8080** that’s configured for your domain or subdomain (specifically the one serving your API). I mention this in case you have multiple `8080` server blocks for different subdomains in the same vhost. Add after root pathing but before any regex .php block:
+```
+# Handle appName API under /abc/appName/api/*
+    location ^~ /abc/appName/api/ {
+      # Serve real files if they exist; otherwise send to the API front controller
+      try_files $uri $uri/ /abc/appName/api/index.php$is_args$args;
+    }
+```
+
+
