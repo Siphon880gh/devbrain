@@ -39,4 +39,4 @@ Tailwind Setups (Learn all environments):
 - Open all documents at the folder, starting with [[_v3 vs v4 Breaking TailwindCSS Changes]]
 
 Wordpress plugin development
-- Start with [[1. Wordpress plugin shortcode]]
+- Start with [[1. Wordpress plugin orientation and plugin shortcode]]
