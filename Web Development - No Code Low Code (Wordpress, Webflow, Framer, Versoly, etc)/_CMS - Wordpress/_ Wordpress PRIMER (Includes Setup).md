@@ -32,6 +32,10 @@ Flush the privileges to ensure the changes take effect immediately:
 FLUSH PRIVILEGES;
 ```
 
+Now create the database:
+```
+CREATE DATABASE wp_site1;
+```
 
 When prompted by the Wordpress wizard to enter your database name, username, password, etc, your database name should be like "wp_site1" even though your prefix setting is "wp_"
 
