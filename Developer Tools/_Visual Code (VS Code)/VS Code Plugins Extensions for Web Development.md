@@ -40,9 +40,9 @@ Jupyter
 
 Kubernetes
 
-LIve Preview
+Live Preview
 
-LIve Server
+Live Server
 
 Markdown Preview Enhanced by Yiyi Wang
 

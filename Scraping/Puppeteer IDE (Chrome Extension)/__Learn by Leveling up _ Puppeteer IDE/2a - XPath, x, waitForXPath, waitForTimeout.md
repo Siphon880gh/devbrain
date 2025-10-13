@@ -1,4 +1,3 @@
-
 ## XPath instead of Selector - When to do so
 Sometimes selecting an element by ID or class just doesn’t work—especially when dealing with client-rendered JavaScript where no IDs were needed for hydration, or when the element relies entirely on Tailwind classes and you worry the design and class structure can change in the future. In those cases, it’s best to grab the full XPath of the element instead.
 
@@ -16,6 +15,8 @@ if (button) {
   console.log("No matching button found");  
 }
 ```
+
+^ Btw the console logs goes to your console tab (switch away from Puppeteer IDE tab). If you don't see the console log, then likely it means you have invalid syntax at the Puppeteer IDE at some line above the console log.
 
 Notice where $x is the Full XPath to the `<a` tag. Execute from the Puppeteer IDE. You'll find the webpage changes. That's great - because the puppeteer script looks for the link element, and if it exists, then that link gets clicked, which opens the next page.
 

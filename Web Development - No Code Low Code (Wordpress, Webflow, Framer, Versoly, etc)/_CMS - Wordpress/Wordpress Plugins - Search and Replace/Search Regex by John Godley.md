@@ -1,0 +1,2 @@
+ Search Regex by John Godley - If specific word pop up in reports that need fixing (like SEO reports) but that report is missing the source page, then use this plugin to find what the source page(s) are, so you know where to fix the problem. Access at Plugins or Sidebar Tools -> Search Regex. Be careful with that plugin though. The default is search and **replace** (although if you left the replace field empty, it wont let you use it, which is a good safeguard). Accessed at Tools side menu:
+  ![[Pasted image 20250908023821.png]]

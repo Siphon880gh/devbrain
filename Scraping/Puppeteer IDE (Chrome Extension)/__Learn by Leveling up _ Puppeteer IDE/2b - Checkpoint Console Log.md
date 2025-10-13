@@ -1,0 +1,1 @@
+When you console log in the Puppeteer IDE, the console log goes to your console tab (switch away from Puppeteer IDE tab). If you don't see the console log, then likely it means you have invalid syntax at the Puppeteer IDE at some line above the console log.
