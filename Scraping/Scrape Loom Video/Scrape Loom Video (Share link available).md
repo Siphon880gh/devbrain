@@ -1,4 +1,3 @@
-
 There's a Loom video that's embedded. Get the true link:
 ![[Pasted image 20251123031205.png]]
 
@@ -9,3 +8,5 @@ True link looks like this when visited directly on the web browser:
 At https://yaps.lol, you can scrape/download Loom videos by entering their share link:
 ![[Pasted image 20251123031342.png]]
 
+It might download the file OR view the video on your web browser. If it views on your video, you can download at the bottom right:
+![[Pasted image 20251123032039.png]]
