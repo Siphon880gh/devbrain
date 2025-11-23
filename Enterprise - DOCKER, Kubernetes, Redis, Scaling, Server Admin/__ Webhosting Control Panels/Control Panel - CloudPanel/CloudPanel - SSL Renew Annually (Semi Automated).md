@@ -41,14 +41,15 @@ var wildcards = [
     "healthnotes.wengindustry.com",   
     "healthnotes.wengindustries.com",   
     "ctrl-tw-pm.wengindustry.com",   
-    "ctrl-tw-pm.wengindustries.com",  
-    "nae.wengindustry.com",   
-    "nae.wengindustries.com",  
-    "nae.xny.agency",   
+    "ctrl-tw-pm.wengindustries.com",
     "therunner.app",   
     "www.therunner.app",  
     "nursing.icu",   
-    "www.nursing.icu"  
+    "www.nursing.icu",  
+    "nae.wengindustry.com",   
+    "nae.wengindustries.com",  
+    "nae.xny.agency",
+    "reports.mixotype.com"
 ]  
   
 // Create text fields  

@@ -37,7 +37,7 @@ Customization:
 
 Management:
 - All-in-One WP Migration
-- Admin and Site Enhancements (ASE)
+- Admin and Site Enhancements (ASE) by Bowo/wpase.com
 - Cloudflare
 
 

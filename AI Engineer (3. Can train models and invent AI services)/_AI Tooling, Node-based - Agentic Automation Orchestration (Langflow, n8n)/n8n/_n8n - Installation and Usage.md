@@ -1,5 +1,5 @@
 For Docker, you can install the latest community self-hostable edition
-- Pulls a Docker image, runs a container with persistent data via a mounted volume, and automatically removes the container on exit.:
+- Pulls a Docker image if doesn't exist, or uses the Docker image already on your deviceo. Then it runs a container with persistent data via a mounted volume, and automatically removes the container on exit.:
 ```
 docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n
 ```

@@ -21,6 +21,7 @@ AWS and cloudflare has a list of known IP addresses that are attacker services s
 ^ https://securefeed.com/Content/WebLookup?host=88.214.48.88
 
 Wordpress ASE (Admin and Site Enhancements)
+By Bowo/wpase.com
 
 Change the wp-login url to a custom url with numbers in it (dont use common words like entrance or login... and dont use common number combinations like 1234)
 
