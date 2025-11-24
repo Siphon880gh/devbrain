@@ -1,10 +1,10 @@
-Depends on if there's a download button on the video player
+What type of download depends on if there's a download button on the video player
 
-There's a Download button - so it's not protected:
+If there's a Download button - it's not protected:
 
 ![[Pasted image 20251123192028.png]]
 
-If there's a download button, this document isn't the one to follow. Instead, refer to [[_Scrape videos circle.so - Decided download multiple files (mp4 direct files)]]
+Then this document isn't the one to follow. Instead, refer to [[_Scrape videos circle.so - Decided download multiple files (mp4 direct files)]] for unprotected mp4 scraping.
 
 ---
 
@@ -12,7 +12,7 @@ vs
 
 ---
 
-There's no download button so likely it's protected
+If there's's no download button, it's likely protected
 ![[Pasted image 20251123191736.png]]
 
 
@@ -20,14 +20,13 @@ The likely protection mechanism is having a m3u8 playlist file that gets pieced 
 
 But it also depends on how protected the m3u8 playlist is. Usually there's an expiration token. If the token it already part of the m3u8 url, then it's likely okay to just ffmpeg the m3u8 directly (as long as it hasn't expired between the time you get the URL and the time you download with ffmpeg command). 
 
-if the m3u8 playlist 4XX errors or authorization/forbidden errors when using ffmpeg even with tokens in the URL, then it requires headers that are sent when viewed on the actual page, which you can emulate in ffmpeg command but it requires some detective work to figure out.
+If the m3u8 playlist 4XX errors or authorization/forbidden errors when using ffmpeg even with tokens in the URL, then it requires headers that are sent when viewed on the actual page, which you can emulate in ffmpeg command but it requires some detective work to figure out.
 
 **Recall that from** [[Scrape m3u8 without headers]], you get the m3u8 URL then run a ffmpeg command in your computer's terminal to both download and piece together the m3u8 playlist segments into a final video. 
 
 Performing that on a page by page basis (for each lesson on the right) may be a drag. You'll want to **automate the whole sequence**: Sniffing out the m3u8 URL, move to the next page, sniffing out that page's m3u8 URL, then moving onto the next page, etc. You'd want a list of the m3u8 commands. Even better, you may want a **list of ffmpeg commands** that you can copy and paste into your terminal or sh file.
 
 ---
-
 
 Let's proceed to downloading multiple m3u8 non-headed files. This is assuming the lessons are not gatekept behind headers. If they are, you'll continue with these same instructions but modify the steps to involve sniffing the headers.
 
@@ -93,24 +92,25 @@ srcs.forEach((url, idx) => {
 console.log(straightCopy);
 ```
 
-It would automatically go to the next lessons one at a time:
+After running this script in the Puppeteer IDE, the browser would automatically go to the next lessons one at a time:
 ![[Pasted image 20251123223515.png]]
 
 ![[Pasted image 20251123223537.png]]
 
 ![[Pasted image 20251123223559.png]]
 
-And going to the Console tab when the Puppeteer IDE script finishes running:
+And going to the Console tab when the Puppeteer IDE script finishes running, you'll see the paths listed:
 ![[Pasted image 20251123224626.png]]
 ```
---- cURL COMMANDS ---
+--- FFMPEG COMMANDS ---
 ffmpeg -i "https://cdn-media.circle.so/bcdn_token=..&token_path=%2..%2F&expires=../../hls/playlist.m3u8" -c copy lesson-1.mp4
 ffmpeg -i "https://cdn-media.circle.so/bcdn_token=..&token_path=%2..%2F&expires=../../hls/playlist.m3u8" -c copy lesson-2.mp4
 ```
 
-The cURL would've been ran in terminal one by one or through a batched process like a .sh file:
-![[Pasted image 20251123224741.png]]
+The ffmpeg commands could be ran in terminal one by one or through a batched process like a .sh file:
 
+*Note here is not showing ffmpeg m3u8 command, but this tip still applies* 
+![[Pasted image 20251123224741.png]]
 
 ---
 

@@ -1,6 +1,6 @@
-Depends on if there's a download button on the video player
+What type of download depends on if there's a download button on the video player
 
-There's a Download button - so it's not protected:
+If there's a Download button - it's not protected:
 
 ![[Pasted image 20251123192028.png]]
 Clicking the download button will download a mp4 or video file, but you want to download all the lessons on the right.
@@ -13,7 +13,7 @@ vs
 
 ---
 
-There's no download button so likely it's protected
+If there's's no download button, it's likely protected
 ![[Pasted image 20251123191736.png]]
 
 If this is the case, then following this document ain't it. Continue at [[_Scrape videos circle.so - Decided download multiple files (m3u8 non-headered files)]].
@@ -64,7 +64,7 @@ for (let i = 0; i < upTo; i++) {
 }
 ```
 
-It would automatically go to the next lessons one at a time and download:
+After running this script in the Puppeteer IDE, the browser would automatically go to the next lessons one at a time:
 ![[Pasted image 20251123223515.png]]
 
 ![[Pasted image 20251123223537.png]]
@@ -74,7 +74,7 @@ It would automatically go to the next lessons one at a time and download:
 So far downloaded:
 ![[Pasted image 20251123222237.png]]
 
-This might become a drag if you have to do it 5 at a time. If you wish to automate further, consider modifying the above automation script to console log (you'll have to open the Console tab) when it's done and also consider increasing be batch size beyond just 5, maybe to the actual number of lessons, eg. 41 here:
+This might become a drag if you have to do it 5 at a time. If you wish to automate further, consider modifying the above automation script to console log all the curl commands at a larger batch instead of 5, eg. 41 here:
 ![[Pasted image 20251123223927.png]]
 
 ```
