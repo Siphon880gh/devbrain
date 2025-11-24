@@ -1,4 +1,4 @@
-A m3u8 URL fails to fetch using ffmpeg command in terminal. It complains about authorization or 4XX errors, very likely this file is protected asset. 
+A m3u8 URL fails to fetch using ffmpeg command in terminal. It complains about 4XX errors or authorization/forbidden errors, very likely this file is protected asset. 
 
 An asset is usually protected in either one of these ways:
 - Token in the URL

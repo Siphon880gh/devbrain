@@ -36,9 +36,12 @@ Expect an "OUTPUT.mp4" to output where the terminal is at.
 
 ## Troubleshooting - Authorization
 
-If it complains about authorization or 4XX errors, very likely this file is protected asset. An asset is usually protected in either one of these ways:
+If it complains about 4XX errors or authorization/forbidden errors, very likely this file is protected asset. An asset is usually protected in either one of these ways:
 - Token in the URL
 - Certain expected headers. We don't know if it's expecting just a token header or it also expects user agent or even more headers. That depends on how much protection is implemented.
+
+Looks like:
+![[Pasted image 20251123190557.png]]
 
 If it's token in the URL, you would have seen it in the Network tab earlier, and your command would have been:
 ```

@@ -8,16 +8,12 @@
 ### Optional - How to confirm in DevTools
 
 Open each in a tab or the Preview pane:
-
 - **Master** will have `#EXTM3U` and **`#EXT-X-STREAM-INF`** (and maybe `#EXT-X-MEDIA`).
-    
 - **Media** will have `#EXTM3U`, **`#EXT-X-TARGETDURATION`**, `#EXT-X-MEDIA-SEQUENCE`, multiple **`#EXTINF`** segment entries, and no `#EXT-X-STREAM-INF`.
 ### Why both show up
 
 The player fetches the master first, then fetches one (or more) media playlists (often named with suffixes like `_0`, `_1`, `_2`) to pull segments. So **the master is “sufficient”** for playback logic, while the numbered one is the **specific track** the player chose at that moment.
 
----
-
-### Final Point: Which to scrape
+### Which to scrape
 
 Simply scrape off the master player (No `_#` suffix). Refer to [[Scrape m3u8 without headers]]
