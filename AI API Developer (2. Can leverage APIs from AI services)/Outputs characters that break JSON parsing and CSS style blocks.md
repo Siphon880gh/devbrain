@@ -109,6 +109,8 @@ Treat model output as _untrusted text_. Always sanitize before parsing or render
 
 ### 3.1 Basic JS sanitizer
 
+Two scripts (definition and calling)
+
 ```js
 // Replace exotic spaces with normal spaces
 // Also covers em spaces
@@ -135,6 +137,17 @@ function asciiPunctuation(str) {
   };
   return str.replace(/["“”‘’–—]/g, ch => map[ch] ?? ch);
 }
+```
+
+To use:
+```
+let clean = asciiPunctuation(
+  stripZeroWidth(
+    normalizeSpaces(raw)
+  )
+);
+
+console.log(clean)
 ```
 
 Typical flow for JSON:
