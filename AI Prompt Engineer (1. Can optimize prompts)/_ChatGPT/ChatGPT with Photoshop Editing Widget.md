@@ -47,6 +47,8 @@ Yes!
 
 If the image doesn't load in the chat and it complains about GPU Driver not found or cannot load -
 
+![[Pasted image 20251211045612.png]]
+
 Enable Hardware Acceleration at:
 ![[Pasted image 20251211045509.png]]
 
