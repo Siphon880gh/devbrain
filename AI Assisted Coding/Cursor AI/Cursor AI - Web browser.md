@@ -1,0 +1,1 @@
+Press **CMD + SHIFT + B** to toggle the built-in browser so you can preview the page inside Cursor. The **DevTools** button is located in the top-right corner.
