@@ -1,0 +1,1 @@
+ In some agentic technologies, there are agents that play roles, like a summary agent or a QA agent. There might also be an identity (you can name an AI Agent) so you can instruct Agent 2 to wait for Agent 1 to finish before performing X.
