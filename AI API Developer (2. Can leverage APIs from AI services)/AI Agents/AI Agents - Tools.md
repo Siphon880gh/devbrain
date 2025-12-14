@@ -16,6 +16,7 @@ In well-integrated systems, this allows agents to:
 - Read or write files
 - Chain tools together as part of a task
 
+In some agentic systems, part of the toolset may be knowing which AI model to switch to based on the prompt / request. In that case, it's awareness of its own tools (not just external tools like emailing).
 ### Tool Awareness Isn’t Guaranteed
 
 Not all agent environments expose the same capabilities. Some agents operate with a very limited tool surface—sometimes intentionally, for safety or simplicity.
