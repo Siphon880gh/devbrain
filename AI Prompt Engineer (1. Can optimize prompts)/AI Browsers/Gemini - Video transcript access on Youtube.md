@@ -1,11 +1,9 @@
 
-No need to open video transcript. Gemini will read through the HTML:
+**At a glance:**
+- Tested on platform: [https://youtu.be/GGdjty9pAtg](https://youtu.be/GGdjty9pAtg)
+- Transcriptions needed to be opened by user first? **No**
 
-Testing it at:
-[https://youtu.be/GGdjty9pAtg](https://youtu.be/GGdjty9pAtg)
-
-No transcripts opened.
-
+**How to open Gemini**
 I clicked Gemini at the top right, and prompted it with:
 ```
 Based on the transcripts here, what are:
