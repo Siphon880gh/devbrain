@@ -1,4 +1,3 @@
-
 **At a glance:**
 - Tested on platform: [https://youtu.be/GGdjty9pAtg](https://youtu.be/GGdjty9pAtg)
 - Transcriptions needed to be opened by user first? **No**
