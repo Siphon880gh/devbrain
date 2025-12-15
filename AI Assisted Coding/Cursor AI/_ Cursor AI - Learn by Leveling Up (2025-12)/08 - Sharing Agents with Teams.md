@@ -1,4 +1,3 @@
-
 ## **Sharing Agent Workflows with Team Members**
 
 **Agents live inside your project folder**, not your personal account. Sharing agents is as simple as sharing your project.
@@ -73,7 +72,7 @@ Instead, when you reference a specific role:
 2. The AI **imitates** that role based on those instructions
 3. It's the same underlying AI, just following different system prompts
 
-Think of it like an actor reading different scripts — same person, different character based on the script you hand them.
+Think of it like an actor reading different scripts—same person, different character based on the script you hand them.
 
 ---
 

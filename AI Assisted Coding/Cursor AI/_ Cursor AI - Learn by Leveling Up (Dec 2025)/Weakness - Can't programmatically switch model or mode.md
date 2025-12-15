@@ -1,1 +1,0 @@
-As of dec 2025 can’t have AI switch model or different mode (eg. local / cloud github / work tree mod). Workaround is to instruct user to open a new prompt and what to select and enter (another keyphrase)

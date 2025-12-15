@@ -242,3 +242,4 @@ Once both features are complete, invoke the Integration Coordinator to merge the
    - Delete merged feature branches if desired
    - Report integration complete
 ```
+

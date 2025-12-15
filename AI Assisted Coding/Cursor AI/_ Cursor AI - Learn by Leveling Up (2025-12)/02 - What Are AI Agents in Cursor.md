@@ -1,31 +1,32 @@
 Required knowledge:
 - Know what are AI Agents
 
-AI Agents in many AI apps are specialized workers that automate parts of your development workflow. They run in the background, respond to triggers, transform files, and follow structured instructions. Firstly, review what AI Agents are in the broader context of AI apps:
+AI Agents in many AI apps are specialized workers that automate parts of your development workflow. They run in the background, respond to triggers, transform files, and follow structured instructions. First, review what AI Agents are in the broader context of AI apps:
 [[_PRIMER - AI Agents - What are they]]
 
 ---
 
-## **AI Agents in Cursor:**
-- No multi-agent: Cannot work in coordination with other AI Agents. One AI Agent is not aware of another AI Agent's state.
-- No agent roles and names: 
-  - In some agentic systems, agents can have distinct roles (like a Summarizer agent or a QA agent) and even distinct identities (you can name an agent). That makes coordination possible—for example, you can tell Agent 2 to wait until Agent 1 finishes before doing a task, usually through the product’s GUI.
-  - In Cursor, we don’t really have named, persistent agents like that. Instead, we can set up keyphrases that “take over” the chat by applying a specific prompt or rule set. But a keyphrase isn’t a unique agent identity. If your keyphrase is “Bob,” multiple prompts or workflows can trigger Bob, so they’re not distinct agents—just different behaviors activated by the same shortcut. This was traditionally setup through cursor rules files, but now is setup instead through the Agents.md that multiple AI IDE's have adopted.
-- Trigger and Tooling are not matured: 
-  - Telling it to fire the prompt when a file exists won't be sufficient. You have to explain it to access shell terminal to loop until a file exists, taking advantage of AI agent waiting on shell commands. There is no matured file structure toolset.
-  - AI cannot change the model (eg. Opus 4.5 vs 4o) or mode (Local, Working Tree, Cloud). There is no matured Cursor toolset.
+## **AI Agents in Cursor**
+
+- **No multi-agent coordination**: Agents cannot work in coordination. One agent is not aware of another agent's state.
+- **No agent roles and names**: 
+  - In some agentic systems, agents have distinct roles (Summarizer, QA) and identities (named agents). This enables coordination—you can tell Agent 2 to wait until Agent 1 finishes.
+  - Cursor doesn't have named, persistent agents. Instead, we use keyphrases that "take over" the chat by applying a specific prompt or rule set. If your keyphrase is "Bob," multiple prompts can trigger Bob, so they're not distinct agents—just different behaviors activated by the same shortcut. This is configured through `AGENTS.md` (which multiple AI IDEs have adopted), superseding the traditional cursor rules files.
+- **Triggers and tooling are not mature**: 
+  - Telling it to fire when a file exists won't work natively. You must use shell terminal loops to check file existence, leveraging the agent's ability to wait on shell commands. No mature file structure toolset exists.
+  - AI cannot change the model (e.g., Opus 4.5 vs 4o) or mode (Local, Working Tree, Cloud). No mature Cursor toolset exists.
 
 ---
 
 ## **Agents Work With Local Files and GitHub**
 
-Cursor AI agent can work:
+Cursor AI agents can work:
 
 * Directly in your **local environment**
 * Inside an online **GitHub repo**
 * Or both
 
-Because it has tool knowledge to work on local file structure or with online Github repo. This flexibility supports solo developers, teams, automation pipelines, and mixed workflows. Wherever your code lives, agents can operate on it.
+This flexibility supports solo developers, teams, automation pipelines, and mixed workflows. Wherever your code lives, agents can operate on it.
 
 Local:
 ![[Pasted image 20251214070619.png]]
@@ -38,11 +39,11 @@ Github repo:
 
 ## **Agents Run in Parallel — but Not in Coordination**
 
-Cursor allows multiple agents to run simultaneously, each performing its own transformation. As they finish, effects simply appear—no manual babysitting required.
+Cursor allows multiple agents to run simultaneously, each performing its own transformation. As they finish, effects appear—no manual babysitting required.
 
 ### **Parallel ≠ Collaborative**
 
-Agents do **not** communicate with each other. There's no built-in mechanism like:
+Agents do **not** communicate. There's no built-in mechanism like:
 
 * *"Agent 2, wait until Agent 1 finishes this file."*
 * *"This text is already translated—don't rewrite it."*
@@ -71,24 +72,24 @@ However, you can achieve this indirectly—instruct Client Agent to wait for `sc
 
 ## **How Agents Respond to Triggers**
 
-So how do agents know when to act? They activate in response to **triggers**—events that tell the agent "it's time."
+How do agents know when to act? They activate in response to **triggers**—events that tell the agent "it's time."
 
 ### **Common Trigger Types**
 * **Chat messages** — Messages in Cursor's chat matching the agent's scope. 
-	- Cursor agents can be instructed—via a project-level `agents.md`—to respond to **specific keyphrases or invocation patterns in a prompt**, effectively routing a request to a predefined behavior or sub-prompt.
-	- Cursor, Windsurf, Copilot, etc all have agreed to read a root level **Agents.md** for such instructions
+	- Cursor agents can be instructed—via a project-level `AGENTS.md`—to respond to **specific keyphrases or invocation patterns**, effectively routing a request to a predefined behavior or sub-prompt.
+	- Cursor, Windsurf, Copilot, etc. all have agreed to read a root-level `AGENTS.md` for such instructions
 
 ### **Pseudo Trigger Types**
 * **File changes** — Save, create, or modify files matching patterns (e.g., `*.md`, `src/**/*.ts`)
 * **Pattern matching** — Content inside a file matching specific rules or keywords
 
-Cursor AI cannot handle file changes and pattern matches natively as of Dec 2025. In other words, Cursor agents **cannot natively react to file system events**, such as a file being created or modified, in the way a watcher, CI system, or workflow engine can.
+Cursor AI cannot handle file changes and pattern matches natively as of Dec 2025. Cursor agents **cannot natively react to file system events**, such as a file being created or modified, in the way a watcher, CI system, or workflow engine can.
 
-To simulate file-based triggers, you must **procedurally instruct the agent** to run shell commands in a loop—e.g., polling every ~50ms—to check for file existence or changes, then interpret the shell output once the condition is met. In other words, you’re leveraging the agent’s ability to execute shell commands and reason over their output, not declaring a true “when A changes, run B” rule
+To simulate file-based triggers, you must **procedurally instruct the agent** to run shell commands in a loop—e.g., polling every ~50ms—to check for file existence or changes, then interpret the shell output once the condition is met. You're leveraging the agent's ability to execute shell commands and reason over their output, not declaring a true "when A changes, run B" rule.
 
 ---
 
-## **Checkpoints for Human in the Loop Can Give You Control**
+## **Checkpoints for Human-in-the-Loop Control**
 
 Worried an agent might push changes too far? Build **checkpoints** into the workflow.
 
@@ -168,8 +169,11 @@ Each agent reads the file, checks its flag, acts accordingly, and updates its fl
 
 ## **Summary**
 
-In Cursor AI, think of AI agents as your multitasking little assistants. They can run in parallel, working on different tasks simultaneously, whether you're connecting them to a GitHub repository or having them operate on your local files.
+Cursor AI agents are multitasking assistants that can run in parallel on different tasks, working with GitHub repositories or local files.
 
-One of the neat features is that you're not locked into a "one-shot" approach. You can set up checkpoints—points where the agent pauses and waits for your review before continuing. This gives you the peace of mind to make sure everything's on track.
+You're not locked into a "one-shot" approach. Set up checkpoints—points where the agent pauses and waits for your review before continuing. This ensures everything stays on track.
 
-You can also automate things by placing a series of prompts in markdown files inside a folder. The agent can then follow these prompts one by one in order, creating a kind of orchestrated workflow that still has checkpoints if you want them. So in a nutshell, you get a flexible, safe, and pretty smart way to run your AI workflows exactly the way you like.
+You can automate workflows by placing sequential prompts in markdown files inside a folder. The agent follows these prompts in order, creating an orchestrated workflow with checkpoints if desired.
+
+**Bottom line:** Flexible, safe, and controllable AI workflows that adapt to your needs.
+
