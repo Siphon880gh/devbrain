@@ -19,7 +19,7 @@ Below is a refined explanation, followed by **additional “Modes”** that natu
 ### 1. Actor Mode
 
 **What it is:**  
-Direct, user-like interaction with the page.
+Direct, user-like interaction with the page. Think of it as straight forward cases and quick steps, such as filling out forms and macro playing certain user interactions. It operates quickly.
 
 **Characteristics:**
 
@@ -44,7 +44,7 @@ Direct, user-like interaction with the page.
     
 
 **Can the AI browser run js scripts?**
-- In certain situations, it may be necessary to change the DOM as if you ran code in the DevTools console. Can the AI browser chat interface run console scripts?
+- In certain situations, it may be necessary to change the DOM or point to a specific DOM by selectors, as if you ran code in the DevTools console. Can the AI browser chat interface run console scripts? If it can't run scripts, is it because DOM modifying scripts are banned but DOM reading scrips are allowed?
 
 **Relies on checklist items:**  
 Page interaction, navigation, DOM access, form manipulation
@@ -54,7 +54,7 @@ Page interaction, navigation, DOM access, form manipulation
 ### 2. Thinker Mode
 
 **What it is:**  
-Goal-oriented reasoning where the AI figures out _how_ to achieve an outcome.
+Goal-oriented reasoning where the AI figures out _how_ to achieve an outcome.  Can handle broad or "fuzzy" goals". One of its approaches is breaking down the goal into actionable steps.
 
 **Characteristics:**
 
@@ -107,7 +107,9 @@ Execution of a **predefined, explicit procedure**.
     
 - Automating audits or checks
     
-
+**Can the AI browser run js scripts?**
+- In certain situations, it may be necessary to change the DOM or point to a specific DOM by selectors, as if you ran code in the DevTools console. Can the AI browser chat interface run console scripts? If it can't run scripts, is it because DOM modifying scripts are banned but DOM reading scrips are allowed?
+  
 **Relies on checklist items:**  
 Full interaction, DOM access, metadata access, CSS extraction, tab control
 
