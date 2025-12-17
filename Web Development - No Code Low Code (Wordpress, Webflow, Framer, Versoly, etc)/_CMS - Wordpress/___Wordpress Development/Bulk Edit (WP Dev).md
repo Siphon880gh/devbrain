@@ -51,7 +51,7 @@ $column_label = COLUMN_LABEL;
 
 ## Minimal Working Example (Bulk Edit)
 
-❗️If you want Quick Edit, refer to [[Quick Edit]]
+❗️If you want Quick Edit, refer to [[Quick Edit (WP Dev)]]
 
 Bulk Edit has one big gotcha:
 

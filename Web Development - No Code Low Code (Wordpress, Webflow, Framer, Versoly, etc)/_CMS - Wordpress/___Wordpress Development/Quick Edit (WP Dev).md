@@ -43,7 +43,7 @@ If you’re adding **Quick Edit / Bulk Edit** on top of your sidebar meta box se
 
 ## Minimal Working Example (Quick Edit)
 
-❗️If you want Bulk Edit, refer to [[Bulk Edit]]
+❗️If you want Bulk Edit, refer to [[Bulk Edit (WP Dev)]]
 
 This example:
 

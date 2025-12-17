@@ -2,4 +2,4 @@ A **trigger** is a signal that tells a system, “something happened—run the n
 
 In event-driven automation, triggers create a clean **event → action** pattern. Instead of waiting for a person to start a chat, the agent (or agent-like step) is invoked automatically, receives structured inputs from the event, runs deterministic instructions, and outputs an artifact (a message, a summary, a classification, a PR, a record update, etc.). This is where agents shine: they operate like workers inside a pipeline, not like passive chat tools.
 
-For **concrete, real-world examples of tech and apps where AI agents (or agent-like systems) respond to triggers or events**, rather than acting as passive chat tools, refer to [[AI Agents - Triggers - Examples]]
+For **concrete, real-world examples of tech and apps where AI agents (or agent-like systems) respond to triggers or events**, rather than acting as passive chat tools, refer to [[AI Agents - Triggers - 2. Examples]]

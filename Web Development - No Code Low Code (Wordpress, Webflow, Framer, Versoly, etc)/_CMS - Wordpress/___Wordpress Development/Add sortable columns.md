@@ -307,7 +307,7 @@ If you want to change the meta value **without opening the post/page editor**, y
 
 This works great for “priority”, “rank”, “weight”, “order”, “label”, etc.
 
-Refer to [[Quick Edit]]
+Refer to [[Quick Edit (WP Dev)]]
 
 ---
 ## Summary

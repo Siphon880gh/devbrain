@@ -8,6 +8,8 @@ AI Agents in many AI apps are specialized workers that automate parts of your de
 
 ## **AI Agents in Cursor**
 
+Cursor AI agents are not truly agents to their full extent. Here's what they are missing:
+
 - **No multi-agent coordination**: Agents cannot work in coordination. One agent is not aware of another agent's state.
 - **No agent roles and names**: 
   - In some agentic systems, agents have distinct roles (Summarizer, QA) and identities (named agents). This enables coordination—you can tell Agent 2 to wait until Agent 1 finishes.
