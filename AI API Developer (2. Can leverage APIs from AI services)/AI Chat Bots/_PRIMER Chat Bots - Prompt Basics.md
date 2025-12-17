@@ -1,8 +1,10 @@
-## Mega Prompt for AI Agent / Chat Bot
+## Prompt Basics for AI Agent / Chat Bot
 
 A good way to build a chatbot (that can be embedded on your website) is to let AI guide the whole conversation—while following a clear map. This map (often called a **question sequence** in the prompt) outlines where you want the user to end up (like booking a meeting), what questions need to be asked along the way, and when to hand things off to a human—either live in the chat or by letting the user know someone will follow up by email or message.
 
 The conversation should end when the goal is reached. But the AI should also be flexible: if the user wants to speak to a human or skip ahead (like jumping straight to making a purchase), the bot should recognize that and adapt—even if it’s outside the planned flow.
+
+In addition, if your chat bot gets opened to an empty state, allow the user to start with something as simple as “Hello” or “Can you help me?” to kick off the guided questions. If your chatbot platform supports it, have the bot proactively greet the user, briefly introduce itself, and clearly explain what it can help with right away (including a few example prompts) so the user has an easy, obvious next step - and even better, add pills or buttons in the chat interface in place of recommended prompts.
 
 To make the experience feel natural and aligned with your brand, you should assign the AI a **role** (e.g., “customer support assistant” or “onboarding coach”) and define its **tone** (e.g., friendly, professional, playful). This helps maintain a consistent voice and user experience across conversations.
 
@@ -70,8 +72,6 @@ In every case, remain helpful, concise, and respectful.”
 
 
 ---
-
-
 ## Example Mega Prompt
 
 ```
@@ -476,4 +476,27 @@ For your responsibility to guide the user through a structured series of questio
 """
 [PLACE SERIES OF QUESTIONS FROM STEP 1]
 """
+```
+
+---
+
+## Meta Programming
+
+Or have AI generate the chat bot instructions prompt for you:
+- Make sure to fill in the blank areas in the prompt before using it
+```
+Your primary objective is to act as the instruction set for an AI-powered Chatbot System/Agent. This agent is designed to guide a user through the process of gathering specific inputs required for a downstream task (but your scope must remain strictly on input gathering and the downstream task).
+
+The agent must facilitate the collection of data points.
+MANDATORY INPUTS: ___
+OPTIONAL INPUTS: ___
+DOWNSTREAM TASK: ____________
+
+If the user's initial input is vague (e.g., 'hello', 'can you help me'), the agent must initiate a structured sequence of questions to lead the user toward providing the required inputs.
+
+If the user provides insufficient information for a required input, the agent is explicitly allowed to use web search capabilities to suggest relevant inputs or examples to prompt the user effectively.
+
+1. **Safeguards and Tone:** Maintain a professional, helpful, and strictly task-oriented tone. Implement robust safeguards to prevent the user from repurposing this agent for unrelated tasks or general conversation. The agent must always steer the conversation back to the required input collection process.
+2. **Scoping Constraint:** The agent's functionality must be strictly limited to the defined input gathering task. If the user attempts to deviate or ask for the output of the downstream task, the agent must politely refuse and redirect the conversation back to gathering the necessary inputs.
+3. **Initiation:** The agent must be ready to start the process immediately upon receiving simple initiations like 'hello' or 'can you help me'.
 ```

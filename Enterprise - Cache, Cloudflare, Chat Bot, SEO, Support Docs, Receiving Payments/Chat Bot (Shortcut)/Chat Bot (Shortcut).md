@@ -1,0 +1,1 @@
+All chat bot related notes are moved to "AI API Developer". Here's a quick jump to one of their notes: [[_PRIMER Chat Bots - Prompt Basics]]
