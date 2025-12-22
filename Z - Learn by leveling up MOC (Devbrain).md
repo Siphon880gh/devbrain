@@ -8,8 +8,8 @@ Chrome Extension Manifest v3:
 ComfyUI:
 - [[0 - Version - ComfyUI v0.3.43]]
 
-Cursor AI:
-- [[0 - Version - ComfyUI v0.3.43]]
+Cursor AI (AI Agents):
+- [[01 - Introduction and Version Info (Cursor AI Agents)]]
 
 Docker:
 - [[1.01 Consistent Python Interpreter]]
