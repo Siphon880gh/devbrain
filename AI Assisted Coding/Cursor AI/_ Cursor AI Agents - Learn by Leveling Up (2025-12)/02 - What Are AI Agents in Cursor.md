@@ -1,7 +1,7 @@
 Required knowledge:
 - Know what are AI Agents
 
-AI Agents in many AI apps are specialized workers that automate parts of your development workflow. They run in the background, respond to triggers, transform files, and follow structured instructions. First, review what AI Agents are in the broader context of AI apps:
+AI Agents in many AI apps are specialized workers that automate parts of your development workflow (or sales workflow!). They run in the background, respond to triggers, transform files, and follow structured instructions. First, review what AI Agents are in the broader context of AI apps:
 [[_PRIMER - AI Agents - What are they]]
 
 ---
@@ -35,6 +35,7 @@ Local:
 
 Github repo:
 - Requirement: Your local github repo must have an origin pointing to an online repo
+- It’ll have access to committing, pushing, etc. The tool is implied from selecting Cloud. No need to mention please use Github.
 ![[Pasted image 20251214070531.png]]
 
 ---
@@ -68,7 +69,7 @@ You might want:
 
 Can Schema Agent tell Client Agent "I'm done, your turn"? **No.** There's no direct agent-to-agent messaging or signaling in Cursor.
 
-However, you can achieve this indirectly—instruct Client Agent to wait for `schema.json` to exist before proceeding. This "file gate" pattern (covered in [DIY Coordination Techniques](#diy-coordination-techniques)) lets you simulate sequential handoffs without actual agent communication.
+However, you can achieve this indirectly—instruct Client Agent to wait for `schema.json` to exist before proceeding. This "file gate" pattern (covered in [DIY Coordination Techniques](#diy-coordination-techniques)) lets you simulate sequential handoffs without actual agent communication, however you're explicit to the AI agent to use its shell tool to loop.
 
 ---
 
@@ -89,6 +90,9 @@ Cursor AI cannot handle file changes and pattern matches natively as of Dec 2025
 
 To simulate file-based triggers, you must **procedurally instruct the agent** to run shell commands in a loop—e.g., polling every ~50ms—to check for file existence or changes, then interpret the shell output once the condition is met. You're leveraging the agent's ability to execute shell commands and reason over their output, not declaring a true "when A changes, run B" rule.
 
+**Caveat:**
+If you're waiting on a file to exist, is it going to be a file that AI will create, then write to, save, write to, save? This is usually the case when creating like an `app.js`, for example. Then instead you want the AI agent to create `done.temp` when it's truly done.
+
 ---
 
 ## **Checkpoints for Human-in-the-Loop Control**
@@ -104,9 +108,15 @@ A checkpoint is a pause where the agent stops, shows what it's done, and waits f
 
 You can always insert these "green-light moments" rather than one-shotting a full workflow.
 
+In some systems, you'll have to build a connection to a human in the loop interface (like email, text, whatsapp, etc)
+
+In Cursor AI, since the AI Agents are basically the chat windows, it can just ask for your input when it's time.
+
 ---
 
 ## **Guided Automation Using Markdown Prompt Files**
+
+Note: This is an **optional** method.
 
 Create multi-step automation by dropping **Markdown (.md) prompt files** into a folder, then tell the agent:
 
@@ -142,12 +152,17 @@ Since Cursor won't coordinate agents for you, here are workarounds:
 
 #### **1. File Existence as a Gate**
 
-Have one agent wait for a file another agent creates:
+You'd think to have one agent wait for a file that another agent creates:
 
 * **Prompt 1:** "Generate the API schema and save to `schema.json`."
 * **Prompt 2:** "Wait until `schema.json` exists, then generate client code based on it."
 
-The second agent effectively "blocks" until the first agent's output appears.
+The second agent effectively "blocks" until the first agent's output appears. But the problem is  AI will create, then write to, save, write to, save. Instead you want the AI agent to create `done.temp` when it's truly done:
+
+* **Prompt 1:** "Generate the API schema and save to `schema.json`. After this task is finished, create a `done.temp` empty file."
+* **Prompt 2:** "Wait until `done.temp` exists, then generate client code based on it."
+
+This of courses replaces you babysitting for prompt 1 to finish, then entering prompt 2 at a later time. Instead, you enter both prompts simultaneously and they run under the idea of "two AI Agents running concurrently".
 
 #### **2. Shared State File for Pseudo-Parallel Coordination**
 

@@ -1,4 +1,4 @@
-Generally speaking, **AI agents in many AI apps are specialized workers that automate parts of your development workflow**. They operate semi-autonomously in the background, respond to triggers or events, transform files or data, and execute tasks based on structured instructions rather than open-ended conversation.
+Generally speaking, **AI agents in many AI apps are specialized workers that automate parts of your development workflow** (even sales workflow!). They operate semi-autonomously in the background, respond to triggers or events, transform files or data, and execute tasks based on structured instructions rather than open-ended conversation.
 
 Unlike chat-based assistants, agents are typically designed to:
 - **Handle narrow, well-defined responsibilities** (e.g., refactoring code, generating assets, validating outputs)

@@ -5,7 +5,7 @@ A common workflow looks like this:
 - Insert **inline comments** into a Markdown or HTML document suggesting where a chart, screenshot, or callout could improve clarity.
 - Generate a **CSV file** that refers to document lines (often with line numbers) and a summary of changes, so you can reference exact locations later.
 
-Opus 4.5 Agent Mode lacks common sense when given those two tasks. You must be explicit that one task completes before the next begins. Opus 4.5 may randomly find it efficient to perform both tasks simultaneously in some runs; in other runs, it may perform tasks consecutively as the sentences are ordered.
+Opus 4.5 Agent Mode would randomly lack common sense when given those two tasks. You must be explicit that one task completes before the next begins. Opus 4.5 may find it efficient to perform both tasks simultaneously in some runs; in other runs, it may perform tasks consecutively in the order of the sentences.
 
 When done simultaneously, every insertion shifts line positions. Instead of regenerating the CSV from the final file, the AI may "patch" the CSV by **estimating** where lines should land—creating a clean-looking output that doesn't actually match the finished document.
 

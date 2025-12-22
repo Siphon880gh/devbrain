@@ -2,7 +2,7 @@ You can run two AI prompts simultaneously in the normal editor's chat interface 
 
 ![[Pasted image 20251214070019.png]]
 
-To illustrate how this works:
+You'd think to illustrate how this works:
 
 - **Agent 1** creates files and eventually generates `script.js`.
 - **Agent 2** is supposed to minify `script.js` once it exists.  
@@ -11,7 +11,7 @@ To illustrate how this works:
 But here's the caveat:
 
 - **Edits are applied incrementally**, not in one final dump.  
-  That means `script.js` might appear early while Agent 1 is _still editing it_. Agent 2 could swoop in too soon and minify a file that's still mid-construction.
+  That means `script.js` might create while Agent 1 is _still editing and saving it multiple times_. Agent 2 could swoop in too soon and minify a file that's still mid-construction.
 
 Even so, using multiple prompts/agents still gives you useful checkpoints. You can trace errors back to specific prompts, see which ones are actively running in the Agent Editor, and queue all your planned prompts at once instead of manually waiting for each step.
 
@@ -23,7 +23,7 @@ A practical workaround is to add a **"stability signal"** before Agent 2 begins.
 
 - **Timestamp check:** Agent 2 waits until `script.js` hasn't been modified for X seconds.
 - **Checksum check:** Agent 2 repeatedly hashes the file and only proceeds when the hash stops changing.
-- **Done-flag file:** Instruct Agent 1 to create a lightweight `script.ready` (or similar) once all edits to `script.js` are complete. Agent 2 then removes the `script.ready` file after processing.
+- **Done-flag file:** Instruct Agent 1 to create a lightweight `script.ready` (or similar like `done.temp`) once all edits to `script.js` are complete. Agent 2 then removes the `script.ready` (or `done.temp`) file after processing.
 - **Embedded footer marker:** Agent 1 appends a recognizable final comment like `// BUILD_COMPLETE` when it's truly finished.
 
 This gives Agent 2 a reliable condition to start its work—even though Cursor applies edits incrementally—without the two agents stepping on each other.

@@ -24,7 +24,6 @@ Not all agent environments expose the same capabilities. Some agents operate wit
 A concrete example is **Cursor IDE as of December 2025**. Cursor agents can edit files, reason about code, and run shell commands when instructed, but they **cannot natively react to file system events**. They don’t have true watchers or triggers for conditions like “when a file is created” or “when this directory changes,” the way a CI system, OS-level watcher, or workflow engine does.
 
 To simulate file-based triggers, you must procedurally instruct the agent to:
-
 - Run shell commands in a loop
 - Poll for file existence or modification (for example, every ~50ms)
 - Proceed once the condition is detected

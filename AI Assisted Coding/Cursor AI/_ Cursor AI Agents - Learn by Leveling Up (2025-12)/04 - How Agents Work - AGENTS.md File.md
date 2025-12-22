@@ -39,6 +39,8 @@ You are a senior backend developer. You specialize in:
 
 Since `AGENTS.md` is automatically loaded, you simply type the trigger phrase (e.g., "act as frontend dev") and the agent activates with its full instruction set. No manual configuration needed.
 
+Note there is a nuance in what is a trigger in Cursor AI compared to other AI Agents. The theory can be read here [[AI Agents - Triggers - 1. Definition]] with examples at [[AI Agents - Triggers - 2. Examples]]
+
 ---
 
 ## **Sequential Workflow Example: Referencing Prompt Files**

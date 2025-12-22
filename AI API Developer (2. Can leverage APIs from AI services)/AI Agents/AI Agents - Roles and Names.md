@@ -1,4 +1,4 @@
-In some agentic technologies, there are agents that play roles, like a summary agent or a QA agent. There might also be an identity (you can name an AI Agent) so you can instruct Agent 2 to wait for Agent 1 to finish before performing X.
+In some agentic technologies, there are agents that play roles, like a summary agent or a QA agent. There might also be an identity (you can name an AI Agent) so you can instruct Adam to wait for Barbie to finish before performing his Task.
 
 For example, you could have "Agents" on an AI-powered knowledge management platform for your employees:
 - **Personality Agent** — Automatically rewrites your bot’s replies to match any tone or persona you define.  

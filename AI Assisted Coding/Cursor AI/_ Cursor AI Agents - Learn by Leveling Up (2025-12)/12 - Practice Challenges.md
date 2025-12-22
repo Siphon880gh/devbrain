@@ -241,5 +241,4 @@ Once both features are complete, invoke the Integration Coordinator to merge the
    - Push merged main branch: `git push origin main`
    - Delete merged feature branches if desired
    - Report integration complete
-```
 

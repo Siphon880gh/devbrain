@@ -84,11 +84,4 @@ Think of it like an actor reading different scripts—same person, different cha
 | `AGENTS.md` | Cross-IDE compatible, version controlled | Requires manual reference |
 | Agent Editor | Visual interface, easy to edit | Settings not easily shared |
 
-**Recommended approach:** Use `AGENTS.md` in your repo for portability, then reference it in your `.cursorrules`:
-
-```
-Always check AGENTS.md for available roles when I ask about agents.
-```
-
-This way, team members get the same agent configurations regardless of which AI IDE they use.
-
+**Recommended approach:** Use `AGENTS.md` in your repo for portability

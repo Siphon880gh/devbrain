@@ -9,5 +9,7 @@ I switched to 1 agent at a time. Worked for a while. Eventually the 1-agent appr
 
 **Solution:** I backed off for an hour, came back to the 1-agent approach, and things worked fine again.
 
+**Potential Solution**: Another potential solution is to reindex the project under Cursor Settings? This is untested. Cursor is not transparent about these matters.
+
 **Key takeaway:** Be mindful of usage intensity. If quality degrades or connections fail, take a break and resume later.
 
