@@ -21,8 +21,8 @@ Required tools/skills: Pretty Prompt (https://www.pretty-prompt.com/) or know ho
 This workflow helps you **improve a prompt without losing the original intent**, and **document both the unoptimized and optimized versions** so you can reuse, audit, and iterate reliably.
 
 Core rule:  
-**The Original Prompt is the source of truth.**  
-Optimized prompts are regenerated artifacts—not manually patched.
+**The Original Prompt gets rewritten at an 8th grade level and serves as the source of truth for all optimizers.**  
+Optimized prompts are regenerated artifacts—never manually patched.
 
 ---
 
@@ -34,23 +34,27 @@ Follow these steps to optimize and document a prompt.
 ### Step 1 — Start With the Original Prompt (Unoptimized)
 
 - Write the prompt exactly as you would normally.
-    
 - Do not pre-edit or polish.
-    
 - Treat this as your canonical “source of truth.”
-    
 
 ### Step 2 — Generate an Optimized Prompt (Pretty Prompt or Meta-Prompting)
 
-- Paste the full original prompt into:
+- 1. Paste the original prompt into ChatGPT, asking it to rewrite it for 8th grade level reading, clarity, and flow. Do not lose any details. Prompt:
+```
+Rewrite this so it’s easy to read at an 8th-grade level, with clear wording and good flow. Do not remove any details. Do not add new formatting or lists. Keep the same structure as the original text (for example, if it’s all paragraphs, keep it all paragraphs).
+
+Need rewriting:
+{Original_Prompt}
+```
+  
+- 2. Paste the full original prompt in 8th grade reading level into:
     
-    - **Pretty Prompt** ([https://www.pretty-prompt.com/](https://www.pretty-prompt.com/)), or
-        
-    - your own meta-prompting flow.
+    - **Pretty Prompt** ([https://www.pretty-prompt.com/](https://www.pretty-prompt.com/)) adds a button at ChatGPT. Clicking that button enhances/optimizes your prompt:
+      ![[Pasted image 20251224063100.png]]
+    - Or your own meta-prompting flow.
         
 - Generate an optimized version with clearer structure, constraints, and outputs.
     
-
 ### Step 3 — Capture the Goal (1–3 Sentences)
 
 After you have the optimized prompt, copy the **entire optimized prompt** and run:
@@ -62,33 +66,23 @@ Explain in 1–3 sentences the goal of this prompt:
 ```
 
 This produces a stable “intent anchor” describing:
-
 - what it accomplishes,
-    
 - who it’s for,
-    
 - what success looks like.
-    
 
 If the goal is wrong:
-
 - Don’t edit the goal directly.
-    
-- Update the **Original Prompt**, regenerate the optimized prompt, then re-run goal extraction.
-    
+- Update the **Original Prompt that's been rewritten in 8th grade reader level**, regenerate the optimized prompt, then re-run goal extraction.
 
 ### Step 4 — Validate Alignment
 
 Quickly confirm:
 
 - The goal matches your intent
-    
 - The optimized prompt fulfills the goal
-    
-- No important requirements were added or lost
-    
+- No important requirements were added or lost    
 
-If anything is off, loop back to Step 1 (edit Original Prompt first).
+If anything is off, loop back to Step 1 (edit the prompt with 8th grade reading rewrite).
 
 ### Step 5 — Document Everything Using the Template
 
@@ -98,8 +92,7 @@ Document these three items (using the Template section below):
     
 - Optimized Prompt
     
-- Original Prompt (source of truth)
-    
+- Original Prompt (source of truth - this is the rewritten 8th grade level reading prompt. You may have it collapsible in Upnote/Obsidian for progressive disclosure to the person reading the notes)
 
 ### Iteration Rules (Non-Negotiable)
 
