@@ -56,7 +56,7 @@ But at Chat Interface, it failed to load!
 It won’t load into Chat Interface. The model is still on your computer though. This is a good time to review how to delete models downloaded on LM Studio:
 ![[Pasted image 20251225013346.png]]
 
-  As for getting it to work -  don’t worry, just keep looking for another model. But if you want to cut to the chase, Whisper works in the terminal if you’re willing to run the model directly. **INSTRUCTIONS FOR THAT ARE AT ___.**
+  As for getting it to work -  don’t worry, just keep looking for another model. But if you want to cut to the chase, Whisper works in the terminal if you’re willing to run the model directly. **INSTRUCTIONS FOR THAT ARE AT:** [[Transcribe audio file to text in terminal (Whisper small)]]
 
 ---
 
