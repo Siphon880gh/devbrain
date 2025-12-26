@@ -4,10 +4,8 @@ When you use AI prompts to change code, **two things can go wrong**—especially
 
 1. **Unrelated code gets erased.**  
     It’s common for **200+ lines from another feature** to get wiped when you’re changing something else.
-    
 2. **Token use gets high (cost goes up).**  
     If the AI doesn’t have a clear “map” of the project, it needs more tokens to figure things out. That can cost more money, and it can also make the AI guess when it runs out of room.
-    
 
 The fix is a simple **context management system**. It gives the AI a reliable map of your codebase, so it doesn’t guess or bulldoze parts it doesn’t understand.
 
@@ -221,7 +219,7 @@ Recall that we have two apps here. The API backend is the root. And the frontend
   
 {your_prompt_for_feature_or_change}  
   
-Only after the implementation is complete, you should update the appropriate context.md and/or th context-*.md files to reflect the new state of the codebase.
+Only after the implementation is complete, you should update the appropriate context.md and/or the context-*.md files to reflect the new state of the codebase.
 ```
 
 ---
