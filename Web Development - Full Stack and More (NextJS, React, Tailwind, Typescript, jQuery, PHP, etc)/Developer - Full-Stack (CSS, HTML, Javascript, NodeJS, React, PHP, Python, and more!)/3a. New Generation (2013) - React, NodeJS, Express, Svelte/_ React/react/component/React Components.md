@@ -1,3 +1,5 @@
+
+```
 class ShoppingList extends React.Component {
   render() {
     return (
@@ -12,6 +14,7 @@ class ShoppingList extends React.Component {
     );
   }
 }
+```
 
 
 The component must be titlecased, with the first character capital:
@@ -19,27 +22,19 @@ Proof
 Say we have a component in the same file
 ```
 class HovReact extends Component {
+	
+	constructor(props) {
 
-constructor(props) {
-
-super(props)
-
-}
-
-render() {
-
-return (
-
-<>
-
-HovReact rendered
-
-</>
-
-)
-
-}
-
+		super(props)
+		}
+		
+		render() {
+			return (
+				<>
+					HovReact rendered
+				</>
+			)
+		}
 }
 ```
 
