@@ -1,0 +1,5 @@
+In some cases you're copying over prompts to ChatGPT or other AI gen text services, and the markdown doesn't copy. This is likely the problem when you're copying the rendered markdown, like in Upnote, rather than copying the markdown with all its characters like `#`.
+
+Just copy it to ChatGPT and metaprompt, asking it to add Markdown formatting, and to provide the Markdown code.
+
+If that fails because ChatGPT generated formatting in the wrong place etc, then see if you can get the HTML version on your note app. On Upnote, the rendered Markdown can't be reversed back to Markdown code, but if you make the note shareable, at the web browser you can copy the HTML. Ask ChatGPT to convert the HTML to Markdown code. It will be more accurate because the HTML tells the AI what exactly the formatting is.
