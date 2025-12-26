@@ -16,6 +16,7 @@ When documenting AI prompts and subsequent prompts (either in the same chat thre
   
   Example response
   ... (Use `>` as block quote)
+
 -----
 
 ^ You could have mandatory inputs with {{..}}} and optional inputs with {(…)} just list the legend somewhere in your documentation. And when reading documentation, depending on your note app, leverage ctrl f or cmd f to search and highlight all input placeholders using curly brackets
