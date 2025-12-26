@@ -1,4 +1,3 @@
-  
 
 Required tools/skills: Pretty Prompt (https://www.pretty-prompt.com/) or know how to perform meta prompting
 
@@ -145,8 +144,6 @@ Document these three items (using the Template section below):
 
 ---
 
-## Example
-![[Pasted image 20251224045453.png]]
+## Related: How to document prompt optimization
 
-## Example (Expanded)
-![[Pasted image 20251224045503.png]]
+Refer to [[Prompt Optimization Documentation]]
