@@ -213,13 +213,31 @@ Only after the implementation is complete, you should update context.md and/or t
 
 ---
 
-IF, IF it's a full stack app with both frontend and backend in the same codebase, and you've been managing two separate context.md (one for backend and one for frontend), then use this prompt (after adjusting the frontend and backend paths in the prompt):
+IF, IF it's a FULL STACK app with both frontend and backend in the same codebase, and you've been managing two separate context.md (one for backend and one for frontend), then use this prompt (after adjusting the frontend and backend paths in the prompt):
 ```
 Recall that we have two apps here. The API backend is the root. And the frontend is in app/. Each root directory and app/ subdirectory have a context.md and its associated context-*.md that helps the AI assistant to understand the codebase at a high level without having to analyze the entire codebase.  
   
 {your_prompt_for_feature_or_change}  
   
 Only after the implementation is complete, you should update the appropriate context.md and/or the context-*.md files to reflect the new state of the codebase.
+```
+
+
+---
+
+IF, IF it's a GOOGLE AI STUDIO (GEMINI), it has a chance of removing a lot of your code in an effort to minimize token usage, especially after many uses or the codebase has grown large, and it's not a setting you can control. This prompt lowers the chance that occurs:
+```
+Refer to context.md and any applicable context-*.md for high level understanding of the codebase if needed.
+
+Let's implement:
+
+"""  
+{your_prompt_for_feature_or_change}
+
+Make only the exact changes requested, and don’t modify any lines that aren’t strictly necessary to complete the task. Don’t review or explore other existing features for optimizations or correctness—doing so is unnecessary and wastes tokens.  
+"""
+
+Only after the implementation is complete, you should update context.md and/or the relevant context-*.md files to reflect the new state of the codebase.
 ```
 
 ---
