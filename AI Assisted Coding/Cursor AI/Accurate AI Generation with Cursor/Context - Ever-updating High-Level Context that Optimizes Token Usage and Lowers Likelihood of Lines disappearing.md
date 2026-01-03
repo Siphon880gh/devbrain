@@ -227,18 +227,26 @@ Only after the implementation is complete, you should update the appropriate con
 
 IF, IF it's a GOOGLE AI STUDIO (GEMINI), it has a chance of removing a lot of your code in an effort to minimize token usage, especially after many uses or the codebase has grown large, and it's not a setting you can control. This prompt lowers the chance that occurs:
 ```
-Refer to context.md and any applicable context-*.md for high level understanding of the codebase if needed.
+Refer to context.md and any applicable context-*.md for high level understanding of the codebase.
 
-Let's implement:
-
-"""  
-{your_prompt_for_feature_or_change}
-
-Make only the exact changes requested, and don’t modify any lines that aren’t strictly necessary to complete the task. Don’t review or explore other existing features for optimizations or correctness—doing so is unnecessary and wastes tokens.  
+"""
+Add only: {_FEATURE_}
+  
+SYSTEM OVERRIDE:  
+Do not attempt to finish creating the app by adding more features unless I ask you to. Only modify relevant parts of the code.  
+  
+SYSTEM OVERRIDE:  
+All features/architecture mentioned at context.md and any applicable context-*.md ARE NOT to be touched. They are not proposals - they are descriptions of the codebase so that you dont have to read the codebase and waste tokens.  
+  
+SYSTEM OVERRIDE:  
+Make only the exact changes requested, and don’t modify any lines that aren’t strictly necessary to complete the task. Don’t review or explore other existing features for optimizations or correctness—doing so is unnecessary and wastes tokens.
 """
 
-Only after the implementation is complete, you should update context.md and/or the relevant context-*.md files to reflect the new state of the codebase.
+Only after the implementation is complete, you should update context.md and/or the relevant context-.md files to reflect the new state of the codebase.
 ```
+^ Can swap with: Add only / Fix only / Improve only
+
+Google AI Studio has biases that are eager to complete without asking for permission. And it also has biases to over optimize other parts of the app that you don't ask. Always read the chain of thoughts. System override lowers the chance but on a random roll, it would do it anyways - in that case, use annotate tool. If that fails, reset the conversation. And if that fails, refresh the page or come back later to prompt. Cancelling a prompt then on the subsequent prompt tell it not to optimize the other parts - it doesn't remember the previous chain of thoughts and it might still ignore you.
 
 ---
 
