@@ -23,7 +23,7 @@ This helps the AI:
 ### 2) When `AGENTS.md` gets too big
 
 If `AGENTS.md` becomes too long, create feature files:
-- **`context-<feature>.md`** = details for one feature only
+- **`AGENTS-<feature>.md`** = details for one feature only
 - `AGENTS.md` should **point to** those files instead of repeating everything
 
 This keeps the “map” short and easy to use.
@@ -36,7 +36,7 @@ This keeps the “map” short and easy to use.
 
 What Prompt 2 does:
 1. **Tell the AI what change you want**
-2. **Tell it to read `AGENTS.md` and any related `context-*.md` first**
+2. **Tell it to read `AGENTS.md` and any related `AGENTS-*.md` first**
 3. **After the change is done**, tell it to update the context files to match the new code
 
 Why this matters:
@@ -58,7 +58,7 @@ You should **re-sync the context** by running Prompt 1 again. That prompt is bui
 
 ### Prompt 1 — Initialize or re-sync the context
 
-Prompt 1 creates `AGENTS.md` (and `context-*.md` files if needed).  
+Prompt 1 creates `AGENTS.md` (and `AGENTS-*.md` files if needed).  
 It can also **update** existing context files to match the current code.
 
 Use Prompt 1:
@@ -108,7 +108,7 @@ Prompt 1:
 We’ve just updated the code. Please update or generate the `AGENTS.md` documentation so **AI tools** can reliably understand the project and generate code safely.  
   
 **Goal:**    
-Maintain `AGENTS.md` and `context-*.md` so any AI assistant always has a fast, accurate way to re-learn the project and answer prompts effectively—without risking accidental code loss.  
+Maintain `AGENTS.md` and `AGENTS-*.md` so any AI assistant always has a fast, accurate way to re-learn the project and answer prompts effectively—without risking accidental code loss.  
   
 ---  
   
@@ -146,21 +146,21 @@ Exact line numbers are fragile and inefficient because:
   
 This level of precision is sufficient for **high-level understanding** and makes it easy to navigate the code later without brittle references.  
   
-👉 Add a short reminder note at the top of **each** `AGENTS.md` and `context-*.md` file stating that **approximate references are intentional**.  
+👉 Add a short reminder note at the top of **each** `AGENTS.md` and `AGENTS-*.md` file stating that **approximate references are intentional**.  
   
 ---  
   
-## 2. Feature-Specific Context Files (`context-*.md`)  
+## 2. Feature-Specific Context Files (`AGENTS-*.md`)  
   
 If `AGENTS.md` becomes too long:  
 1. First, condense it.  
 2. If still too long, split details into feature-specific files:  
-   - `context-auth.md`  
-   - `context-ui.md`  
-   - `context-api.md`  
+   - `AGENTS-auth.md`  
+   - `AGENTS-ui.md`  
+   - `AGENTS-api.md`  
    - etc.  
   
-Each `context-*.md` file should:  
+Each `AGENTS-*.md` file should:  
 - Follow the same outline as `AGENTS.md`  
 - Cover **only its own module**  
 - Use approximate code-location references (same rule as above)  
@@ -185,9 +185,9 @@ You may read the git log to understand what was recently implemented based on co
 - Anchor responses explicitly with:  
   > “Refer to AGENTS.md for high-level context; details are in feature context files.”  
   
-If you only edited `AGENTS.md` (and not any `context-*.md` files), once finished:  
+If you only edited `AGENTS.md` (and not any `AGENTS-*.md` files), once finished:  
 - Assess whether `AGENTS.md` has become too long or detailed  
-- If so, determine whether it should be split into feature-specific `context-*.md` files
+- If so, determine whether it should be split into feature-specific `AGENTS-*.md` files
 ```
 
 
@@ -195,14 +195,14 @@ Then to make sure AI actually uses the [AGENTS.md](https://AGENTS.md "https:/
 
 Prompt 2 -
 ```
-Refer to AGENTS.md and any applicable context-*.md for high level understanding of the codebase if needed.  
+Refer to AGENTS.md and any applicable AGENTS-*.md for high level understanding of the codebase if needed.  
   
 Let's implement:  
 """  
 {your_prompt_for_feature_or_change}  
 """  
   
-Only after the implementation is complete, you should update AGENTS.md and/or the relevant context-*.md files to reflect the new state of the codebase.
+Only after the implementation is complete, you should update AGENTS.md and/or the relevant AGENTS-*.md files to reflect the new state of the codebase.
 ```
 ^ Can replace with: "Let's implement:", "Let's fix:", "Let's adjust:"
 
@@ -210,11 +210,11 @@ Only after the implementation is complete, you should update AGENTS.md and/or th
 
 IF, IF it's a FULL STACK app with both frontend and backend in the same codebase, and you've been managing two separate AGENTS.md (one for backend and one for frontend), then use this prompt (after adjusting the frontend and backend paths in the prompt):
 ```
-Recall that we have two apps here. The API backend is the root. And the frontend is in app/. Each root directory and app/ subdirectory have a AGENTS.md and its associated context-*.md that helps the AI assistant to understand the codebase at a high level without having to analyze the entire codebase.  
+Recall that we have two apps here. The API backend is the root. And the frontend is in app/. Each root directory and app/ subdirectory have a AGENTS.md and its associated AGENTS-*.md that helps the AI assistant to understand the codebase at a high level without having to analyze the entire codebase.  
   
 {your_prompt_for_feature_or_change}  
   
-Only after the implementation is complete, you should update the appropriate AGENTS.md and/or the context-*.md files to reflect the new state of the codebase.
+Only after the implementation is complete, you should update the appropriate AGENTS.md and/or the AGENTS-*.md files to reflect the new state of the codebase.
 ```
 
 
@@ -222,7 +222,7 @@ Only after the implementation is complete, you should update the appropriate AGE
 
 IF, IF it's a GOOGLE AI STUDIO (GEMINI), it has a chance of removing a lot of your code in an effort to minimize token usage, especially after many uses or the codebase has grown large, and it's not a setting you can control. This prompt lowers the chance that occurs:
 ```
-Refer to AGENTS.md and any applicable context-*.md for high level understanding of the codebase.
+Refer to AGENTS.md and any applicable AGENTS-*.md for high level understanding of the codebase.
 
 """
 Add only:
@@ -235,10 +235,10 @@ SYSTEM OVERRIDE:
 Keep changes **minimal and surgical**: modify only the **relevant files/sections** and only the **lines strictly necessary** to complete the request. Preserve all existing behavior.
 
 SYSTEM OVERRIDE:  
-Treat **AGENTS.md** and any **context-*.md** as **authoritative descriptions of the existing codebase**.
+Treat **AGENTS.md** and any **AGENTS-*.md** as **authoritative descriptions of the existing codebase**.
 """
 
-Only after the implementation is complete, you should update AGENTS.md and/or the relevant context-.md files to reflect the new state of the codebase.
+Only after the implementation is complete, you should update AGENTS.md and/or the relevant AGENTS-.md files to reflect the new state of the codebase.
 ```
 ^ Can swap with: Add only / Fix only / Improve only
 
@@ -251,7 +251,7 @@ To be extra safe
 
 Every once in a while (especially if you had used cheaper Auto and now at Max):
 ```
-The files AGENTS.md and context-*.md provide AI-oriented summaries of the codebase. Please audit them against the source to confirm their accuracy and fix any discrepancies at the context files.
+The files AGENTS.md and AGENTS-*.md provide AI-oriented summaries of the codebase. Please audit them against the source to confirm their accuracy and fix any discrepancies at the context files.
 ```
 
 
