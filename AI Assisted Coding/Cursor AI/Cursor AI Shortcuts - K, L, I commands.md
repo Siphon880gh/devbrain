@@ -1,8 +1,11 @@
 When inline prompting, CMD+K.
 - Think as Code/Kode generation
+- For inline code generation
+	- Either modify or fix selected lines (transformative)
+	- Or generate new code at empty line (generative)
 
 Cursor shortcuts while code editor focused
-- CMD+L (Open)
+- CMD+L (Open AI chat panel in the sidebar)
 - CMD+SHIFT+L (Open new)
 
 Cursor shortcuts while chat panel focused
