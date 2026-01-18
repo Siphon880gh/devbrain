@@ -196,6 +196,7 @@ export const configData: AppConfig = {
 };
 ```
 
+![[Pasted image 20260118054028.png]]
 
 Your display may vary or show nothing at all (if the generation randomly has poor error reporting). Our app said on the page (Look at console log in the preview panel if no error displayed):
 ```
@@ -203,8 +204,9 @@ Error Occured
 401 incorrect API Key provided: GEMINI*. You can find your API key at https://platform.openai.com/account/api-keys
 ```
 
-If it fails for other reasons, then it may be bad generated code. On the left there might be a recommended Auto-fix button or else you have to prompt it to fix the error. Fix until you have a working adapter that is on the alternative model (OpenAI in this case) and that it only errors about an incorrect API key.
+![[Pasted image 20260118054053.png]]
 
+If it fails for other reasons, then it may be bad generated code. On the left there might be a recommended Auto-fix button or else you have to prompt it to fix the error. Fix until you have a working adapter that is on the alternative model (OpenAI in this case) and that it only errors about an incorrect API key.
 
 Now let’s make sure it doesn’t fail (that we’re able to actually use the alternative model, OpenAI’s in this case)
 
@@ -226,6 +228,12 @@ https://platform.openai.com/usage at the correct organization and project where 
 Note the Images use might lag behind for a long time, but the budget at the top right will increase in a couple minutes. Image generation could cost 4 cents per image
 
 You may also notice that Gemini has a preferred style over OpenAI’s gpt-image, however that is not the definitive way to check switching generative models worked (You definitively check by looking at Usage at https://platform.openai.com/usage) 
+
+Gemini:
+![[Pasted image 20260118054319.png]]
+
+OpenAI's gpt-image:
+![[Pasted image 20260118054353.png]]
 
 ---
 
