@@ -1,9 +1,6 @@
 When a repo gets large, the model may change how it reads the code in the name of “efficiency”:
-
 - **It may skim and stop early** once it _feels_ it has enough context to proceed. If key context lives elsewhere, it can add, change, or remove code in the wrong places and break your app.
-    
 - **It may overwrite or delete unrelated code,** sometimes wiping 200+ lines from an existing feature while editing something else.
-    
 - **It may use more tokens trying to rebuild the missing big picture,** which increases cost and can cause it to start guessing when it runs out of room.
   
 ---
@@ -26,7 +23,6 @@ This helps the AI:
 ### 2) When `AGENTS.md` gets too big
 
 If `AGENTS.md` becomes too long, create feature files:
-
 - **`context-<feature>.md`** = details for one feature only
 - `AGENTS.md` should **point to** those files instead of repeating everything
 
@@ -52,7 +48,9 @@ Why this matters:
 
 ### 4) If you forget Prompt 2
 
-It happens. If you accidentally make changes without Prompt 2, then later you should **re-sync the context** by running Prompt 1 again.
+If your AGENTS.md might have been shifted because you didn't make it a discipline to update the AGENTS.md everytime you prompt, or you made significant changes to the code manually:
+
+You should **re-sync the context** by running Prompt 1 again. That prompt is built to look for AGENTS.md, and if it doesn't exist, then initiate it; but if it does exist, then update it to new changes in the code it can detect.
 
 ---
 
@@ -206,7 +204,7 @@ Let's implement:
   
 Only after the implementation is complete, you should update AGENTS.md and/or the relevant context-*.md files to reflect the new state of the codebase.
 ```
-
+^ Can replace with: "Let's implement:", "Let's fix:", "Let's adjust:"
 
 ---
 
@@ -229,25 +227,22 @@ Refer to AGENTS.md and any applicable context-*.md for high level understanding 
 """
 Add only:
 {_FEATURE_}
-  
+
 SYSTEM OVERRIDE:  
-Do not attempt to finish creating the app by adding more features unless I ask you to. Only modify relevant parts of the code.  
-  
+Make **only** the changes I explicitly request. Do **not** add features, refactor, optimize, or “finish the app” unless I ask.
+
 SYSTEM OVERRIDE:  
-All features/architecture mentioned at AGENTS.md and any applicable context-*.md ARE NOT to be touched. They are not proposals - they are descriptions of the codebase so that you dont have to read the codebase and waste tokens.  
-  
+Keep changes **minimal and surgical**: modify only the **relevant files/sections** and only the **lines strictly necessary** to complete the request. Preserve all existing behavior.
+
 SYSTEM OVERRIDE:  
-Make only the exact changes requested, and don’t modify any lines that aren’t strictly necessary to complete the task. Don’t review or explore other existing features for optimizations or correctness—doing so is unnecessary and wastes tokens.
-  
-SYSTEM OVERRIDE:  
-We are aiming for minimal changes and preserving existing functionality.
+Treat **AGENTS.md** and any **context-*.md** as **authoritative descriptions of the existing codebase**.
 """
 
 Only after the implementation is complete, you should update AGENTS.md and/or the relevant context-.md files to reflect the new state of the codebase.
 ```
 ^ Can swap with: Add only / Fix only / Improve only
 
-Google AI Studio has biases that are eager to complete without asking for permission. And it also has biases to over optimize other parts of the app that you don't ask. Always read the chain of thoughts. System override lowers the chance but on a random roll, it would do it anyways - in that case, use annotate tool. If that fails, reset the conversation. And if that fails, refresh the page or come back later to prompt. Cancelling a prompt then on the subsequent prompt tell it not to optimize the other parts - it doesn't remember the previous chain of thoughts and it might still ignore you.
+Google AI Studio on random generations will have a bias doing exactly what your SYSTEM OVERRIDES said NOT to do, and out of those random generations, it might choose to ignore your SYSTEM OVERRIDES regardless if they're in the prompt or in Google AI Studio's preferences. This causes the code generation to lose a lot of lines of code or break your app. Sometimes Google AI Studio is biased towards eager to complete (doesn't ask permission), completing other features it thinks your app needs, simplifying the UI (at the expensive of breaking or removing full features). It's recommended you supervise the thinking explanation and stop generation as soon as it steers away from your prompt's purpose. It would cancel any code modifications/generations and restore your code before the prompt was run (if it had started editing code). If the code generation has completed already, to restore to the previous code, see if there's a checkpoint created in the chat - and if not, you will have to restore your code manually by uploading a zip file of the last commit (Google AI Studio can sync with GitHub, so you can download the codebase as a ZIP - and ideally, you’ve been keeping GitHub updated after every prompt-based code change), and then you'd have to drag files back into place. Most times you cannot reverse the changes by prompting it to reverse the changes, because Google AI Studio cannot read its own thoughts from the previous turn, although you can read the thoughts.
 
 ---
 
