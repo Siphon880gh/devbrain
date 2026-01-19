@@ -34,7 +34,7 @@ Look for `index-standalone.html` and `index-standalone.md` (The md file might or
 
 If `index-standalone.md` exists, then you might need to download more than just `index-standalone` files. That file is created if there is any asset (images, css, js, etc) that must come along with your `index-standalone.html`. The md file will guide you on what files to download and in what relative paths they should be at when downloaded to your computer. Once the proper files are in place on the computer, let's test them at localhots.
 
-Test the index-standalone.html file at localhost. If does not load properly, open DevTools console to see any errors. If the webpage does not load properly and/or there are console errors, go inside Cursor IDE at your local machine, and prompt the files with:
+Test the index-standalone.html file at localhost. If does not load properly, open DevTools console to see any errors. If the webpage does not load properly and/or there are console errors, go inside Cursor IDE at your local machine, and prompt with:
 ```
 Please fix this html file. It's not loading correctly.
 
