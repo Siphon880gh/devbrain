@@ -1,12 +1,10 @@
 Easily forgotten cheat sheet. Let's say you changed developer career and haven't touched this technology in a while. These are the things that are more likely to be forgotten if you took a long hiatus because they're inherently tricky or arbitrary.
-
 ## Postbuild Intricacies
 
 Keep in mind the intricacies of build scripts
 - When you run `npm run build`, npm executes `build`, then `postbuild` if it exists.
 - If on Heroku, you need `postbuild-heroku script`. Heroku does not run `build` script prior, and it expects your heroku postbuild script to control for that
 	- `postbuild-heroku: "npm run build && node scripts/prerender.js"`
-
 ## Associate local code to online Heroku repo
 
 Whether you:
