@@ -13,6 +13,9 @@ You see a deploy button at the top right. You would be able to host the website 
 - You also have Cursor IDE (can be free plan) or equivalent (eg. Windsurf). Free plan is sufficient.
 - You have your own hosting server that you can upload files too and access them via URL, eg. https://example.com/hosted/CLIENT_NAME/some_image.jpg
 
+**TL;DR:**
+You use Google AI Studio to generate a list of image and video URLs, then grab Cursor IDE on the free plan and tell it to download those files for you. After that, have Cursor lay out a simple swap plan for updating your Google AI Studio project to replace the original URLs with your newly hosted ones. Upload the images/videos to your hosting server so the new URLs are real and accessible, then go back to Google AI Studio and tell it to replace the old image/video URLs in the website code with the new hosted URLs by following that swap plan.
+
 **Solution:**
 This is a solution that addresses both concerns.
 
