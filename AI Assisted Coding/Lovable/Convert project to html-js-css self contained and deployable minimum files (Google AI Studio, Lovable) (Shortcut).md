@@ -1,0 +1,1 @@
+Please refer to [[Convert project to html-js-css self contained and deployable minimum files (Google AI Studio, Lovable)]]
