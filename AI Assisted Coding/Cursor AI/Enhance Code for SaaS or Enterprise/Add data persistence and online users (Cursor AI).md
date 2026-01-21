@@ -10,10 +10,20 @@ We build this in phases: first, implement `localStorage` persistence so the ap
 Run these **prompts in sequence**:
 
 - Analyze **who this app is for** and **how people will use it from start to finish**. Identify the key user types and map out the main user journeys they’ll follow when using the app. Then create a `specs-user-flows.md` file that clearly documents these user flows in an easy-to-understand format.
-    
 - Based on your understanding of the codebase and the user flows (see `specs-user-flows.md`), create a specs file that defines what data should be persisted. For example, in a todo list app, the tasks should be saved. Assume this is a single-user app, so user accounts do not need to be implemented. Document all persistence decisions in `specs-data-persistence.md`.
 - Implement local storage that stores data so that they’re persistent (refer to `specs-data-persistance.md` ) to make it easy for the user using the app when they return to the app across multiple sessions.
-- Implement **local storage** so my app data persists across multiple sessions (see **`specs-data-persistance.md`**on how to do it)  to make it easier for me when I come back to the app later. This is for local use only—no multi-user support needed. Keep clean separation of concerns: the **UI should not touch local storage directly**. Instead, implement a **repository pattern** that the UI talks to, and the repository is what reads/writes to local storage. Finally, create **`AGENTS-data-persistence.md`** explaining how the local storage + repository setup works.
+- Implement **local storage** so my app data persists across multiple sessions (see **`specs-data-persistance.md`**on how to do it)  to make it easier for me when I come back to the app later. This is for local use only—no multi-user support needed. Keep clean separation of concerns: the **UI should not touch local storage directly**. Instead, implement a **repository pattern** that the UI talks to, and the repository is what reads/writes to local storage. Next, update the `specs-data-persistence.md` with any changes. Finally, create **`AGENTS-data-persistence.md`** explaining how the local storage + repository setup works.
+
+
+Double check the localstorage when using the app. It should have a clean way of organizing data where each key represents a colleciton/table like in a database. If not, then re-prompt with:
+```
+Refactor **local storage** so app data reliably persists across multiple sessions (see **`specs-data-persistance.md`** for guidance). This is primarily to make it easier for me to return to the app later without losing state.
+
+If persistence is already implemented, clean up the data structure. Store data in a more organized, database-like way (for example, some app has a single `slides` “table” represented as JSON, where each slide records its slideshow ID, content, and related metadata—rather than scattered or loosely structured keys).
+
+Next, update the `specs-data-persistence.md` with any changes. Finally, create **`AGENTS-data-persistence.md`** explaining how the local storage + repository setup works.
+```
+
 
 Test the app. See if it crashes. If crashes, look into DevTools console errors. And report to Cursor with prompt:
 
@@ -55,17 +65,17 @@ Only after the implementation is complete, you should update AGENTS.md and/or th
   
 
 Prompt to create test
-- Replace `[PLACE_TEST_HARNESS_VERSION_HERE]` based on your tech stack. 
-	- If html works:
+- **Replace** `[PLACE_TEST_HARNESS_VERSION_HERE]` based on your tech stack. 
+	- If you can view html files, replace with:
 	```
 	The test harness should be a browser-based UI only, implemented as an index.html file located at test/ and accessible by visiting that path directly.
 	```
-	- If it’s a Vite/React app with an entry point like index.tsx:
+	- If it’s a Vite/React app with an entry point like index.tsx, replace with:
 	```
 	Create a test harness that loads when the app is in test mode; otherwise, load the normal application. Add a testMode boolean flag to the config file to control this behavior.
 	```
 
-- After replacing that partial in the prompt, run the prompt:
+- After replacing that partial in the prompt, **run the prompt**:
 ```
 Refer to AGENTS.md and any applicable AGENTS*.md for high level understanding of the codebase if needed.  
 Let's implement:  
@@ -83,7 +93,9 @@ Only after the implementation is complete, you should update AGENTS.md and/or th
 
 ---
 
-Then test out the app works at the app level. Then test the harness (either test/ or configure to be in test mode, depending on your tech stack).
+Then test out the app works at the app level.
+
+Then test the harness (either visit test/ directly if viewing html, or configure to be in test mode and relaunch your app, to load the test harness, depending on your tech stack).
 
 While testing user creation and logging in, you should view DevTools Applications simultaneously. You should see localstorage changes in regards to multiple users.
 
@@ -104,7 +116,7 @@ Lets update specs-data-persistence.md in regards to now having multiple users at
 **Then have a migrate to Mongo database plan**  
 
 - Think ahead of where you will host the API endpoints - what tech stack is it. And what database will we use for remote persistence storage (unless you’re using JSON because it’s a small app that only you and a few handful use).
-- If you dont want a single-file API implementation because you plan to add more features over time and you want the code to remain easy to navigate, remove the line `Prefer a single-file implementation. Keep as much code as possible in one file—for example, define all routes in the same file rather than splitting them into separate folders or importing multiple route files.` 
+- For easier migration, the API is intentionally kept in a single file where possible. While this simplifies portability and setup, it becomes increasingly difficult to maintain over time due to the lack of modular, external files. Want modular codebase instead of single API file? Then remove the line `Prefer a single-file implementation. Keep as much code as possible in one file—for example, define all routes in the same file rather than splitting them into separate folders or importing multiple route files.` 
 - Replace database and API server filetype as needed in the prompt. Here we have them as MongoDB and plain PHP
 - Yes, **TypeScript works with PHP** when used as part of a typical web development stack. The two languages have different roles: TypeScript is used for the client-side frontend, and PHP is used for the server-side backend.
 ```
@@ -154,12 +166,16 @@ MongoDB credentials (via environment variables):
 * `MONGODB_USERNAME="admin"`  
 * `MONGODB_PASSWORD="password"`  
   
-Add a `.env` file for local development, and also include a `.env.sample` that documents the required variables.  
+Add a `.env` file for local development, and also include a `.env.sample` that documents the required variables. Those .env files will be in the same folder as the server file. So it'd be also in the folder `AGENTS/`.
   
 In addition, create a database seed script in the same language as the server file that populates the database with test users so we can quickly fill the database for testing.
 ```
 
-Note if you’re using PHP, make sure the api.php has this:
+---
+
+**PATH: USING PLAIN PHP for API server?**
+
+Note if you’re using PHP, make sure the api.php and seed.php has this at the top:
 ```
 // Composer autoload (mongodb/mongodb library provides MongoDB\Client)
 $autoload = __DIR__ . '/vendor/autoload.php';
@@ -171,7 +187,7 @@ if (file_exists($autoload)) {
 Otherwise you get some error like "Class \"MongoDB\\Client\" not found”
 ![[Pasted image 20260120223850.png]]
 
-The php mongodb expects some sort of composer plugin at your php file… so you have to composer init and composer require mongodb/mongodb:^2.1. You have to make sure the CLI php and the web php matches otherwise composer doesn't quite run even though you're in the app's folder. 
+The php mongodb expects some sort of composer plugin at your php file… so you have to `composer init` and `composer require mongodb/mongodb:^2.1` or `composer require mongodb/mongodb`. You have to make sure the CLI php and the web php matches otherwise composer doesn't quite run even though you're in the app's folder. 
 
 Php version for web you can adjust at cloudpanel or equivalent. CLI php you can set with `sudo update-alternatives --set php /usr/bin/php8.1`  which will make sure your composer command is compatible with your php.
 Eg. CloudPanel (website hosting cpanel)
@@ -179,13 +195,15 @@ Eg. CloudPanel (website hosting cpanel)
 
 Upload to your server. Then run the test endpoint. AI could have rendered it as `/health` , or `/status` , or `/test` 
 
-If fails to run test endpoint, try to resolve it in cursor by copying the error, even if it’s a vague error like Internal server error. Errors could be for example “MongoDB PHP extension not installed” which you install with `pecl install mongodb` (making sure your cli’s php is the same php as the web’s!). For cli, that’d be setting with `sudo update-alternatives -set php /usr/bin/php8.1` , and for web, you could go through your panel like cloudpanel to select the php version.
+If fails to run because Authentication failed, look into .env file, and make sure it's at the same folder as the api file. If php, make sure it connects to mongodb:\/\/USER:@127.0.0.1:27017\/DB?authSource=admin - just ask AI. If that works for api, make sure to ask AI to implement the fix for seed too.
+
+Otherwise if fails when ran at test endpoint for other reasons, try to resolve it in cursor by copying the error, even if it’s a vague error like Internal server error. Errors could be for example “MongoDB PHP extension not installed” which you install with `pecl install mongodb` (making sure your cli’s php is the same php as the web’s!). For cli, that’d be setting with `sudo update-alternatives -set php /usr/bin/php8.1` , and for web, you could go through your panel like cloudpanel to select the php version.
 
 Connect to your database on compass. Run the seed script and see if the database gets filled. If fails, you may have to install php-mongodb at a system level, but you have to install it for your particular php version (there may be several php versions!)
 
 ---
 
-NOT USING PLAIN PHP for API server?
+**PATH: NOT USING PLAIN PHP for API server?**
 
 If it were Express JS and you use the pm2 ecosystem (multiple nodejs apps running on VPS) with Makefile (easier to manage at cli):
 
@@ -227,24 +245,29 @@ It is complaining of `??==` . Please rewrite the code so that I dont have to u
 
 ---
 
-Back to generating front end code, let’s run through two passes to create the frontend connection to the remote api
+**Back to generating front end code**, let’s run through two passes to create the frontend connection to the remote api
 
-- At `{..if typescript-react-vite}` , you can replace with `Let’s make the config flag load the test-api/ harness rather than the test/ harness` . Otherwise remove it.
-- Adjust the base url below including the walkthrough of how the base url is resolved into an api call
+Typescript to load test harness?
+- At `{..if typescript-react-vite}` in the prompt below, you can **replace with** `Let’s make the config flag load the test-api/ harness rather than the test/ harness` . Otherwise remove it.
+
+Visiting test harness html file directly?
+- At `{..if typescript-react-vite}` in the prompt below, **remove it.** 
+
+**Adjust the base url in two places** at the prompt below including the walkthrough of how the base url is resolved into an api call
 
 ```
 Refer to AGENTS.md and any applicable AGENTS-*.md for high level understanding of the codebase if needed.  
 Let's implement:  
 """  
-Let's create another version of the current test harness ui at `test-api/`. It will perform the same multiple user test as the test harness ui at `test/` except it connects to the remote api endpoint instead of using localstorage. Recall that the repository pattern is where the ui makes contact. The ui contact will never make direct contact to the local storage or the api. The remote api server handles the data storage in a database.  
+Let's create another version of the current test harness ui at `test-api/`. It will perform the same multiple user test as the test harness ui at `test/` except it connects to the remote api endpoint instead of using localstorage. Let's make sure the repository pattern is where the ui makes contact. The ui contact will never make direct contact to the local storage or the api. The remote api server handles the data storage in a database.  
   
 {..if typescript-react-vite}  
   
 You can see an exact copy of the remote api server endpoint implementations inside the folder `AGENTS/`. From the implementations, you can figure out the request payloads and response formats.   
   
-You should also know that the base API URL is: https://wengindustries.com/backend/dailytimepoints/.  
+You should also know that the base API URL is: https://wengindustries.com/backend/presentify/.  
   
-So if a designed endpoint is api/foobar/, then the full api url evaluated would be: https://wengindustries.com/api/dailytimepoints/api.php?action=/api/foobar/  
+So if a designed endpoint is api/foobar/, then the full api url evaluated would be: https://wengindustries.com/api/presentify/api.php?action=/api/foobar/  
   
 Then you should be able to figure out the exact api calls including their methods, their urls, and their payloads, and how to handle the response.  
 Make only the exact changes requested, and don’t modify any lines that aren’t strictly necessary to complete the task. Don’t review or explore other existing features for optimizations or correctness—doing so is unnecessary and wastes tokens.  
@@ -257,7 +280,7 @@ Only after the implementation is complete, you should update AGENTS.md and/or th
 
 Then test out the app works at the app level. Then test the remote version harness (either test-api/ or configure to be in test mode, depending on your tech stack).
 
-While testing user creation and logging in, you should view the Mongo database simultaneously, perhaps using an app like Compass - or whichever database you use (MySQL, etc). You should see changes in regards to multiple users. For example, after signing up User A:
+While testing user creation and logging in, you should **view the Mongo database simultaneously**, perhaps using an app like Compass - or whichever database you use (MySQL, etc). You should see changes in regards to multiple users. For example, after signing up User A:
 ![[Pasted image 20260119054355.png]]
 
 ![[Pasted image 20260119054403.png]]
@@ -289,6 +312,10 @@ Since the API calls have passed at the test harness, let’s actually implement 
 Use this prompt:
 ```
 Based on how the frontend already connects to the remote API in test-api/, update the app to replace local storage–based persistence with API calls. This should be done by updating the Repository layer, so the UI continues to work the same way and never talks to the API directly.
+```
+
+```
+
 ```
 
 Now try out the app. See if it affects the Mongo database in compass (or whichever database you use)
