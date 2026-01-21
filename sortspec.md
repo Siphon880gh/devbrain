@@ -13,6 +13,7 @@ sorting-spec: |-
   CompSci - DS, Algos, Systems, Logic
   Cross-Platform - React Native
   Cybersecurity
+  Enterprise - Bootstrapping
   Enterprise - Code Standards, Compliance, Security
   Enterprise - Open Source Web Apps and CLI-Powered Web Tools
   Enterprise - DevOps, CI CD

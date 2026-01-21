@@ -17,6 +17,8 @@ But it comes with some real downsides.
 	- You _can_ sync your project to GitHub, but **images synced through GitHub may fail to load** because they appear to get reformatted in a way that works inside AI Studio but not elsewhere.
 	    
 	- If you **download the project directly from Google AI Studio**, the images usually come through as normal `.jpg` / `.png` files that load correctly. But of course, once you download directly, the unlimited Gemini tokens no longer works (because the API_Key environmental variable wont transfer over and the origin check won't pass).
+	  
+- I address how to unlock this vendor lock-in at [[_Google AI Studio - Vendor Unlocking]]
 #### 2) It can be unpredictable when editing code
 
 Google AI Studio often changes things you didn’t ask it to touch. It’s a bit of a dice roll:
@@ -24,6 +26,7 @@ Google AI Studio often changes things you didn’t ask it to touch. It’s a bit
 - It may “simplify” your UI, finish features it assumes you want, or make broad edits that accidentally delete unrelated code.
 - Sometimes it **ignores your project-level system instructions** or “SYSTEM OVERRIDES,” even if you clearly tell it to only make a specific change.
 - The best defense is to **watch its reasoning as it works and cancel early** if you see it drifting into unrelated files.
+- I address how to mitigate these Gemini biases that degrade code quality in [[Google AI Studio Generative Biases and How to Mitigate Them]]
 
 #### 3) Restoring code can be annoying
 
@@ -31,3 +34,4 @@ If it messes up your repo and you need to roll back inside AI Studio, the recove
 
 - You may need to delete files in the code view, re-upload a zip using the **Plus** button, then it unzips into a nested folder.
 - After that, you have to manually move everything back to the project root.
+- I address how to manually restore code at [[Manually restore code (Google AI Studio)]]

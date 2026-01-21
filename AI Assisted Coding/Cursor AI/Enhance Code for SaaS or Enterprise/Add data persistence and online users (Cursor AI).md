@@ -33,7 +33,7 @@ Refer to AGENTS.md and any applicable AGENTS-*.md for high level understanding o
 """  
 Right now the app stores everything in local storage, which only works for a single user (me).  
   
-I’m now doing in-person testing with real people, so users need to be able to create accounts, log in, and log out. That means local storage needs to be updated to support multiple users and keep each person’s workflows/settings separate.  
+I’m now doing in-person testing with real people, so users need to be able to create accounts, log in, and log out. That means local storage needs to be updated to support multiple users and keep each person’s workflows/settings separate.
   
 Please:  
 - Add Signup / Login / Logout in the top-right.  
@@ -169,14 +169,19 @@ if (file_exists($autoload)) {
 ```
 
 Otherwise you get some error like "Class \"MongoDB\\Client\" not found”
+![[Pasted image 20260120223850.png]]
 
-The php mongodb expects some sort of composer plugin at your php file… so you have to composer init and composer require mongodb/mongodb:^2.1. You have to make sure the CLI php and the web php matches. Php version for web you can adjust at cloudpanel or equivalent. CLI php you can set with `sudo update-alternatives --set php /usr/bin/php8.1`  which will make sure your composer command is compatible with your php.
+The php mongodb expects some sort of composer plugin at your php file… so you have to composer init and composer require mongodb/mongodb:^2.1. You have to make sure the CLI php and the web php matches otherwise composer doesn't quite run even though you're in the app's folder. 
+
+Php version for web you can adjust at cloudpanel or equivalent. CLI php you can set with `sudo update-alternatives --set php /usr/bin/php8.1`  which will make sure your composer command is compatible with your php.
+Eg. CloudPanel (website hosting cpanel)
+![[Pasted image 20260120224047.png]]
 
 Upload to your server. Then run the test endpoint. AI could have rendered it as `/health` , or `/status` , or `/test` 
 
 If fails to run test endpoint, try to resolve it in cursor by copying the error, even if it’s a vague error like Internal server error. Errors could be for example “MongoDB PHP extension not installed” which you install with `pecl install mongodb` (making sure your cli’s php is the same php as the web’s!). For cli, that’d be setting with `sudo update-alternatives -set php /usr/bin/php8.1` , and for web, you could go through your panel like cloudpanel to select the php version.
 
-Connect to your database on compass. Run the seed script and see if the database gets filled.
+Connect to your database on compass. Run the seed script and see if the database gets filled. If fails, you may have to install php-mongodb at a system level, but you have to install it for your particular php version (there may be several php versions!)
 
 ---
 

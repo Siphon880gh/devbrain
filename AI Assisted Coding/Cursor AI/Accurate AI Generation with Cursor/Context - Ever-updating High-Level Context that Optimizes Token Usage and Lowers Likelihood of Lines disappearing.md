@@ -2,7 +2,13 @@ When a repo gets large, the model may change how it reads the code in the name o
 - **It may skim and stop early** once it _feels_ it has enough context to proceed. If key context lives elsewhere, it can add, change, or remove code in the wrong places and break your app.
 - **It may overwrite or delete unrelated code,** sometimes wiping 200+ lines from an existing feature while editing something else.
 - **It may use more tokens trying to rebuild the missing big picture,** which increases cost and can cause it to start guessing when it runs out of room.
-  
+
+---
+
+I have a more walkthrough example at
+https://github.com/Siphon880gh/Vibe-Coding__Text-to-Image-AI-App__Prompt-Engineering-Mitigating-Context-Truncation-and-Gemini-Bias/
+It includes SYSTEM OVERRIDES in the prompt to help mitigate Gemini biases that degrade code quality. Those system overrides can be removed from the prompt if not using Gemini / Google AI Studio
+
 ---
 
 ## Context Handling Rules for AI Prompts (Simple Version)
