@@ -3,7 +3,28 @@
 We’ll enhance an app to support multiple users, and the AI should infer what data needs to be saved per user so people can log back in and pick up where they left off. 
 
 **High level steps:**
-We build this in phases: first, implement `localStorage` persistence so the app reliably saves and restores data across sessions. Next, extend that same local-only approach to support multiple users (still using `localStorage`) so it behaves like real account switching during in-person demo testing, but structure the stored data like a real database—one “table” per entity type (users, workflows, settings, etc.) instead of scattered keys. After that, create the REST API endpoints, then migrate the frontend off `localStorage` by swapping repository calls into API requests against the remote API server. To maximize the chances of success, generate spec docs up front, build a test harness/tests before implementation, and use solid design patterns (like a repository layer) so the UI stays decoupled from whichever storage backend is active in each phase.
+We build this in phases: first, implement `localStorage` persistence so the app reliably saves and restores data across sessions. Next, extend that same local-only approach to support multiple users (still using `localStorage`) so it behaves like real account switching during in-person demo testing, but structure the stored data like a real database—one “table” per entity type (users, workflows, settings, etc.) instead of scattered keys. After that, create the REST API migration plan (migrating from local data persistence to online data persistence), then implement visual test for the online data persistence (users and features). Then have AI migrate the frontend off `localStorage` by swapping repository calls into API requests against the remote API server, using the visual test as guidelines. To maximize the chances of success, generate spec docs up front, build a test harness/tests before implementation, and use solid design patterns (like a repository layer) so the UI stays decoupled from whichever storage backend is active in each phase.
+
+**High level steps (Explained differently):**
+
+The key workflow begins with generating a plan. Once the plan is in place, we create manual (visual) tests to check every detail. After tests pass, we ask the AI to implement the plan into the app, using the tests as guidelines and design patterns like Adapter or Repository. This ensures a smooth transition when switching from local multi-user storage to a remote API-based system.
+
+At a broader level, we start by creating an MVP using either a single-shot or milestone-based human-in-the-loop approach. Next, we ask AI to data persistence so users can easily return to the app, using the Repository pattern, so that the app never talks to localstorage or indexeddb directly. With the data persistence implemented in the app already, then we ask AI to generate visual tests. Once those tests passed, we instruct the AI to ensure the local data storage (e.g., IndexedDB) is organized like a database, with tables and structured storage - making sure both the app and the test reflect the new structure.
+  
+
+After that, we scale to support multiple users by asking the AI to implement user signup/login functionality. This is important for testing the app as a live demo with user tracking.
+
+> [!note] Hot tip - Repository pattern
+> A crucial point is ensuring that all code interacting with local storage (or other storage systems) follows a clear design pattern. This makes it easier for the AI to refactor the code as we evolve. Specifically, the UI should never directly communicate with data storage (local storage or API). Instead, it should interact through a Repository pattern layer.
+> 
+
+Next, we ask the AI to create an API migration plan to transition data persistence to an online system via an API and database (e.g., api.php / Express.js, with MongoDB). 
+
+Once the plan is generated, we have the AI write the corresponding code into a folder, so the AI can understand it for future frontend implementation to make the API calls - and make sure to include a seed script and env file implementation (We can use generic database username and password for prompting purposes and swap in actual credentials later). We then host the server and run a quick test using a status/health endpoint (e.g., PHP api.php or Express JS with MongoDB instructions below).
+
+On the frontend, the AI reviews the migration plan and server files to understand the remote data persistence setup. Then, we ask it to generate visual tests for the APIs, covering user signup/login and app features that rely on persistent data. During testing, we monitor the database in real-time (e.g., using Mongo Compass).
+
+Once the tests pass, we have the AI generate the final app implementation by having online data persistence, following the design patterns (e.g., Repository). This often involves refactoring away the local data persistence in the Repository layer. It also involves using the remote api tests as guidelines, reading the api migration plan, and reading the copy of the server api and seed code. Finally, we test for bugs using the app itself and ensure the live database accurately reflects changes from actions like user signups and data persistence.
 
 ---
 
