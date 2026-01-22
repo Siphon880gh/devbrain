@@ -10,7 +10,6 @@ We build this in phases: first, implement `localStorage` persistence so the ap
 The key workflow begins with generating a plan. Once the plan is in place, we create manual (visual) tests to check every detail. After tests pass, we ask the AI to implement the plan into the app, using the tests as guidelines and design patterns like Adapter or Repository. This ensures a smooth transition when switching from local multi-user storage to a remote API-based system.
 
 At a broader level, we start by creating an MVP using either a single-shot or milestone-based human-in-the-loop approach. Next, we ask AI to data persistence so users can easily return to the app, using the Repository pattern, so that the app never talks to localstorage or indexeddb directly. With the data persistence implemented in the app already, then we ask AI to generate visual tests. Once those tests passed, we instruct the AI to ensure the local data storage (e.g., IndexedDB) is organized like a database, with tables and structured storage - making sure both the app and the test reflect the new structure.
-  
 
 After that, we scale to support multiple users by asking the AI to implement user signup/login functionality. This is important for testing the app as a live demo with user tracking.
 
