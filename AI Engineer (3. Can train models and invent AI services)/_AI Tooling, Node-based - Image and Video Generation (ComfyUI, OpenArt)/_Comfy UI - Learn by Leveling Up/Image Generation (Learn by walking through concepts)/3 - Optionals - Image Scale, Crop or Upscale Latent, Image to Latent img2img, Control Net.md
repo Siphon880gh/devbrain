@@ -1,4 +1,6 @@
-Let's expand to the **optional but powerful ComfyUI nodes**, including image manipulation tools and ControlNet modules, with explanations, use cases, and example workflow layout.
+Imagine adding to these nodes:
+![[Pasted image 20250615072843.png]]
+
 
 ---
 

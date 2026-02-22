@@ -18,15 +18,15 @@ This is the node that **actually generates the image** from noise using the mode
 
 ### ⚙️ Key Options:
 
-|Option|Meaning|Simple Explanation|
-|---|---|---|
-|**Model**|Which diffusion model to use|Usually linked to `Load Checkpoint` (like SD 1.5, SDXL)|
-|**Sampler**|The denoising algorithm|Examples: `Euler`, `DPM++ 2M`, `Heun`. They affect style and speed. Think of it like different camera filters.|
-|**Scheduler**|How noise is scheduled across steps|Most users leave this alone — it’s behind-the-scenes math on how noise is removed|
-|**Steps**|How many refinement passes|Higher = more detailed, but slower (e.g., 20–30 is common)|
-|**CFG (Classifier-Free Guidance Scale)**|How strongly to follow the prompt|Higher = listens to prompt more strictly (7–10 is normal)|
-|**Seed**|Controls randomness|Same seed + same inputs = identical image. Set it to -1 for random.|
-|**Latent Image**|The canvas where image is generated|Comes from another node, like `Empty Latent Image` or `Image to Latent`|
+| Option                                   | Meaning                             | Simple Explanation                                                                                             |
+| ---------------------------------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **Model**                                | Which diffusion model to use        | Usually linked to `Load Checkpoint` (like SD 1.5, SDXL)                                                        |
+| **Sampler**                              | The denoising algorithm             | Examples: `Euler`, `DPM++ 2M`, `Heun`. They affect style and speed. Think of it like different camera filters. |
+| **Scheduler**                            | How noise is scheduled across steps | Most users leave this alone — it’s behind-the-scenes math on how noise is removed                              |
+| **Steps**                                | How many refinement passes          | Higher = more detailed, but slower (e.g., 20–30) is common                                                     |
+| **CFG (Classifier-Free Guidance Scale)** | How strongly to follow the prompt   | Higher = listens to prompt more strictly (7–10 is normal)                                                      |
+| **Seed**                                 | Controls randomness                 | Same seed + same inputs = identical image. Set it to -1 for random.                                            |
+| **Latent Image**                         | The canvas where image is generated | Comes from another node, like `Empty Latent Image` or `Image to Latent`                                        |
 
 ---
 
@@ -34,6 +34,7 @@ This is the node that **actually generates the image** from noise using the mode
 
 This node **creates a blank "latent" space** (not visible yet) — the place where the image will be drawn during generation.
 
+It is an “invisible math image”.
 ### ⚙️ Key Options:
 
 |Option|Meaning|Simple Explanation|

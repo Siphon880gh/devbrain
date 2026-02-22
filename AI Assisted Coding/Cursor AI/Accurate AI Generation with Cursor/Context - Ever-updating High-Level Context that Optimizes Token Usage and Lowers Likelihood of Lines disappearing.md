@@ -5,6 +5,12 @@ When a repo gets large, the model may change how it reads the code in the name o
 
 ---
 
+As the codebase gets bigger, it gets easier for AI to make mistakes when adding new features. The AI often reads only the parts it thinks matter and misses other important code. That can cause it to delete lines by accident or break other parts of the app.
+
+To prevent this, we will keep a simple “app overview” file that explains how the app works at a high level. The file would reference other files in the codebase. The AI should read this file first instead of guessing what code to look at. We will update this file every time we add or change a feature so it stays accurate.
+
+---
+
 I have a more walkthrough example at
 https://github.com/Siphon880gh/Vibe-Coding__Text-to-Image-AI-App__Prompt-Engineering-Mitigating-Context-Truncation-and-Gemini-Bias/
 It includes SYSTEM OVERRIDES in the prompt to help mitigate Gemini biases that degrade code quality. Those system overrides can be removed from the prompt if not using Gemini / Google AI Studio

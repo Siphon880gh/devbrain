@@ -1,4 +1,6 @@
-Here's a **beginner-friendly breakdown** of the other most commonly used nodes in ComfyUI to generate images — covering **how they work, their options, and simple explanations**.
+Continued explaining the other nodes:
+![[Pasted image 20250615072843.png]]
+
 
 ## ✅ **1. `Load Checkpoint`** – Load a Model
 
@@ -29,6 +31,9 @@ This converts your **text prompt into a vector** that the model understands.
 
 You’ll use **two `CLIP Text Encode` nodes** — one for the prompt, one for the **negative prompt** (what to avoid).
 
+More technically nuanced explanation:
+CLIP standas for ==**[Contrastive Language-Image Pre-training](https://www.google.com/search?q=Contrastive+Language-Image+Pre-training&rlz=1C5CHFA_enUS1017US1017&oq=what+clip+stands+for+in+comfyui&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDMyMjNqMGo0qAIAsAIA&sourceid=chrome&ie=UTF-8&ved=2ahUKEwiLy-ev0OySAxUflmoFHaldCBYQgK4QegQIARAE)**==. It is an OpenAI-developed model that acts as a translator, converting text prompts into numerical representations (embeddings) that the Stable Diffusion model understands to generate images.
+
 ---
 
 ## 🌈 **3. `KSampler`** – Generates the Image
@@ -49,7 +54,7 @@ You’ll use **two `CLIP Text Encode` nodes** — one for the prompt, one for th
 
 ## 🖼️ **5. `VAE Decode`** – Turns Latent into Visible Image
 
-After the image is generated in a **latent space**, this node converts it into an actual **image you can see and save**.
+After the image is generated in a **latent space**, this node converts it into an **actual image you can see and save.**
 
 ### Options:
 

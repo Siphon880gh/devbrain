@@ -9,6 +9,10 @@ As for the software app (either window or mac), their official website ([comfy.o
 
 ---
 
+**Learning Method**
+
+For Image generation, there's already a workflow/template so you don't have to recreate from scratch. It should work out of the box. However, we will walkthrough what each node means in the workflow so that you can understand the basics and master it.
+
 **Ready?**
 
 Proceed to [[1 - KSampler for diffusion, Latent Image the canvas]]

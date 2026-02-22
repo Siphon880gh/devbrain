@@ -17,8 +17,27 @@ You wish you have a list of domains and subdomains that can just enter automatic
 
 ---
 
-**DevTools script:**
+**Firstly**
 
+WAIT - before you click "Create and Install". You still have to double check the gotchas at [[CloudPanel - SSL Renew Annually]]. Or in other words:
+
+Make sure to comment off or toggle comment per your comments at vhost and included vhosts. This makes sure challenge file is accessible. You should do something like comment `# SSL RENEWAL` with instructions to comment off/on or toggle between two lines as comment vs active. Then you can search for that comment and follow instructions when turning off for SSL challenge or turning back on when done with SSL challenge and the SSL is setup successfully.
+
+Example:
+```
+  # SSL RENEWAL? (Temporarily switch in default root using "#" because ACME challenge file is created at default root and verification tries to GET file)
+  root /home/wengindustries/htdocs/wengindustries.com/;
+  # root /home/wengindustries/htdocs/wengindustries.com/app/run-app;
+
+  # SSL RENEWAL? (Temporarily disable lines with "#" because ACME validation can only reach http)
+  # if ($scheme != "https") {
+  #  rewrite ^ https://$host$uri permanent;
+  # }
+```
+
+----
+
+**DevTools script:**
 
 Have a list of the domains/subdomains in the wildcard code. Paste the entire code snippet into Google Chrome DevTools console. It'll automatically create the the needed number of textfields (by programmatically clicking the "Add Domain" button) and it'll fill them in with your domain/subdomains
 
@@ -66,6 +85,8 @@ document.querySelectorAll(".domain-input input").forEach((el,i)=>{
 });
 ```
 
+Run it here:
+![[Pasted image 20260208222604.png]]
+
 The textfields will be created and filled in with your desired subdomains and domains. Save this snippet somewhere save for you to renew whenever the Let's Encrypt expires.
 
-WAIT - before you click "Create and Install". You still have to double check the gotchas at [[CloudPanel - SSL Renew Annually]]
