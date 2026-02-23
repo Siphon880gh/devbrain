@@ -5,3 +5,6 @@ As of Feb 2026 there’s no ComfyUI Manager or automatic model installations in 
 ![[Pasted image 20260222030728.png]]
 
 ![[Pasted image 20260222030739.png]]
+
+Or if you're part of their discord server, you can request models or nodes:
+![[Pasted image 20260222064207.png]]

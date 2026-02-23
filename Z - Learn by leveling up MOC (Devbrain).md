@@ -6,7 +6,7 @@ Chrome Extension Manifest v3:
 - [[1. Chrome extension concepts - Presentations and considerations]]
 
 ComfyUI:
-- [[0 - Version (ComfyUI v0.3.43) and Learning Method]]
+- [[0.1 - Version (ComfyUI v0.3.43)]]
 
 Cursor AI (AI Agents):
 - [[01 - Introduction and Version Info (Cursor AI Agents)]]
