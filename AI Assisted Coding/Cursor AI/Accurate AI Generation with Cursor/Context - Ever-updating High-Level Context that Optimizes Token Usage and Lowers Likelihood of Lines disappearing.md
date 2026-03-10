@@ -120,12 +120,14 @@ Prompt 1:
 We’ve just updated the code. Please update or generate the `AGENTS.md` documentation so **AI tools** can reliably understand the project and generate code safely.  
   
 **Goal:**    
-Maintain `AGENTS.md` and `AGENTS-*.md` so any AI assistant always has a fast, accurate way to re-learn the project and answer prompts effectively—without risking accidental code loss.  
+Maintain `AGENTS.md` and `AGENTS-*.md` so any AI assistant always has a fast, accurate way to re-learn the project and answer prompts effectively—without risking accidental code loss in the context.  
   
 ---  
   
 ## 1. Base `AGENTS.md` (High-Level Overview)  
-  
+
+If `AGENTS.md` is missing, create it as a high-level knowledge base for the AI. Begin the file with a brief note explaining its purpose—helping AI tools understand the codebase—and list any companion `AGENTS-*.md` files it references.
+
 Provide a **high-level description** of:  
 - What the app does  
 - Tech stack  
