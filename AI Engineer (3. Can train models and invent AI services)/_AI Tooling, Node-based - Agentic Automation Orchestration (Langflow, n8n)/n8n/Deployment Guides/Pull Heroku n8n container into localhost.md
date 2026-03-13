@@ -18,6 +18,7 @@ heroku container:pull web -a <your-heroku-app-name>
 # 3) See the image locally
 docker images | grep <your-heroku-app-name>  # note the IMAGE ID or tag
 ```
+^ Yes pull will still work if you're not the admin role (but a collaborator role) at Heroku
 
 Run it locally (adjust the port/env as your app expects):
 
