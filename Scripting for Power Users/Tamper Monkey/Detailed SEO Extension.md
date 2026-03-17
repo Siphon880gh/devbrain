@@ -1,7 +1,6 @@
 **Detailed SEO Extension** is a Chrome extension that is useful for SEO professionals. It scans a webpage and gives you a quick snapshot of basic SEO elements, helping you see where the page is missing essentials and where it already meets common requirements.
 
-Unfortunately, it also seems to randomly highlight links and videos in purple, or place a purple overlay on them. See:
-
+Unfortunately, it also seems to randomly highlight links and videos in purple, or place a purple overlay on them as of 3/2026. If this is happening to you, the fix is here:
 ![[Pasted image 20260317063419.png]]
 
 ![[Pasted image 20260317063921.png]]

@@ -1,4 +1,6 @@
-Keyword Surfer and Keyword Everywhere are two SEO chrome extensions that are useful for SEO professionals. One of their features is enhancing Google Search page. Unfortunately, they do not place nice with each other:
+Keyword Surfer and Keyword Everywhere are two SEO chrome extensions that are useful for SEO professionals. One of their features is enhancing Google Search page. 
+
+Unfortunately, they do not place nice with each other as of 3/2026, having a group of panels covering another group of panels. See how that glitch looks and what the fix is:
 ![[Pasted image 20260317060750.png]]
 
 Here's the TamperMonkey to make them stack vertically:
