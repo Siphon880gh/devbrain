@@ -1,0 +1,6 @@
+**AWS** is a classic example, and so are **Microsoft Azure** and **Google Cloud** in their IaaS offerings. All three describe IaaS as on-demand compute, storage, and networking where **you still manage the OS, apps, and much of the configuration**, while the provider manages the underlying physical infrastructure.
+
+The reason it is called **IaaS** is basically that they **abstract and simplify hardware infrastructure**. Instead of buying physical servers, networking gear, and data-center space yourself, you rent virtualized infrastructure over the internet. NIST’s definition is that the customer can provision processing, storage, and networking resources, deploy arbitrary software, and control the OS and apps, but not the underlying cloud hardware.
+
+It's often tied to Cloud:
+- **I**aaS is usually discussed as a cloud category. NIST (National Institute of Standards and Technology) defines IaaS as a cloud computing service model, and AWS describes it as delivering compute, storage, and networking over the internet.**

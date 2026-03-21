@@ -1,0 +1,2 @@
+- Netlify / Vercel / Github Page
+- More optimized around websites and frontend frameworks, with serverless/backend features attached.
