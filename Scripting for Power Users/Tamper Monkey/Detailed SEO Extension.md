@@ -13,8 +13,7 @@ Fix using Tamper Monkey with:
 // @version      2026-03-17
 // @description  Detailed SEO Extension could cause weird purple backgrounds on links and Facebook youtube posts randomly. Could be conflicts with other extensions. As of 3/2026. This fixes that glitch.
 // @author       You
-// @match        *://www.facebook.com/*
-// @match        *://facebook.com/*
+// @match        *://*/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=facebook.com
 // @grant        none
 // ==/UserScript==
