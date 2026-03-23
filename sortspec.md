@@ -14,10 +14,10 @@ sorting-spec: |-
   Cross-Platform - React Native
   Cybersecurity
   Enterprise - Bootstrapping
-  Enterprise - Code Standards, Compliance, Security
-  Enterprise - Open Source Web Apps and CLI-Powered Web Tools
+  Enterprise - SECURITY, Code Standards, Compliance
+  Enterprise - CLOUDFLARE, DOCKER, Kubernetes, Redis, Scaling, Server Admin
   Enterprise - DevOps, CI CD
-  Enterprise - DOCKER, Kubernetes, Redis, Scaling, Server Admin
+  Enterprise - Open Source Web Apps and CLI-Powered Web Tools
   Enterprise - Email, Forms, Internal Tools
   Enterprise - Cache, Cloudflare, Chat Bot, SEO, Support Docs, Receiving Payments
   Enterprise - Analytics, Business Analytics (BA), Business Intelligence (BI)
