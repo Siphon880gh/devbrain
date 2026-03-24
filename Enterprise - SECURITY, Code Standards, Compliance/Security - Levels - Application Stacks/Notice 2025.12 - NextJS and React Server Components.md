@@ -1,7 +1,7 @@
 
 ## CVE-2025-55182
 
-For Next JS: The published affected range includes >= 15.3.0-canary.0, < 15.3.6, and the fixed release on that line is 15.3.6.
+For Next JS: The published affected range includes `>= 15.3.0-canary.0, < 15.3.6`
 
 It is an upstream React Server Components issue, not just a Next.js issue. 
 

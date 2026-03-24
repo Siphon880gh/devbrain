@@ -28,6 +28,7 @@ sorting-spec: |-
   Regex (Regular Expression)
   Python
   Data Science
+  Data Science - Statistics
   Scraping
   Scripting for Power Users
   %
