@@ -1,3 +1,0 @@
-Must always setup your website behind Cloudflare. If website has been online for a while without Cloudflare, check for bot attacks. If there is already bot attacks (therefore making your CPU high at a certain level), then rotate the IP, THEN get behind Cloudflare
-- Your webhost might not allow you to rotate the IP without reformatting/reprovisioning which would wipe your data
-- If that's the case, you could either accept that CPU will increase over time as bots share your webhosting IP, OR create a plan to migrate to a new webhost. Initially you might want to clone database, webhosting etc to a URL that is NOT public. Once cloning is finished, then fully migrate the domain, and go behind Cloudflare for the public debut.

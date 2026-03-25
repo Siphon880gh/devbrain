@@ -1,0 +1,1 @@
+Just follow the practices at [[_ Best Practice - Prevent Bot Attacks]]

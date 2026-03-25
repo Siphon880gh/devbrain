@@ -118,7 +118,7 @@ sudo ss -Htan state established sport = :443 | awk '{
 ```
 
 How to interpret it:
-
+- It's a tab separated values on multiple lines outputted to the terminal. The first column is the number of hits from the ip. The right column is the ip.
 - A few IPs with very high counts may indicate a **small number of abusive clients**.
 - Many different IPs with low counts each can indicate **distributed bot/scanner traffic**.
 	- If you get hit at a very high volume traffic with instant 75-100% CPU usage, then your server’s IP address is likely listed on a public scanning botnet or is experiencing a targeted DDoS (Distributed Denial of Service) attack. 
@@ -127,8 +127,6 @@ How to interpret it:
 
 Example output. Here’s me being attacked by a botnet:
 ![[Pasted image 20260321055221.png]]
-
-  
 
 ### 8. Dump full nginx config to inspect for non-traffic causes
 
