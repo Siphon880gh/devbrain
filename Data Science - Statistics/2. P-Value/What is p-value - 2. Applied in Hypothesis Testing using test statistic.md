@@ -44,9 +44,11 @@ The **P-value** is the **probability** of getting a sample result as extreme as,
 
 * **Small P-value** (for example, **< 0.05**): If **H₀** were true, the data would be unusual, so we **reject H₀**.
 	* In other words, **if H₀ were true, it would be unlikely to get sample data this extreme or more extreme**.
+	* Aka: The result is **statistically significant** at the chosen significance level, such as $\alpha = 0.05$.
 * **Large P-value** (for example, **> 0.05**): If **H₀** were true, the data would **not be unusual enough**, so we **fail to reject H₀**.
 	  * In other words, **if H₀ were true, getting sample data this extreme would not be very surprising**.
 	  * A large P-value means the sample result is **consistent with H₀** and does not give strong evidence against it.
+	  * Aka: The result is **not statistically significant** at the chosen significance level, so we fail to reject H₀.
 
 ---
 

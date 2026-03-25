@@ -7,6 +7,18 @@ You may not be able to access cpanel/cloudpanel/etc web panels because the serve
 ![[Pasted image 20260321054936.png]]
 
 
+See if Cloudflare had bots blocked as a setting. Turn on bot blocking if not on.
+
+At Cloudflare, you could see bot attacks:
+![[Pasted image 20260325052302.png]]
+Then an hour later:
+![[Pasted image 20260325052312.png]]
+
+But it's also possible Cloudflare won't reveal these attacks, IF the attacker is going after your hosting's VPS directly instead of the domain name.
+
+Next steps is going down to the nginx web server software level at a SSH session.
+
+---
 
 1. Confirm nginx is actually the hot process
    Use process-level checks first to verify whether nginx workers are consuming CPU.
