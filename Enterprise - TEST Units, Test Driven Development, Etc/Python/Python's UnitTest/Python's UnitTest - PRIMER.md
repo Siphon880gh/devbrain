@@ -1,5 +1,7 @@
 
-Yes, in Python, you can group assertions into units, which is typically done in the context of unit testing. Python’s `unittest` framework allows you to create test cases by subclassing `unittest.TestCase`. Inside these test case classes, you can define methods that will each run as a unit test, and within those methods, you can use multiple assertions to validate your code.
+Python’s `unittest` framework allows you to create test cases by subclassing `unittest.TestCase`. Inside these test case classes, you can define methods that will each run as a unit test, and within those methods, you can use multiple assertions to validate your code.
+
+So in Python, you can group assertions into units, which is typically done in the context of unit testing. 
 
 Here's an example of how you can group assertions into a unit test:
 

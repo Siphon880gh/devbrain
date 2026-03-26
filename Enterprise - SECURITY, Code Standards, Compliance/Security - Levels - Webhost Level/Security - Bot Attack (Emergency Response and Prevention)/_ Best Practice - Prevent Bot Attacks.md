@@ -19,7 +19,7 @@ A safer migration approach is to clone the website, database, and server setup o
 Cloudflare should not be your only layer of protection. You should also restrict inbound traffic so the server only accepts what it actually needs, such as:
 - **SSH**
 - **Cloudflare proxy traffic**
-	- You'll need the list of IPv4 and IPv6 Cloudflare addresses to allow in. Refer to [[IPv4 and IPv6 Addresses to Allow Through Firewall]]
+	- You'll need the list of IPv4 and IPv6 Cloudflare addresses to allow in. Refer to [[Cloudflare IPv4 and IPv6 Addresses to Allow Through Firewall]]
 
 However, where you place those firewall rules matters.
 

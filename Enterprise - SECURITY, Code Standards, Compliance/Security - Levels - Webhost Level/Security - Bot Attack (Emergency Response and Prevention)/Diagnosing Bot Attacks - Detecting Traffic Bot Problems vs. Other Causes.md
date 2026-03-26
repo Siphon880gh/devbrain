@@ -14,7 +14,7 @@ At Cloudflare, you could see bot attacks:
 Then an hour later:
 ![[Pasted image 20260325052312.png]]
 
-But it's also possible Cloudflare won't reveal these attacks, IF the attacker is going after your hosting's VPS directly instead of the domain name.
+But it's also possible Cloudflare won't reveal these attacks, IF the attacker is going after your hosting's IP address directly instead of the domain name.
 
 Next steps is going down to the nginx web server software level at a SSH session.
 

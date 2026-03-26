@@ -19,9 +19,9 @@ It includes SYSTEM OVERRIDES in the prompt to help mitigate Gemini biases that d
 
 ## Context Handling Rules for AI Prompts (Simple Version)
 
-### 1) What `AGENTS.md` is for
+### 1) What `LLM_IMPLEMENTATION_MAP.md` is for
 
-**`AGENTS.md` is your codebase map.**  
+**`LLM_IMPLEMENTATION_MAP.md` is your codebase map.**  
 It explains what the app does, how it’s organized, and where key parts live.
 
 This helps the AI:
@@ -32,11 +32,11 @@ This helps the AI:
 
 ---
 
-### 2) When `AGENTS.md` gets too big
+### 2) When `LLM_IMPLEMENTATION_MAP.md` gets too big
 
-If `AGENTS.md` becomes too long, create feature files:
-- **`AGENTS-<feature>.md`** = details for one feature only
-- `AGENTS.md` should **point to** those files instead of repeating everything
+If `LLM_IMPLEMENTATION_MAP.md` becomes too long, create feature files:
+- **`LLM_IMPLEMENTATION_MAP-<feature>.md`** = details for one feature only
+- `LLM_IMPLEMENTATION_MAP.md` should **point to** those files instead of repeating everything
 
 This keeps the “map” short and easy to use.
 
@@ -48,7 +48,7 @@ This keeps the “map” short and easy to use.
 
 What Prompt 2 does:
 1. **Tell the AI what change you want**
-2. **Tell it to read `AGENTS.md` and any related `AGENTS-*.md` first**
+2. **Tell it to read `LLM_IMPLEMENTATION_MAP.md` and any related `LLM_IMPLEMENTATION_MAP-*.md` first**
 3. **After the change is done**, tell it to update the context files to match the new code
 
 Why this matters:
@@ -60,9 +60,9 @@ Why this matters:
 
 ### 4) If you forget Prompt 2
 
-If your AGENTS.md might have been shifted because you didn't make it a discipline to update the AGENTS.md everytime you prompt, or you made significant changes to the code manually:
+If your LLM_IMPLEMENTATION_MAP.md might have been shifted because you didn't make it a discipline to update the LLM_IMPLEMENTATION_MAP.md everytime you prompt, or you made significant changes to the code manually:
 
-You should **re-sync the context** by running Prompt 1 again. That prompt is built to look for AGENTS.md, and if it doesn't exist, then initiate it; but if it does exist, then update it to new changes in the code it can detect.
+You should **re-sync the context** by running Prompt 1 again. That prompt is built to look for LLM_IMPLEMENTATION_MAP.md, and if it doesn't exist, then initiate it; but if it does exist, then update it to new changes in the code it can detect.
 
 ---
 
@@ -70,7 +70,7 @@ You should **re-sync the context** by running Prompt 1 again. That prompt is bui
 
 ### Prompt 1 — Initialize or re-sync the context
 
-Prompt 1 creates `AGENTS.md` (and `AGENTS-*.md` files if needed).  
+Prompt 1 creates `LLM_IMPLEMENTATION_MAP.md` (and `LLM_IMPLEMENTATION_MAP-*.md` files if needed).  
 It can also **update** existing context files to match the current code.
 
 Use Prompt 1:
@@ -108,7 +108,7 @@ These stay useful even after edits.
 
 After we've covered how they work, here are the brief explanations when to use the prompts and the prompts ready for copying:
 
-Prompt 1 initializes context management via a [AGENTS.md](https://AGENTS.md "https://AGENTS.md") file. Therefore, prompts to change the website can ask AI to refer to the [AGENTS.md](https://AGENTS.md "https://AGENTS.md") file that is a high level explanation of the code with line numbers. This makes it less likely that 200 lines of code for another feature get wiped often when you’re making an unrelated code change via the prompt. Token window doesn’t run out and AI doesn’t make assumptions as much about what’s a feature or not.
+Prompt 1 initializes context management via a [LLM_IMPLEMENTATION_MAP.md](https://LLM_IMPLEMENTATION_MAP.md "https://LLM_IMPLEMENTATION_MAP.md") file. Therefore, prompts to change the website can ask AI to refer to the [LLM_IMPLEMENTATION_MAP.md](https://LLM_IMPLEMENTATION_MAP.md "https://LLM_IMPLEMENTATION_MAP.md") file that is a high level explanation of the code with line numbers. This makes it less likely that 200 lines of code for another feature get wiped often when you’re making an unrelated code change via the prompt. Token window doesn’t run out and AI doesn’t make assumptions as much about what’s a feature or not.
 
 Prompt 1 should be ran every so often to sync your code changes to the context files if you've been sliding from using the evergreen prompt for every feature request. However, running prompt 1 to sync the code also gives it an opportunity to make the context file more efficient (shortening explanation or splitting into context*.md files), so run Prompt 1 at:
 - After 1 major feature change where a lot of files or lines got modified/created
@@ -117,16 +117,19 @@ Prompt 1 should be ran every so often to sync your code changes to the context f
   
 Prompt 1:
 ```
-We’ve just updated the code. Please update or generate the `AGENTS.md` documentation so **AI tools** can reliably understand the project and generate code safely.  
+We’ve just updated the code. Please update or generate the `LLM_IMPLEMENTATION_MAP.md` documentation so **AI tools** can reliably understand the project and generate code safely.  
   
 **Goal:**    
-Maintain `AGENTS.md` and `AGENTS-*.md` so any AI assistant always has a fast, accurate way to re-learn the project and answer prompts effectively—without risking accidental code loss in the context.  
+Maintain `LLM_IMPLEMENTATION_MAP.md` and `LLM_IMPLEMENTATION_MAP-*.md` so any AI assistant always has a fast, accurate way to re-learn the project and answer prompts effectively—without risking accidental code loss in the context.  
   
 ---  
   
-## 1. Base `AGENTS.md` (High-Level Overview)  
+## 1. Base `LLM_IMPLEMENTATION_MAP.md` (High-Level Overview)  
 
-If `AGENTS.md` is missing, create it as a high-level knowledge base for the AI. Begin the file with a brief note explaining its purpose—helping AI tools understand the codebase—and list any companion `AGENTS-*.md` files it references.
+If `LLM_IMPLEMENTATION_MAP.md` is missing, create it as a high-level knowledge base for the AI. Begin the file with a brief note explaining its purpose—helping AI tools understand the codebase—and list any companion `LLM_IMPLEMENTATION_MAP-*.md` files it references. For example:
+"""
+AI-oriented codebase map for safe modification, feature tracing, and implementation planning.
+"""
 
 Provide a **high-level description** of:  
 - What the app does  
@@ -160,26 +163,26 @@ Exact line numbers are fragile and inefficient because:
   
 This level of precision is sufficient for **high-level understanding** and makes it easy to navigate the code later without brittle references.  
   
-👉 Add a short reminder note at the top of **each** `AGENTS.md` and `AGENTS-*.md` file stating that **approximate references are intentional**.  
+👉 Add a short reminder note at the top of **each** `LLM_IMPLEMENTATION_MAP.md` and `LLM_IMPLEMENTATION_MAP-*.md` file stating that **approximate references are intentional**.  
   
 ---  
   
-## 2. Feature-Specific Context Files (`AGENTS-*.md`)  
+## 2. Feature-Specific Context Files (`LLM_IMPLEMENTATION_MAP-*.md`)  
   
-If `AGENTS.md` becomes too long:  
+If `LLM_IMPLEMENTATION_MAP.md` becomes too long:  
 1. First, condense it.  
 2. If still too long, split details into feature-specific files:  
-   - `AGENTS-auth.md`  
-   - `AGENTS-ui.md`  
-   - `AGENTS-api.md`  
+   - `LLM_IMPLEMENTATION_MAP-auth.md`  
+   - `LLM_IMPLEMENTATION_MAP-ui.md`  
+   - `LLM_IMPLEMENTATION_MAP-api.md`  
    - etc.  
   
-Each `AGENTS-*.md` file should:  
-- Follow the same outline as `AGENTS.md`  
+Each `LLM_IMPLEMENTATION_MAP-*.md` file should:  
+- Follow the same outline as `LLM_IMPLEMENTATION_MAP.md`  
 - Cover **only its own module**  
 - Use approximate code-location references (same rule as above)  
   
-`AGENTS.md` (no suffix) must always remain the **high-level overview**, possibly paired with feature context*.md files for detail. We look into the codebase afterwards if the context files are insufficient. This keeps executions token efficient.  
+`LLM_IMPLEMENTATION_MAP.md` (no suffix) must always remain the **high-level overview**, possibly paired with feature context*.md files for detail. We look into the codebase afterwards if the context files are insufficient. This keeps executions token efficient.  
   
 ---  
   
@@ -195,40 +198,40 @@ You may read the git log to understand what was recently implemented based on co
 - Keep documentation **concise** to save tokens  
 - You may include the **total line count** of referenced files (helps decide whether to load entire files later)  
 - When context space is limited:  
-  - Prioritize `AGENTS.md`  
+  - Prioritize `LLM_IMPLEMENTATION_MAP.md`  
 - Anchor responses explicitly with:  
-  > “Refer to AGENTS.md for high-level context; details are in feature context files.”  
+  > “Refer to LLM_IMPLEMENTATION_MAP.md for high-level context; details are in feature context files.”  
   
-If you only edited `AGENTS.md` (and not any `AGENTS-*.md` files), once finished:  
-- Assess whether `AGENTS.md` has become too long or detailed  
-- If so, determine whether it should be split into feature-specific `AGENTS-*.md` files
+If you only edited `LLM_IMPLEMENTATION_MAP.md` (and not any `LLM_IMPLEMENTATION_MAP-*.md` files), once finished:  
+- Assess whether `LLM_IMPLEMENTATION_MAP.md` has become too long or detailed  
+- If so, determine whether it should be split into feature-specific `LLM_IMPLEMENTATION_MAP-*.md` files
 ```
 
 
-Then to make sure AI actually uses the [AGENTS.md](https://AGENTS.md "https://AGENTS.md") for every prompt which makes it less likely your other code just disappears from code changes:
+Then to make sure AI actually uses the [LLM_IMPLEMENTATION_MAP.md](https://LLM_IMPLEMENTATION_MAP.md "https://LLM_IMPLEMENTATION_MAP.md") for every prompt which makes it less likely your other code just disappears from code changes:
 
 Prompt 2 -
 ```
-Refer to AGENTS.md and any applicable AGENTS-*.md for high level understanding of the codebase if needed.  
+Refer to LLM_IMPLEMENTATION_MAP.md and any applicable LLM_IMPLEMENTATION_MAP-*.md for high level understanding of the codebase if needed.  
   
 Let's implement:  
 """  
 {your_prompt_for_feature_or_change}  
 """  
   
-Only after the implementation is complete, you should update AGENTS.md and/or the relevant AGENTS-*.md files to reflect the new state of the codebase.
+Only after the implementation is complete, you should update LLM_IMPLEMENTATION_MAP.md and/or the relevant LLM_IMPLEMENTATION_MAP-*.md files to reflect the new state of the codebase.
 ```
 ^ Can replace with: "Let's implement:", "Let's fix:", "Let's adjust:"
 
 ---
 
-IF, IF it's a FULL STACK app with both frontend and backend in the same codebase, and you've been managing two separate AGENTS.md (one for backend and one for frontend), then use this prompt (after adjusting the frontend and backend paths in the prompt):
+IF, IF it's a FULL STACK app with both frontend and backend in the same codebase, and you've been managing two separate LLM_IMPLEMENTATION_MAP.md (one for backend and one for frontend), then use this prompt (after adjusting the frontend and backend paths in the prompt):
 ```
-Recall that we have two apps here. The API backend is the root. And the frontend is in app/. Each root directory and app/ subdirectory have a AGENTS.md and its associated AGENTS-*.md that helps the AI assistant to understand the codebase at a high level without having to analyze the entire codebase.  
+Recall that we have two apps here. The API backend is the root. And the frontend is in app/. Each root directory and app/ subdirectory have a LLM_IMPLEMENTATION_MAP.md and its associated LLM_IMPLEMENTATION_MAP-*.md that helps the AI assistant to understand the codebase at a high level without having to analyze the entire codebase.  
   
 {your_prompt_for_feature_or_change}  
   
-Only after the implementation is complete, you should update the appropriate AGENTS.md and/or the AGENTS-*.md files to reflect the new state of the codebase.
+Only after the implementation is complete, you should update the appropriate LLM_IMPLEMENTATION_MAP.md and/or the LLM_IMPLEMENTATION_MAP-*.md files to reflect the new state of the codebase.
 ```
 
 
@@ -236,7 +239,7 @@ Only after the implementation is complete, you should update the appropriate AGE
 
 IF, IF it's a GOOGLE AI STUDIO (GEMINI), it has a chance of removing a lot of your code in an effort to minimize token usage, especially after many uses or the codebase has grown large, and it's not a setting you can control. This prompt lowers the chance that occurs:
 ```
-Refer to AGENTS.md and any applicable AGENTS-*.md for high level understanding of the codebase.
+Refer to LLM_IMPLEMENTATION_MAP.md and any applicable LLM_IMPLEMENTATION_MAP-*.md for high level understanding of the codebase.
 
 """
 Add only:
@@ -249,10 +252,10 @@ SYSTEM OVERRIDE:
 Keep changes **minimal and surgical**: modify only the **relevant files/sections** and only the **lines strictly necessary** to complete the request. Preserve all existing behavior.
 
 SYSTEM OVERRIDE:  
-Treat **AGENTS.md** and any **AGENTS-*.md** as **authoritative descriptions of the existing codebase**.
+Treat **LLM_IMPLEMENTATION_MAP.md** and any **LLM_IMPLEMENTATION_MAP-*.md** as **authoritative descriptions of the existing codebase**.
 """
 
-Only after the implementation is complete, you should update AGENTS.md and/or the relevant AGENTS-.md files to reflect the new state of the codebase.
+Only after the implementation is complete, you should update LLM_IMPLEMENTATION_MAP.md and/or the relevant LLM_IMPLEMENTATION_MAP-.md files to reflect the new state of the codebase.
 ```
 ^ Can swap with: Add only / Fix only / Improve only
 
@@ -265,17 +268,17 @@ To be extra safe
 
 Every once in a while (especially if you had used cheaper Auto and now at Max):
 ```
-The files AGENTS.md and AGENTS-*.md provide AI-oriented summaries of the codebase. Please audit them against the source to confirm their accuracy and fix any discrepancies at the context files.
+The files LLM_IMPLEMENTATION_MAP.md and LLM_IMPLEMENTATION_MAP-*.md provide AI-oriented summaries of the codebase. Please audit them against the source to confirm their accuracy and fix any discrepancies at the context files.
 ```
 
 
 ---
 
-If you slide from using the evergreen prompt for every feature, your AGENTS.md and context*.md files are out of sync. You can resync it by running prompt 1 which is polymorphic for initializing vs updating existing context files. 
+If you slide from using the evergreen prompt for every feature, your LLM_IMPLEMENTATION_MAP.md and context*.md files are out of sync. You can resync it by running prompt 1 which is polymorphic for initializing vs updating existing context files. 
 
 If it's too out of sync, you may want to specify the number of commits after analyzing "git logs" (adjust the number of git commits to look back in the prompt):
 ```
-We've changed code. Refer to previous 4 commits to figure out what we need to update AGENTS.md with. Remember that AGENTS.md is used for AI to gain high level understanding of the codebase
+We've changed code. Refer to previous 4 commits to figure out what we need to update LLM_IMPLEMENTATION_MAP.md with. Remember that LLM_IMPLEMENTATION_MAP.md is used for AI to gain high level understanding of the codebase
 ```
 
 
@@ -283,7 +286,7 @@ We've changed code. Refer to previous 4 commits to figure out what we need to up
 
 Curious - when does it split into context*.md files
 
-When AGENTS.md file becomes too long, and shortening the explanations become impractical, prompt 1 will split the AGENTS.md into content*.md named after their features, while the main AGENTS.md file will be the base for all the other content*.md files. You'll see Cursor report something like this:
+When LLM_IMPLEMENTATION_MAP.md file becomes too long, and shortening the explanations become impractical, prompt 1 will split the LLM_IMPLEMENTATION_MAP.md into content*.md named after their features, while the main LLM_IMPLEMENTATION_MAP.md file will be the base for all the other content*.md files. You'll see Cursor report something like this:
 ![[Pasted image 20251223033847.png]]
 
 How often should we run Prompt 1 for context token-efficient refactoring purposes? 
