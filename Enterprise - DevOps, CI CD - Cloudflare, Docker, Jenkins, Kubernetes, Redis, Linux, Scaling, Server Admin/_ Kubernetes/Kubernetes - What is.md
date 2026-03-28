@@ -1,0 +1,3 @@
+Kubernetes is an open-source system for automating the deployment, scaling, and management of containerized applications, originally developed by Google and now supported by a large community of contributors.
+
+No, Kubernetes is not strictly an Amazon thing. However: Amazon Web Services (AWS) provides a managed service for running Kubernetes called Amazon Elastic Kubernetes Service (Amazon EKS), which simplifies the process of running open-source Kubernetes on AWS infrastructure.

@@ -1,0 +1,1 @@
+Good for persistent learned memory, not for a long canonical codebase digest though. In Claude Code, memory is a special mechanism, and only the first 200 lines of MEMORY.md are loaded at session start.

@@ -1,0 +1,1 @@
+SFTP uses port 22, sharing the same port as SSH. That knowledge can help when setting up SFTP connections on clients like FIlezilla.

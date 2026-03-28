@@ -16,8 +16,7 @@ sorting-spec: |-
   Enterprise - Bootstrapping
   Enterprise - SECURITY, Code Standards, Compliance
   Enterprise - TEST Units, Test Driven Development, Etc
-  Enterprise - CLOUDFLARE, DOCKER, Kubernetes, Redis, Scaling, Server Admin
-  Enterprise - DevOps, CI CD
+  Enterprise - DevOps, CI CD - Cloudflare, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin
   Enterprise - Open Source Web Apps and CLI-Powered Web Tools
   Enterprise - Email, Forms, Internal Tools
   Enterprise - Cache, Cloudflare, Chat Bot, SEO, Support Docs, Receiving Payments

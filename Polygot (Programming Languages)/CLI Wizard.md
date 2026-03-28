@@ -1,0 +1,1 @@
+The term "CLI wizard" generally refers to a command-line interface utility that provides an interactive, step-by-step guide to help users configure settings, generate resources, or perform initial setup without needing to manually edit configuration files or master complex commands

@@ -1,0 +1,9 @@
+When a single product depends on two separate codebases that communicate with each other, it can be difficult to manage integration work cleanly. This often happens when different teams own different parts of the system, or when the code is split by stack, such as frontend and backend. In many cases, those codebases already live as two separate GitHub repositories, which makes sense for ownership and development, but can make cross-repo code coordination harder.
+
+As Codebase 1 and Codebase 2 continue to mature, we want AI to be able to reference both codebases together during integration work. If the repositories stay completely siloed, integration becomes harder because we would either need to handle more of the cross-repo work manually or repeatedly explain the relationship between the two codebases to AI.
+
+Git submodules provide a practical middle ground. They let us keep each project as its own separate GitHub repository while linking them inside a larger parent repository. This gives us a shared root-level workspace where both codebases are visible together, which is useful for planning, reviewing, and implementing integration work.
+
+This approach avoids forcing both projects into a single monorepo and reduces the risk of unnecessary repository conflicts. It also preserves separation of ownership and lifecycle. The projects are linked for coordinated work, but they are not permanently bound together.
+
+An important distinction is scope of awareness. When working inside a nested repository by itself, that repository has no awareness of the other one. But when working from the parent repository that contains both submodules, there is shared visibility across both codebases. That root-level view is what makes Git submodules useful for AI-assisted integration workflows.

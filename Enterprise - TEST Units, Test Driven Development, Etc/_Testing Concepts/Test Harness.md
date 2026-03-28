@@ -52,3 +52,9 @@ It is especially useful when:
 - developers need to test many UI states quickly
     
 - QA needs a reliable internal way to verify behavior
+
+---
+
+## Leverage AI
+
+You can ask AI to write an UI Harness that you can visit standalone from launching the app and have the UI Harness test `__feature/part__`.

@@ -1,0 +1,1 @@
+Datadog is a cloud-based SaaS monitoring and security platform that provides full-stack observability for IT, DevOps, and engineering teams. It aggregates metrics, logs, and traces from servers, containers, databases, and third-party cloud services (e.g., AWS, Azure) to provide real-time visibility and alerting

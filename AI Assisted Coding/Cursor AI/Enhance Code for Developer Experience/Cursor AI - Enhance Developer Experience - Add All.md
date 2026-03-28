@@ -1,8 +1,6 @@
 
 Modify below prompt based on what developer experience you want:
 
-
-
 ---
 
 ### Prompt to Create a Config Layer, Feature Flags, and CI/CD
