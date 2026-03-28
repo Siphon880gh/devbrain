@@ -1,1 +1,1 @@
-Please refer to [[AWS Primer - GET STARTED]]'s folder
+Please refer to [[AWS Primer - 5. GET STARTED]]'s folder

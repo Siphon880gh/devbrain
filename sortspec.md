@@ -4,12 +4,12 @@ sorting-spec: |-
   Web Development - No Code Low Code (Wordpress, Webflow, Framer, Versoly, etc)
   Databases - MySQL, PostgreSQL, Mongo, and ORMs
   Everything as a Service - Firebase, Firestore, Heroko, Netlify, Supabase, Vercel, etc
+  AWS Cloud
   API Services (Google Cloud Console and more)
   AI Assisted Coding
   AI Prompt Engineer (1. Can optimize prompts)
   AI API Developer (2. Can leverage APIs from AI services)
   AI Engineer (3. Can train models and invent AI services)
-  AWS Cloud
   CompSci - DS, Algos, Systems, Logic
   Cross-Platform - React Native
   Cybersecurity
