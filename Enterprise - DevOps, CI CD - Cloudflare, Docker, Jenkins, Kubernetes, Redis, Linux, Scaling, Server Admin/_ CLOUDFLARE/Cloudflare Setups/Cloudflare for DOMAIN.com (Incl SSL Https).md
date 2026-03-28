@@ -44,6 +44,7 @@ Optional: remove or avoid a **duplicate** apex `A`/`CNAME` for `DOMAIN.com` else
 
 Cloudflare's DNS records could look like:
 - Minus the subdomain since you're only adding domains. In the future if you expand to subdomains, that's how the record looks like
+- Blurred out is my web-host's IP. Same IP for subdomain and domain because I don't want to buy two separate web-host subscriptions.
 ![[Pasted image 20260328054915.png]]
 
 In addition, you may want these records too:
