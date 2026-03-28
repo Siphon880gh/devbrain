@@ -1,0 +1,1 @@
+Refer to [[Tip - Skip the line waiting on DNS Propagation]]
