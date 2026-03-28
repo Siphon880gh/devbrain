@@ -1,0 +1,1 @@
+You may want to use these cpu monitoring commands to diagnose what's causing the problem especially if your web-host reports high cpu (ether they alert you by email or you see it on dashboard), usually correlated with a slow website, because the server or Linux is too bogged down to serve the web-site efficiently .

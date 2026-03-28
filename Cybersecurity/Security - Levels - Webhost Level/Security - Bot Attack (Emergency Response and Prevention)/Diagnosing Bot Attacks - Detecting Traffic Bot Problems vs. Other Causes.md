@@ -102,7 +102,12 @@ A quick way to judge whether nginx is under real network pressure is to count es
 sudo ss -Htan state established sport = :443 | wc -l
 ```
 
+- wc is word count
+
 A large number of simultaneous established connections suggests nginx is handling **live network load**, not just spinning on an internal config issue.
+
+This tells you only one connection visiting your https at the moment:
+![[Pasted image 20260328022602.png]]
 
 ### 7. Snapshot the client IPs hitting port 443
 
@@ -138,8 +143,10 @@ Regardless of motive, the effect has been the same: sustained resource exhaustio
 
 If traffic evidence is weak, inspect nginx config for loops or bad includes.
 
+```
 nginx -T > nginx.full.txt
 vi /etc/nginx/nginx.conf
+```
 
 Things to look for:
 - bad `include` directives
