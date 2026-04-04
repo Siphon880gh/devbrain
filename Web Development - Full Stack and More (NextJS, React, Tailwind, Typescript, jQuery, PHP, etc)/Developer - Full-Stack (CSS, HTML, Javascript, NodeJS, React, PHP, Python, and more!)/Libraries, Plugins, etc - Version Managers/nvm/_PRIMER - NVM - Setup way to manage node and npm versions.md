@@ -64,6 +64,12 @@ To install `nvm` (Node Version Manager) on Ubuntu 22.04, you can follow these st
 
 ---
 
+## Manage node and npm versions
+
+Now to actually manage node and npm versions, refer to [[_PRIMER - NVM - Command to switch node and npm version]]
+
+---
+
 ## Warning
 
 Do not install nvm using npm, not even globally. The correct way is to install via the remote .sh file like outlined above. Otherwise, running nvm would give you error of: [[Troubleshooting - This is not the package you are looking for]]

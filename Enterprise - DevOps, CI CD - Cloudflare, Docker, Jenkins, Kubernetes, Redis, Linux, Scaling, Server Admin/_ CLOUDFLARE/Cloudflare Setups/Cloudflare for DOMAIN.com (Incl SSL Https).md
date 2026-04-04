@@ -50,6 +50,8 @@ Cloudflare's DNS records could look like:
 In addition, you may want these records too:
 ![[Pasted image 20260328055325.png]]
 
+Note did not include AAAA records for IPv6. But if you were to do that, create AAAA records for subdomain(s) and domain, and use the IPv6 numerical address that your web-host provides.
+
 ## 4. SSL/TLS on Cloudflare (origin still uses your cert)
 
 Traffic path: **Browser <-> Cloudflare (HTTPS)** and **Cloudflare <-> your nginx (HTTPS or HTTP)**.

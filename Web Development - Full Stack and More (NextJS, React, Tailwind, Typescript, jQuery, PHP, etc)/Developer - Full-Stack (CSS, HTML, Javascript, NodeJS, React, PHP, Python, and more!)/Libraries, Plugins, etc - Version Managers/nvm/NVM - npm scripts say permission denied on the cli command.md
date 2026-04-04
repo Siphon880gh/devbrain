@@ -62,4 +62,4 @@ MODIFIED SOLUTION to overcome the obstacle:
 
 ## SOLUTION
 
-Refer to  [[_PRIMER - NVM - Manage node and npm versions]] and install and default a version of node/npm that isn't npm v7.X or npm x8.X
+Refer to  [[_PRIMER - NVM - Setup way to manage node and npm versions]] and install and default a version of node/npm that isn't npm v7.X or npm x8.X
