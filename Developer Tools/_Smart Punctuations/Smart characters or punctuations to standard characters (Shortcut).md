@@ -3,4 +3,4 @@ It is a coding problem when your OS, especially macOS, automatically changes str
 Or you ask AI to generate some code or passage text, and then it included smart punctuations in it, making the code break or your work look AI generated.
 
 Use this as a quick reference for cleaning up smart characters before publishing or coding:
-[[_ Smart characters or punctuations in AI output (Clean to standard characters)]]
+[[_ Smart characters or punctuations in AI output (Clean into standard characters)]]

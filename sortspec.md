@@ -16,10 +16,11 @@ sorting-spec: |-
   Enterprise - Bootstrapping
   Enterprise - SECURITY, Code Standards, Compliance
   Enterprise - TEST Units, Test Driven Development, Etc
-  Enterprise - DevOps, CI CD - Cloudflare, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin
+  Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin
+  Enterprise - Cloudflare, Bunny, Cache Control
   Enterprise - Open Source Web Apps and CLI-Powered Web Tools
   Enterprise - Email, Forms, Internal Tools
-  Enterprise - Cache, Cloudflare, Chat Bot, SEO, Support Docs, Receiving Payments
+  Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality
   Enterprise - Analytics, Business Analytics (BA), Business Intelligence (BI)
   Extensions, Plug-ins, and Software Suite Development
   Extensions - Chrome Extensions
