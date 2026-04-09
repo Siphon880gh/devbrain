@@ -1,7 +1,9 @@
   
 **How to use**: Open floating Table of Contents to navigate contents.
 
-## Prompt to generate milestone plans from some inputs:
+Decide whether we just want milestones or we want epics with milestones. It depends if it's a small app or a moderate to large app.
+
+## OPTION 1/2: Prompt to generate milestone plans from some inputs:
 - Fill inputs: (Need help filling the inputs from an app description? Refer to [[Plan with epics and milestones first - Adjunct AI to fill the inputs]])
 ```
 # AGENTS.md — Milestone-Based Build Plan Generator
@@ -216,7 +218,7 @@ Allows the agent to:
 ```
 
 
-## IF BIGGER SCOPE, add epics:
+## OPTION 2/2: IF BIGGER SCOPE, add epics:
 - Fill inputs: (Need help filling the inputs from an app description? Refer to [[Plan with epics and milestones first - Adjunct AI to fill the inputs]])
 ```
 # Epic-Based Product Plan Generator

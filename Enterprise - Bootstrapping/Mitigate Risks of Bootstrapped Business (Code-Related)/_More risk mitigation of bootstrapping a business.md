@@ -1,0 +1,1 @@
+They are in my business notes -> Risk Mitigation. Those other risks are migrated by configuration, choosing specific technologies, etc rather than actually coding. For that reason, I chose to move them to my business notes rather than remaining here in coding notes.

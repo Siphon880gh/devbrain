@@ -51,7 +51,9 @@ Likely your VPS has a web host admin panel (Hostinger hpanel, GoDaddy’s dashbo
 - Refer to [[Server OS and Control Panel Packages]]
 
 ### VPS: How to select the Web Hosting Control Panel (Cpanel, Cloudpanel, etc)
-- The webhost might have offered OS options separately from the VPS options or it might have offered options of OS and webhost management panel combo's.
+- The hosting provider may let you choose an operating system paired with a web server or control panel (like Hostinger), or offer VPS plans that come preconfigured with a specific operating system and web server stack (like GoDaddy). In some cases, you may receive a VPS with only the operating system installed, requiring you to manually set up a control panel and web server such as Nginx or Apache (Hetzner Cloud VPS).
+- In the case of having to manually install a control panel and web server, you treat it as a dedicated server purchase where usually there is no control panel and web server because people buy dedicated servers for different things, not necessarily for website (Eg. Gaming server).
+- For instructions installing Cloudpanel with Nginx manually, refer to [[]]
 
 ### How to log into Web Hosting Control Panel (Cpanel, Cloudpanel, etc)
 - What’s the link with port number (Different web hosting services may assign different port for your panel). 

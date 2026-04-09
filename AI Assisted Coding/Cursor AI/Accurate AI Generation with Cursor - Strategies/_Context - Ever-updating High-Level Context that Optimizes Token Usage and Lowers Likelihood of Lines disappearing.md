@@ -217,7 +217,7 @@ If you only edited `LLM_CODE_REFERENCE.md` (and not any `LLM_CODE_REFERENCE-*.md
 ```
 
 
-Then to make sure AI actually uses the [LLM_CODE_REFERENCE.md](https://LLM_CODE_REFERENCE.md "https://LLM_CODE_REFERENCE.md") for every prompt which makes it less likely your other code just disappears from code changes:
+Then to make sure AI actually uses the [LLM_CODE_REFERENCE.md](https://LLM_CODE_REFERENCE.md "https://LLM_CODE_REFERENCE.md") for every prompt which makes it less likely your other code just disappears from code changes because of under-reading the codebase:
 
 Prompt 2 -
 ```

@@ -1,0 +1,1 @@
+The notes on how a team should work with git or github has been moved to the folder regarding code standards and compliance at: `Enterprise - SECURITY, Code Standards, Compliance`.
