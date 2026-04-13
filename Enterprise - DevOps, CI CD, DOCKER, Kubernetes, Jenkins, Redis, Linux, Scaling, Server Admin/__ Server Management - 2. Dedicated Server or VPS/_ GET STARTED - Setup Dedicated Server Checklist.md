@@ -1,6 +1,16 @@
 
 Written by: Weng
-Purpose: General checklist on setting up Dedicated Server. Likely there will be no Web Hosting Control Panel (eg. Hostinger hpanel, WHM, GoDaddy My Products Dashboard)
+Purpose: General checklist on setting up Dedicated Server. 
+
+This guide walks you through setting up a dedicated server that you access by SSH from your computer’s terminal.
+
+The dedicated server itself will not host a public website or a control panel such as cPanel or CloudPanel. Instead, we will divide that server into partitions that act like multiple VPS instances (Section "Dedicated Server: Split Dedicated Server into VPS").
+
+Each VPS can then have its own web hosting setup, public-facing website, control panel, and even its own SSH access.
+
+This gives you more control. If one web server has a problem, you can restart only that VPS via a simple command at the dedicated server's SSH or the VPS' dedicated server. This is instead of restarting the entire dedicated server. That matters because, with some providers, restarting the full dedicated server may require submitting a support ticket and waiting for them to handle it.
+
+Setting up a dedicated server and splitting it into VPS-like partitions requires solid Linux knowledge which this guide will cover. You’ll be working across multiple layers—disk partitioning, running virtualized Linux environments, and configuring networking. One key part is setting up a virtual network bridge, which allows each VPS to have its own IP address that routes through the main IP of the dedicated server. When done correctly, each VPS appears as its own independent server on the internet, even though they all share the same physical machine.
 
 ```toc
 ```
@@ -189,7 +199,6 @@ sda                  8:0    0  223G  0 disk
 sr0                 11:0    1 1024M  0 rom  
 ```
 
-
 xen-create-image was assigned to the volume group along with the computer resource: allocations: `sudo xen-create-image --force --verbose --hostname=vps0 --dhcp --lvm=vg0 --size=99G --memory=24G --swap=15G --debootstrap --dist=bookworm --arch=amd64 --mirror=[http://deb.debian.org/debian/](http://deb.debian.org/debian/) --debootstrap-cmd='/usr/sbin/debootstrap'`
 
 That command not only created an image I could start a VM from, but it also created the config file for the mounting, further splitting of the partition into logical volumes for the VM and its swap file, and resource allocations for the VM
@@ -219,14 +228,22 @@ The rest of hosting a webpage on the VPS is a matter of installing nginx/apache/
 
 ---
 
-### **Dedicated server**: Install Web server (Nginx vs Apache) VS Install CloudPanel Instead
+### **Dedicated server's VPS VM partition**: Install Web server (Nginx vs Apache) VS Install CloudPanel Instead
 
 By purchasing a dedicated server, it can become whatever server you want it to be (gaming server, blockchain server, website server). It won't be able to host websites out of the box though.
+
+However we took advantage of dedicated server being able to be molded into pretty much anything: We created partitions out of it. The dedicated server was partitioned to have one or more VMs that are exposable on the internet with an assigned a static IP
+
+---
+
+If you indeed split the dedicated server - all instructions below is setting up one of your VM aka VPS:
+
+---
 
 In order to have a website people can visit and a setup that makes it easy for the web developer to manage the website, you have to install a web server, FTP, and a webhost panel. You can first  install the webserver
 
 **MAJOR CHECKPOINT**
-Do you plan to install the web hosting panel CloudPanel? It is best to install WITHOUT nginx having been installed. **In that case, skip to the next section "How to decide on a Web Hosting Control Panel...".** 
+Do you plan to install the web hosting panel CloudPanel (Recommended that you do)? It is best to install WITHOUT nginx having been installed. **In that case, skip to the next section "How to decide on a Web Hosting Control Panel...".** 
 - Proof per their documentation's instructions: "For the installation, you need an empty server with Ubuntu 24.04 or 22.04 or Debian 12 or 11 with root access." (https://www.cloudpanel.io/docs/v2/getting-started/other/). This means you DO NOT install nginx or any web server. The CloudPanel will install nginx and other technologies with it. If you messed up, CloudPanel will still work but `apt` could potentially always bother you about an incomplete Cloudpanel post installation script, you could potentially have to add www-data to every new group that is created when you create a new site, just so webpage can show and many cloudpanel features work for that site. In addition, Cloudpanel logs can keep complaining about a half-configured cloudpanel. Cloudpanel would still work, however. It's because Cloudpanel's nginx couldn't replace your nginx that already exists, so the post installation script can never finish.
 - Otherwise, there may be weird error logs and extra steps for every new site you create (www-data added to new group). Cloudpanel will still work.
 - Cloudpanel has no clean way of uninstallation or reinstallation as of 8/2024 and the recommended route is to reinstall your entire server.
@@ -273,7 +290,7 @@ curl -4 ipinfo.io/ip
 - Cloudpanel - free
 - Refer to [[Server OS and Control Panel Packages]]
 
-### **Dedicated Server**: Install a Web Hosting Control Panel
+### **Dedicated server's VPS VM partition**: Install a Web Hosting Control Panel
 
 - There are Web Hosting Control Panels that require monthly payments for the license to use.
 	- Not free: Cpanel, Plesk
@@ -326,7 +343,7 @@ curl -4 ipinfo.io/ip
 
 ---
 
-### How to setup web server for basic website editing and viewing (Default site)
+### **Dedicated server's VPS VM partition**: How to setup web server for basic website editing and viewing (Default site)
 - **CHECKPOINT**: If you installed nginx standalone, you can perform this step. If you installed Cloudpanel to include nginx, then there is no default site - Skip to Multiple Sites (next section).
 - Basic: We just want to see we can impact how a website looks . We don’t care about SSL https at this point
 - Identify what's the public IP address you can visit directly in the web browser (usually given to you by your onboarding server admin)  
@@ -338,22 +355,29 @@ curl -4 ipinfo.io/ip
 		- Use vi command to create an index2.html, add some words, then visit directly http://IP/index2.html to see if it displays.
 		- If still problems viewing the page, refer to [[Troubleshooting - Nginx webpage not showing]]
 	- That was editing and viewing for the default site, next we will cover editing and viewing for multiple sites
-### Dedicated Server: How to setup web server for basic website editing and viewing (Multiple sites)
-- For a site created / listed in your Web Hosting Control Panel. Eg. Hostinger Ubuntu 22.04 CloudPanel
+### **Dedicated Server**: How to setup web server for basic website editing and viewing (Multiple sites)
+- For a site created / listed in your Web Hosting Control Panel. Eg. CloudPanel
 - If no website exists in the Web Hosting Control Panel, add a website (If unsure what type of website, I recommend PHP site). Otherwise pay attention to the name of the website in the Web Hosting Control Panel
 - Figure out what's the folder path to that website on your system. Could be `/home/DOMAIN/htdocs/DOMAIN.com`
   ^ You can `ls /home/` to figure out the path
   ^ You figure it out because you should add it to your webhost details document and your ssh/sshpass echo
 
 - Using vi command in shell, or using your Web Hosting Control Panel's File Manager, edit the index file adding a word or punctuation and see if visiting the URL will show the changes.  The index file could be `/home/DOMAIN/htdocs/DOMAIN.com/index.php`
-- Because you are on a dedicated server, it is likely that the web host DOES NOT provide you with a user domain name (eg. Not having something like srv451789.hstgr.cloud because you're on a dedicated server instead of a web provider like through Hostinger's Cloudpanel package) that you can match in one of the server blocks in a site's vhost. Make sure you've bought a domain at namecheap, etc. Then make sure you have two A records to the public domain: one for "@" and one for "\*". At your CloudPanel site's vhost, update the server_name to the domain name, eg. `server_name domain.com`
-- Visit your http://domain.com directly. 
-- If success, Chrome will warn you there's no secured connection or that the connection is not private and blocks you from viewing the content. We will add SSL https certificates later. The current bypass technique in 2024 is to click anywhere on the webpage then type: `thisisunsafe`. You should see the webpage content.
-- Use vi command to create an index2.html, add some words, then visit directly http://domain.com/index2.html to see if it displays.
-	- If failed, because it says Access Denied on the web browser, fix the permissions, making the bad index2.php permissions match the good index.php permissions. Likely it's just the user and group that are problematic.
-	- Keep in mind that when you upload files via SFTP later, this will be the user you sign into Filezilla, etc's SFTP. This makes sure uploads are the correct permissions. 
-	- If passed, this then assumes future websites on CloudPanel will have no problem with editing and viewing by the internet. 
-- Optional: If you want to continue testing other sites on CloudPanel, you could use other domains at namecheap etc creating A record to the same public IP. Or if you run out of domains, you can create subdomains under one domain, creating CName to the public domain name. For more information on A records and Cnames, refer to [[DNS Domain PRIMER]]. Make sure a site's vhost at your web host catches what servername (subdomain and/or domain and tld) is hoisted by the internet connecting to your public IP.
+- Because you are on a dedicated server, it is likely that the web host DOES NOT provide you with a user domain name (eg. Not having something like srv451789.hstgr.cloud because you're on a dedicated server instead of a web provider like through Hostinger's Cloudpanel package) that you can match in one of the server blocks in a site's vhost. Make sure you've bought a domain at namecheap, etc. Then make sure you have two A records to the public domain: one for "@" and one for "\*".
+- Prepare to visit that website in the web browser to see your changes went through:
+	- Edit your virtual host (vhost) configuration so that incoming requests to your server match the requested hostname or domain because once matched, the vhost can route and respond to the request correctly.:
+		```
+		server_name srv451789.hstgr.cloud;
+		```
+		- And restart nginx from SSH terminal with `sudo systemctl restart nginx`
+		- Visit http://srv451789.hstgr.cloud
+		- If success, Chrome will warn you there's no secured connection or that the connection is not private and blocks you from viewing the content. We will add SSL https certificates later. The current bypass technique in 2024 is to click anywhere on the webpage then type: `thisisunsafe`. You should see the webpage content.
+	- Use vi command to create an index2.html, add some words, then visit directly http://domain.com/index2.html to see if it displays.
+		- If failed, because it says Access Denied on the web browser, fix the permissions, making the bad index2.php permissions match the good index.php permissions. Likely it's just the user and group that are problematic.
+		- Keep in mind that when you upload files via SFTP later, this will be the user you sign into Filezilla, etc's SFTP. This makes sure uploads are the correct permissions. 
+		- If passed, this then assumes future websites on CloudPanel will have no problem with editing and viewing by the internet. 
+	- This then assumes future websites on CloudPanel will have no problem with editing and viewing by the internet.
+	- Optional: If you want to continue testing other sites on CloudPanel, you could use other domains at namecheap etc creating A record to the same public IP. Or if you run out of domains, you can create subdomains under one domain, creating CName to the public domain name. For more information on A records and Cnames, refer to [[DNS Domain PRIMER]]. Make sure a site's vhost at your web host catches what servername (subdomain and/or domain and tld) is hoisted by the internet connecting to your public IP.
 
 - Troubleshooting: Visiting the domain doesnt work
 	- Make sure at namecheap, etc you have A records to the public IP using `@`. Then have another A record to the public IP using "\*" instead of "www" so that any subdomains. You can check if the DNS propagation for A records pointed to your public IP at whatsmydns.
@@ -619,12 +643,14 @@ If the Let's Encrypt Self-SSL certification has errors, the big picture is: Let'
 	- If errored:  domain.com/.well-known/acme-challenge/RANDOM_LETTERS... Domain could not be validated... 403
 		- Solution: Refer above to the Cloudpanel vhost 500 error from file permission problems.
 
+---
 ### How to setup SFTP/FTP users
 - Makes life easier for web developers.
 - Skip FTP: It's strongly recommended you use SFTP instead. You can setup FTP capability then leave the port off or on as a backup. Refer to: [[Setup FTP and SFTP]]
 - SFTP: 
 	- If not CloudPanel: [[Setup FTP and SFTP]]
 	- If CloudPanel: [[CloudPanel - Setup SFTP users]]
+- If you have html/php websites developed, go ahead and upload them on your FTP Client (eg. Filezilla)
 
 ---
 
@@ -635,6 +661,32 @@ If the Let's Encrypt Self-SSL certification has errors, the big picture is: Let'
 		- You can also buy SSL which gives you certain advantages over SSL, and some businesses must have a paid SSL as regulation.
 	- Figure out workflow to acquire and install SSL because you'll be doing this annually. Also perform it now
 		- If CloudPanel, it's very simple going to the site -> SSL/TLS -> Actions -> New Let's Encrypt Certificate (however you must have a domain connected to that website already because it'll create a file then access that file through your domain URL to prove your ownership then generates the certificate).
+			- Errors about accessing ACME challenge file? Try adding a server block for http and the specific path to the ACME challenge file, to the very top of the vhost:
+				```
+				server {
+				    listen 80;
+				    listen [::]:80;
+				    http2 on;
+				    http3 off;
+				    server_name wengindustries.com www1.wengindustries.com www.wengindustries.com;
+				    
+				    location ^~ /.well-known/acme-challenge/ {
+				        root /home/wengindustries/htdocs/wengindustries.com/;
+				        allow all;
+				        auth_basic off;
+				    }
+				
+				    location / {
+				        proxy_pass http://127.0.0.1:8080;
+				        proxy_set_header Host $host;
+				        proxy_set_header X-Forwarded-Host $host;
+				        proxy_set_header X-Forwarded-Proto $scheme;
+				        proxy_set_header X-Real-IP $remote_addr;
+				        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+				        proxy_redirect off;
+				    }
+				}
+				```
 		- If less obvious how and where to install SSL HTTPS certificates: Contact customer support or google Web host + OS + Nginx/Apache + Install SSL certificates. If the web host is not well known (very independent), google for: OS + Nginx/Apache+ Install SSL certificate
 	- CloudPanel's Let's Encrypt SSL failing? Refer to section "Test Web Hosting Control Panel" -> ~ SSL
 	- Know the filepaths to the SSL for future issues and code that needs SSL cert and key paths such as gunicorn (even if Cloudpanel abstracts it away)
@@ -660,6 +712,8 @@ If the Let's Encrypt Self-SSL certification has errors, the big picture is: Let'
 ---
 ### ADVANCED WEBSITE: Prepare server for installing different architectures (Languages: PHP, NodeJS, Python, MySQL, Mongo, Scaling Solutions; Pipes: Git, Docker; Scaling Solutions)
 
+**Reminder**: If working off a VPS VM partition, you don't install these at the root dedicated server because it won't cross over to the VPS partition.
+
 #### Skill up
 - Know how to reboot the server
 - how see error logs based on your OS and web server type  
@@ -678,47 +732,6 @@ sudo systemctl start nginx
 - Know what is the main installer of packages in command line (eg. `sudo apt update`  for Ubuntu 22.04). Save to your web host's details document if it's not something you're intimately familiar with.
 - Update installer’s repos 
 - Look up instructions for your OS on how to install these language interpreters and related or adjacent package managers, if applicable to your server's use cases (these should be installed before installing databases because you'll be testing database connections with code):
-
-
-## Timeouts
-
-Are users waiting on something generating for a long time? Their fetch will wait for that long then expect a response unless you're doing web sockets, SSE, etc. You need to raise up the allowed wait time before a timeout error. Skip this if not applicable.
-
-Inside a server block:
-```
-    location /api/ {
-        proxy_read_timeout 300s;   # Adjust as needed
-        proxy_connect_timeout 300s; # Adjust as needed
-        proxy_send_timeout 300s;   # Adjust as needed
-    }
-```
-
-If you're proxy passing to a backend to hide non-web ports and increase security, it could ultimately be:
-```
-location /api {
-	proxy_pass https://127.0.0.1:5001;
-	proxy_read_timeout 300s;   # Adjust as needed
-	proxy_connect_timeout 300s; # Adjust as needed
-	proxy_send_timeout 300s;   # Adjust as needed
-	proxy_set_header Host $host;
-	proxy_set_header X-Real-IP $remote_addr;
-	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-	proxy_set_header X-Forwarded-Proto $scheme;
-}
-```
-
-Keep in mind in the future when making the app, you have to adjust Gunicorn/PHP's timeouts too:
-
-Timeout of Gunicorn (Flask and Python):
-```
-gunicorn --timeout 300 myapp:app...
-```
-
-Timeout of PHP:
-```
-ini_set('max_execution_time', 300);  // Adjust as needed
-ini_set('default_socket_timeout', 300);  // Adjust as needed
-```
 
 #### PHP
 - PHP (if not included by your web host’s)
@@ -1159,6 +1172,46 @@ Let's install these CI/CD solutions:
 			- Refer to the tutorial [[Supervisor Primer - QUICK REFERENCE]] which includes supervisor, shell file, gunicorn, flask, pyenv, pyenv-virtualenvs, pipenv
 		- Docker or supervisor to restart your api app on crashes (either server crash or app crash)
 			- Refer to the tutorials [[Docker Primer - General]] and [[Docker Primer - Get Started]]
+
+### ADVANCED WEBSITE: Timeouts
+
+Are users waiting on something generating for a long time? Their fetch will wait for that long then expect a response unless you're doing web sockets, SSE, etc. You need to raise up the allowed wait time before a timeout error. Skip this if not applicable.
+
+Inside a server block:
+```
+    location /api/ {
+        proxy_read_timeout 300s;   # Adjust as needed
+        proxy_connect_timeout 300s; # Adjust as needed
+        proxy_send_timeout 300s;   # Adjust as needed
+    }
+```
+
+If you're proxy passing to a backend to hide non-web ports and increase security, it could ultimately be:
+```
+location /api {
+	proxy_pass https://127.0.0.1:5001;
+	proxy_read_timeout 300s;   # Adjust as needed
+	proxy_connect_timeout 300s; # Adjust as needed
+	proxy_send_timeout 300s;   # Adjust as needed
+	proxy_set_header Host $host;
+	proxy_set_header X-Real-IP $remote_addr;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	proxy_set_header X-Forwarded-Proto $scheme;
+}
+```
+
+Keep in mind in the future when making the app, you have to adjust Gunicorn/PHP's timeouts too:
+
+Timeout of Gunicorn (Flask and Python):
+```
+gunicorn --timeout 300 myapp:app...
+```
+
+Timeout of PHP:
+```
+ini_set('max_execution_time', 300);  // Adjust as needed
+ini_set('default_socket_timeout', 300);  // Adjust as needed
+```
 
 ### ADVANCED WEBSITE: Prepare for web app features
 Install ffmpeg, ctypes, imagemagick, and pcregrep for various web apps and their testing of python wrapping ffmpeg and php wrapping imagemagick. Refer to tutorial [[Web app ready - Ffmpeg, cytypes, imagemagick, pcregrep]]

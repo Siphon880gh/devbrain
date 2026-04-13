@@ -1,89 +1,606 @@
 
-Written by: Weng
-Purpose: General checklist on setting up VPS, regardless if Hostinger or GoDaddy or etc.
+Hetzner -> Cloud item at the main nav:
+https://www.hetzner.com/cloud/
 
-```toc
+Choose General Purpose (Cost Optimized and Regular Performance for shared resource or very low CPU usage)
+https://www.hetzner.com/cloud/general-purpose
+
+Choose a specific package (eg. CCX13). Comparable for multi mixed web server (python, nodejs, etc), you can go for ~$20 which is 2 VCPU, 8GB Ram, 80GB Disk Local. No need to install volumes (that's adding volumes on top of the baseline disk space you selected when choosing a VPS)
+
+---
+
+## Immediately establish ssh connection 
+
+We're gonna go for passwordless ssh login. 
+
+At your local machine, generate a SSH key pair using your email address that you signed up with your VPS for:
 ```
-## Requirement
-- Have Web Hosting Control Panel (eg. Hostinger hpanel, WHM, GoDaddy My Products Dashboard)
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
 
-## Reminder
+At your VPS, for example Hetzner, upload the public SSH key's contents. This is done through a feature you press add SSH key (so no need to go into SSH terminal which you don't have access setup for yet). Keep the private and public keys on your computer.
 
-Create a document for your webhost (eg. GoDaddy, Hostinger, etc) to refer back to as you go through this checklist. Things you can record are credentials, user flows, terminal commands
+> [!note] UI UX Confusion
+> Note that later on, after you have an SSH key, the dashboard doesn't tell you that you have an SSH key. It gives you the menu item for creating SSH key, which can lead to some confusion. But clicking that menu item will go to the SSH key list, showing your public key. 
+>
 
-## Checklist
+Once SSH key pair has been established, run this command at your local machine's terminal to test logging into SSH passwordless:
+```
+.ssh % ssh -i ~/.ssh/newmac2023_hetzner -p 22 root@5.55.555.555  -tt "cd .  && bash --login"
+```
 
-### Prepare your web host details document
-- Besides credentials, there are commands, os specs, and other details you want to save somewhere about your web host that you may need to reference later
-
-### What’s the appropriate package and plan
-- RAM, number of cores, storage space, etc. 
-- I will create a guide on how to communicate our full stack app’s use case, simultaneous users, memory use by the process and memory,  bandwidth use, storage disk space, etc to a server specialist that can decide the package and maybe install the architecture in the terminal.
-- Does pricing include cpanel and os license?
-	- Cpanel requires monthly payments and some Linux distros also require monthly payments. Or choose a free web hosting control panel and free linux distro? Downside of free may be lack of features and/or more custom terminal command work. Eg. Ubuntu 22 with CloudPanel
-- Setup billing auto renewal?
-
-### How to select for OS
-- They usually install for you so you choose the OS
-	- Ubuntu has many things setup to work for Linux admin
-	- Debian is barebones and require some setup (installing sudo, etc) but has so much more hard disk available for you and less CPU use
-- And then find out what the package installer is based on the OS name (Search Google)
-	-  Eg., Google: Ubuntu package installer
-	- For Ubuntu, it’s apt
-- You will update the package installer's repository source lists because you just had a fresh installation
+Sysadmin experience:
+- You can now cd into a specific folder everytime (adjust the . path)
+- You can also setup an alias at your .zshrc so that running the alias in terminal can log you into ssh. I like to name my alias after my hostname
 
 ---
+## Prepare to install cloudpanel and nginx
 
-### Managing your VPS
-Likely your VPS has a web host admin panel (Hostinger hpanel, GoDaddy’s dashboard, etc). So figure out how to navigate it:
-- Where to manage billing information
-- For your chosen OS, how to restart OS, and how to check if a service restarted with the OS?
-- Where to find server’s hardware specs (in case don’t have when making future business migration decisions)
+We will prepare to install cloudpanel and nginx.
 
-### Login Entry Point: How to log into Service Dashboard (Hostinger hpanel, GoDaddy’s dashboard, etc)
-- Save to your webhost details document the URL to the services dashboard and the credential information.
+Cloudpanel will bundle in nginx web server
 
----
+But to install Cloudpanel, it expects a hostname to already be set up on the server before installation. That is because their installer is built around normal domain-based web hosting, and has to configure your nginx for that hostname.
 
-### How to decide on a Web Hosting Control Panel 
-- Cpanel - monthly pay
-- Cloudpanel - free
-- Refer to [[Server OS and Control Panel Packages]]
+**Overview** what we will do:
+- Firstly you have to **setup the server-side to self-identify as the specific hostname** (appearing on cloudpanel, settings, etc). This is because CloudPanel will use that exposed setting to configure nginx and itself to deliver/match to the hostname
+- Then, because soon after installing Cloudpanel, we focus on making webpage changes and seeing them on the web-browser, setting up SSL, etc, we want when someone visits your hostname or domain on the web browser, that hostname resolves into an IP so that the internet can send a request directly to your web host. Therefore you would need to register your domain at a DNS registrar, typically. But let's say we dont want to buy a DNS domain right away - **we will take advantage of the free sslip.io**
 
-### VPS: How to select/setup the Web Hosting Control Panel (Cpanel, Cloudpanel, etc)
-- The hosting provider ...
-	- May let you purchase a VPS plan, then let you choose an operating system, web server (Nginx/Apache), and control panel (cpanel, cloudpanel,etc) at any time. You can't even SSH in until you choose an operating system. They will install for you after you made choices. This is Hostinger.
-	- May let you purchase a VPS plan that came with installed operating system and web server. However you can choose a control panel at any time. They will install the control panel for you. This is GoDaddy.
-	- May let you purchase a VPS with an operating system installed (you choose the operating system as you're purchasing the VPS), and therefore no web server or control panel. And they don't give you options to choose, because they have no auto installation process in place. You have to install the web server and control panel manually via SSH terminal (Hetzner Cloud VPS).
-- In the case of having to manually install a **web server and a control panel via SSH terminal**, you treat it as a dedicated server purchase where usually there is no control panel and web server because people buy dedicated servers for different things, not necessarily for website (Eg. Gaming server), so a lot of installations are done through terminal. You'd SSH into your server on your computer's terminal using the ssh command, the IP address of your VPS, and the credentials (whether it's plain password or piping in a SSH key)
-- For instructions installing Cloudpanel with Nginx manually via the SSH terminal, refer to [[Manual installation of Cloudpanel via SSH terminal]]
 
-### How to log into Web Hosting Control Panel (Cpanel, Cloudpanel, etc)
-- What’s the link with port number (Different web hosting services may assign different port for your panel). 
- eg. Cloudpanel on Hostinger [https://XX.XXX.XX.XXX:8443](https://XX.XXX.XX.XXX:8443)
-- How to navigate to your panel at the Services Dashboard (if you don’t have the link handy)
-- what’s their information architecture (to help remember how to navigate there).  
-- eg. Hostinger’s: Hostinger believes CloudPanel manages the Ubuntu operating system with the purpose of web site and related services, hence you find CloudPanel under left panel item Settings (think VPS) → Operating System -> then “Manage Panel” button on the OS page
-- What are your login credentials?
+Investigation:
+- Adjust sslip.io server by prefixing your webhost's IP to sslip - no need to sign up for anything:
+You'd visit https://5.55.555.555.sslip.io or http://5.55.555.555.sslip.io
+- But it own't open anything because we dont have a web server setup to match to that hostname and respond with webpage content. In normal situations, it would allow your webhost to deliver a webpage. This works without a DNS registrar like namecheap because sslip.io is a generously free wildcard domain address that takes your ip address as a subdomain, then points to your IP address, so internet connection can make a request to your webhost's IP address
+
+Firstly, setup server side to  identify your server as a specific hostname
+```
+hostnamectl set-hostname 5.55.555.555.sslip.io
+```
+
+Install CloudPanel:
+```
+curl -sSL https://installer.cloudpanel.io/ce/v2/install.sh | bash
+```
+
+
+Then check nginx bundled with cloudpanel is installed:
+```
+nginx -version
+```
+
+CloudPanel would have installed nginx for you and also configured your nginx's vhost (which you can access ats the cloudpanel GUI - more later). It'd have. configured the nginx vhost to accept incoming connections and match if those incoming connections are asking for a specific hostname to respond (in this case 5.55.555.555.sslip.io)
 
 
 ---
 
-### **VPS**: How to setup SSH root access
-- Is this at the Services Dashboard (aka Hostinger hpanel, GoDaddy Dashboard) or the web hosting panel (cPanel, cloudpanel, etc)
-	- What’s their information architecture (to help remember how to navigate there).
-- How to access web browser SSH Root terminal navigating the Services Dashboard or the web hosting panel
-	- In case you need to quick and dirty in the future
-	- What’s their information architecture (to help remember how to navigate there).
-- Are you able to login into root at the local machine terminal with SSH?
-- Did the provider give you non-root user credentials as well?
-	- If they've tightened security, logging into root with ssh command is disabled. The command `ssh root@XXX.XX.XXX.XX` appears to work as usual, and you might not even be privy to it being disabled because it will let you enter a password and all it will ever say is that the password is incorrect. This is by design so that hackers don't get clued in to try gaining access in other ways. This may also be why the provider gave you user credentials.
-	- You'd log into the that user with `ssh USER@XXX.XX.XXX.XX`, and once in the remote SSH session, you elevate by running `su`, followed by root user password; then it will switch from the normal user to the root user.
-	- To disable or enable root login, refer to [[SSH with Root Login Disabled]]
-- Once in remote server, how to navigate to get to your website files using cd commands? (Go into CloudPanel or Cpanel for a clue). Aka root web directory for your website,  Aka working directory for your code and webpages. Alternately you could have in a text document the full path so you can copy and paste the cd path into the terminal. But knowing how to navigate there in terminal can be helpful if you don’t have the full path easily accessible to copy and paste.
-- Run it as: `ssh root@REMOTE_IP -p 22`. Then enter your password when asked.
+
+Access CloudPanel GUI:
+https://panel.5.55.555.555.sslip.io:8443
+
+^ Cloudpanel already setup that hostname matching for you because it referred to the settings at `hostnamectl`
+
+OR:
+https://5.55.555.555:8443
+
+Might fail. Check if ufw enabled and scopes limited:
+```
+ufw status
+ufw disable
+```
+
+Do you get this message?
+![[Pasted image 20260411010948.png]]
+
+CloudPanel’s admin interface on port 8443 is meant to be opened as at https://..., not http://.. YES it's dumb because you don't have SSL setup at this point
+
+If Chrome blocking you because of the lack of SSL certificate, hit Advanced -> Proceed. If they're even stricter than that, free type without spaces "thisisunsafe" to bypass and proceed the lack of SSL certificate
+
+Now visiting https version:
+![[Pasted image 20260411011448.png]]
+
+
+![[Pasted image 20260411012009.png]]
+
+Add a new website. Then best bang for the buck is PHP site (because it does PHP already, and it can handle Wordpress, and you can SSH install NodeJS and Python later, and reverse proxy is easily done through vhost anyways):
+![[Pasted image 20260411012715.png]]
+
+On the php questions, you can choose Generic for Application instead of one of the CMS. This will allow maximum flexibility. Make sure to enter your domain name, preferred site user, and preferred site user password
 
 ---
+
+We can enhance the default vhost they provide to prevent certain gotcha's when setting up SSL etc later:
+```
+server {
+  listen 80;
+  listen [::]:80;
+  listen 443 quic;
+  listen 443 ssl;
+  listen [::]:443 quic;
+  listen [::]:443 ssl;
+  http2 on;
+  http3 off;
+  {{ssl_certificate_key}}
+  {{ssl_certificate}}
+  server_name www.wengindustries.com;
+  return 301 https://wengindustries.com$request_uri;
+}
+
+server {
+  listen 80;
+  listen [::]:80;
+  listen 443 quic;
+  listen 443 ssl;
+  listen [::]:443 quic;
+  listen [::]:443 ssl;
+  http2 on;
+  http3 off;
+  {{ssl_certificate_key}}
+  {{ssl_certificate}}
+  server_name wengindustries.com www1.wengindustries.com;
+  {{root}}
+
+  {{nginx_access_log}}
+  {{nginx_error_log}}
+
+  if ($scheme != "https") {
+    rewrite ^ https://$host$request_uri permanent;
+  }
+
+  location ~ /.well-known {
+    auth_basic off;
+    allow all;
+  }
+
+  {{settings}}
+
+  location / {
+    {{varnish_proxy_pass}}
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_hide_header X-Varnish;
+    proxy_redirect off;
+    proxy_max_temp_file_size 0;
+    proxy_connect_timeout      720;
+    proxy_send_timeout         720;
+    proxy_read_timeout         720;
+    proxy_buffer_size          128k;
+    proxy_buffers              4 256k;
+    proxy_busy_buffers_size    256k;
+    proxy_temp_file_write_size 256k;
+  }
+
+  location ~* ^.+\.(css|js|jpg|jpeg|gif|png|ico|gz|svg|svgz|ttf|otf|woff|woff2|eot|mp4|ogg|ogv|webm|webp|zip|swf|map|mjs)$ {
+    add_header Access-Control-Allow-Origin "*";
+    add_header alt-svc 'h3=":443"; ma=86400';
+    expires max;
+    access_log off;
+  }
+
+  location ~ /\.(ht|svn|git) {
+    deny all;
+  }
+
+  if (-f $request_filename) {
+    break;
+  }
+}
+
+server {
+  listen 8080;
+  listen [::]:8080;
+  server_name wengindustries.com www1.wengindustries.com;
+  {{root}}
+
+  include /etc/nginx/global_settings;
+
+  try_files $uri $uri/ /index.php?$args;
+  index index.php index.html;
+
+  location ~ \.php$ {
+    include fastcgi_params;
+    fastcgi_intercept_errors on;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    try_files $uri =404;
+    fastcgi_read_timeout 3600;
+    fastcgi_send_timeout 3600;
+    fastcgi_param HTTPS "on";
+    fastcgi_param SERVER_PORT 443;
+    fastcgi_pass 127.0.0.1:{{php_fpm_port}};
+    fastcgi_param PHP_VALUE "{{php_settings}}";
+  }
+
+  if (-f $request_filename) {
+    break;
+  }
+}
+```
+
+UPDATE VHOST: We will collide the www and non-www server blocks into one - full vhost:
+```
+server {
+  listen 80;
+  listen [::]:80;
+  listen 443 quic;
+  listen 443 ssl;
+  listen [::]:443 quic;
+  listen [::]:443 ssl;
+  http2 on;
+  http3 off;
+  {{ssl_certificate_key}}
+  {{ssl_certificate}}
+  server_name wengindustries.com www1.wengindustries.com www.wengindustries.com;
+  {{root}}
+
+  {{nginx_access_log}}
+  {{nginx_error_log}}
+
+  if ($scheme != "https") {
+    rewrite ^ https://$host$request_uri permanent;
+  }
+
+  location ~ /.well-known {
+    auth_basic off;
+    allow all;
+  }
+
+  {{settings}}
+
+  location / {
+    {{varnish_proxy_pass}}
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_hide_header X-Varnish;
+    proxy_redirect off;
+    proxy_max_temp_file_size 0;
+    proxy_connect_timeout      720;
+    proxy_send_timeout         720;
+    proxy_read_timeout         720;
+    proxy_buffer_size          128k;
+    proxy_buffers              4 256k;
+    proxy_busy_buffers_size    256k;
+    proxy_temp_file_write_size 256k;
+  }
+
+  location ~* ^.+\.(css|js|jpg|jpeg|gif|png|ico|gz|svg|svgz|ttf|otf|woff|woff2|eot|mp4|ogg|ogv|webm|webp|zip|swf|map|mjs)$ {
+    add_header Access-Control-Allow-Origin "*";
+    add_header alt-svc 'h3=":443"; ma=86400';
+    expires max;
+    access_log off;
+  }
+
+  location ~ /\.(ht|svn|git) {
+    deny all;
+  }
+
+  if (-f $request_filename) {
+    break;
+  }
+}
+
+server {
+  listen 8080;
+  listen [::]:8080;
+  server_name wengindustries.com www1.wengindustries.com;
+  {{root}}
+
+  include /etc/nginx/global_settings;
+
+  try_files $uri $uri/ /index.php?$args;
+  index index.php index.html;
+
+  location ~ \.php$ {
+    include fastcgi_params;
+    fastcgi_intercept_errors on;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    try_files $uri =404;
+    fastcgi_read_timeout 3600;
+    fastcgi_send_timeout 3600;
+    fastcgi_param HTTPS "on";
+    fastcgi_param SERVER_PORT 443;
+    fastcgi_pass 127.0.0.1:{{php_fpm_port}};
+    fastcgi_param PHP_VALUE "{{php_settings}}";
+  }
+
+  if (-f $request_filename) {
+    break;
+  }
+}
+```
+
+UPDATE VHOST: Server block matching 80 and 443 is going to cause problems later when you create a SSL Let's Encrypt because it needs to find a challenge file it generated at a http URL, so we shouldn't redirect to https right away which makes the file undiscoverable because we don't have https setup yet! Notice there's the  `if ($scheme != "https") { rewrite ^ https://$host$request_uri permanent;  }` logic in the server block. Instead of commenting that out when initiating or renewing SSL with Let's Encrypt, we can separate out the server 80 and server 443 blocks. For server block 80, we will open the website instead of redirecting the the connection and also allow through challenge file. For server block 443, we will do the rest that we have going on (therefore no need to comment out the http redirect at certain times). Notice server. block 80 besides the acme challenge file, all else gets directed to port 8080 which is the php processor. If you want to be a purist and have http redirect to https, you can remove the 8080 proxy pass and return the https rewrite, like the original vhost, but that's highly NOT recommended right now because you want to be able to test your website quickly (like visiting http://.../index.php).
+Full Vhost:
+```
+server {
+    listen 80;
+    listen [::]:80;
+    http2 on;
+    http3 off;
+    server_name wengindustries.com www1.wengindustries.com www.wengindustries.com;
+    
+    location ^~ /.well-known/acme-challenge/ {
+        root /home/wengindustries/htdocs/wengindustries.com/;
+        allow all;
+        auth_basic off;
+    }
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_redirect off;
+    }
+}
+
+server {
+  listen 443 quic;
+  listen 443 ssl;
+  listen [::]:443 quic;
+  listen [::]:443 ssl;
+  http2 on;
+  http3 off;
+  {{ssl_certificate_key}}
+  {{ssl_certificate}}
+  server_name wengindustries.com www1.wengindustries.com www.wengindustries.com;
+  {{root}}
+
+  {{nginx_access_log}}
+  {{nginx_error_log}}
+
+  if ($scheme != "https") {
+    rewrite ^ https://$host$request_uri permanent;
+  }
+
+  location ~ /.well-known {
+    auth_basic off;
+    allow all;
+  }
+
+  {{settings}}
+
+  location / {
+    {{varnish_proxy_pass}}
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_hide_header X-Varnish;
+    proxy_redirect off;
+    proxy_max_temp_file_size 0;
+    proxy_connect_timeout      720;
+    proxy_send_timeout         720;
+    proxy_read_timeout         720;
+    proxy_buffer_size          128k;
+    proxy_buffers              4 256k;
+    proxy_busy_buffers_size    256k;
+    proxy_temp_file_write_size 256k;
+  }
+
+  location ~* ^.+\.(css|js|jpg|jpeg|gif|png|ico|gz|svg|svgz|ttf|otf|woff|woff2|eot|mp4|ogg|ogv|webm|webp|zip|swf|map|mjs)$ {
+    add_header Access-Control-Allow-Origin "*";
+    add_header alt-svc 'h3=":443"; ma=86400';
+    expires max;
+    access_log off;
+  }
+
+  location ~ /\.(ht|svn|git) {
+    deny all;
+  }
+
+  if (-f $request_filename) {
+    break;
+  }
+}
+
+server {
+  listen 8080;
+  listen [::]:8080;
+  server_name wengindustries.com www1.wengindustries.com;
+  {{root}}
+
+  include /etc/nginx/global_settings;
+
+  try_files $uri $uri/ /index.php?$args;
+  index index.php index.html;
+
+  location ~ \.php$ {
+    include fastcgi_params;
+    fastcgi_intercept_errors on;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    try_files $uri =404;
+    fastcgi_read_timeout 3600;
+    fastcgi_send_timeout 3600;
+    fastcgi_param HTTPS "on";
+    fastcgi_param SERVER_PORT 443;
+    fastcgi_pass 127.0.0.1:{{php_fpm_port}};
+    fastcgi_param PHP_VALUE "{{php_settings}}";
+  }
+
+  if (-f $request_filename) {
+    break;
+  }
+}
+```
+
+VHOST UPDATE: Actually this is when you have a host purchased through DNS. We should add in the sslip.io:
+```
+server {
+    listen 80;
+    listen [::]:80;
+    http2 on;
+    http3 off;
+    server_name wengindustries.com www1.wengindustries.com www.wengindustries.com 5.55.555.555.sslip.io;
+    
+    location ^~ /.well-known/acme-challenge/ {
+        root /home/wengindustries/htdocs/wengindustries.com/;
+        allow all;
+        auth_basic off;
+    }
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_redirect off;
+    }
+}
+
+server {
+  listen 443 quic;
+  listen 443 ssl;
+  listen [::]:443 quic;
+  listen [::]:443 ssl;
+  http2 on;
+  http3 off;
+  {{ssl_certificate_key}}
+  {{ssl_certificate}}
+  server_name wengindustries.com www1.wengindustries.com www.wengindustries.com 5.55.555.555.sslip.io;
+  {{root}}
+
+  {{nginx_access_log}}
+  {{nginx_error_log}}
+
+  if ($scheme != "https") {
+    rewrite ^ https://$host$request_uri permanent;
+  }
+
+  location ~ /.well-known {
+    auth_basic off;
+    allow all;
+  }
+
+  {{settings}}
+
+  location / {
+    {{varnish_proxy_pass}}
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_hide_header X-Varnish;
+    proxy_redirect off;
+    proxy_max_temp_file_size 0;
+    proxy_connect_timeout      720;
+    proxy_send_timeout         720;
+    proxy_read_timeout         720;
+    proxy_buffer_size          128k;
+    proxy_buffers              4 256k;
+    proxy_busy_buffers_size    256k;
+    proxy_temp_file_write_size 256k;
+  }
+
+  location ~* ^.+\.(css|js|jpg|jpeg|gif|png|ico|gz|svg|svgz|ttf|otf|woff|woff2|eot|mp4|ogg|ogv|webm|webp|zip|swf|map|mjs)$ {
+    add_header Access-Control-Allow-Origin "*";
+    add_header alt-svc 'h3=":443"; ma=86400';
+    expires max;
+    access_log off;
+  }
+
+  location ~ /\.(ht|svn|git) {
+    deny all;
+  }
+
+  if (-f $request_filename) {
+    break;
+  }
+}
+
+server {
+  listen 8080;
+  listen [::]:8080;
+  server_name wengindustries.com www1.wengindustries.com;
+  {{root}}
+
+  include /etc/nginx/global_settings;
+
+  try_files $uri $uri/ /index.php?$args;
+  index index.php index.html;
+
+  location ~ \.php$ {
+    include fastcgi_params;
+    fastcgi_intercept_errors on;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    try_files $uri =404;
+    fastcgi_read_timeout 3600;
+    fastcgi_send_timeout 3600;
+    fastcgi_param HTTPS "on";
+    fastcgi_param SERVER_PORT 443;
+    fastcgi_pass 127.0.0.1:{{php_fpm_port}};
+    fastcgi_param PHP_VALUE "{{php_settings}}";
+  }
+
+  if (-f $request_filename) {
+    break;
+  }
+}
+```
+
+Remember to save, then at SSH reload the nginx with:
+```
+sudo systemctl reload nginx
+```
+
+
+Now visit either:
+https://5.55.555.555.sslip.io
+or https://5.55.555.555
+
+Again if it warns connection not private, go to Private -> Proceed or free type "thisisunsafe"
+
+You should see whatever default index.php file is created (as of April 2026, it's an index.php file showing "Hello world")
+
+---
+
+## DNS purchase then Cloudflare
+
+We will NOT skip this namecheap step anymore because:
+![[Pasted image 20260411024546.png]]
+A record to sslip.io would be pointless since it will not allow you that flexibility. It will always point to the prefix IP address. **You can skip this entire section DNS purchase then Cloudflare** if you dont plan to go public yet. But dont list your sslip.io URL to the internet. The idea is that Cloudflare will secure your domain address so you will never be able to be attacked directly by your webhost IP (even to the point it overwhelms your CPU and shuts down the server by the massive flood of bots even if you have a firewall on at the server level which is like ufw, well unless your firewall is at the web host level which is the control panel that displays immediately after logging in to your web hots account)
+
+Go to namecheap and buy your domain. Then DO NOT adjust any DNS records. Let's delegate namecheap to cloudflare where you get the benefits of bot protection (recognized abusive IPs and human verify), edge caching, etc
+
+Warning:
+Do not ever go public without cloudflare because once your IP is online, hackers can forever attack you directly (unless you rotate out your IP which Hetzner fortunately allows with you purchasing additional addon of floating IP for a few bucks a month)
+
+The rest below are cloudflare steps. They are not as detailed as my other cloudflare tutorials. It assumes you are somewhat familiar with cloudflare.
+
+Create your cloudflare account
+
+Over at left sidebar Domains -> Overview, add your domain by clicking "Onboard domain"
+- You may be given two nameserver addresses. **Since you're following this section to this point on, then you have purchased with namecheap or another DNS registrar**, so go ahead and pop them over at namecheap, etc so that Cloudflare can take care of the DNS configuration instead of namecheap.
+
+Under your domain's DNS records, you should have:
+- Create **A record** with name of hostname (domain.tld) pointing to the web host's IP. Make it **Proxied** only so that we can leverage Cloudflare preventing traffic from even hitting your webhost and causing DDoS if there's a bot attack
+- You may want the A record to the eventual or current hostname/domain you ~~will~~ have ~~and another A record to the sslip.io domain that you will have temporarily for testing purposes~~.
+![[Pasted image 20260411025347.png]]
+
+Complains of SSL? That's fine
+![[Pasted image 20260411024600.png]]
+
+We'll eventually fix that later.
+
+A more full setup of A-records would be:
+![[Pasted image 20260411034518.png]]
+
+Now go on whatsmydns.net to check if your ip address has propagated. If it's taking a while to reach your location, and it has already reached other locations, you can use a VPN service to browse as that location, then your domain should be able to display the file
+
+You should see whatever default index.php file is created (as of April 2026, it's an index.php file showing "Hello world")
+
+---
+
 ### VPS: How to setup web server for basic website editing and viewing (Multiple sites)
 - Basic: We just want to see we can impact how a website looks . We don’t care about SSL Https at this point
 - Where in the web hosting panel (cpanel, cloudpanel, etc) does it show you the public IP address you can visit directly in the web browser  
@@ -150,7 +667,7 @@ Likely your VPS has a web host admin panel (Hostinger hpanel, GoDaddy’s dashbo
 				}
 				```
 		- If less obvious how and where to install SSL HTTPS certificates: Contact customer support or google Web host + OS + Nginx/Apache + Install SSL certificates. If the web host is not well known (very independent), google for: OS + Nginx/Apache+ Install SSL certificate
-	-  CloudPanel's Let's Encrypt SSL failing? Refer to section "Test Web Hosting Control Panel" -> ~ SSL
+	- CloudPanel's Let's Encrypt SSL failing? Refer to section "Test Web Hosting Control Panel" -> ~ SSL
 	- Know the filepaths to the SSL for future issues and code that needs SSL cert and key paths such as gunicorn (even if Cloudpanel abstracts it away)
 		- If Hostinger CloudPanel, the Vhost page likely hides ssl cert and key file paths in the server block as variables. You have to find the site's nginx confi file where the final vhost is written (eg. /etc/nginx/sites-enabled/some-website.com.conf)
 			- Hostinger Ubunto 22.04 with Cloud Panel paths could be:
@@ -609,7 +1126,7 @@ Let's install these CI/CD solutions:
 		ssh-keygen -t ed25519 -C "your_email@example.com"
 		```
 
-	  1. Add public key to your Github account, referring to: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
+	  2. Add public key to your Github account, referring to: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
 		  1. Click New SSH key at https://github.com/settings/keys
 		  2. Paste the contents of the public key (eg. id_ed25519.pub) and save as a SSH key, recommended naming the key after your server provider name for organizing purposes.
 		  

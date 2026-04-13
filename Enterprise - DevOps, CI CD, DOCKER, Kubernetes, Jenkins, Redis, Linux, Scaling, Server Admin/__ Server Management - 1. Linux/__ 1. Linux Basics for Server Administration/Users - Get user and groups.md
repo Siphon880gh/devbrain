@@ -14,9 +14,9 @@ In CentOS (which is a distribution of Linux), you can list all users and all gro
    The `/etc/passwd` file contains user account information. You can use the `cat` or `awk` command to display the list of users:
 
    Using `cat`:
-   ```bash
-   cat /etc/passwd | cut -d: -f1
-   ```
+	```bash
+	cat /etc/passwd | cut -d: -f1
+	```
 
    Using `awk`:
    ```bash
