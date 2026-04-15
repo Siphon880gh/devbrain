@@ -4,7 +4,7 @@ Purpose: General checklist on setting up Dedicated Server.
 
 This guide walks you through setting up a dedicated server that you access by SSH from your computer’s terminal.
 
-The dedicated server itself will not host a public website or a control panel such as cPanel or CloudPanel. Instead, we will divide that server into partitions that act like multiple VPS instances (Section "Dedicated Server: Split Dedicated Server into VPS").
+The dedicated server itself will not host a public website or a control panel such as cPanel or CloudPanel. Instead, we will divide **that** server into partitions that act like multiple VPS instances (Section "Dedicated Server: Split Dedicated Server into VPS").
 
 Each VPS can then have its own web hosting setup, public-facing website, control panel, and even its own SSH access.
 
@@ -297,6 +297,11 @@ curl -4 ipinfo.io/ip
 	- Free: Ubuntu use cloudpanel. 
 	- Free: AlmaLinux use webmin
 - Let's say you chose CloudPanel for your Ubuntu 22:
+	- See if your server has a hostname configured. You can check in one of these ways:
+		- See the default hostname at the control panel that appears after logging into your web host (if they provide a default hostname)
+		- Or it's the A record you pointed to your web-host IP at your DNS Registrar and you're able to visit your website via that domain address. 
+		- Or you can run `hostnamectl status` and look for a "Static hostname" value in the terminal output. If there's no hostname, you need to set a hostname at the server side as explained at the "If dont have a hostname" section of the Cloudpanel instructions here at [[Manual installation of Cloudpanel via SSH terminal]]
+		- Without a hostname, Cloudpanel won't properly install
 	- Eg. Google ubuntu 22 nginx install cloudpanel
 	- Brief from: https://www.cloudpanel.io/docs/v2/getting-started/other/. Notice the URL; Look up if there are newer versions of the documentation. Make sure you're not following an old version's instructions, like v1
 	- The instructions could be (Cloudpanel installations is missing the step of stopping the services):
@@ -362,7 +367,7 @@ curl -4 ipinfo.io/ip
   ^ You can `ls /home/` to figure out the path
   ^ You figure it out because you should add it to your webhost details document and your ssh/sshpass echo
 
-- Using vi command in shell, or using your Web Hosting Control Panel's File Manager, edit the index file adding a word or punctuation and see if visiting the URL will show the changes.  The index file could be `/home/DOMAIN/htdocs/DOMAIN.com/index.php`
+- Using vi command in shell, or using your Web Hosting Control Panel's File Manager, **edit the index file** adding a word or punctuation and see if visiting the URL will show the changes.  The index file could be `/home/DOMAIN/htdocs/DOMAIN.com/index.php`
 - Because you are on a dedicated server, it is likely that the web host DOES NOT provide you with a user domain name (eg. Not having something like srv451789.hstgr.cloud because you're on a dedicated server instead of a web provider like through Hostinger's Cloudpanel package) that you can match in one of the server blocks in a site's vhost. Make sure you've bought a domain at namecheap, etc. Then make sure you have two A records to the public domain: one for "@" and one for "\*".
 - Prepare to visit that website in the web browser to see your changes went through:
 	- Edit your virtual host (vhost) configuration so that incoming requests to your server match the requested hostname or domain because once matched, the vhost can route and respond to the request correctly.:
@@ -372,7 +377,7 @@ curl -4 ipinfo.io/ip
 		- And restart nginx from SSH terminal with `sudo systemctl restart nginx`
 		- Visit http://srv451789.hstgr.cloud
 		- If success, Chrome will warn you there's no secured connection or that the connection is not private and blocks you from viewing the content. We will add SSL https certificates later. The current bypass technique in 2024 is to click anywhere on the webpage then type: `thisisunsafe`. You should see the webpage content.
-	- Use vi command to create an index2.html, add some words, then visit directly http://domain.com/index2.html to see if it displays.
+	- Use vi command to **create an index2.html**, add some words, then visit directly http://domain.com/index2.html to see if it displays.
 		- If failed, because it says Access Denied on the web browser, fix the permissions, making the bad index2.php permissions match the good index.php permissions. Likely it's just the user and group that are problematic.
 		- Keep in mind that when you upload files via SFTP later, this will be the user you sign into Filezilla, etc's SFTP. This makes sure uploads are the correct permissions. 
 		- If passed, this then assumes future websites on CloudPanel will have no problem with editing and viewing by the internet. 
@@ -654,7 +659,7 @@ If the Let's Encrypt Self-SSL certification has errors, the big picture is: Let'
 
 ---
 
-### Prepare web server for basic public view - SSL, File Permissions, Security
+### Prepare web server for basic public view - SSL, File Permissions, Security, Domain Names
 - Do you have to setup SSL?
 	- Free vs Paid SSL
 		- You can get a free SSL with Let's Encrypt. Look up instructions how to run Let's Encrypt in your SSH.
@@ -694,12 +699,14 @@ If the Let's Encrypt Self-SSL certification has errors, the big picture is: Let'
 			- Hostinger Ubunto 22.04 with Cloud Panel paths could be:
 				- **ssl_certificate** /etc/nginx/**ssl**-certificates/DOMAIN.com.crt;
 				- **ssl_certificate_key** /etc/nginx/**ssl**-certificates/DOMAIN.com.key;
-- File permissions: if you will have php or python scripts that are triggered by visiting web browser, if it writes to a folder, can it write?
-	- How to make sure the user that created the folders upon creating your website aka the same that would be the owner of files you create at the web hosting panel’s File Manager...
-	    
-	    ...how to make sure it’s the same user for Filezilla (make sure site user login into Filezilla or FTP client). If not, you could upload php scripts via filezilla that creates files (like text file of user activities) but your filezilla user didn’t own the folder so it’ll be permission error preventing creating files by php script
-	    
-	    When visit a php page in the web browser, can it append or write to a file using fwrite? Eg. tracking user behaviors at a user-log.txt. If it's unable, see user and group ownership of the folder it writes to and the php page that does the writing. You can see with `ls -la` and you see they do not match so no wonder the file does not have permission to write to the folder.
+		  - Write down paths to where you record your web-host login, SSH login, etc
+	- Multiple domains/subdomains for the same website root (maybe different domains point to deeper folder paths as roots)?
+		- Setup server blocks to those domains/subdomains
+		- Cloudpanel Let's Encrypt same screen just add all the domains/subdomains. It's a bit of a manual process clicking the input fields and inputting them in. But here's an automated way to fill in those fields using javascript inside the web browser console: [[CloudPanel - SSL Renew Annually (Semi Automated)]]
+- Complicated permissions
+	- Make sure no excessive permissions like 777 among your files you uploaded to restore your website when setting up the web server
+	- User script permissions: if you will have php or python scripts that are triggered by visiting web browser, if it writes to a folder, can it write to it? Otherwise, it’ll be permission error preventing creating files by php script (eg. can it write to a file using PHP's fwrite upon opening that PHP file?)
+	- Webpage viewable to public: Make sure it's the official site user that logs into Filezilla when uploading web-site public viewing files (NOT root). Setup and save your login credentials on Filezilla. Otherwise, pages may show up as forbidden on the web browser.
 - Install malware and security especially when going public
 	- If Hostinger, their malware scanner [https://support.hostinger.com/en/articles/8450363-vps-malware-scanner](https://support.hostinger.com/en/articles/8450363-vps-malware-scanner)
     - How to navigate to the malware from services dashboard (Hostinger hpanel, GoDaddy dashboard, etc)
@@ -714,7 +721,7 @@ If the Let's Encrypt Self-SSL certification has errors, the big picture is: Let'
 
 **Reminder**: If working off a VPS VM partition, you don't install these at the root dedicated server because it won't cross over to the VPS partition.
 
-#### Skill up
+#### Required skills
 - Know how to reboot the server
 - how see error logs based on your OS and web server type  
     eg `tail -f /var/log/nginx/error.log`
@@ -739,23 +746,84 @@ sudo systemctl start nginx
 	- If not installed CloudPanel and your web host management panel does not come included with PHP, look up how to install php, eg. Google: Ubuntu 22 install php
 	- If installed Cloudpanel or a Web Hosting Control Panel that already has it setup for you, you can also skip this step:
 		  - You have to configure apache or nginx to handle php, eg. Google: `Nginx handle php`, eg. Google: `Apache handle php`.
+  - Make sure PHP matches on command line and web version
+	  - At a php file:
+	```
+	<?php
+	echo PHP_VERSION;
+	```
+	- Then view on web browser
+
+	- Run the command line:
+	```
+	php --version
+	```
+	- If the versions don't match you're going to run into problems when enhancing PHP by running command lines then expecting your PHP webpages to get those enhancements.
+	- Choose which version to stick to. For example, as of April 15th, there is no MongoDB driver for PHP 8.5 on Debian 12. However there is a MongoDB driver for PHP 8.2 on Debian 12. For that reason, I'd choose Debian 12 for both command line and php versions. 
+		- To investigate whether a dependency such as MongoDB is available for one of your latest PHP versions, ask ChatGPT and include the dependency name, the PHP versions installed on your server (from `ls /usr/bin/php*` or the PHP version dropdown in CloudPanel), and mention the OS you are on (eg. Debian 12). Mongo is a good example because in the future you might choose MongoDB as your database while still using PHP. In addition to ChatGPT, you can also check what MongoDB-related PHP packages are available directly on Debian 12 by running `apt search php | grep -i mongodb`, since the package name usually includes both `mongodb` and the PHP version, such as `php8.2-mongodb/oldstable,oldstable,now 1.15.0+1.11.1+1.9.2+1.7.5-1 amd64`. You'd find out that there is no official php8.5-mongodb package for Debian 12 (Bookworm), but the latest php version that does have a mongodb package under Debian 12 is php8.2.
+		- You'd install with `sudo apt install php8.2-mongodb` then verify it's installed with `php -m | grep mongodb`. When your PHP script file (eg. index.php or api.php) includes the Mongo driver like `$client = new MongoDB\Driver\Manager($uri)`, it should be no problem if per your selected PHP version, the path to Mongo exists after installing Mongo: `/etc/php/8.2/mods-available/mongodb.ini`
+		- Setting the PHP version
+			- If setting command line, eg. `sudo update-alternatives --set php /usr/bin/php8.2`
+			- If setting web, depends on your setup. For cloudpanel, you dont have to edit anything manually - just select at dropdown:
+			  ![[Pasted image 20260415044926.png]]
 #### Python
 - Check if you have python3 installed. It comes included with CloudPanel. Test with `python3 --version`
 	- If not installed. Look up how to install: Eg. Google: Ubuntu 22 install python3
 - Check if you have pip3 installed. Having python3 installed does not necessarily mean pip3 is installed. Eg. Google: Ubunutu 22 install pip3. Could be something like `sudo apt install python3-pip`. If you have CloudPanel installed, Cloudpanel installed python3, but not pip3, as of Aug 2024.
-- OPTIONAL: For legacy code you might need to work on in the future, you should install python2 and pip2 and bench them for when they're needed
-	- Could be for python2: `sudo apt install python2`
-	- Could be for pip2 (notice it's python-pip, not python2-pip): `sudo apt install python-pip`
-	- You can test they're installed successfully with `python3 --version` and `pip3 --version`
+- ~~OPTIONAL: For legacy code you might need to work on in the future, you should install python2 and pip2 and bench them for when they're needed
+	- ~~Could be for python2: `sudo apt install python2`~~
+	- ~~Could be for pip2 (notice it's python-pip, not python2-pip): `sudo apt install python-pip`~~
+	- ~~You can test they're installed successfully with `python3 --version` and `pip3 --version`~~
+	- ==Python 2 reached its **End of Life (EOL)** on January 1, 2020==. Because it is no longer supported, many modern operating systems (like Ubuntu 20.04+ and recent macOS versions) have removed Python 2 and its package manager (`pip`) from their default repositories.
 - Check if `python` and `pip` commands work (not limited to running `python3` and `pip`). Run `python --version` and `pip --version` to check if they've been assigned. I recommend assigning them to the newest version of python.
 	- Method 1:
 	  Edit ~/.bash_profile or equivalent. You can run `which python3` and `which pip3` to get their paths. Then you add to the bash profile similar to `alias python='/usr/bin/python3'` and `alias pip='/usr/bin/pip3'`. Then you source: `source ~/.bash_profile`.
 	- Method 2:
 	  You can run `which python3` and `which pip3` to get their paths. Then get one of the paths found in `echo $PATH`. Create symbolic links from `python` to `python3` and `pip` to `pip3` in one of the earlier $PATH paths.
+- Check if pip will be annoying. Go into a new folder and run:
+```
+pip install mysql-connector-python
+```
+
+If you get this error then you have to configure okay to break out:
+```
+error: externally-managed-environment
+
+× This environment is externally managed
+╰─> To install Python packages system-wide, try apt install
+    python3-xyz, where xyz is the package you are trying to
+    install.
+    
+    If you wish to install a non-Debian-packaged Python package,
+    create a virtual environment using python3 -m venv path/to/venv.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+    sure you have python3-full installed.
+    
+    If you wish to install a non-Debian packaged Python application,
+    it may be easiest to use pipx install xyz, which will manage a
+    virtual environment for you. Make sure you have pipx installed.
+    
+    See /usr/share/doc/python3.11/README.venv for more information.
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
+```
+
+^ If that's the case, then config python to allow possible breaking of python:
+```
+mkdir -p ~/.config/pip  
+vi ~/.config/pip/pip.conf
+```
+
+Add to pip.conf:
+```
+[global]
+break-system-packages = true
+```
 #### NodeJS and NVM
 - Check if you have node installed. Run `node --version`. If you have CloudPanel installed, NodeJS may not be installed globally.
 - If installing node, look up how to install node. Eg. Google: Ubuntu 22 install nodejs. Could look similar to: `apt install nodejs`. After installation, run `node --version` to check it succeeded.
-- Sometimes npm comes with nodejs. Check if it did install: `npm --version`. If not, see if npm installation instructions are at the same guide for installing nodejs. Otherwise, look up how to install npm. eg. Google: Ubuntu 22 install npm. 
+- Sometimes npm comes with nodejs. Check if it did install: `npm --version`. If not, see if npm installation instructions are at the same guide for installing nodejs (`apt install npm`). Otherwise, look up how to install npm. eg. Google: Ubuntu 22 install npm. 
 	- Could look similar to: `apt install nodejs`. 
 	- Check npm and its utility `npm --version` and `npx --version` (npx helps forcefully run)
 - Prevent npm scripts having "no file permission" error:
@@ -765,9 +833,15 @@ sudo systemctl start nginx
 - Install NVM
 	- Why: If you're developing apps, you sometimes want a specific version of NodeJS at a folder especially if package conflicts or legacy packages. NVM makes this possible.
 	- NVM installation instructions at: https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating
-		- You may want to test nvm is installed by listing: `ls ~/.nvm`
-		- And you want to test their cli/alias is installed by running in the command line: `nvm`
-		- If the cli/alias refuses to install, then you have to copy the init script that the Readme mentions the cURL/wget install command should've added. To figure out if you're editing .bash_profile/.bashrc/.zprofile/.zshrc, run `echo $SHELL`.
+		- You may want to test nvm installed entirely:
+			- See if the folder exists: `ls ~/.nvm`
+			- Check the command works: `nvm --version`
+			- Check that the nvm initiating script (copy of the script is at installation instructions) is added to your **bash profile** or **z profile** after installation (NOT bash rc or zshrc). If it's not added, you'll have to manually add it (refer to instructions)
+			- Then enhance nvm so that it'll automatically switch node version when there's a .nvmrc in the folder. Add to your bash profile or z profile per instructions at [[Auto-switch based on presence of .nvmrc file in folder]]
+				- Then check if it does autoswitch. On your website root, create a folder `temp/`, then inside it create a `.nvmrc` file with the contents: `v22.20.0`.
+				- Test if .nvmrc works manually with `nvm use`. It'll switch to that node version. It may ask to install that node version - accept it
+				- cd up then cd back into temp/. It should output to terminal: "Now using node v22.20.0 (npm v10.9.3)" even if switching node version not necessary.
+
 #### Yarn
 - Make sure Node is at least v20.11.0 to install a newer yarn (https://www.redswitches.com/blog/install-yarn-in-ubuntu/), otherwise look up classic yarn installation instructions.
 	- Install npm's repo corepack (tool to help with managing versions of your package managers) which allows you to install yarn
@@ -781,89 +855,95 @@ sudo systemctl start nginx
 		```
 
 - Look up instructions for your OS on how to install these databases, if applicable to your server's use cases
+
 #### MySQL
 - MySQL (if not included by your web host’s VPS)
 	- If not installed CloudPanel or a web host management panel that includes these parts, look up instructions on how to install MySQL, PHP, and PHPMyAdmin. eg. Google: Ubuntu 22 install mysql phpmyadmin
 	- Ubuntu v22 with CloudPanel comes with MySQL, PHP, and phpMyAdmin, however when accessing phpMyAdmin from Cloudpanel then only the databases the user is associated with shows up.
-		- To get the master credentials to see all databases, you run `clpctl db:show:master-credentials` and visit this url to login with those credentials https://XX.XXX.XX.XXX:8443/pma
+		- To get the master credentials to see all databases, you run `clpctl db:show:master-credentials` and visit this url to login with those credentials https://XX.XXX.XX.XXX:8443/pma or https://domain.tld:8443/pma. If behind Cloudflare, 8443 is one of the supported ports so you should be able to access via the domain name too
 		- Test the same master credentials on the Mysql command:
-		  `mysql -h 127.0.0.1 -u USER -P 3306 -p'PASSWORD' -A`
+		  `mysql -h 127.0.0.1 -u root -P 3306 -p -A`
+			- Enter password when prompted to
 		- Save credentials, PMA link, and MySQL command to your webhost document and possibly save to an alias that echoes credentials and then logs in via ssh/sshpass.
 	- Test MySQL phpMyAdmin (if not done from previous CloudPanel step)
-		- What's the URL to phpMyAdmin? If needed, can we make it show all the databases instead of only some databases (databases associated to one user) at phpMyAdmin?
+		- What's the URL to phpMyAdmin? If needed, can we make it show all the databases instead of only some databases (databases associated to one user) at phpMyAdmin?. 
+		- If Cloudpanel:
+			- The login to the phpMyAdmin (PMA) that asks you through the browser native prompt is the same as the master credentials
+			- The URL is in this format:
+				```
+				https://domain.tld:8443/pma	
+				```
 		- Save phpMyAdmin URL and credentials to web host details document
 	- Test MySQL daemon
 		- Run `mysql --version`
-		
-	- OPTIONAL: Test PHP wrapping MySQL works. You can write this php file then either run in web browser or terminal (`php script.php`):
 
-		```
-		<?php
-		$server = "127.0.0.1";
-		$username = "YOUR_USERNAME";
-		$password = "YOUR_PASSWORD";
-		$port = 3306;
-		$conn = new mysqli($server, $username, $password, "", $port);
-		if ($conn->connect_error) {
-			die("Connection failed: " . $conn->connect_error);
-		} else {
-				echo "Success: PHP connected to MySQL. Here are databases: <br/><br/>
+##### Test MySQL on PHP
+- OPTIONAL: Test PHP wrapping MySQL works. You can write this php file then either run in web browser (visit appropriate URL on web browser) or terminal (`php script.php`)
+- Make sure to adjust user and password
 
-		";
-		}
-		$result = $conn->query("SHOW DATABASES");
-		while ($row = $result->fetch_assoc()) {
-				echo $row['Database'] . "<br>
-		";
-		}
-		$conn->close();
-		?>
-		```
+```
+<?php
+$server = "127.0.0.1";
+$username = "YOUR_USERNAME";
+$password = "YOUR_PASSWORD";
+$port = 3306;
+$conn = new mysqli($server, $username, $password, "", $port);
+if ($conn->connect_error) {
+	die("Connection failed: " . $conn->connect_error);
+} else {
+		echo "Success: PHP connected to MySQL. Here are databases: <br/><br/>
 
-	If PHP connecting to MySQL works (most commonly used case), then it's assumed Python and NodeJS will connect with no problems. 
+";
+}
+$result = $conn->query("SHOW DATABASES");
+while ($row = $result->fetch_assoc()) {
+		echo $row['Database'] . "<br>
+";
+}
+$conn->close();
+?>
+```
+
+If PHP connecting to MySQL works (most commonly used case), then it's assumed Python and NodeJS will connect with no problems. 
+##### Test MySQL on NodeJS
+But if you want to test NodeJS connecting to MySQL:
+```
+const mysql = require("mysql2");
 	
-	But if you want to test NodeJS connecting to MySQL:
-	```
-	const mysql = require("mysql2");
-	
-	/**
-	 * Requirements:
-	 * PHP database: someDb
-	 * PHP table: someTable
-	 * PHP columns: id, someColumn
-	 * PHP port set to 8888
-	 * Insert some rows
-	 * Have MAMP started database server
-	 * 
-	 */
-	
-	const connection = mysql.createConnection({
-	  host: "127.0.0.1",
-	  user: "YOUR_USERNAME",
-	  password: "YOUR_PASSWORD",
-	  database: "someDb",
-	  port: 3306
+const connection = mysql.createConnection({
+  host: "127.0.0.1",
+  user: "YOUR_USERNAME",
+  password: "YOUR_PASSWORD",
+  database: "mysql",
+  port: 3306
+});
+
+function showAllRows() {
+	connection.query(
+	  "SELECT * FROM user"
+	, function(err, results, fields) {
+	  console.log(results);    
 	});
-	
-	function showAllRows() {
-		connection.query(
-		  "SELECT * FROM mysql"
-		, function(err, results, fields) {
-		  console.log(results);    
-		});
-	  }
-	
-	connection.connect(function (err) {
-		if (err) {
-			console.error(err);
-		} else {
-			showAllRows();
-		}
-	  
-	});
-	```
+  }
 
+connection.connect(function (err) {
+	if (err) {
+		console.error(err);
+	} else {
+		showAllRows();
+	}
+  
+});
+```
+
+^ Proof this would work:
+	- ![[Pasted image 20260414134454.png]]
+
+##### Test MySQL on Python
 - And if you want to test Python connecting to MySQL:
+	- Make sure to have installed mysql connector:
+	  `pip install mysql-connector-python`
+	- Make sure to adjust user and password
 ```
 # pip install mysql-connector-python 
 import mysql.connector
@@ -906,100 +986,104 @@ if __name__ == '__main__':
 	show_all_rows()
 ```
 
-
+##### Test MySQL on Python Flask
 - And if you want to test Python's Flask connecting to MySQL:
+- Make sure to have installed dependencies
+	- `pip install flask`
+	- `pip install flask-mysqldb`
+- Make sure to adjust user and password
+- DO NOT name your python script `flask.py` because it'll complain of circular import
+- Test by visiting the port mentioned by the flask to terminal output at https//domain.tld:5000/ which is just fine because our endpoint for reading the database after seeding it is `/`
+- Make sure port not blocked by ufw etc
 ```
-# pip install flask
-# pip install flask-mysqldb
-
-from flask import Flask
+from flask import Flask, jsonify
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 
-# Required
+app.config["MYSQL_HOST"] = "127.0.0.1"
 app.config["MYSQL_USER"] = "root"
-app.config["MYSQL_PASSWORD"] = "root"
-app.config["MYSQL_DB"] = "someDb"
-
-# Required for testing: 
-# MySQL: root/root
-# Database: someDb
-# Table: someTable
-#         id PK Auto-Increments
-#         someColumn varchar(255)
-# Seeded
-""" 
-INSERT INTO `someTable` (`id`, `someColumn`) VALUES (NULL, 'Abby');
-INSERT INTO `someTable` (`id`, `someColumn`) VALUES (NULL, 'Bobby');
-INSERT INTO `someTable` (`id`, `someColumn`) VALUES (NULL, 'Caitlin'); 
-"""
-
-# Extra configs, optional:
+app.config["MYSQL_PASSWORD"] = "PASSWORD"
+app.config["MYSQL_DB"] = "mysql"
+app.config["MYSQL_PORT"] = 3306
 app.config["MYSQL_CURSORCLASS"] = "DictCursor"
-app.config["MYSQL_CUSTOM_OPTIONS"] = {"ssl": {"ca": "/path/to/ca-file"}}  # https://mysqlclient.readthedocs.io/user_guide.html#functions-and-attributes
 
-# Init
 mysql = MySQL(app)
 
-# http://127.0.0.1:5000/
 @app.route("/")
 def users():
-	cur = mysql.connection.cursor()
-	cur.execute("""SELECT * from someTable""")
-	rv = cur.fetchall()
-	return str(rv)
+    cur = None
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM user")
+        rows = cur.fetchall()
+
+        for row in rows:
+            for key, value in row.items():
+                if isinstance(value, bytes):
+                    row[key] = value.decode("utf-8", errors="replace")
+
+        return jsonify(rows)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if cur:
+            cur.close()
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	# app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=False)
 ```
 
-
-
+You want to visit the api endpoint in the web browser. If using Cloudflare, you either will reverse proxy it or use the free Cloudflare tunneling because you can't fetch custom ports on Cloudflare proxy protected websites. Or you can switch to DNS-only instead of Proxy at Cloudflare, but that could expose your VPS ip address (if the domain has already been on a botnet before, don't switch to DNS because they will continue to hack you directly once they detect your IP). For Cloudflare tunneling to work, you should use a subdomain, you must not have a DNS record to that subdomain, you must not have SSL certificate for that subdomain, and if your tech stack has access to routing to localhots or to the internet then it must be internet (dont use Flask's `host="0.0.0.0"`)
 #### Mongo
 - Installation
 	- See if you have mongo already installed `mongo --version` or `mongosh --version`, as long as one of them works. Cloudpanel does NOT come with Mongo.
 	- Look up instructions how to install MongoDB: 
 	  eg. Google: Ubuntu 22 install mongo. 
-		- There are a lot of steps—follow the full MongoDB installations (not going to repeat it in this tutorial)
+		 - There are a lot of steps—follow the full MongoDB installations (not going to repeat it in this tutorial)
 			 - Ubuntu 22/24: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
 			 - Debian 12: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-debian/
 			   
-			- Verification instructions on making sure MongoDB is installed, is on the instructions page as well.
-			- Caveat - Make sure it's Enabled for rebooting. This status of `sudo systemctl status mongodb` has not been enabled for reboot because notice the word "disabled" at the Loaded line:
+			- Enable for reboot startup with: `sudo systemctl enable mongod`
+			- In many cases, system needs to reboot or mongod will be in a failed state. Run `reboot` and then try to ssh back in after a couple minutes
+			- Check status of mongodb:
 				```
 				# sudo systemctl status mongod
 				> ● mongod.service - MongoDB Database Server
 				Loaded: loaded (/usr/lib/systemd/system/mongod.service; disabled; preset:
 				Active: active (running) since Mon 2025-07-07 00:01:49 UTC; 3s ago
 				```
-				- Enable for reboot startup with: `sudo systemctl enable mongod`
+				
 			    
-			 - If status of mongod service is failure, check `tail /var/log/mongodb/mongod.log`.
-				  - If the `mongod.log` has the line "Permission denied" (You can specifically check with 
-				 `tail /var/log/mongodb/mongod.log | grep Permission`):
-					  - And if the "Permission denied" error is because "Failed to unlink socket file"
-						  - 1. Check and remove the socket file: `sudo rm /tmp/mongodb-27017.sock`
-						  - 2. Ensure that the /tmp directory has the correct permissions: `sudo chmod 1777 /tmp`
-						  - 3. Check the ownership of MongoDB directories: `sudo chown -R mongodb:mongodb /var/lib/mongodb /var/log/mongodb`
-						  - 4. Restart MongoDB: `sudo systemctl restart mongod`
-						  - 5. Verify no more mongo service problem: `sudo systemctl status mongod`
-	- What's the mongo shell command? May want to add to your web host details document. 
+			 - Prevent future mongod service failures,
+				 - FYI, in a future server reboot, all MongoDB connections could fail with the error "Failed to unlink socket file" with status 14 at `sudo tail -n 200 /var/log/mongodb/mongod.log`. This is because Mongodb installation does not set the correct permissions for it to carry out some cleanup tasks (as of April 2026. It'd fail to cleanup an old socket file because it would be owned by root rather than the user mongodb.
+				  - Ensure that the /tmp directory has the correct permissions: 
+				    `sudo chmod 1777 /tmp`
+				- And for other permission errors in the future (this is automatically fixed on installing as of April 2026 though but used to be a problem on older MongoDB's) 
+					- Check the ownership of MongoDB directories: 
+					   `ls -la /var/lib/mongodb /var/log/mongodb`
+					- If not owned by user/group mongodb:mongodb, then run:
+					  `sudo chown -R mongodb:mongodb /var/lib/mongodb /var/log/mongodb`
+				  - Actually check MongoDB service and see if it's dead. If it's dead, go ahead and remove (`sudo rm -f /tmp/mongodb-27017.sock`), then restart the mongod (so it recreates a new socket into memory) `sudo systemctl restart mongod` 
+					 
+	- Record what's the mongo shell command? May want to add to your web host details document because it can be different from OS to OS and version to version. 
 		- MongoDB 3.4 unofficial and below, run`mongo` for mongoshell
-		- Above Mongo 3.4 unofficial, run `mongosh` for mongoshell
+		- **Above Mongo 3.4** unofficial, run `mongosh` for mongoshell
 		- If Mongo community version (maintained by the official Mongo organization), run `mongosh` while `mongod` service has started
-	- Mongo service
-		- Check if mongo service is running? What's the command to check status?
+	- Mongo service further check
+		- **What's the command to check status**? Record as well
 		- Make sure to reboot to check that the mongo service sticks (running mongo shell works). After reboot, check the service status.
 		- Also figure out the commands for: How to stop mongo service? How to restart mongo service? 
 		- How to check the logs for service starting errors (Eg. Ubuntu 22 is `sudo tail -n 100 /var/log/mongodb/mongod.log`)
 		- Optional: Save these commands to your web host details document.
 
 	- Create an authentication account on the auth collection
-	  Go into Mongo Shell (`mongo` or `mongosh`), switch into admin collection (run `use admin`), then run this to create user
-	  WARNING: DO NOT create a username named "root". Some Mongo versions already created a root user to work with test as the authentication database, and it causes conflicts like the mongo invoke command saying incorrect credentials but the interactive authentication passing
+		- DO IMMEDIATELY. Often the bots are scanning new websites for mongo database, then you'll be surprised in Mongo Compass when all your collections disappeared and in their place is an obviously inserted collection with text stating to pay a bitcoin wallet for your data back. Typically it happens in minutes. So dont even migrate data in yet until you add authentication account
 	  
-	  Create user while inside admin collection:
+		- Go into Mongo Shell (`mongo` or `mongosh`), switch into admin collection (run `use admin`), then run this to create user
+			- WARNING: DO NOT create a username named "root". Some Mongo versions already created a root user to work with test as the authentication database, and it causes conflicts like the mongo invoke command saying incorrect credentials but the interactive authentication passing
+			- Create user while inside admin collection (Adjust to prefer username and password):
 		```
 		db.createUser({ user: 'USERNAME', pwd: 'PASSWORD', roles: [{role: "root", db: "admin"}] })
 		```
@@ -1020,6 +1104,8 @@ mongosh 'mongodb://USERNAME:PASSWORD@127.0.0.1:27017/?authSource=admin'
 ^ We are using single quotes to reduce the chances of the shell interpreting and rewriting characters when inside double quotes.
 
 
+- Then record the mongo shell login command and url login commands
+
 - **Authentication is disabled by default** when you install MongoDB. This is one of the most common and dangerous misconfigurations. Hackers often scan new servers for mongo and try to ransom the data. Without authentication, hackers can log into your Mongo database without needing credentials then have full permission to read/write/delete databases.
 	- Enable authorization for the mongo daemon (so that you can't just run `mongosh` or `mongo` then be able to show any databases):
 	```
@@ -1032,7 +1118,7 @@ mongosh 'mongodb://USERNAME:PASSWORD@127.0.0.1:27017/?authSource=admin'
 	  authorization: enabled
 	```
 
-	- Restart mongo service so the settings apply:
+	- Restart mongo service so the settings apply (or use your equivalent mongo restart command):
 	```
 	sudo systemctl restart mongod
 	```
@@ -1041,12 +1127,12 @@ mongosh 'mongodb://USERNAME:PASSWORD@127.0.0.1:27017/?authSource=admin'
 	- 1. Run `mongo` or `mongosh` depending on the version of mongo
 	- 2. You'll notice you successfully got into the Mongo shell; However, run `show databases;` while in the unauthenticated Mongo Shell, it will error: `**MongoServerError[Unauthorized]** ...` .
 
-- Save authenticated login shell command and URL into your web host details documents
+- **Record** authenticated login shell command and URL into your web host details documents
 	  
-- Decide whether to open the Mongo to remote IPs or keep local. If you open to remote IPs, then you can connect from your Mongo Compass. The inner steps here are to enable for remote IPs / Mongo Compass
+- Decide whether to open the Mongo to remote IPs (you'll have production apps) or keep local. If you open to remote IPs, then you can connect from your Mongo Compass. The inner steps here are to enable for remote IPs / Mongo Compass
 
 	 1. Enabling external connections (and Mongo Compass) at the service level
-		By default `etc/mongod.conf` settings allow files on the same host as the mongo server to connect (127.0.0.1, aka localhost). Let's open Mongo to the internet/world.
+		By default `/etc/mongod.conf` settings allow files on the same host as the mongo server to connect (127.0.0.1, aka localhost). Let's open Mongo to the internet/world.
 		Edit your `/etc/mongod.conf`:
 		
 		```
@@ -1054,80 +1140,123 @@ mongosh 'mongodb://USERNAME:PASSWORD@127.0.0.1:27017/?authSource=admin'
 			 bindIp: 0.0.0.0
 		```
 
-	2. Restart mongo service so the settings apply:
+	2. Restart mongo service so the settings apply (or use your equivalent mongo restart command):
 	```
 	sudo systemctl restart mongod
 	```
 
 	3. Enabling external connections (and Mongo Compass) at the OS level
 	   If you have firewall (either uwf or iptables), you have to allow in internet 0.0.0.0 into port 27017:
-		- Check if ufw firewall is enabled with `sudo ufw status`. If it's enabled, you should open the Mongo port by running `sudo ufw allow 27017/tcp`. Check port allowed rules by running same `sudo ufw status`. Apply the rules immediately with `sudo ufw reload`.
+		- Check if ufw firewall is enabled with `sudo ufw status`. If it's enabled, you should open the Mongo port by running `sudo ufw allow 27017`. Check port allowed rules by running same `sudo ufw status`. Apply the rules immediately with `sudo ufw reload`.
 		- Check if iptables is managing firewall by running `sudo iptables -L -v -n` to see if there are any port rules which implies that iptables is enabled. Note that there doesn't need to be a iptables service for this firewall to work because iptables works at the kernel level. 
 			- If it's enabled, you should open the Mongo port by running `sudo iptables -A INPUT -p tcp --dport 27017 -j ACCEPT`. No need to reboot; Rules are hot applied right way. Check ports allowed by running `sudo iptables -L -n`.
-		  
-- Test MongoDB Compass works with the URL.
 
 - Test MongoDB with authentication account works on Python or NodeJS:
-	
-	Test Python:
-	Create a test.py then run `python test.py` after you've installed `pip install pymongo`:
-	```
-	from pymongo import MongoClient
-	
-	# Replace these with your actual MongoDB username and password
-	mongo_user = "USERNAME"
-	mongo_password = "PASSWORD"
-	
-	uri = f"mongodb://{mongo_user}:{mongo_password}@localhost:27017/?authSource=admin"
-	client = MongoClient(uri)
-	
-	try:
-		# Check the connection by listing the databases
-		databases = client.list_database_names()
-		print("Connected successfully. Databases:", databases)
-	
-	except Exception as e:
-		print("Failed to connect to MongoDB:", e)
-	
-	```
+##### Test MongoDB on Python
+Test Python:
+Create a test.py then run `python test.py` after you've installed `pip install pymongo`:
+```
+from pymongo import MongoClient
 
+# Replace these with your actual MongoDB username and password
+mongo_user = "USERNAME"
+mongo_password = "PASSWORD"
 
-	Optionally, test NodeJS:
-	Create a test.py then run `python test.py` after you've installed `pip install pymongo`:
-	```
-	const { MongoClient } = require('mongodb');  
-	  
-	// Replace these with your actual MongoDB username and password  
-	const mongoUser = 'USERNAME';  
-	const mongoPassword = 'PASSWORD';  
-	const dbName = 'admin'; // Use your database name  
-	  
-	const uri = `mongodb://${mongoUser}:${mongoPassword}@localhost:27017/?authSource=${dbName}`;  
-	const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });  
-	  
-	async function run() {  
-		try {  
-			// Connect to the MongoDB cluster  
-			await client.connect();  
-	  
-			// List databases  
-			const databasesList = await client.db().admin().listDatabases();  
-	  
-			console.log("Connected successfully. Databases:");  
-			databasesList.databases.forEach(db => console.log(` - ${db.name}`));  
-		} catch (e) {  
-			console.error("Failed to connect to MongoDB:", e);  
-		} finally {  
-			// Close the connection  
-			await client.close();  
-		}  
+uri = f"mongodb://{mongo_user}:{mongo_password}@localhost:27017/?authSource=admin"
+client = MongoClient(uri)
+
+try:
+	# Check the connection by listing the databases
+	databases = client.list_database_names()
+	print("Connected successfully. Databases:", databases)
+
+except Exception as e:
+	print("Failed to connect to MongoDB:", e)
+
+```
+
+Errors? Refer to troubleshooting guides:
+- [[Socket File Error (Troubleshooting MongoDB on Python)]]
+- [[Permission Errors (Troubleshooting MongoDB on Python)]]
+##### Test MongoDb on NodeJS
+
+Optionally, test NodeJS:
+Create a test.js then run `node test.js` after you've installed `npm init && npm install mongodb`:
+- Make sure to adjust username and password
+```
+const { MongoClient } = require('mongodb');  
+  
+// Replace these with your actual MongoDB username and password  
+const mongoUser = 'USERNAME';  
+const mongoPassword = 'PASSWORD';  
+const dbName = 'admin'; // Use your database name  
+  
+const uri = `mongodb://${mongoUser}:${mongoPassword}@localhost:27017/?authSource=${dbName}`;  
+const client = new MongoClient(uri);  
+  
+async function run() {  
+	try {  
+		// Connect to the MongoDB cluster  
+		await client.connect();  
+  
+		// List databases  
+		const databasesList = await client.db().admin().listDatabases();  
+  
+		console.log("Connected successfully. Databases:");  
+		databasesList.databases.forEach(db => console.log(` - ${db.name}`));  
+	} catch (e) {  
+		console.error("Failed to connect to MongoDB:", e);  
+	} finally {  
+		// Close the connection  
+		await client.close();  
 	}  
-	  
-	run().catch(console.dir);
-	```
+}  
+  
+run().catch(console.dir);
+```
 
-	- It's assumed PHP will be able to connect to Mongo if Python and NodeJS works
+##### Test MongoDb on PHP
+- Let's test PHP will be able to connect to Mongo. This is more involved.
 
+Create a test.php then run both command and web versions:
+- Make sure to adjust username and password
+```
+<?php
+
+$mongoUser = 'USER';
+$mongoPassword = 'PASSWORD';
+$authSource = 'admin';
+
+$uri = "mongodb://$mongoUser:$mongoPassword@localhost:27017/?authSource=$authSource";
+
+try {
+    $client = new MongoDB\Driver\Manager($uri);
+
+    $command = new MongoDB\Driver\Command([
+        'listDatabases' => 1
+    ]);
+
+    $cursor = $client->executeCommand('admin', $command);
+    $result = current($cursor->toArray());
+
+    echo "Connected successfully. Databases:\n";
+
+    foreach ($result->databases ?? [] as $db) {
+        echo " - " . ($db->name ?? '[unknown]') . "\n";
+    }
+
+} catch (Throwable $e) {
+    echo "Failed to connect: " . $e->getMessage() . "\n";
+}
+```
+
+Problems? First make sure PHP cli and PHP web are the same PHP versions! Refer to PHP installation earlier in this checklist. And make sure it's a PHP version that has a Mongo release.
+- To investigate whether a dependency such as MongoDB is available for one of your latest PHP versions, ask ChatGPT and include the dependency name, the PHP versions installed on your server (from `ls /usr/bin/php*` or the PHP version dropdown in CloudPanel), and mention the OS you are on (eg. Debian 12). Mongo is a good example because in the future you might choose MongoDB as your database while still using PHP. In addition to ChatGPT, you can also check what MongoDB-related PHP packages are available directly on Debian 12 by running `apt search php | grep -i mongodb`, since the package name usually includes both `mongodb` and the PHP version, such as `php8.2-mongodb/oldstable,oldstable,now 1.15.0+1.11.1+1.9.2+1.7.5-1 amd64`. You'd find out that there is no official php8.5-mongodb package for Debian 12 (Bookworm), but the latest php version that does have a mongodb package under Debian 12 is php8.2.
+- You'd install with `sudo apt install php8.2-mongodb` then verify it's installed with `php -m | grep mongodb`. When your PHP script file (eg. index.php or api.php) includes the Mongo driver like `$client = new MongoDB\Driver\Manager($uri)`, it should be no problem if per your selected PHP version, the path to Mongo exists after installing Mongo: `/etc/php/8.2/mods-available/mongodb.ini`
+
+If still have problems, refer to [[Indepth Installation Guide - Mongo for PHP]]
+
+---
 
 Let's install these CI/CD solutions:
 #### Git
@@ -1569,17 +1698,6 @@ Supervisor watches .sh file which runs pyenv environment and gunicorn
 
 ---
 
-### Vhost Backup
-Date: `<Date>`
-Have: Eg. Metabase and VLAI Microservices with SSE connections
-
-```
-Vhost file here
-```
-
-
----
-
 ### Provider Checklist / Statements of Facts
 
 - Specs & Monthly
@@ -1597,6 +1715,31 @@ Vhost file here
 
 ---
 
+## Separate document
+### ACC Domain Vhost Backup _DATE_
+Date: `<Date>`
+Have: Eg. Metabase and VLAI Microservices with SSE connections
+
+```
+Vhost file contents here
+```
+
+Additional included vhost files here. Then use headings and subheadings so that a table of contents is possible in Obsidian or Markdown rendered, to navigate to different Vhosts
+
+Alternately, you could just backup as vhost files near where your pm2 is inside a centralized eco/ folder (make sure to block public web access). In that case, write it so under the document so you can remember to refer to the files
+
+---
+
+## Separate document
+### ACC Domain Site Backup SOP
+
+Write how to backup the domain in this SOP document, such as the different database backups (MySQL, MongoDB), file backups (or bare minimum with state data files while you have the original app code elsewhere on the computer), eco/ backup, vhosts, root SFTP SSH, and site username, and SSL domains/subdomains, etc.
+
+Any username used by the terminal to create or modify files through PHP or Python scripts must also be updated.
+
+Prepend document that this is useful for migrating to another server too.
+
+---
 ## Folder structure:
 
 - Recommend have separate folders for pm2/nodejs and for python/supervisor apps

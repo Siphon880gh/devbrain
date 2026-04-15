@@ -1,0 +1,3 @@
+If your Python app cannot connect to MongoDB and `sudo tail -n 200 /var/log/mongodb/mongod.log` shows permission-related errors, check the ownership of MongoDB’s data and log directories with `ls -la /var/lib/mongodb /var/log/mongodb`. If those directories are not owned by `mongodb:mongodb`, fix them with `sudo chown -R mongodb:mongodb /var/lib/mongodb /var/log/mongodb`, then restart MongoDB with `sudo systemctl restart mongod` so it can start cleanly and recreate its socket.
+
+This kind of permission issue is less typical on a standard modern MongoDB package install, because the installer usually creates the data and log directories with the correct mongodb:mongodb ownership. It can still happen after manual changes, migrations, restores, or nonstandard installs.
