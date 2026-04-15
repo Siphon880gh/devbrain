@@ -39,3 +39,23 @@ This is especially helpful during setup when you just purchased the VPS and do n
 Some tools that call back to your webhost do require proper SSL so they can connect over HTTPS. You can also set up Let’s Encrypt with an sslip.io hostname with no problem, such as:
 
 `123.123.123.123.sslip.io`
+
+---
+
+Make sure to add a server_name entry for your sslip.io hostname, so it knows what file to serve! Example:
+```
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+   {{ssl_certificate_key}}
+   {{ssl_certificate}}
+   server_name wengindustries.com wengindustry.com www.wengindustries.com www.wengindustry.com 31.220.18.169.sslip.io;
+   # ...
+}
+```
+
+Then when testing this vhost by visiting the sslip on the web browser, you may see an invalid SSL warning. You can still open the site by clicking **Advanced → Proceed**, or in Chrome by typing `thisisunsafe`.
+
+If you try to include the `sslip.io` domain in your SSL certificate, it won't remove the SSL warning. Even so, `sslip.io` can still be useful as a temporary hostname for viewing the page during setup.
+
+When you are ready to make the site public, switch to a real domain name, ideally one routed through Cloudflare, such as a Namecheap domain using Cloudflare Proxied DNS. That helps keep your VPS IP less directly exposed and reduces the chance of it being permanently recorded then targeted by automated bot traffic. Using an `sslip.io` hostname prefixed with your server's IP won't expose the IP address to botnets if you are not publicly sharing that URL.
