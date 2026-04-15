@@ -1,0 +1,2 @@
+With a domain already selected, go to Overview. Right side has Quick Actions -> Under Attack Mode, forcing visitors to answer a challenge in order to prevent automated attacks
+![[Pasted image 20260415063525.png]]
