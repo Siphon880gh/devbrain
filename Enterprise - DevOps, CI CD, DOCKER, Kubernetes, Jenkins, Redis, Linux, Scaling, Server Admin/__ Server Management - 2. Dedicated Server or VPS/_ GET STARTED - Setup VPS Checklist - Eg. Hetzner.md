@@ -8,8 +8,8 @@ https://www.hetzner.com/cloud/general-purpose
 Choose a specific package (eg. CCX13). Comparable for multi mixed web server (python, nodejs, etc), you can go for ~$20 which is 2 VCPU, 8GB Ram, 80GB Disk Local. No need to install volumes (that's adding volumes on top of the baseline disk space you selected when choosing a VPS)
 
 ---
-
-## Immediately establish ssh connection 
+## Checklist - Web Host to Website Capable
+### Immediately establish ssh connection 
 
 We're gonna go for` passwordless ssh login. 
 
@@ -26,7 +26,7 @@ At your VPS, for example Hetzner, upload the public SSH key's contents. This is 
 
 Once SSH key pair has been established, run this command at your local machine's terminal to test logging into SSH passwordless:
 ```
-.ssh % ssh -i ~/.ssh/newmac2023_hetzner -p 22 root@5.55.555.555  -tt "cd .  && bash --login"
+ssh -i ~/.ssh/newmac2023_hetzner -p 22 root@5.55.555.555  -tt "cd .  && bash --login"
 ```
 
 Sysadmin experience:
@@ -34,7 +34,7 @@ Sysadmin experience:
 - You can also setup an alias at your .zshrc so that running the alias in terminal can log you into ssh. I like to name my alias after my hostname
 
 ---
-## Prepare to install cloudpanel and nginx
+### Prepare to install cloudpanel and nginx
 
 We will prepare to install cloudpanel and nginx.
 
@@ -45,7 +45,6 @@ But to install Cloudpanel, it expects a hostname to already be set up on the ser
 **Overview** what we will do:
 - Firstly you have to **setup the server-side to self-identify as the specific hostname** (appearing on cloudpanel, settings, etc). This is because CloudPanel will use that exposed setting to configure nginx and itself to deliver/match to the hostname
 - Then, because soon after installing Cloudpanel, we focus on making webpage changes and seeing them on the web-browser, setting up SSL, etc, we want when someone visits your hostname or domain on the web browser, that hostname resolves into an IP so that the internet can send a request directly to your web host. Therefore you would need to register your domain at a DNS registrar, typically. But let's say we dont want to buy a DNS domain right away - **we will take advantage of the free sslip.io**
-
 
 Investigation:
 - Adjust sslip.io server by prefixing your webhost's IP to sslip - no need to sign up for anything:
@@ -73,6 +72,7 @@ CloudPanel would have installed nginx for you and also configured your nginx's v
 
 ---
 
+Continuing...
 
 Access CloudPanel GUI:
 https://panel.5.55.555.555.sslip.io:8443
@@ -568,8 +568,7 @@ Again if it warns connection not private, go to Private -> Proceed or free type 
 You should see whatever default index.php file is created (as of April 2026, it's an index.php file showing "Hello world")
 
 ---
-
-## DNS purchase then Cloudflare
+## Checklist - DNS Purchase then Cloudflare
 
 We will NOT skip this namecheap step anymore because:
 ![[Pasted image 20260411024546.png]]
@@ -580,9 +579,9 @@ Go to namecheap and buy your domain. Then DO NOT adjust any DNS records. Let's d
 Warning:
 Do not ever go public without cloudflare because once your IP is online, hackers can forever attack you directly (unless you rotate out your IP which Hetzner fortunately allows with you purchasing additional addon of floating IP for a few bucks a month)
 
-The rest below are cloudflare steps. They are not as detailed as my other cloudflare tutorials. It assumes you are somewhat familiar with cloudflare.
+The rest below are Cloudflare steps. They are not as detailed as my other cloudflare tutorials. It assumes you are somewhat familiar with cloudflare.
 
-Create your cloudflare account
+Create your Cloudflare account
 
 Over at left sidebar Domains -> Overview, add your domain by clicking "Onboard domain"
 - You may be given two nameserver addresses. **Since you're following this section to this point on, then you have purchased with namecheap or another DNS registrar**, so go ahead and pop them over at namecheap, etc so that Cloudflare can take care of the DNS configuration instead of namecheap.
@@ -602,10 +601,173 @@ A more full setup of A-records would be:
 
 Now go on whatsmydns.net to check if your ip address has propagated. If it's taking a while to reach your location, and it has already reached other locations, you can use a VPN service to browse as that location, then your domain should be able to display the file
 
-You should see whatever default index.php file is created (as of April 2026, it's an index.php file showing "Hello world")
+You should see whatever default index.php file is created (as of April 2026, a default index.php file would show "Hello world")
+
+Add some basic security at Cloudflare now, while you're there:
+- Allow blocking bot IPs.
+- Allow challenges for suspicious visitors.
+- Block other countries. Refer to [[Countries - Restrict, block all other countries]]
+
+---
+## Checklist - Improve Terminal Experience
+
+We will be doing a lot of terminal work to enhance website capabilities for things like NodeJS, Python, etc. We want to make it easier to use the terminal especially since we will keep coming back into it (and re-logging into SSH). Use these items to improve the terminal experience.
+
+For example: Every time I log back into SSH, I don’t want to manually cd into the temp folders in my htdocs just to continue installing and testing the remaining items in this checklist.
+
+### SSH Securely and Easily
+**Improve Terminal**
+1. You may want to setup alias to easily SSH in from your computer's terminal (along with an echo of directories you will often cd into). You might want to add echo useful commands too (since the commands might change from local machine to different servers):
+
+```
+$ godaddy
+Local: /Users/local_username/dev/web/weng/apps/
+Remote: /home/XXX/public_html/apps
+---------------------------------------------------
+Mongo restart: sudo service mongod restart
+Mongo shell: mongo -u admin -p password
+MySQL phpMyAdmin:
+MySQL shell:
+---------------------------------------------------
+Supervision stop: ...
+Supervision start: ...
+Supervision config - main: ...
+Supervision config - apps: ...
+Supervision dashboard: ...
+---------------------------------------------------
+Pm2 start: ...
+Pm2 dashboard: ...
+$
+```
+  
+Even better, you can configure your SSH login to automatically change into the directory where you’ll be working—typically the website’s htdocs folder.
+
+^ How? Below is various alias strategies depending your method of login. The command changes depending on your choice. For example, you can have the session automatically cd into a specific folder if using SSH root key-pair login with an alias:
+- Adjust the HUD echo, the PRIVATE KEY path, the IP, and the path to cd to
+- Tip: Try the command inside the alias before wrapping it as an alias into your bash profile or z profile
+```
+alias hostinger='echo -e "Local: /Users/wengffung/dev/web/weng/apps/\nRemote: /path/to/apps"; ssh -i ~/.ssh/PRIVATE_KEY -p 22 root@XX.XX.XXX.XX -tt "cd /path/to/apps && bash --login"'
+```
+
+For other ways to authenticate with SSH and their aliases, refer to [[OpenSSH Authentication methods into the SSH Terminal and Their Aliases]], however this approach is the most secured already.
+  
+- Recommended: Disable non-Root Login (SSH and SFTP)
+  
+  As it is right now, even though you can perform passwordless authentication login with SSH keys, password login still works. Tighten security even more by blocking all non-root password login. 
+
+1. Edit SSH config
+```
+sudo vi /etc/ssh/sshd_config
+```
+
+2. Find or add this line
+```
+PasswordAuthentication no
+```
+
+
+3. Optional (recommended hardening):
+```
+ChallengeResponseAuthentication no  
+UsePAM no
+```
+
+4. Reload SSH:
+```
+sudo systemctl restart ssh
+```
+
+**⚠️ Warning:**
+- This disables SSH AND SFTP (Filezilla, etc)
+- If you want to re-enable SFTP, at Filezilla use the login method Key File and pair it to the site user's eg. `/home/wengindustries/.ssh` (sibling to htdocs folder; folder path may vary based on OS)
+  ![[Pasted image 20260415221207.png]]
+
+- Recommended: Disable Root Login too
+  
+  Disable root login. The normal SSH authentication flow becomes to login into SSH with a non-root user like `adminuser` OR to login with SSH key pair for the root. Depending which you choose, your SSH access is either limited to the htdocs folder or the entire file system.
+  
+  The key pairing command SSH authentication is long but you only run it once. The next time your SSH into the IP, it'll refer to the SSH key preferentially. And you can make it less work for you to remember the IP if you alias it.
+
+1. Edit SSH config
+```
+sudo vi /etc/ssh/sshd_config
+```
+
+2. Find or add this line
+```
+PermitRootLogin no
+```
+
+3. Reload SSH:
+```
+sudo systemctl restart ssh
+```
+
+
+**⚠️ Warning:**
+- This disables SSH AND SFTP (Filezilla, etc)
+- If you want to re-enable SFTP, at Filezilla use the login method Key File and pair it to the root user's eg. `/root/.ssh` (no sibling htdocs folder because this is the root user; folder path may vary based on OS)
+  ![[Pasted image 20260415221207.png]]
+
+
+**⚠️ Warning:**
+If you accidentally locked yourself out because you removed non-root and root password authentication AND your SSH keys are failing, log into your webhost (like Hetzner), and see if they have a console which normally overrides the SSH process. Then make configuration changes you need at `sudo vi /etc/ssh/sshd_config` to recover the server for SSH access.
+
+### Easier file commands
+**More Terminal experience improvements:**
+2. You may want to add better searching capabilities from the SSH terminal because you don't have a friendly UI to browse files. Add to ~/.bash_profile or equivalent:
+
+```
+# - fd: Find files with string in their filenames. Eg: fd *Untitled*.jpg  
+function fd() {   
+clear;   
+echo '* Running: find . ! -path "*/.git/*" ! -path "*/node_modules/*" -a \( -type f -iname "*${1}*" -o -type d -iname "*${1}*" \);  
+eg. fd Untitled  
+';  
+find . ! -path "*/.git/*" ! -path "*/node_modules/*" -a \( -type f -iname "*${1}*" -o -type d -iname "*${1}*" \);  
+} # fd -  
+  
+# - gr: Find files with string in their file contents. Eg: gr "= new"  
+function gr() {   
+    clear;   
+    VAR1="";   
+    [ $# -lt 1 ] && echo "Error. Must provide string you are searching files" && return;  
+  
+    # for i ({1..$#});do VAR1+=" --exclude-dir \"${!i:1}\""; done  
+  
+    # [ ${!i:0:1} != / ] && VAR1+=" --exclude \"${!i}\"";   
+      
+    # done;   
+  
+    # cho $#;  
+      
+    VAR0="grep -nriI ./ --exclude={.git,\*.sql,package-lock.json,webpack.config.js,composer.lock,\*.chunk.css,\*.chunk.js,\*.css.map,\*.js.map} --exclude-dir={.git,.git/index,bower_components,node_modules,.sass-cache,vendor\*,\*backup\*,\*cached\*}${VAR1} -e \"${1}\"";   
+      
+    echo "* Running: $VAR0  
+Eg. gr "= new"  
+  
+* Tip: If you are searching a phrase or sentence, place the expression in quotation marks:  
+gr \"fox jumps over fence\"  
+* Tip: If excluding directories, prepend with forward slash /. If excluding files, do not prepend. These are additional arguments after the expression argument. There is no restriction on the number of arguments.  
+gr \"fox jumps over fence\" /cached .gitignore README.md  
+Btw, the cached folder and .gitignore file is automatically ignored because I know how common those are in projects.  
+* Tip: Go to top of results on Macs with CMC+Up, or Ctrl+Home on Windows.  
+* Tip: Open the file and line in Visual Code:  
+code -g filepath:line  
+";  
+eval $VAR0;   
+  # Old bash version kept below. Now zshell complains of syntax error at )  
+  # function gr() { clear; VAR1=""; [ $# -gt 1 ] && for((i=2;i<=$#;i++)) do [ ${!i:0:1} == / ] && VAR1+=" --exclude-dir \"${!i:1}\""; [ ${!i:0:1} != / ] && VAR1+=" --exclude \"${!i}\""; done; VAR0="grep -nriI ./ --exclude={.git,*.sql,package-lock.json,*.chunk.css,*.chunk.js,*.css.map,*.js.map} --exclude-dir={.git,.git/index,bower_components,node_modules,.sass-cache,vendor*,*backup*,*cached*}${VAR1} -e \"${1}\""; echo "* Running: $VAR0  
+} # gr -
+```
+
 
 ---
 
+---
+## Checklist - Enhance Website Capabilities
+
+Now that there's a control panel for your website and your website can be public without your IP address mined by botnets, it's time to enhance the web site capabilities while testing them.
 ### VPS: How to setup web server for basic website editing and viewing (Multiple sites)
 - Basic: We just want to see we can impact how a website looks . We don’t care about SSL Https at this point
 - Where in the web hosting panel (cpanel, cloudpanel, etc) does it show you the public IP address you can visit directly in the web browser  
@@ -635,6 +797,7 @@ You should see whatever default index.php file is created (as of April 2026, it'
 	- If not CloudPanel: [[Setup FTP and SFTP]]
 	- If CloudPanel: [[CloudPanel - Setup SFTP users]]
 - If you have html/php websites developed, go ahead and upload them on your FTP Client (eg. Filezilla)
+- Tip: In FileZilla, you may want to open the **Advanced** tab for both your non-root and root connections and set the **default remote directory**. That way, each time you connect, FileZilla opens directly in the folder you actually want to work in instead of making you browse there manually. You can also set the **default local directory** so FileZilla starts in the folder on your computer that you usually upload from.
 
 ---
 
@@ -1249,13 +1412,16 @@ Let's install these CI/CD solutions:
 		  https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04
 		  eg. Google: Debian 12 install docker
 		  https://docs.docker.com/engine/install/debian/#install-using-the-repository
+		- Note instructions differ from Mac because on Mac the recommended approach is Docker Desktop which bundles in a daemon better than installing independent packages with homebrew can.
+	- Don't forget to test if Docker installed successfully: `docker --version`
+	- Docker compose installation instructions: ... docker-compose-plugin ? which makes not just docker-compose possible but `docker compose build` possible because of the plugin making docker aware of compose
 
 #### Scaling Solutions
 - Look up instructions for your OS on how to install these scaling solutions, if applicable to your server's use cases
 	- Balancers and multi workers:
-		- pm2 for nodejs
+		- **pm2 for nodejs**
 			- Refer to the tutorial [[Installing PM2 and Configuring Nginx for Multiple Node.js Applications]] even if you're not on nginx (the first sections will be applicable before the section on applying it to nginx)
-		- Supervisor, virtual envs, gunicorn and flask for python
+		- **Supervisor, virtual envs, gunicorn and flask for python**
 			- Refer to the tutorial [[Supervisor Primer - QUICK REFERENCE]] which includes supervisor, shell file, gunicorn, flask, pyenv, pyenv-virtualenvs, pipenv
 		- Docker or supervisor to restart your api app on crashes (either server crash or app crash)
 			- Refer to the tutorials [[Docker Primer - General]] and [[Docker Primer - Get Started]]
@@ -1303,137 +1469,16 @@ ini_set('default_socket_timeout', 300);  // Adjust as needed
 ### ADVANCED WEBSITE: Prepare for web app features
 Install ffmpeg, ctypes, imagemagick, and pcregrep for various web apps and their testing of python wrapping ffmpeg and php wrapping imagemagick. Refer to tutorial [[Web app ready - Ffmpeg, cytypes, imagemagick, pcregrep]]
 
+As you install additional dependencies, make sure to document them in the same place where you keep your server login details, paths, and configuration notes. You can refer back to your list of dependencies when you migrate or clone your setup to another server later. This may also be a good place to write what local app scripts or published apps (with users) that need their paths updated if the server hostname changes. This document could be named: acc Web App Dependencies and URLs
 
 ---
 
-### Improve Developer Experience
+## Checklist - Improve Future Developer Experience
 
-1. You may want to setup alias to easily SSH in from your computer's terminal (along with an echo of directories you will often cd into). You might want to add echo useful commands too (since the commands might change from local machine to different servers):
+Because your server is setup to handle many different tech stacks, you're probably the type of developer that will touch different stacks at different points of your career. Let's improve the developer experience so it's easy to manage such complexity
 
-```
-$ godaddy
-Local: /Users/local_username/dev/web/weng/apps/
-Remote: /home/XXX/public_html/apps
----------------------------------------------------
-Mongo restart: sudo service mongod restart
-Mongo shell: mongo -u admin -p password
-MySQL phpMyAdmin:
-MySQL shell:
----------------------------------------------------
-Supervision stop: ...
-Supervision start: ...
-Supervision config - main: ...
-Supervision config - apps: ...
-Supervision dashboard: ...
----------------------------------------------------
-Pm2 start: ...
-Pm2 dashboard: ...
-$
-```
-  
-
-Even better, you can configure your SSH login to automatically change into the directory where you’ll be working—typically the website’s htdocs folder.
-
-^ How? Below is various alias strategies depending your method of login. The command changes depending on your choice. For example, you can have the session automatically cd into a specific folder if using SSH root key-pair login with an alias:
-```
-alias hotsinger='echo -e "Local: /Users/wengffung/dev/web/weng/apps/\nRemote: /path/to/apps"; ssh -i ~/.ssh/PRIVATE_KEY -p 22 root@XX.XX.XXX.XX -tt "cd /path/to/apps && bash --login"'
-```
-
-Choose alias strategy depending on your method of login
-
-- **SSH (interactive password) (NOT RECOMMENDED)**
-	```
-	alias coloa='ssh root@XXX.XX.XXX.XX'
-	```
-
-	- You won't have to copy and paste the public IP or memorize it.
-	- But you'll be prompted interactively to enter your password. If you want an even more streamlined developer experience, check out the next alias strategy.
-
-- **SSHPass (workaround to interactive password) (Also NOT RECOMMENDED)**
-```
-alias coloa='echo -e "Local: /Users/wengffung/dev/web/weng/apps/\nRemote: /home/.."; sshpass -p "YOUR_PASSWORD" ssh root@XXX.XX.XXX.XX'
-```
-- You don't have to memorize or copy and paste the public IP or the password
-- Downside is you need to install sshpass because ssh command forces you to interactively enter a password. Look for installation instructions. eg. Google: Mac brew install sshpass
-
-- **Passwordless Authentication (aliased path to private key) (RECOMMENDED)**
-```
-alias hostinger='echo -e "Local: /Users/wengffung/dev/web/weng/apps/\nRemote: /home/XX/htdocs/YY.com/"; ssh -i ~/.ssh/PRIVATE_KEY -p 22 root@XX.XX.XXX.XX'
-```
-
-- You have paired SSH keys. The ssh command requires you to enter the path to the SSH private key on your local computer. This is enough to authenticate you since you've placed the public key into the server. Thereby, no more need to enter password, making automated scripts on your computer possible. As an example of automation, you can add an alias so you don't have to memorize or copy and paste this long SSH command - you can just type the alias in the terminal and it'll repeat the SSH key login command for you.
-  
-- Recommended Addon: Disable SSH Password Login
-  
-  As it is right now, even though you can perform passwordless authentication login with SSH keys, password login still works. Tighten security even more by blocking all password login. As part of the security feature, it would mislead hackers by still allowing their shell interactively to ask for the password, meanwhile all password attempts including the correct password says incorrect password. This misleads brute-force attackers, making it appear like their credentials are just wrong, not that password login is entirely disabled.
-	
-- Recommended Addon: Disable Root Login
-  
-  Disable root login. This means your SSH key login needs to change. The normal authentication flow is to login into SSH with a non-root user like `adminuser`. Then while inside the remote SSH shell, you run `su` and enter the root password to login into root.
-	
-	However this may get annoying. 
-	
-	You can setup alias on the local machine to also echo the su command to copy and paste and also the password for the higher privilege while inside the shell session (assuming no one will have their eyes on your screen). Then at your remote server, you could run the `su` and copy and paste the root password from the same terminal. 
-	
-	Another way is to install the package `expect` at the remote server that lets you write a shell script to automatically enter the password when the expected prompt is "Password:"
-#### Caveat about SSH Login
-
-You may get a fingerprint mismatch error some time in the future. When you reinstall the server or it gets reinstalled for server updates, this could cause SSH to deny the connection due to a mismatch with the fingerprint stored in the fingerprint file `~/.ssh/known_hosts` file. You would remove the old SSH fingerprint from that file (has the webhost domain name or webhost public IP), then re-attempt to connect with SSH, then you'll be asked if you want to accept the new fingerprint.
-
-If using sshpass, it won't ask you interactively to accept new fingerprint, and therefore you can't connect to the reinstalled server even with old outdated fingerprints removed. Either run normal ssh command when the server is reinstalled, or come up with an alias for normal ssh for your webhost (eg. if your webhost company is called coloa).
-
-```
-alias coloa-ssh='ssh root@XXX.XX.XXX.XX'
-```
-
-2. You may want to add better searching capabilities from the SSH terminal because you don't have a friendly UI to browse files. Add to ~/.bash_profile or equivalent:
-
-```
-# - fd: Find files with string in their filenames. Eg: fd *Untitled*.jpg  
-function fd() {   
-clear;   
-echo '* Running: find . ! -path "*/.git/*" ! -path "*/node_modules/*" -a \( -type f -iname "*${1}*" -o -type d -iname "*${1}*" \);  
-eg. fd Untitled  
-';  
-find . ! -path "*/.git/*" ! -path "*/node_modules/*" -a \( -type f -iname "*${1}*" -o -type d -iname "*${1}*" \);  
-} # fd -  
-  
-# - gr: Find files with string in their file contents. Eg: gr "= new"  
-function gr() {   
-    clear;   
-    VAR1="";   
-    [ $# -lt 1 ] && echo "Error. Must provide string you are searching files" && return;  
-  
-    # for i ({1..$#});do VAR1+=" --exclude-dir \"${!i:1}\""; done  
-  
-    # [ ${!i:0:1} != / ] && VAR1+=" --exclude \"${!i}\"";   
-      
-    # done;   
-  
-    # cho $#;  
-      
-    VAR0="grep -nriI ./ --exclude={.git,\*.sql,package-lock.json,webpack.config.js,composer.lock,\*.chunk.css,\*.chunk.js,\*.css.map,\*.js.map} --exclude-dir={.git,.git/index,bower_components,node_modules,.sass-cache,vendor\*,\*backup\*,\*cached\*}${VAR1} -e \"${1}\"";   
-      
-    echo "* Running: $VAR0  
-Eg. gr "= new"  
-  
-* Tip: If you are searching a phrase or sentence, place the expression in quotation marks:  
-gr \"fox jumps over fence\"  
-* Tip: If excluding directories, prepend with forward slash /. If excluding files, do not prepend. These are additional arguments after the expression argument. There is no restriction on the number of arguments.  
-gr \"fox jumps over fence\" /cached .gitignore README.md  
-Btw, the cached folder and .gitignore file is automatically ignored because I know how common those are in projects.  
-* Tip: Go to top of results on Macs with CMC+Up, or Ctrl+Home on Windows.  
-* Tip: Open the file and line in Visual Code:  
-code -g filepath:line  
-";  
-eval $VAR0;   
-  # Old bash version kept below. Now zshell complains of syntax error at )  
-  # function gr() { clear; VAR1=""; [ $# -gt 1 ] && for((i=2;i<=$#;i++)) do [ ${!i:0:1} == / ] && VAR1+=" --exclude-dir \"${!i:1}\""; [ ${!i:0:1} != / ] && VAR1+=" --exclude \"${!i}\""; done; VAR0="grep -nriI ./ --exclude={.git,*.sql,package-lock.json,*.chunk.css,*.chunk.js,*.css.map,*.js.map} --exclude-dir={.git,.git/index,bower_components,node_modules,.sass-cache,vendor*,*backup*,*cached*}${VAR1} -e \"${1}\""; echo "* Running: $VAR0  
-} # gr -
-```
-
-
-3. Also improves developer experience: Create folders that have symbolic links to your pm2 apps, your gunicorn apps, etc possibly named by their port numbers. Create a symbolic link to your supervisor app configs
+1. Tech folders
+   Create folders that have symbolic links to your pm2 apps, your gunicorn apps, etc possibly named by their port numbers. Create a symbolic link to your supervisor app configs at the root (as siblings to whatever your app/ or apps/ folder is at)
 
 	- app
 		- or whatever folder name. this contains your websites and/or web apps
@@ -1446,11 +1491,17 @@ eval $VAR0;
 	- app-supervisor-configs
 		- These are your supervisor app configs which have paths to your shell sh files, and those shell sh files have the folder path to their python application and the sh file loads the virtual environment, then loads gunicorn against the python application folder path that has wsgi.py and server.py (or app.py)
 
+2. Better git experience
+   Create git aliases that make it easier to add/commit, see diff, and check logs. Instructions at [[Git Sugar Aliases - Small Tweaks That Make Git on the Command Line Better]]
+
+
 ----
 
-## Template to track all your credentials, folder paths, file paths in your web host details document
+## ACC - Template to track all your credentials, folder paths, file paths in your web host details document
 
+**ACC stands for Account. It's Weng's notation for saving login credentials, key OS, key configuration information, etc**
 
+**Keep below ACC's that are at the same level of hierarchy as separate sections in a mega ACC document**
 ### ACC Services Dashboard / OR Login Via SSH Root
 - os: (Eg. Debian 12)
 - \__which is
@@ -1490,7 +1541,60 @@ Firewall managed with:
 iptables / firewalld / ufw
 
 ---
+### ACC Provider Checklist / Statements of Facts
 
+- Specs & Monthly
+	- \__package + os + web host panel
+	- \__number of cores, memory, bandwidth, storage
+	- \__monthly/yearly, auto-renews?
+- Web server process 
+	- \__apache or nginx?
+- Security - Firewall is ufw or iptables?
+	- ufw
+- Security - Malware?:
+	- \__which is, how to navigate to from services dashboard
+	- \__inactive? how often paid?
+
+### ACC Folder structure
+
+- Recommend have separate folders for pm2/nodejs and for python/supervisor apps
+	- If for the URL you prefer all apps regardless of language belongs to one folder, eg. /app, then have the other language-based folders symbolically link, eg. /nodejs/app1 -> /app/app1
+- Recommend Supervisor app config files be named with the port number ranges they use
+- May have a root folder /keys that have important keys for all your apps but make sure is blocked from being visited on the web browser. It's safer if you have a build script that saves the env keys to your .bash_profile, then re-source, instead.
+
+
+### ACC OS paths (error logs, configs), commands, and workflows
+
+...
+
+### ACC Supervisor
+
+**Web UI at Port 9001:**
+??
+??
+wengindustries.com:9001
+
+**Directories:**
+
+/etc/supervisor/conf.d/*
+/etc/supervisor/supervisord.conf
+
+**Commands:**
+
+Pyenv Virtualenv Activate
+```
+pyenv activate app
+```
+
+Restart Supervisor:
+```
+supervisord -c /etc/supervisor/supervisord.conf -l /var/log/supervisor/supervisord.log
+```
+
+**Supervisor to app data flow:**
+Supervisor watches .sh file which runs pyenv environment and gunicorn
+
+---
 ### ACC Web Hosting Control Panel
 
 - \__which is
@@ -1583,55 +1687,11 @@ Mongo Shell:
 ..
 ```
 
-
 ----
-### ACC Supervisor
+## acc Domain Vhost Backup _DATE_
 
-**Web UI at Port 9001:**
-??
-??
-wengindustries.com:9001
+**(Separate Document from the mega document with multiple ACC sections)**
 
-**Directories:**
-
-/etc/supervisor/conf.d/*
-/etc/supervisor/supervisord.conf
-
-**Commands:**
-
-Pyenv Virtualenv Activate
-```
-pyenv activate app
-```
-
-Restart Supervisor:
-```
-supervisord -c /etc/supervisor/supervisord.conf -l /var/log/supervisor/supervisord.log
-```
-
-**Supervisor to app data flow:**
-Supervisor watches .sh file which runs pyenv environment and gunicorn
-
-
----
-
-### Provider Checklist / Statements of Facts
-
-- Specs & Monthly
-	- \__package + os + web host panel
-	- \__number of cores, memory, bandwidth, storage
-	- \__monthly/yearly, auto-renews?
-- Web server process 
-	- \__apache or nginx?
-- Security - Firewall is ufw or iptables?
-	- ufw
-- Security - Malware?:
-	- \__which is, how to navigate to from services dashboard
-	- \__inactive? how often paid?
-
----
-## Separate document
-### ACC Domain Vhost Backup _DATE_
 Date: `<Date>`
 Have: Eg. Metabase and VLAI Microservices with SSE connections
 
@@ -1644,9 +1704,9 @@ Additional included vhost files here. Then use headings and subheadings so that 
 Alternately, you could just backup as vhost files near where your pm2 is inside a centralized eco/ folder (make sure to block public web access). In that case, write it so under the document so you can remember to refer to the files
 
 ---
+## acc Domain Site Backup SOP
 
-## Separate document
-### ACC Domain Site Backup SOP
+**(Separate Document from the mega document with multiple ACC sections)**
 
 Write how to backup the domain in this SOP document, such as the different database backups (MySQL, MongoDB), file backups (or bare minimum with state data files while you have the original app code elsewhere on the computer), eco/ backup, vhosts, root SFTP SSH, and site username, and SSL domains/subdomains, etc.
 
@@ -1656,32 +1716,27 @@ Prepend document that this is useful for migrating to another server too.
 
 ---
 
+## acc UFW Open Ports
 
-## Separate document
-### ACC UFW Open Ports
+**(Separate Document from the mega document with multiple ACC sections)**
 
 8443 PMA Php MyAdmin and CloudPanel
 80
 443
 27017 MongoDB
 
-
-
 ---
-## Folder structure:
 
-- Recommend have separate folders for pm2/nodejs and for python/supervisor apps
-	- If for the URL you prefer all apps regardless of language belongs to one folder, eg. /app, then have the other language-based folders symbolically link, eg. /nodejs/app1 -> /app/app1
-- Recommend Supervisor app config files be named with the port number ranges they use
-- May have a root folder /keys that have important keys for all your apps but make sure is blocked from being visited on the web browser. It's safer if you have a build script that saves the env keys to your .bash_profile, then re-source, instead.
+## acc Web App Dependencies and URLs
 
+**(Separate Document from the mega document with multiple ACC sections)**
 
-## OS paths (error logs, configs), commands, and workflows
-_...?
-
+..
 
 ---
 
-## Exiting Protocol
+## acc Exiting Protocol
+
+**(Separate Document from the mega document with multiple ACC sections)**
 
 List backup and cleanup procedures here if discontinuing service.

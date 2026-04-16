@@ -1,0 +1,4 @@
+- Make sure to allow Cloudflare to ban bots/IP
+- Have your DNS records proxied where can to hide your VPS' true IP address (otherwise the botnets will forever attack you directly, and your web host might not have an IP rotation other than reformatting)
+- Ban all countries except yours, or ban initially ban high bot countries and add to the country ban rules over time as your traffic breakdown reveals suspicious traffics
+- Check out Zero Trust
