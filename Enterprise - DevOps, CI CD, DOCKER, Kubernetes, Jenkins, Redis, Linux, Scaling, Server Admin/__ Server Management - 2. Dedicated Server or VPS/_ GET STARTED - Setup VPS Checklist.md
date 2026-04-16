@@ -287,7 +287,6 @@ eval $VAR0;
 ## Checklist - Enhance Website Capabilities
 
 Now that there's a control panel for your website and your website can be public without your IP address mined by botnets, it's time to enhance the web site capabilities while testing them.
-
 ### VPS: How to setup web server for basic website editing and viewing (Multiple sites)
 - Basic: We just want to see we can impact how a website looks . We don’t care about SSL Https at this point
 - Where in the web hosting panel (cpanel, cloudpanel, etc) does it show you the public IP address you can visit directly in the web browser  
@@ -355,13 +354,13 @@ Now that there's a control panel for your website and your website can be public
 				}
 				```
 		- If less obvious how and where to install SSL HTTPS certificates: Contact customer support or google Web host + OS + Nginx/Apache + Install SSL certificates. If the web host is not well known (very independent), google for: OS + Nginx/Apache+ Install SSL certificate
-	-  CloudPanel's Let's Encrypt SSL failing? Refer to section "Test Web Hosting Control Panel" -> ~ SSL
+	- CloudPanel's Let's Encrypt SSL failing? Refer to section "Test Web Hosting Control Panel" -> ~ SSL
 	- Know the filepaths to the SSL for future issues and code that needs SSL cert and key paths such as gunicorn (even if Cloudpanel abstracts it away)
 		- If Hostinger CloudPanel, the Vhost page likely hides ssl cert and key file paths in the server block as variables. You have to find the site's nginx confi file where the final vhost is written (eg. /etc/nginx/sites-enabled/some-website.com.conf)
 			- Hostinger Ubunto 22.04 with Cloud Panel paths could be:
 				- **ssl_certificate** /etc/nginx/**ssl**-certificates/DOMAIN.com.crt;
 				- **ssl_certificate_key** /etc/nginx/**ssl**-certificates/DOMAIN.com.key;
-		-  Write down paths to where you record your web-host login, SSH login, etc
+		- Write down paths to where you record your web-host login, SSH login, etc
 	- Multiple domains/subdomains for the same website root (maybe different domains point to deeper folder paths as roots)?
 		- Setup server blocks to those domains/subdomains
 		- Cloudpanel Let's Encrypt same screen just add all the domains/subdomains. It's a bit of a manual process clicking the input fields and inputting them in. But here's an automated way to fill in those fields using javascript inside the web browser console: [[CloudPanel - SSL Renew Annually (Semi Automated)]]
@@ -379,12 +378,13 @@ Now that there's a control panel for your website and your website can be public
 
 
 ---
-### ADVANCED WEBSITE: Prepare server for installing different architectures (PHP, NodeJS, Python, MySQL, Mongo, Scaling Solutions)
+### ADVANCED WEBSITE: Prepare server for installing different architectures (PHP, NodeJS, Python, MySQL, Mongo, PostgreSQL)
 
 #### Required skills
-- Know how to reboot the server
+- Know how to reboot the server per your OS and web server: 
+	- eg. `sudo systemctl restart nginx`
 - how see error logs based on your OS and web server type  
-    eg `tail -f /var/log/nginx/error.log`
+    - eg `tail -f /var/log/nginx/error.log`
 - Know how to check status of, start, stop, and restart any service
 
 **Ubuntu 22.04.. we are just using nginx as example:**
@@ -400,11 +400,20 @@ sudo systemctl start nginx
 - Update installer’s repos 
 - Look up instructions for your OS on how to install these language interpreters and related or adjacent package managers, if applicable to your server's use cases (these should be installed before installing databases because you'll be testing database connections with code):
 #### PHP
+
+##### Install PHP
 - PHP (if not included by your web host’s)
 	- If installed CloudPanel, PHP comes included. If you don't see PHP, you should create a PHP site off CloudPanel 
 	- If not installed CloudPanel and your web host management panel does not come included with PHP, look up how to install php, eg. Google: Ubuntu 22 install php
-	- If installed Cloudpanel or a Web Hosting Control Panel that already has it setup for you, you can also skip this step:
-		  - You have to configure apache or nginx to handle php, eg. Google: `Nginx handle php`, eg. Google: `Apache handle php`.
+		- You have to configure apache or nginx to handle php, eg. Google: `Nginx handle php`, eg. Google: `Apache handle php`.
+	- If installed Cloudpanel or a Web Hosting Control Panel that already has PHP installed, please skip this step of installing PHP.
+	
+##### Match PHP Versions
+
+The best practice is to make sure you're using the same PHP that gets called when running the `php` command in terminal and is used to render your php webpages
+
+If the versions don't match you're going to run into problems when enhancing PHP by running command lines then expecting your PHP webpages to get those enhancements.
+
   - Make sure PHP matches on command line and web version
 	  - At a php file:
 	```
@@ -412,20 +421,41 @@ sudo systemctl start nginx
 	echo PHP_VERSION;
 	```
 	- Then view on web browser
-	  
+
 	- Run the command line:
 	```
 	php --version
 	```
-	- If the versions don't match you're going to run into problems when enhancing PHP by running command lines then expecting your PHP webpages to get those enhancements.
 	- Choose which version to stick to. For example, as of April 15th, there is no MongoDB driver for PHP 8.5 on Debian 12. However there is a MongoDB driver for PHP 8.2 on Debian 12. For that reason, I'd choose Debian 12 for both command line and php versions. 
 		- To investigate whether a dependency such as MongoDB is available for one of your latest PHP versions, ask ChatGPT and include the dependency name, the PHP versions installed on your server (from `ls /usr/bin/php*` or the PHP version dropdown in CloudPanel), and mention the OS you are on (eg. Debian 12). Mongo is a good example because in the future you might choose MongoDB as your database while still using PHP. In addition to ChatGPT, you can also check what MongoDB-related PHP packages are available directly on Debian 12 by running `apt search php | grep -i mongodb`, since the package name usually includes both `mongodb` and the PHP version, such as `php8.2-mongodb/oldstable,oldstable,now 1.15.0+1.11.1+1.9.2+1.7.5-1 amd64`. You'd find out that there is no official php8.5-mongodb package for Debian 12 (Bookworm), but the latest php version that does have a mongodb package under Debian 12 is php8.2.
-		- You'd install with `sudo apt install php8.2-mongodb` then verify it's installed with `php -m | grep mongodb`. When your PHP script file (eg. index.php or api.php) includes the Mongo driver like `$client = new MongoDB\Driver\Manager($uri)`, it should be no problem if per your selected PHP version, the path to Mongo exists after installing Mongo: `/etc/php/8.2/mods-available/mongodb.ini`
+		- You'd install with `sudo apt install php8.2-mongodb` then verify it's installed with `php -m | grep mongodb`. When your PHP script file (eg. index.php or api.php) includes the Mongo driver like `$client = new MongoDB\Driver\Manager($uri)`, it should be no problem if per your selected PHP version, the path to Mongo exists after installing Mongo: `/etc/php/8.2/mods-available/mongodb.ini``
 		- Setting the PHP version
-			- If setting command line, eg. `sudo update-alternatives --set php /usr/bin/php8.2`
 			- If setting command line, eg. `sudo update-alternatives --set php /usr/bin/php8.2`
 			- If setting web, depends on your setup. For cloudpanel, you dont have to edit anything manually - just select at dropdown:
 			  ![[Pasted image 20260415044926.png]]
+
+##### PHP's Composer installed or install now
+
+**What is Composer**
+Composer is PHP’s standard dependency manager. It lets you list the libraries your project needs, then installs and updates them for you. Same concept to Node Modules for NodeJS.
+
+
+**Big Picture:**
+- Composer is **installed globally** (the CLI tool)
+- Dependencies are **installed per project**. You need the composer CLI tool installed globally so you can run commands at the project level to init or manage.
+
+
+**Check if you have composer installed globally already**
+
+Cloudpanel? Composer is pre-installed by default on CloudPanel
+
+Find out if you already have composer by running this command:
+```
+composer --version
+```
+
+**Composer Installation Instructions at:**
+[[_ Composer - Installation (Debian 12)]]
 
 #### Python
 - Check if you have python3 installed. It comes included with CloudPanel. Test with `python3 --version`
@@ -481,27 +511,6 @@ Add to pip.conf:
 [global]
 break-system-packages = true
 ```
-#### NodeJS and NVM
-- Check if you have node installed. Run `node --version`. If you have CloudPanel installed, NodeJS may not be installed globally.
-- If installing node, look up how to install node. Eg. Google: Ubuntu 22 install nodejs. Could look similar to: `apt install nodejs`. After installation, run `node --version` to check it succeeded.
-- Sometimes npm comes with nodejs. Check if it did install: `npm --version`. If not, see if npm installation instructions are at the same guide for installing nodejs (`apt install npm`). Otherwise, look up how to install npm. eg. Google: Ubuntu 22 install npm. 
-	- Could look similar to: `apt install nodejs`. 
-	- Check npm and its utility `npm --version` and `npx --version` (npx helps forcefully run)
-- Prevent npm scripts having "no file permission" error:
-	- Check npm version with `npm --version`
-	- If the version is v7 or v8 families, then NodeJS switches user to the user owning the folder to the package.json when running npm script which is not desirable in most cases (you would prefer to keep the same user that runs the npm script `npm run scriptX`) and usually causes file permission problems when running a npm script
-		- Then you install nvm to install and change the node version. Then you make it permanent beyond your current shell session. Refer to the tutorial [[NVM - npm scripts say permission denied on the cli command]]
-- Install NVM
-	- Why: If you're developing apps, you sometimes want a specific version of NodeJS at a folder especially if package conflicts or legacy packages. NVM makes this possible.
-	- NVM installation instructions at: https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating
-		- You may want to test nvm installed entirely:
-			- See if the folder exists: `ls ~/.nvm`
-			- Check the command works: `nvm --version`
-			- Check that the nvm initiating script (copy of the script is at installation instructions) is added to your **bash profile** or **z profile** after installation (NOT bash rc or zshrc). If it's not added, you'll have to manually add it (refer to instructions)
-			- Then enhance nvm so that it'll automatically switch node version when there's a .nvmrc in the folder. Add to your bash profile or z profile per instructions at [[Auto-switch based on presence of .nvmrc file in folder]]
-				- Then check if it does autoswitch. On your website root, create a folder `temp/`, then inside it create a `.nvmrc` file with the contents: `v22.20.0`.
-				- Test if .nvmrc works manually with `nvm use`. It'll switch to that node version. It may ask to install that node version - accept it
-				- cd up then cd back into temp/. It should output to terminal: "Now using node v22.20.0 (npm v10.9.3)" even if switching node version not necessary.
 
 #### Yarn
 - Make sure Node is at least v20.11.0 to install a newer yarn (https://www.redswitches.com/blog/install-yarn-in-ubuntu/), otherwise look up classic yarn installation instructions.
@@ -696,7 +705,6 @@ if __name__ == "__main__":
 ```
 
 You want to visit the api endpoint in the web browser. If using Cloudflare, you either will reverse proxy it or use the free Cloudflare tunneling because you can't fetch custom ports on Cloudflare proxy protected websites. Or you can switch to DNS-only instead of Proxy at Cloudflare, but that could expose your VPS ip address (if the domain has already been on a botnet before, don't switch to DNS because they will continue to hack you directly once they detect your IP). For Cloudflare tunneling to work, you should use a subdomain, you must not have a DNS record to that subdomain, you must not have SSL certificate for that subdomain, and if your tech stack has access to routing to localhots or to the internet then it must be internet (dont use Flask's `host="0.0.0.0"`)
-
 #### Mongo
 - Installation
 	- See if you have mongo already installed `mongo --version` or `mongosh --version`, as long as one of them works. Cloudpanel does NOT come with Mongo.
@@ -913,13 +921,324 @@ try {
 
 Problems? First make sure PHP cli and PHP web are the same PHP versions! Refer to PHP installation earlier in this checklist. And make sure it's a PHP version that has a Mongo release.
 - To investigate whether a dependency such as MongoDB is available for one of your latest PHP versions, ask ChatGPT and include the dependency name, the PHP versions installed on your server (from `ls /usr/bin/php*` or the PHP version dropdown in CloudPanel), and mention the OS you are on (eg. Debian 12). Mongo is a good example because in the future you might choose MongoDB as your database while still using PHP. In addition to ChatGPT, you can also check what MongoDB-related PHP packages are available directly on Debian 12 by running `apt search php | grep -i mongodb`, since the package name usually includes both `mongodb` and the PHP version, such as `php8.2-mongodb/oldstable,oldstable,now 1.15.0+1.11.1+1.9.2+1.7.5-1 amd64`. You'd find out that there is no official php8.5-mongodb package for Debian 12 (Bookworm), but the latest php version that does have a mongodb package under Debian 12 is php8.2.
-- You'd install with `sudo apt install php8.2-mongodb` then verify it's installed with `php -m | grep mongodb`. When your PHP script file (eg. index.php or api.php) includes the Mongo driver like `$client = new MongoDB\Driver\Manager($uri)`, it should be no problem if per your selected PHP version, the path to Mongo exists after installing Mongo: `/etc/php/8.2/mods-available/mongodb.ini`
+- You'd install with `sudo apt install php8.2-mongodb` then verify it's installed with `php -m | grep mongodb`. When your PHP script file (eg. index.php or api.php) includes the Mongo driver like `$client = new MongoDB\Driver\Manager($uri)`, it should be no problem if per your selected PHP version, the path to Mongo exists after installing Mongo: `/etc/php/8.2/mods-available/mongodb.ini``
 
 If still have problems, refer to [[Indepth Installation Guide - Mongo for PHP]]
 
----
 
-Let's install these CI/CD solutions:
+#### PostgreSQL
+
+Check whether PostgreSQL is already installed:
+
+```bash
+psql --version
+```
+
+If it is not installed on Debian or Ubuntu:
+
+```bash
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+```
+
+Enable PostgreSQL to start on boot:
+
+```bash
+sudo systemctl enable postgresql
+```
+
+Check whether the service is running:
+
+```bash
+sudo systemctl status postgresql
+```
+
+**PostgreSQL service and access basics**
+
+To open the PostgreSQL shell as the default superuser:
+
+```bash
+sudo -u postgres psql
+```
+^ **`-u postgres`** tells `sudo` to switch to the **`postgres` system user** (instead of root)
+
+
+Should you worry about the postgres super user? No worries:
+- The **`postgres` database user does NOT use a password locally**
+- It uses **peer authentication** (trusts the OS user)
+
+To restart PostgreSQL:
+
+```bash
+sudo systemctl restart postgresql
+```
+
+To quickly inspect PostgreSQL logs if something is failing:
+
+```bash
+sudo tail -n 100 /var/log/postgresql/postgresql-*.log
+```
+
+**Create authentication right away**
+
+Just like other databases, PostgreSQL should not be left wide open. Create your application user and database early so you are not building against the default superuser workflow longer than necessary.
+
+Create the user with a password:
+- Note you must have quotes for the USER so that it's case sensitive, otherwise the username would be stored all lowercase. When logging in later with that username, it won't let you know if it's mistyped or misspelled.
+```sql
+CREATE USER "{USER}" WITH PASSWORD "{PASSWORD}";
+```
+
+Check that the username is what you expected (because of the lowercase/uppercase nuance):
+```
+\du
+```
+^ Means display users
+
+Create the database:
+
+```sql
+CREATE DATABASE myapp_db;
+```
+
+Grant database privileges:
+
+```sql
+GRANT ALL PRIVILEGES ON DATABASE myapp_db TO "{USER}";
+GRANT ALL ON SCHEMA public TO "{USER}";
+```
+
+A user needs `CREATE` on the database to create a schema, and `CREATE` on the target schema to create tables there. The current user is actually `postgres`, so we need to reassign the database's owner and it's NOT enough to just grant privileges:
+```
+ALTER DATABASE myapp_db OWNER TO "{USER}";
+```
+
+**Verify login from the command line**
+
+Exit the psql shell (`exit` or `\q`), then test logging in as that application user.
+- Note if you mistyped the username, it won't let you know that because it'll just be a password authentication failed error
+
+```bash
+psql -h 127.0.0.1 -U "{USER}" -d myapp_db
+```
+
+Use `-h 127.0.0.1` on purpose. That forces a TCP connection instead of a Unix socket, which helps avoid authentication confusion when testing.
+
+**If having problems authenticating:**
+- Check if the username was created with case sensitivity (if surrounded by quotes) or automatically all lower case (no quotes).
+- Check authentication method in settings. Refer to ____
+
+**Once connected, run a few quick checks:**
+
+```sql
+SELECT NOW();
+SELECT current_user;
+SELECT current_database();
+```
+
+You can also test with a one-liner from the shell:
+
+```bash
+psql -h 127.0.0.1 -U myapp_user -d myapp_db -c "SELECT NOW();"
+```
+
+
+**Quick test table**
+
+To test inserts and reads, create a simple table:
+
+```sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(255)
+);
+```
+
+##### **Test PostgreSQL on Node.js**
+
+Install the PostgreSQL driver:
+
+```bash
+npm install pg
+```
+
+Seed and read example:
+```js
+const { Client } = require('pg');
+
+const client = new Client({
+	host: '127.0.0.1',
+	user: 'YOUR_USERNAME',
+	password: 'YOUR_PASSWORD',
+	database: 'myapp_db',
+});
+
+async function seed() {
+  // 🔥 Drop table if it exists
+  await client.query(`DROP TABLE IF EXISTS users`);
+
+  // 🏗️ Recreate table
+  await client.query(`
+    CREATE TABLE users (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(100),
+      email VARCHAR(255)
+    )
+  `);
+
+  // 🌱 Seed data
+  await client.query(
+    `INSERT INTO users (name, email)
+     VALUES ($1,$2), ($3,$4), ($5,$6)`,
+    [
+      'Abby', 'abby@example.com',
+      'Bobby', 'bobby@example.com',
+      'Caitlin', 'caitlin@example.com'
+    ]
+  );
+
+  console.log('Seed complete');
+}
+
+async function read() {
+  const result = await client.query('SELECT * FROM users');
+  console.log(result.rows);
+}
+
+async function main() {
+  try {
+    await client.connect();
+    await seed();
+    await read();
+  } catch (err) {
+    console.error(err);
+  } finally {
+    await client.end();
+  }
+}
+
+main();
+```
+
+##### **Test PostgreSQL on Python**
+
+Install the driver:
+
+```bash
+pip install psycopg2-binary
+```
+^ Psycopg is the most popular PostgreSQL database adapter for the Python programming 
+^ **`psycopg`** doesn’t stand for something clean like an acronym—it’s a **name mashup**:
+- **“psyc”** → from **Python** (historically referencing “psyco,” an old Python performance project)
+- **“o”** → - Filler to make the name pronounceable → _psy-co-pg_
+- **“pg”** → short for **PostgreSQL**
+
+Seed and read example:
+
+```python
+import psycopg2
+
+conn = psycopg2.connect(
+    host="127.0.0.1",
+    user="YOUR_USERNAME",
+    password="YOUR_PASSWORD",
+    dbname="myapp_db"
+)
+
+cur = conn.cursor()
+
+cur.execute("DROP TABLE IF EXISTS users")
+
+cur.execute("""
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(255)
+)
+""")
+
+cur.execute("""
+INSERT INTO users (name, email)
+VALUES (%s,%s), (%s,%s), (%s,%s)
+""", (
+    "Abby", "abby@example.com",
+    "Bobby", "bobby@example.com",
+    "Caitlin", "caitlin@example.com"
+))
+
+conn.commit()
+
+cur.execute("SELECT * FROM users")
+print(cur.fetchall())
+
+cur.close()
+conn.close()
+```
+
+##### **Test PostgreSQL on PHP**
+
+Install the PostgreSQL extension:
+
+```bash
+sudo apt install php-pgsql
+```
+
+
+Seed and read example:
+
+```php
+<?php
+
+$conn = pg_connect("host=127.0.0.1 dbname=myapp_db user=YOUR_USERNAME password=YOUR_PASSWORD");
+
+if (!$conn) {
+    die("Connection failed\n");
+}
+
+// Delete table if it already exists
+pg_query($conn, "DROP TABLE IF EXISTS users");
+
+// Create table
+pg_query($conn, "
+    CREATE TABLE users (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100),
+        email VARCHAR(255)
+    )
+");
+
+// Seed data
+pg_query_params(
+    $conn,
+    "INSERT INTO users (name, email) VALUES ($1,$2), ($3,$4), ($5,$6)",
+    [
+        'Abby', 'abby@example.com',
+        'Bobby', 'bobby@example.com',
+        'Caitlin', 'caitlin@example.com'
+    ]
+);
+
+echo "Seed complete\n";
+
+// Read data
+$result = pg_query($conn, "SELECT * FROM users");
+
+while ($row = pg_fetch_assoc($result)) {
+    print_r($row);
+}
+
+pg_close($conn);
+```
+
+Either run with `php -f test.php` or open the webpage on a web browser.
+
+---
+### ADVANCED WEBSITE: Versioning, CI/CD, Scaling
+
+Let's install these versioning and CI/CD solutions:
+
+---
 #### Git
 - Make sure there is git on your system
 	- Some systems come with git. Check out by running `git --version`
@@ -940,7 +1259,7 @@ Let's install these CI/CD solutions:
 		ssh-keygen -t ed25519 -C "your_email@example.com"
 		```
 
-	  1. Add public key to your Github account, referring to: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
+	  2. Add public key to your Github account, referring to: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
 		  1. Click New SSH key at https://github.com/settings/keys
 		  2. Paste the contents of the public key (eg. id_ed25519.pub) and save as a SSH key, recommended naming the key after your server provider name for organizing purposes.
 		  
@@ -955,13 +1274,16 @@ Let's install these CI/CD solutions:
 		  https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04
 		  eg. Google: Debian 12 install docker
 		  https://docs.docker.com/engine/install/debian/#install-using-the-repository
+		- Note instructions differ from Mac because on Mac the recommended approach is Docker Desktop which bundles in a daemon better than installing independent packages with homebrew can.
+	- Don't forget to test if Docker installed successfully: `docker --version`
+	- Docker compose installation instructions: ... docker-compose-plugin ? which makes not just docker-compose possible but `docker compose build` possible because of the plugin making docker aware of compose
 
 #### Scaling Solutions
 - Look up instructions for your OS on how to install these scaling solutions, if applicable to your server's use cases
 	- Balancers and multi workers:
-		- pm2 for nodejs
+		- **pm2 for nodejs**
 			- Refer to the tutorial [[Installing PM2 and Configuring Nginx for Multiple Node.js Applications]] even if you're not on nginx (the first sections will be applicable before the section on applying it to nginx)
-		- Supervisor, virtual envs, gunicorn and flask for python
+		- **Supervisor, virtual envs, gunicorn and flask for python**
 			- Refer to the tutorial [[Supervisor Primer - QUICK REFERENCE]] which includes supervisor, shell file, gunicorn, flask, pyenv, pyenv-virtualenvs, pipenv
 		- Docker or supervisor to restart your api app on crashes (either server crash or app crash)
 			- Refer to the tutorials [[Docker Primer - General]] and [[Docker Primer - Get Started]]
@@ -1012,7 +1334,6 @@ Install ffmpeg, ctypes, imagemagick, and pcregrep for various web apps and their
 As you install additional dependencies, make sure to document them in the same place where you keep your server login details, paths, and configuration notes. You can refer back to your list of dependencies when you migrate or clone your setup to another server later. This may also be a good place to write what local app scripts or published apps (with users) that need their paths updated if the server hostname changes. This document could be named: acc Web App Dependencies and URLs
 
 ---
-
 ## Checklist - Improve Future Developer Experience
 
 Because your server is setup to handle many different tech stacks, you're probably the type of developer that will touch different stacks at different points of your career. Let's improve the developer experience so it's easy to manage such complexity
@@ -1080,6 +1401,9 @@ How to change password:
 Firewall managed with:
 iptables / firewalld / ufw
 
+Command SSH alias:
+```
+```
 
 ---
 
@@ -1230,6 +1554,22 @@ Mongo Shell:
 ..
 ```
 
+
+---
+
+### ACC PostgreSQL
+
+Login/pass:
+
+Superuser (peer via being the root user on OS):
+```
+sudo -u postgres pqsl
+```
+
+PSQL Shell:
+```
+..
+```
 
 ---
 

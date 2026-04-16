@@ -121,14 +121,15 @@ Are you able to login into root at the local machine terminal with SSH?
 
 - Once in remote server, usually there is nothing much to navigate to get to your website files. There will probably be hidden folder .ssh, hidden file .bash_profile, etc, which you can see by running `ls -la`. You likely have to install nginx or apache from scratch, then setup root web directory for your website, Aka working directory for your code and webpages. 
 
-### Dedicated Server: Is Linux Admin Ready?
+
+---
+## Dedicated Server: Is Linux Admin Ready?
 - With dedicated server, they might install a bare bones OS version. This means some commands you expect to help with Linux administration like sudo might be missing! Package installer might be missing sources to search packages from. 
 - This is especially true for Debian 12, etc. although it's performant because it's bare minimum. In that case, refer to the folder to finish setting up the OS so you can admin the server properly: [[Debian breaking into new shoes]]
 
-
 ---
 
-### Dedicated Server: Split Dedicated Server into VPS
+## Dedicated Server: Split Dedicated Server into VPS
 Do your own the dedicated server or are you renting it from a colocation?
 
 If renting: When you reinstall the server (often times you're setting up the dedicated server from scratch and you mess up locking yourself out, you ask support team to reinstall the server), there could be hours of downtime while waiting on support team.
@@ -345,6 +346,266 @@ curl -4 ipinfo.io/ip
 - Save the Web Hosting Control Panel URL and credentials into your web host details document. If you have an alias for quick SSH login, you might want to also save it as an echo before the ssh or sshpass command.
 
 ---
+
+## Dedicated Server: Test Web Hosting Control Panel that You Manually Installed
+
+Because you installed the Web Hosting Control Panel yourself rather than being on a VPS that installed it for you, there could be broken chains. Check Cloudpanel throughly to see it works:
+
+Briefly:
+- Check if Cloudpanel Vhosts can save
+- Check that you can create free SSL with Let's Encrypt inside CloudPanel
+
+Brief outline of what we are testing specifically:
+- If gives a "redirect loop detected" error when visiting http://www.domain.com
+- If gives a 404 Let's Encrypt error
+- If goes to 500 internal server Let's Encrypt error
+- Vague general error that something went wrong when saving Vhost
+- After Let's Encrypt successful, opening http doesn't redirect to https
+- After Let's Encrypt successful, opening www fails (this is only for your root domain and not for subdomains)
+
+If the Let's Encrypt Self-SSL certification has errors, the big picture is: Let's Encrypt looks at the document root to create the file to perform the validation, and that document root can be set in the web hosting control panel (CloudPanel -> Settings -> Root Directory). And also you may have to disable https redirect so the Let’s Encrypt can check for the file at http.
+
+- **TESTS BEGIN**
+  
+	- **If gives a "redirect loop detected" error when visiting http://www.domain.com:**
+		
+		- Notice it said Redirect loop detected. It’s because the Let’s Encrypt is visiting to a www.
+		- This will correlate to visiting http://www.domain.com giving this error:
+			![](v3Cnk6m.png)
+	
+		- Solution:
+			1. Comment out this server block (you'll make it active again after installing SSL in the future, but at the moment this will fix the loop problem)
+				```
+				server {  
+					listen 80;  
+					listen [::]:80;  
+					listen 443 quic;  
+					listen 443 ssl;  
+					listen [::]:443 quic;  
+					listen [::]:443 ssl;  
+					http2 on;  
+					http3 off;  
+					{{ssl_certificate_key}}  
+					{{ssl_certificate}}  
+					return 301 https://www.domain.tld$request_uri;  
+				}
+				```
+			2. Comment out https scheme rewrite at the other block (You'll make it active again after installing SSL in the future, but at the moment this will fix the loop problem)
+			```
+			#if ($scheme != "https") {  
+			#  rewrite ^ https://$host$request_uri permanent;  
+			#}  
+			```
+			
+			3. At your main server block for 80 and 443, add the www (See server_name line):
+				```
+				server {  
+				  listen 80;  
+				  listen [::]:80;  
+				  listen 443 quic;  
+				  listen 443 ssl;  
+				  listen [::]:443 quic;  
+				  listen [::]:443 ssl;  
+				  http2 on;  
+				  http3 off;  
+				  {{ssl_certificate_key}}  
+				  {{ssl_certificate}}  
+				  server_name domain.tld www1.domain.tld www.domain.tld;  
+				  {{root}}
+				  # ...
+				```
+
+			4. At your 8080 port server block, also do the same:
+				```
+				server {  
+				  listen 8080;  
+				  listen [::]:8080;  
+				  server_name domain.tld www1.domain.tld www.domain.tld;  
+				  {{root}} 
+				  # ...
+				```
+
+	- **If gives a 404 Let's Encrypt error:**
+			```
+			app.domain.tld: Domain could not be validated, error message: error type: urn:ietf:params:acme:error:unauthorized, error detail: 222.22.222.25: Invalid response from http://domain.com/.well-known/acme-challenge/hj0GXFJ_sW2VzVOjxxYaeyp9AXnPyz800-C3WL0zgEU: 404
+			```
+		- **Solution 1 to 404 Let's Encrypt error**:
+			1. Comment out this server block (you'll make it active again after installing SSL in the future, but at the moment this will fix the loop problem)
+				```
+				server {  
+					listen 80;  
+					listen [::]:80;  
+					listen 443 quic;  
+					listen 443 ssl;  
+					listen [::]:443 quic;  
+					listen [::]:443 ssl;  
+					http2 on;  
+					http3 off;  
+					{{ssl_certificate_key}}  
+					{{ssl_certificate}}  
+					return 301 https://www.domain.tld$request_uri;  
+				}
+				```
+			2. Comment out https scheme rewrite at the other block (You'll make it active again after installing SSL in the future, but at the moment this will fix the loop problem)
+			```
+			#if ($scheme != "https") {  
+			#  rewrite ^ https://$host$request_uri permanent;  
+			#}  
+			```
+			
+			3. At your main server block for 80 and 443, add the www (See server_name line). Skip this step if your domain is a subdomain (like app.domain.tld):
+				1. 
+				```
+				server {  
+				  listen 80;  
+				  listen [::]:80;  
+				  listen 443 quic;  
+				  listen 443 ssl;  
+				  listen [::]:443 quic;  
+				  listen [::]:443 ssl;  
+				  http2 on;  
+				  http3 off;  
+				  {{ssl_certificate_key}}  
+				  {{ssl_certificate}}  
+				  server_name domain.tld www1.domain.tld www.domain.tld;  
+				  {{root}}
+				  # ...
+				```
+
+				2. At your 8080 port server block, also do the same:
+				```
+				server {  
+				  listen 8080;  
+				  listen [::]:8080;  
+				  server_name domain.tld www1.domain.tld www.domain.tld;  
+				  {{root}} 
+				  # ...
+				```
+
+
+			4. Restart your nginx server: `systemctl restart nginx` Then try to create the SSL again.
+
+		- **Solution 2 to 404 Let's Encrypt error**: 
+		  See if can recreate the folder path and add a file to see if you can visit it on your web browser. The folders are missing because the way Let's Encrypt works is it creates the folders and file then removes them.
+			- Make sure you've cd into your document root (Refer to vhost for whats the folder path to your document root when someone visits your domain at top level /). Then create a file from here:
+				```
+				mkdir -p .well-known/acme-challenge/
+				vi .well-known/acme-challenge/test.txt
+				```
+			- Add some unique text in the file. Then visit the link in your web browser like domain.tld/.well-known/acme-challenge/
+			- If successfully visited, then this solution isn't it. Before going to "Solution 2", remove the test file and folders leading to it with
+			```
+			rm -rf .well-known
+			```
+			
+		- **Solution 3 to 404 Let's Encrypt error**: 
+		  Did you modify the server root manually so that another folder is served?
+				- Set it back to the original document root for now because CloudPanel creates the .well-known/... path to the document root that had been saved into Cloudpanel (instead of reading the vhost). OR: Go to CloudPanel -> Settings -> Root Directory and permanently adjust the root directory there
+				  ^  Dont forget to change it at both 80/443 server block and 8080 block.
+			- Once SSL is done generating, you can change the document root back to your desired location. Don’t forget to change it at both 80/443 server block and 8080 block.
+		- **Solution Last resort to 404 Let's Encrypt**:
+			- Remove `www....` as one of the domain names for New Let's Encrypt
+			- You'd forego users visiting with "www"
+		
+	- **If goes to 500 internal server Let's Encrypt error:**
+
+		- Check nginx error log to determine cause of Vhost 500 error:
+		```
+		tail /home/clp/logs/nginx/error.log
+		```
+
+		- If the Cloudpanel vhost 500 error is from a missing file or folder:
+		```
+		2024/08/03 08:27:19 [error] 154388#154388: *84 open() "/home/clp/htdocs/app/files/public/site/100pullups.app/ext-searchbox.js" failed (2: No such file or directory), client: 209.65.62.26, server: _, request: "GET /site/100pullups.app/ext-searchbox.js HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/100pullups.app/vhost"
+		```
+
+		- Then this lack of folder means the installation likely was corrupted. Go to home/ and change the permissions to 777 and owner to root on the clp or cloudpanel folder. Then rerun the installation command as root user or sudo user. The installation will later reset clp or cloudpanel to the correct ownership and permissions
+			- If during the installation, it complained often about missing file error `/home/clp/htdocs/app/files/var/log/prod.dev: No such file or directory`, then create the folders like so:
+			   `mkdir -p /home/clp/htdocs/app/files/var/log/`. Then rerun the installation again. 
+			- When reinstallation successful, you should be able to visit the Cloudpanel in your web browser and it'll remember your previous admin user and sites.
+
+		- If the Cloudpanel vhost 500 error is because of file permission problems:
+			```
+			2024/08/03 10:36:17 [crit] 266908#266908: *96 open() "/var/lib/nginx/body/0000000005" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test3.com/vhost HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/test3.com/vhost"
+			
+			2024/08/03 10:36:38 [crit] 266908#266908: *110 open() "/var/lib/nginx/body/0000000006" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test4.com/vhost HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/test4.com/vhost"
+			
+			2024/08/03 10:37:02 [crit] 266908#266908: *118 open() "/var/lib/nginx/body/0000000007" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test4.com/vhost HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/test4.com/vhost"
+			
+			2024/08/03 10:37:07 [crit] 266908#266908: *120 open() "/var/lib/nginx/body/0000000008" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test4.com/vhost HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/test4.com/vhost"
+			
+			2024/08/03 10:37:14 [crit] 266908#266908: *125 open() "/var/lib/nginx/body/0000000009" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test4.com/vhost HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/test4.com/vhost"
+			```
+
+
+		- Have these checks to fix file permission errors so that cloudpanel can work with nginx:
+			1. sites configs
+				```
+				chmod 755 -R /etc/nginx/sites-enabled; chmod 755 -R /etc/nginx/sites-enabled; chown root:root -R /etc/nginx/sites-enabled; chown root:root -R /etc/nginx/sites-enabled;
+				```
+
+			2. nginx process
+			```
+			chown -R root:root /var/lib/nginx; chmod -R 777 /var/lib/nginx
+			```
+
+			3. html documents
+				Check that: /home/ have folder named by usernames which are named after the sites you create at cloudpanel. Each folder is owned by their respective username and group of same name. They should be drwxrwx--- permission at mod 770. For example:
+				```
+				drwx------  8 clp                      clp                            4096 Jun 14 01:41 clp
+				
+				drwxrwx---  8 wayneteachescode         wayneteachescode               4096 Jun 23 10:10 wayneteachescode
+				
+				drwxrwx---  8 wayneteachesproductivity wayneteachesproductivity       4096 Jun 23 10:26 wayneteachesproductivity
+				
+				drwxrwx--- 12 wengindustries           wengindustries                 4096 Jul 23 10:22 wengindustries
+				```
+
+			4. Try again. If still fails because of file permission issues:
+			   Your CloudPanel or Nginx may have some conflict that prevents permissions from being reconciled between www-data and the new user and group pair for every new site created at Cloudpanel.
+			   - Make sure nginx uses `www-data` (on Debian/Ubuntu systems) or `nginx` (on CentOS/RHEL systems). Find out by editing the nginx main conf file which could possibly be `vi /etc/nginx/nginx.conf`. It's at the top of the file like `user www-data www-data`
+			   - Then every time you created a new site (and for all sites you haven't set those up for), add the web server user to the site group:
+				```
+				sudo usermod -aG a100pullups www-data
+				```
+			- Reworded: Every site I create on cloudpanel, I have to add the www-data user to the new group (which is associated with the new site user). Otherwise, the webpage wont load and when I check the error.log for that website, it shows file permission / permission denied. But if I add the www-data user to the new group, that gets fixed.
+			- You will have to add to your webhost details document that this reconciliation must be done manually every time you create a new site. Also recommend adding a fake site in CloudPanel titled "00oncreate-add-www-data-to-site-group" which will remind you whenever you create a new site and return to the list of sites because this is the first item in the list. You can add the usermod command into the SSH keys section of that fake site as reference notes.
+				- You add www-data to the site-group like this:
+					```
+					sudo usermod -aG a100pullups www-data
+					```
+
+	- **Vague general error that something went wrong when saving Vhost**
+		- Check syntax where the nginx primary config combines with site's vhost by running
+		```
+		sudo nginx -t
+		```
+	
+		- If you get an "Unknown log format", refer to fix at [[Nginx Troubleshooting - Unknown log format]]
+
+		
+	- **After Let's Encrypt successful, opening http doesn't redirect to https:**
+		- Undo the commenting out that you've done to fix previous Let's Encrypt errors. Rationale: You no longer have to permit staying on http:// without redirection in order for Let's Encrypt to see its own file it generated at the http url in order to prove you pointed to it with DNS
+		  
+	- **After Let's Encrypt successful, opening www fails (this is only for your root domain and not for subdomains):**
+		- Make sure to add the "www" alternate domains in the 40/443 server block and the 8080 server block.
+
+
+- II. Check that you can create free SSL with Let's Encrypt inside CloudPanel
+	- REQUIREMENT: Your A records are pointing to the public IP and have propagated already.
+	- Quick Review: Free SSL does not impact your SEO, but there may be benefits to a paid SSL or business regulations that require you to adopt a paid SSL. If adopting a paid SSL, you can skip this check
+	- Do this: SSL/TLS -> Actions -> New Let's Encrypt Certificate -> Create and Install
+	
+	- If errored with: Unable to create a site with the error "SSH key... /etc/nginx/ssl-certificates..."
+		- Solution: Make sure that folder exists at /etc/nginx/. If it doesn't exist, create `ssl-certificates` folder so that `/etc/nginx/ssl-certificates` exists. That way CloudPanel can create the cert and key files there. Keep the ownership and file permissions of the folder as the same as the adjacent files.
+	- If errored:  domain.com/.well-known/acme-challenge/RANDOM_LETTERS... failed... Authorization result: invalid... 404
+		- Solution: If you place a text file called 'test.txt' with some text like “Reached” into the folder /.well-known/acme-challenge/ can you browse to it using https://www.domain.com/.well-known/acme-challenge/test.txt - if not, you need to get that working first, as that's what's required to get this working. Could be directory like: `/home/SITE_USER/htdocs/DOMAIN/.well-known/acme-challenge/test.txt`
+		- If Chrome warns you there's no secured connection or that the connection is not private and blocks you from viewing the content. We will add SSL https certificates later. The current bypass technique in 2024 is to click anywhere on the webpage then type: `thisisunsafe`. You should see the webpage content.
+	- If errored:  domain.com/.well-known/acme-challenge/RANDOM_LETTERS... Domain could not be validated... 403
+		- Solution: Refer above to the Cloudpanel vhost 500 error from file permission problems.
+
+
+---
 ## Checklist - DNS Purchase then Cloudflare
 
 We will NOT skip this namecheap step anymore because:
@@ -540,31 +801,16 @@ eval $VAR0;
 ```
 
 ---
+
 ## Checklist - Enhance Website Capabilities
 
 Now that there's a control panel for your website and your website can be public without your IP address mined by botnets, it's time to enhance the web site capabilities while testing them.
-
-### **Dedicated server's VPS VM partition**: How to setup web server for basic website editing and viewing (Default site)
-- **CHECKPOINT**: If you installed nginx standalone, you can perform this step. If you installed Cloudpanel to include nginx, then there is no default site - Skip to Multiple Sites (next section).
-- Basic: We just want to see we can impact how a website looks . We don’t care about SSL https at this point
-- Identify what's the public IP address you can visit directly in the web browser (usually given to you by your onboarding server admin)  
-- What’s the folder path to create/edit index.html to so web browser PRE Web Hosting Control Panel? Aka root web directory for your website, Aka working directory for your code and webpage.   
-	- For the default site:
-		- You figure out where the root is, possibly editing with `vi /etc/nginx/sites-enabled/default` then looking for the line with `root`, which has the path
-		- List the files at that root working directory for some form of index file, eg. `ls var/www/html`
-		- Then edit the page with possibly: `vi /var/www/html/index.nginx-debian.html`. You can add a word or punctuation then see if visiting the public IP in the web browser shows the change.
-		- Use vi command to create an index2.html, add some words, then visit directly http://IP/index2.html to see if it displays.
-		- If still problems viewing the page, refer to [[Troubleshooting - Nginx webpage not showing]]
-	- That was editing and viewing for the default site, next we will cover editing and viewing for multiple sites
-### **Dedicated Server**: How to setup web server for basic website editing and viewing (Multiple sites)
-- For a site created / listed in your Web Hosting Control Panel. Eg. CloudPanel
-- If no website exists in the Web Hosting Control Panel, add a website (If unsure what type of website, I recommend PHP site). Otherwise pay attention to the name of the website in the Web Hosting Control Panel
-- Figure out what's the folder path to that website on your system. Could be `/home/DOMAIN/htdocs/DOMAIN.com`
-  ^ You can `ls /home/` to figure out the path
-  ^ You figure it out because you should add it to your webhost details document and your ssh/sshpass echo
-
-- Using vi command in shell, or using your Web Hosting Control Panel's File Manager, **edit the index file** adding a word or punctuation and see if visiting the URL will show the changes.  The index file could be `/home/DOMAIN/htdocs/DOMAIN.com/index.php`
-- Because you are on a dedicated server, it is likely that the web host DOES NOT provide you with a user domain name (eg. Not having something like srv451789.hstgr.cloud because you're on a dedicated server instead of a web provider like through Hostinger's Cloudpanel package) that you can match in one of the server blocks in a site's vhost. Make sure you've bought a domain at namecheap, etc. Then make sure you have two A records to the public domain: one for "@" and one for "\*".
+### VPS: How to setup web server for basic website editing and viewing (Multiple sites)
+- Basic: We just want to see we can impact how a website looks . We don’t care about SSL Https at this point
+- Where in the web hosting panel (cpanel, cloudpanel, etc) does it show you the public IP address you can visit directly in the web browser  
+- Where does it give you the default domain (aka temporarily domain)  (eg. srv451789.hstgr.cloud). We want to test we can visit the webpage after uploading files with FTP / vi file from shell / edit file from Web Hosting Control Panel. We do not care to visit the desired domain name yet because DNS propagation takes a while.
+- You can **edit the index file** in the Web Hosting Control Panel's File Manager or in the terminal.
+	- If in the terminal using vi: For each site on your Web Hosting Control Panel, what’s the folder path to create/edit index.html to so web browser can see a webpage? Aka root web directory for your website, Aka working directory for your code and webpages. This is usually the first website you create in your web host panel or the website they already created for you, and their settings show you the associated folder path.  
 - Prepare to visit that website in the web browser to see your changes went through:
 	- Edit your virtual host (vhost) configuration so that incoming requests to your server match the requested hostname or domain because once matched, the vhost can route and respond to the request correctly.:
 		```
@@ -579,270 +825,6 @@ Now that there's a control panel for your website and your website can be public
 		- If passed, this then assumes future websites on CloudPanel will have no problem with editing and viewing by the internet. 
 	- This then assumes future websites on CloudPanel will have no problem with editing and viewing by the internet.
 	- Optional: If you want to continue testing other sites on CloudPanel, you could use other domains at namecheap etc creating A record to the same public IP. Or if you run out of domains, you can create subdomains under one domain, creating CName to the public domain name. For more information on A records and Cnames, refer to [[DNS Domain PRIMER]]. Make sure a site's vhost at your web host catches what servername (subdomain and/or domain and tld) is hoisted by the internet connecting to your public IP.
-
-- Troubleshooting: Visiting the domain doesnt work
-	- Make sure at namecheap, etc you have A records to the public IP using `@`. Then have another A record to the public IP using "\*" instead of "www" so that any subdomains. You can check if the DNS propagation for A records pointed to your public IP at whatsmydns.
-	- Make sure it's not a caching issue if whatsmydns shows it's propagated but the page still doesn't show: Open in Incognito.
-	- Make sure file permissions correct for various paths of your sites and nginx. Refer next section's "Cloudpanel vhost 500 error is because of file permission problems"
-	- Try typing with page clicked: `thisisunsafe`
-	- If still problems viewing the page, refer to [[Troubleshooting - Nginx webpage not showing
-
-## Test Web Hosting Control Panel
-
-Because you installed the Web Hosting Control Panel yourself rather than being on a VPS that installed it for you, there could be broken chains. Check Cloudpanel throughly to see it works:
-
-Briefly:
-- Check if Cloudpanel Vhosts can save
-- Check that you can create free SSL with Let's Encrypt inside CloudPanel
-
-Brief outline of what we are testing specifically:
-- If gives a "redirect loop detected" error when visiting http://www.domain.com
-- If gives a 404 Let's Encrypt error
-- If goes to 500 internal server Let's Encrypt error
-- Vague general error that something went wrong when saving Vhost
-- After Let's Encrypt successful, opening http doesn't redirect to https
-- After Let's Encrypt successful, opening www fails (this is only for your root domain and not for subdomains)
-
-If the Let's Encrypt Self-SSL certification has errors, the big picture is: Let's Encrypt looks at the document root to create the file to perform the validation, and that document root can be set in the web hosting control panel (CloudPanel -> Settings -> Root Directory). And also you may have to disable https redirect so the Let’s Encrypt can check for the file at http.
-
-- **TESTS BEGIN**
-  
-	- **If gives a "redirect loop detected" error when visiting http://www.domain.com:**
-		
-		- Notice it said Redirect loop detected. It’s because the Let’s Encrypt is visiting to a www.
-		- This will correlate to visiting http://www.domain.com giving this error:
-			![](v3Cnk6m.png)
-	
-		- Solution:
-			1. Comment out this server block (you'll make it active again after installing SSL in the future, but at the moment this will fix the loop problem)
-				```
-				server {  
-					listen 80;  
-					listen [::]:80;  
-					listen 443 quic;  
-					listen 443 ssl;  
-					listen [::]:443 quic;  
-					listen [::]:443 ssl;  
-					http2 on;  
-					http3 off;  
-					{{ssl_certificate_key}}  
-					{{ssl_certificate}}  
-					return 301 https://www.domain.tld$request_uri;  
-				}
-				```
-			1. Comment out https scheme rewrite at the other block (You'll make it active again after installing SSL in the future, but at the moment this will fix the loop problem)
-			```
-			#if ($scheme != "https") {  
-			#  rewrite ^ https://$host$request_uri permanent;  
-			#}  
-			```
-			
-			2. At your main server block for 80 and 443, add the www (See server_name line):
-				```
-				server {  
-				  listen 80;  
-				  listen [::]:80;  
-				  listen 443 quic;  
-				  listen 443 ssl;  
-				  listen [::]:443 quic;  
-				  listen [::]:443 ssl;  
-				  http2 on;  
-				  http3 off;  
-				  {{ssl_certificate_key}}  
-				  {{ssl_certificate}}  
-				  server_name domain.tld www1.domain.tld www.domain.tld;  
-				  {{root}}
-				  # ...
-				```
-
-			3. At your 8080 port server block, also do the same:
-				```
-				server {  
-				  listen 8080;  
-				  listen [::]:8080;  
-				  server_name domain.tld www1.domain.tld www.domain.tld;  
-				  {{root}} 
-				  # ...
-				```
-
-	- **If gives a 404 Let's Encrypt error:**
-			```
-			app.domain.tld: Domain could not be validated, error message: error type: urn:ietf:params:acme:error:unauthorized, error detail: 222.22.222.25: Invalid response from http://domain.com/.well-known/acme-challenge/hj0GXFJ_sW2VzVOjxxYaeyp9AXnPyz800-C3WL0zgEU: 404
-			```
-		- **Solution 1 to 404 Let's Encrypt error**:
-			1. Comment out this server block (you'll make it active again after installing SSL in the future, but at the moment this will fix the loop problem)
-				```
-				server {  
-					listen 80;  
-					listen [::]:80;  
-					listen 443 quic;  
-					listen 443 ssl;  
-					listen [::]:443 quic;  
-					listen [::]:443 ssl;  
-					http2 on;  
-					http3 off;  
-					{{ssl_certificate_key}}  
-					{{ssl_certificate}}  
-					return 301 https://www.domain.tld$request_uri;  
-				}
-				```
-			2. Comment out https scheme rewrite at the other block (You'll make it active again after installing SSL in the future, but at the moment this will fix the loop problem)
-			```
-			#if ($scheme != "https") {  
-			#  rewrite ^ https://$host$request_uri permanent;  
-			#}  
-			```
-			
-			3. At your main server block for 80 and 443, add the www (See server_name line). Skip this step if your domain is a subdomain (like app.domain.tld):
-				1. 
-				```
-				server {  
-				  listen 80;  
-				  listen [::]:80;  
-				  listen 443 quic;  
-				  listen 443 ssl;  
-				  listen [::]:443 quic;  
-				  listen [::]:443 ssl;  
-				  http2 on;  
-				  http3 off;  
-				  {{ssl_certificate_key}}  
-				  {{ssl_certificate}}  
-				  server_name domain.tld www1.domain.tld www.domain.tld;  
-				  {{root}}
-				  # ...
-				```
-
-				2. At your 8080 port server block, also do the same:
-				```
-				server {  
-				  listen 8080;  
-				  listen [::]:8080;  
-				  server_name domain.tld www1.domain.tld www.domain.tld;  
-				  {{root}} 
-				  # ...
-				```
-
-
-			5. Restart your nginx server: `systemctl restart nginx` Then try to create the SSL again.
-
-		- **Solution 2 to 404 Let's Encrypt error**: 
-		  See if can recreate the folder path and add a file to see if you can visit it on your web browser. The folders are missing because the way Let's Encrypt works is it creates the folders and file then removes them.
-			- Make sure you've cd into your document root (Refer to vhost for whats the folder path to your document root when someone visits your domain at top level /). Then create a file from here:
-				```
-				mkdir -p .well-known/acme-challenge/
-				vi .well-known/acme-challenge/test.txt
-				```
-			- Add some unique text in the file. Then visit the link in your web browser like domain.tld/.well-known/acme-challenge/
-			- If successfully visited, then this solution isn't it. Before going to "Solution 2", remove the test file and folders leading to it with
-			```
-			rm -rf .well-known
-			```
-			
-		- **Solution 3 to 404 Let's Encrypt error**: 
-		  Did you modify the server root manually so that another folder is served?
-				- Set it back to the original document root for now because CloudPanel creates the .well-known/... path to the document root that had been saved into Cloudpanel (instead of reading the vhost). OR: Go to CloudPanel -> Settings -> Root Directory and permanently adjust the root directory there
-				  ^  Dont forget to change it at both 80/443 server block and 8080 block.
-			- Once SSL is done generating, you can change the document root back to your desired location. Don’t forget to change it at both 80/443 server block and 8080 block.
-		- **Solution Last resort to 404 Let's Encrypt**:
-			- Remove `www....` as one of the domain names for New Let's Encrypt
-			- You'd forego users visiting with "www"
-		
-	- **If goes to 500 internal server Let's Encrypt error:**
-
-		- Check nginx error log to determine cause of Vhost 500 error:
-		```
-		tail /home/clp/logs/nginx/error.log
-		```
-
-		- If the Cloudpanel vhost 500 error is from a missing file or folder:
-		```
-		2024/08/03 08:27:19 [error] 154388#154388: *84 open() "/home/clp/htdocs/app/files/public/site/100pullups.app/ext-searchbox.js" failed (2: No such file or directory), client: 209.65.62.26, server: _, request: "GET /site/100pullups.app/ext-searchbox.js HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/100pullups.app/vhost"
-		```
-
-		- Then this lack of folder means the installation likely was corrupted. Go to home/ and change the permissions to 777 and owner to root on the clp or cloudpanel folder. Then rerun the installation command as root user or sudo user. The installation will later reset clp or cloudpanel to the correct ownership and permissions
-			- If during the installation, it complained often about missing file error `/home/clp/htdocs/app/files/var/log/prod.dev: No such file or directory`, then create the folders like so:
-			   `mkdir -p /home/clp/htdocs/app/files/var/log/`. Then rerun the installation again. 
-			- When reinstallation successful, you should be able to visit the Cloudpanel in your web browser and it'll remember your previous admin user and sites.
-
-		- If the Cloudpanel vhost 500 error is because of file permission problems:
-			```
-			2024/08/03 10:36:17 [crit] 266908#266908: *96 open() "/var/lib/nginx/body/0000000005" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test3.com/vhost HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/test3.com/vhost"
-			
-			2024/08/03 10:36:38 [crit] 266908#266908: *110 open() "/var/lib/nginx/body/0000000006" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test4.com/vhost HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/test4.com/vhost"
-			
-			2024/08/03 10:37:02 [crit] 266908#266908: *118 open() "/var/lib/nginx/body/0000000007" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test4.com/vhost HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/test4.com/vhost"
-			
-			2024/08/03 10:37:07 [crit] 266908#266908: *120 open() "/var/lib/nginx/body/0000000008" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test4.com/vhost HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/test4.com/vhost"
-			
-			2024/08/03 10:37:14 [crit] 266908#266908: *125 open() "/var/lib/nginx/body/0000000009" failed (13: Permission denied), client: 209.65.62.26, server: _, request: "POST /site/test4.com/vhost HTTP/2.0", host: "222.22.222.24:8443", referrer: "https://222.22.222.24:8443/site/test4.com/vhost"
-			```
-
-
-		- Have these checks to fix file permission errors so that cloudpanel can work with nginx:
-			1. sites configs
-				```
-				chmod 755 -R /etc/nginx/sites-enabled; chmod 755 -R /etc/nginx/sites-enabled; chown root:root -R /etc/nginx/sites-enabled; chown root:root -R /etc/nginx/sites-enabled;
-				```
-
-			2. nginx process
-			```
-			chown -R root:root /var/lib/nginx; chmod -R 777 /var/lib/nginx
-			```
-
-			3. html documents
-				Check that: /home/ have folder named by usernames which are named after the sites you create at cloudpanel. Each folder is owned by their respective username and group of same name. They should be drwxrwx--- permission at mod 770. For example:
-				```
-				drwx------  8 clp                      clp                            4096 Jun 14 01:41 clp
-				
-				drwxrwx---  8 wayneteachescode         wayneteachescode               4096 Jun 23 10:10 wayneteachescode
-				
-				drwxrwx---  8 wayneteachesproductivity wayneteachesproductivity       4096 Jun 23 10:26 wayneteachesproductivity
-				
-				drwxrwx--- 12 wengindustries           wengindustries                 4096 Jul 23 10:22 wengindustries
-				```
-
-			4. Try again. If still fails because of file permission issues:
-			   Your CloudPanel or Nginx may have some conflict that prevents permissions from being reconciled between www-data and the new user and group pair for every new site created at Cloudpanel.
-			   - Make sure nginx uses `www-data` (on Debian/Ubuntu systems) or `nginx` (on CentOS/RHEL systems). Find out by editing the nginx main conf file which could possibly be `vi /etc/nginx/nginx.conf`. It's at the top of the file like `user www-data www-data`
-			   - Then every time you created a new site (and for all sites you haven't set those up for), add the web server user to the site group:
-				```
-				sudo usermod -aG a100pullups www-data
-				```
-			- Reworded: Every site I create on cloudpanel, I have to add the www-data user to the new group (which is associated with the new site user). Otherwise, the webpage wont load and when I check the error.log for that website, it shows file permission / permission denied. But if I add the www-data user to the new group, that gets fixed.
-			- You will have to add to your webhost details document that this reconciliation must be done manually every time you create a new site. Also recommend adding a fake site in CloudPanel titled "00oncreate-add-www-data-to-site-group" which will remind you whenever you create a new site and return to the list of sites because this is the first item in the list. You can add the usermod command into the SSH keys section of that fake site as reference notes.
-				- You add www-data to the site-group like this:
-					```
-					sudo usermod -aG a100pullups www-data
-					```
-
-	- **Vague general error that something went wrong when saving Vhost**
-		- Check syntax where the nginx primary config combines with site's vhost by running
-		```
-		sudo nginx -t
-		```
-	
-		- If you get an "Unknown log format", refer to fix at [[Nginx Troubleshooting - Unknown log format]]
-
-		
-	- **After Let's Encrypt successful, opening http doesn't redirect to https:**
-		- Undo the commenting out that you've done to fix previous Let's Encrypt errors. Rationale: You no longer have to permit staying on http:// without redirection in order for Let's Encrypt to see its own file it generated at the http url in order to prove you pointed to it with DNS
-		  
-	- **After Let's Encrypt successful, opening www fails (this is only for your root domain and not for subdomains):**
-		- Make sure to add the "www" alternate domains in the 40/443 server block and the 8080 server block.
-
-
-- II. Check that you can create free SSL with Let's Encrypt inside CloudPanel
-	- REQUIREMENT: Your A records are pointing to the public IP and have propagated already.
-	- Quick Review: Free SSL does not impact your SEO, but there may be benefits to a paid SSL or business regulations that require you to adopt a paid SSL. If adopting a paid SSL, you can skip this check
-	- Do this: SSL/TLS -> Actions -> New Let's Encrypt Certificate -> Create and Install
-	
-	- If errored with: Unable to create a site with the error "SSH key... /etc/nginx/ssl-certificates..."
-		- Solution: Make sure that folder exists at /etc/nginx/. If it doesn't exist, create `ssl-certificates` folder so that `/etc/nginx/ssl-certificates` exists. That way CloudPanel can create the cert and key files there. Keep the ownership and file permissions of the folder as the same as the adjacent files.
-	- If errored:  domain.com/.well-known/acme-challenge/RANDOM_LETTERS... failed... Authorization result: invalid... 404
-		- Solution: If you place a text file called 'test.txt' with some text like “Reached” into the folder /.well-known/acme-challenge/ can you browse to it using https://www.domain.com/.well-known/acme-challenge/test.txt - if not, you need to get that working first, as that's what's required to get this working. Could be directory like: `/home/SITE_USER/htdocs/DOMAIN/.well-known/acme-challenge/test.txt`
-		- If Chrome warns you there's no secured connection or that the connection is not private and blocks you from viewing the content. We will add SSL https certificates later. The current bypass technique in 2024 is to click anywhere on the webpage then type: `thisisunsafe`. You should see the webpage content.
-	- If errored:  domain.com/.well-known/acme-challenge/RANDOM_LETTERS... Domain could not be validated... 403
-		- Solution: Refer above to the Cloudpanel vhost 500 error from file permission problems.
 
 ---
 ### How to setup SFTP/FTP users
@@ -894,9 +876,9 @@ If the Let's Encrypt Self-SSL certification has errors, the big picture is: Let'
 	- Know the filepaths to the SSL for future issues and code that needs SSL cert and key paths such as gunicorn (even if Cloudpanel abstracts it away)
 		- If Hostinger CloudPanel, the Vhost page likely hides ssl cert and key file paths in the server block as variables. You have to find the site's nginx confi file where the final vhost is written (eg. /etc/nginx/sites-enabled/some-website.com.conf)
 			- Hostinger Ubunto 22.04 with Cloud Panel paths could be:
-				- **ssl_certificate** /etc/nginx/**ssl**-certificates/DOMAIN.com.crt;
-				- **ssl_certificate_key** /etc/nginx/**ssl**-certificates/DOMAIN.com.key;
-		  - Write down paths to where you record your web-host login, SSH login, etc
+				- **ssl_certificate** /etc/nginx/**ssl**-certificates/DOMAIN.com.crt;
+				- **ssl_certificate_key** /etc/nginx/**ssl**-certificates/DOMAIN.com.key;
+		- Write down paths to where you record your web-host login, SSH login, etc
 	- Multiple domains/subdomains for the same website root (maybe different domains point to deeper folder paths as roots)?
 		- Setup server blocks to those domains/subdomains
 		- Cloudpanel Let's Encrypt same screen just add all the domains/subdomains. It's a bit of a manual process clicking the input fields and inputting them in. But here's an automated way to fill in those fields using javascript inside the web browser console: [[CloudPanel - SSL Renew Annually (Semi Automated)]]
@@ -905,23 +887,22 @@ If the Let's Encrypt Self-SSL certification has errors, the big picture is: Let'
 	- User script permissions: if you will have php or python scripts that are triggered by visiting web browser, if it writes to a folder, can it write to it? Otherwise, it’ll be permission error preventing creating files by php script (eg. can it write to a file using PHP's fwrite upon opening that PHP file?)
 	- Webpage viewable to public: Make sure it's the official site user that logs into Filezilla when uploading web-site public viewing files (NOT root). Setup and save your login credentials on Filezilla. Otherwise, pages may show up as forbidden on the web browser.
 - Install malware and security especially when going public
-	- If Hostinger, their malware scanner [https://support.hostinger.com/en/articles/8450363-vps-malware-scanner](https://support.hostinger.com/en/articles/8450363-vps-malware-scanner)
+	- If Hostinger, their malware scanner [https://support.hostinger.com/en/articles/8450363-vps-malware-scanner](https://support.hostinger.com/en/articles/8450363-vps-malware-scanner)
     - How to navigate to the malware from services dashboard (Hostinger hpanel, GoDaddy dashboard, etc)
     - Is malware free, times one payment, or monthly/yearly? Or keep deactivated (often they let you scan but not fix for free)
     - Is there a firewall from the Web Hosting Control Panel? or do you have to run ufw?
 - Domain name
-	- Domain name
 	- Refer to tutorial on domain and dns editing. There are many ways to do it. One way is to have namecheap domain with two A records to the public IP of your webhost at "@" and "\*" (unless you want different public ip between www and other subdomains)
 
----
-### ADVANCED WEBSITE: Prepare server for installing different architectures (Languages: PHP, NodeJS, Python, MySQL, Mongo, Scaling Solutions; Pipes: Git, Docker; Scaling Solutions)
 
-**Reminder**: If working off a VPS VM partition, you don't install these at the root dedicated server because it won't cross over to the VPS partition.
+---
+### ADVANCED WEBSITE: Prepare server for installing different architectures (PHP, NodeJS, Python, MySQL, Mongo, PostgreSQL)
 
 #### Required skills
-- Know how to reboot the server
+- Know how to reboot the server per your OS and web server: 
+	- eg. `sudo systemctl restart nginx`
 - how see error logs based on your OS and web server type  
-    eg `tail -f /var/log/nginx/error.log`
+    - eg `tail -f /var/log/nginx/error.log`
 - Know how to check status of, start, stop, and restart any service
 
 **Ubuntu 22.04.. we are just using nginx as example:**
@@ -936,13 +917,21 @@ sudo systemctl start nginx
 - Know what is the main installer of packages in command line (eg. `sudo apt update`  for Ubuntu 22.04). Save to your web host's details document if it's not something you're intimately familiar with.
 - Update installer’s repos 
 - Look up instructions for your OS on how to install these language interpreters and related or adjacent package managers, if applicable to your server's use cases (these should be installed before installing databases because you'll be testing database connections with code):
-
 #### PHP
+
+##### Install PHP
 - PHP (if not included by your web host’s)
 	- If installed CloudPanel, PHP comes included. If you don't see PHP, you should create a PHP site off CloudPanel 
 	- If not installed CloudPanel and your web host management panel does not come included with PHP, look up how to install php, eg. Google: Ubuntu 22 install php
-	- If installed Cloudpanel or a Web Hosting Control Panel that already has it setup for you, you can also skip this step:
-		  - You have to configure apache or nginx to handle php, eg. Google: `Nginx handle php`, eg. Google: `Apache handle php`.
+		- You have to configure apache or nginx to handle php, eg. Google: `Nginx handle php`, eg. Google: `Apache handle php`.
+	- If installed Cloudpanel or a Web Hosting Control Panel that already has PHP installed, please skip this step of installing PHP.
+	
+##### Match PHP Versions
+
+The best practice is to make sure you're using the same PHP that gets called when running the `php` command in terminal and is used to render your php webpages
+
+If the versions don't match you're going to run into problems when enhancing PHP by running command lines then expecting your PHP webpages to get those enhancements.
+
   - Make sure PHP matches on command line and web version
 	  - At a php file:
 	```
@@ -955,14 +944,37 @@ sudo systemctl start nginx
 	```
 	php --version
 	```
-	- If the versions don't match you're going to run into problems when enhancing PHP by running command lines then expecting your PHP webpages to get those enhancements.
 	- Choose which version to stick to. For example, as of April 15th, there is no MongoDB driver for PHP 8.5 on Debian 12. However there is a MongoDB driver for PHP 8.2 on Debian 12. For that reason, I'd choose Debian 12 for both command line and php versions. 
 		- To investigate whether a dependency such as MongoDB is available for one of your latest PHP versions, ask ChatGPT and include the dependency name, the PHP versions installed on your server (from `ls /usr/bin/php*` or the PHP version dropdown in CloudPanel), and mention the OS you are on (eg. Debian 12). Mongo is a good example because in the future you might choose MongoDB as your database while still using PHP. In addition to ChatGPT, you can also check what MongoDB-related PHP packages are available directly on Debian 12 by running `apt search php | grep -i mongodb`, since the package name usually includes both `mongodb` and the PHP version, such as `php8.2-mongodb/oldstable,oldstable,now 1.15.0+1.11.1+1.9.2+1.7.5-1 amd64`. You'd find out that there is no official php8.5-mongodb package for Debian 12 (Bookworm), but the latest php version that does have a mongodb package under Debian 12 is php8.2.
-		- You'd install with `sudo apt install php8.2-mongodb` then verify it's installed with `php -m | grep mongodb`. When your PHP script file (eg. index.php or api.php) includes the Mongo driver like `$client = new MongoDB\Driver\Manager($uri)`, it should be no problem if per your selected PHP version, the path to Mongo exists after installing Mongo: `/etc/php/8.2/mods-available/mongodb.ini`
+		- You'd install with `sudo apt install php8.2-mongodb` then verify it's installed with `php -m | grep mongodb`. When your PHP script file (eg. index.php or api.php) includes the Mongo driver like `$client = new MongoDB\Driver\Manager($uri)`, it should be no problem if per your selected PHP version, the path to Mongo exists after installing Mongo: `/etc/php/8.2/mods-available/mongodb.ini``
 		- Setting the PHP version
 			- If setting command line, eg. `sudo update-alternatives --set php /usr/bin/php8.2`
 			- If setting web, depends on your setup. For cloudpanel, you dont have to edit anything manually - just select at dropdown:
 			  ![[Pasted image 20260415044926.png]]
+
+##### PHP's Composer installed or install now
+
+**What is Composer**
+Composer is PHP’s standard dependency manager. It lets you list the libraries your project needs, then installs and updates them for you. Same concept to Node Modules for NodeJS.
+
+
+**Big Picture:**
+- Composer is **installed globally** (the CLI tool)
+- Dependencies are **installed per project**. You need the composer CLI tool installed globally so you can run commands at the project level to init or manage.
+
+
+**Check if you have composer installed globally already**
+
+Cloudpanel? Composer is pre-installed by default on CloudPanel
+
+Find out if you already have composer by running this command:
+```
+composer --version
+```
+
+**Composer Installation Instructions at:**
+[[_ Composer - Installation (Debian 12)]]
+
 #### Python
 - Check if you have python3 installed. It comes included with CloudPanel. Test with `python3 --version`
 	- If not installed. Look up how to install: Eg. Google: Ubuntu 22 install python3
@@ -1017,27 +1029,6 @@ Add to pip.conf:
 [global]
 break-system-packages = true
 ```
-#### NodeJS and NVM
-- Check if you have node installed. Run `node --version`. If you have CloudPanel installed, NodeJS may not be installed globally.
-- If installing node, look up how to install node. Eg. Google: Ubuntu 22 install nodejs. Could look similar to: `apt install nodejs`. After installation, run `node --version` to check it succeeded.
-- Sometimes npm comes with nodejs. Check if it did install: `npm --version`. If not, see if npm installation instructions are at the same guide for installing nodejs (`apt install npm`). Otherwise, look up how to install npm. eg. Google: Ubuntu 22 install npm. 
-	- Could look similar to: `apt install nodejs`. 
-	- Check npm and its utility `npm --version` and `npx --version` (npx helps forcefully run)
-- Prevent npm scripts having "no file permission" error:
-	- Check npm version with `npm --version`
-	- If the version is v7 or v8 families, then NodeJS switches user to the user owning the folder to the package.json when running npm script which is not desirable in most cases (you would prefer to keep the same user that runs the npm script `npm run scriptX`) and usually causes file permission problems when running a npm script
-		- Then you install nvm to install and change the node version. Then you make it permanent beyond your current shell session. Refer to the tutorial [[NVM - npm scripts say permission denied on the cli command]]
-- Install NVM
-	- Why: If you're developing apps, you sometimes want a specific version of NodeJS at a folder especially if package conflicts or legacy packages. NVM makes this possible.
-	- NVM installation instructions at: https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating
-		- You may want to test nvm installed entirely:
-			- See if the folder exists: `ls ~/.nvm`
-			- Check the command works: `nvm --version`
-			- Check that the nvm initiating script (copy of the script is at installation instructions) is added to your **bash profile** or **z profile** after installation (NOT bash rc or zshrc). If it's not added, you'll have to manually add it (refer to instructions)
-			- Then enhance nvm so that it'll automatically switch node version when there's a .nvmrc in the folder. Add to your bash profile or z profile per instructions at [[Auto-switch based on presence of .nvmrc file in folder]]
-				- Then check if it does autoswitch. On your website root, create a folder `temp/`, then inside it create a `.nvmrc` file with the contents: `v22.20.0`.
-				- Test if .nvmrc works manually with `nvm use`. It'll switch to that node version. It may ask to install that node version - accept it
-				- cd up then cd back into temp/. It should output to terminal: "Now using node v22.20.0 (npm v10.9.3)" even if switching node version not necessary.
 
 #### Yarn
 - Make sure Node is at least v20.11.0 to install a newer yarn (https://www.redswitches.com/blog/install-yarn-in-ubuntu/), otherwise look up classic yarn installation instructions.
@@ -1052,7 +1043,6 @@ break-system-packages = true
 		```
 
 - Look up instructions for your OS on how to install these databases, if applicable to your server's use cases
-
 #### MySQL
 - MySQL (if not included by your web host’s VPS)
 	- If not installed CloudPanel or a web host management panel that includes these parts, look up instructions on how to install MySQL, PHP, and PHPMyAdmin. eg. Google: Ubuntu 22 install mysql phpmyadmin
@@ -1449,13 +1439,324 @@ try {
 
 Problems? First make sure PHP cli and PHP web are the same PHP versions! Refer to PHP installation earlier in this checklist. And make sure it's a PHP version that has a Mongo release.
 - To investigate whether a dependency such as MongoDB is available for one of your latest PHP versions, ask ChatGPT and include the dependency name, the PHP versions installed on your server (from `ls /usr/bin/php*` or the PHP version dropdown in CloudPanel), and mention the OS you are on (eg. Debian 12). Mongo is a good example because in the future you might choose MongoDB as your database while still using PHP. In addition to ChatGPT, you can also check what MongoDB-related PHP packages are available directly on Debian 12 by running `apt search php | grep -i mongodb`, since the package name usually includes both `mongodb` and the PHP version, such as `php8.2-mongodb/oldstable,oldstable,now 1.15.0+1.11.1+1.9.2+1.7.5-1 amd64`. You'd find out that there is no official php8.5-mongodb package for Debian 12 (Bookworm), but the latest php version that does have a mongodb package under Debian 12 is php8.2.
-- You'd install with `sudo apt install php8.2-mongodb` then verify it's installed with `php -m | grep mongodb`. When your PHP script file (eg. index.php or api.php) includes the Mongo driver like `$client = new MongoDB\Driver\Manager($uri)`, it should be no problem if per your selected PHP version, the path to Mongo exists after installing Mongo: `/etc/php/8.2/mods-available/mongodb.ini`
+- You'd install with `sudo apt install php8.2-mongodb` then verify it's installed with `php -m | grep mongodb`. When your PHP script file (eg. index.php or api.php) includes the Mongo driver like `$client = new MongoDB\Driver\Manager($uri)`, it should be no problem if per your selected PHP version, the path to Mongo exists after installing Mongo: `/etc/php/8.2/mods-available/mongodb.ini``
 
 If still have problems, refer to [[Indepth Installation Guide - Mongo for PHP]]
 
----
 
-Let's install these CI/CD solutions:
+#### PostgreSQL
+
+Check whether PostgreSQL is already installed:
+
+```bash
+psql --version
+```
+
+If it is not installed on Debian or Ubuntu:
+
+```bash
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+```
+
+Enable PostgreSQL to start on boot:
+
+```bash
+sudo systemctl enable postgresql
+```
+
+Check whether the service is running:
+
+```bash
+sudo systemctl status postgresql
+```
+
+**PostgreSQL service and access basics**
+
+To open the PostgreSQL shell as the default superuser:
+
+```bash
+sudo -u postgres psql
+```
+^ **`-u postgres`** tells `sudo` to switch to the **`postgres` system user** (instead of root)
+
+
+Should you worry about the postgres super user? No worries:
+- The **`postgres` database user does NOT use a password locally**
+- It uses **peer authentication** (trusts the OS user)
+
+To restart PostgreSQL:
+
+```bash
+sudo systemctl restart postgresql
+```
+
+To quickly inspect PostgreSQL logs if something is failing:
+
+```bash
+sudo tail -n 100 /var/log/postgresql/postgresql-*.log
+```
+
+**Create authentication right away**
+
+Just like other databases, PostgreSQL should not be left wide open. Create your application user and database early so you are not building against the default superuser workflow longer than necessary.
+
+Create the user with a password:
+- Note you must have quotes for the USER so that it's case sensitive, otherwise the username would be stored all lowercase. When logging in later with that username, it won't let you know if it's mistyped or misspelled.
+```sql
+CREATE USER "{USER}" WITH PASSWORD "{PASSWORD}";
+```
+
+Check that the username is what you expected (because of the lowercase/uppercase nuance):
+```
+\du
+```
+^ Means display users
+
+Create the database:
+
+```sql
+CREATE DATABASE myapp_db;
+```
+
+Grant database privileges:
+
+```sql
+GRANT ALL PRIVILEGES ON DATABASE myapp_db TO "{USER}";
+GRANT ALL ON SCHEMA public TO "{USER}";
+```
+
+A user needs `CREATE` on the database to create a schema, and `CREATE` on the target schema to create tables there. The current user is actually `postgres`, so we need to reassign the database's owner and it's NOT enough to just grant privileges:
+```
+ALTER DATABASE myapp_db OWNER TO "{USER}";
+```
+
+**Verify login from the command line**
+
+Exit the psql shell (`exit` or `\q`), then test logging in as that application user.
+- Note if you mistyped the username, it won't let you know that because it'll just be a password authentication failed error
+
+```bash
+psql -h 127.0.0.1 -U "{USER}" -d myapp_db
+```
+
+Use `-h 127.0.0.1` on purpose. That forces a TCP connection instead of a Unix socket, which helps avoid authentication confusion when testing.
+
+**If having problems authenticating:**
+- Check if the username was created with case sensitivity (if surrounded by quotes) or automatically all lower case (no quotes).
+- Check authentication method in settings. Refer to ____
+
+**Once connected, run a few quick checks:**
+
+```sql
+SELECT NOW();
+SELECT current_user;
+SELECT current_database();
+```
+
+You can also test with a one-liner from the shell:
+
+```bash
+psql -h 127.0.0.1 -U myapp_user -d myapp_db -c "SELECT NOW();"
+```
+
+
+**Quick test table**
+
+To test inserts and reads, create a simple table:
+
+```sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(255)
+);
+```
+
+##### **Test PostgreSQL on Node.js**
+
+Install the PostgreSQL driver:
+
+```bash
+npm install pg
+```
+
+Seed and read example:
+```js
+const { Client } = require('pg');
+
+const client = new Client({
+	host: '127.0.0.1',
+	user: 'YOUR_USERNAME',
+	password: 'YOUR_PASSWORD',
+	database: 'myapp_db',
+});
+
+async function seed() {
+  // 🔥 Drop table if it exists
+  await client.query(`DROP TABLE IF EXISTS users`);
+
+  // 🏗️ Recreate table
+  await client.query(`
+    CREATE TABLE users (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(100),
+      email VARCHAR(255)
+    )
+  `);
+
+  // 🌱 Seed data
+  await client.query(
+    `INSERT INTO users (name, email)
+     VALUES ($1,$2), ($3,$4), ($5,$6)`,
+    [
+      'Abby', 'abby@example.com',
+      'Bobby', 'bobby@example.com',
+      'Caitlin', 'caitlin@example.com'
+    ]
+  );
+
+  console.log('Seed complete');
+}
+
+async function read() {
+  const result = await client.query('SELECT * FROM users');
+  console.log(result.rows);
+}
+
+async function main() {
+  try {
+    await client.connect();
+    await seed();
+    await read();
+  } catch (err) {
+    console.error(err);
+  } finally {
+    await client.end();
+  }
+}
+
+main();
+```
+
+##### **Test PostgreSQL on Python**
+
+Install the driver:
+
+```bash
+pip install psycopg2-binary
+```
+^ Psycopg is the most popular PostgreSQL database adapter for the Python programming 
+^ **`psycopg`** doesn’t stand for something clean like an acronym—it’s a **name mashup**:
+- **“psyc”** → from **Python** (historically referencing “psyco,” an old Python performance project)
+- **“o”** → - Filler to make the name pronounceable → _psy-co-pg_
+- **“pg”** → short for **PostgreSQL**
+
+Seed and read example:
+
+```python
+import psycopg2
+
+conn = psycopg2.connect(
+    host="127.0.0.1",
+    user="YOUR_USERNAME",
+    password="YOUR_PASSWORD",
+    dbname="myapp_db"
+)
+
+cur = conn.cursor()
+
+cur.execute("DROP TABLE IF EXISTS users")
+
+cur.execute("""
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(255)
+)
+""")
+
+cur.execute("""
+INSERT INTO users (name, email)
+VALUES (%s,%s), (%s,%s), (%s,%s)
+""", (
+    "Abby", "abby@example.com",
+    "Bobby", "bobby@example.com",
+    "Caitlin", "caitlin@example.com"
+))
+
+conn.commit()
+
+cur.execute("SELECT * FROM users")
+print(cur.fetchall())
+
+cur.close()
+conn.close()
+```
+
+##### **Test PostgreSQL on PHP**
+
+Install the PostgreSQL extension:
+
+```bash
+sudo apt install php-pgsql
+```
+
+
+Seed and read example:
+
+```php
+<?php
+
+$conn = pg_connect("host=127.0.0.1 dbname=myapp_db user=YOUR_USERNAME password=YOUR_PASSWORD");
+
+if (!$conn) {
+    die("Connection failed\n");
+}
+
+// Delete table if it already exists
+pg_query($conn, "DROP TABLE IF EXISTS users");
+
+// Create table
+pg_query($conn, "
+    CREATE TABLE users (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100),
+        email VARCHAR(255)
+    )
+");
+
+// Seed data
+pg_query_params(
+    $conn,
+    "INSERT INTO users (name, email) VALUES ($1,$2), ($3,$4), ($5,$6)",
+    [
+        'Abby', 'abby@example.com',
+        'Bobby', 'bobby@example.com',
+        'Caitlin', 'caitlin@example.com'
+    ]
+);
+
+echo "Seed complete\n";
+
+// Read data
+$result = pg_query($conn, "SELECT * FROM users");
+
+while ($row = pg_fetch_assoc($result)) {
+    print_r($row);
+}
+
+pg_close($conn);
+```
+
+Either run with `php -f test.php` or open the webpage on a web browser.
+
+---
+### ADVANCED WEBSITE: Versioning, CI/CD, Scaling
+
+Let's install these versioning and CI/CD solutions:
+
+---
 #### Git
 - Make sure there is git on your system
 	- Some systems come with git. Check out by running `git --version`
@@ -1476,25 +1777,31 @@ Let's install these CI/CD solutions:
 		ssh-keygen -t ed25519 -C "your_email@example.com"
 		```
 
-	  1. Add public key to your Github account, referring to: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
+	  2. Add public key to your Github account, referring to: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
 		  1. Click New SSH key at https://github.com/settings/keys
 		  2. Paste the contents of the public key (eg. id_ed25519.pub) and save as a SSH key, recommended naming the key after your server provider name for organizing purposes.
-
+		  
 	- Is git using your preferred terminal text editor
 		- To test: Run this at a git repo - `git rebase -i HEAD~2` and see what terminal text editor opens
 		- If you need to set a preferred terminal text editor: [[Git set which terminal text editor to use]]
 #### Docker
 - Make sure docker is on your system
+	- Test for docker: `docker --version`
 	- Lookup instructions how to install docker on the system
 		- eg. Google: Ubuntu 22 install docker
 		  https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04
+		  eg. Google: Debian 12 install docker
+		  https://docs.docker.com/engine/install/debian/#install-using-the-repository
+		- Note instructions differ from Mac because on Mac the recommended approach is Docker Desktop which bundles in a daemon better than installing independent packages with homebrew can.
+	- Don't forget to test if Docker installed successfully: `docker --version`
+	- Docker compose installation instructions: ... docker-compose-plugin ? which makes not just docker-compose possible but `docker compose build` possible because of the plugin making docker aware of compose
 
 #### Scaling Solutions
 - Look up instructions for your OS on how to install these scaling solutions, if applicable to your server's use cases
 	- Balancers and multi workers:
-		- pm2 for nodejs
+		- **pm2 for nodejs**
 			- Refer to the tutorial [[Installing PM2 and Configuring Nginx for Multiple Node.js Applications]] even if you're not on nginx (the first sections will be applicable before the section on applying it to nginx)
-		- Supervisor, virtual envs, gunicorn and flask for python
+		- **Supervisor, virtual envs, gunicorn and flask for python**
 			- Refer to the tutorial [[Supervisor Primer - QUICK REFERENCE]] which includes supervisor, shell file, gunicorn, flask, pyenv, pyenv-virtualenvs, pipenv
 		- Docker or supervisor to restart your api app on crashes (either server crash or app crash)
 			- Refer to the tutorials [[Docker Primer - General]] and [[Docker Primer - Get Started]]
@@ -1613,6 +1920,10 @@ How to change password:
 
 Firewall managed with:
 iptables / firewalld / ufw
+
+Command SSH alias:
+```
+```
 
 ----
 ### ACC Provider Checklist / Statements of Facts
@@ -1797,6 +2108,23 @@ Mongo URL (PHP, NodeJS, Python):
 ```
 
 Mongo Shell:
+```
+..
+```
+
+
+---
+
+### ACC PostgreSQL
+
+Login/pass:
+
+Superuser (peer via being the root user on OS):
+```
+sudo -u postgres pqsl
+```
+
+PSQL Shell:
 ```
 ..
 ```

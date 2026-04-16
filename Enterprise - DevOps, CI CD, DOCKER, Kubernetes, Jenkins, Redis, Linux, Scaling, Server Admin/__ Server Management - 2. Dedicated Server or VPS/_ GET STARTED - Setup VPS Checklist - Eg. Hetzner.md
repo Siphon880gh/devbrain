@@ -2,10 +2,16 @@
 Hetzner -> Cloud item at the main nav:
 https://www.hetzner.com/cloud/
 
+![[Pasted image 20260415230346.png]]
+
 Choose General Purpose (Cost Optimized and Regular Performance for shared resource or very low CPU usage)
 https://www.hetzner.com/cloud/general-purpose
 
 Choose a specific package (eg. CCX13). Comparable for multi mixed web server (python, nodejs, etc), you can go for ~$20 which is 2 VCPU, 8GB Ram, 80GB Disk Local. No need to install volumes (that's adding volumes on top of the baseline disk space you selected when choosing a VPS)
+
+![[Pasted image 20260415230421.png]]
+
+![[Pasted image 20260415230433.png]]
 
 ---
 ## Checklist - Web Host to Website Capable
@@ -859,7 +865,7 @@ Now that there's a control panel for your website and your website can be public
 
 
 ---
-### ADVANCED WEBSITE: Prepare server for installing different architectures (PHP, NodeJS, Python, MySQL, Mongo, Scaling Solutions)
+### ADVANCED WEBSITE: Prepare server for installing different architectures (PHP, NodeJS, Python, MySQL, Mongo, PostgreSQL)
 
 #### Required skills
 - Know how to reboot the server per your OS and web server: 
@@ -881,11 +887,20 @@ sudo systemctl start nginx
 - Update installer’s repos 
 - Look up instructions for your OS on how to install these language interpreters and related or adjacent package managers, if applicable to your server's use cases (these should be installed before installing databases because you'll be testing database connections with code):
 #### PHP
+
+##### Install PHP
 - PHP (if not included by your web host’s)
 	- If installed CloudPanel, PHP comes included. If you don't see PHP, you should create a PHP site off CloudPanel 
 	- If not installed CloudPanel and your web host management panel does not come included with PHP, look up how to install php, eg. Google: Ubuntu 22 install php
-	- If installed Cloudpanel or a Web Hosting Control Panel that already has it setup for you, you can also skip this step:
-		  - You have to configure apache or nginx to handle php, eg. Google: `Nginx handle php`, eg. Google: `Apache handle php`.
+		- You have to configure apache or nginx to handle php, eg. Google: `Nginx handle php`, eg. Google: `Apache handle php`.
+	- If installed Cloudpanel or a Web Hosting Control Panel that already has PHP installed, please skip this step of installing PHP.
+	
+##### Match PHP Versions
+
+The best practice is to make sure you're using the same PHP that gets called when running the `php` command in terminal and is used to render your php webpages
+
+If the versions don't match you're going to run into problems when enhancing PHP by running command lines then expecting your PHP webpages to get those enhancements.
+
   - Make sure PHP matches on command line and web version
 	  - At a php file:
 	```
@@ -898,7 +913,6 @@ sudo systemctl start nginx
 	```
 	php --version
 	```
-	- If the versions don't match you're going to run into problems when enhancing PHP by running command lines then expecting your PHP webpages to get those enhancements.
 	- Choose which version to stick to. For example, as of April 15th, there is no MongoDB driver for PHP 8.5 on Debian 12. However there is a MongoDB driver for PHP 8.2 on Debian 12. For that reason, I'd choose Debian 12 for both command line and php versions. 
 		- To investigate whether a dependency such as MongoDB is available for one of your latest PHP versions, ask ChatGPT and include the dependency name, the PHP versions installed on your server (from `ls /usr/bin/php*` or the PHP version dropdown in CloudPanel), and mention the OS you are on (eg. Debian 12). Mongo is a good example because in the future you might choose MongoDB as your database while still using PHP. In addition to ChatGPT, you can also check what MongoDB-related PHP packages are available directly on Debian 12 by running `apt search php | grep -i mongodb`, since the package name usually includes both `mongodb` and the PHP version, such as `php8.2-mongodb/oldstable,oldstable,now 1.15.0+1.11.1+1.9.2+1.7.5-1 amd64`. You'd find out that there is no official php8.5-mongodb package for Debian 12 (Bookworm), but the latest php version that does have a mongodb package under Debian 12 is php8.2.
 		- You'd install with `sudo apt install php8.2-mongodb` then verify it's installed with `php -m | grep mongodb`. When your PHP script file (eg. index.php or api.php) includes the Mongo driver like `$client = new MongoDB\Driver\Manager($uri)`, it should be no problem if per your selected PHP version, the path to Mongo exists after installing Mongo: `/etc/php/8.2/mods-available/mongodb.ini``
@@ -906,6 +920,30 @@ sudo systemctl start nginx
 			- If setting command line, eg. `sudo update-alternatives --set php /usr/bin/php8.2`
 			- If setting web, depends on your setup. For cloudpanel, you dont have to edit anything manually - just select at dropdown:
 			  ![[Pasted image 20260415044926.png]]
+
+##### PHP's Composer installed or install now
+
+**What is Composer**
+Composer is PHP’s standard dependency manager. It lets you list the libraries your project needs, then installs and updates them for you. Same concept to Node Modules for NodeJS.
+
+
+**Big Picture:**
+- Composer is **installed globally** (the CLI tool)
+- Dependencies are **installed per project**. You need the composer CLI tool installed globally so you can run commands at the project level to init or manage.
+
+
+**Check if you have composer installed globally already**
+
+Cloudpanel? Composer is pre-installed by default on CloudPanel
+
+Find out if you already have composer by running this command:
+```
+composer --version
+```
+
+**Composer Installation Instructions at:**
+[[_ Composer - Installation (Debian 12)]]
+
 #### Python
 - Check if you have python3 installed. It comes included with CloudPanel. Test with `python3 --version`
 	- If not installed. Look up how to install: Eg. Google: Ubuntu 22 install python3
@@ -1374,9 +1412,320 @@ Problems? First make sure PHP cli and PHP web are the same PHP versions! Refer t
 
 If still have problems, refer to [[Indepth Installation Guide - Mongo for PHP]]
 
----
 
-Let's install these CI/CD solutions:
+#### PostgreSQL
+
+Check whether PostgreSQL is already installed:
+
+```bash
+psql --version
+```
+
+If it is not installed on Debian or Ubuntu:
+
+```bash
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+```
+
+Enable PostgreSQL to start on boot:
+
+```bash
+sudo systemctl enable postgresql
+```
+
+Check whether the service is running:
+
+```bash
+sudo systemctl status postgresql
+```
+
+**PostgreSQL service and access basics**
+
+To open the PostgreSQL shell as the default superuser:
+
+```bash
+sudo -u postgres psql
+```
+^ **`-u postgres`** tells `sudo` to switch to the **`postgres` system user** (instead of root)
+
+
+Should you worry about the postgres super user? No worries:
+- The **`postgres` database user does NOT use a password locally**
+- It uses **peer authentication** (trusts the OS user)
+
+To restart PostgreSQL:
+
+```bash
+sudo systemctl restart postgresql
+```
+
+To quickly inspect PostgreSQL logs if something is failing:
+
+```bash
+sudo tail -n 100 /var/log/postgresql/postgresql-*.log
+```
+
+**Create authentication right away**
+
+Just like other databases, PostgreSQL should not be left wide open. Create your application user and database early so you are not building against the default superuser workflow longer than necessary.
+
+Create the user with a password:
+- Note you must have quotes for the USER so that it's case sensitive, otherwise the username would be stored all lowercase. When logging in later with that username, it won't let you know if it's mistyped or misspelled.
+```sql
+CREATE USER "{USER}" WITH PASSWORD "{PASSWORD}";
+```
+
+Check that the username is what you expected (because of the lowercase/uppercase nuance):
+```
+\du
+```
+^ Means display users
+
+Create the database:
+
+```sql
+CREATE DATABASE myapp_db;
+```
+
+Grant database privileges:
+
+```sql
+GRANT ALL PRIVILEGES ON DATABASE myapp_db TO "{USER}";
+GRANT ALL ON SCHEMA public TO "{USER}";
+```
+
+A user needs `CREATE` on the database to create a schema, and `CREATE` on the target schema to create tables there. The current user is actually `postgres`, so we need to reassign the database's owner and it's NOT enough to just grant privileges:
+```
+ALTER DATABASE myapp_db OWNER TO "{USER}";
+```
+
+**Verify login from the command line**
+
+Exit the psql shell (`exit` or `\q`), then test logging in as that application user.
+- Note if you mistyped the username, it won't let you know that because it'll just be a password authentication failed error
+
+```bash
+psql -h 127.0.0.1 -U "{USER}" -d myapp_db
+```
+
+Use `-h 127.0.0.1` on purpose. That forces a TCP connection instead of a Unix socket, which helps avoid authentication confusion when testing.
+
+**If having problems authenticating:**
+- Check if the username was created with case sensitivity (if surrounded by quotes) or automatically all lower case (no quotes).
+- Check authentication method in settings. Refer to ____
+
+**Once connected, run a few quick checks:**
+
+```sql
+SELECT NOW();
+SELECT current_user;
+SELECT current_database();
+```
+
+You can also test with a one-liner from the shell:
+
+```bash
+psql -h 127.0.0.1 -U myapp_user -d myapp_db -c "SELECT NOW();"
+```
+
+
+**Quick test table**
+
+To test inserts and reads, create a simple table:
+
+```sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(255)
+);
+```
+
+##### **Test PostgreSQL on Node.js**
+
+Install the PostgreSQL driver:
+
+```bash
+npm install pg
+```
+
+Seed and read example:
+```js
+const { Client } = require('pg');
+
+const client = new Client({
+	host: '127.0.0.1',
+	user: 'YOUR_USERNAME',
+	password: 'YOUR_PASSWORD',
+	database: 'myapp_db',
+});
+
+async function seed() {
+  // 🔥 Drop table if it exists
+  await client.query(`DROP TABLE IF EXISTS users`);
+
+  // 🏗️ Recreate table
+  await client.query(`
+    CREATE TABLE users (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(100),
+      email VARCHAR(255)
+    )
+  `);
+
+  // 🌱 Seed data
+  await client.query(
+    `INSERT INTO users (name, email)
+     VALUES ($1,$2), ($3,$4), ($5,$6)`,
+    [
+      'Abby', 'abby@example.com',
+      'Bobby', 'bobby@example.com',
+      'Caitlin', 'caitlin@example.com'
+    ]
+  );
+
+  console.log('Seed complete');
+}
+
+async function read() {
+  const result = await client.query('SELECT * FROM users');
+  console.log(result.rows);
+}
+
+async function main() {
+  try {
+    await client.connect();
+    await seed();
+    await read();
+  } catch (err) {
+    console.error(err);
+  } finally {
+    await client.end();
+  }
+}
+
+main();
+```
+
+##### **Test PostgreSQL on Python**
+
+Install the driver:
+
+```bash
+pip install psycopg2-binary
+```
+^ Psycopg is the most popular PostgreSQL database adapter for the Python programming 
+^ **`psycopg`** doesn’t stand for something clean like an acronym—it’s a **name mashup**:
+- **“psyc”** → from **Python** (historically referencing “psyco,” an old Python performance project)
+- **“o”** → - Filler to make the name pronounceable → _psy-co-pg_
+- **“pg”** → short for **PostgreSQL**
+
+Seed and read example:
+
+```python
+import psycopg2
+
+conn = psycopg2.connect(
+    host="127.0.0.1",
+    user="YOUR_USERNAME",
+    password="YOUR_PASSWORD",
+    dbname="myapp_db"
+)
+
+cur = conn.cursor()
+
+cur.execute("DROP TABLE IF EXISTS users")
+
+cur.execute("""
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(255)
+)
+""")
+
+cur.execute("""
+INSERT INTO users (name, email)
+VALUES (%s,%s), (%s,%s), (%s,%s)
+""", (
+    "Abby", "abby@example.com",
+    "Bobby", "bobby@example.com",
+    "Caitlin", "caitlin@example.com"
+))
+
+conn.commit()
+
+cur.execute("SELECT * FROM users")
+print(cur.fetchall())
+
+cur.close()
+conn.close()
+```
+
+##### **Test PostgreSQL on PHP**
+
+Install the PostgreSQL extension:
+
+```bash
+sudo apt install php-pgsql
+```
+
+
+Seed and read example:
+
+```php
+<?php
+
+$conn = pg_connect("host=127.0.0.1 dbname=myapp_db user=YOUR_USERNAME password=YOUR_PASSWORD");
+
+if (!$conn) {
+    die("Connection failed\n");
+}
+
+// Delete table if it already exists
+pg_query($conn, "DROP TABLE IF EXISTS users");
+
+// Create table
+pg_query($conn, "
+    CREATE TABLE users (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100),
+        email VARCHAR(255)
+    )
+");
+
+// Seed data
+pg_query_params(
+    $conn,
+    "INSERT INTO users (name, email) VALUES ($1,$2), ($3,$4), ($5,$6)",
+    [
+        'Abby', 'abby@example.com',
+        'Bobby', 'bobby@example.com',
+        'Caitlin', 'caitlin@example.com'
+    ]
+);
+
+echo "Seed complete\n";
+
+// Read data
+$result = pg_query($conn, "SELECT * FROM users");
+
+while ($row = pg_fetch_assoc($result)) {
+    print_r($row);
+}
+
+pg_close($conn);
+```
+
+Either run with `php -f test.php` or open the webpage on a web browser.
+
+---
+### ADVANCED WEBSITE: Versioning, CI/CD, Scaling
+
+Let's install these versioning and CI/CD solutions:
+
+---
 #### Git
 - Make sure there is git on your system
 	- Some systems come with git. Check out by running `git --version`
@@ -1540,6 +1889,10 @@ How to change password:
 Firewall managed with:
 iptables / firewalld / ufw
 
+Command SSH alias:
+```
+```
+
 ---
 ### ACC Provider Checklist / Statements of Facts
 
@@ -1683,6 +2036,22 @@ Mongo URL (PHP, NodeJS, Python):
 ```
 
 Mongo Shell:
+```
+..
+```
+
+---
+
+### ACC PostgreSQL
+
+Login/pass:
+
+Superuser (peer via being the root user on OS):
+```
+sudo -u postgres pqsl
+```
+
+PSQL Shell:
 ```
 ..
 ```

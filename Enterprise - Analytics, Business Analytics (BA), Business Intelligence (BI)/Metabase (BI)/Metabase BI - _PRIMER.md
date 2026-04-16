@@ -103,7 +103,7 @@ Decide if you want to use the PostgreSQL that's on your host machine, or you do 
 From personal experience, I recommend using the Postgres on your host machine because it's easier to debug from the same place you use Postgres. If you do not have Postgres, I still recommend you install it.
 
 #### Approach A: Postgres that's locally installed on host machine
-1. Now we will adjust the docker cli command to take in your postgres. Note if you DO NOT have postgres, you may want to install postgres at [[PostgreSQL - _PRIMER]] (recommended) or use the Docker container postgres while mounting its persistent data to a folder (NOT recommended).
+1. Now we will adjust the docker cli command to take in your postgres. Note if you DO NOT have postgres, you may want to install postgres at [[PostgreSQL - _PRIMER - Installation]] (recommended) or use the Docker container postgres while mounting its persistent data to a folder (NOT recommended).
    
    Go into PostgresSQL shell and prepare the database:
 	   - Create the database metabaseappdb which our command will choose as the database for Metabase to store its configuration and user profiles. Hint: `CREATE DATABASE metabaseappdb;`. 

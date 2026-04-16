@@ -11,7 +11,7 @@ Requirement:
 
 ### Server
 - Make sure server has postgres and docker installed
-	- Setup if needed: [[PostgreSQL - _PRIMER]]
+	- Setup if needed: [[PostgreSQL - _PRIMER - Installation]]
 	- Setup if needed: [[_ .PRIMER - Docker Concepts]]
 
 #### PostgresQL
