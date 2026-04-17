@@ -1,4 +1,3 @@
-
 Written by: Weng
 Purpose: General checklist on setting up VPS, regardless if Hostinger or GoDaddy or etc.
 ****
@@ -69,19 +68,82 @@ Likely your VPS has a web host admin panel (Hostinger hpanel, GoDaddy’s dashbo
 
 ---
 
-### **VPS**: How to setup SSH root access
-- Is this at the Services Dashboard (aka Hostinger hpanel, GoDaddy Dashboard) or the web hosting panel (cPanel, cloudpanel, etc)
-	- What’s their information architecture (to help remember how to navigate there).
-- How to access web browser SSH Root terminal navigating the Services Dashboard or the web hosting panel
-	- In case you need to quick and dirty in the future
-	- What’s their information architecture (to help remember how to navigate there).
-- Are you able to login into root at the local machine terminal with SSH?
+
+### **SSH Root Access** (Option: Handed to you)
+- **Dedicated Server only:** It's unlikely there will be a web gui for dedicated server. You'll mostly be interacting with your server via SSH and any web gui's you install. Often times their server administrator will setup SSH IP, root, and password, then hand it to you on email onboarding. You'll also be given a range of ip addresses available. The rest is up to you.
+- **VPS only:** See if the webhost handed the SSH Root user credentials to you at the panel that appears after logging into your webhost (eg. Hostinger hpanel, GoDaddy Dashboard). How to navigate to this information?
+
+- If they did not hand it to you, you have to setup SSH root access manually - refer to next section.
+- The provider gave you root user credentials - Are you able to login into root at the local machine terminal with SSH?
 - Did the provider give you non-root user credentials as well?
 	- If they've tightened security, logging into root with ssh command is disabled. The command `ssh root@XXX.XX.XXX.XX` appears to work as usual, and you might not even be privy to it being disabled because it will let you enter a password and all it will ever say is that the password is incorrect. This is by design so that hackers don't get clued in to try gaining access in other ways. This may also be why the provider gave you user credentials.
 	- You'd log into the that user with `ssh USER@XXX.XX.XXX.XX`, and once in the remote SSH session, you elevate by running `su`, followed by root user password; then it will switch from the normal user to the root user.
 	- To disable or enable root login, refer to [[SSH with Root Login Disabled]]
-- Once in remote server, how to navigate to get to your website files using cd commands? (Go into CloudPanel or Cpanel for a clue). Aka root web directory for your website,  Aka working directory for your code and webpages. Alternately you could have in a text document the full path so you can copy and paste the cd path into the terminal. But knowing how to navigate there in terminal can be helpful if you don’t have the full path easily accessible to copy and paste.
-- Run it as: `ssh root@REMOTE_IP -p 22`. Then enter your password when asked.
+- Once in remote server, how to navigate to get to your website files using cd commands? (Go into CloudPanel or Cpanel for a clue). Aka root web directory for your website,  Aka working directory for your code and webpages. Alternately you could have in a text document the full path so you can copy and paste the cd path into the terminal. But knowing how to navigate there in terminal can be helpful if you don’t have the full path easily accessible to copy and paste. There will probably be hidden folder .ssh, hidden file .bash_profile, etc, which you can see by running `ls -la`. 
+- Using password authentication, run it as: `ssh root@REMOTE_IP -p 22`. Then enter your password when asked. Once that goes through, start to setup SSH key file passwordless login to toughen your SSH security.
+- In case you get locked out of SSH, do you know how to access SSH terminal from the webhost's panels? Then you can restore SSH access for your local machine's terminal.
+	  
+- You could change your root password. Usually the root password handed to you is very randomized and hard to remember.
+	- Change your password by running `sudo passwd root`, then you will be prompted for a new password
+	- **Dedicated Server only**: Choose a password that's not related to your personal passwords because you may be sharing this password with the web host's server admin when there are problems only they can fix.
+  
+- **Dedicated Server only**: If splitting the dedicated server, you'll be setting up SSH root access again at your VPS VM at a later section. Various benefits of splitting dedicated server into one or more VPS VM includes one command restart instead of waiting on a ticket to restart dedicated service, isolated VPS that you can troubleshoot when hacked, etc.
+
+### **SSH Root Access** (Option: Manually Setup SSH Root User Credentials)
+
+In the case SSH Root password is not automatically setup and then handed to you, you'd still want to remotely connect to your server to manage files, configuration, and dependencies from our local machine's terminal. The SSH command allows us to do so and there are various ways to authenticate with the SSH command.
+
+Because we don't want hackers just attempting to hack ssh, we're gonna go for passwordless ssh login for authentication method. 
+
+At your local machine, generate a SSH key pair using your email address that you signed up with your VPS for:
+- Adjust your email address
+```
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+At your VPS, for example Hetzner, upload the public SSH key's contents (the text inside the file). This is done through a feature you press like "Add SSH key" (so no need to go into SSH terminal which you don't have access setup for yet). Keep the private and public keys on your computer.
+
+> [!note] UI UX Confusion
+> Later, after you add an SSH key, some hosting dashboards still do not clearly show that a key is already on your account. For example, as of April 2026, Hetzner may still show a menu option to create an SSH key, which can make it look like no key exists yet. But when you click that option, it actually takes you to the SSH key list, where your existing public key is shown
+>
+
+Once SSH key pair has been established, run this command at your local machine's terminal to test logging into SSH passwordless:
+- Adjust private SSH key path and ip
+```
+ssh -i ~/.ssh/newmac2023_hetzner -p 22 root@5.55.555.555  -tt "cd .  && bash --login"
+```
+
+Sysadmin experience:
+- You can now cd into a specific folder everytime (adjust the . path)
+- You can also setup an alias at your .bash_profile or .z_profile so that running the alias in terminal can log you into ssh. I like to name my alias after my hostname or web host company name.
+### Establish rsync connection
+
+Note: Do this only after SSH connection is worked out.
+
+There may be times you want to use rsync to download large files (such as backing up for restoring your server). Rsync can easily handle gigabytes of data. If the download is interrupted, it can resume the download. And - it shows the progress. However the specifics like what the command exactly looks like (authentication method, username, ip, etc) may change depending on environment.
+
+Create a test.txt anywhere in your Linux server file system (doesn't matter if is in the web root), try to tar.gz it up, then exit SSH. Now try to download that tar.gz from remote to local using rsync.
+
+Once the rsync command is figured out, record that to the folder where you save your webhosting credentials. It'd be a document on backup SOP. **Record rsync command**, for example:
+```
+rsync -avz --partial --progress -e "ssh -i ~/.ssh/some_ssh_key.pub" root@55.555.55.555:/home/wengindustries/htdocs/a.tar.gz . 
+```
+
+You may also want to **record the tar commands**. Get the unarchive command (Ask ChatGPT to reverse your command to unarchive).
+
+Progress bar could look like real time text out and replace on the terminal:
+```
+Transfer starting: 1 files
+a.tar.gz
+     1066690237  20%    3.51MB/s   00:19:54
+```
+
+Now rename the local file then try the other direction - upload to your server. Record the upload rsync command. Could look like:
+```
+rsync -avz --progress --partial --append b.tar.gz root@31.220.18.169:/home/wengindustries/htdocs
+```
+
+Make sure to **record this local upload to remote server** (along with your computer basic stats because the rsync command syntax may differ by OS) in the document too.
 
 ---
 ## Checklist - DNS Purchase then Cloudflare
@@ -124,21 +186,15 @@ Add some basic security at Cloudflare now, while you're there:
 - Allow challenges for suspicious visitors.
 - Block other countries. Refer to [[Countries - Restrict, block all other countries]]
 
----
 
 ---
-
-
----
-
 ## Checklist - Improve Terminal Experience
 
 We will be doing a lot of terminal work to enhance website capabilities for things like NodeJS, Python, etc. We want to make it easier to use the terminal especially since we will keep coming back into it (and re-logging into SSH). Use these items to improve the terminal experience.
 
 For example: Every time I log back into SSH, I don’t want to manually cd into the temp folders in my htdocs just to continue installing and testing the remaining items in this checklist.
 
-### SSH Securely and Easily
-**Improve Terminal**
+### Improved SSH Experience
 1. You may want to setup alias to easily SSH in from your computer's terminal (along with an echo of directories you will often cd into). You might want to add echo useful commands too (since the commands might change from local machine to different servers):
 
 ```
@@ -237,6 +293,16 @@ If you accidentally locked yourself out because you removed non-root and root pa
 
 ### Easier file commands
 **More Terminal experience improvements:**
+1. Are these commonly used cli tools available (use ` --version` to check):
+	- `nano`
+		- A lot of online instructions use nano
+	- `vi`
+		- Enable copy-to-clipboard in Vim using your mouse and CMD+C
+			  - Open (or create) your `~/.vimrc` file
+			- Add this line:
+			```
+			:set mouse=v
+			```
 2. You may want to add better searching capabilities from the SSH terminal because you don't have a friendly UI to browse files. Add to ~/.bash_profile or equivalent:
 
 ```
@@ -1244,16 +1310,19 @@ Let's install these versioning and CI/CD solutions:
 	- Some systems come with git. Check out by running `git --version`
 	- If git is not included, lookup instructions how to install git on the system
 		- eg. Google: Ubuntu 22 install git
-	- Setup identification for git commands (a bit involved):
+	- Verify installation successful: `git --version`
+	- Install gh because that's needed to forcefully authenticate for git (if authentication becomes stale and authorized commands like git push fails). Lookup instructions on how to install gh on the system eg. Google: Ubuntu 22 install gh
+	- Setup identification for git commands (or you'd be annoyed about it later when using git):
 	```
 	git config --global user.name "Your Name"
 	git config --global user.email "youremail@domain.com"
 	```
 
-	- Setup authorization for git commands
+	- **Github**: Setup authorization for git commands
 	  
-	  1. Check if `ls ~/.ssh` has .pub files and similarly named files without file extensions (Those are the public and private keys, respectively). If not, generate a public/private key referring to:
+	  1. Check if server `ls ~/.ssh` has .pub files and similarly paired file without the ".pub" file extensions (Those are the public and private keys, respectively). If not, generate a public/private key referring to:
 	  https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+		- Make sure the email address is the one used to sign into Github
 
 		```
 		ssh-keygen -t ed25519 -C "your_email@example.com"
@@ -1262,9 +1331,27 @@ Let's install these versioning and CI/CD solutions:
 	  2. Add public key to your Github account, referring to: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
 		  1. Click New SSH key at https://github.com/settings/keys
 		  2. Paste the contents of the public key (eg. id_ed25519.pub) and save as a SSH key, recommended naming the key after your server provider name for organizing purposes.
-		  
-	- Is git using your preferred terminal text editor
-		- To test: Run this at a git repo - `git rebase -i HEAD~2` and see what terminal text editor opens
+
+	3. Point `git` command to your private SSH key file. Set it once and forget it.
+	   - Edit: `~/.ssh/config`
+	   - Add:
+		```
+		Host github.com  
+		  HostName github.com  
+		  User git  
+		  IdentityFile ~/.ssh/my_key  
+		  IdentitiesOnly yes
+		```
+	- Now all Git operations to GitHub will use that key automatically.
+
+
+	- **Gitlab**: Setup authorization for git commands
+		- Refer to Github section
+		- Copy contents of the pub file (same pub file for Github and Gitlab) into Gitlab
+		- Add gitlab to `~/.ssh/config` in a similar fashion as how you added github.
+
+	- **Preferred terminal editor**: Is git using your preferred terminal text editor (default may be vi or nano)
+		- To test: Run this at a git repo - `git rebase -i HEAD~2` to any cloned repo or your own repo at the remote server, and then see what terminal text editor opens
 		- If you need to set a preferred terminal text editor: [[Git set which terminal text editor to use]]
 #### Docker
 - Make sure docker is on your system
@@ -1598,6 +1685,24 @@ Write how to backup the domain in this SOP document, such as the different datab
 Any username used by the terminal to create or modify files through PHP or Python scripts must also be updated.
 
 Prepend document that this is useful for migrating to another server too.
+
+Useful to tar up entire root folder for backup and restore:
+
+**Tar command:**
+```
+tar -czvf a.tar.gz wengindustries.com/
+```
+
+**Rsync command (download remote -> local):**
+```
+rsync -avz --partial --progress -e "ssh -i ~/.ssh/newmac2023_hostinger.pub" root@55.555.55.555:/home/wengindustries/htdocs/a.tar.gz .
+```
+
+**Rsync command (upload local -> remote):**
+```
+rsync -avz --progress --partial --append -e "ssh -i ~/.ssh/newmac2023_hostinger.pub" b.tar.gz root@55.555.55.555:/home/wengindustries/htdocs
+```
+Local computer (for command variance): MacBook Pro 2021
 
 ---
 ## acc UFW Open Ports

@@ -1,4 +1,3 @@
-
 Hetzner -> Cloud item at the main nav:
 https://www.hetzner.com/cloud/
 
@@ -13,31 +12,70 @@ Choose a specific package (eg. CCX13). Comparable for multi mixed web server (py
 
 ![[Pasted image 20260415230433.png]]
 
+Choose Debian 12 as of 2026. Ubuntu 22 is a close one though.
+
 ---
 ## Checklist - Web Host to Website Capable
-### Immediately establish ssh connection 
 
-We're gonna go for` passwordless ssh login. 
+### ~~**SSH Root Access** (Option: Handed to you)~~
+
+Hetzner does not setup SSH Root credentials and then hand them to you. Go to next section for manual SSH setup.
+
+### **SSH Root Access** (Option: Manually Setup SSH Root User Credentials)
+
+In the case SSH Root password is not automatically setup and then handed to you, you'd still want to remotely connect to your server to manage files, configuration, and dependencies from our local machine's terminal. The SSH command allows us to do so and there are various ways to authenticate with the SSH command.
+
+Because we don't want hackers just attempting to hack ssh, we're gonna go for passwordless ssh login for authentication method. 
 
 At your local machine, generate a SSH key pair using your email address that you signed up with your VPS for:
+- Adjust your email address
 ```
 ssh-keygen -t ed25519 -C "your_email@example.com"
 ```
 
-At your VPS, for example Hetzner, upload the public SSH key's contents. This is done through a feature you press add SSH key (so no need to go into SSH terminal which you don't have access setup for yet). Keep the private and public keys on your computer.
+At your VPS, for example Hetzner, upload the public SSH key's contents (the text inside the file). This is done through a feature you press like "Add SSH key" (so no need to go into SSH terminal which you don't have access setup for yet). Keep the private and public keys on your computer.
 
 > [!note] UI UX Confusion
-> Note that later on, after you have an SSH key, the dashboard doesn't tell you that you have an SSH key. It gives you the menu item for creating SSH key, which can lead to some confusion. But clicking that menu item will go to the SSH key list, showing your public key. 
+> Later, after you add an SSH key, some hosting dashboards still do not clearly show that a key is already on your account. For example, as of April 2026, Hetzner may still show a menu option to create an SSH key, which can make it look like no key exists yet. But when you click that option, it actually takes you to the SSH key list, where your existing public key is shown
 >
 
 Once SSH key pair has been established, run this command at your local machine's terminal to test logging into SSH passwordless:
+- Adjust private SSH key path and ip
 ```
 ssh -i ~/.ssh/newmac2023_hetzner -p 22 root@5.55.555.555  -tt "cd .  && bash --login"
 ```
 
 Sysadmin experience:
 - You can now cd into a specific folder everytime (adjust the . path)
-- You can also setup an alias at your .zshrc so that running the alias in terminal can log you into ssh. I like to name my alias after my hostname
+- You can also setup an alias at your .bash_profile or .z_profile so that running the alias in terminal can log you into ssh. I like to name my alias after my hostname or web host company name.
+### Establish rsync connection
+
+Note: Do this only after SSH connection is worked out.
+
+There may be times you want to use rsync to download large files (such as backing up for restoring your server). Rsync can easily handle gigabytes of data. If the download is interrupted, it can resume the download. And - it shows the progress. However the specifics like what the command exactly looks like (authentication method, username, ip, etc) may change depending on environment.
+
+Create a test.txt anywhere in your Linux server file system (doesn't matter if is in the web root), try to tar.gz it up, then exit SSH. Now try to download that tar.gz from remote to local using rsync.
+
+Once the rsync command is figured out, record that to the folder where you save your webhosting credentials. It'd be a document on backup SOP. **Record rsync command**, for example:
+```
+rsync -avz --partial --progress -e "ssh -i ~/.ssh/some_ssh_key.pub" root@55.555.55.555:/home/wengindustries/htdocs/a.tar.gz . 
+```
+
+You may also want to **record the tar commands**. Get the unarchive command (Ask ChatGPT to reverse your command to unarchive).
+
+Progress bar could look like real time text out and replace on the terminal:
+```
+Transfer starting: 1 files
+a.tar.gz
+     1066690237  20%    3.51MB/s   00:19:54
+```
+
+Now rename the local file then try the other direction - upload to your server. Record the upload rsync command. Could look like:
+```
+rsync -avz --progress --partial --append b.tar.gz root@31.220.18.169:/home/wengindustries/htdocs
+```
+
+Make sure to **record this local upload to remote server** (along with your computer basic stats because the rsync command syntax may differ by OS) in the document too.
 
 ---
 ### Prepare to install cloudpanel and nginx
@@ -325,6 +363,7 @@ server {
 
 UPDATE VHOST: Server block matching 80 and 443 is going to cause problems later when you create a SSL Let's Encrypt because it needs to find a challenge file it generated at a http URL, so we shouldn't redirect to https right away which makes the file undiscoverable because we don't have https setup yet! Notice there's the  `if ($scheme != "https") { rewrite ^ https://$host$request_uri permanent;  }` logic in the server block. Instead of commenting that out when initiating or renewing SSL with Let's Encrypt, we can separate out the server 80 and server 443 blocks. For server block 80, we will open the website instead of redirecting the the connection and also allow through challenge file. For server block 443, we will do the rest that we have going on (therefore no need to comment out the http redirect at certain times). Notice server. block 80 besides the acme challenge file, all else gets directed to port 8080 which is the php processor. If you want to be a purist and have http redirect to https, you can remove the 8080 proxy pass and return the https rewrite, like the original vhost, but that's highly NOT recommended right now because you want to be able to test your website quickly (like visiting http://.../index.php).
 Full Vhost:
+- I'm also hardening the server by blocking .git which can be a vulnerability
 - Adjust the acme root
 ```
 server {
@@ -338,6 +377,11 @@ server {
         root /home/wengindustries/htdocs/wengindustries.com/;
         allow all;
         auth_basic off;
+    }
+
+    location ~ /\.(git|svn|hg) {
+        deny all;
+        return 404;
     }
 
     location / {
@@ -373,6 +417,11 @@ server {
   location ~ /.well-known {
     auth_basic off;
     allow all;
+  }
+
+  location ~ /\.(git|svn|hg) {
+	deny all;
+	return 404;
   }
 
   {{settings}}
@@ -621,8 +670,7 @@ We will be doing a lot of terminal work to enhance website capabilities for thin
 
 For example: Every time I log back into SSH, I don’t want to manually cd into the temp folders in my htdocs just to continue installing and testing the remaining items in this checklist.
 
-### SSH Securely and Easily
-**Improve Terminal**
+### Improved SSH Experience
 1. You may want to setup alias to easily SSH in from your computer's terminal (along with an echo of directories you will often cd into). You might want to add echo useful commands too (since the commands might change from local machine to different servers):
 
 ```
@@ -721,6 +769,16 @@ If you accidentally locked yourself out because you removed non-root and root pa
 
 ### Easier file commands
 **More Terminal experience improvements:**
+1. Are these commonly used cli tools available (use ` --version` to check):
+	- `nano`
+		- A lot of online instructions use nano
+	- `vi`
+		- Enable copy-to-clipboard in Vim using your mouse and CMD+C
+			  - Open (or create) your `~/.vimrc` file
+			- Add this line:
+			```
+			:set mouse=v
+			```
 2. You may want to add better searching capabilities from the SSH terminal because you don't have a friendly UI to browse files. Add to ~/.bash_profile or equivalent:
 
 ```
@@ -1731,16 +1789,19 @@ Let's install these versioning and CI/CD solutions:
 	- Some systems come with git. Check out by running `git --version`
 	- If git is not included, lookup instructions how to install git on the system
 		- eg. Google: Ubuntu 22 install git
-	- Setup identification for git commands (a bit involved):
+	- Verify installation successful: `git --version`
+	- Install gh because that's needed to forcefully authenticate for git (if authentication becomes stale and authorized commands like git push fails). Lookup instructions on how to install gh on the system eg. Google: Ubuntu 22 install gh
+	- Setup identification for git commands (or you'd be annoyed about it later when using git):
 	```
 	git config --global user.name "Your Name"
 	git config --global user.email "youremail@domain.com"
 	```
 
-	- Setup authorization for git commands
+	- **Github**: Setup authorization for git commands
 	  
-	  1. Check if `ls ~/.ssh` has .pub files and similarly named files without file extensions (Those are the public and private keys, respectively). If not, generate a public/private key referring to:
+	  1. Check if server `ls ~/.ssh` has .pub files and similarly paired file without the ".pub" file extensions (Those are the public and private keys, respectively). If not, generate a public/private key referring to:
 	  https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+		- Make sure the email address is the one used to sign into Github
 
 		```
 		ssh-keygen -t ed25519 -C "your_email@example.com"
@@ -1749,10 +1810,29 @@ Let's install these versioning and CI/CD solutions:
 	  2. Add public key to your Github account, referring to: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
 		  1. Click New SSH key at https://github.com/settings/keys
 		  2. Paste the contents of the public key (eg. id_ed25519.pub) and save as a SSH key, recommended naming the key after your server provider name for organizing purposes.
-		  
-	- Is git using your preferred terminal text editor
-		- To test: Run this at a git repo - `git rebase -i HEAD~2` and see what terminal text editor opens
+
+	3. Point `git` command to your private SSH key file. Set it once and forget it.
+	   - Edit: `~/.ssh/config`
+	   - Add:
+		```
+		Host github.com  
+		  HostName github.com  
+		  User git  
+		  IdentityFile ~/.ssh/my_key  
+		  IdentitiesOnly yes
+		```
+	- Now all Git operations to GitHub will use that key automatically.
+
+
+	- **Gitlab**: Setup authorization for git commands
+		- Refer to Github section
+		- Copy contents of the pub file (same pub file for Github and Gitlab) into Gitlab
+		- Add gitlab to `~/.ssh/config` in a similar fashion as how you added github.
+
+	- **Preferred terminal editor**: Is git using your preferred terminal text editor (default may be vi or nano)
+		- To test: Run this at a git repo - `git rebase -i HEAD~2` to any cloned repo or your own repo at the remote server, and then see what terminal text editor opens
 		- If you need to set a preferred terminal text editor: [[Git set which terminal text editor to use]]
+		  
 #### Docker
 - Make sure docker is on your system
 	- Test for docker: `docker --version`
@@ -2082,6 +2162,30 @@ Write how to backup the domain in this SOP document, such as the different datab
 Any username used by the terminal to create or modify files through PHP or Python scripts must also be updated.
 
 Prepend document that this is useful for migrating to another server too.
+
+Useful to tar up entire root folder for backup and restore:
+
+**Tar command (archive):**
+```
+tar -czvf a.tar.gz wengindustries.com/
+```
+
+**Tar command (unarchive)**
+```
+tar -xzvf a.tar.gz
+```
+
+**Rsync command (download remote -> local):**
+At local computer's terminal, not ssh logged in:
+```
+rsync -avz --partial --progress -e "ssh -i ~/.ssh/newmac2023_hostinger.pub" root@55.555.55.555:/home/wengindustries/htdocs/a.tar.gz .
+```
+
+**Rsync command (upload local -> remote):**
+```
+rsync -avz --progress --partial --append -e "ssh -i ~/.ssh/newmac2023_hostinger.pub" b.tar.gz root@55.555.55.555:/home/wengindustries/htdocs
+```
+Local computer (for command variance): MacBook Pro 2021
 
 ---
 
