@@ -1,5 +1,3 @@
-Here’s a stronger version that makes it clear the **Compose plugin** is what enables `docker compose ...` commands, and adds a quick verification section for `docker compose build`.
-
 **How to use:** Turn on persistent "Table of Contents".
 
 ## 🖥️ Install Docker Engine and Docker Compose Plugin on a Server via SSH
@@ -47,13 +45,14 @@ These packages are used to add Docker’s official repository and signing key. (
 
 For modern Ubuntu and Debian installs, Docker’s docs use `/etc/apt/keyrings` for the repository key. ([Docker Documentation](https://docs.docker.com/engine/install/ubuntu/?utm_source=chatgpt.com "Install Docker Engine on Ubuntu"))
 
+**If server is Ubuntu:**
 ```bash
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 chmod a+r /etc/apt/keyrings/docker.gpg
 ```
 
-**If your server is Debian instead of Ubuntu**, use Docker’s Debian key URL instead:
+**If server is Debian**, use Docker’s Debian key URL instead:
 
 ```bash
 install -m 0755 -d /etc/apt/keyrings
@@ -150,6 +149,12 @@ Check the Compose plugin:
 docker compose version
 ```
 
+- And if you want to feel more confident about Compose, go ahead and run:
+```
+docker compose build
+```
+^ It might either build an image if you're in a docker folder, or it will error "no configuration file provided: not found", which is fine - either way shows docker compose is installed.
+
 Docker’s official Compose install docs specifically use `docker compose version` to confirm the plugin is installed correctly. ([Docker Documentation](https://docs.docker.com/compose/install/linux/?utm_source=chatgpt.com "install the Docker Compose plugin"))
 
 Also test the engine:
@@ -157,86 +162,6 @@ Also test the engine:
 ```bash
 docker run hello-world
 ```
-
----
-
-## ✅ Step 9: Make sure `docker compose build` works
-
-A common source of confusion is the difference between:
-
-- `docker-compose build` ← old standalone tool
-    
-- `docker compose build` ← current plugin-based command
-    
-
-Docker’s current standard is the **space version**, `docker compose`, and the old standalone `docker-compose` is considered legacy/backward-compatibility only. ([Docker Documentation](https://docs.docker.com/compose/install/standalone/?utm_source=chatgpt.com "Install the Docker Compose standalone (Legacy)"))
-
-To test that the plugin is working, create a quick test folder:
-
-```bash
-mkdir ~/docker-compose-test
-cd ~/docker-compose-test
-```
-
-Create a minimal `compose.yaml`:
-
-```bash
-cat > compose.yaml <<'EOF'
-services:
-  test:
-    image: hello-world
-EOF
-```
-
-Then run:
-
-```bash
-docker compose config
-docker compose pull
-docker compose up
-```
-
-If you want to specifically test the **build** path, use a tiny Dockerfile-based example:
-
-```bash
-mkdir ~/docker-compose-build-test
-cd ~/docker-compose-build-test
-```
-
-Create a Dockerfile:
-
-```bash
-cat > Dockerfile <<'EOF'
-FROM alpine:latest
-CMD ["echo", "docker compose build works"]
-EOF
-```
-
-Create a `compose.yaml`:
-
-```bash
-cat > compose.yaml <<'EOF'
-services:
-  app:
-    build: .
-EOF
-```
-
-Now test:
-
-```bash
-docker compose build
-docker compose up
-```
-
-If that succeeds, then your server has:
-
-- Docker Engine working
-    
-- the Compose plugin installed
-    
-- support for `docker compose build`
-    
 
 ---
 
@@ -280,6 +205,3 @@ If `docker compose version` works but `docker compose build` fails, then the iss
 - Installing from Docker’s official apt repository is the recommended Linux approach for Ubuntu and Debian. ([Docker Documentation](https://docs.docker.com/engine/install/ubuntu/?utm_source=chatgpt.com "Install Docker Engine on Ubuntu"))
     
 - The manual Compose plugin install exists, but Docker notes that manual installs do **not** auto-update, so repository install is easier to maintain. ([Docker Documentation](https://docs.docker.com/compose/install/linux/?utm_source=chatgpt.com "install the Docker Compose plugin"))
-    
-
-If you want, I can also turn this into a cleaner tutorial format with fewer headings and more beginner-friendly notes.
