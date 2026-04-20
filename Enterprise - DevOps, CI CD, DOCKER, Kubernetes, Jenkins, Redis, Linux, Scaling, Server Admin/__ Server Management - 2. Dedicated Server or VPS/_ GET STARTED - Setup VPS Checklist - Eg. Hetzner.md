@@ -662,6 +662,7 @@ Add some basic security at Cloudflare now, while you're there:
 - Allow blocking bot IPs.
 - Allow challenges for suspicious visitors.
 - Block other countries. Refer to [[Countries - Restrict, block all other countries]]
+- At CloudPanel, Security -> Cloudflare: Allow traffic from Cloudflare only
 
 ---
 ## Checklist - Improve Terminal Experience
@@ -782,6 +783,32 @@ If you accidentally locked yourself out because you removed non-root and root pa
 2. You may want to add better searching capabilities from the SSH terminal because you don't have a friendly UI to browse files. Add to ~/.bash_profile or equivalent:
 
 ```
+# USEABILITY SUGAR
+
+# - cdfile: Cd into folder of a file path (Useful when you copied path of a file instead of folder)
+
+function cdfile() {
+
+        pythonToken1="path='";
+
+        pythonToken2=$1;
+
+        pythonToken3="'; list = path.split('/'); list.pop(); path='/'.join(list); print(path);";
+
+        destination=`python -c "$pythonToken1$pythonToken2$pythonToken3"`;
+
+        cd $destination;
+
+    pwd;
+
+} # cdfrom
+
+# - mkdiro: Create a folder and cd into it
+
+function mkdiro () {  concat_args=""${@}""; mkdir "$concat_args"; cd "$concat_args"; };
+
+# - screenshot quick access
+
 # - fd: Find files with string in their filenames. Eg: fd *Untitled*.jpg  
 function fd() {   
 clear;   
@@ -824,9 +851,6 @@ eval $VAR0;
   # function gr() { clear; VAR1=""; [ $# -gt 1 ] && for((i=2;i<=$#;i++)) do [ ${!i:0:1} == / ] && VAR1+=" --exclude-dir \"${!i:1}\""; [ ${!i:0:1} != / ] && VAR1+=" --exclude \"${!i}\""; done; VAR0="grep -nriI ./ --exclude={.git,*.sql,package-lock.json,*.chunk.css,*.chunk.js,*.css.map,*.js.map} --exclude-dir={.git,.git/index,bower_components,node_modules,.sass-cache,vendor*,*backup*,*cached*}${VAR1} -e \"${1}\""; echo "* Running: $VAR0  
 } # gr -
 ```
-
-
----
 
 ---
 ## Checklist - Enhance Website Capabilities
@@ -1002,6 +1026,24 @@ composer --version
 **Composer Installation Instructions at:**
 [[_ Composer - Installation (Debian 12)]]
 
+#### NodeJS
+
+Check/install nodejs, npm (precluded in nodejs), and nvm, following instructions at [[Linux - Install node, npm, nvm (No theory)]]. Since we've chosen PHP application for CloudPanel, there's no NodeJS - and PHP is the right choice because this is the least complicated way to install all the other tech stacks.
+
+pm2 will be installed at a later section called Scaling Solutions.
+#### Yarn
+- Make sure Node is at least v20.11.0 to install a newer yarn (https://www.redswitches.com/blog/install-yarn-in-ubuntu/), otherwise look up classic yarn installation instructions.
+	- Install npm's repo corepack (tool to help with managing versions of your package managers) which allows you to install yarn
+	- Follow each step to install latest yarn:
+		```
+		sudo npm install -g corepack
+		corepack enable
+		corepack prepare yarn@stable --activate
+		yarn set version stable
+		yarn --version
+		```
+
+- Look up instructions for your OS on how to install these databases, if applicable to your server's use cases
 #### Python
 - Check if you have python3 installed. It comes included with CloudPanel. Test with `python3 --version`
 	- If not installed. Look up how to install: Eg. Google: Ubuntu 22 install python3
@@ -1056,20 +1098,6 @@ Add to pip.conf:
 [global]
 break-system-packages = true
 ```
-
-#### Yarn
-- Make sure Node is at least v20.11.0 to install a newer yarn (https://www.redswitches.com/blog/install-yarn-in-ubuntu/), otherwise look up classic yarn installation instructions.
-	- Install npm's repo corepack (tool to help with managing versions of your package managers) which allows you to install yarn
-	- Follow each step to install latest yarn:
-		```
-		sudo npm install -g corepack
-		corepack enable
-		corepack prepare yarn@stable --activate
-		yarn set version stable
-		yarn --version
-		```
-
-- Look up instructions for your OS on how to install these databases, if applicable to your server's use cases
 #### MySQL
 - MySQL (if not included by your web host’s VPS)
 	- If not installed CloudPanel or a web host management panel that includes these parts, look up instructions on how to install MySQL, PHP, and PHPMyAdmin. eg. Google: Ubuntu 22 install mysql phpmyadmin
@@ -1832,7 +1860,7 @@ Let's install these versioning and CI/CD solutions:
 	- **Preferred terminal editor**: Is git using your preferred terminal text editor (default may be vi or nano)
 		- To test: Run this at a git repo - `git rebase -i HEAD~2` to any cloned repo or your own repo at the remote server, and then see what terminal text editor opens
 		- If you need to set a preferred terminal text editor: [[Git set which terminal text editor to use]]
-		  
+
 #### Docker
 - Make sure docker is on your system
 	- Test for docker: `docker --version`
@@ -1848,12 +1876,20 @@ Let's install these versioning and CI/CD solutions:
 #### Scaling Solutions
 - Look up instructions for your OS on how to install these scaling solutions, if applicable to your server's use cases
 	- Balancers and multi workers:
-		- **pm2 for nodejs**
-			- Refer to the tutorial [[Installing PM2 and Configuring Nginx for Multiple Node.js Applications]] even if you're not on nginx (the first sections will be applicable before the section on applying it to nginx)
-		- **Supervisor, virtual envs, gunicorn and flask for python**
-			- Refer to the tutorial [[Supervisor Primer - QUICK REFERENCE]] which includes supervisor, shell file, gunicorn, flask, pyenv, pyenv-virtualenvs, pipenv
-		- Docker or supervisor to restart your api app on crashes (either server crash or app crash)
-			- Refer to the tutorials [[Docker Primer - General]] and [[Docker Primer - Get Started]]
+		- **For persistent NodeJS**: pm2
+			- Refer to the tutorial [[Installing PM2 and Configuring Nginx for Multiple Node.js Applications (Shortcut)]] even if you're not on nginx (the first sections will be applicable before the section on applying it to nginx)
+		- **For persistent Python**: Supervisor, virtual envs, gunicorn and flask
+			- Refer to [[Supervisor Primer - GET STARTED - Alternately, Install Everything.md]] which includes supervisor, gunicorn, flask, pyenv, pyenv-virtualenvs, pipenv. There it will install all the dependnecies
+				- [ ] pyenv
+				- [ ] pyenv-virtualenvs
+				- [ ] pipenv
+				- [ ] flask
+				- [ ] gunicorn
+				- [ ] supervisor
+		- Turn on any scaling/persistence that is usually ON in your older server:
+			- Docker or supervisor to restart your api app on crashes (either server crash or app crash)
+				- Docker: [[Docker Primer - Get Started]]
+				- Supervisor etc: [[Supervisor Primer - GET STARTED (Python stack with Sh, Pyenv-virtualenvs, Pipenv, Gunicorn)]]
 
 ### ADVANCED WEBSITE: Timeouts
 
@@ -2157,35 +2193,7 @@ Alternately, you could just backup as vhost files near where your pm2 is inside 
 
 **(Separate Document from the mega document with multiple ACC sections)**
 
-Write how to backup the domain in this SOP document, such as the different database backups (MySQL, MongoDB), file backups (or bare minimum with state data files while you have the original app code elsewhere on the computer), eco/ backup, vhosts, root SFTP SSH, and site username, and SSL domains/subdomains, etc.
-
-Any username used by the terminal to create or modify files through PHP or Python scripts must also be updated.
-
-Prepend document that this is useful for migrating to another server too.
-
-Useful to tar up entire root folder for backup and restore:
-
-**Tar command (archive):**
-```
-tar -czvf a.tar.gz wengindustries.com/
-```
-
-**Tar command (unarchive)**
-```
-tar -xzvf a.tar.gz
-```
-
-**Rsync command (download remote -> local):**
-At local computer's terminal, not ssh logged in:
-```
-rsync -avz --partial --progress -e "ssh -i ~/.ssh/newmac2023_hostinger.pub" root@55.555.55.555:/home/wengindustries/htdocs/a.tar.gz .
-```
-
-**Rsync command (upload local -> remote):**
-```
-rsync -avz --progress --partial --append -e "ssh -i ~/.ssh/newmac2023_hostinger.pub" b.tar.gz root@55.555.55.555:/home/wengindustries/htdocs
-```
-Local computer (for command variance): MacBook Pro 2021
+Work in progress. At [[ACC Hetzner WengIndustries - Backup Migration]]
 
 ---
 
@@ -2204,7 +2212,19 @@ Local computer (for command variance): MacBook Pro 2021
 
 **(Separate Document from the mega document with multiple ACC sections)**
 
-..
+- Only if changed the url wengindustries.com/app/*brain/curriculum/server-update.php:
+	- On local machine's Obsidian -> At Content-Published -> In each brain/notebooks -> package.json has URL that open to remote php file that will git pull and rebuild cached render
+
+- Only if changed folder structure, url, or webhost. In regards to: https://reports.mixotype.com
+	- vhost sets the root: /home/wengindustries/htdocs/wengindustries.com/partner/mixo;
+	- If you changed webhost, we need to re-assigning A record at Numair's DNS Registrar ONOS to point to our domain
+
+- Only if changed webhost. In regards to github.com and gitlab.com where you push/pull repos from remote servers as CI/CD processes, then you got to regenerate the SSH key pairs and reupload the contents of the public key to github.com / gitlab.com
+
+- Dedicated Server / VPS' section "ADVANCED WEBSITE: Prepare for web app features" refer to following [[Web app ready - Ffmpeg, cytypes, imagemagick, pcregrep]]
+	- ffmpeg, ctypes: videolisting saas
+	- imagemagick: screenshot apps (in the future, stocks)
+	- pcregrep: more flexible regexp in php for coder searching notebook brains, sleep logs, etc
 
 ---
 

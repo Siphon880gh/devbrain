@@ -61,6 +61,8 @@ Installation success testing instructions in the summary list
 
 ### Test ImageMagick works inside PHP  
 
+Because often ImageMagick is included in PHP (Even CloudPanel's PHP application)
+
 #### 1. Create PHP script
 
 Create a file named `test_imagemagick.php` with the following content:  
@@ -159,46 +161,26 @@ PCRE (Perl 5 Compatible Regular Expression Library)
 
 Eg. Google: Ubuntu 22 install PCRegrep  
 
-  
+As for Ubuntu 22 or Debian 12:
 
-As for Ubuntu 22:
-
-1. `sudo apt-get install libpcre3 libpcre3-dev` 
-2. `sudo apt install libpcre3 libpcre3-dev` 
-3. `sudo apt install pcregrep` 
-
-[https://www.cyberciti.biz/faq/debian-ubuntu-linux-install-libpcre3-dev/](https://www.cyberciti.biz/faq/debian-ubuntu-linux-install-libpcre3-dev/)  
-
-Installation success testing instructions in the summary list
-
-  
+```
+sudo apt-get install libpcre3 libpcre3-dev -y
+sudo apt install libpcre3 libpcre3-dev -y
+sudo apt install pcregrep -y
+```
 
 **Test PCRegrep works with PHP**
 
+```
 <?php  
-            if(!`which $pcregrep 2>/dev/null`) {  
-              echo "Error: Your server does not support pcregrep necessary to find text in files. Search will fail. Please contact your server administrator.";  
-            } else {  
-              echo "Success: Your server supports pcregrep.";  
-            }  
+if (!`which pcregrep 2>/dev/null`) {  
+  echo "Error: Your server does not support pcregrep.";  
+} else {  
+  echo "Success: Your server supports pcregrep.";  
+}  
 ?>
-
-  
-
-  
-Open your terminal and navigate to the directory where you saved the `test_imagemagick.php` file. Then, run the script using the PHP command:  
-  
-```sh  
-php test_imagemagick.php  
 ```
 
-Or visit that php page in the web browser  
-  
-You could get success (either terminal or web browser). If success, then your PHP script can find files and return their filenames and line results if your web app requires “google searching” documents using PHP’s 
-
-exec command to access the system’s pcregrep command
-
-  
 ---
 
 ## **Library: ctypes**

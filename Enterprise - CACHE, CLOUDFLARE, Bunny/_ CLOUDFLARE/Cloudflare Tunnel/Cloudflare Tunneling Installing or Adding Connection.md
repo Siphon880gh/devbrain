@@ -86,6 +86,34 @@ Here's how to setup a tunnel on Cloudflare's dashboard:
 
 ^ Note worthy, service URL is to the http localhost at the app's port. We chose subdomain rather than path (can be more problematic than it needs to be).
 
+After it's finalized, it'll show that a CNAME is automatically created for you too:
+![[Pasted image 20260420064330.png]]
+
+For example if you have an express server.js running on the server side like:
+```
+const express = require('express');
+const app = express();
+const PORT = 3000;
+
+// Root route
+app.get('/', (req, res) => {
+  res.send('Express works');
+});
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
+```
+
+As a quick test, I run it in foreground at a ssh
+![[Pasted image 20260420064652.png]]
+
+When I created the tunnel, I used address `http://localhost:3000`
+
+Then going to `https://codernotes.wengindustries.com` would have shown:
+![[Pasted image 20260420064057.png]]
+
 ---
 
 Hold up!
@@ -101,3 +129,46 @@ Continued failure to set this up could show:
 ![[Pasted image 20260415062324.png]]
 Or shows:
 ![[Pasted image 20260415062354.png]]
+
+---
+
+Double check it works from the server's SSH terminal
+
+Run:
+```
+cloudflared tunnel list
+```
+
+It should show something like:
+```
+ID                                   NAME CREATED              CONNECTIONS      
+xxx-xx-xx-xx-xxxx Test 2026-04-14T21:45:46Z 2xxxxxx, 2xxxxxx 
+```
+
+If instead it shows:
+```
+
+2026-04-20T09:28:18Z ERR Cannot determine default origin certificate path. No file cert.pem in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp /etc/cloudflared /usr/local/etc/cloudflared]. You need to specify the origin certificate path by specifying the origincert option in the configuration file, or set TUNNEL_ORIGIN_CERT environment variable originCertPath=
+Error locating origin cert: client didn't specify origincert path
+```
+
+Then run:
+```
+cloudflared tunnel login
+```
+
+It will try to open a web browser page which will probably fail since we're doing SSH. In that case it gives you a URL at the SSH terminal to copy and paste to your own web browser. 
+
+Click the domain that applies to the tunnel:
+![[Pasted image 20260420061354.png]]
+
+->
+![[Pasted image 20260420063127.png]]
+
+->
+![[Pasted image 20260420063142.png]]
+
+Then you can double check again by running:
+```
+cloudflared tunnel list
+```

@@ -24,7 +24,9 @@ Next steps is going down to the nginx web server software level at a SSH session
    Use process-level checks first to verify whether nginx workers are consuming CPU.
 
 	**1a**. Snapshot:
+	```
 	ps aux --sort=-%cpu | head -25
+	```
 	
 	This is a positive we have a problem:
 	![[Pasted image 20260321055000.png]]

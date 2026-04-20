@@ -1,0 +1,1 @@
+These notes are moved to DevOps -> Git DevOps

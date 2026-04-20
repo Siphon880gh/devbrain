@@ -1,1 +1,1 @@
-\_PM2 and its ecosystem.config.js notes are moved to "DevOps - PM2"
+\_PM2 and its ecosystem.config.js notes are moved to DevOps -> Server Scaling -> Legacy -> Process Manager - PM2 (NodeJS)

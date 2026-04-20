@@ -1,4 +1,3 @@
-
 Scaling a web application from a handful of users to millions requires a staged approach. As user demand grows, so must the infrastructure and architecture behind your application. Here's a step-by-step guide on how to scale effectively from prelaunch to 1 million users.
 
 ---

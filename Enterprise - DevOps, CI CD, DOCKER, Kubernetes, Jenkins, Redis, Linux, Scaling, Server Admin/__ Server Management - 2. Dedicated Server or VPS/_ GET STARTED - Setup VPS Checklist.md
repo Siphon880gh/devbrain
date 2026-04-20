@@ -185,6 +185,7 @@ Add some basic security at Cloudflare now, while you're there:
 - Allow blocking bot IPs.
 - Allow challenges for suspicious visitors.
 - Block other countries. Refer to [[Countries - Restrict, block all other countries]]
+- At CloudPanel, Security -> Cloudflare: Allow traffic from Cloudflare only
 
 
 ---
@@ -523,6 +524,25 @@ composer --version
 **Composer Installation Instructions at:**
 [[_ Composer - Installation (Debian 12)]]
 
+#### NodeJS
+
+Check/install nodejs, npm (precluded in nodejs), and nvm, following instructions at [[Linux - Install node, npm, nvm (No theory)]]. Since we've chosen PHP application for CloudPanel, there's no NodeJS - and PHP is the right choice because this is the least complicated way to install all the other tech stacks.
+
+pm2 will be installed at a later section called Scaling Solutions.
+#### Yarn
+- Make sure Node is at least v20.11.0 to install a newer yarn (https://www.redswitches.com/blog/install-yarn-in-ubuntu/), otherwise look up classic yarn installation instructions.
+	- Install npm's repo corepack (tool to help with managing versions of your package managers) which allows you to install yarn
+	- Follow each step to install latest yarn:
+		```
+		sudo npm install -g corepack
+		corepack enable
+		corepack prepare yarn@stable --activate
+		yarn set version stable
+		yarn --version
+		```
+
+- Look up instructions for your OS on how to install these databases, if applicable to your server's use cases
+
 #### Python
 - Check if you have python3 installed. It comes included with CloudPanel. Test with `python3 --version`
 	- If not installed. Look up how to install: Eg. Google: Ubuntu 22 install python3
@@ -578,19 +598,6 @@ Add to pip.conf:
 break-system-packages = true
 ```
 
-#### Yarn
-- Make sure Node is at least v20.11.0 to install a newer yarn (https://www.redswitches.com/blog/install-yarn-in-ubuntu/), otherwise look up classic yarn installation instructions.
-	- Install npm's repo corepack (tool to help with managing versions of your package managers) which allows you to install yarn
-	- Follow each step to install latest yarn:
-		```
-		sudo npm install -g corepack
-		corepack enable
-		corepack prepare yarn@stable --activate
-		yarn set version stable
-		yarn --version
-		```
-
-- Look up instructions for your OS on how to install these databases, if applicable to your server's use cases
 #### MySQL
 - MySQL (if not included by your web host’s VPS)
 	- If not installed CloudPanel or a web host management panel that includes these parts, look up instructions on how to install MySQL, PHP, and PHPMyAdmin. eg. Google: Ubuntu 22 install mysql phpmyadmin
@@ -1364,17 +1371,23 @@ Let's install these versioning and CI/CD solutions:
 		- Note instructions differ from Mac because on Mac the recommended approach is Docker Desktop which bundles in a daemon better than installing independent packages with homebrew can.
 	- Don't forget to test if Docker installed successfully: `docker --version`
 	- Docker compose installation instructions: ... docker-compose-plugin ? which makes not just docker-compose possible but `docker compose build` possible because of the plugin making docker aware of compose
-
 #### Scaling Solutions
 - Look up instructions for your OS on how to install these scaling solutions, if applicable to your server's use cases
 	- Balancers and multi workers:
-		- **pm2 for nodejs**
-			- Refer to the tutorial [[Installing PM2 and Configuring Nginx for Multiple Node.js Applications]] even if you're not on nginx (the first sections will be applicable before the section on applying it to nginx)
-		- **Supervisor, virtual envs, gunicorn and flask for python**
-			- Refer to the tutorial [[Supervisor Primer - QUICK REFERENCE]] which includes supervisor, shell file, gunicorn, flask, pyenv, pyenv-virtualenvs, pipenv
-		- Docker or supervisor to restart your api app on crashes (either server crash or app crash)
-			- Refer to the tutorials [[Docker Primer - General]] and [[Docker Primer - Get Started]]
-
+		- **For persistent NodeJS**: pm2
+			- Refer to the tutorial [[Installing PM2 and Configuring Nginx for Multiple Node.js Applications (Shortcut)]] even if you're not on nginx (the first sections will be applicable before the section on applying it to nginx)
+		- **For persistent Python**: Supervisor, virtual envs, gunicorn and flask
+			- Refer to [[Supervisor Primer - GET STARTED - Alternately, Install Everything.md]] which includes supervisor, gunicorn, flask, pyenv, pyenv-virtualenvs, pipenv. There it will install all the dependnecies
+				- [ ] pyenv
+				- [ ] pyenv-virtualenvs
+				- [ ] pipenv
+				- [ ] flask
+				- [ ] gunicorn
+				- [ ] supervisor
+		- Turn on any scaling/persistence that is usually ON in your older server:
+			- Docker or supervisor to restart your api app on crashes (either server crash or app crash)
+				- Docker: [[Docker Primer - Get Started]]
+				- Supervisor etc: [[Supervisor Primer - GET STARTED (Python stack with Sh, Pyenv-virtualenvs, Pipenv, Gunicorn)]]]]
 ### ADVANCED WEBSITE: Timeouts
 
 Are users waiting on something generating for a long time? Their fetch will wait for that long then expect a response unless you're doing web sockets, SSE, etc. You need to raise up the allowed wait time before a timeout error. Skip this if not applicable.
