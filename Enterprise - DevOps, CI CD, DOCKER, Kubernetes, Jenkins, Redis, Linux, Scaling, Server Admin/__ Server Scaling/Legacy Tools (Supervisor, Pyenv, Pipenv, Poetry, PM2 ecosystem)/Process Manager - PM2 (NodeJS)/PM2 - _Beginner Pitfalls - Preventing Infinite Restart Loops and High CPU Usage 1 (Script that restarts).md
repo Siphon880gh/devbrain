@@ -1,5 +1,9 @@
 **Fundamental: Preventing Infinite Restart Loops and High CPU Usage in PM2**
 
+**Caveat**: This is only one pitfall to the infinite loop. There is more than one. Look into the note's folder.
+
+---
+
 When running apps or NodeJS Script files with PM2, the key question is simple: **does the script exit?** If it exits, PM2 starts it again. If it stays alive, PM2 leaves it alone.
 
 That is why a script like `console.log("hi")` is bad to keep under PM2. It has no `listen`, `setInterval`, `setTimeout`, or other waiting mechanism, so it finishes almost immediately. PM2 then restarts it again and again, which can create a very fast restart loop, flood logs, and increase CPU usage (especially as the log file becomes larger in size). At first CPU doesn't spike, but after a few days, depending on the hardware and how quickly the script keeps restarting, you may see CPU usage climb to around 10% more. 

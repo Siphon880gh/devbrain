@@ -174,7 +174,7 @@ Now, assuming your Node.js application is running and your configurations are co
 `hello.js` is actually a bad script to keep running because it has no throttling through a `listen`, `setInterval`, `setTimeout`, or any other waiting mechanism (eg. Express server's **listen**). It is just a `console.log`, so the script can finish almost immediately. Under PM2, that means the process exits and then gets started again, over and over, which can create a very fast restart loop. That causes PM2 to keep writing logs repeatedly, and over time the log handling can become increasingly expensive on the CPU due to the larger log file size. After a few days, depending on the hardware and how quickly the script keeps restarting, you may see CPU usage climb to around 10% more. Because of that, `hello.js` should be stopped or shut down. 
 
 > [!note] For more information on writing scripts that don't repeatedly restart
-> Refer to [[PM2 - _Beginner Pitfalls - Preventing Infinite Restart Loops and High CPU Usage]]
+> Refer to [[PM2 - _Beginner Pitfalls - Preventing Infinite Restart Loops and High CPU Usage 1 (Script that restarts)]]
 > 
 
 Proper shut down is as follows:
@@ -194,6 +194,11 @@ That isn't enough because it'll just be in stopped status and will restart when 
 Remove from pm2 list:
 ```
 pm2 delete NAME
+```
+
+And the shut off process is not entirely done yet even when `pm2 list` no longer shows the process. Without running `pm2 update`, the daemon isn’t fully refreshed, so it may keep trying to manage something that no longer exists especially after pm2 restarts from a server reboot. Run this to wrap it up:
+```
+pm2 update
 ```
 
 If you want to really make sure, restart the server (like `reboot` command in Debian 12). Then once the server is back online, run `pm2 list` again to confirm if it really is removed/not restarted.
