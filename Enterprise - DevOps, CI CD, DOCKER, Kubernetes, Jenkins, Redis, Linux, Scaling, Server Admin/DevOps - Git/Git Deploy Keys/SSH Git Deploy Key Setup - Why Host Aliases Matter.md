@@ -31,6 +31,8 @@ Here:
 
 That is the main reason host aliases are useful in SSH deploy key setups: they let multiple repos on the same machine connect to the same real GitHub server while using different keys without conflicting with each other.
 
+Don't forget to upload the public key to your respective repo:
+![[Pasted image 20260421041150.png]]
 
 ---
 

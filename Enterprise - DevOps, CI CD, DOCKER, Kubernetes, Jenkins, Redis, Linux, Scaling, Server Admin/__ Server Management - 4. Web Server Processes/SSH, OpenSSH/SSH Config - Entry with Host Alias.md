@@ -28,4 +28,4 @@ then you usually do not need `HostName`, because the `Host` value is already the
 
 When you have multiple repos with different SSH key, they can't all be connected to github.com, therefore you assign each repo to a different host in the SSH origin string  (instead of the SSH origin string simply connecting to the real host `github.com`). Furthermore, the normal SSH key you use for all your other repos that are paired to your personal Github account must be differentiated from the deploy SSH key associated with that one repo, therefore you are still using host aliases.
 
-Refer to [[SSH Deploy Key Setup - Why Host Aliases Matter]]
+Refer to [[SSH Git Deploy Key Setup - Why Host Aliases Matter]]
