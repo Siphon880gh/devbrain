@@ -1,0 +1,1 @@
+Yes your mobile can join and then control your desktop that's hosted. But it'll be very difficult to control because of the small screen.
