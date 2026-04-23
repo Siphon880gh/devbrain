@@ -27,7 +27,30 @@ Approval:
 
 ![[Pasted image 20260422020630.png]]
 
-Success is:
+If you want to double check, the Access Controls JSON Editor should have these lines (or some variation of them):
+```
+"tagOwners": {"tag:owner":["USER@gmail.com"]},
+"autoApprovers": {"services:" {"svc:SERVICE_NAME": ["tag:owner"]}}
+```
+OR
+```
+"tagOwners": {"tag:owner":["USER@gmail.com"]},
+"autoApprovers": {"services:" {"svc:SERVICE_NAME": ["USER@gmail.com"]}}
+```
+OR
+```
+"tagOwners": {"tag:owner":["USER@gmail.com"]},
+"autoApprovers": {
+"services:" 
+{
+	"svc:SERVICE_NAME_1": ["tag:owner"], 
+	"svc:SERVICE_NAME_2": ["tag:owner"], 
+	"svc:SERVICE_NAME_3": ["tag:owner"]}
+}
+}
+```
+
+Let's visit the proposed URL (See at previous screenshot breadcrumb `All Services/test.tail844572.ts.net`) Success is:
 ![[Pasted image 20260422020455.png]]
 
 
