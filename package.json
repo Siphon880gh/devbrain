@@ -9,9 +9,9 @@
     "old-commit(shows full path)": "git add -A; FILENAMES=`git diff --cached --name-only | tr '\n' ';'` && git commit -m \"New - $FILENAMES\";",
     "old-commit(all commits called content update)": "git add -A; git commit -m 'Content update';",
     "push": "git push origin main;",
-    "browserMac": "open \"https://wengindustries.com/app/devbrain/curriculum/server-update.php?secret=123\"",
-    "browserPC":  "xdg-open \"https://wengindustries.com/app/devbrain/curriculum/server-update.php?secret=123\"",
-    "browserLinux":  "start \"https://wengindustries.com/app/devbrain/curriculum/server-update.php?secret=123\"",    
+    "browserMac": "open \"https://codernotes.wengindustries.com/curriculum/server-update.php?secret=123\"",
+    "browserPC":  "xdg-open \"https://codernotes.wengindustries.com/curriculum/server-update.php?secret=123\"",
+    "browserLinux":  "start \"https://codernotes.wengindustries.com/curriculum/server-update.php?secret=123\"",    
     "uploadDiffImages":  "node \"/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/upload_diff_images.js\"",
     "deploy": "npm run commit; npm run push && npm run browserMac; npm run uploadDiffImages;"
   },
