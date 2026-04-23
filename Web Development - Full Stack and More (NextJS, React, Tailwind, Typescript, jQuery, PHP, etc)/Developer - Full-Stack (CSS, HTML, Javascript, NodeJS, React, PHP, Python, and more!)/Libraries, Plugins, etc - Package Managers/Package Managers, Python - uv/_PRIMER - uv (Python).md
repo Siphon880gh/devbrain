@@ -3,6 +3,9 @@ Instead, they may tell you to use a **specific package manager other than `pip`*
 
 `uv` is a fast Python package and environment manager designed to make installing and running tools easier and more reliable.
 
+Namesake:
+It's Rust-based Python package manager and toolchain developed by Astral that mainly stands for ==**Ultraviolet**==.
+
 ---
 
 ## What `uv` is
