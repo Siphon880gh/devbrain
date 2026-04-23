@@ -15,9 +15,9 @@ Copy URL. Try to visit in the web browser. It will fail (and hence Hosts will re
 
 ---
 
-
+Make sure use service name that you created from the Services tab. The service name goes after "-service=svc:"
 ```
-tailscale serve -service=svc:test -http=80 http://127.0.0.1:3000
+tailscale serve --service=svc:test --http=80 http://127.0.0.1:3000
 ```
 
 ![[Pasted image 20260422015607.png]]
@@ -32,14 +32,38 @@ Success is:
 
 
 ### Troubleshooting
-tailscale serve -service=svc:yourservice-https=443 http://127.0.0.1:3000
+`tailscale serve -service=svc:yourservice-https=443 http://127.0.0.1:3000`
 service hosts must be tagged nodes
 
 ![[Pasted image 20260422020436.png]]
 
+The machine that hosts the service needs a tag that shows ownership:
 ![[Pasted image 20260422021104.png]]
-
+So tag your machine at the Machines tab with an ownership tag.
 ![[Pasted image 20260422020729.png]]
 
-But make sure exists in Access controls -> JSON editor (should've been auto populated from installing tailscale):
+Don't have an ownership tag? Create one at **Access Controls -> Tags**
+And select the owner when making the tag.
+
+One additional step:
+General access rules should be permissive. Add a very permissive rule.
+
+The next step:
+Allow auto approving of services: Access controls -> Auto approvers:
+![[Pasted image 20260422040450.png]]
+^ Notice the Service column svc:test is NOT a tag. It's just a shorthand saying the service name under Service column
+
+There's an ownership tag called test and a service called test. They do not need to be the same name though.
+
+?
+Do we add a tag of tag owner under Service?
+
+Correlates to Access controls -> JSON editor, noting `tagOwners` and `autoApprovers`:
 ![[Pasted image 20260422020829.png]]
+
+---
+
+Troubleshooting
+
+Use verbose mode on curl and you might see a 403, then it's likely an access controls issue OR the process itself (ollama etc). Ollama doesnt work well with tailscale btw
+- Regarding Ollama: Ollama is the component with explicit documented requirements about the proxied `Host` header. Put a tiny local reverse proxy in front of Ollama that rewrites the `Host` header, then point Tailscale Serve at that proxy. If you have nginx: `proxy_set_header Host localhost:11434;`

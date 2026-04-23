@@ -86,9 +86,52 @@ Here we ran a virtual girlfriend and we can ask questions, and it responds:
 
 ---
 
-## Long term use
+## Long term use - Multiple models
 
 You can quickly see what's available to run on your computer (all pulled or ran):
 ```
 ollama list
 ```
+
+---
+## Long term use - Does Ollama Keep Running After Reboot?
+
+It depends on how you start it.
+
+If you launch Ollama manually with:
+
+```bash
+ollama serve
+```
+
+it runs in that terminal session only. If you close the terminal or reboot, Ollama stops.
+
+If you set Ollama up as a background service, it can start automatically after reboot and stay available without you manually launching it again.
+
+Regardless if Ollama is running as a service or you serve it briefly, its local API port is typically available at:
+
+```bash
+http://localhost:11434
+```
+
+Ollama is up and ready to accept commands including using models and prompting them for generations.
+
+### Check if Ollama is running
+
+Run:
+
+```bash
+curl http://localhost:11434
+```
+
+If Ollama is up, it should return:
+
+```bash
+Ollama is running
+```
+
+### Quick takeaway
+
+- Models stay on disk after reboot
+- The Ollama server process does not always stay running unless set up as a service
+- If it is running as a service, port `11434` should be active and ready

@@ -8,6 +8,9 @@ Make sure tailscale is up and then login (or switch account):
 Visiting that URL you copied and pasted into the web browser:
 ![[Pasted image 20260422033645.png]]
 
+^If it sticks you to an older account, you can switch account at the bottom:
+![[Pasted image 20260422040740.png]]
+
 Make sure to sign in to the same account that the original machine(s) are at. You'll be asked if you want to connect your device:
 ![[Pasted image 20260422033841.png]]
 
