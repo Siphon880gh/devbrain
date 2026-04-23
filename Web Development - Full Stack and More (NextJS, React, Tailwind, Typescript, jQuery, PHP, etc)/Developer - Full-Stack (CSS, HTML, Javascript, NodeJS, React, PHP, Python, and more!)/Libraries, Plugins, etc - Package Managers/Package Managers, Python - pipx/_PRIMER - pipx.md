@@ -10,13 +10,9 @@ Instead, they may tell you to use a **specific package manager other than `pip`*
 `pipx` is a tool for installing Python applications (CLI tools) globally while keeping their dependencies isolated.
 
 It:
-
 - installs each tool in its own virtual environment
-    
 - avoids conflicts between tools
-    
 - keeps your system Python clean
-    
 
 ---
 
@@ -125,5 +121,3 @@ If a Python CLI tool recommends `pipx`, it’s usually because:
 
 **Bottom line:**  
 `pipx` is one of the package managers Python CLI tools may tell you to use instead of `pip` when installing standalone tools safely.
-
----
