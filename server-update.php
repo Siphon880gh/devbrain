@@ -12,11 +12,16 @@ ini_set('display_errors', 1);
  * Run a shell command and capture stdout, stderr, and the exit code reliably.
  * shell_exec() drops the exit code, and `echo $?` in a separate shell_exec()
  * always returns 0 because it runs in a fresh shell. Use exec() instead.
+ *
+ * IMPORTANT: shell redirections (2>&1) bind to a single command, so for chains
+ * like "cmd1 && cmd2 && cmd3" we wrap the whole thing in a subshell so that
+ * stderr from EVERY command in the chain is captured, not just the last one.
  */
-function runCommand($command) {
+function runCommand($command, $envPrefix = '') {
     $output = [];
     $exitCode = -1;
-    exec($command . ' 2>&1', $output, $exitCode);
+    $wrapped = ($envPrefix !== '' ? $envPrefix . ' ' : '') . '( ' . $command . ' ) 2>&1';
+    exec($wrapped, $output, $exitCode);
     return [
         'command'  => $command,
         'output'   => implode("\n", $output),
@@ -40,22 +45,42 @@ function renderStep($label, $result) {
 }
 
 $processUser = posix_getpwuid(posix_geteuid());
-$user = $processUser['name'];
+$user     = $processUser['name'];
+$userHome = $processUser['dir'];
 $dir  = __DIR__;
 $pwd  = trim((string)shell_exec('pwd'));
 
+/*
+ * PHP-FPM strips most env vars, so git can't find ~/.gitconfig or ~/.ssh/
+ * unless we explicitly set HOME. GIT_TERMINAL_PROMPT=0 and BatchMode=yes
+ * make sure git fails fast instead of hanging on a credential prompt.
+ */
+$gitEnvPrefix = 'HOME=' . escapeshellarg($userHome)
+              . ' GIT_TERMINAL_PROMPT=0'
+              . ' GIT_SSH_COMMAND=' . escapeshellarg('ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new');
+
 $cdCommand            = 'cd ' . escapeshellarg($dir);
-$fetchAndResetCommand = 'git fetch origin && git reset --hard refs/remotes/origin/main';
+$fetchAndResetCommand = 'git fetch --verbose origin && git reset --hard refs/remotes/origin/main';
 $gitOriginCommand     = $cdCommand . ' && git remote get-url origin';
 $gitStatusCommand     = $cdCommand . ' && git status --short --branch';
 $gitHeadCommand       = $cdCommand . ' && git log -1 --pretty=format:"%h %s (%an, %ar)"';
 $nodeVersionCommand   = 'node -v';
 $rebuildCommand       = $cdCommand . ' && cd .. && npm run ' . escapeshellarg($npmBuildScript);
 
-$gitOriginResult = runCommand($gitOriginCommand);
-$fetchResetResult = runCommand($cdCommand . ' && ' . $fetchAndResetCommand);
-$gitStatusResult = runCommand($gitStatusCommand);
-$gitHeadResult   = runCommand($gitHeadCommand);
+$diagnosticsCommand = $cdCommand
+    . ' && echo "--- whoami ---" && whoami'
+    . ' && echo "--- HOME ---" && echo "HOME=$HOME"'
+    . ' && echo "--- ls -la $HOME/.ssh (may not exist) ---" && (ls -la "$HOME/.ssh" 2>&1 || true)'
+    . ' && echo "--- git config --global --list ---" && (git config --global --list 2>&1 || true)'
+    . ' && echo "--- git remote -v ---" && git remote -v'
+    . ' && echo "--- .git ownership ---" && ls -ld .git'
+    . ' && echo "--- git version ---" && git --version';
+
+$diagnosticsResult = runCommand($diagnosticsCommand, $gitEnvPrefix);
+$gitOriginResult   = runCommand($gitOriginCommand,   $gitEnvPrefix);
+$fetchResetResult  = runCommand($cdCommand . ' && ' . $fetchAndResetCommand, $gitEnvPrefix);
+$gitStatusResult   = runCommand($gitStatusCommand,   $gitEnvPrefix);
+$gitHeadResult     = runCommand($gitHeadCommand,     $gitEnvPrefix);
 $nodeVersionResult = runCommand($nodeVersionCommand);
 $rebuildResult     = runCommand($rebuildCommand);
 
@@ -105,6 +130,7 @@ $allOk = $gitOriginResult['exitCode'] === 0
 </div>
 
 <?php
+renderStep('0. Environment diagnostics (whoami, HOME, .ssh, git config)', $diagnosticsResult);
 renderStep('1. Git remote origin URL', $gitOriginResult);
 renderStep('2. Git fetch + hard reset to origin/main', $fetchResetResult);
 renderStep('3. Git status (post-reset)', $gitStatusResult);
