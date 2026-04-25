@@ -13,17 +13,26 @@ ini_set('display_errors', 1);
  * shell_exec() drops the exit code, and `echo $?` in a separate shell_exec()
  * always returns 0 because it runs in a fresh shell. Use exec() instead.
  *
- * IMPORTANT: shell redirections (2>&1) bind to a single command, so for chains
- * like "cmd1 && cmd2 && cmd3" we wrap the whole thing in a subshell so that
- * stderr from EVERY command in the chain is captured, not just the last one.
+ * Notes:
+ * - Shell redirections (2>&1) bind to a single command, so for chains like
+ *   "cmd1 && cmd2 && cmd3" we wrap the whole thing in a subshell so stderr
+ *   from EVERY command in the chain is captured, not just the last one.
+ * - VAR=value prefixes work for simple commands but NOT in front of a
+ *   subshell ( ... ) — that's a parse error (sh exits 2 with no useful
+ *   output). So env vars are placed inside the subshell as `export`.
  */
 function runCommand($command, $envPrefix = '') {
     $output = [];
     $exitCode = -1;
-    $wrapped = ($envPrefix !== '' ? $envPrefix . ' ' : '') . '( ' . $command . ' ) 2>&1';
+    if ($envPrefix !== '') {
+        $wrapped = '( export ' . $envPrefix . '; ' . $command . ' ) 2>&1';
+    } else {
+        $wrapped = '( ' . $command . ' ) 2>&1';
+    }
     exec($wrapped, $output, $exitCode);
     return [
         'command'  => $command,
+        'wrapped'  => $wrapped,
         'output'   => implode("\n", $output),
         'exitCode' => $exitCode,
     ];
