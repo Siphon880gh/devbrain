@@ -54,6 +54,10 @@ $pwd  = trim((string)shell_exec('pwd'));
  * PHP-FPM strips most env vars, so git can't find ~/.gitconfig or ~/.ssh/
  * unless we explicitly set HOME. GIT_TERMINAL_PROMPT=0 and BatchMode=yes
  * make sure git fails fast instead of hanging on a credential prompt.
+ *
+ * Note: we use $HOME (with explicit env var) instead of ~ in commands below
+ * because tilde expansion is unreliable in PHP-invoked shells — tilde inside
+ * quotes does NOT expand, and even unquoted it can fail when HOME is unset.
  */
 $gitEnvPrefix = 'HOME=' . escapeshellarg($userHome)
               . ' GIT_TERMINAL_PROMPT=0'
@@ -69,12 +73,17 @@ $rebuildCommand       = $cdCommand . ' && cd .. && npm run ' . escapeshellarg($n
 
 $diagnosticsCommand = $cdCommand
     . ' && echo "--- whoami ---" && whoami'
-    . ' && echo "--- HOME ---" && echo "HOME=$HOME"'
-    . ' && echo "--- ls -la $HOME/.ssh (may not exist) ---" && (ls -la "$HOME/.ssh" 2>&1 || true)'
+    . ' && echo "--- env: HOME, PATH, USER ---" && echo "HOME=$HOME" && echo "PATH=$PATH" && echo "USER=$USER"'
+    . ' && echo "--- ls -la \"$HOME\" (top-level) ---" && (ls -la "$HOME" 2>&1 || true)'
+    . ' && echo "--- ls -la \"$HOME/.ssh\" (may not exist) ---" && (ls -la "$HOME/.ssh" 2>&1 || true)'
+    . ' && echo "--- known_hosts present? ---" && (test -f "$HOME/.ssh/known_hosts" && echo "yes ($HOME/.ssh/known_hosts)" || echo "no")'
+    . ' && echo "--- /etc/ssh/ssh_known_hosts present? ---" && (test -f /etc/ssh/ssh_known_hosts && echo "yes" || echo "no")'
     . ' && echo "--- git config --global --list ---" && (git config --global --list 2>&1 || true)'
     . ' && echo "--- git remote -v ---" && git remote -v'
     . ' && echo "--- .git ownership ---" && ls -ld .git'
-    . ' && echo "--- git version ---" && git --version';
+    . ' && echo "--- git version ---" && git --version'
+    . ' && echo "--- ssh -V ---" && ssh -V 2>&1'
+    . ' && echo "--- ssh -T git@github.com (auth probe, expects exit 1 on success) ---" && (ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new -T git@github.com 2>&1 || true)';
 
 $diagnosticsResult = runCommand($diagnosticsCommand, $gitEnvPrefix);
 $gitOriginResult   = runCommand($gitOriginCommand,   $gitEnvPrefix);
@@ -130,7 +139,7 @@ $allOk = $gitOriginResult['exitCode'] === 0
 </div>
 
 <?php
-renderStep('0. Environment diagnostics (whoami, HOME, .ssh, git config)', $diagnosticsResult);
+renderStep('0. Environment diagnostics (whoami, HOME, .ssh, known_hosts, git config, ssh probe)', $diagnosticsResult);
 renderStep('1. Git remote origin URL', $gitOriginResult);
 renderStep('2. Git fetch + hard reset to origin/main', $fetchResetResult);
 renderStep('3. Git status (post-reset)', $gitStatusResult);
