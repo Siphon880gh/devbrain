@@ -1,1 +1,1 @@
-Just follow the practices at [[_ Best Practice - Prevent Bot Attacks]]
+Just follow the practices at [[_ Best Practice - Prevent or Stop Bot Attacks (Linux, Cloudflare, PHP)]]

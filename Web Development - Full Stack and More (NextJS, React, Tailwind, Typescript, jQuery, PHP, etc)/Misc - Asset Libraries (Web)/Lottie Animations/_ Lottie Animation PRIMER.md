@@ -59,7 +59,7 @@ Lottie animations are often in the form of .lottie or .json file extensions. You
 	__list them from the webpage__
 	```
 1. Browse: [LottieFiles Featured Free](https://lottiefiles.com/featured-free-animations)
-2. Find icons or styles that match. For tips on how to tell icons are of a similar style, refer to wengindustry.com/app/3dbrain/?open=Icon%20Set%20of%20Same%20Style
+2. Find icons or styles that match. For tips on how to tell icons are of a similar style, refer to https://3dnotes.wengindustries.com/?open=Icon%20Set%20of%20Same%20Style
 3. Edit to match brand colors
 4. Save, download, and implement on your site
 

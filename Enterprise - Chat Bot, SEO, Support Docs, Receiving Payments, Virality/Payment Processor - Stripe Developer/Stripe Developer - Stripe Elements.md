@@ -1,7 +1,7 @@
 ## PATHWAYS
 If instead of no-code embed solutions (ui price card, ui payment button, pricing table), you want to use Stripe Elements that lets you configure the element that renders because that depends on user behavior or user's own configurations, continue with this tutorial.
 
-If you want no-code embed solutions, refer to my business notes on Stripe: https://wengindustries.com/app/bizbrain/?open=Stripe%20-%20Payment%20links,%20ui%20price%20card,%20and%20ui%20pay%20button
+If you want no-code embed solutions, refer to my business notes on Stripe: https://biznotes.wengindustries.com/?open=Stripe%20-%20Payment%20links,%20ui%20price%20card,%20and%20ui%20pay%20button
 
 ---
 

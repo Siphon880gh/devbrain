@@ -13,7 +13,7 @@ These instructions are especially useful when evaluating or repurposing open-sou
 ---
 
 Trelium:
-- wengindustries.com/app/bizbrain/?open=_%20Trilium%20PRIMER
+- biznotes.wengindustries.com/?open=_%20Trilium%20PRIMER
 
 Focalboard:
-- wengindustries.com/app/bizbrain/?open=_%20Focalboard%20PRIMER
+- biznotes.wengindustries.com/?open=_%20Focalboard%20PRIMER

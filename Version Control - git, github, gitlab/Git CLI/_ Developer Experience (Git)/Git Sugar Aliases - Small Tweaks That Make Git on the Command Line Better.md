@@ -96,6 +96,26 @@ alias bfg='java -jar /usr/local/bin/bfg-1.14.0.jar'
 
 Instead of remembering the full Java command every time, you can just call `bfg` directly.
 
+
+### Combined Block
+
+The combined block is:
+```
+alias gitc='git add -A; git commit -m '
+alias gitd='git diff'
+
+alias gitdf='echo "Files changed between last two commits"; pwd; git diff --name-status HEAD~1 HEAD'
+alias gitdff='echo "Files changed between second to last two commits "; pwd; git diff --name-status HEAD~2 HEAD~1'
+alias gitdfff='echo "Files changed between third to last two commits "; pwd; git diff --name-status HEAD~3 HEAD~2'
+
+alias gitl='echo "git log, single-line, last 15"; git log --oneline --reverse --pretty=format:"%h %ad | %s" -15 --date=short -15'
+alias gitla='echo "git log, single-line, all"; git log --oneline --reverse --pretty=format:"%h %ad | %s" --date=short'
+alias gitlla='echo "ShortHash, LongHash, AuthorDate, CommitDate, Author, CommitMessage";
+git log --pretty=tformat:"%h, %H, %ad, %cd, %an, %s" --date=iso | cut -c 1-170;'
+
+alias bfg='java -jar /usr/local/bin/bfg-1.14.0.jar'
+```
+
 ### Final thoughts
 
 Git aliases do not change Git itself. They improve the way you interact with it. By putting a few smart shortcuts in `.zshrc` or `.bash_profile`, you reduce typing, make output easier to read, and create a workflow that feels faster and more natural. Over time, these small improvements add up and make command-line Git much more pleasant to use.

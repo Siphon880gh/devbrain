@@ -1,0 +1,1 @@
+These notes have been moved to `Enterprise - CACHE, CLOUDFLARE, Bunny, Performance` -> `Performance - Wordpress`

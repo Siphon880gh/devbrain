@@ -1,4 +1,4 @@
-## What should've been done
+## What should've been done at Linux level before Cloudflare
 
 You should put your website behind Cloudflare from the start.
 
@@ -26,6 +26,22 @@ However, where you place those firewall rules matters.
 If the server is **already under attack**, applying filtering only at the Linux level using tools like **UFW**, **iptables**, or even **nftables** may still leave your kernel handling a large volume of unwanted traffic. That can still consume significant CPU just from filtering the requests.
 
 Because of that, if your hosting provider offers firewall controls in its own infrastructure panel, it is often better to block traffic there instead of relying only on firewall rules inside the VPS itself (At cpanel/cloudpanel or Linux shell). For example, on a host like Hostinger, set those rules in the provider’s hpanel.
+
+---
+
+## Additional Checks at Cloudflare
+
+- Make sure you didn't turn off the default blocking AI training bots (at Overview), or the Bot flight mode (At Security -> Settings), any DDoS protections (same page)
+- Make sure you have your DNS records proxied
+
+---
+
+## Additional Hardening at Cloudflare
+
+
+- Have Cloudflare block outside US traffic, referring to [[Countries - Restrict, block all other countries]]
+- Set Cloudpanel to only accept Cloudflare traffic under the Traffic tab (Setting is at the very bottom). Refer to [[CloudPanel with Cloudflare - Only allow Cloudflare Traffic IP]]
+- If you can see bot traffic still gets through Cloudflare, add **non-interactive Cloudflare challenge** on the app URL. If not good enough, you can add an **interactive Cloudflaer challenge**
 
 ---
 
@@ -103,3 +119,11 @@ The exact place depends on the distro, package layout, and hosting panel. The im
 - `limit_conn` is commonly placed in `server` or `location`
 
 Nginx’s docs list `limit_conn_zone` in the `http` context, while `limit_conn` may be placed in `http`, `server`, or `location`. The real IP directives are also valid in `http`, `server`, or `location`, though putting them in `http` is the usual way to apply them broadly. ([Nginx](https://nginx.org/en/docs/http/ngx_http_limit_conn_module.html?utm_source=chatgpt.com "Module ngx_http_limit_conn_module"))
+
+---
+
+If your app is PHP, you may want to throttle based on the same IP making multiple requests in a short time frame. 
+
+The scraper gets served a 429 status code which means too many requests. If it's an actual user clicking too much on the web browser (still bad for our network / cpu), we degrade to friendlier message:
+
+![[throttle.png]]

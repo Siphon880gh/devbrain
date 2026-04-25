@@ -1,6 +1,6 @@
 Please refer to folder "Security SOPs" at business notebook
-https://wengindustries.com/app/bizbrain/
+https://biznotes.wengindustries.com/
 
 Notes that help organizations mitigate cyberattacks include:
-- Email Enumeration: wengindustries.com/app/bizbrain/?open=Email%20Enumeration
-- Email Phishing, Spoofing: wengindustries.com/app/bizbrain/?open=Email%20Phishing,%20Spoofing
+- Email Enumeration: biznotes.wengindustries.com/?open=Email%20Enumeration
+- Email Phishing, Spoofing: biznotes.wengindustries.com/?open=Email%20Phishing,%20Spoofing

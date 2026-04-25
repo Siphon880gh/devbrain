@@ -18,7 +18,7 @@ sorting-spec: |-
   Enterprise - SECURITY, Code Standards, Compliance
   Enterprise - TEST Units, Test Driven Development, Etc
   Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin
-  Enterprise - CACHE, CLOUDFLARE, Bunny
+  Enterprise - CACHE, CLOUDFLARE, Bunny, Performance
   Enterprise - Email and Forms
   Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality
   Enterprise - Analytics, Business Analytics (BA), Business Intelligence (BI)
