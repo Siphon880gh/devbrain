@@ -8,55 +8,120 @@ $npmBuildScript = "build-devbrain";
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+/**
+ * Run a shell command and capture stdout, stderr, and the exit code reliably.
+ * shell_exec() drops the exit code, and `echo $?` in a separate shell_exec()
+ * always returns 0 because it runs in a fresh shell. Use exec() instead.
+ */
+function runCommand($command) {
+    $output = [];
+    $exitCode = -1;
+    exec($command . ' 2>&1', $output, $exitCode);
+    return [
+        'command'  => $command,
+        'output'   => implode("\n", $output),
+        'exitCode' => $exitCode,
+    ];
+}
+
+function renderStep($label, $result) {
+    $ok = ($result['exitCode'] === 0);
+    $statusColor = $ok ? '#1b7a3f' : '#b00020';
+    $statusText  = $ok ? 'OK (exit 0)' : 'FAILED (exit ' . htmlspecialchars((string)$result['exitCode']) . ')';
+    $outputText  = trim($result['output']) === '' ? '(no output)' : $result['output'];
+
+    echo '<section style="margin: 0 0 22px 0; padding: 12px 14px; border-left: 4px solid ' . $statusColor . '; background: #fafafa;">';
+    echo '<div style="font-weight: 700; font-size: 15px; margin-bottom: 6px;">' . htmlspecialchars($label) . '</div>';
+    echo '<div style="margin-bottom: 6px;"><b>Status:</b> <span style="color:' . $statusColor . '; font-weight:600;">' . $statusText . '</span></div>';
+    echo '<div style="margin-bottom: 6px;"><b>Command:</b> <code>' . htmlspecialchars($result['command']) . '</code></div>';
+    echo '<div><b>Output:</b></div>';
+    echo '<pre style="background:#111; color:#eee; padding:10px 12px; border-radius:4px; white-space:pre-wrap; word-break:break-word; margin:6px 0 0 0; font-size:12.5px; line-height:1.45;">' . htmlspecialchars($outputText) . '</pre>';
+    echo '</section>';
+}
+
 $processUser = posix_getpwuid(posix_geteuid());
 $user = $processUser['name'];
-$dir = __DIR__;
-$pwd = shell_exec("pwd");
+$dir  = __DIR__;
+$pwd  = trim((string)shell_exec('pwd'));
 
-$cdCommand = 'cd "' . $dir . '"';
-$fetchAndResetCommand = 'git fetch origin; git reset --hard refs/remotes/origin/main';
-$cdFetchAndResetCommand = $cdCommand . " && " . $fetchAndResetCommand;
-$cdFetchAndResetCommandExec = shell_exec("$cdFetchAndResetCommand 2>&1");
-$cdFetchAndResetCommandOutput = shell_exec('echo $?');
+$cdCommand            = 'cd ' . escapeshellarg($dir);
+$fetchAndResetCommand = 'git fetch origin && git reset --hard refs/remotes/origin/main';
+$gitOriginCommand     = $cdCommand . ' && git remote get-url origin';
+$gitStatusCommand     = $cdCommand . ' && git status --short --branch';
+$gitHeadCommand       = $cdCommand . ' && git log -1 --pretty=format:"%h %s (%an, %ar)"';
+$nodeVersionCommand   = 'node -v';
+$rebuildCommand       = $cdCommand . ' && cd .. && npm run ' . escapeshellarg($npmBuildScript);
 
-$gitOriginCommand = "git remote get-url origin";
-$gitOriginCommandExec = shell_exec("$gitOriginCommand 2>&1");
-$gitOriginCommandOutput = shell_exec('echo $?');
+$gitOriginResult = runCommand($gitOriginCommand);
+$fetchResetResult = runCommand($cdCommand . ' && ' . $fetchAndResetCommand);
+$gitStatusResult = runCommand($gitStatusCommand);
+$gitHeadResult   = runCommand($gitHeadCommand);
+$nodeVersionResult = runCommand($nodeVersionCommand);
+$rebuildResult     = runCommand($rebuildCommand);
 
-$nodeVersionCommand = "node -v";
-$nodeVersionCommandExec = shell_exec("$nodeVersionCommand 2>&1");
-$nodeVersionCommandOutput = shell_exec('echo $?');
+$allOk = $gitOriginResult['exitCode'] === 0
+      && $fetchResetResult['exitCode'] === 0
+      && $nodeVersionResult['exitCode'] === 0
+      && $rebuildResult['exitCode'] === 0;
 
-$rebuildCommand = "cd .. && npm run $npmBuildScript";
-$rebuildCommandExec = shell_exec("$rebuildCommand 2>&1");
-$rebuildCommandOutput = shell_exec('echo $?');
+?>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Updating notes online</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 980px; margin: 24px auto; padding: 0 18px; color: #222; line-height: 1.5; }
+  h1 { margin: 0 0 8px 0; }
+  .intro { color: #555; margin-bottom: 18px; }
+  .env { background:#f0f4f8; border-radius:6px; padding:12px 14px; margin-bottom: 22px; font-size: 13.5px; }
+  .env div { margin: 2px 0; }
+  .banner { padding: 10px 14px; border-radius: 6px; font-weight: 600; margin-bottom: 18px; }
+  .banner.ok   { background:#e6f4ec; color:#1b7a3f; border:1px solid #b7dcc4; }
+  .banner.fail { background:#fdecef; color:#b00020; border:1px solid #f5b8c1; }
+  code { background:#eef1f4; padding: 1px 5px; border-radius: 3px; font-size: 12.5px; }
+  a { color: #0a66c2; }
+</style>
+</head>
+<body>
 
-echo "<h1>Updating notes online</h1>";
-echo "<p>From Obsidian MD, you ran the npm deploy script which committed and pushed local curriculum changes to Github/Gitlab, then the npm script opened the online PHP script in the web browser. That online PHP script is part of the online curriculum repo and is pulling in curriculum updates from Github/Gitlab into the remote server, then the PHP script cd out into the note-reading app to rebuild the cached render for the online audience by running NodeJS scripts that build the PHP partial.</p><p></p>"
-;
-echo "<b>Shell user:</b> " . $user . "<p></p>";
-echo "<b>PHP __DIR:</b> " . $dir . "<p></p>";
-echo "<b>CWD:</b> " . $pwd . "<p></p><p></p>";
+<h1>Updating notes online</h1>
+<p class="intro">
+  From Obsidian MD, you ran the npm deploy script which committed and pushed local curriculum changes
+  to Github/Gitlab, then the npm script opened this online PHP script in the web browser.
+  This script is part of the online curriculum repo and pulls curriculum updates from Github/Gitlab
+  into the remote server, then <code>cd</code>s out into the note-reading app to rebuild the cached
+  render for the online audience by running NodeJS scripts that build the PHP partial.
+</p>
 
-echo "<b>COMMAND cd, git fetch, git reset:</b> " . $cdFetchAndResetCommand . "<p></p>";
-echo "<b>OUTPUT cd, git fetch, git reset:</b> " . $cdFetchAndResetCommandOutput . "<p></p><p></p>";
+<div class="banner <?= $allOk ? 'ok' : 'fail' ?>">
+  <?= $allOk ? 'All steps completed successfully.' : 'One or more steps FAILED — see red-bordered sections below.' ?>
+</div>
 
-echo "<b>COMMAND git origin:</b> " . $gitOriginCommand . "<p></p>";
-echo "<b>OUTPUT git origin:</b> " . $gitOriginCommandOutput; "<p></p><p></p>";
+<div class="env">
+  <div><b>Shell user:</b> <?= htmlspecialchars($user) ?></div>
+  <div><b>PHP __DIR__:</b> <?= htmlspecialchars($dir) ?></div>
+  <div><b>CWD (pwd):</b> <?= htmlspecialchars($pwd) ?></div>
+</div>
 
-echo "<b>COMMAND NODE VERSION:</b> " . $nodeVersionCommand; "<p></p>";
-echo "<b>OUTPUT NODE VERSION:</b> " . $nodeVersionCommandOutput; "<p></p><p></p>";
+<?php
+renderStep('1. Git remote origin URL', $gitOriginResult);
+renderStep('2. Git fetch + hard reset to origin/main', $fetchResetResult);
+renderStep('3. Git status (post-reset)', $gitStatusResult);
+renderStep('4. Git HEAD commit (post-reset)', $gitHeadResult);
+renderStep('5. Node version', $nodeVersionResult);
+renderStep('6. Build cached rendering (npm run ' . $npmBuildScript . ')', $rebuildResult);
+?>
 
-echo "<b>COMMAND BUILD CACHED RENDERING:</b> " . $rebuildCommand; "<p></p>";
-echo "<b>OUTPUT BUILD CACHED RENDERING:</b> " . $rebuildCommandOutput; "<p></p><p></p>";
+<p style="margin-top: 28px;"><b>View:</b> <a href="../">View web notes</a></p>
 
-echo "<p></p><p></p>";
-echo "<b>View:</b> <a href='../'>View web notes</a><p></p>";
+</body>
+</html>
 
+<?php
 // Server migration:
 // Running shell command and it's permission denied? Get user and add it to the folder you're at
 // [root@s97-74-232-20 curriculum]# sudo chown -R <process_user> ./
 // [root@s97-74-232-20 curriculum]# sudo chmod -R 755 ./
 // [root@s97-74-232-20 curriculum]# sudo find ./ -type f -exec chmod 644 {} \;
-
 ?>
