@@ -1,0 +1,6 @@
+
+When it comes to AI video upscaling tools in 2026:
+- Topaz Video AI is generally considered one of the best options, but it costs around $400 per year. File size can increase a lot depending on export settings, codec, bitrate, and how much you upscale. It supports Windows and Mac, but newer versions do not officially support Intel-based Macs.
+- Aiarty Video Enhancer is more affordable, with a $200 lifetime license (free updates for life) or $100 for free updates for a year, as of April 2026. It supports Windows and Mac, but Windows and Mac licenses may be separate depending on the plan. It can greatly increase file size — for example, turning an 8 MB video into around 200 MB. As of April 2026, it also does not handle eyes very well in videos.
+
+After upscaling, you can use HandBrake to compress the video back down. HandBrake is free, open-source, and works on Windows, Mac, and Linux. It can convert videos into modern codecs like MP4/H.264 or H.265 so the final file is much smaller while still keeping decent quality.

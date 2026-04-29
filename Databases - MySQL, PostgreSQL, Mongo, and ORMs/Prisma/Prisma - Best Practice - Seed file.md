@@ -27,6 +27,16 @@ Prisma actually runs:
 tsx prisma/seed.ts
 ```
 
+You could just keep it simple with just npm script running the seed script, but it's nice to have everything including seeding under the prisma command
+
+That feels cleaner because your whole setup flow stays under Prisma:
+
+```
+npx prisma generate
+npx prisma migrate deploy
+npx prisma db seed
+```
+
 ---
 
 ## Why `tsx`?

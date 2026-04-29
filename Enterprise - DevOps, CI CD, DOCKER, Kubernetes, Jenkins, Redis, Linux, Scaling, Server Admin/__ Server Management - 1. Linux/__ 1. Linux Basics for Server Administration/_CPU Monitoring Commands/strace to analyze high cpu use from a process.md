@@ -20,6 +20,8 @@ Nginx is just one example. You can use the same method for other Linux processes
 
 ### Install `strace`
 
+`strace` is not installed by default, but it is very useful to have. Sometimes the process causing high CPU usage is a process your server actually needs, so you cannot just stop it. In those cases, `strace` helps you identify the real problem and fix it properly.
+
 ```bash
 sudo apt update
 sudo apt install strace

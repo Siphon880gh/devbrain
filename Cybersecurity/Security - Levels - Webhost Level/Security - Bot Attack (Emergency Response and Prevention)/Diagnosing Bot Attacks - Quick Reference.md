@@ -1,6 +1,26 @@
 For a high level explanation, refer to [[Diagnosing Bot Attacks - Detecting Traffic Bot Problems vs. Other Causes]]
 
 ---
+
+## Count active HTTPS connections:
+```
+sudo ss -Htan state established sport = :443 | wc -l
+```
+
+## Snapshot the client IPs hitting port 443
+
+To see whether load is coming from a few sources or many distributed addresses, inspect connected client IPs.
+```
+sudo ss -Htan state established sport = :443 | awk '{
+  for (i=1;i<=NF;i++) {
+    if ($i ~ /^[0-9a-fA-F.:]+:[0-9]+$/ || $i ~ /^\[[0-9a-fA-F:]+\]:[0-9]+$/) {
+      if ($i !~ /:443$/) print $i
+    }
+  }
+}' | sed -E 's/^\[([^]]+)\]:[0-9]+$/\1/; s/^([0-9.]+):[0-9]+$/\1/' | sort | uniq -c | sort -rn | head -20
+```
+
+---
 ## Managing nginx (esp after changing conf / vhost)
 
 ```

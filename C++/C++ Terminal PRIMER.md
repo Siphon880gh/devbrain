@@ -1,7 +1,4 @@
-
-
-
-Certainly! Below is a simple C++ program that takes two numbers as input from the user and then outputs their sum. This program uses basic C++ input/output streams and arithmetic operations.
+Below is a simple C++ program that takes two numbers as input from the user and then outputs their sum. This program uses basic C++ input/output streams and arithmetic operations.
 
 ```cpp
 #include <iostream>

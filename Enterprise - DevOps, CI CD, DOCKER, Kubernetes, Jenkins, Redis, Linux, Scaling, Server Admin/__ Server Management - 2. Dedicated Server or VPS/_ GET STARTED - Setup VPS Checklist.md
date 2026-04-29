@@ -179,14 +179,7 @@ A more full setup of A-records would be:
 
 Now go on whatsmydns.net to check if your ip address has propagated. If it's taking a while to reach your location, and it has already reached other locations, you can use a VPN service to browse as that location, then your domain should be able to display the file
 
-You should see whatever default index.php file is created (as of April 2026, a default index.php file would show "Hello world")
-
-Add some basic security at Cloudflare now, while you're there:
-- Allow blocking bot IPs.
-- Allow challenges for suspicious visitors.
-- Block other countries. Refer to [[Countries - Restrict, block all other countries]]
-- At CloudPanel, Security -> Cloudflare: Allow traffic from Cloudflare only
-
+You should see whatever default index.php file is created (as of April 2026, a default index.php file at Hetzner would show "Hello world")
 
 ---
 ## Checklist - Improve Terminal Experience
@@ -305,8 +298,34 @@ If you accidentally locked yourself out because you removed non-root and root pa
 			:set mouse=v
 			```
 2. You may want to add better searching capabilities from the SSH terminal because you don't have a friendly UI to browse files. Add to ~/.bash_profile or equivalent:
-
+   
 ```
+# USEABILITY SUGAR
+
+# - cdfile: Cd into folder of a file path (Useful when you copied path of a file instead of folder)
+
+function cdfile() {
+
+        pythonToken1="path='";
+
+        pythonToken2=$1;
+
+        pythonToken3="'; list = path.split('/'); list.pop(); path='/'.join(list); print(path);";
+
+        destination=`python -c "$pythonToken1$pythonToken2$pythonToken3"`;
+
+        cd $destination;
+
+    pwd;
+
+} # cdfrom
+
+# - mkdiro: Create a folder and cd into it
+
+function mkdiro () {  concat_args=""${@}""; mkdir "$concat_args"; cd "$concat_args"; };
+
+# - screenshot quick access
+
 # - fd: Find files with string in their filenames. Eg: fd *Untitled*.jpg  
 function fd() {   
 clear;   
@@ -349,6 +368,42 @@ eval $VAR0;
   # function gr() { clear; VAR1=""; [ $# -gt 1 ] && for((i=2;i<=$#;i++)) do [ ${!i:0:1} == / ] && VAR1+=" --exclude-dir \"${!i:1}\""; [ ${!i:0:1} != / ] && VAR1+=" --exclude \"${!i}\""; done; VAR0="grep -nriI ./ --exclude={.git,*.sql,package-lock.json,*.chunk.css,*.chunk.js,*.css.map,*.js.map} --exclude-dir={.git,.git/index,bower_components,node_modules,.sass-cache,vendor*,*backup*,*cached*}${VAR1} -e \"${1}\""; echo "* Running: $VAR0  
 } # gr -
 ```
+
+And add these aliases and functions to make your job as a developer easier.
+- `dev` command to come back to the htdocs when you have cd into other folders (like config folders, etc):
+- `hcat` (cat command with headers) to see all or specific file(s)' contents in the terminal, with filenames and line numbers. This is most helpful for a folder of scripts.
+```
+## DEVELOPER SUGAR
+alias dev='cd /home/wengindustries/htdocs/wengindustries.com'
+
+### SCRIPT MANAGEMENT
+# Great for managing a folder of scripts (conf, sh, etc).
+# Enhances cat to show header and line numbers. Args are space separated filenames.
+# No args is display all files in the current folder
+hcat() {
+  if [ $# -eq 0 ]; then
+    for f in *; do
+      [ -f "$f" ] || continue
+      echo "===== $f ====="
+      nl -ba "$f"
+    done
+  else
+    for f in "$@"; do
+      if [ -f "$f" ]; then
+        echo "===== $f ====="
+        nl -ba "$f"
+      else
+        echo "File not found: $f"
+      fi
+    done
+  fi
+}
+```
+
+Github aliases? Later in this checklist, you'll be directed to some Git Sugar aliases to setup in .bash_profile or .z_profile.
+
+**Don't forget to expand to other key user accounts:**
+Add these same sugar to the site user's .bash_profile (not just the root user's .bash_profile) because you may have to su (switch users) to modify permissions or run git on files that are normally script triggered by visiting URL endpoints (which means those files have to be owned by site user) and you want those conveniences after you su too.
 
 ---
 ## Checklist - Enhance Website Capabilities
@@ -1434,6 +1489,30 @@ Install ffmpeg, ctypes, imagemagick, and pcregrep for various web apps and their
 As you install additional dependencies, make sure to document them in the same place where you keep your server login details, paths, and configuration notes. You can refer back to your list of dependencies when you migrate or clone your setup to another server later. This may also be a good place to write what local app scripts or published apps (with users) that need their paths updated if the server hostname changes. This document could be named: acc Web App Dependencies and URLs
 
 ---
+
+## Checklist - Harden Security
+
+### Cloudflare Security
+
+Add some basic security at Cloudflare:
+- Allow blocking bot IPs.
+- Allow challenges for suspicious visitors.
+- Block other countries. Refer to [[Countries - Restrict, block all other countries]]
+- At CloudPanel, Security -> Cloudflare: Allow traffic from Cloudflare only
+
+### Server Security
+- fail2ban - Refer to [[_PRIMER - Fail2Ban]]
+
+### Enhance Server with Security Analysis Tools for 
+
+Security Enhancement #1:
+- `strace` is not installed by default, but it is very useful to have. Sometimes the process causing high CPU usage is a process your server actually needs, so you cannot just stop uninstall it. In those cases, `strace` helps you identify the real problem and fix it properly. It lets you see what files a process is opening, what network activity it is handling, what errors it keeps hitting, and whether it is stuck repeating the same action over and over. Then you'll be able to see if it's a security attack or a misconfiguration. 
+- Install strace per [[strace to analyze high cpu use from a process]]
+
+Security Enhancement Notes:
+- There are other commands that lets you see IPs connected to you to detect if it’s bots, for example. Since they are already part of the server, we don't have to list tasks to enhance the server with those tools. For detecting bot activity, refer to quick reference at [[Diagnosing Bot Attacks - Quick Reference]] or deep guide at [[Diagnosing Bot Attacks - Detecting Traffic Bot Problems vs. Other Causes]]
+
+---
 ## Checklist - Improve Future Developer Experience
 
 Because your server is setup to handle many different tech stacks, you're probably the type of developer that will touch different stacks at different points of your career. Let's improve the developer experience so it's easy to manage such complexity
@@ -1452,10 +1531,53 @@ Because your server is setup to handle many different tech stacks, you're probab
 	- app-supervisor-configs
 		- These are your supervisor app configs which have paths to your shell sh files, and those shell sh files have the folder path to their python application and the sh file loads the virtual environment, then loads gunicorn against the python application folder path that has wsgi.py and server.py (or app.py)
 
-2. Better git experience
+2. Install jq and yq. Here are example uses and installation stepes:
+	- jq: [[Prettify json output in terminal with jq]]
+	- yq: [[Prettify yaml output in terminal with yq]]
+
+3. Better git experience
    Create git aliases that make it easier to add/commit, see diff, and check logs. Instructions at [[Git Sugar Aliases - Small Tweaks That Make Git on the Command Line Better]]
+   
+   Add these same sugar to the site user's .bash_profile (not just the root user's .bash_profile) because you may have to su (switch users) to modify permissions or run git on files that are normally script triggered by visiting URL endpoints (which means those files have to be owned by site user) and you want those conveniences after you su too.
 
+4. Better CloudPanel Vhost Experience
 
+	In CloudPanel’s **Vhost** tab, you may see variables instead of full paths for the root folder, access log, and error log. CloudPanel expands those variables in: `/etc/nginx/sites-enabled/YOURSITE.conf`
+		
+	If you mainly edit the vhost through CloudPanel, you can replace some of those variables with their real values to make future edits easier. This saves you from opening the `sites-enabled` file just to check the expanded paths or to edit paths there that could have been edited more easily through CloudPanel itself.
+	
+	It is also better than editing the expanded paths directly inside `sites-enabled`, because the next time CloudPanel saves changes from the **Vhost** tab, it may regenerate the file and remove your manual edits.
+	
+	For that reason, you may want to enter the real values directly in the CloudPanel vhost editor, especially after your server is set up and those paths are stable.
+	
+	Keep the original variables commented out in case you later migrate to another web host using CloudPanel. That way, you can switch back to the variables first, let CloudPanel manage the paths automatically, and then repeat the same adjustment on the new server.
+	
+	```nginx
+	# {{root}}
+	root /home/wengindustries/htdocs/wengindustries.com/;
+	
+	# {{nginx_access_log}}
+	# {{nginx_error_log}}
+	access_log /home/wengindustries/logs/nginx/access.log cloudflare;
+	error_log /home/wengindustries/logs/nginx/error.log;
+	```
+	
+	Do **not** replace every variable. Some should stay managed by CloudPanel. For example, leave `{{settings}}` alone because it may change dynamically when you adjust CloudPanel options.
+
+5. Better Logging Experience
+   
+   Since you've just looked at how Vhost expands variables into the actual nginx conf files in the file structure, this is a good time to write down their paths into your ACC document where you track logins to your webhost, ssh, etc.
+   
+   You see the variable in Cloudpanel Vhost tab, and you see the actual value at `/etc/nginx/sites-enabled/YOURSITE.conf`
+
+   - Under 443 port server block
+	   - **nginx_access_log**
+	   - **nginx_error_log**
+   - Under 8080 port server block
+	   - {{php_settings}} -> A lot of settings including the one you want to focus on: **error_log** (But PHP's error logging path)
+	     
+	Screenshots in case you don't get it, are here: [[Cloudpanel - Where to get the paths for nginx access logging, nginx error logging, php logging]]
+	
 ---
 ## ACC - Template to track all your credentials, folder paths, file paths in your web host details document
 

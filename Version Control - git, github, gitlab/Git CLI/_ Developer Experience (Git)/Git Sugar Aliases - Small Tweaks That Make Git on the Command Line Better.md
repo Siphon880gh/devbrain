@@ -101,6 +101,8 @@ Instead of remembering the full Java command every time, you can just call `bfg`
 
 The combined block is:
 ```
+# GIT SUGAR
+# Make git cli easier
 alias gitc='git add -A; git commit -m '
 alias gitd='git diff'
 
