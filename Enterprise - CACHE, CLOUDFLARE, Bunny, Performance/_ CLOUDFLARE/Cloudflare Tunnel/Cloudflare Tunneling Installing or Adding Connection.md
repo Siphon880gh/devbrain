@@ -74,7 +74,7 @@ Hold up!
 First time? It may complain it can’t connect
 ![[Pasted image 20260415062248.png]]
 
-**To find out which architecture refer to [[Fundamental - Stats - What architecture I'm on]]**
+**To find out which architecture refer to [[Stats - What architecture I'm on]]**
 
 **And make sure to install via all the commands, not just the first command. Either run the second command (recommended) or third command (more performant long run on the server when yo ushut down a temporary test rather than having a permanent or multiples)**
 

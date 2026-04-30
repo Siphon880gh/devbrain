@@ -777,7 +777,11 @@ If you accidentally locked yourself out because you removed non-root and root pa
 2. You may want to add better searching capabilities from the SSH terminal because you don't have a friendly UI to browse files. Add to ~/.bash_profile or equivalent:
 
 ```
+
 # USEABILITY SUGAR
+
+# - ll: Equivalent to ls -la
+alias ll='ls -la'
 
 # - cdfile: Cd into folder of a file path (Useful when you copied path of a file instead of folder)
 
@@ -1978,17 +1982,24 @@ Add some basic security at Cloudflare:
 - Block other countries. Refer to [[Countries - Restrict, block all other countries]]
 - At CloudPanel, Security -> Cloudflare: Allow traffic from Cloudflare only
 
-### Server Security
+### Server Security Accessible References
+
+During an attack, you may only have seconds or minutes to respond. Keep these references handy. Personalize them and add them to your server notes, web-hosting account document, or emergency access checklist, in whatever form is easiest for you to access quickly:
+
+- Add notes on your [[Emergency Hatch - Recover Access If You Lock Yourself Out]].
+- Add notes on detecting and taking care of bot or DDoS attacks to your ACC document that contains server IP, ssh credentials, etc. This is because it's one of the most common attacks. You can link that document to quick reference at [[Diagnosing Bot Attacks - Quick Reference]] or deep guide at [[Diagnosing Bot Attacks - Detecting Traffic Bot Problems vs. Other Causes]]
+
+### Server Security Tools
 - fail2ban - Refer to [[_PRIMER - Fail2Ban]]
+- Optional: Add more tools per [[_Security Tools at the Linux Level]]
+- Optional: Harden firewall to only accept incoming internet requests for certain ports. See my notes at [Linux Firewall](https://codernotes.wengindustries.com/?folder=Cybersecurity%2FSecurity%20-%20Levels%20-%20Linux%20Level%2FFirewalls)
 
-### Enhance Server with Security Analysis Tools for 
+### Server Security Tools - Audit
 
-Security Enhancement #1:
-- `strace` is not installed by default, but it is very useful to have. Sometimes the process causing high CPU usage is a process your server actually needs, so you cannot just stop uninstall it. In those cases, `strace` helps you identify the real problem and fix it properly. It lets you see what files a process is opening, what network activity it is handling, what errors it keeps hitting, and whether it is stuck repeating the same action over and over. Then you'll be able to see if it's a security attack or a misconfiguration. 
-- Install strace per [[strace to analyze high cpu use from a process]]
+Security Enhancement - strace:
+- `strace` is not installed by default, but it is very useful to have. It's usually for seeing the terminal sdout/stderror of a process as if the process was running in the foreground on a terminal, which is great for debugging. But if your nginx or apache is the one with high CPU use, it could be a bot or DDoS attack. Install strace per [[strace to analyze high cpu use from a process]]
+- Optional: Install malware/virus detectors if your webhost offers them, usually tied to the dashboard after logging in.
 
-Security Enhancement Notes:
-- There are other commands that lets you see IPs connected to you to detect if it’s bots, for example. Since they are already part of the server, we don't have to list tasks to enhance the server with those tools. For detecting bot activity, refer to quick reference at [[Diagnosing Bot Attacks - Quick Reference]] or deep guide at [[Diagnosing Bot Attacks - Detecting Traffic Bot Problems vs. Other Causes]]
 
 ---
 
@@ -1997,6 +2008,8 @@ Security Enhancement Notes:
 Because your server is setup to handle many different tech stacks, you're probably the type of developer that will touch different stacks at different points of your career. Let's improve the developer experience so it's easy to manage such complexity
 
 1. Tech folders
+   **Note**: This may have already been done especially if you had archived/unarchived the entire web root folder. In this case, you can skip this "Tech folders" step.
+
    Create folders that have symbolic links to your pm2 apps, your gunicorn apps, etc possibly named by their port numbers. Create a symbolic link to your supervisor app configs at the root (as siblings to whatever your app/ or apps/ folder is at)
 
 	- app
@@ -2010,16 +2023,16 @@ Because your server is setup to handle many different tech stacks, you're probab
 	- app-supervisor-configs
 		- These are your supervisor app configs which have paths to your shell sh files, and those shell sh files have the folder path to their python application and the sh file loads the virtual environment, then loads gunicorn against the python application folder path that has wsgi.py and server.py (or app.py)
 
-2. Install jq and yq. Here are example uses and installation stepes:
+3. Install jq and yq. Here are example uses and installation stepes:
 	- jq: [[Prettify json output in terminal with jq]]
 	- yq: [[Prettify yaml output in terminal with yq]]
 
-3. Better git experience
+4. Better git experience
    Create git aliases that make it easier to add/commit, see diff, and check logs. Instructions at [[Git Sugar Aliases - Small Tweaks That Make Git on the Command Line Better]]
    
    Add these same sugar to the site user's .bash_profile (not just the root user's .bash_profile) because you may have to su (switch users) to modify permissions or run git on files that are normally script triggered by visiting URL endpoints (which means those files have to be owned by site user) and you want those conveniences after you su too.
    
-4. Better CloudPanel Vhost Experience
+5. Better CloudPanel Vhost Experience
 
 	In CloudPanel’s **Vhost** tab, you may see variables instead of full paths for the root folder, access log, and error log. CloudPanel expands those variables in: `/etc/nginx/sites-enabled/YOURSITE.conf`
 		
@@ -2043,7 +2056,7 @@ Because your server is setup to handle many different tech stacks, you're probab
 	
 	Do **not** replace every variable. Some should stay managed by CloudPanel. For example, leave `{{settings}}` alone because it may change dynamically when you adjust CloudPanel options.
 
-5. Better Logging Experience
+6. Better Logging Experience
    
    Since you've just looked at how Vhost expands variables into the actual nginx conf files in the file structure, this is a good time to write down their paths into your ACC document where you track logins to your webhost, ssh, etc.
    
@@ -2290,7 +2303,7 @@ Alternately, you could just backup as vhost files near where your pm2 is inside 
 
 **(Separate Document from the mega document with multiple ACC sections)**
 
-Work in progress. At [[ACC Hetzner WengIndustries - Backup Migration]]
+Work in progress. At [[ACC Hetzner WengIndustries - Migration - Backup, Restore, Config, Deps]]
 
 ---
 

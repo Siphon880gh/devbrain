@@ -542,6 +542,8 @@ Useful for:
 sudo apt install fail2ban
 ```
 
+Installation alone may not be enough for Fail2Ban to work correctly. Depending on your server, you may need extra configuration, such as setting the correct jail, backend, and log source. For the full setup guide, see: [[_PRIMER - Fail2Ban]]
+
 Usage is with the command:
 ```
 fail2ban-client
