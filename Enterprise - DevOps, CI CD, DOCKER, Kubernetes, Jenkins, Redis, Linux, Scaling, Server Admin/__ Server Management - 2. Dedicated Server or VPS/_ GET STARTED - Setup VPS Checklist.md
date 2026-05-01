@@ -325,7 +325,10 @@ function cdfile() {
 
 # - mkdiro: Create a folder and cd into it
 
-function mkdiro () {  concat_args=""${@}""; mkdir "$concat_args"; cd "$concat_args"; };
+function mkdiro() {
+  local dir="$*"
+  mkdir -p "$dir" && cd "$dir"
+}
 
 # - screenshot quick access
 

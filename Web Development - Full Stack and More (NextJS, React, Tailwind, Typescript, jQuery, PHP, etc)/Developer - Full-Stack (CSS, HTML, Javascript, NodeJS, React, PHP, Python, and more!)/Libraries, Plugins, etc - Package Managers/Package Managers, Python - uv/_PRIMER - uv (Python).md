@@ -1,4 +1,5 @@
 Some **Python CLI tools** don’t recommend installing with plain `pip`.  
+
 Instead, they may tell you to use a **specific package manager other than `pip`**, such as `uv`. For example, LiteLLM in April 2026 recommends using uv to install their python package.
 
 `uv` is a fast Python package and environment manager designed to make installing and running tools easier and more reliable.
@@ -13,15 +14,10 @@ It's Rust-based Python package manager and toolchain developed by Astral that ma
 `uv` is a modern tool for managing Python packages and environments.
 
 It can:
-
 - create virtual environments
-    
 - install packages
-    
 - run Python CLI tools
-    
 - manage dependencies for projects
-    
 
 It replaces several steps you’d normally do manually with `pip`.
 
