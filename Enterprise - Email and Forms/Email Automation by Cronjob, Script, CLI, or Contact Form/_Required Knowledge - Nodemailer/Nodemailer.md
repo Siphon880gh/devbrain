@@ -2,7 +2,7 @@
 **Nodemailer** is a module for **Node.js** that allows you to send emails easily from your server-side JavaScript code.
 
 For full working code that emails you from a script or from a backend server:
- [[2. Gmail CLI with NodeMailer and App Password]]
+ [[2a. Gmail CLI with NodeMailer and App Password]]
  
 ---
 
@@ -10,7 +10,7 @@ For full working code that emails you from a script or from a backend server:
 
 When you specify `service: "gmail"` in `nodemailer.createTransport()`, you're using a built-in shortcut that tells Nodemailer to automatically configure the correct SMTP settings for Gmail.
 
-Your code (For example, [[2. Gmail CLI with NodeMailer and App Password]]):
+Your code (For example, [[2a. Gmail CLI with NodeMailer and App Password]]):
 ```
 {
   service: "gmail"

@@ -113,7 +113,7 @@ logs/
 
 ### 🥇 Other Best Practices
 
-On fatal crashes, it should send a text message or email to the developer. For a backend script that emails you, refer to [[2. Gmail CLI with NodeMailer and App Password]]
+On fatal crashes, it should send a text message or email to the developer. For a backend script that emails you, refer to [[2a. Gmail CLI with NodeMailer and App Password]]
 
 ---
 

@@ -17,13 +17,13 @@ This guide will show you how to use a **personal gmail** and **Node.js** to send
 ---
 ## 🔐 Requirements
 
-- For this setup, you **must** have generated an App Password for your personal gmail address. If you haven't, first refer to [[1. Create Gmail app password]].
+- For this setup, you **must** have generated an App Password for your personal gmail address. If you haven't, first refer to [[1a. Create Gmail app password]].
 
 ---
 
 ### 1. CLI Emailer Using Owner's Gmail
 
-We’ve created a CLI-based email sender that uses the owner’s Gmail address. You can adapt it into a full stack solution with a contact form. The approach would be to wrap the CLI in a backend endpoint. See:  [[2. Gmail CLI with NodeMailer and App Password]]
+We’ve created a CLI-based email sender that uses the owner’s Gmail address. You can adapt it into a full stack solution with a contact form. The approach would be to wrap the CLI in a backend endpoint. See:  [[2a. Gmail CLI with NodeMailer and App Password]]
 
 You can test the API endpoint with tools like Postman, Insomniac, or a cURL call in the terminal.
 
