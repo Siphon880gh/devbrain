@@ -14,13 +14,13 @@ This helps confirm you did not get switched to the wrong branch earlier and forg
 **Intervention when too late:**
 - Then you start making changes in the wrong place, make a few commits, and then realize you have to rebuild the history on the correct branch (hopefully switching to that branch then merging would work)....
 
-If a detached HEAD:
+If on a detached HEAD:
 1. Create a new branch name like `git checkout -B temp`
 2. Switch to desired branch `git checkout OUR_BRANCH_NAME`
 3. Merge into the current desired branch: `git merge temp`
 4. Resolve any merge conflicts with the other branch's commits merged in
 
-If just on the wrong branch:
-2. Switch to desired branch `git checkout OUR_BRANCH_NAME`
-3. Merge into the current desired branch: `git merge OTHER_BRANCH`
-4. Resolve any merge conflicts with the other branch's commits merged in
+If on the wrong branch:
+1. Switch to desired branch `git checkout OUR_BRANCH_NAME`
+2. Merge into the current desired branch: `git merge OTHER_BRANCH`
+3. Resolve any merge conflicts with the other branch's commits merged in
