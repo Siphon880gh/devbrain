@@ -38,7 +38,20 @@ You'll get a long lived refresh token (7 days on testing phase or permanent for 
 
 ---
 
-Now let's try to authenticate with OAuth2. For our particular example, our app only needs one user to sign in for it to work. We have code that gets the OAuth2 URL and watches for an api endpoint being hit from the OAuth2 pages opening the custom callback URL:
+Now let’s try authenticating with OAuth2.
+
+Your app connects to Google using a **Client ID** and **Client Secret**, then generates a URL for the Google OAuth2 consent screen.
+
+In this example, the app only needs **one Google user** to sign in for everything to work because it's a backend cli. The master account signs into the backend cli then it will work 24/7. However the same process works for public users signing in to use your app.
+
+The code does two main things:
+
+1. Generates the OAuth2 consent screen URL.
+2. Starts a local API endpoint that waits for Google to redirect back to your custom callback URL.
+
+In our app, we run the script (`npm run oauth:desktop`) to begins the OAuth2 login flow because it will output the OAuth2 URL into the terminal:
+
+Copy/paste and visit the OAuth2 in the web browser:
 
 ![[Pasted image 20260501163348.png]]
 
@@ -55,14 +68,31 @@ If you had properly published or added your email address, consent at OAuth2 wou
 
 ![[Pasted image 20260501160934.png]]
 
-Once approved, it gives you the refresh token (at least in our example):
+Once approved, the final destination is the callback URL pointing to a local API endpoint running on your machine, such as:
+
+```txt
+http://localhost:3000/oauth/callback
+```
+
+The full callback URL is actually:
+```
+http://localhost:3000/oauth/callback?code=abc123&scope=...
+```
+
+The page can say something like "Success! You can close the window now."
+
+But more importantly, your backend that delivers that webpage also intercepts the authorization code in the url query. Then your code exchanges it for a refresh token.
+
+With our app example, we console log the refresh token
 ![[Pasted image 20260501163612.png]]
+
+From that point on, your server stores the refresh token safely. It's used to generate the access token that allows authorized api endpoints to Google's specific API.
 
 Recall that:
 - A **refresh token** is the longer-lived token. It is used to request new **access tokens**.
 - An **access token** is the short-lived token. It is what your app actually sends to the API when making requests.
 
-However when it comes to env configuration you should have everything needed now:
+However, when it comes to env configuration you should have everything needed now:
 ```
 apiClientId="<YOUR_GOOGLE_OAUTH_CLIENT_ID>"
 apiClientSecret="<YOUR_GOOGLE_OAUTH_CLIENT_SECRET>"

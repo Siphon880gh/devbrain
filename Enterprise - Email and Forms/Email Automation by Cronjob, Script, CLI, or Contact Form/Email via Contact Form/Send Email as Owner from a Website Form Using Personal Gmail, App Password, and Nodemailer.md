@@ -17,7 +17,7 @@ This guide will show you how to use a **personal gmail** and **Node.js** to send
 ---
 ## 🔐 Requirements
 
-- For this setup, you **must** have generated an App Password for your personal gmail address. If you haven't, first refer to [[1a. Create Gmail app password]].
+- For this setup, you **must** have generated an App Password for your personal gmail address. If you haven't, first refer to [[1a. Create Gmail app password (And see if your Google account supports it)]].
 
 ---
 
