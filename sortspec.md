@@ -10,6 +10,7 @@ sorting-spec: |-
   AI Prompt Engineer (1. Can optimize prompts)
   AI API Developer (2. Can leverage APIs from AI services)
   AI Engineer (3. Can train models and invent AI services)
+  AI Agentic Engineer (4. Can create autonomous agents)
   CompSci - DS, Algos, Systems, Logic
   Cross-Platform - React Native
   Cybersecurity
