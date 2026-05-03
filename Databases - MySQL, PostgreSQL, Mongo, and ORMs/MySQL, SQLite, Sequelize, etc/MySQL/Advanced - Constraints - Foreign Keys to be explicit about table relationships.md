@@ -1,4 +1,8 @@
-Probably useless. You can connect lookup id's to other table's id to make the SQL database aware of the relationships. This does not automatically replace lookup id with another column from the other table. In phpMyAdmin, it does make it easier for other developers to conceptulize your table relationships because when browsing a table, its lookup id's become links that will query for the relevant record in the other table when clicked:
+You can connect lookup id's to other table's id to make the SQL database aware of the relationships. This does not automatically replace lookup id with another column from the other table
+
+But it does make it easier for other developers to conceptualize your table relationships because when browsing a table, its lookup id's become links that will query for the relevant record in the other table upon clicking.
+
+The following is how to make foreign keys explicit about table relationships.
 
 Here is the formal definition:
 ```
