@@ -1,0 +1,2 @@
+Sorry - Weng has moved this note to his computer only in order to keep a competitive edge in the AI Automation space:
+[obsidian://open?vault=Document%20Vaults&file=Content-SuperPrivated%2FDev%2FAI%20Agentic%20Engineer%20(4.%20Can%20create%20autonomous%20agents)%2FOpenClaw%2FOpenClaw%20Agent%20Workspace%20-%20Mnemonic](obsidian://open?vault=Document%20Vaults&file=Content-SuperPrivated%2FDev%2FAI%20Agentic%20Engineer%20(4.%20Can%20create%20autonomous%20agents)%2FOpenClaw%2FOpenClaw%20Agent%20Workspace%20-%20Mnemonic)
