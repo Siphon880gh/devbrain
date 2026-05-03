@@ -1,4 +1,3 @@
-Get Started
 ### Quick Start for TensorFlow
 
 #### 1. Install TensorFlow:
