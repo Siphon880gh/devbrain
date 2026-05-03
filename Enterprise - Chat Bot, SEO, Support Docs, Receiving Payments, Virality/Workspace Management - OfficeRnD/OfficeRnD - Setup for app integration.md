@@ -1,4 +1,4 @@
-This is the **complete, start-to-finish** guide for connecting FlexAgents / AgentOps to the OfficeRnD Flex API v2. Follow these steps in order.
+This is the **complete, start-to-finish** guide for connecting an application to the OfficeRnD Flex API v2. Follow these steps in order.
 
 > **Prerequisites**
 >
@@ -44,14 +44,14 @@ This page lists all applications that have been created for your organisation.
 
 Click **Create Application** and fill in:
 
-| Field | What to enter |
-|-------|---------------|
-| **Name** | A descriptive name, e.g. `CTRL AgentOps` |
-| **Description** | Short description of what the app does |
-| **Image** | Optional — a logo or icon |
+| Field           | What to enter                                                                                                                                  |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Name**        | A descriptive name, e.g. `OfficeRnD API Integration`                                                                                                       |
+| **Description** | Short description of what the app does                                                                                                         |
+| **Image**       | Optional — a logo or icon                                                                                                                      |
 | **Permissions** | Start with **read-only** on the resources you need (members, companies, payments, etc.). API v2 uses fine-grained, resource-level permissions. |
 
-![Creating a new application in OfficeRnD](images/officernd-create-app.png)
+![[officernd-create-app.png]]
 
 > **📘 Note**
 >
@@ -63,14 +63,14 @@ Click **Create Application** and fill in:
 
 After creating the application, you'll see two buttons next to it — **Configure** and **View**:
 
-![Application list showing Configure and View buttons](images/officernd-app-list.png)
+![[officernd-app-list.png]]
 
 - **Configure** — change name, description, image, or permissions.
 - **View** — reveals the **Client ID** and **Client Secret**.
 
 Click **View** to see your credentials:
 
-![Client ID and Client Secret displayed after clicking View](images/officernd-client-credentials.png)
+![[officernd-client-credentials.png]]
 
 Copy these values — you'll paste them into `.env` in [Step 6](#step-6--fill-in-env).
 
@@ -89,9 +89,9 @@ To find it:
 1. Go to **Settings → My Account**.
 2. Look at the **Admin Site** and **Members Portal** fields — both contain your slug.
 
-![Organisation slug shown in Settings → My Account](images/officernd-org-slug.png)
+![[officernd-org-slug.png]]
 
-For example, if your Admin Site URL is `https://app.officernd.com/admin/ctrlcollective`, then your slug is `ctrlcollective`.
+For example, if your Admin Site URL is `https://app.officernd.com/admin/example-org`, then your slug is `example-org`.
 
 ---
 
@@ -136,7 +136,7 @@ flex.billing.payments.read flex.community.members.read flex.community.companies.
 
 ## Step 6 — Fill In `.env`
 
-Open your `.env` file (see `flexagents/.env`) and set the OfficeRnD variables:
+Open your `.env` file (see `.env`) and set the OfficeRnD variables:
 
 ```bash
 # --- OfficeRnD (see docs/officernd-env.md) ---
@@ -199,13 +199,13 @@ curl -X POST \
 Key points:
 - Tokens are valid for **3600 seconds (1 hour)**.
 - `expires_in` shows the remaining time in seconds.
-- FlexAgents handles token refresh automatically — you do not need to manually rotate tokens.
+- Your application should handle token refresh automatically — you do not need to manually rotate tokens by hand.
 
 ### Postman example
 
 You can also generate tokens using Postman. Set it up as a POST request to the token URL with `x-www-form-urlencoded` body:
 
-![Postman token generation example](images/officernd-postman-token.png)
+![[officernd-postman-token.png]]
 
 > **❗ CORS is disabled** on the token endpoint for security reasons. Exchange credentials through a server application (Node.js, Python, Go, .NET) or cURL — not from a browser.
 
@@ -278,12 +278,12 @@ Authorization: Bearer <access_token>
 
 With `OFFICERND_MODE=live` and valid credentials in `.env`:
 
-1. Start FlexAgents: `npm run dev`
+1. Start your application: `npm run dev`
 2. Log in as **Admin**.
-3. Open **`/admin/officernd`** in your browser.
-4. Use the grouped buttons to call one Flex API v2 list (or organisation GET) per OAuth scope.
+3. Open your OfficeRnD test page or admin integration page in your browser.
+4. Use your smoke-test UI or script to call one Flex API v2 list (or organisation GET) per OAuth scope.
 
-Paths are defined in `lib/officernd/scope-test-catalog.ts`. If OfficeRnD returns **404** for an entity type, check the [API reference](https://developer.officernd.com/reference) and adjust the path segment in `lib/officernd/entity-paths.ts`.
+If OfficeRnD returns **404** for an entity type, check the [API reference](https://developer.officernd.com/reference) and adjust the endpoint path segment in your integration code.
 
 ---
 
@@ -292,7 +292,7 @@ Paths are defined in `lib/officernd/scope-test-catalog.ts`. If OfficeRnD returns
 If you want real-time event notifications from OfficeRnD:
 
 1. In OfficeRnD: **Settings → Developer Tools → Webhooks → Add Endpoint**.
-2. Set **Endpoint URL** to your public AgentOps URL:
+2. Set **Endpoint URL** to your public application URL:
    ```
    https://<your-domain>/api/webhooks/officernd
    ```
@@ -354,7 +354,7 @@ Token responses may return `token` or `access_token`; both are handled. OAuth to
 | | `OFFICERND_OAUTH_SCOPE` | Must match your app's allowed scopes (see [Step 5](#step-5--choose-your-scopes)) |
 | | `OFFICERND_MODE` | Set to `live` when the above are set |
 | | `OFFICERND_WEBHOOK_SECRET` | Webhooks → your endpoint (if signing secret shown) |
-| | `APP_BASE_URL` | Your deployed AgentOps base URL (for webhook config) |
+| | `APP_BASE_URL` | Your deployed application base URL (for webhook config) |
 
 ---
 
