@@ -1,5 +1,3 @@
-# Viewing Logs: OpenClaw TUI + Ollama Terminal
-
 After sending a prompt, you can inspect activity in two places.
 
 TUI terminal shows request/session details (model, token usage, recent calls):

@@ -1,0 +1,1 @@
+Frontend and Backend folders are at the root. However, concepts that can apply to frontend coding OR backend coding are in this folder.

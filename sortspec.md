@@ -1,9 +1,14 @@
 ---
 sorting-spec: |-
-  Web Development - Full Stack and More (NextJS, React, Tailwind, Typescript, jQuery, PHP, etc)
-  Web Development - No Code Low Code (Wordpress, Webflow, Framer, Versoly, etc)
+  Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)
+  Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)
+  Web Development - Full Stack (Shared)
+  Web Development - Dependencies, Module, Package Managers
+  Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)
+  Web Development - Planning, Collaboration (FIGMA, Asset Libraries, Prototyping, Mockup, Wireframing)
   Databases - MySQL, PostgreSQL, Mongo, and ORMs
   Everything as a Service - Firebase, Firestore, Heroko, Netlify, Supabase, Vercel, etc
+  Data Engineering (Data Analysis, Data Science, Business Analytics, Business Intelligence, Etc)
   Cloud (AWS, Azure, Google)
   API Services (Google Cloud Console and more)
   AI Assisted Coding
@@ -18,7 +23,8 @@ sorting-spec: |-
   Enterprise - Open Source Web Apps, CLI-Powered Web Tools, and Internal Tools
   Enterprise - SECURITY, Code Standards, Compliance
   Enterprise - TEST Units, Test Driven Development, Etc
-  Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin
+  Enterprise - Linux, Server Administration, Networking IT
+  Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Scaling
   Enterprise - CACHE, CLOUDFLARE, Bunny, Performance
   Enterprise - Email and Forms
   Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality
@@ -28,9 +34,6 @@ sorting-spec: |-
   Version Control - git, github, gitlab
   Developer Tools
   Regex (Regular Expression)
-  Python
-  Data Science
-  Data Science - Statistics
   Scraping
   Scripting for Power Users
   %

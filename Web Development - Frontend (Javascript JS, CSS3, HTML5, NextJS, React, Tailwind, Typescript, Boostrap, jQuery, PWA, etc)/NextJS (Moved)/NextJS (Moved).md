@@ -1,0 +1,1 @@
+NextJS is moved to Frontend folder.

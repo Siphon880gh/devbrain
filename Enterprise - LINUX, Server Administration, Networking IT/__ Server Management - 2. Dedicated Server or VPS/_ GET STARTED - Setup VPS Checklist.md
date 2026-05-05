@@ -1438,7 +1438,7 @@ Let's install these versioning and CI/CD solutions:
 		- **For persistent NodeJS**: pm2
 			- Refer to the tutorial [[Installing PM2 and Configuring Nginx for Multiple Node.js Applications (Shortcut)]] even if you're not on nginx (the first sections will be applicable before the section on applying it to nginx)
 		- **For persistent Python**: Supervisor, virtual envs, gunicorn and flask
-			- Refer to [[Supervisor Primer - GET STARTED - Alternately, Install Everything.md]] which includes supervisor, gunicorn, flask, pyenv, pyenv-virtualenvs, pipenv. There it will install all the dependnecies
+			- Refer to [[Supervisor Primer - GET STARTED - Alternately, Install Everything]] which includes supervisor, gunicorn, flask, pyenv, pyenv-virtualenvs, pipenv. There it will install all the dependnecies
 				- [ ] pyenv
 				- [ ] pyenv-virtualenvs
 				- [ ] pipenv
