@@ -1,5 +1,3 @@
-# Microsoft Fabric for Beginners — Curriculum
-
 A self-paced learning path for Microsoft Fabric, written in plain language with small, focused lessons. Each lesson is a single Markdown file. Folders group related topics.
 
 Microsoft Fabric is a **unified analytics platform** — it answers the question: "How do I ingest, transform, store, analyze, and visualize large datasets?"

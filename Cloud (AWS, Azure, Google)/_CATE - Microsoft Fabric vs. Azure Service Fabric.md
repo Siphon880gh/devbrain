@@ -1,10 +1,7 @@
 
 Microsoft has two products with similar names, but they solve very different problems:
-
 - **Microsoft Fabric**
-    
 - **Azure Service Fabric**
-    
 
 They are not the same thing.
 

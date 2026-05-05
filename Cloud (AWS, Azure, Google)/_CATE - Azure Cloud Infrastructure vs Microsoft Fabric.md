@@ -1,4 +1,3 @@
-# Azure Cloud Infrastructure vs Microsoft Fabric
 
 Both live under the Microsoft Azure umbrella and share the same portal, billing, and identity system. But they solve completely different problems for completely different audiences.
 
