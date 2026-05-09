@@ -7,6 +7,13 @@ It is commonly used for SSH, but it can also protect Apache, Nginx, mail servers
 
 ---
 
+Important facts
+- Fail2ban doesn't come installed with any Linux distros. Regardless, find out if you have it install with the command `which fail2ban-client`
+- Fail2ban doesn't only just cover SSH. It covers SFTP, mail servers, etc. And you can configure it to work with your apps/api's and other endpoints (eg. `/wp-login.php`). Just make sure logging is enabled because Fail2ban relies on logging to look for failed login attempts. It bans IPs who have multipled failed login attempts
+- Make sure you have an escape hatch plan. That could be a web terminal you can access after logging into your web host. You should consider whether your web host supports this or IT services to recover your server in case you accidentally get your own IP banned from repeated failed password attempts. You should document how to access the escape hatch in the same document where you write your web host, ssh, etc login credentials.
+
+---
+
 In one hour of installing fail2ban, already IPs are banned:
 ![[Pasted image 20260429034741.png]]
 
