@@ -32,6 +32,9 @@ NextJS with Supabase Databases:
 NextJS with Supabase Authentication:
 - [[2. Supabase Authentication with New Project (Starter boilerplate)]]
 
+OpenAPI
+- [[01-openapi-documentation-tools]]
+
 Puppeteer IDE (Headful as Chrome Extension)
 - [[0a - Version - Puppeteer IDE]]
 
