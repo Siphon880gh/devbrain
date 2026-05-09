@@ -1,0 +1,1 @@
+SFTP and SSH are over port 22. A port can handle multiple traffic and different transfer protocols just fine.

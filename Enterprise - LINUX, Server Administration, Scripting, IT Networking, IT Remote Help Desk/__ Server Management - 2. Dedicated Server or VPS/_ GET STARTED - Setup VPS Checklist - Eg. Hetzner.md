@@ -1995,7 +1995,8 @@ During an attack, you may only have seconds or minutes to respond. Keep these re
 - Add notes on detecting and taking care of bot or DDoS attacks to your ACC document that contains server IP, ssh credentials, etc. This is because it's one of the most common attacks. You can link that document to quick reference at [[Diagnosing Bot Attacks - Quick Reference]] or deep guide at [[Diagnosing Bot Attacks - Detecting Traffic Bot Problems vs. Other Causes]]
 
 ### Server Security Tools
-- fail2ban - Refer to [[_PRIMER - Fail2Ban]]
+- fail2ban - Refer to [[_PRIMER - Fail2Ban]]. 
+	- At this point, make sure your SSH and SFTP logins are already working before installing Fail2ban. This is because you wouldn't want to be locked out from bad login attempts.
 - Optional: Add more tools per [[_Security Tools at the Linux Level]]
 - Optional: Harden firewall to only accept incoming internet requests for certain ports. See my notes at [Linux Firewall](https://codernotes.wengindustries.com/?folder=Cybersecurity%2FSecurity%20-%20Levels%20-%20Linux%20Level%2FFirewalls)
 
