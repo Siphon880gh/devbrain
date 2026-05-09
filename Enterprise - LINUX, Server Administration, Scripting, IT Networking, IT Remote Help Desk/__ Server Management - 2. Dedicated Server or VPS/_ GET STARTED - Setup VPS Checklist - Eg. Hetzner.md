@@ -102,7 +102,7 @@ hostnamectl set-hostname 5.55.555.555.sslip.io
 
 Install CloudPanel:
 ```
-curl -sSL https://installer.cloudpanel.io/ce/v2/install.sh | bash
+curl -sSL https://installer.cloudpanel.io/ce/v2/install.sh | sudo bash
 ```
 
 
@@ -131,6 +131,8 @@ Might fail. Check if ufw enabled and scopes limited:
 ufw status
 ufw disable
 ```
+
+It's important you visit the https protocol at port 8443. Cloudpanel expects that.
 
 Do you get this message?
 ![[Pasted image 20260411010948.png]]

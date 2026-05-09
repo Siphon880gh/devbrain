@@ -14,4 +14,8 @@ However it may be out of reach for hobbyists:
 | UD-Q8_K_XL GGUF | 595 GB  | About 600 GB RAM+VRAM                              |
 | BF16            | 2.05 TB | Over 2 TB RAM/VRAM, not realistic for normal local |
 
-There are online AI providers that offer Kimi with API key
+On a **64 GB Mac Studio**, **Kimi K2.5 is basically not a practical local model**. Current local-running guides put **“strong performance” at roughly 240+ GB of unified memory**, with speeds around **10+ tok/s** only once you’re in that range; below that, they say it may drop to **under 2 tok/s** because of offloading
+
+---
+
+There are online AI providers that offer Kimi with API key:

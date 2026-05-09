@@ -1,0 +1,2 @@
+Regex notes moved to Full Stack folder because it's used across frontend and backend code.
+https://codernotes.wengindustries.com/?folder=Web%20Development%20-%20Full%20Stack%20(Shared%20-%20Regex%2C%20Date%2C%20Encryption%2C%20Etc)

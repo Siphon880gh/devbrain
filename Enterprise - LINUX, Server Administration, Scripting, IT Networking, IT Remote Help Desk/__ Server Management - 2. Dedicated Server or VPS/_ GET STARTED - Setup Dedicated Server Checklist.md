@@ -395,7 +395,8 @@ curl -4 ipinfo.io/ip
 
 ### How to log into Web Hosting Control Panel (Cpanel, Cloudpanel, etc)
 - What’s the link with port number (Different web hosting services may assign different port for your panel). 
-  eg. Cloudpanel on Hostinger [https://XX.XXX.XX.XXX:8443](https://XX.XXX.XX.XXX:8443)
+ - eg. Cloudpanel on Hostinger [https://XX.XXX.XX.XXX:8443](https://XX.XXX.XX.XXX:8443) or https://default_url:8443
+ - Note on Cloudpanel: It's important you visit the https protocol at port 8443. Cloudpanel expects that.
 - What are your login credentials?
 - VPS: How to navigate to your panel at the Services Dashboard (if you don’t have the link handy)
 	- what’s their information architecture (to help remember how to navigate there).  

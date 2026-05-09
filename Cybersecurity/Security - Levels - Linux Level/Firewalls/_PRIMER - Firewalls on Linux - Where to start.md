@@ -1,0 +1,1 @@
+For firewalls, start off with [[Check if server is protected by iptables or nftables as the underlying firewall]], then [[Check if server firewall is made easier with ufw or firewalld]]. Then check out the other notes in the same folder.

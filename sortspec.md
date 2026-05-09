@@ -5,8 +5,8 @@ sorting-spec: |-
   AI Engineer (3. Can train models and invent AI services)
   AI Agentic Engineer (4. Can create autonomous agents)
   AI Assisted Coding
-  Developer Tools
   Version Control - git, github, gitlab
+  Developer Tools (vim, vscode, chrome devtools, postman, etc)
   Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)
   Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)
   Web Development - Full Stack (Shared - Regex, Date, Encryption, Etc)

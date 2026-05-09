@@ -1,3 +1,6 @@
+## Why
+
+`prisma generate` is important. When working with Prisma, this command turns your schema into something your app can actually use.
 
 ## `prisma generate`
 
@@ -8,9 +11,7 @@ npx prisma generate
 ### Technical
 
 This command:
-
 - reads your Prisma schema file, usually:
-    
 
 ```bash
 prisma/schema.prisma

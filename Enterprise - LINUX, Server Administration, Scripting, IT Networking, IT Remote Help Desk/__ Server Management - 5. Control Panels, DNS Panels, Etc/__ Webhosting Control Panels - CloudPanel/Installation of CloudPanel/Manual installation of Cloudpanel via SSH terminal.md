@@ -51,7 +51,7 @@ Regardless which path you took, this should be the converging point - we now ins
 
 Install CloudPanel:
 ```
-curl -sSL https://installer.cloudpanel.io/ce/v2/install.sh | bash
+curl -sSL https://installer.cloudpanel.io/ce/v2/install.sh | sudo bash
 ```
 
 
