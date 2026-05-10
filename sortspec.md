@@ -26,7 +26,7 @@ sorting-spec: |-
   CompSci - DS, Algos, Systems, Logic
   Cybersecurity
   Enterprise - Bootstrapping
-  Enterprise - Open Source Web Apps, CLI-Powered Web Tools, and Internal Tools
+  Enterprise - Open Source Web Apps, CLI-Powered Web Apps, Cron Jobs, and Internal Tools
   Enterprise - SECURITY, Code Standards, Compliance
   Enterprise - TEST Units, Test Driven Development, Etc
   Enterprise - LINUX, Server Administration, Scripting, IT Networking, IT Remote Help Desk

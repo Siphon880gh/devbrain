@@ -1,5 +1,3 @@
-## Caveat: Does OpenClaw Need an Orchestration Layer?
-
 Short answer: **yes, for complex workflows**.
 
 OpenClaw can run agents, scheduled tasks, and triggers. It is strong as an agent runtime, but it is not primarily a full multi-step workflow orchestrator.

@@ -1,0 +1,18 @@
+
+
+Think of it like this:
+
+| Dyno type | Sleeps?               | Good for                                              | Preboot?                                                                                                                                                   | Always on                                                                           |
+| --------- | --------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Eco       | Yes, after inactivity | Small demos and prototypes                            | No                                                                                                                                                         | No                                                                                  |
+| Basic     | No                    | Small apps that should stay available                 | No — Dyno cycles once a day. During cycling, your app is down for 30 seconds because there's no other dyno that "prebooted" and take its place immediately | Officially documented as "Yes". But each day for about 30 seconds, the site is down |
+| Standard+ | No                    | Production apps needing scaling and advanced features | Yes                                                                                                                                                        | Officially yes and practically yes                                                  |
+
+One important detail on Basic dynos: 
+- Officially they are always-on, but they are still limited. Heroku says Basic apps can only run **one dyno per process type**, and they do not include some higher-tier features like Preboot. As a result, some unlucky visitor(s) will experience the app breaking about 30 seconds each day as described in [[Troubleshooting - Heroku Error 143 with App Temporarily Not Working for 30 Seconds a Day]]. Here's a breakdown why:
+	- Preboot: Heroku Preboot is a feature designed for zero-downtime deployments on the Common Runtime, allowing new web dynos to start and receive traffic before old ones terminate. It mitigates downtime by creating a new, parallel environment during releases, ensuring at least one set of dynos is always live, typically taking about 3 minutes to complete
+	- Heroku terminates and restarts **all dynos**, including those on the Basic tier, at least once every 24 hours. This process is known as **cycling** and is designed to maintain the overall health of the platform and your application. 
+	- **Daily Restarts**: Your app's dynos will restart automatically approximately every 24 hours (plus a random offset of up to 216 minutes)
+	- Lack of Preboot: Unlike Standard and Performance tiers, the **Basic tier does not support Preboot**. This means when your dyno cycles, there will be a brief period of downtime (a few seconds to minutes) because the old dyno must stop before the new one can start receiving traffic.
+	- Because Basic dynos are limited to **one dyno per process type**, you cannot avoid the brief downtime during cycling by scaling up, as you can with Standard dynos
+	- **Ephemeral Filesystem**: Each time the dyno cycles, any files written to the local filesystem that were not part of your git repository are deleted

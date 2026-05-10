@@ -2,6 +2,10 @@ AKA: Getting Started
 
 A **cron job** is a scheduled command that your Linux server runs automatically at specific times. It's a great way to automate tasks like certificate renewals, backups, or health checks.
 
+To manage cron jobs in Linux or Unix-like systems, the primary command is crontab. While **cron** is the background service (daemon) that executes tasks, **crontab** (cron table) is the utility used to create, edit, list, and remove those schedules.
+
+It's **usually installed** with your Linux already.
+
 ### Example
 
 This command runs every day at 3:00 AM to silently renew SSL certificates and reload NGINX if needed:
