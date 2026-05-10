@@ -75,6 +75,7 @@ More options
 		  
 	```
 
+	- Note if you didn't define an `instance_var`, then the env variable would be `process.env.NODE_APP_INSTANCE`
 	All the possible constant values are as follows, however INSTANCE_ID is the most commonly used. You cannot assign more than one constant variable or concatenate them.  
 	- **INSTANCE_ID** (common usage)
 	- **PM2_INSTANCE** (indicating it's related to PM2)
