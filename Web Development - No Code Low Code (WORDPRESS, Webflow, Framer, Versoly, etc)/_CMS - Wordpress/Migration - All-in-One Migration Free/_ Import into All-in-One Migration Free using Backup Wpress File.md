@@ -18,6 +18,6 @@ If your website and web server have been configured to handle large uploads, it 
 
 ---
 
-If it's your first time, very likely your website and web server isn't ready. This is the problem with the free version - you have to go deep into your website and web server to configure it for large uploads! Paid version has a more streamlined restoring process that bypasses all that (See [[Import into All-in-One Migration Paid]]).
+If it's your first time, very likely your website and web server isn't ready. This is the problem with the free version - you have to go deep into your website and web server to configure it for large uploads! Paid version has a more streamlined restoring process that bypasses all that (See [[_ Import into All-in-One Migration Paid]]).
 
 Refer to the error that stopped your restoration. There are various documents named after the errors in the same folder here. That will guide you on what to configure.

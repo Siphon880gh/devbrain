@@ -1,7 +1,19 @@
-
 Let's say you have a .wpress file because you had exported (can be many hundred megabytes huge)
 
-Firstly, setup a fresh installation of wordpress at your desired folder. For information on how to install a new wordpress, refer to [[_ PRIMER - Wordpress (Includes Setup)]] and there are instructions on setting up the database user credentials if necessary
+You have already copied over the Wordpress website files to the newer server
+
+ Trigger the setup for the wordpress site by either renaming or deleting wp-config.php. The setup will help you enter database credentials details of this newer server so you can re-connect the Wordpress site to your new database.
+
+---
+
+This is going to be much more of a better experience than manually editing wp-config.php with the database details here:
+![[Pasted image 20260515051759.png]]
+
+Because with the installation wizard, you get immediate feedback if the database details connect
+
+---
+ 
+ For information on how to install a new wordpress, refer to [[_ PRIMER - Wordpress (Includes Setup)]] and there are instructions on setting up the database user credentials if necessary
 
 Your installation wizard could look like this:
 ![](reZNk1g.png)
