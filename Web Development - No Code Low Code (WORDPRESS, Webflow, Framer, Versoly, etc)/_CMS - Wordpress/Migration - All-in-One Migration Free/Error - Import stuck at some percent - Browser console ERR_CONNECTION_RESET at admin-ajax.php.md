@@ -3,7 +3,7 @@ In this example, it's stuck at 69.73% but yours could be at another percentage w
 
 Opened the DevTools console to diagnose differentially.
 
-This is either a payload too large or a time out. Refer to configuration steps at [[zAppendix - Request body and post (Wordpress Migrations All-in-One)]].
+This is either a payload too large or a time out. Refer to configuration steps at [[zAppendix - Increase limits on request body, post, timeout, etc (Wordpress Migrations All-in-One)]].
 
 
 

@@ -45,6 +45,9 @@ This is much easier than fumbling around the wp-config.php because the settings 
 When importing or migrating a WordPress site, especially with plugins like **All-in-One WP Migration**, you often need to increase upload limits.
 
 For many WordPress migrations, use these limits at your wordpress website's root `wp-config.php`:
+
+![](fqzPSOI.png)
+
 - Place this above the line that says: `/* That's all, stop editing! Happy publishing. */`
 ```
 // ** Needed with many migration plugins like All-in-One WP Migration ** //
@@ -54,6 +57,7 @@ For many WordPress migrations, use these limits at your wordpress website's root
 @ini_set( 'max_execution_time', '600' );
 @ini_set( 'max_input_time', '600' );
 define( 'WP_MEMORY_LIMIT', '1024M' );
+define( 'MAX_EXECUTION_TIME', 600);
 ```
 
 If either the time limit is too low or the file is too large, it’d freeze at some percent or you get an error right away, depending on which level the limit hit first. 
@@ -170,23 +174,32 @@ There are two ways to find out the web php version
 
 You want the CLI php to match the web php to prevent future conflicts when you need to have web app logic that works on the web and as executable scripts that run in the background. It also helps prevent having to keep track of two sets of configurations. You can do that here: [[_Best Practice - Match PHP Version of CLI with Web]]
 
+Next you edit the php settings. You have two options
+- Option 1 - Edit manually at `php.init`
+  Add lines or update the web `php.ini`:
+	- Recommended you just add it to the very bottom that way it can just override all the previous scattered around settings
+	- While `/usr/bin/php8.2` is the executable path, the config path we need looks like: `/etc/php/8.2/fpm/php.ini` (PHP-FPM aka FastCGI Process Manager) or `/etc/php/8.2/apache2/php.ini` (Apache's mod_php)
+	```
+	upload_max_filesize = 512M
+	post_max_size = 512M
+	memory_limit = 1024M
+	max_execution_time = 600
+	max_input_time = 600
+	```
+	
+	Restart PHP service after editing and saving.
+	- If PHP-FPM:
+	  Eg. `sudo systemctl restart php8.2-fpm`
+	- If mod_php (Apache):
+	  Eg. `sudo systemctl restart apache2`
+- Option 2 - Go through web panel.
 
-Add lines or update the web `php.ini`:
-- Recommended you just add it to the very bottom that way it can just override all the previous scattered around settings
-- While `/usr/bin/php8.2` is the executable path, the config path we need looks like: `/etc/php/8.2/fpm/php.ini` (PHP-FPM aka FastCGI Process Manager) or `/etc/php/8.2/apache2/php.ini` (Apache's mod_php)
-```
-upload_max_filesize = 512M
-post_max_size = 512M
-memory_limit = 1024M
-max_execution_time = 600
-max_input_time = 600
-```
+	If on CPanel or WHM, etc. Like ...cpsess0787040780/scripts2/multiphp_ini_editor/basic?login=1&post_login=29735274873117, lets you see and edit the PHP settings more easily:
+	
+	![](VO1nkh4.png)
 
-Restart PHP service after editing and saving.
-- If PHP-FPM:
-  Eg. `sudo systemctl restart php8.2-fpm`
-- If mod_php (Apache):
-  Eg. `sudo systemctl restart apache2`
+	If on CloudPanel, go to "Settings" tab for your website, and scroll down to find the PHP Settings:
+	![](46xmwaA.png)
 
 ### **Proceed to testing:**
 

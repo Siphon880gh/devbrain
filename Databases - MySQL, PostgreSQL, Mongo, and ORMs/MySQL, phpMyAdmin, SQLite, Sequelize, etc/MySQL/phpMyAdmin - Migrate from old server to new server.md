@@ -10,3 +10,29 @@ If can't figure it out, Cloudpanel has a way for you to access PhpMyAdmin:
 Though sometimes on a new setup, you have no "Manage" link because there are no MySQL users that are named after your site. You likely still have the root username and you have ways to get your password
 ![[Pasted image 20260510080841.png]]
 
+---
+
+  
+
+**Export each database** from the old server:
+- You can export as SQL
+![[Pasted image 20260515042716.png]]
+
+---
+
+At remote server, make sure to **create these empty Databases** that will fill in using “Import”
+- Otherwise it will complain database doesn’t exist when we import the SQL file.
+![[Pasted image 20260515042744.png]]
+
+->
+
+![[Pasted image 20260515042813.png]]
+
+At each database, you Import:
+![[Pasted image 20260515042954.png]]
+->
+![[Pasted image 20260515043047.png]]
+
+  
+Success:
+![[Pasted image 20260515043113.png]]
