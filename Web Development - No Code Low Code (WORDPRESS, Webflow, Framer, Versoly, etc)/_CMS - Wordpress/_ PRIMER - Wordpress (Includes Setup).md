@@ -39,17 +39,18 @@ CREATE DATABASE wp_site1;
 
 When prompted by the Wordpress wizard to enter your database name, username, password, etc, your database name should be like "wp_site1" even though your prefix setting is "wp_"
 
-TWO OPTIONS
-OPTION 1 - Edit manually:
+**TWO OPTIONS**
+**OPTION 1 - Edit manually:**
 1. Configure wp-config.php: In the root directory of your server, find the file named "wp-config-sample.php" and rename it to "wp-config.php". Open the file in a text editor and enter the database information you obtained in the previous step (database name, username, and password).
 
-OPTION 2 - Go through wizard (recommended):
-1. Install WordPress: Open your web browser and enter the URL of your website. The WordPress installation wizard should start automatically. If it doesn't, make sure you have uploaded the files correctly or check the URL you entered.
+**OPTION 2 - Go through wizard (recommended):**
+1. Install WordPress: Open your web browser and enter the URL of your website (e.g., www.example.com/wp-admin or www.example.com/wp-multisite1/wp-admin). The WordPress installation wizard should start automatically. If it doesn't, make sure you have uploaded the files correctly or check the URL you entered. You should see this screen:
+   ![[Pasted image 20260515031034.png]]
 2. Complete the installation: Follow the on-screen instructions to complete the WordPress installation. You'll need to provide details such as the site title, administrator username, password, and email address.
 
 ## If setting up locally OR remotely:
 - Doesn't matter you're setting this up at a domain.com, domain.com/multisite-wp1, localhost, or 127.0.0.1
-- You want to use `127.0.0.1:3306`. On some servers, `localhost:3306` wont work here.
+- You want to use `127.0.0.1:3306`. On some servers, `localhost:3306` wont work.
 - Notice Database Name field value (starts with `wp_`) includes the Table Prefix (also starts with `wp_`).
 
 ![](om4VcrU.png)
@@ -61,6 +62,9 @@ And if using MAMP/LAMP/MAMP, you get the port like here:
 
 If you get this message in the wordpress wizard after submitting your database creds, url, and database name - double check the above steps and check the phpmyadmin screenshots here:
 ![](I8nEv43.png)
+
+Or you get this vague error:
+![[Pasted image 20260515031257.png]]
 
 Or you might get this even more vague message:
 ![[Pasted image 20250915232633.png]]
@@ -76,7 +80,10 @@ And make sure your db creds have permission to this new database. Your phpmyadmi
 Then Try Again
 
 
-3. Log in and customize: Once the installation is complete, you can log in to your WordPress dashboard by appending "/wp-admin" to your website's URL (e.g., www.example.com/wp-admin). Use the administrator credentials you set up during the installation. From the dashboard, you can customize your website, install themes and plugins, and start creating content.
+3. Log in and customize: Once the installation is complete, you'll get this message:
+   ![[Pasted image 20260515030848.png]]
+   
+ Then you can log in to your WordPress dashboard by appending "/wp-admin" to your website's URL (e.g., www.example.com/wp-admin or www.example.com/wp-multisite1/wp-admin). Use the administrator credentials you set up during the installation. From the dashboard, you can customize your website, install themes and plugins, and start creating content.
 
 ### Setup for a website, not a blog service
 

@@ -6,7 +6,7 @@ sorting-spec: |-
   AI Agentic Engineer (4. Can create autonomous agents)
   AI Assisted Coding
   Version Control - git, github, gitlab
-  Developer Tools (vim, vscode, chrome devtools, postman, etc)
+  Developer Tools (vim, vscode, chrome devtools, postman, ngrok, etc)
   Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)
   Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)
   Web Development - Full Stack (Shared - Regex, Date, Encryption, Etc)

@@ -455,12 +455,12 @@ Proceed to test Wordpress All-in-one Migration
 
 ---
 
-
 ## Nginx Last Resort - More Configurations
+All-in-One WP Migration import AJAX - Bypass Varnish/proxy buffering
 
 If none of the above works and you’re on Nginx, then consider adding:
 At your main 443 server block a location sub-block that adjusts the limits at the wordpress endpoint
-  # MAYBE: All-in-One WP Migration import AJAX - Bypass Varnish/proxy buffering
+
 ```
     location = /root/wp-admin/admin-ajax.php {
         client_max_body_size 512M;
@@ -498,10 +498,9 @@ Adjust path to wordpress
 ```
 
 
-
 ---
 
-**Appendix**:
+## **Appendix**
 Difference Between `upload_max_filesize`, `post_max_size`, and `client_max_body_size`?
 
 Refer to [[zAppendix - Difference Between upload_max_filesize, post_max_size, and client_max_body_size]]

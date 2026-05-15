@@ -1,7 +1,23 @@
 
-After temporarily turning off Cloudflare or changing to DNS-Only, check you didn't just allow Cloudflare traffic
+After temporarily turning off Cloudflare proxying or switching a DNS record to **DNS Only**, make sure your server is not configured to **only allow Cloudflare traffic**.
 
-For example on Cloudpanel, there's an option under the Security tab to only allow Cloudflare traffic. Because the proxy is off, then that means visiting the website on your web browser, the direct traffic is from your computer's IP and hence the website is blocked from being viewed, often showing a 403 forbidden error.
+If that setting is still enabled, your website may stop working once the Cloudflare proxy is disabled.
+
+For example, in **CloudPanel**, there is a setting under the **Security** tab that can restrict traffic to Cloudflare IPs only. This works when Cloudflare is proxying your site, because visitors reach your server through Cloudflare.
+
+However, when you switch the record to **DNS Only**, Cloudflare is no longer acting as the proxy. Your browser connects directly to the server from your own public IP address. Since your IP is not a Cloudflare IP, the server blocks the request.
+
+This commonly results in a:
+
+```
+403 Forbidden
+```
+
+
+![[Pasted image 20260514235856.png]]
+
+
+---
 
 For Nginx:
 You can check the Cloudpanel settings or you can run the command to check if there are settings that only allow through Cloudflare settings:

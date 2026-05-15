@@ -1,8 +1,3 @@
-
-Dx:
-
-Titled: Import stuck
-
 In this example, it's stuck at 0% but yours could be at another percentage when it's stuck:
 ![](mKT7WRJ.png)
 
