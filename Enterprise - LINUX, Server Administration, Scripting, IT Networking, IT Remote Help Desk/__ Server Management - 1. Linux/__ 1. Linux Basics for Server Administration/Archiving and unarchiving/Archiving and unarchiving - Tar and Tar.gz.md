@@ -35,3 +35,7 @@ For tar.gz:
 ```bash
 tar -tzf archive.tar.gz
 ```
+
+-t list contents  
+-z use gzip  
+-f read from this file

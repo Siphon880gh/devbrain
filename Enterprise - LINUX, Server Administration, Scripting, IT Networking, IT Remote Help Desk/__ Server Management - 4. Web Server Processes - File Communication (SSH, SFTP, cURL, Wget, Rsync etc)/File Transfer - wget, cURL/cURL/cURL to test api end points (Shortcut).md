@@ -1,0 +1,1 @@
+Refer to [[cURL to test api endpoints (especially if integrating with third party api endpoints)]]

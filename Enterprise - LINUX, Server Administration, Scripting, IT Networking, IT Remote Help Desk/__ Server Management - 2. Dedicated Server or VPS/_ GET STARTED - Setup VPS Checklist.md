@@ -151,7 +151,13 @@ Make sure to **record this local upload to remote server** (along with your comp
 
 We will NOT skip this namecheap step anymore because:
 ![[Pasted image 20260411024546.png]]
-A record to sslip.io would be pointless since it will not allow you that flexibility. It will always point to the prefix IP address. **You can skip this entire section DNS purchase then Cloudflare** if you dont plan to go public yet. But dont list your sslip.io URL to the internet. The idea is that Cloudflare will secure your domain address so you will never be able to be attacked directly by your webhost IP (even to the point it overwhelms your CPU and shuts down the server by the massive flood of bots even if you have a firewall on at the server level which is like ufw, well unless your firewall is at the web host level which is the control panel that displays immediately after logging in to your web hots account)
+A record to sslip.io would be pointless since it will not allow you that flexibility. It will always point to the prefix IP address. **You can skip this entire section DNS purchase then Cloudflare** if you dont plan to go public yet. But dont list your sslip.io URL to the internet.
+
+The idea is that Cloudflare will secure your domain address so you will never be able to be attacked directly by your webhost IP (even to the point it overwhelms your CPU and shuts down the server by the massive flood of bots even if you have a firewall on at the server level which is like ufw, well unless your firewall is at the web host level which is the control panel that displays immediately after logging in to your web hots account)
+
+> [!Caveat] Cloudflare free may not be appropriate if
+> You have user submissions that will hold up a request for over 100 seconds or 100mb and you don't have the time to work on the workaround yet. The workaround is for the time it takes, use SSE or web socket, and for the 100mb uploads, have the user's web browser split the files, then upload the files, and then you recombine the splitted uploads on the server side into one file.
+> 
 
 Go to namecheap and buy your domain. Then DO NOT adjust any DNS records. Let's delegate namecheap to cloudflare where you get the benefits of bot protection (recognized abusive IPs and human verify), edge caching, etc
 
@@ -1827,7 +1833,7 @@ Additional included vhost files here. Then use headings and subheadings so that 
 Alternately, you could just backup as vhost files near where your pm2 is inside a centralized eco/ folder (make sure to block public web access). In that case, write it so under the document so you can remember to refer to the files
 
 ---
-## acc Domain Site Backup SOP
+## acc Site Migration and Backup Plan
 
 **(Separate Document from the mega document with multiple ACC sections)**
 

@@ -1,0 +1,2 @@
+
+If you update the **A record** to the new IPv4 address but leave the **AAAA record** pointing to the old IPv6 address, many modern browsers/users with IPv6 connectivity may still reach the old server, because IPv6 is commonly preferred when both A and AAAA records exist. However, it is not guaranteed for every user, because browsers/OSes use “Happy Eyeballs” behavior to race or fall back between IPv6 and IPv4.

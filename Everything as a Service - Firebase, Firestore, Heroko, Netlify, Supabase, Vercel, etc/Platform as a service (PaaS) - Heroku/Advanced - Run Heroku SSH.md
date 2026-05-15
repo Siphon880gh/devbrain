@@ -16,7 +16,7 @@ Heroku dynos are ephemeral containers that run your application code in the clou
 heroku run bash --app APP_NAME
 ```
 
-- **What it does:** Provisions a fresh dyno, boots your app slug, then runs `bash`.
+- **What it does:** **Provisions a fresh dyno**, boots your app slug, then runs `bash`. Prevents crashing what's running.
     
 - **Common uses:**
     
@@ -39,7 +39,7 @@ heroku run bash --app APP_NAME
 
 ## 2. SSH into a Running Dyno with `heroku ps:exec`
 
-Heroku’s `ps:exec` feature lets you open an SSH session directly into a dyno that’s already running your app—handy for live debugging or inspecting the exact environment your users see.
+Heroku’s `ps:exec` feature lets you open an **SSH session directly into a dyno that’s already running your app**—handy for live debugging or inspecting the exact environment your users see.
 
 ### 🔧 Setup
 
@@ -114,11 +114,18 @@ production
 
 ---
 
+### Editing with nano
+
+Editing in terminal is with nano. Vim/vi not available. You can't run `apt install vim` because it's locked down
+
+
+---
+
 ### Summary
 
 - **Use `heroku run bash`** when you want a clean, safe environment that won’t impact production.
-    
 - **Use `heroku ps:exec`** when you need to dive into a running dyno and inspect the real, live environment your users interact with.
-    
 
 Both commands give you valuable shell access—pick the one that best fits your debugging or maintenance task!
+
+You edit with nano.

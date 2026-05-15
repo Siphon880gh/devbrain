@@ -3,7 +3,7 @@
 Export your local MongoDB database (from Compass) to MongoDB Atlas, so your app (e.g., hosted on Heroku) can connect to a cloud database.
 
 **Note Variation:**
-This is one of the ways to migrate databases between local and remote. Another way is through only commands, referring to [[MongoDb Backup and Restore with CLI]]
+This is one of the ways to migrate databases between local and remote. Another way is through only commands, referring to [[MongoDb Backup and Restore with CLI - Specific Databases]]
 
 ---
 

@@ -16,6 +16,12 @@ Editing PHP files in your child theme is risky if you don't know what you're doi
 
 ---
 
+## Learn with AI:
+
+Pump the functions.php and explanations of lines into ChatGPT and ask it to quiz you.
+
+---
+
 ## Create a child theme
 
 Create a child theme so that theme updates won't wipe your optimizations. If you do not remember how to create a child theme, you probably shouldn't be messing with theme files.
