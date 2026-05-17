@@ -462,32 +462,33 @@ Now that there's a control panel for your website and your website can be public
 		- You can also buy SSL which gives you certain advantages over SSL, and some businesses must have a paid SSL as regulation.
 	- Figure out workflow to acquire and install SSL because you'll be doing this annually. Also perform it now
 		- If CloudPanel, it's very simple going to the site -> SSL/TLS -> Actions -> New Let's Encrypt Certificate (however you must have a domain connected to that website already because it'll create a file then access that file through your domain URL to prove your ownership then generates the certificate).
-			- Errors about accessing ACME challenge file? Try adding a server block for http and the specific path to the ACME challenge file, to the very top of the vhost:
-				```
-				server {
-				    listen 80;
-				    listen [::]:80;
-				    http2 on;
-				    http3 off;
-				    server_name wengindustries.com www1.wengindustries.com www.wengindustries.com;
-				    
-				    location ^~ /.well-known/acme-challenge/ {
-				        root /home/wengindustries/htdocs/wengindustries.com/;
-				        allow all;
-				        auth_basic off;
-				    }
-				
-				    location / {
-				        proxy_pass http://127.0.0.1:8080;
-				        proxy_set_header Host $host;
-				        proxy_set_header X-Forwarded-Host $host;
-				        proxy_set_header X-Forwarded-Proto $scheme;
-				        proxy_set_header X-Real-IP $remote_addr;
-				        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-				        proxy_redirect off;
-				    }
-				}
-				```
+			- Errors about accessing ACME challenge file? Try adding a server block for http (or https but before redirecting http to https, if you do that) and the specific path to the ACME challenge file:
+		```
+		server {
+		  listen 80;
+		  listen [::]:80;
+		  listen 443 quic;
+		  listen 443 ssl;
+		  listen [::]:443 quic;
+		  listen [::]:443 ssl;
+		  http2 on;
+		  http3 off;
+		  server_name wengindustries.com www.wengindustries.com wengindustry.com www.wengindustry.com;
+		
+		  
+			# SSL Related
+			# Check for acme url before loading ssl
+			location ^~ /.well-known/acme-challenge/ {
+				root /home/wengindustries/htdocs/wengindustries.com/;
+				allow all;
+				auth_basic off;
+			}
+			{{ssl_certificate_key}}
+			{{ssl_certificate}}
+			# ssl_certificate_key /etc/nginx/ssl-certificates/wengindustries.com.key;
+			# ssl_certificate /etc/nginx/ssl-certificates/wengindustries.com.crt;
+		```
+
 		- If less obvious how and where to install SSL HTTPS certificates: Contact customer support or google Web host + OS + Nginx/Apache + Install SSL certificates. If the web host is not well known (very independent), google for: OS + Nginx/Apache+ Install SSL certificate
 	- CloudPanel's Let's Encrypt SSL failing? Refer to section "Test Web Hosting Control Panel" -> ~ SSL
 	- Know the filepaths to the SSL for future issues and code that needs SSL cert and key paths such as gunicorn (even if Cloudpanel abstracts it away)
@@ -503,7 +504,7 @@ Now that there's a control panel for your website and your website can be public
 	- Make sure no excessive permissions like 777 among your files you uploaded to restore your website when setting up the web server
 	- User script permissions: if you will have php or python scripts that are triggered by visiting web browser, if it writes to a folder, can it write to it? Otherwise, it’ll be permission error preventing creating files by php script (eg. can it write to a file using PHP's fwrite upon opening that PHP file?)
 	- Webpage viewable to public: Make sure it's the official site user that logs into Filezilla when uploading web-site public viewing files (NOT root). Setup and save your login credentials on Filezilla. Otherwise, pages may show up as forbidden on the web browser.
-- Install malware and security especially when going public
+- Optional - Install malware and security especially when going public
 	- If Hostinger, their malware scanner [https://support.hostinger.com/en/articles/8450363-vps-malware-scanner](https://support.hostinger.com/en/articles/8450363-vps-malware-scanner)
     - How to navigate to the malware from services dashboard (Hostinger hpanel, GoDaddy dashboard, etc)
     - Is malware free, times one payment, or monthly/yearly? Or keep deactivated (often they let you scan but not fix for free)
@@ -1512,6 +1513,8 @@ Add some basic security at Cloudflare:
 - Allow challenges for suspicious visitors.
 - Block other countries. Refer to [[Countries - Restrict, block all other countries]]
 - At CloudPanel, Security -> Cloudflare: Allow traffic from Cloudflare only
+  ![[Pasted image 20260517014040.png]]
+  
 
 ### Server Security Accessible References
 
@@ -1607,7 +1610,7 @@ Because your server is setup to handle many different tech stacks, you're probab
 - [[_ TEMPLATE DOCUMENTATION - _Web host, Portals, DB Credentials and Folder Paths]]
 	- Recommended doc name to make it your own: `ACC HOST DOMAIN - 1. Web-host.md`
 	- This is a template document to record all your credentials, folder paths, file paths in your web host. Is geared towards unmanaged VPS and dedicated service (You manage yourself)
-- [[_ TEMPLATE_DOCUMENTATION - Vhost Backup]]
+- [[_ TEMPLATE DOCUMENTATION - Vhost Backup]]
 	- Recommended doc name to make it your own: `ACC HOST DOMAIN - 2. Vhost Backups.md`
 	- This is your crucial vhost and included vhosts, whether Nginx or Apache. Keeping a backup in case you mess up the crucial vhost in the future or when you migrate your website to another server.
 - [[_ TEMPLATE DOCUMENTATION - Migration SOP (Backup, Restore, Configs, Deps)]]

@@ -1,159 +1,369 @@
-Implications: High cost
+**TLDR**: Model Context Protocol (MCP) tool definitions can easily chew up 10,000 to 50,000+ input tokens before your AI agent even processes a single user request. This "schema bloat" occurs because all available tool signatures are loaded into the context window for every message
 
-MCP endpoints expand an agent’s toolset by exposing tools through structured schemas and context. In other words, you **connect your AI model to an MCP server** that exposes tools, allowing the AI to request actions (like searching files) and receive data back, simplifying integrations. Otherwise, if an online service does not have MCP, you'll have to build out the orchestration more akin to automation workflow where each task calls an api call. But with a MCP-powered AI, it reduces the number of nodes needed.
+## Implication: MCP Can Increase Token and Runtime Costs
 
-How it works (The [Client-Server](https://www.google.com/search?q=Client-Server&rlz=1C5CHFA_enUS1017US1017&oq=mcp+you+load+it+into+ai&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDUxNTFqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8&ved=2ahUKEwj10J2i8MSRAxUBle4BHZ2eOz4QgK4QegQIAhAA) Model)
+MCP, or **Model Context Protocol**, makes it easier for AI agents to connect to external tools, data sources, and services.
 
-1. **[MCP Server](https://www.google.com/search?q=MCP+Server&rlz=1C5CHFA_enUS1017US1017&oq=mcp+you+load+it+into+ai&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDUxNTFqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8&ved=2ahUKEwj10J2i8MSRAxUBle4BHZ2eOz4QgK4QegQIAxAB)**: An application (e.g., your code, a service like S3) that runs an MCP server, making its functions (tools) available in a standardized format.
-2. **[AI Application (Client)](https://www.google.com/search?q=AI+Application+%28Client%29&rlz=1C5CHFA_enUS1017US1017&oq=mcp+you+load+it+into+ai&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDUxNTFqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8&ved=2ahUKEwj10J2i8MSRAxUBle4BHZ2eOz4QgK4QegQIAxAD)**: The AI model (LLM) or the app using it (e.g., a coding assistant) that acts as an MCP client.
-3. **Connection**: The client connects to the server. When the AI needs something (e.g., "summarize my meetings"), it asks the MCP server for available tools.
-4. **Tool Use**: The AI selects a tool (e.g., `get_meeting_summaries()`), calls it via the MCP client, gets the result from the server, and uses that information to answer the user. 
+Instead of hard-coding every API call yourself, you connect your AI application to an **MCP server**. That MCP server exposes available tools through structured schemas. The AI can then discover those tools, decide which one to use, call the tool, receive the result, and use that result in its response.
 
-Key Benefits
+This makes integrations much easier, but it also introduces extra cost.
 
-- **Standardization**: Replaces custom integrations with one standard protocol, simplifying AI development.
-- **Decoupling**: Separates the AI model from data sources, making it more flexible.
-- **Security**: Allows for fine-grained control over what data and actions the AI can access, with features for monitoring and risk mitigation. 
+MCP gives agents more flexibility, but that flexibility comes with token overhead, latency, and more reasoning steps.
 
-Examples of Use
+---
 
-- Connecting ChatGPT to your local files (Obsidian) or Google Drive.
-- Giving AI agents access to databases or web services.
-- Debugging live websites by having AI inspect and suggest CSS/DOM changes. 
+## What MCP Does
 
-- [](https://openai.github.io/openai-agents-python/mcp/#:~:text=The%20Model%20context%20protocol%20\(MCP,backed%20tools%20to%20an%20agent.)
-    
-    Model context protocol (MCP) - OpenAI Agents SDK
-    
-    The Model context protocol (MCP) standardises how applications expose tools and context to language models. From the official docu...
-    
-    ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABPklEQVR4AaRS0W2DMBCFigHSTyRA8QbpBmWTdpIkk7Sb0A2aDRwBEp/JAEjOe47vYkKEFAX59Hx3796djd+SF79Fgb7vN13XfS71mAmwAOZozrl/FDfc04ZhWMOfrIkASDtkGxR+l2WZ0uDrGsfRBo7GVCCob0F6r6rqF+OT7JR522whosdSARRadjbGnMnFfjYu48GagIkKMMDOxGfMC8QjSTHPLyaxGHHEDX0vkKapHxtC/vYFQbIkIX8kxoYjruh7gaIoDnTuDaQ1xBrkjUxDJA/4R/QC3CyY3jg5bdt+EcVigVqCAWt0mbwFa+0Kx/nJsswEzu0vgMyR9pK4R3ZG4QnxfZ7neifxBAlEdiCJuj5h3INjZxRzKr5WbK9rIsAQ1SEko9co/BAfyClJU5sJaAYbFuAPPPxDSPt1AQAA///zOIFGAAAABklEQVQDAMJsmSHHAV6qAAAAAElFTkSuQmCC)
-    
-    GitHub Pages documentation
-    
-    ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFIAAABSCAMAAADw8nOpAAAAA1BMVEX///+nxBvIAAAAHUlEQVRYhe3BMQEAAADCoPVPbQo/oAAAAAAAAOBtGpYAAVFiyzQAAAAASUVORK5CYII=)
-    
-- [](https://python.plainenglish.io/plugging-your-ai-into-everything-getting-started-with-mcp-servers-401aca52c1e2#:~:text=The%20Model%20Context%20Protocol%20\(MCP\)%20is%20an%20open%20standard%20that,tools%2C%20data%2C%20and%20prompts%E2%80%A6&text=On%20the%20other%20side%2C%20an,data%20and%20actions%20it%20needs.)
-    
-    Plugging Your AI into Everything: Getting Started with MCP Servers
-    
-    Apr 6, 2025 — The Model Context Protocol (MCP) is an open standard that lets AI models interact with tools, data, and prompts… ... On...
-    
-    ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAolBMVEU2d6z2y072y001dqzyyU85eKocbLggbbb/10GGmYT/1UFsjpL0yU//00Mba7kyda2rqXMpcbH/zkhKf6D7zEovc6//0Ueco3ldiJgjb7UYabomcLQ7eagrcrD/2T6tq3GRnn/Zvlt0ko28smrLuGN/l4iipnftx1FXhpxuj5D/4TPfwVpljJVGfqT/3jnAs2foxFQHYsLIt2SKnIOdpHkAX8YW44dPAAAEyElEQVR4nO1ZiXKjOBTkkIyMOQwGEjDGV3zFzjgzk/3/X9snjITAxEZOpmZrS51KzQQJqdV676kBTVNQUFBQUFBQUFBQUFBQUFBQUPiPwryJT7rdHUeGAb4BrR6rcfneODLzmzPrE6TT2Mwph3avaacCU6GH31sCE88mq1E3Tns8zVKfUsDxZMOvH06BqTVngL+D5wPvsMn9/gSsxatNumATNzmOn9OBhimBomDd7B8nC7cI4OkbvaNqR7GEAoOhvUOdcPQoIeR48AKs4WxBWLddsrSaEpjQPufDOPbzAPdlQAkQZHRD12E0l5z9VNP8YJewfnqxas5ABXAN/dKK7LOnaZIE9G7QyRAiu7cUY29F4EJ5FSXvU1+YAv6Xre3LKIYeuW/T3gLcIVBy0JGLcIDNwdJlc6Bi6GFxkHRPBbi0kW2Gewtwn0A5pr20/Nza20YlgRPqfsxXCf96ZyaAExpm3F+AGwQuQcBW/BtWTGXmF57qZUImMW5UgGEmU4daBBwBCFV7TpcVaTMItCRiEkQhnlXrpAK8MAEgPFK//wY0CMAaQtfmcIkdoWo+AxULD+PsgyZMyQmRMZMABHiu4hN+yah/CrYJoGQ9ea5xGIdJHffHFKpRrIdOO9ahIgxeWHgi+2XQPwWvCNjbn9OUY5Dl7wkXx50EkIqbgomC7HVWTgUjnLgA0C2VEqBFYG7lwpGWexOXxT0imwHW/PTIU9Gw97Qgw4/F8hM2Zi6TgtcExh4Wz3Ts1drC0Lmw2FJtWvDg2oELIITm4wTEtmzL29xfZZv3i1c8nZRnkpkeLxtFk3MhK8BtAjk9gVgULtOy5gu74h4tqtKqcC4CoGQXxJLz3yPwVBOoyn82J6waOcXKw/70nQmg07/lppchcIQCA90DHLJUBFKBzxMDFGmf0t9LgG5BefAv2Iy0QmfxLqwEqNLiOwngbFwH4bmscGZlDFiFznhl4IXhqwREa20dE56GY0hDekdtDOgxuV0mTpWCiYwN+IRAsxD5PwUPQioTJBYeenpEZVLQU/BDOgWvCXz8M/BqpMMk4qU/eQswP3tsxguOT3ZeOrGMDegk4ITLxRPHdr0jUXVKQwjwQ4ZWI2YMmGmg8biRT8E2Ad1IRFfuhojND+PXNtQUjAEnWGbpAwK0DEnblht8/PeUpzhNxS03Brwsy9mAbgIdvrwavxAfReBpyjeqalQRlHLiNxToArXFxbaZ4tiDm/gmlDbgkRTsQwBkcPTibDU22KTGIKl1E/zZtxIod8FBYbG2WhkmGoOyIJqyNqCfAmCMUUjCoQfzNwlQY8BsENSg34+l4BUBw4gaCF1C9C32zCt9y0cBh1l0JG8DughAuYuaDNByfvCzWcf2wrE8cflj0i7o/TrgJgHkji3xVU88tTLY/a7wKq2RzkIAfRcBe5z5cQ3f1/K8O7ovCvwBAl7eav7kfdefI9AzmxQBRUARUAQUgf8fgeotsySBy21fJ8Des+9cKQIJe3sffc2QWItXUpQgr+u+TxdgSPavRXXbDzf+CoHZ5HAanQCj02rf19uZWowPpwqjUf8PJF1jCZ+jAom33L7wdUvuM10bj35ue/C2Kzz6wfHh75QKCgoKCgoKCgoKCgoKCgoKfw3/Aiywbkvat8GVAAAAAElFTkSuQmCC)
-    
-    Python in Plain English
-    
-    ![](data:image/jpeg;base64,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)
-    
-- [](https://www.youtube.com/watch?v=GuTcle5edjk&t=139)
-    
-    you need to learn MCP RIGHT NOW!! (Model Context Protocol)
-    
-    Sep 12, 2025 — often don't have access to and even if they did look at this API. documentation i mean look at ClickUps. it's super in...
-    
-    ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAAAAABWESUoAAABeUlEQVR4AXTTIYyDMBSA4d9PI2aQqDkUEoHDkmCQdcjaJvWoGhyuuhI1h0UdPsgpfFLDIZbctbd7pm3zpe/1NeUMwh+HD3cCMOUAzfoPWBPeIT+ChZ9QH4Dnd2x/wQTQrzkAVH9BCfA6z00371kEgPK96wdwMTgoj5/KLCYGO1NwexmDVwhyEYOaq3/vLl9Dl00h2A3rXKT9VYdJSn0WrgnBoYv5dSVaz227Vj61MkrR9TYocjQRGAlAct/jRiVjcMIU36JNuJL7eVme10qn+RqCr4fr092JDMhndzN5GoJJyjHrmgmtkcJIV7MFoNcsqkeVpjBCDW3n5BwAoXHKPmrh3CC1Nr3CBqBV5MNUJcpmY98UCGJQ0JV9fWvvPLD0BlwAFE2n0TerGZjruYGvAMzoe4Zi6mpZSOYRfAA8srjRuRXTtoqhs/FbLNiiLYThWZajqsqHj8C5DzbB1J14Uk0Mn77enKHRAOL1z+fdhirNhfPfQ828BAAAJsz6ucrCi5EAAAAASUVORK5CYII=)
-    
-    ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcElEQVR4AWP4//8/RZh6BgCZAkDsAMUNWDFCXgDFACCV8J/B+D8pGKwHRAKRAUyQDEMMQAYEUGBAAsiABpwKHjz4/9/BAZ8BDXgNgIMNGyg04MABkg1AeCEgAK8XKA5EiqORooSELykXEJuUBz43AgAIA1ZhBoG9vwAAAABJRU5ErkJggg==)
-    
-    YouTube·NetworkChuck
-    
-    ![](data:image/jpeg;base64,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)
-    
-    1m
-    
+MCP expands an agent’s toolset by exposing tools, context, and data through a standardized interface.
 
-Show all of knowing exactly what API calls to make to an online service, if they offers a MCP, their MCP can be supplemented 
+For example, an MCP server could expose tools for:
 
-That flexibility comes with overhead.
+* Searching files
+* Reading Google Drive documents
+* Querying a database
+* Sending an email
+* Accessing S3 files
+* Inspecting a website
+* Running internal business actions
 
-Token cost usually increases because MCP involves:
+Without MCP, you usually have to build a more traditional automation workflow. Each step would call a specific API endpoint that you manually configured.
 
-- **Tool schema descriptions** (sometimes large, verbose JSON)
-    
-- **Capability discovery context** sent with the prompt
-    
-- **Arguments + responses** that must be serialized and interpreted
-    
-- **Repeated tool calls** inside a single agent run
-    
-- **Reasoning tokens** spent deciding _which_ tool to use and _how_
-    
+With MCP, the AI can discover and call tools more dynamically.
 
-Even a “simple” action like sending an email can require:
+That means fewer custom workflow nodes, fewer manually wired API calls, and a more flexible agent setup.
 
-1. Describing the email tool schema
-    
-2. Passing arguments (recipient, subject, body)
-    
-3. Parsing the tool response
-    
-4. Reasoning about success or failure
-    
+---
 
-That entire loop consumes tokens.
+## How MCP Works
+
+MCP follows a client-server model.
+
+### 1. MCP Server
+
+The **MCP server** is the system that exposes tools.
+
+This could be:
+
+* Your own code
+* A local file system tool
+* A database connector
+* A Google Drive connector
+* An S3 connector
+* A service-specific integration
+
+The MCP server describes what tools are available, what arguments they accept, and what they return.
+
+For example, it may expose a tool like:
+
+```js
+get_meeting_summaries()
+```
+
+or:
+
+```js
+search_files(query)
+```
+
+or:
+
+```js
+send_email(recipient, subject, body)
+```
+
+### 2. AI Application / MCP Client
+
+The **AI application** acts as the MCP client.
+
+This could be:
+
+* A coding assistant
+* A chatbot
+* An AI agent
+* A desktop AI app
+* A workflow automation system using an LLM
+
+The AI model itself does not directly “become” the MCP client. Usually, the app around the model handles the MCP connection, tool discovery, tool calls, and response handling.
+
+### 3. Connection
+
+The MCP client connects to the MCP server and learns what tools are available.
+
+When the user asks for something like:
+
+```txt
+Summarize my meetings from last week.
+```
+
+the AI app can check the MCP server for tools that may help.
+
+For example, it might discover:
+
+```js
+list_calendar_events()
+get_meeting_transcript()
+summarize_document()
+```
+
+### 4. Tool Use
+
+The AI decides which tool to use, sends the required arguments, gets the result back, and uses that information to answer the user.
+
+So instead of you manually wiring every API call in a workflow, the agent can reason through which tool is needed.
+
+---
+
+## Key Benefits of MCP
+
+### Standardization
+
+MCP replaces many custom integrations with one standard protocol.
+
+Instead of every AI app needing a custom connector for every service, MCP gives services a common way to expose tools and context.
+
+This simplifies AI development.
+
+### Decoupling
+
+MCP separates the AI application from the underlying data sources and tools.
+
+The AI app does not need to know every internal API detail ahead of time. It can connect to an MCP server and discover available capabilities.
+
+This makes the system more flexible.
+
+### Extensibility
+
+If you add a new tool to the MCP server, the AI app may be able to use it without a full redeploy or major workflow rewrite.
+
+That is useful when building agents that need to grow over time.
+
+### Security and Access Control
+
+MCP can also help with security because tools can be scoped.
+
+You can control:
+
+* Which tools are exposed
+* What data the AI can access
+* Which actions require approval
+* What gets logged
+* What permissions each server has
+
+This does not make MCP automatically safe, but it gives you a cleaner structure for permission boundaries and monitoring.
+
+---
+
+## Example Uses
+
+MCP can be used for many agentic workflows, such as:
+
+* Connecting an AI assistant to local files or Obsidian notes
+* Letting an AI search Google Drive
+* Giving agents access to internal databases
+* Letting coding assistants inspect project files
+* Allowing agents to interact with APIs through standardized tools
+* Debugging websites by letting an AI inspect HTML, CSS, or DOM structure
+* Connecting business tools like calendars, CRMs, task managers, or ticketing systems
+
+The big idea is this:
+
+```txt
+Instead of teaching the AI every API manually, MCP gives the AI a standardized way to discover and use tools.
+```
+
+---
+
+## The Cost Problem
+
+MCP is powerful, but it is not free.
+
+Token cost can increase because MCP often requires the model to process extra information before it can act.
+
+The cost usually comes from:
+
+* Tool schema descriptions
+* Capability discovery context
+* Serialized tool arguments
+* Serialized tool responses
+* Repeated tool calls inside one agent run
+* Reasoning tokens spent deciding which tool to use
+* Reasoning tokens spent deciding how to call the tool
+* Reasoning tokens spent interpreting success, failure, or errors
+
+Even a simple action like sending an email may require several steps.
+
+For example:
+
+1. The AI reads the email tool schema.
+2. The AI decides whether the email tool is appropriate.
+3. The AI prepares the arguments: recipient, subject, and body.
+4. The app sends the tool call.
+5. The MCP server returns a response.
+6. The AI parses the response.
+7. The AI decides whether the action succeeded or failed.
+8. The AI explains the result to the user.
+
+That whole loop consumes tokens.
+
+---
 
 ## MCP vs Hard-Coded Tools
 
-There’s a clear tradeoff:
+There is a tradeoff between MCP-style tools and hard-coded integrations.
 
-**MCP-style tools**
+### MCP-Style Tools
 
-- Flexible
-    
-- Discoverable at runtime
-    
-- Extensible without redeploying the agent
-    
-- **Higher token overhead**
-    
+MCP tools are:
 
-**Hard-coded / native integrations**
+* Flexible
+* Discoverable at runtime
+* Easier to extend
+* Better for dynamic agent workflows
+* Useful when the AI needs to decide which tool to use
 
-- Cheaper per action
-    
-- Faster execution
-    
-- Less reasoning overhead
-    
-- Less flexible
-    
+But they can also have:
 
-In high-volume or latency-sensitive workflows, MCP can become expensive quickly if every agent run has to “re-learn” what tools exist.
+* Higher token overhead
+* More latency
+* More reasoning steps
+* More tool-selection complexity
 
-## Where Token Costs Add Up Fast
+### Hard-Coded / Native Integrations
 
-MCP costs spike when:
+Hard-coded integrations are:
 
-- Agents run in tight loops
-    
-- Tools are exposed with large schemas
-    
-- Multiple tools are available but only one is used
-    
-- Agents poll or retry frequently
-    
-- Tool responses are large or verbose
-    
+* Cheaper per action
+* Faster
+* More predictable
+* Easier to optimize
+* Better for repetitive workflows
 
-This is especially noticeable when simulating event-based behavior (like file polling) where each iteration triggers fresh reasoning and tool calls.
+But they are also:
 
-## How Systems Mitigate This
+* Less flexible
+* More manual to build
+* Harder to extend dynamically
+* More dependent on custom orchestration code
 
-Well-designed systems reduce MCP token burn by:
+A hard-coded workflow might be better when the system already knows exactly what needs to happen.
 
-- **Narrowly scoping tool exposure** per task
-    
-- **Caching tool schemas** outside the main prompt
-    
-- **Using a planner/executor split** so only one agent reasons about tools
-    
-- **Moving polling, watching, and triggering** to non-LLM systems
-    
-- **Batching tool calls** instead of invoking them individually
-    
+For example:
 
-In practice, MCP works best when agents are used for **decision-making and synthesis**, not as high-frequency control loops.
+```txt
+When a form is submitted, send the data to CRM, notify Slack, and create a task.
+```
+
+That does not necessarily need an AI agent reasoning through tool choices every time.
+
+A normal automation workflow may be cheaper and more reliable.
+
+---
+
+## Where MCP Token Costs Add Up Fast
+
+MCP costs can spike when:
+
+* Agents run in tight loops
+* The MCP server exposes too many tools
+* Tool schemas are large or verbose
+* Many tools are available but only one is needed
+* The agent repeatedly polls for changes
+* The agent retries failed actions often
+* Tool responses are large
+* The agent must reason through many possible actions
+* The same schema is sent repeatedly on every run
+
+This becomes especially expensive when people try to use an LLM agent as a high-frequency control loop.
+
+For example, using an agent to constantly poll files, check events, or watch for changes can burn tokens quickly.
+
+That kind of work is usually better handled by non-LLM systems.
+
+---
+
+## Better System Design
+
+A well-designed system does not make the AI agent do everything.
+
+Instead, it uses traditional software for predictable work and saves the AI for reasoning-heavy work.
+
+Good systems reduce MCP cost by:
+
+* Narrowly scoping which tools are exposed
+* Only showing the agent tools relevant to the current task
+* Caching tool schemas outside the main prompt when possible
+* Using a planner/executor split
+* Moving polling and watching to normal backend services
+* Using webhooks instead of agent polling
+* Batching tool calls when possible
+* Returning concise tool responses
+* Avoiding huge JSON responses unless needed
+* Using hard-coded workflows for repetitive actions
+
+In practice, MCP works best when agents are used for:
+
+* Decision-making
+* Planning
+* Summarization
+* Tool selection
+* Complex interpretation
+* Multi-step reasoning
+* Handling ambiguous user requests
+
+MCP is less ideal for:
+
+* Constant polling
+* High-frequency triggers
+* Simple event handling
+* Repetitive API calls
+* Low-latency workflows
+* Bulk processing that does not require reasoning
+
+---
+
+## Practical Rule of Thumb
+
+Use MCP when the AI needs flexibility.
+
+Use hard-coded workflows when the process is predictable.
+
+For example:
+
+```txt
+Use MCP when the AI needs to decide what tool to use.
+Use normal API calls when you already know what API call to make.
+```
+
+A good hybrid system might look like this:
+
+```txt
+Webhook receives event
+Backend validates event
+Backend decides whether AI reasoning is needed
+If yes, send only the relevant context and tools to the agent
+Agent makes decision
+Backend executes predictable actions
+Backend logs the result
+```
+
+This keeps the system flexible without making every step expensive.
+
+---
 
 ## Bottom Line
 
-MCP endpoints are powerful, but they aren’t free. They trade token efficiency for flexibility and extensibility. For orchestration, triggering, and continuous monitoring, traditional systems (watchers, CI, workflow engines) are still far more cost-effective—while agents step in where reasoning and judgment are actually needed.
+MCP endpoints are powerful because they make AI agents more flexible, extensible, and easier to connect to real tools.
+
+But MCP also increases cost because the agent has to process tool schemas, reason about available tools, call those tools, parse responses, and decide what to do next.
+
+That is the tradeoff:
+
+```txt
+MCP gives you flexibility, but hard-coded integrations give you efficiency.
+```
+
+For orchestration, triggers, polling, and continuous monitoring, traditional systems like webhooks, cron jobs, CI pipelines, queues, and workflow engines are usually more cost-effective.
+
+For reasoning, judgment, synthesis, and dynamic tool selection, MCP-powered agents can be extremely useful.
+
+The best architecture usually uses both.

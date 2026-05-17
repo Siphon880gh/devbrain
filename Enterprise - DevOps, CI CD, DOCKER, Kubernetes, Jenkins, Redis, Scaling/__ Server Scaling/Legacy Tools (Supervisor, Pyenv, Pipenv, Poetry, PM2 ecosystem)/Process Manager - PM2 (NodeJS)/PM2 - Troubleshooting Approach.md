@@ -44,11 +44,13 @@ Check your .env files if they exist at the app, and check if it's database crede
 
 **Node_modules at root and nested folders if full stack PLUS Seed**
 
-Node app? Make sure to remove node_modules and reinstall (`rm -rf node_modules && npm install --legacy-peer-deps`). Don't forget to do that for any **server/** or **frontend/** or **client/**
-Pip app? Make sure to install the pip3 packages
-Might as well seed as well! (`npm run seed` or `npm run seeds` if exists)
+Node app? Make sure to remove node_modules and reinstall (`rm -rf node_modules && npm install --legacy-peer-deps`). Then again at any nested part of the stack like `client/`, `server/`, or `frontend/`, or `backend/` which tends to have their own npm packages
+
+Might as well seed as well! That is - `npm run seed` or `npm run seeds` - if seeds exist in the app. It might complain a database doesn't exist, which means the seed isn't programmed to create the database - you have to create it manually using MySQL shell.
 
 Then test if the app works. Usually you run `node server.js` or `npm start`
+
+Pip app? Make sure to install the pip3 packages. And then test the python app runs.
 
 ---
 
@@ -106,7 +108,7 @@ Example:
 That is a NodeJS' mongodb connection issue. Go investigate
 
 ---
-## Migrations -More (Continue if this is a migration into a new server)
+## Migrations - More (Continue if this is a migration into a new server)
 
 Other example logs from `grep -iE "APP_NAME_HERE|exit|restart|errored|SIG|code" /root/.pm2/pm2.log | tail -n 100`:
 

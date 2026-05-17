@@ -121,7 +121,7 @@ Continuing...
 Access CloudPanel GUI:
 https://panel.5.55.555.555.sslip.io:8443
 
-^ Cloudpanel already setup that hostname matching for you because it referred to the settings at `hostnamectl`
+^ Cloudpanel already setup that hostname matching for you because it referred to the settings at `hostnamectl`. It simply subdomained a `panel.` to it
 
 OR:
 https://5.55.555.555:8443
@@ -268,8 +268,24 @@ server {
 }
 ```
 
-UPDATE VHOST: We will collide the www and non-www server blocks into one - full vhost:
+UPDATE VHOST: 
+- We will collide the www and non-www server blocks into one - full vhost - while perfectly handling Let's Encrypt ACME Challenge for SSL/https setup without redirecting to https
+- In addition, we purposely DO NOT redirect http to https because we're using Cloudflare's flexible SSL that relies on Cloudflare connecting to only our http version
+- In addition, we added more things:
+	- Block commonly targeted paths that hackers and automated scanners look for, such as `.git`.
+	- Add the `sslip.io` hostname as a temporary fallback so we can test webpages, so we are not in any rush to update the DNS records to our new web host.
+	- **Commented out** reverse proxies, subdomains, and other domain configurations that depend on nested folders inside this web root. These other parts of the website are restored as they're uncommented much later in our checklist when referring to [[_ TEMPLATE DOCUMENTATION - Migration SOP (Backup, Restore, Configs, Deps)]]. Our focus right now is just making sure the main website works!
+- PLEASE NOTE to Weng: This has been anonymized. The actual vhost backup is at the usual place.
 ```
+# ---------------- MAIN: DOMAIN.com, DOMAIN-ALIAS.com ---------------- #
+# With Cloudflare Flexible SSL, we should not redirect http to https.
+# Example: in Flexible mode, Cloudflare uses HTTP to your server.
+# If your server forces HTTP -> HTTPS, it creates an infinite loop.
+# rewrite ^ https://$host$request_uri permanent;
+# And for Cloudflare Flexible SSL, we make things simple by combining 80 and 443
+# into one server block. For SSL, we check for the ACME challenge before
+# loading SSL certificates.
+
 server {
   listen 80;
   listen [::]:80;
@@ -279,289 +295,162 @@ server {
   listen [::]:443 ssl;
   http2 on;
   http3 off;
-  {{ssl_certificate_key}}
-  {{ssl_certificate}}
-  server_name wengindustries.com www1.wengindustries.com www.wengindustries.com;
-  {{root}}
 
-  {{nginx_access_log}}
-  {{nginx_error_log}}
+  server_name DOMAIN.com www.DOMAIN.com www.DOMAIN.com 5.55.555.555.sslip.io;
 
-  if ($scheme != "https") {
-    rewrite ^ https://$host$request_uri permanent;
-  }
-
-  location ~ /.well-known {
-    auth_basic off;
-    allow all;
-  }
-
-  {{settings}}
-
-  location / {
-    {{varnish_proxy_pass}}
-    proxy_set_header Host $host;
-    proxy_set_header X-Forwarded-Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_hide_header X-Varnish;
-    proxy_redirect off;
-    proxy_max_temp_file_size 0;
-    proxy_connect_timeout      720;
-    proxy_send_timeout         720;
-    proxy_read_timeout         720;
-    proxy_buffer_size          128k;
-    proxy_buffers              4 256k;
-    proxy_busy_buffers_size    256k;
-    proxy_temp_file_write_size 256k;
-  }
-
-  location ~* ^.+\.(css|js|jpg|jpeg|gif|png|ico|gz|svg|svgz|ttf|otf|woff|woff2|eot|mp4|ogg|ogv|webm|webp|zip|swf|map|mjs)$ {
-    add_header Access-Control-Allow-Origin "*";
-    add_header alt-svc 'h3=":443"; ma=86400';
-    expires max;
-    access_log off;
-  }
-
-  location ~ /\.(ht|svn|git) {
-    deny all;
-  }
-
-  if (-f $request_filename) {
-    break;
-  }
-}
-
-server {
-  listen 8080;
-  listen [::]:8080;
-  server_name wengindustries.com www1.wengindustries.com;
-  {{root}}
-
-  include /etc/nginx/global_settings;
-
-  try_files $uri $uri/ /index.php?$args;
-  index index.php index.html;
-
-  location ~ \.php$ {
-    include fastcgi_params;
-    fastcgi_intercept_errors on;
-    fastcgi_index index.php;
-    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    try_files $uri =404;
-    fastcgi_read_timeout 3600;
-    fastcgi_send_timeout 3600;
-    fastcgi_param HTTPS "on";
-    fastcgi_param SERVER_PORT 443;
-    fastcgi_pass 127.0.0.1:{{php_fpm_port}};
-    fastcgi_param PHP_VALUE "{{php_settings}}";
-  }
-
-  if (-f $request_filename) {
-    break;
-  }
-}
-```
-
-UPDATE VHOST: Server block matching 80 and 443 is going to cause problems later when you create a SSL Let's Encrypt because it needs to find a challenge file it generated at a http URL, so we shouldn't redirect to https right away which makes the file undiscoverable because we don't have https setup yet! Notice there's the  `if ($scheme != "https") { rewrite ^ https://$host$request_uri permanent;  }` logic in the server block. Instead of commenting that out when initiating or renewing SSL with Let's Encrypt, we can separate out the server 80 and server 443 blocks. For server block 80, we will open the website instead of redirecting the the connection and also allow through challenge file. For server block 443, we will do the rest that we have going on (therefore no need to comment out the http redirect at certain times). Notice server. block 80 besides the acme challenge file, all else gets directed to port 8080 which is the php processor. If you want to be a purist and have http redirect to https, you can remove the 8080 proxy pass and return the https rewrite, like the original vhost, but that's highly NOT recommended right now because you want to be able to test your website quickly (like visiting http://.../index.php).
-Full Vhost:
-- I'm also hardening the server by blocking .git which can be a vulnerability
-- Adjust the acme root
-```
-server {
-    listen 80;
-    listen [::]:80;
-    http2 on;
-    http3 off;
-    server_name wengindustries.com www1.wengindustries.com www.wengindustries.com;
-    
+  
+    # SSL Related
+    # Check for ACME URL before loading SSL
     location ^~ /.well-known/acme-challenge/ {
-        root /home/wengindustries/htdocs/wengindustries.com/;
+        root /home/USER/htdocs/DOMAIN.com/;
         allow all;
         auth_basic off;
     }
 
-    location ~ /\.(git|svn|hg) {
-        deny all;
+    {{ssl_certificate_key}}
+    {{ssl_certificate}}
+
+    # ssl_certificate_key /etc/nginx/ssl-certificates/DOMAIN.com.key;
+    # ssl_certificate /etc/nginx/ssl-certificates/DOMAIN.com.crt;
+  
+  
+    # Prevent SEO duplication
+    if ($host = www.DOMAIN.com) {
+        return 301 https://DOMAIN.com$request_uri;
+    }
+
+    if ($host = DOMAIN-ALIAS.com) {
+        return 301 https://DOMAIN.com$request_uri;
+    }
+
+    if ($host = www.DOMAIN-ALIAS.com) {
+        return 301 https://DOMAIN.com$request_uri;
+    }
+
+    # Edge case recovering http -> https. Commented away to be accessible.
+    # if ($scheme != "https") {
+    #     rewrite ^ https://$host$request_uri permanent;
+    # }
+
+    # Settings
+    {{settings}}
+    
+    # Settings - Logging
+    {{nginx_access_log}}
+    {{nginx_error_log}}
+
+    # access_log off;
+    # error_log /dev/null crit;
+    # access_log /home/USER/logs/nginx/access.log cloudflare;
+    # error_log /home/USER/logs/nginx/error.log;
+  
+    # URL - Legacy URLs go to new /app now
+    rewrite ^/(apps|tool|tools)(/.*)?$ /app$2 permanent;
+
+    # URL - Only go through subdomains for these apps so security can be hardened
+    location ^~ /app/app1/ {
         return 404;
     }
 
-    location / {
-        proxy_pass http://127.0.0.1:8080;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-Host $host;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_redirect off;
+    location ^~ /app/app2/ {
+        return 404;
     }
-}
 
-server {
-  listen 443 quic;
-  listen 443 ssl;
-  listen [::]:443 quic;
-  listen [::]:443 ssl;
-  http2 on;
-  http3 off;
-  {{ssl_certificate_key}}
-  {{ssl_certificate}}
-  server_name wengindustries.com www1.wengindustries.com www.wengindustries.com;
-  {{root}}
+    location ^~ /app/app3/ {
+        return 404;
+    }
 
-  {{nginx_access_log}}
-  {{nginx_error_log}}
+    location ^~ /app/app4/ {
+        return 404;
+    }
 
-  if ($scheme != "https") {
-    rewrite ^ https://$host$request_uri permanent;
-  }
+    # URL - Block commonly scanned sensitive paths
+    location ~ /\.(ht|svn|git) {
+        deny all;
+    }
+  
+    # URL - VHOST MAIN: Reverse Proxy
+    # Edit port-to-URL mappings in that included file.
+    # include /home/USER/htdocs/DOMAIN.com/config/vhost.reverse-proxies.conf;
 
-  location ~ /.well-known {
-    auth_basic off;
-    allow all;
-  }
-
-  location ~ /\.(git|svn|hg) {
-	deny all;
-	return 404;
-  }
-
-  {{settings}}
-
-  location / {
-    {{varnish_proxy_pass}}
-    proxy_set_header Host $host;
-    proxy_set_header X-Forwarded-Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_hide_header X-Varnish;
-    proxy_redirect off;
-    proxy_max_temp_file_size 0;
-    proxy_connect_timeout      720;
-    proxy_send_timeout         720;
-    proxy_read_timeout         720;
-    proxy_buffer_size          128k;
-    proxy_buffers              4 256k;
-    proxy_busy_buffers_size    256k;
-    proxy_temp_file_write_size 256k;
-  }
-
-  location ~* ^.+\.(css|js|jpg|jpeg|gif|png|ico|gz|svg|svgz|ttf|otf|woff|woff2|eot|mp4|ogg|ogv|webm|webp|zip|swf|map|mjs)$ {
-    add_header Access-Control-Allow-Origin "*";
-    add_header alt-svc 'h3=":443"; ma=86400';
-    expires max;
-    access_log off;
-  }
-
-  location ~ /\.(ht|svn|git) {
-    deny all;
-  }
-
-  if (-f $request_filename) {
-    break;
-  }
-}
-
-server {
-  listen 8080;
-  listen [::]:8080;
-  server_name wengindustries.com www1.wengindustries.com;
-  {{root}}
-
-  include /etc/nginx/global_settings;
-
-  try_files $uri $uri/ /index.php?$args;
-  index index.php index.html;
-
-  location ~ \.php$ {
-    include fastcgi_params;
-    fastcgi_intercept_errors on;
-    fastcgi_index index.php;
-    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    try_files $uri =404;
-    fastcgi_read_timeout 3600;
-    fastcgi_send_timeout 3600;
-    fastcgi_param HTTPS "on";
-    fastcgi_param SERVER_PORT 443;
-    fastcgi_pass 127.0.0.1:{{php_fpm_port}};
-    fastcgi_param PHP_VALUE "{{php_settings}}";
-  }
-
-  if (-f $request_filename) {
-    break;
-  }
-}
-```
-
-VHOST UPDATE: Actually this is when you have a host purchased through DNS. We should add in the sslip.io:
-```
-server {
-    listen 80;
-    listen [::]:80;
-    http2 on;
-    http3 off;
-    server_name wengindustries.com www1.wengindustries.com www.wengindustries.com 5.55.555.555.sslip.io;
+    # All-in-One WP Migration Plugin:
+    # Needed for large WordPress uploads/imports at the HTTPS layer.
+    client_max_body_size 512M;
     
-    location ^~ /.well-known/acme-challenge/ {
-        root /home/wengindustries/htdocs/wengindustries.com/;
-        allow all;
-        auth_basic off;
-    }
-
-    location / {
+    # MAYBE: All-in-One WP Migration import AJAX
+    # Bypass Varnish/proxy buffering.
+    location = /root/wp-admin/admin-ajax.php {
+        client_max_body_size 512M;
+    
         proxy_pass http://127.0.0.1:8080;
+    
         proxy_set_header Host $host;
         proxy_set_header X-Forwarded-Host $host;
-        proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto https;
+    
         proxy_redirect off;
+    
+        proxy_connect_timeout 1200;
+        proxy_send_timeout 1200;
+        proxy_read_timeout 1200;
+        send_timeout 1200;
+    
+        proxy_buffering off;
+        proxy_request_buffering off;
     }
-}
+
+    # Everything else resumes at the 8080 PHP server block, even if not PHP files,
+    # because the other processing logic is handled in one place.
+    location / {
+        # proxy_pass http://127.0.0.1:8080;
+        {{varnish_proxy_pass}}
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_hide_header X-Varnish;
+        proxy_redirect off;
+        proxy_max_temp_file_size 0;
+        proxy_connect_timeout      720;
+        proxy_send_timeout         720;
+        proxy_read_timeout         720;
+        proxy_buffer_size          128k;
+        proxy_buffers              4 256k;
+        proxy_busy_buffers_size    256k;
+        proxy_temp_file_write_size 256k;
+    }
+} # 443
+
 
 server {
-  listen 443 quic;
-  listen 443 ssl;
-  listen [::]:443 quic;
-  listen [::]:443 ssl;
-  http2 on;
-  http3 off;
-  {{ssl_certificate_key}}
-  {{ssl_certificate}}
-  server_name wengindustries.com www1.wengindustries.com www.wengindustries.com 5.55.555.555.sslip.io;
+  listen 8080;
+  listen [::]:8080;
+
+  server_name DOMAIN.com www.DOMAIN.com www.DOMAIN.com 5.55.555.555.sslip.io;
+
+  # All-in-One WP Migration Plugin:
+  # Needed for large WordPress uploads/imports at the backend PHP layer.
+  client_max_body_size 512M;
+  
+  # Include global settings
+  include /etc/nginx/global_settings;
+  
   {{root}}
+  # root /home/USER/htdocs/DOMAIN.com/;
+  
+  # MAYBE: All-in-One WP Migration Plugin:
+  # Needed for large WordPress uploads/imports at the backend PHP layer.
+  location /root/ {
+    client_max_body_size 512M;
 
-  {{nginx_access_log}}
-  {{nginx_error_log}}
-
-  if ($scheme != "https") {
-    rewrite ^ https://$host$request_uri permanent;
+    try_files $uri $uri/ /root/index.php?$query_string;
   }
-
-  location ~ /.well-known {
-    auth_basic off;
-    allow all;
-  }
-
-  {{settings}}
-
-  location / {
-    {{varnish_proxy_pass}}
-    proxy_set_header Host $host;
-    proxy_set_header X-Forwarded-Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_hide_header X-Varnish;
-    proxy_redirect off;
-    proxy_max_temp_file_size 0;
-    proxy_connect_timeout      720;
-    proxy_send_timeout         720;
-    proxy_read_timeout         720;
-    proxy_buffer_size          128k;
-    proxy_buffers              4 256k;
-    proxy_busy_buffers_size    256k;
-    proxy_temp_file_write_size 256k;
-  }
+  
+  # File handling
+  index index.php index.html index.htm;
 
   location ~* ^.+\.(css|js|jpg|jpeg|gif|png|ico|gz|svg|svgz|ttf|otf|woff|woff2|eot|mp4|ogg|ogv|webm|webp|zip|swf|map|mjs)$ {
     add_header Access-Control-Allow-Origin "*";
@@ -570,26 +459,11 @@ server {
     access_log off;
   }
 
-  location ~ /\.(ht|svn|git) {
-    deny all;
+  location / {
+    try_files $uri $uri/ /index.php?$query_string;
   }
 
-  if (-f $request_filename) {
-    break;
-  }
-}
-
-server {
-  listen 8080;
-  listen [::]:8080;
-  server_name wengindustries.com www1.wengindustries.com;
-  {{root}}
-
-  include /etc/nginx/global_settings;
-
-  try_files $uri $uri/ /index.php?$args;
-  index index.php index.html;
-
+  # Handle PHP requests
   location ~ \.php$ {
     include fastcgi_params;
     fastcgi_intercept_errors on;
@@ -602,12 +476,52 @@ server {
     fastcgi_param SERVER_PORT 443;
     fastcgi_pass 127.0.0.1:{{php_fpm_port}};
     fastcgi_param PHP_VALUE "{{php_settings}}";
-  }
 
-  if (-f $request_filename) {
-    break;
+    # All-in-One WP Migration Plugin:
+    # Needed for large WordPress uploads/imports at the PHP handler too.
+    # We place this at the very end of PHP request handling in case we need
+    # to override a setting in the CloudPanel-expanded {{php_settings}}.
+    client_max_body_size 512M;
   }
-}
+} # 8080
+
+
+# ---------------- NON-MAIN: Subdomains, Other Domains ---------------- #
+
+# We are importing domain mask: APP1-DOMAIN.com
+# DNS managed at Cloudflare ACCOUNT-1
+# include /home/USER/htdocs/DOMAIN.com/config/vhost.domain-app1.conf;
+
+# We are importing domain mask: APP2-DOMAIN.com
+# DNS managed at Cloudflare ACCOUNT-1
+# include /home/USER/htdocs/DOMAIN.com/config/vhost.domain-app2.conf;
+
+# We are importing domain mask: APP3-DOMAIN.com
+# DNS managed at Cloudflare ACCOUNT-1
+# include /home/USER/htdocs/DOMAIN.com/config/vhost.domain-app3.conf;
+
+# We are importing domain mask: APP4-DOMAIN.com
+# DNS managed at Cloudflare ACCOUNT-1
+# include /home/USER/htdocs/DOMAIN.com/config/vhost.domain-app4.conf;
+
+# We are importing partner domain mask: partner-app1.PARTNER-DOMAIN.com
+# DNS managed at EXTERNAL-DNS-PROVIDER ACCOUNT-2
+# include /home/USER/htdocs/DOMAIN.com/config/vhost.subdomain-partner-app1.conf;
+
+# We are importing partner domain mask: partner-app2.PARTNER-DOMAIN.com
+# DNS managed at Cloudflare ACCOUNT-3 shared with ACCOUNT-1
+# include /home/USER/htdocs/DOMAIN.com/config/vhost.subdomain-partner-app2.conf;
+
+# We are importing redirect: automation.DOMAIN.com
+# DNS managed at Cloudflare ACCOUNT-1 as CNAME *
+# include /home/USER/htdocs/DOMAIN.com/config/vhost.subdomain-automation-redirect.conf;
+
+# We are importing subdomain masks for app sections:
+# app1.DOMAIN.com, app2.DOMAIN.com, app3.DOMAIN.com, app4.DOMAIN.com
+# include /home/USER/htdocs/DOMAIN.com/config/vhost.subdomain-app1-php.conf;
+# include /home/USER/htdocs/DOMAIN.com/config/vhost.subdomain-app2-php.conf;
+# include /home/USER/htdocs/DOMAIN.com/config/vhost.subdomain-app3-php.conf;
+# include /home/USER/htdocs/DOMAIN.com/config/vhost.subdomain-app4-php.conf;
 ```
 
 Remember to save, then at SSH reload the nginx with:
@@ -941,32 +855,33 @@ Now that there's a control panel for your website and your website can be public
 		- You can also buy SSL which gives you certain advantages over SSL, and some businesses must have a paid SSL as regulation.
 	- Figure out workflow to acquire and install SSL because you'll be doing this annually. Also perform it now
 		- If CloudPanel, it's very simple going to the site -> SSL/TLS -> Actions -> New Let's Encrypt Certificate (however you must have a domain connected to that website already because it'll create a file then access that file through your domain URL to prove your ownership then generates the certificate).
-			- Errors about accessing ACME challenge file? Try adding a server block for http and the specific path to the ACME challenge file, to the very top of the vhost:
-				```
-				server {
-				    listen 80;
-				    listen [::]:80;
-				    http2 on;
-				    http3 off;
-				    server_name wengindustries.com www1.wengindustries.com www.wengindustries.com;
-				    
-				    location ^~ /.well-known/acme-challenge/ {
-				        root /home/wengindustries/htdocs/wengindustries.com/;
-				        allow all;
-				        auth_basic off;
-				    }
-				
-				    location / {
-				        proxy_pass http://127.0.0.1:8080;
-				        proxy_set_header Host $host;
-				        proxy_set_header X-Forwarded-Host $host;
-				        proxy_set_header X-Forwarded-Proto $scheme;
-				        proxy_set_header X-Real-IP $remote_addr;
-				        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-				        proxy_redirect off;
-				    }
-				}
-				```
+			- Errors about accessing ACME challenge file? Try adding a server block for http (or https but before redirecting http to https, if you do that) and the specific path to the ACME challenge file:
+		```
+		server {
+		  listen 80;
+		  listen [::]:80;
+		  listen 443 quic;
+		  listen 443 ssl;
+		  listen [::]:443 quic;
+		  listen [::]:443 ssl;
+		  http2 on;
+		  http3 off;
+		  server_name wengindustries.com www.wengindustries.com wengindustry.com www.wengindustry.com;
+		
+		  
+			# SSL Related
+			# Check for acme url before loading ssl
+			location ^~ /.well-known/acme-challenge/ {
+				root /home/wengindustries/htdocs/wengindustries.com/;
+				allow all;
+				auth_basic off;
+			}
+			{{ssl_certificate_key}}
+			{{ssl_certificate}}
+			# ssl_certificate_key /etc/nginx/ssl-certificates/wengindustries.com.key;
+			# ssl_certificate /etc/nginx/ssl-certificates/wengindustries.com.crt;
+		```
+
 		- If less obvious how and where to install SSL HTTPS certificates: Contact customer support or google Web host + OS + Nginx/Apache + Install SSL certificates. If the web host is not well known (very independent), google for: OS + Nginx/Apache+ Install SSL certificate
 	- CloudPanel's Let's Encrypt SSL failing? Refer to section "Test Web Hosting Control Panel" -> ~ SSL
 	- Know the filepaths to the SSL for future issues and code that needs SSL cert and key paths such as gunicorn (even if Cloudpanel abstracts it away)
@@ -982,7 +897,7 @@ Now that there's a control panel for your website and your website can be public
 	- Make sure no excessive permissions like 777 among your files you uploaded to restore your website when setting up the web server
 	- User script permissions: if you will have php or python scripts that are triggered by visiting web browser, if it writes to a folder, can it write to it? Otherwise, it’ll be permission error preventing creating files by php script (eg. can it write to a file using PHP's fwrite upon opening that PHP file?)
 	- Webpage viewable to public: Make sure it's the official site user that logs into Filezilla when uploading web-site public viewing files (NOT root). Setup and save your login credentials on Filezilla. Otherwise, pages may show up as forbidden on the web browser.
-- Install malware and security especially when going public
+- Optional - Install malware and security especially when going public
 	- If Hostinger, their malware scanner [https://support.hostinger.com/en/articles/8450363-vps-malware-scanner](https://support.hostinger.com/en/articles/8450363-vps-malware-scanner)
     - How to navigate to the malware from services dashboard (Hostinger hpanel, GoDaddy dashboard, etc)
     - Is malware free, times one payment, or monthly/yearly? Or keep deactivated (often they let you scan but not fix for free)
@@ -1992,6 +1907,7 @@ Add some basic security at Cloudflare:
 - Allow challenges for suspicious visitors.
 - Block other countries. Refer to [[Countries - Restrict, block all other countries]]
 - At CloudPanel, Security -> Cloudflare: Allow traffic from Cloudflare only
+  ![[Pasted image 20260517014040.png]]
 
 ### Server Security Accessible References
 
@@ -2090,7 +2006,7 @@ Because your server is setup to handle many different tech stacks, you're probab
 - [[_ TEMPLATE DOCUMENTATION - _Web host, Portals, DB Credentials and Folder Paths]]
 	- Recommended doc name to make it your own: `ACC HOST DOMAIN - 1. Web-host.md`
 	- This is a template document to record all your credentials, folder paths, file paths in your web host. Is geared towards unmanaged VPS and dedicated service (You manage yourself)
-- [[_ TEMPLATE_DOCUMENTATION - Vhost Backup]]
+- [[_ TEMPLATE DOCUMENTATION - Vhost Backup]]
 	- Recommended doc name to make it your own: `ACC HOST DOMAIN - 2. Vhost Backups.md`
 	- This is your crucial vhost and included vhosts, whether Nginx or Apache. Keeping a backup in case you mess up the crucial vhost in the future or when you migrate your website to another server.
 - [[_ TEMPLATE DOCUMENTATION - Migration SOP (Backup, Restore, Configs, Deps)]]

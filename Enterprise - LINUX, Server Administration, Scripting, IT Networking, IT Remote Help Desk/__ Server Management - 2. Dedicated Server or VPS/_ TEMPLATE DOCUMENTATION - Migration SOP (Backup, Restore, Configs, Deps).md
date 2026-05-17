@@ -12,11 +12,11 @@ If you decided to delay Cloudflare and wanted to setup the rest of the website f
 
 ## Initial Items
 
-Write how to backup the domain in this SOP document, such as the different database backups (MySQL, MongoDB), file backups (or bare minimum with state data files while you have the original app code elsewhere on the computer), eco/ backup, vhosts, root SFTP SSH, and site username, and SSL domains/subdomains, etc.
+This Migration SOP is dual purpose:
+- Write how to backup the domain in this SOP document, such as the different database backups (MySQL, MongoDB), file backups (or bare minimum with state data files while you have the original app code elsewhere on the computer), eco/ backup, vhosts, root SFTP SSH, and site username, and SSL domains/subdomains, etc.
+- Reference SOP when have to restore the old server's files, databases, configurations, etc into a new web hots
 
 Any username used by the terminal to create or modify files through PHP or Python scripts must also be updated.
-
-Prepend document that this is useful for migrating to another server too.
 
 Useful to tar up entire root folder for backup and restore.
 
@@ -25,9 +25,11 @@ Make sure the dependencies are already installed (Instructions at [[Web app read
 	- imagemagick: screenshot apps (in the future, stocks)
 	- pcregrep: more flexible regexp in php for coder searching notebook brains, sleep logs, etc
 
-## Backup and Restore: Website files and data
+## Backup/Restore Website Files via FTP/SFTP
 
 Restore procedures (Reverse them for backing up)
+
+Actually instead of FTP/SFTP, we'll use rsync because it's faster. To make it even faster, we archive into one file tar.gz so it's not multiple files that have to transfer.
 
 **IF UNABLE / NOT USING TAR:**
 - Recreate web root content including app/ folder
@@ -81,10 +83,11 @@ rsync -avz --progress --partial --append -e "ssh -i ~/.ssh/WEBHOST_OLDER.pub" b.
 rsync -avz --progress --partial --append -e "ssh -i ~/.ssh/WEBHOST_NEWER.pub" a.tar.gz root@5.55.555.555:/home/wengindustries/htdocs
 ```
 
-## After restoring files on a new server
+## After restoring files on a new server - Ownerships and Permissions
 
 Make sure they have proper ownerships and permissions. Refer to [[Website files and folders with proper ownership and permissions]]
 
+## After restoring files on a new server - Resync app data
 ### App sync ups - Quiz Gsheet
 
 For keys/ check that the apps that rely on them work after migration:
@@ -316,26 +319,167 @@ Many NodeJS apps connecting to MySQL may be configured to connect to `localhost`
 Refer to [[Required Setup - For localhost to work as a host equivalent to 127.0.0.1]]. Once those steps completed, return here
 
 ---
-
-## Check each app at eco system or supervisord
-
-A lot more should work now
-
-You may want to use these commands to check if apps are crashing or spiking CPU again (would mean still bad apps):
+## Vhost Proper Restoration - Preface
 
 ```
+You may have already done a preliminary vhost restore from the VPS or dedicated server checklist. At this point, the main website should mostly work because Nginx matches incoming requests using the `server_name` directive, then serves the website files from the path set by the `root` directive.
+
+Before doing the full restoration, make sure the main page at least loads.
+
+During this proper restoration, we will not enable every include at once. Instead, we will keep reverse proxies, subdomains, and extra domain configs commented out, then bring them online one by one.
+
+Over time, your vhost may move through stages like this:
+
+```nginx
+# Inside 443/80 server block:
+# include /etc/nginx/sites-enabled/somedomain1.conf;
+
+# Bottom of main site vhost:
+# include /etc/nginx/sites-enabled/somesubdomain1.conf;
+# include /etc/nginx/sites-enabled/reverse-proxies.conf;
+````
+
+->
+
+```nginx
+# Inside 443/80 server block:
+include /etc/nginx/sites-enabled/somedomain1.conf;
+
+# Bottom of main site vhost:
+# include /etc/nginx/sites-enabled/somesubdomain1.conf;
+# include /etc/nginx/sites-enabled/reverse-proxies.conf;
+```
+
+->
+
+```nginx
+# Inside 443/80 server block:
+include /etc/nginx/sites-enabled/somedomain1.conf;
+
+# Bottom of main site vhost:
+include /etc/nginx/sites-enabled/somesubdomain1.conf;
+# include /etc/nginx/sites-enabled/reverse-proxies.conf;
+```
+
+->
+
+```nginx
+# Inside 443/80 server block:
+include /etc/nginx/sites-enabled/somedomain1.conf;
+
+# Bottom of main site vhost:
+include /etc/nginx/sites-enabled/somesubdomain1.conf;
+include /etc/nginx/sites-enabled/reverse-proxies.conf;
+```
+
+> **Note:** Domain and subdomain include lines are often placed outside individual `server` blocks or near the bottom of the main site vhost, depending on how the backup was organized. Reverse proxy includes are often placed inside the HTTPS `server` block, usually the block listening on port `443`, because app routing commonly depends on SSL/HTTPS behavior.
+
+---
+## Vhost Proper Restoration - Enable Each Subdomain or Domain as You Update SSL and DNS Records
+
+Some include lines point to normal websites that do **not** depend on a running Node.js or Python process. For example, the site may be a static HTML website, PHP website, or WordPress site.
+
+You may also have extra domain configurations that serve files from nested folders inside the main web root. For example, `domain1.com` and `domain2.com` may serve files from folders inside the web root of `domain0.com`. This may not look as clean inside CloudPanel, but it can make management easier because everything stays under one SFTP account or one main project folder. These include lines are often placed near the bottom of the main vhost so they do not affect the rest of the website.
+
+For those domains and subdomains, restore them one at a time:
+1. Uncomment one domain or subdomain include.
+2. Run:
+
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
+````
+
+3. Update its DNS records to point to the new server.
+4. Add or recreate SSL, such as with Let’s Encrypt.
+5. Visit the domain in your browser and confirm it loads correctly.
+
+Hint:
+Before updating DNS or recreating SSL, make sure you know which domain or subdomain the included vhost is for that you are uncommenting. You need this so you choose the correct domain in Cloudflare or your DNS registrar. You also need it so you add the correct domain or subdomain when recreating SSL, such as with Let’s Encrypt.
+* If the restored vhost is well documented, it may have a comment showing which domain the included vhost controls.
+* Otherwise, open the included vhost file and check the `server_name` value to see which domain or subdomain it points to.
+
+Repeat this process for each HTML/PHP domain or subdomain before moving on to reverse proxies and app-based sites.
+
+As you uncomment and test each domain or subdomain, the SSL re-certification process can feel annoying because you may think you need to include every previously working domain each time you generate a new SSL certificate. You do **not** have to do that. While you are still troubleshooting, focus only on creating SSL for the **current domain or subdomain** you are trying to fix. Once that one works, move on to the next one. After **all domains and subdomains are working correctly**, recreate the SSL certificate one final time and include the full list of domains and subdomains. This final certificate should cover everything together. Once you have the full list of working domains and subdomains you can create a script that helps recreate the SSL when the certificate expires, referring to [[CloudPanel - SSL Renew Annually (Semi Automated)]] or you can have a cron job running a sh script.
+
+---
+
+## Vhost Proper Restoration - Enable Apps from PM2 or Supervisord
+
+### Enabling Parts of the Vhost
+
+**TLDR:** Uncomment the app-related reverse proxy lines only when you are ready to test the matching apps from `pm2 list`, Supervisor, or your migration notes.
+
+A common pattern is having **one included vhost file dedicated to all reverse proxies** for Python, Node.js, Gunicorn, PM2, Flask, FastAPI, Express, or other app servers. This reverse proxy include is usually located inside the `443` HTTPS server block.
+
+A lot of this restoration happens while you are updating `.env` files and confirming each app works one by one. You may also need to fix app issues caused by the new server environment, such as missing packages, wrong Node/Python versions, missing system dependencies, or incorrect paths.
+
+Normally you have to be cd'ing into the app folder and running `rm -rf node_modules && npm install --legacy-peer-deps at the web root level then again at any nested part of the stack like `client/`, `server/`, or `frontend/`, or `backend/` which tends to have their own npm packages
+
+Your .env file should've been updated per `.env migration including database credentials`. Any localhost connection for NodeJS Sequelize/Mysql or Mongo should work per section `Making sure 'localhost' works for Linux level commands` and `Making sure 'localhost' works for MySQL`
+
+Mongo connections should be to 127.0.0.1 and NOT domain.com, especially if you have Cloudflare or other firewall or anti-bot mechanisms, because it'd timeout on connecting to database in your app usage or app startup.
+
+Before you actually test by running the app, make sure to seed in case that's essential for the app to even run. That is - `npm run seed` or `npm run seeds` - if seeds exist in the app. It might complain a database doesn't exist, which means the seed isn't programmed to create the database - you have to create it manually using MySQL shell.
+
+Finally, try running locally at the root folder with: `node server.js` or `npm start`:
+
+With reverse proxy or subdomain or domain pointing to that folder uncommented at vhost, visit in the web browser too to see if it loads.
+
+If the app works, then it should work with pm2 as well. If `pm2 list` shows the app not working, proceed to next subsection on troubleshooting techniques.
+
+### Troubleshooting PM2 Apps
+
+After restoring packages and environment files per section `.env migration including database credentials`, many apps should work again. Still, check that they are not crashing, restarting constantly, or spiking CPU.
+
+Start with:
+
+```bash
 pm2 list
 ```
-^ One auditing method is press up then enter repeatedly, and look at whether the uptime is increasing, restarting, or staying at 0s. Do this for at least one minute. Some apps crash like 30 seconds or 45 seconds in instead of right away.
 
-Check for high CPU spikes (for example, 20% is probably not expected for a node app):
-```
+One quick auditing method is to run `pm2 list` repeatedly for at least one minute. Watch whether each app’s uptime is increasing normally, restarting, or staying at `0s`.
+
+Some apps do not crash immediately. They may crash 30–60 seconds later because of a missing environment variable, database issue, API call, or delayed startup task.
+
+You can also monitor it by rapid pressing up and enter to keep recalling `pm2 list`. You'll see the time accrue up to 60 seconds of runtime on any of the apps that do still work.
+
+Check CPU usage:
+
+```bash
 htop
 ```
 
-Follow the rest of the troubleshooting approach with pm2 at [[PM2 - Troubleshooting Approach]]
+For example, a simple idle Node.js app constantly using around 20% CPU may still have a problem.
 
-Make sure all apps at pm2 and supervisord will run without crashing (and constant restarts) and spiking CPU.
+Useful PM2 commands:
+
+```bash
+pm2 status
+pm2 logs
+pm2 monit
+```
+
+After moving servers or changing Node.js versions, consider running:
+
+```bash
+pm2 update
+```
+
+A stale PM2 daemon can sometimes cause strange behavior, including high CPU usage or unstable restarts.
+
+For Supervisor apps, check:
+
+```bash
+supervisorctl status
+supervisorctl restart appname
+supervisorctl tail appname
+```
+
+Make sure all PM2 and Supervisor apps run without crashing, constant restarts, or unexpected CPU spikes.
+
+Follow the rest of the PM2 troubleshooting approach here: [[PM2 - Troubleshooting Approach]]
 
 ---
 
