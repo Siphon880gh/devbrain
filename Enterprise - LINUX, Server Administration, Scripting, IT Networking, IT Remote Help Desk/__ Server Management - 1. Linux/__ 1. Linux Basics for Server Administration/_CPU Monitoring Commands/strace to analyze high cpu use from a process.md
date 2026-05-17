@@ -68,7 +68,14 @@ To save the output to a file:
 sudo strace -p 12345 -o strace-nginx.txt
 ```
 
-Then copy the output into ChatGPT and ask for help analyzing it.
+View the trace details:
+```
+tail -100 strace-nginx.txt
+```
+
+From this point on, you can either:
+- Analyze the log yourself and try to fix it
+- Copy the log to ChatGPT and ask for help analyzing it.
 
 ---
 ### Example Prompt for AI Analysis

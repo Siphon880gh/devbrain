@@ -91,7 +91,7 @@ Use `-h 127.0.0.1` on purpose. That forces a TCP connection instead of a Unix so
 
 **If having problems authenticating:**
 - Check if the username was created with case sensitivity (if surrounded by quotes) or automatically all lower case (no quotes).
-- Check authentication method in settings. Refer to ____
+- Check authentication method in settings. Refer to [[_Troubleshooting - Password Authentication Failed (Postgres)]]
 
 **Once connected, run a few quick checks:**
 

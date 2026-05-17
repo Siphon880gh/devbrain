@@ -1,0 +1,2 @@
+There is a folder dedicated to commands that analyze network and port connections:
+https://codernotes.wengindustries.com/?folder=Enterprise%20-%20LINUX%2C%20Server%20Administration%2C%20Scripting%2C%20IT%20Networking%2C%20IT%20Remote%20Help%20Desk%2F__%20Server%20Management%20-%201.%20Linux%2F__%205b.%20Linux%20Advanced%20for%20Server%20Administration%20-%20Network%20Protocols%20and%20More%2FCommands%20to%20analyze%20network%20connections

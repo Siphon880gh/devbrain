@@ -1686,7 +1686,7 @@ Use `-h 127.0.0.1` on purpose. That forces a TCP connection instead of a Unix so
 
 **If having problems authenticating:**
 - Check if the username was created with case sensitivity (if surrounded by quotes) or automatically all lower case (no quotes).
-- Check authentication method in settings. Refer to ____
+- Check authentication method in settings. Refer to [[_Troubleshooting - Password Authentication Failed (Postgres)]]
 
 **Once connected, run a few quick checks:**
 
@@ -2037,7 +2037,7 @@ Add some basic security at Cloudflare:
 
 During an attack, you may only have seconds or minutes to respond. Keep these references handy. Personalize them and add them to your server notes, web-hosting account document, or emergency access checklist, in whatever form is easiest for you to access quickly:
 
-- Add notes on your [[Emergency Hatch - Recover Access If You Lock Yourself Out]].
+- Add notes on your [[Emergency Escape Hatch - Recover Access If You Lock Yourself Out]].
 - Add notes on detecting and taking care of bot or DDoS attacks to your ACC document that contains server IP, ssh credentials, etc. This is because it's one of the most common attacks. You can link that document to quick reference at [[Diagnosing Bot Attacks - Quick Reference]] or deep guide at [[Diagnosing Bot Attacks - Detecting Traffic Bot Problems vs. Other Causes]]
 
 ### Server Security Tools

@@ -13,3 +13,6 @@ This is an **escape hatch**: a backup way to access your server if your normal S
 
 Hetzner -> Dashboard -> Servers (left sidebar item) -> Select your server -> Top right `>-` button
 ![[Pasted image 20260516221245.png]]
+---
+
+Another escape hatch of course is to use a VPS to change your IP or go to an internet cafe with another IP, then re-attempt SSH login. There you can unban yourself with [[Fail2Ban - Unban IP]]
