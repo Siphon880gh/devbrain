@@ -50,6 +50,14 @@ Might as well seed as well! That is - `npm run seed` or `npm run seeds` - if see
 
 Then test if the app works. Usually you run `node server.js` or `npm start`
 
+Common problems failing npm starrt:
+- concurrently not found when running npm run start. Probably the app assumes you have it installed globally (bad devops practice)
+	- Run this: `npm install -g concurrently` 
+- if-env not found? Same bad devops practice of assuming you have it installed globally:
+	- Run this `npm install -g if-env` 
+-  Error: Cannot find module '../scripts/start'  
+	- That’s actually a misleading error. Remove node_modules/ then npm install again
+
 Pip app? Make sure to install the pip3 packages. And then test the python app runs.
 
 ---

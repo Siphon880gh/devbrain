@@ -1964,6 +1964,7 @@ Let's install these versioning and CI/CD solutions:
 	- Balancers and multi workers:
 		- **For persistent NodeJS**: pm2
 			- Refer to the tutorial [[Installing PM2 and Configuring Nginx for Multiple Node.js Applications (Shortcut)]] even if you're not on nginx (the first sections will be applicable before the section on applying it to nginx)
+			- For now, make sure pm2 does not start with your server: `pm2 unstartup` because chances are you will have a broken app that will keep restarting and overwhelming your cpu. We will cover fixing pm2 apps later.
 		- **For persistent Python**: Supervisor, virtual envs, gunicorn and flask
 			- Refer to [[Supervisor Primer - GET STARTED - Alternately, Install Everything]] which includes supervisor, gunicorn, flask, pyenv, pyenv-virtualenvs, pipenv. There it will install all the dependnecies
 				- [ ] pyenv

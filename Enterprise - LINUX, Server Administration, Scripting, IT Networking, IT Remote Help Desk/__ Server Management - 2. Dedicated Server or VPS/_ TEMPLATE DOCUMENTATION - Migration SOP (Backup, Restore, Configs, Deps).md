@@ -407,7 +407,9 @@ As you uncomment and test each domain or subdomain, the SSL re-certification pro
 
 ## Vhost Proper Restoration - Enable Apps from PM2 or Supervisord
 
-### Enabling Parts of the Vhost
+Recall that **PM2** helps keep Node.js apps running continuously by restarting them if they crash. However, after moving to a new web host, some PM2-managed apps may no longer work correctly. If a broken app is left running, PM2 may keep trying to restart it in an infinite loop, which can overwhelm the CPU and hurt server performance. Because of that, we should not simply enable everything blindly. Instead, let’s check each PM2 app individually.
+
+### Enabling Parts of the Vhost for PM2's NodeJS Apps
 
 **TLDR:** Uncomment the app-related reverse proxy lines only when you are ready to test the matching apps from `pm2 list`, Supervisor, or your migration notes.
 
@@ -424,6 +426,14 @@ Mongo connections should be to 127.0.0.1 and NOT domain.com, especially if you h
 Before you actually test by running the app, make sure to seed in case that's essential for the app to even run. That is - `npm run seed` or `npm run seeds` - if seeds exist in the app. It might complain a database doesn't exist, which means the seed isn't programmed to create the database - you have to create it manually using MySQL shell.
 
 Finally, try running locally at the root folder with: `node server.js` or `npm start`:
+
+Common problems failing npm starrt:
+- concurrently not found when running npm run start. Probably the app assumes you have it installed globally (bad devops practice)
+	- Run this: `npm install -g concurrently` 
+- if-env not found? Same bad devops practice of assuming you have it installed globally:
+	- Run this `npm install -g if-env` 
+-  Error: Cannot find module '../scripts/start'  
+	- That’s actually a misleading error. Remove node_modules/ then npm install again
 
 With reverse proxy or subdomain or domain pointing to that folder uncommented at vhost, visit in the web browser too to see if it loads.
 
@@ -480,6 +490,13 @@ supervisorctl tail appname
 Make sure all PM2 and Supervisor apps run without crashing, constant restarts, or unexpected CPU spikes.
 
 Follow the rest of the PM2 troubleshooting approach here: [[PM2 - Troubleshooting Approach]]
+
+### Wrap up pm2
+
+After all pm2 apps work, you can enable pm2 to run at startup without worrying that a broken app will keep looping and overwhelming your CPU. Here's the command to add pm2 to startup:
+```
+pm2 startup
+```
 
 ---
 
