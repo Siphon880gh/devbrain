@@ -105,11 +105,3 @@ Even when hackers use rotating IP services, those addresses tend to get flagged 
 There are also rumors that Cloudflare can be aggressive about encouraging upgrades to enterprise plans:
 
 [https://youtu.be/8zj7ei5Egk8](https://youtu.be/8zj7ei5Egk8)
-
----
-
-If you want, I can also:
-
-- tighten this to your **8th-grade readability style**
-    
-- or make it more **SEO-optimized (Hormozi-style copy)** for your site

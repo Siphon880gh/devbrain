@@ -141,6 +141,8 @@ $allOk = $gitOriginResult['exitCode'] === 0
   <?= $allOk ? 'All steps completed successfully.' : 'One or more steps FAILED — see red-bordered sections below.' ?>
 </div>
 
+<p style="margin-top: 28px;"><b>View:</b> <a href="../">View web notes</a></p>
+
 <div class="env">
   <div><b>Shell user:</b> <?= htmlspecialchars($user) ?></div>
   <div><b>PHP __DIR__:</b> <?= htmlspecialchars($dir) ?></div>

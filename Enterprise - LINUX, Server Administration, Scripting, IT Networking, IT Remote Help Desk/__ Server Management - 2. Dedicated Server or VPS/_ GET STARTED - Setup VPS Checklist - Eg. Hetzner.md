@@ -2082,280 +2082,37 @@ Because your server is setup to handle many different tech stacks, you're probab
 	     
 	Screenshots in case you don't get it, are here: [[Cloudpanel - Where to get the paths for nginx access logging, nginx error logging, php logging]]
 
-----
-
-## ACC - Template to track all your credentials, folder paths, file paths in your web host details document
-
-**ACC stands for Account. It's Weng's notation for saving login credentials, key OS, key configuration information, etc**
-
-**Keep below ACC's that are at the same level of hierarchy as separate sections in a mega ACC document**
-### ACC Services Dashboard / OR Login Via SSH Root
-- os: (Eg. Debian 12)
-- \__which is
-- \__oauth2 login creds
-- \__url
-
-
-\> Alt Login:  
-- \__login creds
-
-
-Public IP: _ip
-
-Available IP addresses: _availabeIps
-
-
-Default domain name:
-\__ 
-
-
-Public IP URL:
-\__   
-
-Available IPs (If dedicated server)
-- CIDR to expand to below: ??
-- Network Address:  ??
-- Usable IP Addresses:  ?? to  ??
-- Broadcast Address:  ??
-
-Root web directory is:
-..
-
-How to change password:
-`sudo passwd root` OR UI: ...
-
-Firewall managed with:
-iptables / firewalld / ufw
-
-Command SSH alias:
-```
-```
-
----
-### ACC Provider Checklist / Statements of Facts
-
-- Specs & Monthly
-	- \__package + os + web host panel
-	- \__number of cores, memory, bandwidth, storage
-	- \__monthly/yearly, auto-renews?
-- Web server process 
-	- \__apache or nginx?
-- Security - Firewall is ufw or iptables?
-	- ufw
-- Security - Malware?:
-	- \__which is, how to navigate to from services dashboard
-	- \__inactive? how often paid?
-
-### ACC Folder structure
-
-- Recommend have separate folders for pm2/nodejs and for python/supervisor apps
-	- If for the URL you prefer all apps regardless of language belongs to one folder, eg. /app, then have the other language-based folders symbolically link, eg. /nodejs/app1 -> /app/app1
-- Recommend Supervisor app config files be named with the port number ranges they use
-- May have a root folder /keys that have important keys for all your apps but make sure is blocked from being visited on the web browser. It's safer if you have a build script that saves the env keys to your .bash_profile, then re-source, instead.
-
-
-### ACC OS paths (error logs, configs), commands, and workflows
-
-...
-
-### ACC Supervisor
-
-**Web UI at Port 9001:**
-??
-??
-wengindustries.com:9001
-
-**Directories:**
-
-/etc/supervisor/conf.d/*
-/etc/supervisor/supervisord.conf
-
-**Commands:**
-
-Pyenv Virtualenv Activate
-```
-pyenv activate app
-```
-
-Restart Supervisor:
-```
-supervisord -c /etc/supervisor/supervisord.conf -l /var/log/supervisor/supervisord.log
-```
-
-**Supervisor to app data flow:**
-Supervisor watches .sh file which runs pyenv environment and gunicorn
-
----
-### ACC Web Hosting Control Panel
-
-- \__which is
-- \__login creds
-- \__url
-
-\> \__ IA and how to navigate there from Services Dashboard  
-
-
-
-**Admin users (Secondaries):**
-
-
-**Site users (Tertiary)**
-
-
-
 
 ---
 
-### ACC SFTP
+## Record/track your credentials and folder paths
 
-Where to modify: \__
+- [[_ TEMPLATE DOCUMENTATION - _Web host, Portals, DB Credentials and Folder Paths]]
+	- Recommended doc name to make it your own: `ACC HOST DOMAIN - 1. Web-host.md`
+	- This is a template document to record all your credentials, folder paths, file paths in your web host. Is geared towards unmanaged VPS and dedicated service (You manage yourself)
+- [[_ TEMPLATE_DOCUMENTATION - Vhost Backup]]
+	- Recommended doc name to make it your own: `ACC HOST DOMAIN - 2. Vhost Backups.md`
+	- This is your crucial vhost and included vhosts, whether Nginx or Apache. Keeping a backup in case you mess up the crucial vhost in the future or when you migrate your website to another server.
+- [[_ TEMPLATE DOCUMENTATION - Migration SOP (Backup, Restore, Configs, Deps)]]
+	- Recommended doc name to make it your own: `ACC HOST DOMAIN - Migration SOP (Backup, Restore, Config, Deps).md`
+	- This is the migration and backup plan for moving to another web host or clean slate, transferring over the same app files, dependencies, database structure, configurations, etc as the older website.
+- [[_ TEMPLATE DOCUMENTATION - Security SOP (Opened port, Emergency hatch if locked out)]]
+	- Recommended doc name to make it your own: `ACC HOST DOMAIN - Security SOP (Opened port, Emergency hatch if locked out).md`
+	- All things that deal with security that are unique to your web host and apps. This includes having an escape hatch: a backup way to access your server if your normal SSH access gets locked out. For example, your web host may provide a browser-based SSH terminal inside the hosting control panel. This can save you if your computer’s IP address is accidentally blocked from accessing terminal SSH after too many failed login attempts, especially when tools like Fail2Ban are active.
+- [[_ TEMPLATE DOCUMENTATION - If changed URLs or folder names]]
+	- Recommended doc name to make it your own: `ACC HOST DOMAIN - If changed URLs or folder names.md`
+	- This document tracks which URLs need to be reconfigured after a URL change. These URLs are usually found in .env files, DevOps configuration files, deployment settings, reverse proxy vhost configs, API settings, or similar places. A URL change may involve updating only the path after the domain, or it may require changing the full domain as well, depending on how the configuration is written.
 
-
-**SFTP as site user**
-\__login creds
-- Site user navigate to: \__ user navigation
-- Preferred. Folders created by web host panel and by FTP - to make consistent so your php scripts can create files
-
-**SFTP as root**
-\__login creds
-
-
----
-
-### ACC SSH Root access:
-- \__login creds
-- `ssh root@... -p 22` 
-
-\> Alt Login:
-Passwordless with SSH private key: \__filepath
-
-Restart time if known: ...
-
-\> Can change password at
-\__ui navigation and/or link
-
-\> Browser terminal is at
-\__ui navigation and/or link  
-
-\> \__ IA and why that’s how you navigate to SSH Root access creds settings
-
-\> Aka root web directory for your website,  Aka working directory for your code and webpages:  
-...
-
----
-
-### ACC SSL HTTPS Directories
-- **ssl_certificate:** \__remote file path
-- **ssl_certificate_key:** \__remote file path
-
-\__ Mention any necessary re-setups whenever you have new ssl certificates, eg. gunicorn command that has SSL paths in .sh file managed by Supervisor
-
-
-----
-
-### ACC MySQL/PHPMyAdmin
-
-MySQL PHPMyAdmin:
-_creds
-_url
-
-
-MySQL Shell:
+Directory of saved credentials, paths, and other important information could look like
+- Notation: ACC stands for Account. It's Weng's notation for saving login credentials, key OS, key configuration information, etc
 ```
-..
+.
+├── ACC Cloudflare.md
+├── ACC Hetzner WengIndustries - 1. Web-host.md
+├── ACC Hetzner Wengindustries - 2. Vhost Backups.md
+├── ACC Hetzner WengIndustries - 3. SSL Renew Fill Inputs Script.md
+├── ACC Hetzner WengIndustries - If changed URLs or folder names
+├── ACC Hetzner WengIndustries - Migration SOP (Backup, Restore, Config, Deps).md
+└── ACC Hetzner WengIndustries - Security SOP (Opened port, Emergency hatch if locked out)
 ```
-
----
-### ACC Mongo
-
-Mongo URL (PHP, NodeJS, Python):
-```
-..
-```
-
-Mongo Shell:
-```
-..
-```
-
----
-
-### ACC PostgreSQL
-
-Login/pass:
-
-Superuser (peer via being the root user on OS):
-```
-sudo -u postgres pqsl
-```
-
-PSQL Shell:
-```
-..
-```
-
-----
-## acc Domain Vhost Backup _DATE_
-
-**(Separate Document from the mega document with multiple ACC sections)**
-
-Date: `<Date>`
-Have: Eg. Metabase and VLAI Microservices with SSE connections
-
-```
-Vhost file contents here
-```
-
-Additional included vhost files here. Then use headings and subheadings so that a table of contents is possible in Obsidian or Markdown rendered, to navigate to different Vhosts
-
-Alternately, you could just backup as vhost files near where your pm2 is inside a centralized eco/ folder (make sure to block public web access). In that case, write it so under the document so you can remember to refer to the files
-
----
-## acc Site Migration and Backup Plan
-
-**(Separate Document from the mega document with multiple ACC sections)**
-
-This is the migration and backup plan for moving to another web host or clean slate, transferring over the same app files, dependencies, database structure, configurations, etc as the older website.
-
-Work in progress. At [[ACC Hetzner WengIndustries - Migration - Backup, Restore, Config, Deps]]
-
-When done, replace generic here and the other two checklists
-
----
-
-## acc UFW Open Ports
-
-**(Separate Document from the mega document with multiple ACC sections)**
-
-8443 PMA Php MyAdmin and CloudPanel
-80
-443
-27017 MongoDB
-
----
-
-## acc Web App Dependencies and URLs
-
-**(Separate Document from the mega document with multiple ACC sections)**
-
-- Only if changed the url wengindustries.com/app/*brain/curriculum/server-update.php:
-	- On local machine's Obsidian -> At Content-Published -> In each brain/notebooks -> package.json has URL that open to remote php file that will git pull and rebuild cached render
-
-- Only if changed folder structure, url, or webhost. In regards to: https://reports.mixotype.com
-	- vhost sets the root: /home/wengindustries/htdocs/wengindustries.com/partner/mixo;
-	- If you changed webhost, we need to re-assigning A record at Numair's DNS Registrar ONOS to point to our domain
-
-- Only if changed webhost. In regards to github.com and gitlab.com where you push/pull repos from remote servers as CI/CD processes, then you got to regenerate the SSH key pairs and reupload the contents of the public key to github.com / gitlab.com
-
-- Dedicated Server / VPS' section "ADVANCED WEBSITE: Prepare for web app features" refer to following [[Web app ready - Ffmpeg, cytypes, imagemagick, pcregrep]]
-	- ffmpeg, ctypes: videolisting saas
-	- imagemagick: screenshot apps (in the future, stocks)
-	- pcregrep: more flexible regexp in php for coder searching notebook brains, sleep logs, etc
-
----
-
-## acc Exiting Protocol
-
-**(Separate Document from the mega document with multiple ACC sections)**
-
-List backup and cleanup procedures here if discontinuing service.
+^ SSL Renew Fill Input Scripts is not required, but is recommended if you have to numerous multiple subdomains under the same domain. More information at [[CloudPanel - SSL Renew Annually (Semi Automated)]]
