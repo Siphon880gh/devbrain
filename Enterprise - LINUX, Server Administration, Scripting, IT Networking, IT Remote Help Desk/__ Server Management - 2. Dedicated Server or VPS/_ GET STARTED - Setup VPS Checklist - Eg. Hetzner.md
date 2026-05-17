@@ -920,7 +920,7 @@ Now that there's a control panel for your website and your website can be public
 		- Keep in mind that when you upload files via SFTP later, this will be the user you sign into Filezilla, etc's SFTP. This makes sure uploads are the correct permissions. 
 		- If passed, this then assumes future websites on CloudPanel will have no problem with editing and viewing by the internet. 
 	- This then assumes future websites on CloudPanel will have no problem with editing and viewing by the internet.
-	- Optional: If you want to continue testing other sites on CloudPanel, you could use other domains at namecheap etc creating A record to the same public IP. Or if you run out of domains, you can create subdomains under one domain, creating CName to the public domain name. For more information on A records and Cnames, refer to [[DNS Domain PRIMER]]. Make sure a site's vhost at your web host catches what servername (subdomain and/or domain and tld) is hoisted by the internet connecting to your public IP.
+	- Optional: If you want to continue testing other sites on CloudPanel, you could use other domains at namecheap etc creating A record to the same public IP. Or if you run out of domains, you can create subdomains under one domain, creating CName to the public domain name. For more information on A records and Cnames, refer to [[__ PRIMER - DNS Domain]]. Make sure a site's vhost at your web host catches what servername (subdomain and/or domain and tld) is hoisted by the internet connecting to your public IP.
 
 ---
 ### How to setup SFTP/FTP users
@@ -1322,7 +1322,7 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=False)
 ```
 
-You want to visit the api endpoint in the web browser. If using Cloudflare, you either will reverse proxy it or use the free Cloudflare tunneling because you can't fetch custom ports on Cloudflare proxy protected websites. Or you can switch to DNS-only instead of Proxy at Cloudflare, but that could expose your VPS ip address (if the domain has already been on a botnet before, don't switch to DNS because they will continue to hack you directly once they detect your IP). For Cloudflare tunneling to work, you should use a subdomain, you must not have a DNS record to that subdomain, you must not have SSL certificate for that subdomain, and if your tech stack has access to routing to localhots or to the internet then it must be internet (dont use Flask's `host="0.0.0.0"`)
+You want to visit the api endpoint in the web browser. If using Cloudflare, you either will reverse proxy it or use the free Cloudflare tunneling because you can't fetch custom ports on Cloudflare proxy protected websites. Or you can switch to DNS-only instead of Proxy at Cloudflare, but that could expose your VPS ip address (if the domain has already been on a botnet before, don't switch to DNS because they will continue to hack you directly once they detect your IP). For Cloudflare tunneling to work, you should use a subdomain, you must not have a DNS record to that subdomain, you must not have SSL certificate for that subdomain, and if your tech stack has access to routing to localhost or to the internet then it must be internet (dont use Flask's `host="0.0.0.0"`)
 #### Mongo
 - Installation
 	- See if you have mongo already installed `mongo --version` or `mongosh --version`, as long as one of them works. Cloudpanel does NOT come with Mongo.

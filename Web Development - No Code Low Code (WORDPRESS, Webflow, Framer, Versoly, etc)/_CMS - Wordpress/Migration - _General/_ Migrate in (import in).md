@@ -47,7 +47,7 @@ Now go to Import:
 Clicking file, if you notice:
 ![](797Beww.png)
 
-Then you have network limits to fix. Refer to in that case: [[zAppendix - Increase limits on request body, post, timeout, etc (Wordpress Migrations All-in-One)]]
+Then you have network limits to fix. Refer to in that case: [[zAppendix - Adjust - Increase limits on request body, post, timeout, etc (Wordpress Migrations All-in-One)]]
 
 ---
 

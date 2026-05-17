@@ -160,7 +160,7 @@ PHP by default allows PHP functions to download remote files. The setting to ove
 
 #### Internal SSRF
 
-Internal **SSRF (Server-Side Request Forgery)** occurs when an attacker manipulates a server into making an HTTP request to internal resources such as at localhots or 127.0.0.1.
+Internal **SSRF (Server-Side Request Forgery)** occurs when an attacker manipulates a server into making an HTTP request to internal resources such as at localhost or 127.0.0.1.
 
 If your server fetches the URL specified by `upload_url`, an attacker could supply:
 `https://yourdomain.com/uploader.php?upload_url=http://127.0.0.1/admin_panel`

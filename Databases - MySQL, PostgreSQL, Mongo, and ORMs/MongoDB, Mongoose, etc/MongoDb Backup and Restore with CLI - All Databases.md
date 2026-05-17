@@ -20,7 +20,7 @@ Then check your databases:
 show dbs
 ```
 
-^ Likely will complain about authentication. That's good. That proves you have authentication set up already. Then backtrack by exiting the shell and using this command instead to go into the mongosh: `mongosh -u root -p admin_hostinger_2024`
+^ Likely will complain about authentication. That's good. That proves you have authentication set up already. Then backtrack by exiting the shell and using this command instead to go into the mongosh: `mongosh -u root -p MONGO_PASSWORD`
 
 Exit MongoDB shell:
 

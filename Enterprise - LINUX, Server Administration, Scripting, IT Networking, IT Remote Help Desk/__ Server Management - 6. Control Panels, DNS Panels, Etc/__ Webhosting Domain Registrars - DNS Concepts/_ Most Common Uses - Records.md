@@ -1,3 +1,6 @@
+
+Learn different DNS Records in the context of Cloudflare:
+
 ## Cloudflare - Domain, Subdomains, and CNames:
 - Make all Proxied
 - Blurred out is my web-host's IP. Same IP for subdomain and domain because I don't want to buy two separate web-host subscriptions.

@@ -6,7 +6,7 @@ const createIfNotExistsDb = "myDatabase";
   
 const connection = {  
     start: async() => {  
-        // Correct is: `mongodb://localhots:27017/createIfNotExistsDb`  
+        // Correct is: `mongodb://localhost:27017/createIfNotExistsDb`  
         await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/', {  
             useUnifiedTopology: true  
         });  

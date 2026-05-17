@@ -416,8 +416,23 @@ For example, Cloudflare’s Free/Pro upload limit is **100 MB**, and long reques
 
 **Switch your Cloudflare DNS record from proxy to DNS-only so that this limit does not get in your way.**
 
-But first..
-### Confirm DNS-only is really bypassing Cloudflare
+> [!note] Concern - IP Hiding Goes Away
+> You may be concerned that your VPS or dedicated server IP could end up on a botnet list and get attacked directly through scraping or DDoS attempts. This is especially concerning if your server has been attacked before.
+>
+> Even if you block unwanted traffic at the Linux firewall level, that does not always solve the problem. A `403 Forbidden` response does not necessarily stop bots from recording your IP and continuing to target it later. This would overwhelm your server's CPU and get your website to crash or even be flagged by removal by your web host (despite the CPU hits are from firewall denying the incoming traffic, because the sheer volume of incoming traffic to process and block can still overwhelm your CPU)
+>
+> - If your host supports a **floating IP**, use the floating IP instead of your original VPS or dedicated server IP. That way, if the floating IP gets targeted, you can swap it out later. Be careful not to expose the original server IP, because the original IP may still work even while the floating IP is active.
+>
+> - If you have a **throwaway domain** (especially as an entrepreneur, you likely will have a few domains you haven't developed or promoted yet), you can temporarily use it during migration. Since the domain has not been publicly shared, it is much less likely or ever to be detected and placed on a botnet’s scrape or attack list, unless the domain is some common phrasing or wording since there are bots that guess domain names.
+>
+>   However, if you use a temporary domain, you may need to update WordPress’ domain/URL settings. See [[Wordpress - Had changed URL or domain]]. After the migration is complete, you can reverse the changes:
+>
+>   - Point the DNS record back to the original domain.
+>   - Turn Cloudflare Proxy back on.
+>   - Change the WordPress URL settings back to the final intended domain.
+Then you have to wait for the DNS-only to take effect. Could take a few minutes
+
+### Confirm and confirm that DNS-only is really bypassing Cloudflare
 
 From your local computer:
 ```
@@ -516,4 +531,4 @@ Adjust path to wordpress
 ## **Appendix**
 Difference Between `upload_max_filesize`, `post_max_size`, and `client_max_body_size`?
 
-Refer to [[zAppendix - Difference Between upload_max_filesize, post_max_size, and client_max_body_size]]
+Refer to [[zAppendix - About - Difference Between upload_max_filesize, post_max_size, and client_max_body_size]]

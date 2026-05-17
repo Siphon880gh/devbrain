@@ -16,7 +16,7 @@ const process = require("process");
 
 The order of requiring is important. Require dot env, THEN require process. I imagine dotenv has a listener for process instance initialization and that this design method allows you to have multiple processes, one that's not been modified by dotenv, if you run another process before dotenv.
 
-Your code assigns the variable based on whether you are on localhost. If you are on localhots, then the .env file variables are copied over to process:
+Your code assigns the variable based on whether you are on localhost. If you are on localhost, then the .env file variables are copied over to process:
 ```
 const isLocalHost = process.env.DEV || false;
 ```

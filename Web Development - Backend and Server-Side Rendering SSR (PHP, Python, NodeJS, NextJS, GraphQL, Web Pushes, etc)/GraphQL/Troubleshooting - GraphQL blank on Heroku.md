@@ -11,7 +11,7 @@ And GraphQL wrapping with React components to make them fetch with queries and m
    
 ```
 // const client = new ApolloClient({
-//   uri: "http://localhots:9090/graphql"
+//   uri: "http://localhost:9090/graphql"
 //   cache: new InMemoryCache(),
 // });
 
