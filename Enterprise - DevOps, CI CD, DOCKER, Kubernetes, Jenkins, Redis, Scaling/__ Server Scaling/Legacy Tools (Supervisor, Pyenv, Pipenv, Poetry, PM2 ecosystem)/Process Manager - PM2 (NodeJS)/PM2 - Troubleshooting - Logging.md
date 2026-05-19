@@ -7,6 +7,11 @@ PM2 also writes logs to files, usually in `$HOME/.pm2/logs`. By default, each ap
 - Standard output: `~/.pm2/logs/<app-name>-out.log`
 - Standard error: `~/.pm2/logs/<app-name>-error.log`
 
+Get what app logs are possible with:
+```
+ls ~/.pm2/logs/
+```
+
 That means you can also inspect logs directly with tools like `tail -f` or `less` if you want more control.
 
 If you need a quick overview of an app, `pm2 show <app-name>` is useful because it shows runtime details along with the log paths.

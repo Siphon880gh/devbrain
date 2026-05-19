@@ -17,11 +17,15 @@ You wish you have a list of domains and subdomains that can just enter automatic
 
 ---
 
-**Firstly**
+**First check** - Optimized vhost?
 
-WAIT - before you click "Create and Install". You still have to double check the gotchas at [[CloudPanel - SSL Renew Annually]]. Or in other words:
+WAIT - before you click "Create and Install". 
 
-Make sure to comment off or toggle comment per your comments at vhost and included vhosts. This makes sure challenge file is accessible. You should do something like comment `# SSL RENEWAL` with instructions to comment off/on or toggle between two lines as comment vs active. Then you can search for that comment and follow instructions when turning off for SSL challenge or turning back on when done with SSL challenge and the SSL is setup successfully.
+Do you have a vhost that's optimized not to conflict with Let's Encrypt?
+
+If not: Double check the gotchas at [[CloudPanel - SSL Renew Annually]], commenting out the troublesome lines that make challenge file inaccessible.
+
+You should do something like comment `# SSL RENEWAL` with instructions to comment off/on or toggle between two lines as comment vs active. Then you can search for that comment and follow instructions when turning off for SSL challenge or turning back on when done with SSL challenge and the SSL is setup successfully.
 
 Example:
 ```
@@ -34,6 +38,16 @@ Example:
   #  rewrite ^ https://$host$uri permanent;
   # }
 ```
+
+Or you could optimize the vhost so that your server can deliver the acme challenge file for http//:80 acme challenge requests, while having no problems delivering for https//:443's other requests. Find "UPDATE VHOST" section at [[_ GET STARTED - Setup VPS Checklist - Eg. Hetzner]] for an example vhost that's been optimized (in addition to other optimizations).
+
+---
+
+**Second check** - Behind Cloudflare?
+
+Is your Cloudflare rules temporarily setup to disable protection for acme challenges (not wise to keep it permanently disabled because hackers do scan for vulnerable WAF rules)?
+
+Refer to [[Common - Allow through Let's Encrypt]] to temporarily add / enable a bypassing rule for acme challenges, then putting Cloudflare protection back on for unauthorized acme challenge scanning.
 
 ----
 

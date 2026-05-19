@@ -1,4 +1,11 @@
- You likely have to temporarily change the vhost so that it allows Let's Encrypt to create a secret file and fetch it from frontend at http://www.domain.tld..../SECRET_KEY_FILE, noticing that neither http nor www could be redirected to https:/domain.tld because then the web browser will block with a warning page, therefore Let's Encrypt failing to fetch the file.
+
+Do you have a vhost that's optimized not to conflict with Let's Encrypt? This means the vhost can deliver the acme challenge file for http//:80 acme challenge requests, while having no problems delivering for https//:443's other requests. Find "UPDATE VHOST" section at [[_ GET STARTED - Setup VPS Checklist - Eg. Hetzner]] for an example vhost that's been optimized (in addition to other optimizations).
+
+---
+
+**Not optimized?**
+
+You likely have to temporarily change the vhost so that it allows Let's Encrypt to create a secret file and fetch it from frontend at http://www.domain.tld..../SECRET_KEY_FILE, noticing that neither http nor www could be redirected to https:/domain.tld because then the web browser will block with a warning page, therefore Let's Encrypt failing to fetch the file.
 
 1. Disable www 301 server redirect blocks
 You can CUT them away from Vhost for now. It should look like this that needs to be disabled/removed:
