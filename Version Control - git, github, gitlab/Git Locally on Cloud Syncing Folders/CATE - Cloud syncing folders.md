@@ -1,0 +1,1 @@
+Those are folders on your computer that are synced to Apple Cloud or Google Drive or Microsoft OneDrive
