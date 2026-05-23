@@ -1,4 +1,3 @@
-
 When your computer has git repository folders that are inside a cloud syncing folder or is the cloud syncing folder, there are some rare problems that can come up.
 
 However the benefits overweight the risks. You have redundancy backups. Not only can you backup to an external drive, but it's backing up to Github and a cloud service (Apple Cloud, Google Drive, Microsoft OneDrive) too.
