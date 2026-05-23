@@ -33,6 +33,43 @@ Here are instructions on installing the most commonly needed cli tools for web a
 - **Validation**: Validate text input against complex patterns, ensuring that the data conforms to specific formats before processing it further.
 - **TEST exists** on your OS/server: Run in command: `pcregrep --version` 
 
+### wkhtmltopdf:
+
+- **HTML to PDF Conversion**: Convert HTML pages, templates, or URLs into PDF files. For example, you could use `wkhtmltopdf` to generate invoices, reports, contracts, certificates, receipts, or downloadable documents from web pages.
+    
+- **URL to PDF**: Generate a PDF directly from a live webpage URL.
+    
+    ```bash
+    wkhtmltopdf https://example.com output.pdf
+    ```
+    
+- **Local HTML to PDF**: Convert a local HTML file into a PDF.
+    
+    ```bash
+    wkhtmltopdf input.html output.pdf
+    ```
+    
+- **Useful for Web Apps**: Helpful when a PHP, Node.js, Python, or other backend app needs to create printable/downloadable PDFs from existing HTML templates.
+    
+- **Preserves Web Styling**: Supports many CSS styles, images, tables, headers, footers, and page layouts, making it useful for document generation from designed HTML.
+    
+- **Headers and Footers**: Can add page numbers, dates, titles, custom headers, and custom footers to generated PDFs.
+    
+- **Batch/Automation**: Can be used in server-side scripts, cron jobs, or backend workflows to automatically generate PDFs.
+    
+- **wkhtmltoimage**: The related tool `wkhtmltoimage` can convert HTML pages or URLs into image files like PNG or JPG.
+    
+- **TEST exists** on your OS/server: Run in command:
+    
+    ```bash
+    wkhtmltopdf --version
+    ```
+    
+    and
+    
+    ```bash
+    wkhtmltoimage --version
+    ```
 
 ---
 
@@ -204,3 +241,44 @@ pyenv install 3.12.4
 ^ [https://stackoverflow.com/questions/27022373/python3-importerror-no-module-named-ctypes-when-using-value-from-module-mul](https://stackoverflow.com/questions/27022373/python3-importerror-no-module-named-ctypes-when-using-value-from-module-mul)
 
 ^You can get the current version of your pyenv: `cat .python-version`
+
+---
+
+## **wkhtmltopdf**
+
+Eg. Google: Ubuntu 22 install wkhtmltopdf
+
+`wkhtmltopdf` is a command-line tool that converts HTML pages, local HTML files, or URLs into PDF files. It is commonly used for generating invoices, reports, contracts, certificates, receipts, and other downloadable PDFs from web apps. ([wkhtmltopdf](https://wkhtmltopdf.org/?utm_source=chatgpt.com "wkhtmltopdf"))
+
+As for Ubuntu 22 or Debian 12:
+
+```bash
+sudo apt update
+sudo apt install wkhtmltopdf -y
+```
+
+Optional related tool:
+
+```bash
+wkhtmltoimage --version
+```
+
+**Test wkhtmltopdf works with PHP**
+
+```php
+<?php
+if (!`which wkhtmltopdf 2>/dev/null`) {
+  echo "Error: Your server does not support wkhtmltopdf.";
+} else {
+  echo "Success: Your server supports wkhtmltopdf.";
+}
+?>
+```
+
+**Test version directly in command line**
+
+```bash
+wkhtmltopdf --version
+```
+
+Note: Some installs from default package managers may not support every advanced option, especially features that depend on patched Qt. For basic HTML-to-PDF generation, the normal `apt install wkhtmltopdf` approach is usually the first thing to try. ([Debian Packages](https://packages.debian.org/bookworm/wkhtmltopdf?utm_source=chatgpt.com "Debian -- Details of package wkhtmltopdf in bookworm"))
