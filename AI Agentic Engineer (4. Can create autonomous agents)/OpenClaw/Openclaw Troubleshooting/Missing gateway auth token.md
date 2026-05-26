@@ -1,4 +1,4 @@
-# Missing gateway auth token
+## Missing gateway auth token
 
 Exact error when running `openclaw tui`:
 
@@ -10,7 +10,7 @@ or resolve the configured secret provider for this credential.
 
 ---
 
-## Local development (no auth)
+### Local development (no auth)
 
 If you are only developing locally and do not need gateway auth, set local mode and disable auth:
 
@@ -26,9 +26,9 @@ Then run `openclaw tui` again.
 
 ---
 
-## Production / shared environments
+### Production / shared environments
 
-### Easiest: get the token from `openclaw dashboard`
+#### Easiest: get the token from `openclaw dashboard`
 
 When gateway auth is enabled, the quickest way to get a token for the TUI is to open the web dashboard. The CLI prints the dashboard URL in the terminal; when the token is a plain configured value (not a SecretRef), that URL includes the token in the fragment so the browser can connect.
 
@@ -73,7 +73,7 @@ When gateway auth is enabled, the quickest way to get a token for the TUI is to 
 
 See also: [[_ENTRY - OpenClaw GUI Web]], [[Reference - Starting OpenClaw (Daemon, Gateway, TUI, Web UI)]]
 
-### Other options
+#### Other options
 
 Use one of the fixes suggested in the error message:
 
