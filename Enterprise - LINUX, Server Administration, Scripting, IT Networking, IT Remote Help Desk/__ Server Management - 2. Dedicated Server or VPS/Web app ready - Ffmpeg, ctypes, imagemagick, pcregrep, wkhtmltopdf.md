@@ -33,7 +33,7 @@ Here are instructions on installing the most commonly needed cli tools for web a
 - **Validation**: Validate text input against complex patterns, ensuring that the data conforms to specific formats before processing it further.
 - **TEST exists** on your OS/server: Run in command: `pcregrep --version` 
 
-### wkhtmltopdf:
+### wkhtmltopdf
 
 - **HTML to PDF Conversion**: Convert HTML pages, templates, or URLs into PDF files. For example, you could use `wkhtmltopdf` to generate invoices, reports, contracts, certificates, receipts, or downloadable documents from web pages.
     

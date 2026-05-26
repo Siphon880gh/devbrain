@@ -1,8 +1,13 @@
-This gives you model information:
+This gives you all models' information:
 ```
 curl http://100.106.86.84:4000/model/info -H "Authorization: Bearer abcd" -H "Content-Type: application/json" | jq
 ```
 
+Filter one specific model:
+- Based on "model_name"
+```
+curl http://100.106.86.84:4000/model/info \  -H "Authorization: Bearer abcd" \  -H "Content-Type: application/json" \| jq '.data[] | select(.model_name == "qwen2.5:32b")'
+```
 
 Want to add custom descriptions like what each model is good for?
 ```

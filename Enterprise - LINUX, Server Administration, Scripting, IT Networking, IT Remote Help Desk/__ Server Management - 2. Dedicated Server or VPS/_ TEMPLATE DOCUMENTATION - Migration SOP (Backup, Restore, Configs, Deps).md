@@ -20,7 +20,7 @@ Any username used by the terminal to create or modify files through PHP or Pytho
 
 Useful to tar up entire root folder for backup and restore.
 
-Make sure the dependencies are already installed (Instructions at [[Web app ready - Ffmpeg, cytypes, imagemagick, pcregrep, wkhtmltopdf]]):
+Make sure the dependencies are already installed (Instructions at [[Web app ready - Ffmpeg, ctypes, imagemagick, pcregrep, wkhtmltopdf]]):
 	- ffmpeg, ctypes: videolisting saas
 	- imagemagick: screenshot apps (in the future, stocks)
 	- pcregrep: more flexible regexp in php for coder searching notebook brains, sleep logs, etc
