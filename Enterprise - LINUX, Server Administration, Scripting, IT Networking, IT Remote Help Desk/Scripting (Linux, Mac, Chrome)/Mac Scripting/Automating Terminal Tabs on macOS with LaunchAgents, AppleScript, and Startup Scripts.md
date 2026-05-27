@@ -102,20 +102,18 @@ macOS permissions are configured
 ## Create the Test Startup Script
 
 Create folder:
-
+```
 cd ~
 mkdir .startup-scripts
 cd .startup-scripts
+```
 
-  
 
 Create file:
-
+```
 vi ~/.startup-scripts/test-terminal-tabs.sh
+```
 
-  
-
-  
 
 Paste this:
 ```
@@ -309,7 +307,7 @@ plutil -lint ~/Library/LaunchAgents/com.user.test-terminal-tabs.plist
 
 ---
 
-## Accessibility Permission
+## Add some permissions (Set 1 of 2)
 
 Because this script uses `System Events` to press `Cmd + T`, macOS may ask for Accessibility permission.
 
@@ -330,19 +328,11 @@ osascript
 
 Usually this approval is only **needed once**. After that, future logins should run the automation without prompting again.
 
-macOS may ask again if:
-- The script is moved or renamed
-- The command is launched by a different app
-- macOS resets privacy permissions
-- Terminal is replaced with iTerm2
-- A macOS update changes security approvals
-
-In most stable setups:
-- one-time approval is enough
+This is only one group of permissions. The other group of permissions are easier to just accept as you're running the startup script
 
 ---
 
-## Test
+## Test by running startup script
 
 Restart the computer and see if they open.
 
@@ -351,6 +341,10 @@ You can see logs at
 vi $HOME/Library/Logs/test-terminal-tabs.log
 ```
 
+
+### Permission Set 2
+
+You're making sure to set permissions for shell to run in background (even if we're running foreground here), bash accessing terminal, bash accessing system events, bash control computer using accessibility features
 
 Despite the notification at the top right:
 ![[Pasted image 20260526192455.png]]
@@ -367,6 +361,24 @@ You may be asked to set permissions - make sure to accept:
 ![[Pasted image 20260526192540.png]]
 
 ![[Pasted image 20260526192546.png]]
+
+Note after accepting these permissions as they're rolling in, the terminal might not open. Restart the computer again to see the terminal appear.
+
+### Do I need to accept permissions each time the system starts up?
+
+Usually this approval is only **needed once**. After that, future logins should run the automation without prompting again.
+
+macOS may ask again if:
+- The script is moved or renamed
+- The command is launched by a different app
+- macOS resets privacy permissions
+- Terminal is replaced with iTerm2
+- A macOS update changes security approvals
+
+In most stable setups:
+- one-time approval is enough
+
+
 
 ---
 ## Where to go from here - Example Use Case - Replacing the Test Echo Commands

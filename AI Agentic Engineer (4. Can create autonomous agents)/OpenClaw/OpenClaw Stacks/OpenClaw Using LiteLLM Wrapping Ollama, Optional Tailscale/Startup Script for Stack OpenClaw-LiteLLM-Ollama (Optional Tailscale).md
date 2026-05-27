@@ -2,9 +2,14 @@ On a Mac Studio, a risk with OpenClaw could be a power outage. The system restar
 
 You probably dont want all to run in the background or all in one shell (even with a tool like `concurrently` , that makes management hard). Instead you want to automate actually opening the terminal, opening multiple tabs, and at each tab you run the command for separate parts of the stack (Ollama, LiteLLM, etc) - as if you were to start the system manually. This way you see any problems right away and can manage it in the appropriate terminal tab.
 
-This tutorial will give alternative approach at the end using iTerm2, but our primary approach would be with OAScript/AppleScript. For our primary approach, you will just drop in the scripts. There is a bash script that loads from a LaunchAgent playlist. You would have to take care of permissions. The full guide is at [[Automating Terminal Tabs on macOS with LaunchAgents, AppleScript, and Startup Scripts]]. After successfully setting up a sample terminal tab opening on startup experience, then you drop in these scripts.
+This tutorial will give alternative approach at the end using iTerm2, but our primary approach would be with OAScript/AppleScript. For our primary approach, you will just drop in the scripts below.
 
-## **The Startup Script**
+## Requirement:
+- Below is a bash script that loads from a LaunchAgent playlist. You would have to take care of permissions. 
+- The full guide to setting up this architecture and the permissions is at [[Automating Terminal Tabs on macOS with LaunchAgents, AppleScript, and Startup Scripts]]. 
+- After successfully setting up a sample terminal tab opening on startup experience, then you **drop in these scripts below**.
+
+## **Drop-In: Startup Script**
 
 Example startup script:
 ```
@@ -46,7 +51,7 @@ end tell
 APPLESCRIPT
 ```
 
-## **LaunchAgent Configuration**
+## **Drop in: LaunchAgent Configuration**
 
 Example LaunchAgent:
 ```
