@@ -1,5 +1,7 @@
 OpenClaw uses a `models.json` file to tell each agent which AI model providers and models it can use.
 
+For the **LiteLLM → Ollama stack**, register a `litellm` provider pointing at `http://localhost:4000` and use `litellm/<alias>` model ids — [[Wire OpenClaw to LiteLLM provider - models.json and openclaw.json]].
+
 This file acts like a model registry for an agent. It lists the available providers, their API connection settings, and the individual models that the agent can choose from.
 
 The file is located at:

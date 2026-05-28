@@ -41,7 +41,7 @@ Optional cloud APIs
 
 Each machine follows the same general architecture described in:
 
-- [[Openclaw-LiteLLM-Ollama Startup Sequence, Optional Tailscale]]
+- [[_PRIMER - Openclaw-LiteLLM-Ollama Startup Sequence, Optional Tailscale]]
 - [[Startup Script for Stack OpenClaw-LiteLLM-Ollama (Optional Tailscale)]]
 - [[Multiple Agents in Gateway - Single Gateway vs Separate Gateways]]
 
@@ -57,7 +57,7 @@ Copying config files is the easy part. The harder parts are:
 
 2. **Power and boot recovery** — A Mac Studio only helps if it turns back on and relaunches your stack after an outage. See [[Power Outage Recovery for OpenClaw on Mac Studio]].
 
-3. **Network access** — Decide whether LiteLLM, Tailscale, or another entry point exposes inference to other machines. See [[Openclaw-LiteLLM-Ollama Startup Sequence, Optional Tailscale]].
+3. **Network access** — Decide whether LiteLLM, Tailscale, or another entry point exposes inference to other machines. See [[_PRIMER - Openclaw-LiteLLM-Ollama Startup Sequence, Optional Tailscale]].
 
 4. **Remote administration** — Plan how you will reach each machine for logs, restarts, and debugging without exposing the OpenClaw dashboard publicly.
 

@@ -60,7 +60,7 @@ Power recovery only gets you to the macOS login screen or desktop. It does not a
 For that, use the startup automation pattern already documented in this coder notebook:
 
 - [[Startup Script for Stack OpenClaw-LiteLLM-Ollama (Optional Tailscale)]]
-- [[Openclaw-LiteLLM-Ollama Startup Sequence, Optional Tailscale]]
+- [[_PRIMER - Openclaw-LiteLLM-Ollama Startup Sequence, Optional Tailscale]]
 - [[Automating Terminal Tabs on macOS with LaunchAgents, AppleScript, and Startup Scripts]]
 
 The recommended approach is:
@@ -211,7 +211,7 @@ Without those, a power outage becomes a manual recovery task even if the hardwar
 ## Related Articles
 
 - [[Startup Script for Stack OpenClaw-LiteLLM-Ollama (Optional Tailscale)]]
-- [[Openclaw-LiteLLM-Ollama Startup Sequence, Optional Tailscale]]
+- [[_PRIMER - Openclaw-LiteLLM-Ollama Startup Sequence, Optional Tailscale]]
 - [[Automating Terminal Tabs on macOS with LaunchAgents, AppleScript, and Startup Scripts]]
 - [[Why Startup Scripts Do Not Port Easily Across Macs - Permissions and MDM]]
 - [[_PRIMER - OpenClaw Scaling]]
