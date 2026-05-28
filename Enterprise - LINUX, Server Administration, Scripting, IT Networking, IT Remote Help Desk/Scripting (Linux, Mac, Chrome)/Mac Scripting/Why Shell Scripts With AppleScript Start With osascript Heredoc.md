@@ -76,3 +76,5 @@ The heredoc pattern keeps both languages in one file without escaping every quot
 ### Related
 
 See also: [[Automating Terminal Tabs on macOS with LaunchAgents, AppleScript, and Startup Scripts]]
+
+Fleet deployment: [[PPPC - Pre-Approving macOS Automation Permissions with MDM]]

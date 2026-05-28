@@ -87,3 +87,14 @@ It helps a company:
 - Lock down or wipe devices when someone leaves.
 - Reduce the risk of company data staying on a laptop after termination.
 - Make Apple devices easier to manage at scale.
+
+---
+
+## Operational Deep Dives (Enterprise Vault)
+
+For Jamf Pro setup, policies, PPPC, FileVault, and troubleshooting:
+
+- [[__ PRIMER - Apple Device Management and MDM]]
+- [[__ PRIMER - Jamf Product Suite]]
+- [[Jamf Pro - Zero-Touch Enrollment and ABM Setup]]
+- [[Directory - Device Management Tools]]

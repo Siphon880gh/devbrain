@@ -485,3 +485,24 @@ The combination of:
 - Terminal automation
 
 essentially turns macOS into a lightweight developer orchestration platform.
+
+---
+
+## Scaling Across Many Macs (MDM)
+
+Manual TCC approvals (Accessibility, AppleEvents, Full Disk Access) do not scale. For fleet deployment:
+
+- Deploy the LaunchAgent plist and script via Jamf policy — see [[Jamf Pro - Policies, Profiles, and Smart Groups]]
+- Pre-approve permissions with a PPPC profile — see [[PPPC - Pre-Approving macOS Automation Permissions with MDM]]
+- Extended walkthrough: [[Why Startup Scripts Do Not Port Easily Across Macs - Permissions and MDM]]
+
+Prefer running services directly under `launchd` instead of Terminal tab automation when building a fleet baseline — fewer TCC dependencies.
+
+---
+
+## Related
+
+- [[Loading and Unloading LaunchAgents with launchctl]]
+- [[Why Shell Scripts With AppleScript Start With osascript Heredoc]]
+- [[__ PRIMER - Apple Device Management and MDM]]
+- [[PPPC - Pre-Approving macOS Automation Permissions with MDM]]

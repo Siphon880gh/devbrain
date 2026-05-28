@@ -236,7 +236,33 @@ Paid remote-access tools are often roughly **~$9/month when paid annually**, dep
     - **Caution as of October 2025:** file transfer can be slow in some setups
         
 
-## Enterprise or IT Management
+## Enterprise Device Management (MDM)
+
+Fleet management is different from remote desktop. MDM configures, patches, and secures many devices; remote desktop is for interactive support on one machine.
+
+- **Jamf Pro / Jamf Now**
+    
+    - Apple device management for Mac, iPhone, iPad
+        
+    - Enrollment, app deployment, FileVault, wipe/lock
+        
+    - See [[__ PRIMER - Jamf Product Suite]] and [[Directory - Device Management Tools]]
+        
+- **Microsoft Intune**
+    
+    - Windows-first; also manages Mac and mobile
+        
+    - Pairs with Autopilot and Entra ID
+        
+    - See [[Corporate - Microsoft Intune]]
+        
+- **Kandji / Mosyle / Addigy**
+    
+    - Mac-native MDM alternatives
+        
+    - See [[__ REFERENCE - Apple MDM Alternatives (Kandji, Mosyle, Addigy, Intune)]]
+
+## Enterprise or IT Management (Remote Access)
 
 - **Action1**
     

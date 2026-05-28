@@ -25,7 +25,9 @@ These tools address one problem: **get accurate context from real code** instead
 
 **What it does:** Clones and caches package **repositories** (npm, PyPI, crates.io, GitHub) at the version your project uses, under `~/.opensrc/` (override with `OPENSRC_HOME`). Gives the agent a stable path to **full upstream source**, not whatever happened to land in your tree.
 
-### Cursor already has this — usually **no opensrc**
+![[Pasted image 20260527230417.png]]
+
+### Your codebase might already be enough — if packages, libraries, etc are local
 
 | In your workspace | Cursor can… |
 | --- | --- |

@@ -58,4 +58,8 @@ If you changed the plist, unload and reload so `launchd` picks up the new settin
 
 ### Related
 
-See also: [[Automating Terminal Tabs on macOS with LaunchAgents, AppleScript, and Startup Scripts]]
+See also:
+
+- [[Automating Terminal Tabs on macOS with LaunchAgents, AppleScript, and Startup Scripts]]
+- [[Jamf Pro - Policies, Profiles, and Smart Groups]] (deploy LaunchAgents fleet-wide)
+- [[Jamf Troubleshooting - Common Issues]] (when a deployed agent fails to load)
