@@ -2018,7 +2018,7 @@ ini_set('default_socket_timeout', 300);  // Adjust as needed
 ```
 
 ### ADVANCED WEBSITE: Prepare for web app features
-Install ffmpeg, ctypes, imagemagick, and pcregrep for various web apps and their testing of python wrapping ffmpeg and php wrapping imagemagick. Refer to tutorial [[Web app ready - Ffmpeg, ctypes, imagemagick, pcregrep, wkhtmltopdf]]
+Install ffmpeg, ctypes, imagemagick, and pcregrep for various web apps and their testing of python wrapping ffmpeg and php wrapping imagemagick. Refer to tutorial [[_ GET STARTED - Web app ready - Ffmpeg, ctypes, imagemagick, pcregrep, wkhtmltopdf, puppeteer with chrome]]
 
 As you install additional dependencies, make sure to document them in the same place where you keep your server login details, paths, and configuration notes. You can refer back to your list of dependencies when you migrate or clone your setup to another server later. This may also be a good place to write what local app scripts or published apps (with users) that need their paths updated if the server hostname changes. This document could be named: acc Web App Dependencies and URLs
 

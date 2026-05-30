@@ -1,0 +1,1 @@
+When your prompt has too many steps, it may tend to skip the later steps. To reduce that risk, switch to **Plan mode** first. In Plan mode, you can have it review the full task, break down the steps, and confirm that it will follow everything before executing.

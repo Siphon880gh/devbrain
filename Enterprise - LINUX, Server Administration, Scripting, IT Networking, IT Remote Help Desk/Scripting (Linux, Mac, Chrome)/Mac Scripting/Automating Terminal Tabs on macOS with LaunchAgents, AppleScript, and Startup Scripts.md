@@ -182,6 +182,7 @@ Run it manually first:
 ~/.startup-scripts/test-terminal-tabs.sh
 ```
 
+^ While running manually, it may ask accessibility and permission questions. Make sure to accept them. Once you give permission, it won't bug you again on the next rerun.
 
 Expected result:
 1. Terminal opens
