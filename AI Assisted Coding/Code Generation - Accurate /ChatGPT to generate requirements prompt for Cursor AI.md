@@ -1,4 +1,11 @@
 
+The flow here is:
+  That’s the clearest “from scratch” flow in this vault:
+  1. Describe the app in ChatGPT and ask it to interview you until the prompt is solid.
+  2. Paste that prompt into Composer (today: Agent).
+  3. It creates new files (unsaved tabs) — review, save, fill gaps (package.json, README, etc.), then run and iterate on errors.
+
+
 Prompt ChatGPT 4o:
 ```
 I want to create a stock graph with moving average lines when I toggle them on and other related lines to help with stock analysis. I will use Cursor AI to create the app from a text prompt. Ask me questions to come up with the proper prompt
