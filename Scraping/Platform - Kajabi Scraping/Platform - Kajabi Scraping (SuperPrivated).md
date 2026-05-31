@@ -3,13 +3,9 @@
 [Kajabi](https://kajabi.com/) is a hosted platform for creators who sell courses, memberships, and communities. Creators can customize the domain, branding, layout, and lesson structure so the course feels like their own platform.
 
 From the student’s view, a Kajabi course may look like a private branded learning site with:
-
 - A custom domain, like `learn.creatorname.com`
-    
 - The creator’s logo, colors, and copy
-    
 - Modules, lessons, videos, and sometimes a community area
-    
 
 Behind the scenes, many Kajabi lessons use **Wistia** for video hosting.
 
