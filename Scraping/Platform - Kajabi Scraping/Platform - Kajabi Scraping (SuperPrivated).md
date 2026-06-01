@@ -23,4 +23,4 @@ This folder documents that process. It is only meant for content you are allowed
 **For Hire** - If you’d like to hire me to scrape materials you own, and scraping would not violate the platform’s Terms of Service, reach out at:
 https://www.linkedin.com/in/weng-fung/
 
-Otherwise, you can see checkout my scraping tutorials for other platforms in the rest of the folders. Kajabi has been kept private.
+Otherwise, you can checkout my scraping tutorials for other platforms in the rest of the folders. Kajabi has been kept private.

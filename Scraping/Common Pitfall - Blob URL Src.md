@@ -1,0 +1,2 @@
+There’s a blob but the blob: URL is not the real video file. It is just the browser’s temporary media object. You can't reverse-engineer it into a scraping method. Look elsewhere on the webpage to choose the true scraping method.
+  ![[Pasted image 20260531084015.png]]
