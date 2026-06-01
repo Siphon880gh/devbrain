@@ -6,12 +6,12 @@ But for many people, the tools still felt like chatbots with extra steps. You as
 
 ## Simple mental model
 
-|Tool|What it is|Simple explanation|Layer|
-|---|---|---|---|
-|**OpenClaw**|Personal AI assistant / action agent|The AI worker that can do tasks for you|Action layer|
-|**NemoClaw**|Security and guardrail stack|The safety wrapper for running agents with more control|Safety layer|
-|**Hermes**|Self-improving autonomous agent|The agent that remembers, learns, and grows skills over time|Learning layer|
-|**Paperclip**|Agent orchestration / management layer|The company dashboard for managing multiple AI agents|Management layer|
+| Tool          | What it is                             | Simple explanation                                           | Layer            |
+| ------------- | -------------------------------------- | ------------------------------------------------------------ | ---------------- |
+| **OpenClaw**  | Personal AI assistant / action agent   | The AI worker that can do tasks for you                      | Action layer     |
+| **NemoClaw**  | Security and guardrail stack           | The safety wrapper for running agents with more control      | Safety layer     |
+| **Hermes**    | Self-improving autonomous agent        | The agent that remembers, learns, and grows skills over time | Learning layer   |
+| **Paperclip** | Agent orchestration / management layer | The company dashboard for managing multiple AI agents        | Management layer |
 
 OpenClaw is the worker. NemoClaw is the guardrail layer. Hermes is the worker that learns. Paperclip is the company dashboard that manages the workers.
 
