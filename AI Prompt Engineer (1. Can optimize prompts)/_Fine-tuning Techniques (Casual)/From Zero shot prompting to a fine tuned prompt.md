@@ -1,5 +1,5 @@
 **Goal**: 
-- Use zero-shot prompting to discover a strong response, then refine the original prompt so it can reliably produce that same quality again.
+- Use zero-shot prompting to discover a strong response, then refine the original prompt so it can reliably produce that same quality again. You plan to reuse the prompt in the future.
 
 **What we will do:**
 - Asking a general question with no examples = **zero-shot prompting**
