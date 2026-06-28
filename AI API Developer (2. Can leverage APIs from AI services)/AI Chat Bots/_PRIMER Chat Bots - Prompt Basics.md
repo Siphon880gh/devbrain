@@ -4,6 +4,8 @@ A good way to build a chatbot (that can be embedded on your website) is to let A
 
 The conversation should end when the goal is reached. But the AI should also be flexible: if the user wants to speak to a human or skip ahead (like jumping straight to making a purchase), the bot should recognize that and adapt—even if it’s outside the planned flow.
 
+Depending on the model, you may also need to **teach the bot when a conversation is complete**—not only when the user says goodbye, but when the **goal has been fully satisfied**. A common example is a lead-capture flow: once the user has shared the details needed to be reached (name, email, phone), the bot should recognize that the conversation is done, confirm next steps, deliver a closing message, and **stop asking new questions**. Some models infer this on their own; others will keep the chat going unless you spell out completion criteria in the prompt. Define what “done” looks like for your flow—for example, “Once contact info is captured, thank the user and end the conversation”—so the bot does not restart the question sequence or ask for information it already has.
+
 In addition, if your chat bot gets opened to an empty state, allow the user to start with something as simple as “Hello” or “Can you help me?” to kick off the guided questions. If your chatbot platform supports it, have the bot proactively greet the user, briefly introduce itself, and clearly explain what it can help with right away (including a few example prompts) so the user has an easy, obvious next step - and even better, add pills or buttons in the chat interface in place of recommended prompts.
 
 To make the experience feel natural and aligned with your brand, you should assign the AI a **role** (e.g., “customer support assistant” or “onboarding coach”) and define its **tone** (e.g., friendly, professional, playful). This helps maintain a consistent voice and user experience across conversations.
@@ -43,6 +45,8 @@ These design principles help your AI agent stay helpful, respectful, and outcome
 - **Question Sequence (Flow Map)** – A predefined path of questions the bot uses to guide users toward the goal. Also called a “question sequence,” this ensures the bot collects the necessary context step-by-step, while still allowing flexibility to skip or jump ahead when needed.
 
 - **Goal** – The target outcome of the conversation, such as scheduling a meeting, completing a sign-up, or answering a support question. Once the goal is reached, the conversation can end or shift to a new intent.
+
+- **Conversation Complete (Completion Intent)** – The state where all required inputs have been collected and the goal is satisfied—for example, contact details captured so someone can follow up, an appointment booked, or a support issue resolved. The bot should recognize this moment, send a closing message, and stop continuing the question sequence. Depending on the underlying model, you may need to define completion criteria explicitly in the prompt (e.g., “Once name and email are captured, thank the user and end the conversation”). This is separate from the user explicitly saying goodbye mid-flow; for platform-level exit handling, see [[5.08 Autonomous Node - Exit to Standard Nodes on Intent Detection]].
 
 - **Intent** – What the user wants to do. For example, “book a meeting,” “reset my password,” or “talk to support.” The AI listens for clues in the user’s message and maps them to these predefined actions.
 
@@ -91,6 +95,7 @@ You are the **Tutoring Assistant** for Weng - a coding instructor who helps stud
 - Ask clarifying questions when input is ambiguous    
 - Prompt user for contact details at the end    
 - Escalate when necessary and collect fallback contact info  
+- Recognize when the conversation is complete and deliver the closing message without asking further questions  
   
 ## Response Style    
 - Friendly, encouraging, and professional tone    
@@ -197,6 +202,11 @@ If a user provides information that cannot be processed or needs clarification, 
   
 Then ask:    
 > Before we do that, can I get your name and phone or email so we can follow up with you?  
+  
+---  
+  
+### Completion    
+Once all required information has been collected—including contact details for follow-up—treat the conversation as **complete**. Deliver the Closing message below. Do not ask additional qualifying questions, restart the question sequence, or re-ask for information the user already provided unless they begin a new request.  
   
 ---  
   
@@ -253,6 +263,7 @@ You are the **Tutoring Assistant** for Weng - a coding instructor who helps stud
 - Ask clarifying questions when input is ambiguous    
 - Prompt user for contact details at the end    
 - Escalate when necessary and collect fallback contact info  
+- Recognize when the conversation is complete and deliver the closing message without asking further questions  
   
 ## Response Style    
 - Friendly, encouraging, and professional tone    
@@ -359,6 +370,11 @@ If a user provides information that cannot be processed or needs clarification, 
   
 Then ask:    
 > Before we do that, can I get your name and phone or email so we can follow up with you?  
+  
+---  
+  
+### Completion    
+Once all required information has been collected—including contact details for follow-up—treat the conversation as **complete**. Deliver the Closing message below. Do not ask additional qualifying questions, restart the question sequence, or re-ask for information the user already provided unless they begin a new request.  
   
 ---  
   

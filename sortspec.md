@@ -28,7 +28,7 @@ sorting-spec: |-
   Enterprise - Bootstrapping
   Enterprise - Open Source Web Apps, CLI-Powered Web Apps, Cron Jobs, and Internal Tools
   Enterprise - SECURITY, Code Standards, Compliance
-  Enterprise - TEST Units, Test Driven Development, Etc
+  Enterprise - TEST Units, Test Driven Development, Debugging, Etc
   Enterprise - LINUX, Server Administration, Scripting, IT Networking, IT Remote Help Desk
   Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Scaling
   Enterprise - CACHE, CLOUDFLARE, Bunny, Performance

@@ -1,4 +1,4 @@
-A common macOS automation workflow is automatically opening Terminal on login, running one command, then opening additional tabs that launch other services a few seconds later.
+A common macOS automation workflow is automatically opening Terminal on login, running one command, then opening additional tabs that run other commands in each tab, hence launching multiple services in a specific order. Furthermore, we add a slight delay between opening specific tabs to make sure depended-on service fully launched first.
 
 This is especially useful for:
 
@@ -62,8 +62,6 @@ But opening:
 - while automatically running another command
 
 usually requires AppleScript.
-
-  
 
 A simple way to test macOS Terminal automation is to create a startup script that opens Terminal, runs a command in the first tab, waits a couple of seconds, opens a new tab, runs another command, and repeats.
 
@@ -131,36 +129,54 @@ echo "HOME: $HOME"
 echo "PATH: $PATH"
 echo "=============================="
 
-## Give macOS time to finish loading the GUI after login
+# Give macOS time to finish loading the GUI after login
 sleep 10
 
 /usr/bin/osascript <<'APPLESCRIPT'
 
+on runInFrontTab(theCommand)
+    tell application "Terminal"
+        activate
+        if (count of windows) > 0 then
+            set miniaturized of front window to false
+            set index of front window to 1
+            do script theCommand in selected tab of front window
+        else
+            do script theCommand
+        end if
+    end tell
+end runInFrontTab
+
+my runInFrontTab("echo 'Tab 1'") # If need multiple commands, use &&
+
+delay 2
+
+tell application "System Events"
+    tell process "Terminal"
+        set frontmost to true
+        keystroke "t" using command down
+    end tell
+end tell
+
+delay 0.5
+
 tell application "Terminal"
-    activate
-
-    do script "echo 'Tab 1'"
-
-    delay 2
-
-    tell application "System Events"
-        keystroke "t" using command down
-    end tell
-
-    delay 0.5
-
     do script "echo 'Tab 2'" in selected tab of front window
+end tell
 
-    delay 2
+delay 2
 
-    tell application "System Events"
+tell application "System Events"
+    tell process "Terminal"
+        set frontmost to true
         keystroke "t" using command down
     end tell
+end tell
 
-    delay 0.5
+delay 0.5
 
+tell application "Terminal"
     do script "echo 'Tab 3'" in selected tab of front window
-
 end tell
 
 APPLESCRIPT
@@ -196,9 +212,7 @@ Expected result:
 
 This part:
 ```
-tell application "System Events"
     keystroke "t" using command down
-end tell
 ```
 
 means AppleScript is simulating:
@@ -266,7 +280,7 @@ Paste this, replacing `YOUR_USERNAME` with the actual macOS username:
 
     <key>ProgramArguments</key>
     <array>
-        <string>/Users/wengffung/.startup-scripts/test-terminal-tabs.sh</string>
+        <string>/Users/YOUR_USERNAME/.startup-scripts/test-terminal-tabs.sh</string>
     </array>
 
     <key>RunAtLoad</key>

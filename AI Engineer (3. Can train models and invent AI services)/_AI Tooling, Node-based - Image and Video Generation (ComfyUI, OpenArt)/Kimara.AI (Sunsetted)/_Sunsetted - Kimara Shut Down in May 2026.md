@@ -1,0 +1,1 @@
+They have shut down. They didn't give a reason why. Kimara's value proposition was templates that already worked because its dependencies have been vetted. It also promised generous credits especially for those who have referred the beta launch up to max tier (I easily did it with several friends).

@@ -8,6 +8,9 @@ Chrome Extension Manifest v3:
 ComfyUI:
 - [[0.1 - Version (ComfyUI v0.3.43)]]
 
+ComfyUI-Like
+- [[__PRIMER - Learn by Leveling Up - ComfyUI-Like]]
+
 Cursor AI (AI Agents):
 - [[01 - Introduction and Version Info (Cursor AI Agents)]]
 

@@ -15,40 +15,102 @@ Example startup script:
 ```
 #!/bin/bash
 
-osascript <<'APPLESCRIPT'
+LOG="$HOME/Library/Logs/test-terminal-tabs.log"
+
+exec >> "$LOG" 2>&1
+
+echo ""
+echo "=============================="
+echo "Started at: $(date)"
+echo "User: $(whoami)"
+echo "HOME: $HOME"
+echo "PATH: $PATH"
+echo "=============================="
+
+# Give macOS time to finish loading the GUI after login
+sleep 10
+
+/usr/bin/osascript <<'APPLESCRIPT'
+
+on runInFrontTab(theCommand)
+    tell application "Terminal"
+        activate
+        if (count of windows) > 0 then
+            set miniaturized of front window to false
+            set index of front window to 1
+            do script theCommand in selected tab of front window
+        else
+            do script theCommand
+        end if
+    end tell
+end runInFrontTab
+
+my runInFrontTab("ollama serve")
+
+delay 2
+
+tell application "System Events"
+    tell process "Terminal"
+        set frontmost to true
+        keystroke "t" using command down
+    end tell
+end tell
+
+delay 0.5
 
 tell application "Terminal"
-    activate
+    do script "litellm --config ~/litellm/config.yaml" in selected tab of front window
+end tell
 
-    -- First tab
-    do script "cd ~/projects/app && npm run dev"
+delay 2
 
-    delay 2
-
-    -- Open new tab with Cmd+T
-    tell application "System Events"
+tell application "System Events"
+    tell process "Terminal"
+        set frontmost to true
         keystroke "t" using command down
     end tell
+end tell
 
-    delay 0.5
+delay 0.5
 
-    -- Run second command in new tab
-    do script "cd ~/projects/api && php artisan queue:work" in selected tab of front window
+tell application "Terminal"
+    do script "tailscale serve 4000" in selected tab of front window
+end tell
 
-    delay 2
+delay 2
 
-    -- Third tab
-    tell application "System Events"
+tell application "System Events"
+    tell process "Terminal"
+        set frontmost to true
         keystroke "t" using command down
     end tell
+end tell
 
-    delay 0.5
+delay 0.5
 
-    do script "cd ~/projects/worker && python worker.py" in selected tab of front window
+tell application "Terminal"
+    do script "openclaw gateway restart" in selected tab of front window
+end tell
 
+delay 2
+
+tell application "System Events"
+    tell process "Terminal"
+        set frontmost to true
+        keystroke "t" using command down
+    end tell
+end tell
+
+delay 0.5
+
+tell application "Terminal"
+    do script "openclaw tui" in selected tab of front window
 end tell
 
 APPLESCRIPT
+
+echo "osascript exit code: $?"
+echo "Finished at: $(date)"
 ```
 
 ## **Drop in: LaunchAgent Configuration**
@@ -63,11 +125,11 @@ Example LaunchAgent:
 <dict>
 
     <key>Label</key>
-    <string>com.user.terminalstartup</string>
+    <string>com.user.test-terminal-tabs</string>
 
     <key>ProgramArguments</key>
     <array>
-        <string>/Users/YOUR_USERNAME/startup-terminal-tabs.sh</string>
+        <string>/Users/YOUR_USERNAME/.startup-scripts/test-terminal-tabs.sh</string>
     </array>
 
     <key>RunAtLoad</key>

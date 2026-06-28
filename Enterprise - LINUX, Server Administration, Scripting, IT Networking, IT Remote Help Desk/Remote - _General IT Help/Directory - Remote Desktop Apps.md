@@ -36,6 +36,15 @@ Paid remote-access tools are often roughly **~$9/month when paid annually**, dep
     - Paid plans are often around the ~$9/month range when billed annually
         
 
+### Mac to iPad
+
+- **[Mirage](https://mirage.ethanlipnik.com/)**
+    
+    - Great for Mac to iPad
+        
+    - iPad controls by proximity/Bluetooth when connected
+        
+
 ## Personal / Family Support
 
 - **RemotePC**
