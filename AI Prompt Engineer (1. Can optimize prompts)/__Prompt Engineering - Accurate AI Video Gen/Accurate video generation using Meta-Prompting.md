@@ -238,3 +238,5 @@ If your prompt has issues, it’s usually one of these:
 * **Scene feels random** → specify location + lighting + mood  
 """
 ```
+
+Once the prompt is generated
