@@ -124,7 +124,7 @@ Prompt 1 should be ran every so often to sync your code changes to the context f
 - After 3-5 minor changes
 
   
-Prompt 1:
+### Prompt 1 - Starting or Updating Context:
 ```
 We’ve just updated the code. Please update or generate the `AGENTS_CODE_REFERENCE.md` documentation so **AI tools** can reliably understand the project and generate code safely.  
   
@@ -216,10 +216,29 @@ If you only edited `AGENTS_CODE_REFERENCE.md` (and not any `AGENTS_CODE_REFERENC
 - If so, determine whether it should be split into feature-specific `AGENTS_CODE_REFERENCE-*.md` files
 ```
 
+#### Alternative Prompt for Updating Context:
 
-Then to make sure AI actually uses the [AGENTS_CODE_REFERENCE.md](https://AGENTS_CODE_REFERENCE.md "https://AGENTS_CODE_REFERENCE.md") for every prompt which makes it less likely your other code just disappears from code changes because of under-reading the codebase:
+If you're simply updating the context, the above prompt that creates context can also update. But it's not exactly easy to memorize. If you prefer to memorize prompts, a shorter update prompt that is easy to memorize and works is:
+- Remove last line `If any chat threads are opened, you can refer to them as well.` if you dont have such chat threads opened
+- If you have recent chat threads whose implementations you want to integrate into the context, keep them opened. Remove any chat threads that are not relevant (eg. older features you removed or already are part of context, or questions rather than implementations or fixes).
+```
+AGENTS CODE REFERENCES is a top level explanation of the code base so that AI Agents can understand the codebase without reading the lines of code, which risks under-reading or over-reading when trying to understand the code before implementing user's prompt request
 
-Prompt 2 -
+  
+**Those documents are stale**. Lets update them according to any changes we haven't added. You can compare commit dates to the last modified dates of the CODE REFERENCES to figure out where to start diff'ing for features to update or add to CODE REFERENCES. 
+
+If any chat threads are opened, you can refer to them as well.
+```
+
+Here's **proof** that a Cursor agent can see the opened chat threads:
+![[Pasted image 20260710055813.png]]
+  
+Note it says “I’ll cross-check them against the new source and **recent chat threads** for gaps”
+
+### Prompt 2 - Adding Features
+
+Then to make sure AI actually uses the [AGENTS_CODE_REFERENCE.md](https://AGENTS_CODE_REFERENCE.md "https://AGENTS_CODE_REFERENCE.md") for every prompt which makes it less likely your other code just disappears from code changes because of under-reading the codebase
+
 ```
 Refer to AGENTS_CODE_REFERENCE.md and any applicable AGENTS_CODE_REFERENCE-*.md for high level understanding of the codebase if needed.  
   

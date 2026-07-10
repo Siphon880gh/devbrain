@@ -45,10 +45,10 @@ The desired output is not open-ended. It has a clear structure:
 `Organism/strain`  
 `- Use Case Title: Explanation`
 
-A cleaner label would be:
+---
 
+A cleaner label would be:
 **“One-shot structured completion prompt”**
 
 Or more casually:
-
 **“Fill-in-the-blank pattern prompt.”**
