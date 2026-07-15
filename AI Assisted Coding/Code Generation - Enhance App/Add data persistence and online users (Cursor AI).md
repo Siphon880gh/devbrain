@@ -2,6 +2,8 @@
 **Goal:** 
 We’ll enhance an app to support multiple users, and the AI should infer what data needs to be saved per user so people can log back in and pick up where they left off. 
 
+In other words, you're taking an app that just works on your computer / localhost -> Make it support authenticated users with database online
+
 **High level steps:**
 We build this in phases: first, implement `localStorage` persistence so the app reliably saves and restores data across sessions. Next, extend that same local-only approach to support multiple users (still using `localStorage`) so it behaves like real account switching during in-person demo testing, but structure the stored data like a real database—one “table” per entity type (users, workflows, settings, etc.) instead of scattered keys. After that, create the REST API migration plan (migrating from local data persistence to online data persistence), then implement visual test for the online data persistence (users and features). Then have AI migrate the frontend off `localStorage` by swapping repository calls into API requests against the remote API server, using the visual test as guidelines. To maximize the chances of success, generate spec docs up front, build a test harness/tests before implementation, and use solid design patterns (like a repository layer) so the UI stays decoupled from whichever storage backend is active in each phase.
 
@@ -41,7 +43,7 @@ Refactor **local storage** so app data reliably persists across multiple session
 
 If persistence is already implemented, clean up the data structure. Store data in a more organized, database-like way (for example, some app has a single `slides` “table” represented as JSON, where each slide records its slideshow ID, content, and related metadata—rather than scattered or loosely structured keys).
 
-Next, update the `specs-data-persistence.md` with any changes. Finally, create **`AGENTS-data-persistence.md`** explaining how the local storage + repository setup works.
+Next, create or update a `specs-data-persistence.md` with any changes. Finally, create **`AGENTS-data-persistence.md`** explaining how the local storage + repository setup works.
 ```
 
 
@@ -95,7 +97,7 @@ Prompt to create test
 	Create a test harness that loads when the app is in test mode; otherwise, load the normal application. Add a testMode boolean flag to the config file to control this behavior.
 	```
 
-- After replacing that partial in the prompt, **run the prompt**:
+- After replacing that partial in the prompt, **run the PROMPT**:
 ```
 Refer to AGENTS.md and any applicable AGENTS*.md for high level understanding of the codebase if needed.  
 Let's implement:  
@@ -128,7 +130,7 @@ Example test harnesses
 
 Once the multiple users work locally, ask Cursor AI to update the data persistence specs with this prompt:
 ```
-Lets update specs-data-persistence.md in regards to now having multiple users at local storage
+Lets update or create specs-data-persistence.md in regards to now having multiple users at local storage
 ```
 
 ---

@@ -537,6 +537,16 @@ Always:
 4. Ask the user to confirm the epic map before converting any epic into milestones
 ```
 
+
+## Assure there is granular context
+
+Check if the files EPIC_MAP.md and IMPLEMENTATION_STORIES.md exist. If they don't:
+```
+Please make sure to create EPIC_MAP.md and IMPLEMENTATION_STORIES.md at app root to make this more manageable in the future
+```
+
+Is this an existing codebase or starting from scratch? If existing codebase, check if there's a AGENTS_CODE_REFERENCE. If there isn't, please initiate it from [[Context - Ever-updating High-Level Context that Optimizes Token Usage and Lowers Likelihood of Lines disappearing (Shortcut)]] so that milestone iterations are quicker and more accurate (no underreading or overreading codebase).
+
 ---
 
 
@@ -548,7 +558,7 @@ Yes - If you hadn’t verified a previous milestone’s implementation, it will 
 Please adjust “Where to refer to for milestones etc” because the initiating prompt allowed the AI to decide what file structure is best for the milestone/epic planning
 
 Please adjust the “Where to read code” to either:
-- “LLM_CODE_REFERENCE*.md which are high level overviews with line references. If it appears out of date, read the actual codebase.”
+- “AGENTS_CODE_REFERENCE*.md which are high level overviews with line references. If it appears out of date, read the actual codebase.”
 - Or wherever the milestones were generated
   
 Prompt:
@@ -561,7 +571,7 @@ Where to refer to for milestones etc:
 EPIC_MAP.md and IMPLEMENTATION_STORIES.md
 
 Where to read code:
-LLM_CODE_REFERENCE*.md which are high level overviews with line references
+AGENTS_CODE_REFERENCE*.md which are high level overviews with line references
 
 ### Step 1: Read Current State
 
@@ -854,7 +864,7 @@ At every finished code generation, there likely is a verification list (eg. A li
 
 ## Did the app break?
 
-If you had been managing context with LLM_CODE_REFERENCE*:
+If you had been managing context with AGENTS_CODE_REFERENCE*:
 Prompt:
 ```
 Refer to the LLM code reference and see what you broke. You're failing to fix this
