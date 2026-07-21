@@ -216,7 +216,8 @@ If you only edited `AGENTS_CODE_REFERENCE.md` (and not any `AGENTS_CODE_REFERENC
 - If so, determine whether it should be split into feature-specific `AGENTS_CODE_REFERENCE-*.md` files
 ```
 
-#### Alternative Prompt for Updating Context:
+#### Alternative Prompt for Updating Context - 
+**Say the References are Stale and to Compare its Modified Date to the Commit Dates**
 
 If you're simply updating the context, the above prompt that creates context can also update. But it's not exactly easy to memorize. If you prefer to memorize prompts, a shorter update prompt that is easy to memorize and works is:
 - Remove last line `If any chat threads are opened, you can refer to them as well.` if you dont have such chat threads opened
