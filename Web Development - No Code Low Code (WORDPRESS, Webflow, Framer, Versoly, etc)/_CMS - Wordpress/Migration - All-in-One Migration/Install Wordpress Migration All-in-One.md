@@ -17,11 +17,19 @@ cd into the wp-content/plugins/
 
 make folders ./all-in-one-wp-migration/storage and ./all-in-one-wp-migration/migration/storage
 
-run commands to recursively change permissions:
+Run commands to recursively change ownership to the site user so that wordpress has read/write permissino:
+```
+chown SITE_USER:SITE_USER -R ./wp-content
+```
+
+You might want to do that for your entire website Wordpress folder though
+
+If still doesn't work, last resort quick fix (but patch this up later):
 ```
 chmod 0777 -R ./wp-content
-chown root:root -R ./wp-content
 ```
+
+You'll want to deactivate then re-activate.
 
 ---
 

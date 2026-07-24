@@ -11,19 +11,26 @@ How to use**: Recommend you open a screen-persistent Table of Contents so you ca
 ## Setup
 ### Setup Wordpress
 
-1. **Download WordPress**: Visit the official WordPress website at https://www.wordpress.org and download the latest version of WordPress. Unzip the downloaded file on your computer.
-2. **Configure FTP**: Use an FTP client (such as FileZilla) to connect to your server using the FTP account credentials provided to you. This allows you to transfer files between your computer and the server.
-3. **Upload WordPress files**: Once connected via FTP, navigate to the root directory of your server (usually public_html or www). Upload all the files and folders from the unzipped WordPress folder to the root directory of your server.
-4. **Create a database**: Most hosting providers offer a control panel (such as cPanel or WHM) where you can create a MySQL database. Locate the database section and create a new database. Make note of the database name, username, and password, as you'll need them during the WordPress installation process. You may want to prefix the table name like (wp_site1)
-	1. You can run in SQL tab: `CREATE Database wp_site1`
-	2. You can (make sure to have your password in place of 'password')
-```
-CREATE USER 'USERNAME' IDENTIFIED BY 'password';
-```
-^ Make sure to replace username and password
+1. **Download WordPress**: Visit the official WordPress website at https://www.wordpress.org and download the latest version of WordPress (top right button "Get Wordpress"). Unzip the downloaded file on your computer.
+2. **Upload wordpress files to server**: 
+	- **OPTION A**: Use an FTP client (such as FileZilla) to connect to your server using the FTP account credentials provided to you. Then upload the files (unzipped) to a folder
+	- **OPTION B**: SCP upload the zip file to the server, then unzip using SSH:
+		- 1. ` scp ./wordpress-7.0.2.zip root@X.XX.XXX.XXX:/home/USER/htdocs/DOMAIN.com/app/APP/`
+		- 2. SSH in and go to the folder where the zip file is at and run the unzip command: `unzip wordpress-7.0.2.zip`
+		- 3. Rename the new folder to your site's folder name
+3. **If applicable: Upload WordPress files**: Once connected via FTP, navigate to the root directory of your server (usually public_html or www). Upload all the files and folders from the unzipped WordPress folder to the root directory of your server.
+4. **Create a database**: Access PhpMyAdmin (PHP sites usually have a PHPMyAdmin to help manage MySQL). Make note of the database name, username, and password, as you'll need them during the WordPress installation process. You may want to prefix the table name like (wp_site1)
+	1. You can run in SQL tab to **create database**: `CREATE Database wp_site1`
+	2. You can to create **username and password**:
+	```
+	CREATE USER 'USERNAME' IDENTIFIED BY 'password';
+	```
+	^ Make sure to replace username and password
 
+
+	3. This gives **`wp_site1` full privileges over every database and every table**:
 ```
-GRANT ALL PRIVILEGES ON *.* TO 'wp_site1' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'USERNAME' WITH GRANT OPTION;
 ```
 ^ Make sure to replace username. The % means allow from any IP address or hostname. If that doesn't serve your needs, you can secure it by replacing `%` with `localhost`
 
@@ -32,21 +39,25 @@ Flush the privileges to ensure the changes take effect immediately:
 FLUSH PRIVILEGES;
 ```
 
-Now create the database:
-```
-CREATE DATABASE wp_site1;
-```
 
+4. **Visit your Wordpress site on the web browser:**
 When prompted by the Wordpress wizard to enter your database name, username, password, etc, your database name should be like "wp_site1" even though your prefix setting is "wp_"
 
 **TWO OPTIONS**
 **OPTION 1 - Edit manually:**
-1. Configure wp-config.php: In the root directory of your server, find the file named "wp-config-sample.php" and rename it to "wp-config.php". Open the file in a text editor and enter the database information you obtained in the previous step (database name, username, and password).
+
+Configure wp-config.php: In the root directory of your server, find the file named "wp-config-sample.php" and rename it to "wp-config.php". Open the file in a text editor and enter the database information you obtained in the previous step (database name, username, and password).
 
 **OPTION 2 - Go through wizard (recommended):**
 1. Install WordPress: Open your web browser and enter the URL of your website (e.g., www.example.com/wp-admin or www.example.com/wp-multisite1/wp-admin). The WordPress installation wizard should start automatically. If it doesn't, make sure you have uploaded the files correctly or check the URL you entered. You should see this screen:
    ![[Pasted image 20260515031034.png]]
+
+->
+![[Pasted image 20260724030514.png]]
+
 2. Complete the installation: Follow the on-screen instructions to complete the WordPress installation. You'll need to provide details such as the site title, administrator username, password, and email address.
+
+![[Pasted image 20260724030659.png]]
 
 ## If setting up locally OR remotely:
 - Doesn't matter you're setting this up at a domain.com, domain.com/multisite-wp1, localhost, or 127.0.0.1

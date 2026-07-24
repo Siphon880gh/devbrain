@@ -2,7 +2,7 @@ Did you buy a new server? This guide reaches how to migrate MySQL data from old 
 
 Figure out the URL to the old server and the new server
 https://X.XX.XXX.XXX:8443/phpmyadmin/index.php
-[https://Y.YY.YYY.YYY:8443/phpmyadmin/index.php](https://5.78.200.132:8443/phpmyadmin/index.php)
+[https://Y.YY.YYY.YYY:8443/phpmyadmin/index.php](https://X.XX.XXX.XXX:8443/phpmyadmin/index.php)
 
 If can't figure it out, Cloudpanel has a way for you to access PhpMyAdmin:
 ![[Pasted image 20260510080740.png]]
