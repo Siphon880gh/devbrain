@@ -1,4 +1,6 @@
 
+Maps to [[Method 1 - Direct HTTP Fetch]] + managed rotating proxy. Catalog: [[Providers - Rotating Proxies]]. Contrast hand-off-to-provider fetch: [[Method 2 - URL Scraping API]].
+
 Normal requests:
 ```
 curl -x "http://{NORMAL_TOKEN}@smartproxy.crawlbase.com:8000" -k "URL"  

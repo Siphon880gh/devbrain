@@ -1,6 +1,8 @@
 **TLDR:** Once you start scraping large volumes of data, you’ll need to think about both **where** you’re storing all that data (e.g., a data lake or warehouse like AWS S3, Snowflake, Redshift, etc.) and **how** you’re scaling the infrastructure (e.g., AWS Auto Scaling, container orchestration, or serverless) to handle the increased load. 
 - Examples of large data are reddit comments, youtube comments, etc.
 
+**Related:** collection-method choice before you scale — [[_PRIMER - Four Ways to Scrape the Web]] · [[Pipeline - Discover, Fetch, Extract, then Summarize]] · [[Compliance - Responsible Collection]] · proxy catalog [[Providers - Rotating Proxies]]
+
 ---
 
 ### 1. Data Storage & Processing

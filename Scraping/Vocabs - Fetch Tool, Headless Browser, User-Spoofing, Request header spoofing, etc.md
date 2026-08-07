@@ -2,6 +2,9 @@
 
 A **fetch tool** is a **HTTP client** that sends requests directly to a server, similar to `curl`, Python `requests`, Axios, or `fetch()`. To a server meaning an URL with either a numeric IP or a domain address and it can be a full path like `https://example.com/something` 
 
+
+Maps to BI Method 1: [[Method 1 - Direct HTTP Fetch]]. When the target is protected/JS-heavy, escalate to [[Method 2 - URL Scraping API]] instead of only spoofing headers. Discovery (finding URLs) is a different layer: [[Vocab - Discover vs Fetch]] · [[Method 3 - AI Search]] · [[Method 4 - Google Search API (SERP)]]. Agent fetch stacks should also enforce [[Vocab - SSRF Protection (on Direct Fetch)]].
+
 ---
 
 A **headless browser** is different: it runs a real browser engine—such as Chromium—without displaying a visible window. Examples include:

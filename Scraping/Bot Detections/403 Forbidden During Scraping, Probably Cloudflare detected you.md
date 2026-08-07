@@ -2,6 +2,8 @@
 
 A **403 Forbidden** error from Cloudflare usually means your scraper triggered one of their **bot detection systems**. Unlike a server that simply checks for a valid URL, Cloudflare acts as a security gatekeeper — watching for suspicious patterns that suggest automation.
 
+**When direct fetch breaks here:** escalate from [[Method 1 - Direct HTTP Fetch]] to [[Method 2 - URL Scraping API]] (or residential [[Providers - Rotating Proxies|rotating proxies]]). Decision table: [[Decision Checklist - Which Collection Method]].
+
 ---
 
 ## 🔍 Common Scraping Triggers That Cause a 403

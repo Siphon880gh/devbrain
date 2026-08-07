@@ -1,5 +1,7 @@
 ### ✅ Why Scraping Is Usually Automation
 
+For BI agent stacks that compose discovery + fetch + LLM extract: [[Pipeline - Discover, Fetch, Extract, then Summarize]] · [[_PRIMER - Four Ways to Scrape the Web]]
+
 **1. Replaces Manual, Repetitive Work**  
 Scraping automates the process of copying data from websites—like product listings, stock prices, or job boards—eliminating the need for manual effort.
 

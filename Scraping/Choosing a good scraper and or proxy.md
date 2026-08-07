@@ -2,6 +2,8 @@
 
 When evaluating scraping tools or platforms, it’s important to weigh your technical skill, use case, and budget. Below are the key criteria and tradeoffs to consider.
 
+**Related — four collection methods for BI (discover vs fetch):** [[_PRIMER - Four Ways to Scrape the Web]] · [[Decision Checklist - Which Collection Method]] · [[Quick Reference - All APIs by Method]]
+
 ---
 
 ### **1. Pricing & Usage Limits**
@@ -42,6 +44,8 @@ When evaluating scraping tools or platforms, it’s important to weigh your tech
         
     - **Imperva Incapsula** (e.g. protects [7-eleven.com](https://7-eleven.com/) as of June 2025 – good for testing scraper stealth)
         
+
+Provider catalogs: [[Providers - Rotating Proxies]] · [[Providers - URL Scraping APIs]] · [[Providers - Google SERP APIs]] · [[Providers - AI Search APIs]]
 
 ---
 

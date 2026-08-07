@@ -2,6 +2,8 @@ Aka Get Started
 
 About: All-In-One data crawling and scraping platform for business developers.
 
+**Four-method map:** Crawlbase Crawling API ≈ [[Method 2 - URL Scraping API]] (URL-in → content-out; proxies included). Smart Proxy ≈ rotating-proxy path under [[Method 1 - Direct HTTP Fetch]] — see [[Providers - Rotating Proxies]] · [[Crawlbase Proxy API]]. Google SERP via `scraper=google-serp` is HTML/preset scraping of Google, not a dedicated SERP JSON API — contrast [[Method 4 - Google Search API (SERP)]] · [[Providers - Google SERP APIs]]. Full framework: [[_PRIMER - Four Ways to Scrape the Web]].
+
 ---
 
 **Glossary of needed knowledge / commonly referenced**

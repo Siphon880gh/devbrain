@@ -1,3 +1,5 @@
+For dedicated SERP JSON APIs (not scraping Google HTML): [[Method 4 - Google Search API (SERP)]] · [[Providers - Google SERP APIs]]
+
 You can add google search url parameters to assist in the scraping
 
 A cleaner more performant scraper from Google SERP would be to:
