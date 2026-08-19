@@ -22,7 +22,8 @@ sorting-spec: |-
   AI API Developer (2. Can leverage APIs from AI services)
   AI Engineer (3. Can train models and invent AI services)
   AI Agentic Engineer (4. Can build orchestrated autonomous agents)
-  AI Loop Engineer (5. Builds persistent, self-running agent loops)
+  AI Loop Engineer (5. Builds iterative agent workflows that drain loop until a stop condition)
+  AI Graph Prompting Engineer (6. Builds connected, multi-path reasoning networks)
   --- Cloud, Data, and Scraping
   Cloud (AWS, Azure, Google)
   Data Engineering (Data Analysis, Data Science, Business Analytics, Business Intelligence, Etc)
