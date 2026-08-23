@@ -1,14 +1,13 @@
-Before putting your website behind Cloudflare’s proxy, especially on the free Cloudflare plan, it is important to understand the limits first. This helps you avoid surprises later if your website or web app needs higher limits.
+WAIT: Are you turning off Cloudflare for an API endpoint or webhook? Read the Security Note at [[Bypass Cloudflare for public API endpoint or webhook]] so you are aware of mitigation strategies.
 
-On Cloudflare’s free plan, common limits include:
-- **100 MB upload/request size limit**
-- **120-second request timeout**
-- **5 custom rules**, such as rules for skipping bot protection on specific URL paths
+---
 
-These limits are usually fine for normal websites. However, they can become a problem for apps that need large file uploads, long-running API requests, or many custom security and caching rules.
+Let's say you need to turn off Cloudflare protection for a specific url because it's causing problems.
 
-Higher paid Cloudflare plans have higher limits, but they still have limits. Cloudflare lists the available plans here:
+For example, you want your API to be accessible, so you already implemented CORS at nginx/apache/ or flask/express. But now it's Cloudflare getting in the way. You know it is because hitting tha t API in an app like Postman shows you HTML for a Cloudflare challenge page
 
-[https://www.cloudflare.com/plans/](https://www.cloudflare.com/plans/)
+1. Add a WAF rule for URL containing wildcard: `/api/*`
+2. Choose Skip for action.
+3. Select all components to skip
 
-However, the plan page does not always explain every detailed limit, such as the exact number of custom rules included on the free plan.
+![[Pasted image 20260519055817.png]]

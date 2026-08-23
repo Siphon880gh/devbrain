@@ -1,0 +1,10 @@
+ChatGPT Work has replaced ChatGPT Agent Mode
+
+Inside ChatGPT's chat thread, you can no longer initiate or see a window into a virtual computer that's opening web browser/tabs/interacting with a webpage. The workflow is that it allows you to take over at any time to login or adjust the user interaction, or have it finish using the virtual computer to complete your goals
+
+Instead of spinning up virtual environments, which is expensive to OpenAI, they rather take control of your computer, and therefore refer to the folder for Desktop Agent rather than Cloud Browsing Agent.
+
+Effectively, ChatGPT killed off their Cloud Browsing Agent that gives you ability to see an GUI or take over.
+
+To read more about ChatGPT Work, refer to:
+[[1. What is ChatGPT Work (Superceded by ChatGPT Computer Use Plugin)]]
