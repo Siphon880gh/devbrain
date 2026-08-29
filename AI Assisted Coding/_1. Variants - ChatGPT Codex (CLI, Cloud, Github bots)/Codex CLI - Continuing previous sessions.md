@@ -1,5 +1,17 @@
 
-## Finding Session ID
+## Resume last session
+
+Just run:
+```
+codex resume --last
+```
+
+
+---
+
+## Resume some session in the past
+
+### Finding Session ID
 
 At the end of some response may be something like this:
 ```
@@ -14,7 +26,7 @@ However if you had already closed the chat, you can view a list of previous sess
 codex resume
 ```
 
-## Resuming from Session ID
+### Resuming from Session ID
 
 You run something like:
 ```
@@ -22,7 +34,8 @@ codex resume 01a0311b-35f5-7b23-8c93-c8c63de19273
 ```
 
 
-## Do not resume multiple tabs
+---
+## Tip - Do not resume multiple tabs
 
 If you have the session opened on one tab, it'll fail on the new tab on resuming:
 ```

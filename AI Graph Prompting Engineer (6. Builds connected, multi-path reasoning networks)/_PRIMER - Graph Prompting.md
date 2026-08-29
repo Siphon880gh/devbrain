@@ -9,9 +9,7 @@ The progression looks like this:
 **Prompt → Loop → Graph**
 
 - **Prompts** tell the model what to do.
-    
 - **Loops** let the model repeat, evaluate, and continue.
-    
 - **Graphs** let the system branch, connect, revisit earlier work, and dynamically choose the next path.
     
 
