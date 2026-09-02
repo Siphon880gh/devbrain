@@ -16,3 +16,13 @@ Continue draining the loop
 
 This loop prompt has been implementing feature after feature for 1 hour 40 minutes so far:
 ![[Pasted image 20260902080736.png]]
+
+---
+
+Example file structure when you use prompts against milestones and epics:
+![[Pasted image 20260902160513.png]]
+
+---
+
+You can still generate other loop prompt md files that are not related to building the entire app. For example, this is for enriching different sections of the app with more content, placed in a separate LOOPS folder rather than placed at the root:
+![[Pasted image 20260902160853.png]]
