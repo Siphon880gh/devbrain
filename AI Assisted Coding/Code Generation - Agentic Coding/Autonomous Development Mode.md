@@ -6,3 +6,13 @@ Then activate the loop and "drain it" which means go all the way to the end of t
 ```
 /prompt Run LOOP.md exactly. Drain the loop to the end.
 ```
+
+If your computer crashed, you can return to the chat thread and prompt:
+```
+Continue draining the loop
+```
+
+---
+
+This loop prompt has been implementing feature after feature for 1 hour 40 minutes so far:
+![[Pasted image 20260902080736.png]]
