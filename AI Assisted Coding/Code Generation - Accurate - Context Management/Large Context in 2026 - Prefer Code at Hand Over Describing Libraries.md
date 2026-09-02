@@ -32,7 +32,7 @@ When the model has **code at hand**:
 
 - **Your app repo** — IDE agents (e.g. Cursor) index the workspace and expose read/search tools.
 - **Third-party dependencies** — Tools like [opensrc](https://github.com/vercel-labs/opensrc) clone npm/PyPI/crates sources into a cache so agents can `rg` and `cat` real implementations.
-- **How new features are shaped in your repo** — The [code-structure](https://github.com/michaelshimeles/skills/tree/main/code-structure) skill pushes a **service layer** so the AI does not recreate the same helpers and stays clear when adding features → [[Service Layer - code-structure Skill (Michael Shimeles)]]
+- **How new features are shaped in your repo** — The [code-structure](https://github.com/michaelshimeles/skills/tree/main/code-structure) skill pushes a **service layer** so the AI does not recreate the same helpers and stays clear when adding features → [[Add Service Layer - Prevent duplicate or conflicting implementation]]
 
 See [[Giving More Code Access to AI - Cursor, opensrc, and bash-tool]] for Cursor, opensrc, and bash-tool.
 

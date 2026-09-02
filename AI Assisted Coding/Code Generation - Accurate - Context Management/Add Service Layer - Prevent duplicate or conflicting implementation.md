@@ -21,10 +21,10 @@ That makes the repo harder for the **next** prompt: the model greps, sees three 
 
 ## What the skill enforces: actions + service layer
 
-| Layer | Role | AI should put here |
-| --- | --- | --- |
-| **Actions** (or routes/handlers) | Domain orchestration — auth, policy, status transitions, *when* something runs | Business rules for *this* feature |
-| **Service layer** | Shared **operational mechanics** — SDK calls, retries, sandbox creation, parsing | Anything **2+ features** need the same way |
+| Layer                            | Role                                                                             | AI should put here                         |
+| -------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------ |
+| **Actions** (or routes/handlers) | Domain orchestration — auth, policy, status transitions, *when* something runs   | Business rules for *this* feature          |
+| **Service layer**                | Shared **operational mechanics** — SDK calls, retries, sandbox creation, parsing | Anything **2+ features** need the same way |
 
 **One sentence from the skill:** Actions orchestrate domain rules; the service layer centralizes reusable operational mechanics.
 

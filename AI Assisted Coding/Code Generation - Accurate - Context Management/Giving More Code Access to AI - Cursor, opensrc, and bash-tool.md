@@ -116,7 +116,7 @@ Public skill index: https://skills.sh/
 
 ## Related
 
-- [[Service Layer - code-structure Skill (Michael Shimeles)]]
+- [[Add Service Layer - Prevent duplicate or conflicting implementation]]
 - [[Large Context in 2026 - Prefer Code at Hand Over Describing Libraries]]
 - [[Greptile Code Review and greploop]]
 - [[File Architecture for SKILL.md]]

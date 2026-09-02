@@ -135,5 +135,5 @@ flowchart TD
 
 - [[Large Context in 2026 - Prefer Code at Hand Over Describing Libraries]]
 - [[Giving More Code Access to AI - Cursor, opensrc, and bash-tool]]
-- [[Service Layer - code-structure Skill (Michael Shimeles)]]
+- [[Add Service Layer - Prevent duplicate or conflicting implementation]]
 - [[_PRIMER - Accurate Code Generation Context Management (Shortcut)]]

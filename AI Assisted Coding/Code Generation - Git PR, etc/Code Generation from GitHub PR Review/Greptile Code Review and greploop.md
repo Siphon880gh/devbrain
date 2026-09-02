@@ -110,7 +110,7 @@ Use **greploop** when the goal is explicitly **Greptile score convergence**; use
 
 ## Pairing with “code at hand” workflows
 
-Greptile reviews **diffs** against your repo patterns. Your local agent (Cursor, Claude Code + greploop) still benefits from [[Large Context in 2026 - Prefer Code at Hand Over Describing Libraries]], [[Giving More Code Access to AI - Cursor, opensrc, and bash-tool]], and [[Service Layer - code-structure Skill (Michael Shimeles)]] when *implementing* fixes—especially when comments point at library misuse, duplicated helpers, or missing edge cases.
+Greptile reviews **diffs** against your repo patterns. Your local agent (Cursor, Claude Code + greploop) still benefits from [[Large Context in 2026 - Prefer Code at Hand Over Describing Libraries]], [[Giving More Code Access to AI - Cursor, opensrc, and bash-tool]], and [[Add Service Layer - Prevent duplicate or conflicting implementation]] when *implementing* fixes—especially when comments point at library misuse, duplicated helpers, or missing edge cases.
 
 ---
 
