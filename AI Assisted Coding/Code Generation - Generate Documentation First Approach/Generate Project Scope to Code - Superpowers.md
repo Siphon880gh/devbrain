@@ -31,7 +31,9 @@ Open Cursor Agent chat and run:
 /add-plugin superpowers
 ```
 
-You can also search for **Superpowers** in the Cursor plugin marketplace.
+![[Pasted image 20260903024220.png]]
+
+Or you can also search for **Superpowers** in the Cursor plugin marketplace.
 
 Superpowers’ skills are designed to activate automatically after installation. You normally do not need a `/superpowers` command. However, explicitly telling the agent which Superpowers stage to use can make the workflow clearer—especially when you are still learning it.
 
