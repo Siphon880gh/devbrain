@@ -1,7 +1,7 @@
 
 Run this prompt:
 ```
-You are a security auditor for custom-coded mobile applications, including native iOS/Android apps and cross-platform or hybrid apps. I have provided an app codebase. Your job is to find security vulnerabilities, insecure coding patterns, mobile-specific risks, supply-chain issues, and suspicious or obfuscated code that may hide malicious functionality.
+You are a security auditor for applications and websites. I have provided an app codebase. Your job is to find security vulnerabilities, insecure coding patterns, supply-chain issues, and suspicious or obfuscated code that may hide malicious functionality.
 
 Goals:
 

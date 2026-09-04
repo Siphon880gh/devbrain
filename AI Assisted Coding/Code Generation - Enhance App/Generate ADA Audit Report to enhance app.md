@@ -2,7 +2,7 @@ Note this assumes you are at **your codebase**. If you need to critique a **comp
 
 ---
 
-**Addy Osmani’s `accessibility` skill**: It has much stronger developer adoption than the alternatives—about 2.7k GitHub stars and 249 forks—and covers WCAG 2.2, ARIA, semantic HTML, color contrast, keyboard navigation, focus management, forms, screen readers, and Lighthouse/axe testing. It is unofficial, but measurement-focused rather than merely a checklist. [View the skill](https://github.com/addyosmani/web-quality-skills/tree/main/skills/accessibility)
+**Addy Osmani’s `accessibility` skill**: It has strong developer adoption than the alternatives—about 2.7k GitHub stars and 249 forks—and covers WCAG 2.2, ARIA, semantic HTML, color contrast, keyboard navigation, focus management, forms, screen readers, and Lighthouse/axe testing. It is unofficial, but measurement-focused rather than merely a checklist. [View the skill](https://github.com/addyosmani/web-quality-skills/tree/main/skills/accessibility)
 
 There is no convincing Reddit consensus around one accessibility skill; most Reddit results were creators promoting their own. This one has the strongest broader developer adoption.
 
