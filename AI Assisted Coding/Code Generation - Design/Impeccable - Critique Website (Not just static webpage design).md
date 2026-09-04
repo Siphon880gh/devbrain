@@ -1,3 +1,8 @@
+Note this assumes you are at **your codebase**. If you need to critique a **competitor's website** or for some reason you don't have the codebase on you, you can provide the URL to the website - just make sure you're on a powerful enough harness that can browse the internet, eg. Cursor, and that at the prompt that you mention the URL, eg. `Run the Impeccable Critique skill on the website (https://domain.com) and save...`
+
+---
+
+
 Prompt:
 ```
 Run the Impeccable Critique skill on the website and save the complete report as `Design-Critique-by-Impeccable.md`.
@@ -116,4 +121,13 @@ For every issue in both sections, include:
 Conclude each section with prioritized recommendations, separating quick wins from larger design improvements. Prioritize findings according to user impact and implementation effort.
 
 Do not modify the website during the critique unless explicitly instructed.
+```
+
+---
+
+Note if the report is hard to read because of short phrases, having to read inbetween the lines, etc, the AI may have written it for AI. Just prompt subsequently to make it easier to read for humans.
+
+Prompt:
+```
+This report seems difficult to comprehend. Rewrite it for a human reader, preferably at 8th grade reader level where you can, without dropping important vocabulary.
 ```

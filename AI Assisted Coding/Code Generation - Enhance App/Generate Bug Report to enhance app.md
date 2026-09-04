@@ -1,4 +1,8 @@
-# Human-Led and Agentic Bug Testing in Cursor AI
+Note this assumes you are at **your codebase**. If you need to critique a **competitor's website** or for some reason you don't have the codebase on you, you can provide the URL to the website - just make sure you're on a powerful enough harness that can browse the internet, eg. Cursor, and that at the prompt you will **precede** with a message what the url is, eg. `For this report, the website we are focusing on is: https://domain.com.`
+
+---
+
+## Human-Led and Agentic Bug Testing in Cursor AI
 
 The community-maintained [`petrkindlmann/qa-skills`](https://github.com/petrkindlmann/qa-skills) repository provides two complementary approaches to finding bugs:
 
@@ -9,39 +13,25 @@ The community-maintained [`petrkindlmann/qa-skills`](https://github.com/petrkind
 
 These skills belong to the same repository, but they assign different responsibilities to the human and the AI.
 
-## Option 1: Human-Led Exploratory Testing
+### Option 1: Human-Led Exploratory Testing
 
 The `exploratory-testing` skill supports structured human testing through Session-Based Test Management, test charters, heuristics, timestamped notes, and debriefs.
 
 The human tester remains responsible for:
-
 - choosing which risks deserve investigation
-    
 - operating the application
-    
 - following unexpected leads
-    
 - deciding whether observed behavior is actually a bug
-    
 - evaluating confusing, frustrating, or inconsistent experiences
-    
 - recording specific contextual details
-    
 
 Cursor assists by:
-
 - identifying potential risk areas
-    
 - helping create focused testing charters
-    
 - suggesting boundaries, state transitions, and failure scenarios
-    
 - organizing observations and evidence
-    
 - reviewing bug reports for clarity
-    
 - identifying coverage gaps during the debrief
-    
 
 Install the human-led testing skill:
 
@@ -51,7 +41,7 @@ npx skills@latest add petrkindlmann/qa-skills \
   --agent cursor
 ```
 
-### Human-Tester Prompt
+#### Human-Tester Prompt
 
 ```text
 Use the exploratory-testing skill.
@@ -136,7 +126,7 @@ Create or update `Bug-Testing-Report.md`, but preserve the specific facts and
 context from my testing rather than replacing them with generic AI wording.
 ```
 
-## Option 2: Autonomous Agentic Testing
+### Option 2: Autonomous Agentic Testing
 
 The `agentic-browser-testing` skill is the automated counterpart. Cursor receives a natural-language testing goal, operates the application, verifies observable outcomes, and gathers evidence.
 
@@ -159,13 +149,12 @@ npx skills@latest add petrkindlmann/qa-skills \
 
 Cursor’s [native Browser](https://cursor.com/docs/agent/tools/browser) can navigate applications, interact with controls, capture screenshots, read console output, and inspect network traffic. Therefore, Playwright CLI is not required for an initial autonomous bug hunt.
 
-### Agentic-Tester Prompt
+#### Agentic-Tester Prompt
 
 ```text
 @browser Use the agentic-browser-testing skill and Cursor’s native Browser.
 
-Perform a systematic, source-code-read-only bug-testing session on [TARGET URL].
-Do not modify or fix application code during testing.
+Perform a systematic, source-code-read-only bug-testing session. If you're testing against local website, do not modify or fix application code during testing.
 
 This is a functional and responsive bug test—not an ADA, WCAG, ARIA,
 or general accessibility audit. Do not report accessibility-only findings
@@ -316,19 +305,12 @@ Do not fix bugs or create regression tests until I approve the report.
 Once either the human tester or agentic tester discovers a bug, the repository’s [`bug-reproduction`](https://github.com/petrkindlmann/qa-skills/blob/main/skills/bug-reproduction/SKILL.md) skill can help:
 
 - reproduce the failure consistently
-    
 - determine the minimum required conditions
-    
 - remove irrelevant reproduction steps
-    
 - isolate the likely component or integration
-    
 - collect deterministic evidence
-    
 - create a failing automated regression test
-    
 - verify that the test fails before any fix is applied
-    
 
 Install it separately:
 
@@ -358,26 +340,16 @@ Do not weaken the test or change the expected result to make it pass.
 
 ## When Playwright CLI Is Still Useful
 
-Microsoft’s official [`playwright-cli`](https://github.com/microsoft/playwright-cli) remains useful when you need:
-
+Microsoft’s official [`playwright-cli`](https://github.com/microsoft/playwright-cli) remains useful when you need
 - Playwright traces
-    
 - repeatable scripted regression tests
-    
 - explicit Chromium, Firefox, or WebKit execution
-    
 - named device emulation
-    
 - isolated browser sessions
-    
 - CI integration
-    
 - automated test generation
-    
 - persistent authentication state
-    
 - request interception or controlled failure simulation
-    
 
 Install it with:
 
@@ -386,17 +358,20 @@ npm install -g @playwright/cli@latest
 playwright-cli install --skills
 ```
 
-For an initial Cursor bug hunt, however, the simpler arrangement is usually sufficient:
-
+For an initial Cursor bug hunt, however, the simpler arrangement is usually sufficient
 - Use `exploratory-testing` when a human will operate the application.
-    
 - Use `agentic-browser-testing` when Cursor will operate it autonomously.
-    
 - Use Cursor’s native Browser as the browser driver.
-    
 - Add `bug-reproduction` after discovering a specific defect.
-    
 - Add Playwright CLI when the findings need to become traces, scripted tests, or CI regression coverage.
-    
 
 Anthropic’s [`webapp-testing`](https://github.com/anthropics/skills/tree/main/skills/webapp-testing) is another official skill option, but it primarily instructs the agent to test local applications by writing Python Playwright scripts. It is better suited to scripted local verification than to human-led exploratory testing or autonomous unknown-bug discovery.
+
+---
+
+Note if the report is hard to read because of short phrases, having to read inbetween the lines, etc, the AI may have written it for AI. Just prompt subsequently to make it easier to read for humans.
+
+Prompt:
+```
+This report seems difficult to comprehend. Rewrite it for a human reader, preferably at 8th grade reader level where you can, without dropping important vocabulary.
+```

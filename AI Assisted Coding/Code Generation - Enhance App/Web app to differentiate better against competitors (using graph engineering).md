@@ -1,3 +1,5 @@
+Aka: Market Research graph prompt
+
 After generating the project stakeholder orientation document per [[Generate Orientation Document for Stakeholder]], we can create a graph prompt that will perform sophisticated market research to help us fine tune our app to be more competitive in the market (eg. researched competitors).
 
 Firstly, at Cursor AI where your codebase and the project stakeholder orientation document is, run this prompt to meta generate a graph prompt for market research:
@@ -170,3 +172,6 @@ Then switching to a platform that can perform online research, eg. ChatGPT-5.6 S
 
 AI's thinking process:
 ![[Pasted image 20260904053340.png]]
+
+AI when it's done:
+![[Pasted image 20260904085341.png]]
