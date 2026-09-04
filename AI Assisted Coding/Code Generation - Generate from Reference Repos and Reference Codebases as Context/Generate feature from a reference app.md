@@ -5,7 +5,6 @@ Prompt:
 Inside `context/` is an app containing a feature I’d like to add to our app.
 
 The feature is:
-
 [Describe the feature here.]
 
 Review how the feature is implemented in the context app, then adapt and implement it in our app. If differences in architecture, behavior, or user interface require a decision, ask me a clarifying question before proceeding.
