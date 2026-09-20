@@ -1,5 +1,5 @@
 Summarized from [“Prototyping for Agent-First Apps”](https://dev.to/fl4tlin3/prototyping-for-agent-first-apps-54j7).
-Note their definition of Agent-First is completely different from [[Agent-First Apps - Two Modes of Use]], so I am renaming it to Agent Driven Development, which aligns with TDD and BDD industry practices.
+Note their definition of Agent-First is completely different from [[_PRIMER - Agent-First Apps - Two Modes of Use]], so I am renaming it to Agent Driven Development, which aligns with TDD and BDD industry practices.
 
 ---
 
