@@ -1,0 +1,1 @@
+As of September 2026, these terms are still emerging and evolving, and the vocabulary may shift as the frameworks mature. I am publishing articles as new frameworks appear.

@@ -1,0 +1,3 @@
+Web accessibility compliance means following standards that make a business’s website more accessible to people with disabilities. Some companies do this out of a commitment to inclusion, while others are primarily motivated by reducing legal risks, including individual lawsuits and coordinated legal action.
+
+I've moved the notes to my business notes at https://biznotes.wengindustries.com/ under the folder `Legal and Compliance - ADA, Contracts, Compliance Certifications, Security`.
