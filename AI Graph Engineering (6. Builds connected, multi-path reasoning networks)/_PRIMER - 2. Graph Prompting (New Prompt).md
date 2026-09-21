@@ -10,3 +10,17 @@ As of August 2026, you don’t need to explain how to structure graph or loop pr
 
 2. **Execution prompt:**
    Run the workflow defined in `loops/` until every Epic and Milestone is complete or a pause condition is reached. Resume from the JSON state file so completed work is not repeated.
+
+^ Note it could have been "drain the epics and milestones" or "drain the loops" instead of "... until every Epic and Milestones is complete". The prompt here is just more explicit about what we're doing.
+
+---
+
+
+**Cloud Codex?**
+
+If using Cloud Codex to drain, it may be missing the browser engine to perform auto verification. Hence it will stop. 
+![[Pasted image 20260920233553.png]]
+
+If you had already ran the Cloud Codex, and it has stopped part way, this is your pivot plan.
+
+It has already made a commit before the browser engine fail. You can create PR, merge the PR, git pull origin main into a local copy, then use a harness on your computer (eg. Cursor) to resume the rest of the drain.
