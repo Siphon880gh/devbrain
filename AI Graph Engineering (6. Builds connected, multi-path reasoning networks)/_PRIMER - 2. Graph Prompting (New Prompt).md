@@ -24,3 +24,5 @@ If using Cloud Codex to drain, it may be missing the browser engine to perform a
 If you had already ran the Cloud Codex, and it has stopped part way, this is your pivot plan.
 
 It has already made a commit before the browser engine fail. You can create PR, merge the PR, git pull origin main into a local copy, then use a harness on your computer (eg. Cursor) to resume the rest of the drain.
+
+Codex CLI can access the Chrome engine through your computer but it will ask for permission.
