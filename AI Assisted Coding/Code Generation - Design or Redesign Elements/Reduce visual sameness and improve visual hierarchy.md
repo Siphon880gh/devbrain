@@ -1,34 +1,40 @@
 
 Prompt:
 ```
-Reduce the visual sameness and improve visual hierarchy. In other words, increase visual hierarchy and reduce competing visual weight
+Improve the visual hierarchy without removing the existing color, highlights, depth, wells, pits, cards, shadows, borders, or other visual affordances.
 
-Right now, too many elements have similar visual weight, causing the colors, text, cards, and sections to blur together. Redesign the interface so the eye can quickly distinguish what is primary, secondary, and supporting information.
+The problem is not that the interface has too much styling. The problem is that too many neighboring elements currently have similar visual dominance, so they begin to blend together.
 
-Specifically:
+Preserve the existing visual richness and design language. Do not flatten or neutralize the interface.
 
-- Create stronger hierarchy between headings, body text, metadata, labels, actions, and supporting content.
+Instead:
+
+- Keep the existing colors and highlighting, but redistribute their visual emphasis so adjacent elements do not all compete equally.
     
-- Reduce the number of elements competing for attention at the same time.
+- Preserve pits, wells, inset areas, raised surfaces, cards, shadows, borders, gradients, and depth cues where they help communicate structure.
     
-- Use color more selectively. Reserve stronger/accent colors for important actions, status, or focal content rather than applying similar saturation everywhere.
+- Keep important accent colors rather than converting the interface to mostly neutral or monochrome colors.
     
-- Introduce more contrast between sections through spacing, scale, typography, background treatment, borders, or layout — not just additional colors.
+- Create stronger contrast between neighboring sections by varying depth, background tone, spacing, typography, saturation, and scale.
     
-- Vary typography intentionally: clear differences in size, weight, line height, and emphasis.
+- Use different levels of visual prominence rather than removing visual treatments.
     
-- Increase whitespace around major content groups so sections read as distinct units.
+- Maintain clear highlighted states, selected states, active states, badges, and important status colors.
     
-- Group related information visually and separate unrelated information more clearly.
+- Allow some regions to be visually rich and prominent while making nearby supporting information quieter.
     
-- Avoid making every card, button, heading, badge, and text block equally prominent.
+- Break up large areas where the same color, surface treatment, text weight, or card style repeats continuously.
     
-- Reduce repetitive visual treatments when many adjacent elements use the same card/background/border pattern.
+- Give major sections distinct visual identities while keeping them part of the same design system.
     
-- Establish one dominant focal point per section, with everything else visually supporting it.
+- Use whitespace and grouping to separate information without stripping away color or dimensionality.
     
-- Preserve consistency, but avoid uniformity. Repetition should create structure without making the entire page feel visually flat.
+- Preserve strong focal elements and decorative character.
+    
+- Avoid a flat, minimalist, washed-out, grayscale, or overly neutral redesign.
     
 
-The finished design should be easier to scan at a glance, with a clear visual path through the page and fewer areas where text and colors visually merge together.
+Think of the goal as **controlled visual contrast**: keep the richness, color, highlights, and dimensional surfaces, but orchestrate them so the eye can immediately tell which areas are primary, secondary, interactive, selected, recessed, or supporting.
+
+The result should feel layered, colorful, dimensional, and visually interesting — but easier to scan because neighboring elements no longer have equal visual weight.
 ```
