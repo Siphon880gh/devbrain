@@ -5,3 +5,5 @@ One common workflow is to copy a subset of data from the app and paste it into t
 > Look in `requests.json` for any pending AI requests and complete them.
 
 In this model, the app serves mainly as the presentation and interaction layer, while the AI harness performs the more complex work behind the scenes.
+
+The codebase can also include local skills—for example, in `.agents/skills/*`—that teach the coding agent how to carry out project-specific, repeatable workflows. A useful class of skill standardizes the loop of changing or enriching codebase data and then making the result visible in the rendered app. This gives the person directing the AI a consistent way to ask it to complete work and immediately review the outcome in the app, rather than relying on remembering how to respond to the data in the rendered app.
