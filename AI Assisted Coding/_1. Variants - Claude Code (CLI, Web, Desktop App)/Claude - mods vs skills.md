@@ -1,0 +1,1 @@
+Skills are best for reusable knowledge/workflows; mods are useful when you need to intercept or change Claude Code itself or add UI. [Claude](https://code.claude.com/docs/id/features-overview?utm_source=chatgpt.com)
