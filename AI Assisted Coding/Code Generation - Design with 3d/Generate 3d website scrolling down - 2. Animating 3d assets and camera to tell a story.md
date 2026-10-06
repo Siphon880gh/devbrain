@@ -1,4 +1,4 @@
-**Goal:** Tell a story with 3d camera movements and 3d scroll controlled 3d assets. Is it not as tamed and corporate presentable as [[Generate 3d website scrolling down - 2. Existing sections that engage user with scroll revealed animations and 3d scroll controlled elements, seamless with easing]]
+**Goal:** Tell a story with 3d camera movements and 3d scroll controlled 3d assets. It is not as tamed and corporate presentable as [[Generate 3d website scrolling down - 2. Existing sections that engage user with scroll revealed animations and 3d scroll controlled elements, seamless with easing]]
 
 ---
 
