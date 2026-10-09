@@ -1,0 +1,1 @@
+This has been moved to my biz notes at https://biznotes.wengindustries.com. Open `Enterprise - Bootstrapping`. It will be a mix of non-code and code. I've got to put it somewhere instead of splitting it between two notebooks.
