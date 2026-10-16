@@ -1,4 +1,4 @@
-Google Notebook can look at your Youtube video and then generate a table of contents with timemarks
+Google Notebook can **natively** look at your Youtube video and then generate a table of contents with timemarks
 
 Free
 [https://notebooklm.google.com/](https://notebooklm.google.com/)

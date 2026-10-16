@@ -5,7 +5,7 @@ Prompt:
 ```
 Plan on how to break these commits apart into several smaller commits as if we developed the code organically over time.
 
-Make sure to tell space out the git commit time. 
+Make sure to space out the git commit times. 
 
 Then make those git commits
 ```
