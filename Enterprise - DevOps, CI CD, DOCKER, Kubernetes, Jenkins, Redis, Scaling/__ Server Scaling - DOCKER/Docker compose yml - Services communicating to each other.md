@@ -19,6 +19,8 @@ services:
 
 ```
 
+`depends_on` only starts `db` first. It does not wait until Postgres is accepting connections. See [[Docker compose yml - depends_on does not wait for healthy]].
+
 The multiple independent containers you can see with `docker ps` are "app" and "db"
 
 As multiple independent containers, they are connected to the same network:
