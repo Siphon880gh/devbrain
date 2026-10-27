@@ -35,3 +35,11 @@ Systems design, data structures, algorithms, design patterns, clean code, and lo
 
 ### Platforms and tools
 Git / GitHub / GitLab. Chrome extensions. React Native. iOS and Android. Windows software. Developer tools (VS Code, Vim, Chrome DevTools, Postman). Scraping libraries and APIs. Plugin and software-suite development (including HubSpot and Notion APIs).
+
+## Deploying updates
+
+From this folder:
+
+- `npm run deploy` — current default. It points at `deploy:hard` so the default can be switched later in `package.json`.
+- `npm run deploy:hard` — commit, force-push `main`, then refresh the live site. Local is treated as the source of truth.
+- `npm run deploy:cloud-safe` — same flow with a normal push. Use this when GitHub or another machine may have commits this clone should not overwrite.
