@@ -127,3 +127,5 @@ CREATE TABLE users (
 For users preferring a graphical interface, **pgAdmin** is a popular option across Linux, macOS, and Windows. It provides an intuitive interface for creating databases, tables, running queries, and managing settings.
 
 Refer to [[PostgreSQL pgAdmin (GUI)]]
+
+For backups of real databases, dump with `pg_dump -Fc` and restore with `pg_restore` — not a plain `.sql` file. See [[PostgreSQL - Custom-format dump and restore]].
