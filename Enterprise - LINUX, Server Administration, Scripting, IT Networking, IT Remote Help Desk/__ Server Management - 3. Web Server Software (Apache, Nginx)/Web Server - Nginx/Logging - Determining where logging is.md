@@ -4,6 +4,8 @@ Logs help determine whether there are suspicious activity or bugs.
 tail -f /var/log/nginx/access.log /var/log/nginx/error.log
 ```
 
+For systemd service events (start, reload, crash), follow the unit instead: [[journalctl - Follow a unit with -u (nginx example)]].
+
 Your system's location might vary.
 
 #### If logs are empty  

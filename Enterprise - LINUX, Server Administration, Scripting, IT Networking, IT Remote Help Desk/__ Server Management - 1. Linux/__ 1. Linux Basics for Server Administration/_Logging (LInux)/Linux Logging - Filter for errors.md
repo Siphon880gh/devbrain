@@ -181,3 +181,5 @@ grep -Ei -C 5 "error|fail|denied" /var/log/your-service.log
     
 
 👉 You’re not reading logs—you’re **querying them for failures**.
+
+For systemd units (Nginx, SSH, Fail2Ban), follow the journal with `journalctl -u SERVICE -f`: [[journalctl - Follow a unit with -u (nginx example)]].
