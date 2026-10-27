@@ -222,6 +222,8 @@ sudo nginx -t
 sudo nginx -s reload
 ```
 
+For `nginx -t` vs reload vs a full restart (restart drops connections), see [[Nginx - Compare nginx -t with reload and restart]].
+
 ---
 
 ## Summary
