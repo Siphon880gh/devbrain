@@ -18,3 +18,5 @@ project_doc_fallback_filenames = ["AGENT.md", "CLAUDE.md"]
 `developer_instructions` is an optional extra string injected into the session. That is local config, not a portable repo file.
 
 For portable cross-platform rules, keep them in `AGENTS.md`. See [[Use AGENTS.md for Consistent AI Platform Handoffs]]. `/init` can create or update project instructions. See [[Codex CLI - In-session slash commands]].
+
+For personal guidance that should apply in every repo, use a global `~/.codex/AGENTS.md`. See [[Codex CLI - Global AGENTS.md]].

@@ -1,5 +1,7 @@
 Keep repository-wide AI instructions in an `AGENTS.md` file at the project root when handing a codebase between AI platforms, harnesses, IDEs, or command-line agents.
 
+For Codex CLI personal guidance that should apply in every repo, use a global `~/.codex/AGENTS.md` instead of repeating the instruction. See [[Codex CLI - Global AGENTS.md]].
+
 An AI platform's chat history and personal settings usually do not transfer to another platform. `AGENTS.md` travels with the repository, so a receiving AI can follow the same operating rules without depending on the previous conversation or a vendor-specific configuration screen.
 
 This keeps work consistent because each supporting AI receives the same instructions about:
