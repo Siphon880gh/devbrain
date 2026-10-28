@@ -159,6 +159,8 @@ Then add a line like:
 
 This checks daily at 3 AM and reloads NGINX if renewal occurs.
 
+On Debian/Ubuntu, also check whether the systemd timer is installed: [[Certbot CLI (Nginx Plugin) - Issue cert and check renewal timers]].
+
 ---
 
 ### ACME / Let’s Encrypt Certificate Limits

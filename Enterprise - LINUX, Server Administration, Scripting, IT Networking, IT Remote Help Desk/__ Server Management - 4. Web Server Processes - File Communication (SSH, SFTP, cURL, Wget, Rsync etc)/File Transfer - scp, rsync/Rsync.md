@@ -18,3 +18,5 @@ This command will synchronize the `myimage.img` file from your local machine to 
 
 **Summary:**
 **`rsync`** is more versatile, particularly useful for large files or repeated transfers, as it can resume interrupted transfers and only update parts of files that have changed.
+
+Deploying a built `dist/` folder with `--delete`: dry-run (`-n`) first. See [[Rsync - Deploy dist to host (dry-run first)]].
