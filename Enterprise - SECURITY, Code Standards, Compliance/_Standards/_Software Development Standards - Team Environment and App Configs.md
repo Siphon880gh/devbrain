@@ -184,3 +184,13 @@ console.log(config);
 ```
 
 This adds flexibility while keeping your config format consistent and readable.
+
+---
+
+### 🔐 Environment credential separation and rotation
+
+- Use separate secrets and service accounts for development, staging, and production. Do not reuse a production credential locally or in test fixtures.
+- Give each workload only the permissions it needs. A deployment job, web server, background worker, and developer should not automatically share an administrator credential.
+- Prefer a managed secret store in production, with access control and audit logs, instead of placing long-lived secrets in files.
+- Document the owner, purpose, scope, expiry, and rotation procedure for every production secret. Practice revocation and replacement so a suspected leak can be handled quickly.
+- Run secret scanning in CI and before commits. If a real secret enters version control, revoke or rotate it immediately; deleting it from the current file alone is not sufficient.

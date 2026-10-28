@@ -189,3 +189,19 @@ https://github.com/Siphon880gh/error-logger
 ### Key Point
 
 ✅ A strong logging and error handling system protects your users, simplifies debugging, and hardens your application.
+
+---
+
+### 🔐 Structured logging, redaction, and log-injection safety
+
+Use a structured format such as JSON and fixed message templates with separate fields for untrusted values. Escape or encode untrusted values for the selected log format, limit their length, and do not concatenate them into a log message; otherwise, newlines or control characters can forge or corrupt log entries.
+
+At minimum, record authentication and authorization failures, input-validation failures, sensitive administrative actions, configuration changes, and unexpected errors. Choose alert thresholds based on repetition, severity, and context so real incidents are not hidden by alert noise.
+
+#### Never log
+
+- Passwords, API keys, private keys, session IDs, access/refresh tokens, or cookies
+- `Authorization` headers, full connection strings, or cryptographic material
+- Full request/response bodies containing personal, financial, health, or otherwise sensitive data
+
+Redact these values before they reach application logs, error trackers, traces, crash reports, or support exports.

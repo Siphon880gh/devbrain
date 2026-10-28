@@ -43,4 +43,21 @@ Routine auditing and proactive key rotation can help mitigate risks and ensure c
 
 ---
 
-Kubernetes supports rotating API keys and secrets as a security best practice. Rotating keys involves replacing old keys with new ones periodically to ensure data security. 
+Kubernetes supports rotating API keys and secrets as a security best practice. Rotating keys involves replacing old keys with new ones periodically to ensure data security.
+
+---
+
+## 7. Use least privilege and separate credentials
+
+Use a different credential for each person, workload, service, environment, and integration where practical. Grant only the permissions needed for the task; do not give a client, CI job, or background worker an administrator-level key by default.
+
+Separate development, staging, and production credentials so an incident in one environment cannot automatically expose another. Record the owner, purpose, permitted scope, and expiry/rotation procedure for each production credential.
+
+---
+
+## 8. Detect leaks and keep secrets out of logs
+
+- Run secret scanning in local hooks and CI to catch accidental commits before release.
+- Treat a committed secret as exposed: revoke or rotate it rather than only deleting it from the latest file revision.
+- Never write API keys, passwords, session tokens, private keys, connection strings, or `Authorization` headers to logs, error reports, screenshots, or support tickets.
+- Redact sensitive fields before sending diagnostic data to third-party monitoring tools.

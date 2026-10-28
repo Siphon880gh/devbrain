@@ -426,3 +426,23 @@ And when talking about “shape,” the clearest meaning is:
 > the structure of the payload after parsing, including required fields, nesting, and expected value types
 
 If you want, I can turn this into a more polished internal engineering article with headings like “Problem,” “Old Behavior,” “New Behavior,” and “Why the Change Improves Reliability.”
+
+---
+
+## Additional request hardening
+
+### Apply limits before parsing
+
+Schema validation happens after parsing, so it cannot protect a server from an excessively large or deeply nested payload. Set appropriate request-body, file-upload, nesting-depth, array-length, and processing-time limits before or during parsing.
+
+### Authorize separately from validation
+
+A payload can be valid and signed yet still be forbidden for the caller. After parsing, schema validation, and authentication, verify that the authenticated actor may perform the requested action on the specific resource. Never rely on a client-supplied user ID, role, tenant ID, or object ID as proof of permission.
+
+### Encode output for its destination
+
+Input validation does not make a value safe to render. Encode output for its actual context—such as HTML text, HTML attribute, URL, JavaScript, or SQL—and use a maintained sanitizer when intentionally accepting user-authored HTML.
+
+### Treat file uploads as untrusted
+
+Do not trust an uploaded filename, extension, or declared MIME type. Enforce size limits, validate allowed content, generate server-side filenames, keep uploads outside executable web paths, and serve unknown or user-provided content with safe download headers.

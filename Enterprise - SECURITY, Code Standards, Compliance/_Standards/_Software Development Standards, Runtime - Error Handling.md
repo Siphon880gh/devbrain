@@ -172,3 +172,19 @@ https://github.com/Siphon880gh/error-logger
 ### Key Point
 
 ✅ A strong logging and error handling system protects your users, simplifies debugging, and hardens your application.
+
+---
+
+### 🔒 Do not leak implementation details
+
+Safe user-facing errors must not reveal stack traces, SQL/query details, filesystem paths, hostnames, tokens, session identifiers, configuration values, or whether a particular account/resource exists when that information is sensitive.
+
+Return a stable, generic message and a reference code. Keep diagnostic context in protected internal logs, with secrets redacted.
+
+### ✅ Test failures as part of the API contract
+
+Automated tests should verify that malformed input, unauthorized access, forbidden actions, and unexpected server failures:
+
+- return the intended status and stable error shape;
+- do not include sensitive implementation detail; and
+- produce the expected internal log or alert without logging secrets.
