@@ -55,6 +55,7 @@ Aka Get Started
 
 - Developed by Microsoft, originally by some of the same people who worked on Puppeteer.
 - Offers more cross-browser testing capabilities out of the box.
+- AI agents using Playwright MCP save page snapshots (`.playwright-mcp/*.yml`) as structured browser inspection data. That mechanism is covered in [[Under the Hood - How AI Uses Playwright Snapshots to Understand and Test a Codebase]].
 
 ### 5. Beautiful Soup (Python)
 
