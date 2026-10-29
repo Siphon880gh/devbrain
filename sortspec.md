@@ -1,5 +1,6 @@
 ---
 sorting-spec: |-
+  AGENTS
   --- Fundamentals
   Computer Science - Systems Design, Data Structures, Algorithms, Design Patterns, Logic, Etc
   Version Control - git, github, gitlab
