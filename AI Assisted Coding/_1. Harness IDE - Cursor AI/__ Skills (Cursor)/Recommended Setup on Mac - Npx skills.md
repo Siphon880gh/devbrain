@@ -1,5 +1,7 @@
 Npx skills is a CLI wizard installed globally via npm, developed by Vercel. It'll install specific SKILL.md from vercel's https://skills.sh directory or your provided Github name, eg. `organization/repo`.
 
+Some of those skills carry malware or steal credentials. Before you add a skill — or before you ask the AI to add one — run Superagent's `skill-security` audit on a local copy. See [[Check a skill for malware before installing]].
+
 It downloads to `~/.agents/skills` rather than `~/.cursor/skills`. This is a coding platform agnostic folder path that even Cursor looks into. The AI will have access to the skill when asked to perform the skill in a prompt or directly invoked with a forward slash command (eg. `/design`) if the SKILL.md allows invoking.
 
 ---
