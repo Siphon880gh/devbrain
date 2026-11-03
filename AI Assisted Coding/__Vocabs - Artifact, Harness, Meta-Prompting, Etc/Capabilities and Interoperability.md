@@ -2,7 +2,7 @@
 A reusable operation that can be invoked by either the UI or an agent, such as creating a task, updating a record, or generating a report.
 
 **MCP — Model Context Protocol**  
-A standard that allows AI agents to connect with external applications, tools, and data sources through a consistent interface.
+A standard that allows AI agents to connect with external applications, tools, and data sources through a consistent interface. When prompting an implementation, do not treat this as the same job as an API or an SDK. See [[SDK vs API vs MCP when prompting an implementation]].
 
 **A2A — Agent-to-Agent Communication**  
 A method for specialized agents to discover one another, exchange information, delegate work, and coordinate tasks.

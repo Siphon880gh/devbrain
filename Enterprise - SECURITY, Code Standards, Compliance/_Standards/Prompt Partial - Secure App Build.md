@@ -3,7 +3,7 @@ Paste this into an app-from-scratch prompt after the product requirements. Adapt
 ```text
 Security requirements
 
-Build security in from the first implementation. Follow the framework's current secure defaults and explain any security-relevant trade-offs.
+Build security into the app. Follow the framework's current secure defaults and explain any security-relevant trade-offs.
 
 - Validate all untrusted input on the server at every trust boundary: enforce request-size limits; validate schema, types, ranges, required fields, and allowed values; reject invalid input before use or storage. Client-side validation is only a usability aid.
 - Prevent injection: use parameterized queries or safe ORM bindings for all database values; never build SQL, shell commands, or templates by concatenating user input. For dynamic identifiers or command choices, use strict application-owned allowlists.
