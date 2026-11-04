@@ -1,5 +1,3 @@
-# Delegating AI to the user
-
 Weng’s apps stay free by refusing to pay for AI tokens. When a feature needs a model, the app builds the prompt and the user runs it with AI they already pay for. Do not call an AI API from the app, and do not hide a key in the frontend.
 
 Pick the handoff that matches the job:
@@ -9,6 +7,8 @@ Pick the handoff that matches the job:
 3. **The user’s own API key.** Only consider this for a local app or a browser extension, and only after someone can read how the key is handled. A key in a hosted page is the wrong default.
 
 Every prompt builder includes a collapsed info control labeled **Why is this not automatic**. The copy is fixed. Do not paraphrase it.
+
+**Progressive disclosure:** ChatGPT and Claude start greyed out. They become clickable only after the user clicks **Copy prompt**. If the preview later changes, they grey out again until the new prompt is copied.
 
 ---
 
@@ -29,6 +29,7 @@ Task:
 Behavior:
 - The preview is read-only and updates as the inputs change. Label it “Dynamic prompt preview”.
 - “Copy prompt” writes the preview to the clipboard. The button text becomes “Copied” for about 1.6 seconds, then returns to “Copy prompt”.
+- Progressive disclosure for chat handoff: ChatGPT and Claude start greyed out (`is-disabled`, `aria-disabled="true"`, title and hint “Copy the prompt first”). They stay disabled until the user clicks “Copy prompt”. After a successful copy they become clickable. If the preview later changes, grey them out again with “Prompt changed, copy again” and require another copy. A click on a disabled ChatGPT/Claude button does not open a tab; it focuses “Copy prompt”.
 - Chat handoff: buttons, not plain links. ChatGPT opens `https://chatgpt.com/?m=` plus the encoded prompt. Claude opens `https://claude.ai/new?q=` plus the encoded prompt. If the prompt is longer than 4000 characters, or the URL would be longer than 7500 characters, copy the prompt and open a short chat instead (`https://chatgpt.com/?m=` or `https://claude.ai/new?q=` with the text “I will paste the prompt.”). Tell the user that popups must be enabled.
 - Harness handoff: keep Copy prompt. For Cursor, a link may use `https://cursor.com/link/prompt?text=` plus the encoded prompt when the prompt is short. Otherwise tell them to paste it into Cursor, Claude Code, or Codex. If the harness must not edit the repo, say “Use Ask mode.”
 - Do not send the prompt to our server. Do not add an API-key field.
@@ -82,15 +83,16 @@ Use this modal. Reuse the page’s existing modal classes if it already has a di
           <div class="prompt-actions">
             <button type="button" class="prompt-actions__copy" id="copyLargePromptButton">Copy prompt</button>
             <span class="prompt-actions__open">Open in
-              <button type="button" class="prompt-actions__chat" id="openChatGPTButton">
+              <button type="button" class="prompt-actions__chat is-disabled" id="openChatGPTButton" disabled aria-disabled="true" title="Copy the prompt first">
                 <svg class="prompt-actions__icon" aria-hidden="true"><use href="#icon-chatgpt"></use></svg>
                 ChatGPT
               </button>
-              <button type="button" class="prompt-actions__chat" id="openClaudeButton">
+              <button type="button" class="prompt-actions__chat is-disabled" id="openClaudeButton" disabled aria-disabled="true" title="Copy the prompt first">
                 <svg class="prompt-actions__icon" aria-hidden="true"><use href="#icon-claude"></use></svg>
                 Claude
               </button>
             </span>
+            <span id="prompt-handoff-hint" class="prompt-actions__hint" aria-live="polite">Copy the prompt first</span>
           </div>
         </div>
       </div>
@@ -107,6 +109,7 @@ Styling rules, keep these even if you map the classes onto an existing styleshee
 - ChatGPT is the knot glyph, fill `#10a37f`, referenced as `#icon-chatgpt`. Claude is the spark glyph, fill `#d97757`, referenced as `#icon-claude`. Draw each at 16×16 via `.prompt-actions__icon`.
 - “Copy prompt” is the only bordered button in the action row: white background, 1px `#cbd5e1` border, 8px radius, 14px type, padding 7px 12px.
 - “Open in” is 14px text. ChatGPT and Claude are borderless text buttons, inline-flex, 6px gap, weight 600, icon then the name. Hover underlines the name with a 3px offset. They are not filled brand buttons.
+- Disabled ChatGPT/Claude use `opacity: .4`, `filter: grayscale(1)`, and `cursor: not-allowed`. The hint sits on its own row under the action buttons (`flex-basis: 100%`). When the copied text is stale, the hint uses a warning color.
 - The card has 14px padding, a 10px radius, and a hairline border using `color-mix(in srgb, currentColor 12%, transparent)` on a 5% currentColor wash, so it follows light and dark themes.
 - Inputs and the preview are white, 14px, 8px radius, 1px border at 18% currentColor. The preview is a block, min-height 9rem, max-height 16rem, padding 12px, line-height 1.5, resize vertical.
 - Suggestion chips are white pills (999px radius, 13px, padding 5px 10px). The selected chip has class `is-current`: `#111827` border, `#f1f5f9` background, weight 600.
@@ -122,4 +125,4 @@ Match the app’s type, spacing, and color tokens when they exist. Do not restyl
 
 ## What the finished modal does
 
-The user edits the inputs and reads the prompt in the same dialog. **Copy prompt** is always enough. **Open in** is a shortcut: a short prompt rides in the chat URL, a long one is copied and the chat opens empty so they can paste. A harness prompt is copied into Cursor, Claude Code, or Codex, because that work needs the repo, not a chat tab.
+The user edits the inputs and reads the prompt in the same dialog. **Copy prompt** is always enough, and it is the first step. **ChatGPT** and **Claude** stay greyed out until that copy happens, then they become a shortcut: a short prompt rides in the chat URL, a long one is copied and the chat opens empty so they can paste. If the preview changes after a copy, the chat buttons grey out again until the new prompt is copied. A harness prompt is copied into Cursor, Claude Code, or Codex, because that work needs the repo, not a chat tab.
