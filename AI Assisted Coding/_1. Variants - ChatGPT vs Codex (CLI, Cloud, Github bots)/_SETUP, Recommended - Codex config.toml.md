@@ -1,5 +1,7 @@
 Configure Codex' AGENTS.md per [[_BASIC - Codex config.toml]] to this prompt:
 
+These setups make codex more accurate with implementation (by validating the interface) and more likely to switch to human writing style where necessary (such as writing content on the app for users to read). By default codex will write in a robotic, formulaic manner, because it's heavily biased towards coding and automation in its system prompts.
+
 ```
 ## Required UI verification
 
